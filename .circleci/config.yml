@@ -1,0 +1,46 @@
+# Javascript Node CircleCI 2.0 configuration file
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.13.0-jessie-browsers
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key: yarndeps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn install --cache-folder ~/.yarn-cache
+      - save_cache:
+          key: yarndeps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn-cache
+      - run:
+          name: Lint
+          command: yarn lint
+      - run:
+          name: Typecheck
+          command: yarn typecheck
+      - run:
+          name: Test
+          command: yarn test:ci
+      - run:
+          name: Danger
+          command: |
+            if [[ -z $CIRCLE_PULL_REQUEST ]]; then
+              echo "Danger runs only on PRs"
+            else
+              yarn danger ci
+            fi
+      - run:
+          name: Build
+          command: yarn build
+      - run:
+          name: Bundle sizes
+          command: yarn size
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build

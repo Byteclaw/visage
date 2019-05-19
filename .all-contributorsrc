@@ -1,0 +1,27 @@
+{
+  "projectName": "@byteclaw/visage",
+  "projectOwner": "byteclaw",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "michalkvasnicak",
+      "name": "Michal Kvasničák",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/174716?v=4",
+      "profile": "https://github.com/michalkvasnicak",
+      "contributions": ["question", "code", "design", "doc", "example", "ideas", "review", "test"]
+    },
+    {
+      "login": "jurajhrib",
+      "name": "Juraj Hríb",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/373788?v=4",
+      "profile": "https://github.com/jurajhrib",
+      "contributions": ["question", "code", "design", "doc", "example", "ideas", "review", "test"]
+    }
+  ]
+}
