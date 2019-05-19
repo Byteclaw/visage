@@ -6,6 +6,8 @@
     "postinstall": "npm run build",
     "build": "tsc -b .",
     "build:watch": "tsc -b . --watch",
+    "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",
+    "lint-staged": "lint-staged",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --coverage"

@@ -17,7 +17,9 @@ export function getScaleValue<T>(
 
   if (index < 0) {
     return minValue;
-  } if (index > value.values.length - 1) {
+  }
+
+  if (index > value.values.length - 1) {
     return maxValue;
   }
 

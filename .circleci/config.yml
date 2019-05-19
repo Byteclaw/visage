@@ -21,24 +21,10 @@ jobs:
           command: yarn lint
       - run:
           name: Typecheck
-          command: yarn typecheck
+          command: yarn build
       - run:
           name: Test
           command: yarn test:ci
-      - run:
-          name: Danger
-          command: |
-            if [[ -z $CIRCLE_PULL_REQUEST ]]; then
-              echo "Danger runs only on PRs"
-            else
-              yarn danger ci
-            fi
-      - run:
-          name: Build
-          command: yarn build
-      - run:
-          name: Bundle sizes
-          command: yarn size
 workflows:
   version: 2
   build-test-and-deploy:
