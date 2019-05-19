@@ -1,0 +1,35 @@
+{
+  "name": "@byteclaw/visage-docs",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@byteclaw/visage": "0.0.0",
+    "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.11",
+    "@mdx-js/mdx": "^1.0.19",
+    "@mdx-js/react": "^1.0.16",
+    "@svgr/webpack": "^4.2.0",
+    "@types/react": "^16.8.14",
+    "@types/react-helmet": "^5.0.8",
+    "gatsby": "^2.5.2",
+    "gatsby-mdx": "^0.6.3",
+    "gatsby-plugin-emotion": "^4.0.6",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-svgr": "^2.0.2",
+    "gatsby-plugin-typescript": "^2.0.14",
+    "gatsby-source-filesystem": "^2.0.36",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1"
+  },
+  "devDependencies": {
+    "typescript": "^3.4.4"
+  },
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "clean": "gatsby clean"
+  }
+}

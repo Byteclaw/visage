@@ -1,0 +1,7 @@
+<svg viewBox="0 0 400 400" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect class="background" x="0" y="0" width="400" height="400"></rect>
+        <path d="M200,69 L105,141.269265 L105,258.694087 L200,331 L295,258.730735 L295,141.269265 L200,69 Z M201,295 L132,242.078623 L132,166 L194.987402,213.249914 L186.149606,247.311836 L201,259.207177 L215.850394,247.311836 L207.012598,213.213087 L270,166 L270,242.078623 L201,295 Z" fill="#000000" id="LOGO" fill-rule="nonzero"></path>
+    </g>
+</svg>
+

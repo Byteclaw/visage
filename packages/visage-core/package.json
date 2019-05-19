@@ -1,0 +1,54 @@
+{
+  "name": "@byteclaw/visage-core",
+  "version": "0.0.0",
+  "description": "Visage core",
+  "bugs": {
+    "url": "https://github.com/Byteclaw/visage/issues"
+  },
+  "homepage": "https://github.com/Byteclaw/visage/packages/visage-core/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Byteclaw/visage.git"
+  },
+  "keywords": [
+    "visage",
+    "design system",
+    "react",
+    "css in js",
+    "react-native"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "jsnext:main": "dist/index.mjs",
+  "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@byteclaw/visage-utils": "^0.0.0",
+    "@types/react": "^16.8.14"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/react-is": "^16.7.1",
+    "html-tags": "^3.0.0",
+    "microbundle": "^0.11.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-is": "^16.8.6",
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "7.0.0",
+    "rimraf": "2.6.3",
+    "typescript": "^3.4.4"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "microbundle",
+    "test:types": "tsc -p . --noEmit"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "incremental": true
+  },
+  "files": [],
+  "references": [
+    { "path": "./packages/visage" },
+    { "path": "./packages/visage-core" },
+    { "path": "./packages/visage-utils" }
+  ]
+}
