@@ -18,8 +18,8 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "jsnext:main": "dist/index.mjs",
+  "module": "dist/index.esm.js",
+  "jsnext:main": "dist/index.esm.js",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -36,8 +36,8 @@
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "microbundle": "^0.11.0",
     "jest-emotion": "^10.0.11",
+    "microbundle": "^0.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-is": "^16.8.6",
