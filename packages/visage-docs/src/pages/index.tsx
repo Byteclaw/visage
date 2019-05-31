@@ -1,173 +1,48 @@
-import { Theme } from '@byteclaw/visage-core';
 import {
-  createTheme,
-  createComponent,
+  Box,
+  Button,
+  Flex,
+  Heading,
+  createModularScaleTheme,
   ResponsiveDesignSystem,
+  Svg,
+  Text,
 } from '@byteclaw/visage';
-import { Global } from '@emotion/core';
-import React, { ComponentProps, useMemo } from 'react';
+import React from 'react';
 import Helmet from 'react-helmet';
+import { GridDebugTogglerButton } from '../components';
 // @ts-ignore
 import { ReactComponent as VisageLogo } from '../../static/logo.svg';
 
-const Box = createComponent('div');
-const ButtonLinkBase = createComponent('a', {
-  displayName: 'ButtonLinkBase',
-  defaultProps: {
-    styles: {
-      borderColor: 'transparent',
-      borderStyle: 'solid',
-      borderRadius: 3,
-      borderWidth: 1,
-      color: 'primary',
-      display: 'inline-block',
-      margin: 2,
-      padding: 4,
-      fontWeight: 'bold',
-      textDecoration: 'none',
-    },
-  },
-});
-
-function ButtonLink({
-  variant,
-  ...restProps
-}: ComponentProps<typeof ButtonLinkBase> & { variant?: 'primary' }) {
-  const variantStyleProps = useMemo(() => {
-    if (variant === 'primary') {
-      return {
-        styles: {
-          backgroundColor: 'primary',
-          borderColor: 'primary',
-          color: 'primaryText',
-        },
-      };
-    }
-
-    return {};
-  }, [variant]);
-
-  return <ButtonLinkBase {...restProps} {...variantStyleProps} />;
-}
-
-const Flex = createComponent('div', {
-  defaultProps: {
-    styles: {
-      display: 'flex',
-    },
-  },
-});
-const Logo = createComponent(VisageLogo, {
-  defaultProps: {
-    styles: {
-      display: 'inline',
-      fontSize: 0,
-      height: '1em',
-      width: '1em',
-    },
-  },
-  extraStylers: {
-    color: (theme: Theme, color: any): any => {
-      // @ts-ignore
-      return {
-        fill: theme.resolve('color', color),
-        'path:last-child': {
-          fill: theme.resolve('color', color),
-        },
-      };
-    },
-    // override font size to so we can use larger size
-    fontSize: (theme: Theme, fontSize: any) => fontSize,
-  },
-});
-const LogoTitle = createComponent('h1', {
-  defaultProps: {
-    styles: {
-      color: 'text',
-      fontSize: 4,
-      lineHeight: 4,
-      fontFamily: 'title',
-      margin: 0,
-    },
-  },
-});
-const Paragraph = createComponent('p', {
-  defaultProps: {
-    styles: {
-      color: 'text',
-      padding: 2,
-      margin: 2,
-    },
-  },
-});
-
-const theme = createTheme(
+const theme = createModularScaleTheme(
   {
+    baseFontSize: 16,
+    lineHeightRatio: 1.6,
+    scaleFactor: 1.618,
     colors: {
+      bodyText: '#444',
       primary: 'black',
       primaryText: 'white',
-      text: '#444',
     },
     fontFamilies: {
-      body: 'Lora,serif',
-      title: 'Varela Round,sans-serif',
-    },
-    fontSizes: {
-      values: [16, 18, 22, 30, 46, 78],
-      offset: 0,
-    },
-    lineHeights: {
-      values: ['20px', '22px', '26px', '34px', '50px', '82px'],
-      offset: 0,
-    },
-    spacings: {
-      values: [0, 2, 4, 8, 16, 32, 64],
-      offset: 0,
+      body: 'Lato,serif',
+      heading: 'Raleway,sans-serif',
     },
   },
   {
     color: 'colors',
     backgroundColor: 'colors',
     borderColor: 'colors',
-    borderRadius: 'spacings',
     fontFamily: 'fontFamilies',
-    fontSize: 'fontSizes',
-    lineHeight: 'lineHeights',
-    margin: 'spacings',
-    marginBottom: 'spacings',
-    marginLeft: 'spacings',
-    marginRight: 'spacings',
-    marginTop: 'spacings',
-    padding: 'spacings',
-    paddingBottom: 'spacings',
-    paddingLeft: 'spacings',
-    paddingRight: 'spacings',
-    paddingTop: 'spacings',
   },
 );
 
 export default () => {
   return (
     <ResponsiveDesignSystem theme={theme}>
-      <Global
-        styles={{
-          '*': {
-            boxSizing: 'border-box',
-          },
-          body: {
-            color: '#444',
-            fontFamily: 'Lora,serif',
-            fontWeight: 400,
-          },
-          html: {
-            fontSize: 16,
-            lineHeight: '20px',
-          },
-        }}
-      />
       <Helmet>
         <link
-          href="https://fonts.googleapis.com/css?family=Lato|Varela+Round&display=swap"
+          href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700&display=swap&subset=latin-ext"
           rel="stylesheet"
         />
       </Helmet>
@@ -182,16 +57,28 @@ export default () => {
           width: '100vw',
         }}
       >
-        <Box styles={{ textAlign: 'center', width: '100%' }}>
-          <Logo styles={{ fontSize: 200 }} />
-          <LogoTitle>Visage</LogoTitle>
-          <Paragraph>
+        <Box styles={{ height: '100%', textAlign: 'center', width: '100%' }}>
+          <Svg
+            as={VisageLogo}
+            styles={{
+              fontSize: 5,
+              height: 6,
+              verticalAlign: 'top',
+              width: 6,
+              marginBottom: '0px',
+            }}
+          />
+          <Heading>Visage</Heading>
+          <Text as="p" styles={{ fontSize: 1, lineHeight: 1, marginTop: -1 }}>
             Ready-to-use React component library with minimalist approach
-          </Paragraph>
-          <ButtonLink href="/" variant="primary">
+          </Text>
+          <Button as="a" href="/" variant="primary">
             Documentation
-          </ButtonLink>
-          <ButtonLink href="/">Github</ButtonLink>
+          </Button>
+          <Button as="a" href="/">
+            Github
+          </Button>
+          <GridDebugTogglerButton />
         </Box>
       </Flex>
     </ResponsiveDesignSystem>
