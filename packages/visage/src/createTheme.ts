@@ -8,10 +8,14 @@ import { CSSProperties } from 'react';
 
 export interface ThemeSettings {
   colors: {
+    primary: string | ScaleValue<string>;
+    primaryText: string | ScaleValue<string>;
     [name: string]: string | ScaleValue<string>;
   };
   fontSizes: ScaleValue<number | string>;
   fontFamilies: {
+    body: string;
+    heading: string;
     [name: string]: string;
   };
   lineHeights: ScaleValue<number | string>;

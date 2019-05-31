@@ -2,9 +2,10 @@ import {
   DesignSystem as BaseDesignSystem,
   ThemeCreator,
 } from '@byteclaw/visage-core';
-import React, { ReactNode } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { createEmotionStyleSheetHook } from './createEmotionStyleSheetHook';
 import { useBreakpointDetection, useBreakpointManager } from './hooks';
+import { GlobalReset } from './GlobalReset';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -39,7 +40,10 @@ export function ResponsiveDesignSystem({
       styleSheet={createEmotionStyleSheetHook}
       theme={theme}
     >
-      {children}
+      <Fragment>
+        <GlobalReset />
+        {children}
+      </Fragment>
     </BaseDesignSystem>
   );
 }
