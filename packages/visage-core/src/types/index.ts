@@ -1,6 +1,6 @@
 import { ComponentClass, FunctionComponent } from 'react';
 import { VisageComponent } from './component';
-import { Theme } from './theme';
+import { StylerFn, Theme } from './theme';
 
 export * from './component';
 export * from './theme';
@@ -36,7 +36,9 @@ export interface StyleSheetHook<TStylingProps, TStyleProps> {
       parentStyleSheet?: StyleSheet;
     } & TStylingProps,
     defaultProps?: { [key: string]: any } & TStylingProps,
-    extraStylers?: { [key: string]: (theme: Theme, propValue: any) => any },
+    extraStylers?: {
+      [key: string]: StylerFn<TStylingProps>;
+    },
   ): StyleSheet<TStylingProps, TStyleProps>;
 }
 

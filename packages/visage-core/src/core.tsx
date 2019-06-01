@@ -30,7 +30,14 @@ export function isVisageComponent(component: ValidComponent): boolean {
 export function createComponent<
   TComponent extends ValidComponent,
   TStylingProps = {},
-  TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }
+  TExtraStylers = {
+    [key: string]: (
+      theme: Theme,
+      propValue: any,
+      componentProps: any,
+      styleProps: any,
+    ) => any;
+  }
 >(
   As: TComponent,
   options: {

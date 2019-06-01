@@ -9,7 +9,14 @@ export interface ComponentFactory<TDefaultStylingProps> {
   <
     P,
     TStylingProps = TDefaultStylingProps,
-    TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: P,
+        styleProps: TStylingProps,
+      ) => any;
+    }
   >(
     As: FunctionComponent<P>,
     options?: {
@@ -27,7 +34,14 @@ export interface ComponentFactory<TDefaultStylingProps> {
   <
     P,
     TStylingProps = TDefaultStylingProps,
-    TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: P,
+        styleProps: TStylingProps,
+      ) => any;
+    }
   >(
     As: ComponentClass<P>,
     options?: {
@@ -46,7 +60,14 @@ export interface ComponentFactory<TDefaultStylingProps> {
     P,
     PS,
     TStylingProps = TDefaultStylingProps,
-    TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: P,
+        styleProps: TStylingProps,
+      ) => any;
+    }
   >(
     As: VisageComponent<P, PS>,
     options?: {
@@ -61,7 +82,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         { [K in keyof TStylingProps]: { [EK in keyof TExtraStylers]: any } }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['a'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'a',
     options?: {
       defaultProps?: JSX.IntrinsicElements['a'] & TDefaultStylingProps;
@@ -79,7 +109,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['abbr'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'abbr',
     options?: {
       defaultProps?: JSX.IntrinsicElements['abbr'] & TDefaultStylingProps;
@@ -97,7 +136,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['address'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'address',
     options?: {
       defaultProps?: JSX.IntrinsicElements['address'] & TDefaultStylingProps;
@@ -115,7 +163,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['area'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'area',
     options?: {
       defaultProps?: JSX.IntrinsicElements['area'] & TDefaultStylingProps;
@@ -133,7 +190,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['article'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'article',
     options?: {
       defaultProps?: JSX.IntrinsicElements['article'] & TDefaultStylingProps;
@@ -151,7 +217,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['aside'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'aside',
     options?: {
       defaultProps?: JSX.IntrinsicElements['aside'] & TDefaultStylingProps;
@@ -169,7 +244,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['audio'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'audio',
     options?: {
       defaultProps?: JSX.IntrinsicElements['audio'] & TDefaultStylingProps;
@@ -187,7 +271,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['b'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'b',
     options?: {
       defaultProps?: JSX.IntrinsicElements['b'] & TDefaultStylingProps;
@@ -205,7 +298,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['base'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'base',
     options?: {
       defaultProps?: JSX.IntrinsicElements['base'] & TDefaultStylingProps;
@@ -223,7 +325,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['bdi'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'bdi',
     options?: {
       defaultProps?: JSX.IntrinsicElements['bdi'] & TDefaultStylingProps;
@@ -241,7 +352,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['bdo'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'bdo',
     options?: {
       defaultProps?: JSX.IntrinsicElements['bdo'] & TDefaultStylingProps;
@@ -259,7 +379,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['blockquote'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'blockquote',
     options?: {
       defaultProps?: JSX.IntrinsicElements['blockquote'] & TDefaultStylingProps;
@@ -277,7 +406,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['body'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'body',
     options?: {
       defaultProps?: JSX.IntrinsicElements['body'] & TDefaultStylingProps;
@@ -295,7 +433,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['br'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'br',
     options?: {
       defaultProps?: JSX.IntrinsicElements['br'] & TDefaultStylingProps;
@@ -313,7 +460,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['button'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'button',
     options?: {
       defaultProps?: JSX.IntrinsicElements['button'] & TDefaultStylingProps;
@@ -331,7 +487,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['canvas'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'canvas',
     options?: {
       defaultProps?: JSX.IntrinsicElements['canvas'] & TDefaultStylingProps;
@@ -349,7 +514,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['caption'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'caption',
     options?: {
       defaultProps?: JSX.IntrinsicElements['caption'] & TDefaultStylingProps;
@@ -367,7 +541,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['cite'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'cite',
     options?: {
       defaultProps?: JSX.IntrinsicElements['cite'] & TDefaultStylingProps;
@@ -385,7 +568,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['code'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'code',
     options?: {
       defaultProps?: JSX.IntrinsicElements['code'] & TDefaultStylingProps;
@@ -403,7 +595,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['col'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'col',
     options?: {
       defaultProps?: JSX.IntrinsicElements['col'] & TDefaultStylingProps;
@@ -421,7 +622,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['colgroup'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'colgroup',
     options?: {
       defaultProps?: JSX.IntrinsicElements['colgroup'] & TDefaultStylingProps;
@@ -439,7 +649,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['data'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'data',
     options?: {
       defaultProps?: JSX.IntrinsicElements['data'] & TDefaultStylingProps;
@@ -457,7 +676,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['datalist'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'datalist',
     options?: {
       defaultProps?: JSX.IntrinsicElements['datalist'] & TDefaultStylingProps;
@@ -475,7 +703,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['dd'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'dd',
     options?: {
       defaultProps?: JSX.IntrinsicElements['dd'] & TDefaultStylingProps;
@@ -493,7 +730,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['del'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'del',
     options?: {
       defaultProps?: JSX.IntrinsicElements['del'] & TDefaultStylingProps;
@@ -511,7 +757,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['details'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'details',
     options?: {
       defaultProps?: JSX.IntrinsicElements['details'] & TDefaultStylingProps;
@@ -529,7 +784,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['dfn'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'dfn',
     options?: {
       defaultProps?: JSX.IntrinsicElements['dfn'] & TDefaultStylingProps;
@@ -547,7 +811,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['dialog'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'dialog',
     options?: {
       defaultProps?: JSX.IntrinsicElements['dialog'] & TDefaultStylingProps;
@@ -565,7 +838,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['div'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'div',
     options?: {
       defaultProps?: JSX.IntrinsicElements['div'] & TDefaultStylingProps;
@@ -583,7 +865,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['dl'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'dl',
     options?: {
       defaultProps?: JSX.IntrinsicElements['dl'] & TDefaultStylingProps;
@@ -601,7 +892,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['dt'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'dt',
     options?: {
       defaultProps?: JSX.IntrinsicElements['dt'] & TDefaultStylingProps;
@@ -619,7 +919,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['em'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'em',
     options?: {
       defaultProps?: JSX.IntrinsicElements['em'] & TDefaultStylingProps;
@@ -637,7 +946,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['embed'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'embed',
     options?: {
       defaultProps?: JSX.IntrinsicElements['embed'] & TDefaultStylingProps;
@@ -655,7 +973,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['fieldset'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'fieldset',
     options?: {
       defaultProps?: JSX.IntrinsicElements['fieldset'] & TDefaultStylingProps;
@@ -673,7 +1000,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['figcaption'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'figcaption',
     options?: {
       defaultProps?: JSX.IntrinsicElements['figcaption'] & TDefaultStylingProps;
@@ -691,7 +1027,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['figure'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'figure',
     options?: {
       defaultProps?: JSX.IntrinsicElements['figure'] & TDefaultStylingProps;
@@ -709,7 +1054,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['footer'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'footer',
     options?: {
       defaultProps?: JSX.IntrinsicElements['footer'] & TDefaultStylingProps;
@@ -727,7 +1081,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['form'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'form',
     options?: {
       defaultProps?: JSX.IntrinsicElements['form'] & TDefaultStylingProps;
@@ -745,7 +1108,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['h1'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'h1',
     options?: {
       defaultProps?: JSX.IntrinsicElements['h1'] & TDefaultStylingProps;
@@ -763,7 +1135,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['h2'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'h2',
     options?: {
       defaultProps?: JSX.IntrinsicElements['h2'] & TDefaultStylingProps;
@@ -781,7 +1162,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['h3'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'h3',
     options?: {
       defaultProps?: JSX.IntrinsicElements['h3'] & TDefaultStylingProps;
@@ -799,7 +1189,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['h4'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'h4',
     options?: {
       defaultProps?: JSX.IntrinsicElements['h4'] & TDefaultStylingProps;
@@ -817,7 +1216,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['h5'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'h5',
     options?: {
       defaultProps?: JSX.IntrinsicElements['h5'] & TDefaultStylingProps;
@@ -835,7 +1243,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['h6'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'h6',
     options?: {
       defaultProps?: JSX.IntrinsicElements['h6'] & TDefaultStylingProps;
@@ -853,7 +1270,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['head'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'head',
     options?: {
       defaultProps?: JSX.IntrinsicElements['head'] & TDefaultStylingProps;
@@ -871,7 +1297,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['header'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'header',
     options?: {
       defaultProps?: JSX.IntrinsicElements['header'] & TDefaultStylingProps;
@@ -889,7 +1324,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['hgroup'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'hgroup',
     options?: {
       defaultProps?: JSX.IntrinsicElements['hgroup'] & TDefaultStylingProps;
@@ -907,7 +1351,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['hr'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'hr',
     options?: {
       defaultProps?: JSX.IntrinsicElements['hr'] & TDefaultStylingProps;
@@ -925,7 +1378,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['html'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'html',
     options?: {
       defaultProps?: JSX.IntrinsicElements['html'] & TDefaultStylingProps;
@@ -943,7 +1405,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['i'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'i',
     options?: {
       defaultProps?: JSX.IntrinsicElements['i'] & TDefaultStylingProps;
@@ -961,7 +1432,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['iframe'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'iframe',
     options?: {
       defaultProps?: JSX.IntrinsicElements['iframe'] & TDefaultStylingProps;
@@ -979,7 +1459,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['img'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'img',
     options?: {
       defaultProps?: JSX.IntrinsicElements['img'] & TDefaultStylingProps;
@@ -997,7 +1486,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['input'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'input',
     options?: {
       defaultProps?: JSX.IntrinsicElements['input'] & TDefaultStylingProps;
@@ -1015,7 +1513,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['ins'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'ins',
     options?: {
       defaultProps?: JSX.IntrinsicElements['ins'] & TDefaultStylingProps;
@@ -1033,7 +1540,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['kbd'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'kbd',
     options?: {
       defaultProps?: JSX.IntrinsicElements['kbd'] & TDefaultStylingProps;
@@ -1051,7 +1567,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['keygen'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'keygen',
     options?: {
       defaultProps?: JSX.IntrinsicElements['keygen'] & TDefaultStylingProps;
@@ -1069,7 +1594,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['label'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'label',
     options?: {
       defaultProps?: JSX.IntrinsicElements['label'] & TDefaultStylingProps;
@@ -1087,7 +1621,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['legend'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'legend',
     options?: {
       defaultProps?: JSX.IntrinsicElements['legend'] & TDefaultStylingProps;
@@ -1105,7 +1648,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['li'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'li',
     options?: {
       defaultProps?: JSX.IntrinsicElements['li'] & TDefaultStylingProps;
@@ -1123,7 +1675,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['link'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'link',
     options?: {
       defaultProps?: JSX.IntrinsicElements['link'] & TDefaultStylingProps;
@@ -1141,7 +1702,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['main'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'main',
     options?: {
       defaultProps?: JSX.IntrinsicElements['main'] & TDefaultStylingProps;
@@ -1159,7 +1729,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['map'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'map',
     options?: {
       defaultProps?: JSX.IntrinsicElements['map'] & TDefaultStylingProps;
@@ -1177,7 +1756,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['mark'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'mark',
     options?: {
       defaultProps?: JSX.IntrinsicElements['mark'] & TDefaultStylingProps;
@@ -1195,7 +1783,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['menu'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'menu',
     options?: {
       defaultProps?: JSX.IntrinsicElements['menu'] & TDefaultStylingProps;
@@ -1213,7 +1810,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['menuitem'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'menuitem',
     options?: {
       defaultProps?: JSX.IntrinsicElements['menuitem'] & TDefaultStylingProps;
@@ -1231,7 +1837,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['meta'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'meta',
     options?: {
       defaultProps?: JSX.IntrinsicElements['meta'] & TDefaultStylingProps;
@@ -1249,7 +1864,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['meter'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'meter',
     options?: {
       defaultProps?: JSX.IntrinsicElements['meter'] & TDefaultStylingProps;
@@ -1267,7 +1891,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['nav'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'nav',
     options?: {
       defaultProps?: JSX.IntrinsicElements['nav'] & TDefaultStylingProps;
@@ -1285,7 +1918,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['noscript'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'noscript',
     options?: {
       defaultProps?: JSX.IntrinsicElements['noscript'] & TDefaultStylingProps;
@@ -1303,7 +1945,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['object'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'object',
     options?: {
       defaultProps?: JSX.IntrinsicElements['object'] & TDefaultStylingProps;
@@ -1321,7 +1972,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['ol'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'ol',
     options?: {
       defaultProps?: JSX.IntrinsicElements['ol'] & TDefaultStylingProps;
@@ -1339,7 +1999,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['optgroup'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'optgroup',
     options?: {
       defaultProps?: JSX.IntrinsicElements['optgroup'] & TDefaultStylingProps;
@@ -1357,7 +2026,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['option'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'option',
     options?: {
       defaultProps?: JSX.IntrinsicElements['option'] & TDefaultStylingProps;
@@ -1375,7 +2053,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['output'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'output',
     options?: {
       defaultProps?: JSX.IntrinsicElements['output'] & TDefaultStylingProps;
@@ -1393,7 +2080,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['p'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'p',
     options?: {
       defaultProps?: JSX.IntrinsicElements['p'] & TDefaultStylingProps;
@@ -1411,7 +2107,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['param'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'param',
     options?: {
       defaultProps?: JSX.IntrinsicElements['param'] & TDefaultStylingProps;
@@ -1429,7 +2134,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['picture'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'picture',
     options?: {
       defaultProps?: JSX.IntrinsicElements['picture'] & TDefaultStylingProps;
@@ -1447,7 +2161,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['pre'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'pre',
     options?: {
       defaultProps?: JSX.IntrinsicElements['pre'] & TDefaultStylingProps;
@@ -1465,7 +2188,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['progress'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'progress',
     options?: {
       defaultProps?: JSX.IntrinsicElements['progress'] & TDefaultStylingProps;
@@ -1483,7 +2215,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['q'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'q',
     options?: {
       defaultProps?: JSX.IntrinsicElements['q'] & TDefaultStylingProps;
@@ -1501,7 +2242,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['rp'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'rp',
     options?: {
       defaultProps?: JSX.IntrinsicElements['rp'] & TDefaultStylingProps;
@@ -1519,7 +2269,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['rt'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'rt',
     options?: {
       defaultProps?: JSX.IntrinsicElements['rt'] & TDefaultStylingProps;
@@ -1537,7 +2296,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['ruby'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'ruby',
     options?: {
       defaultProps?: JSX.IntrinsicElements['ruby'] & TDefaultStylingProps;
@@ -1555,7 +2323,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['s'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 's',
     options?: {
       defaultProps?: JSX.IntrinsicElements['s'] & TDefaultStylingProps;
@@ -1573,7 +2350,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['samp'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'samp',
     options?: {
       defaultProps?: JSX.IntrinsicElements['samp'] & TDefaultStylingProps;
@@ -1591,7 +2377,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['script'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'script',
     options?: {
       defaultProps?: JSX.IntrinsicElements['script'] & TDefaultStylingProps;
@@ -1609,7 +2404,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['section'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'section',
     options?: {
       defaultProps?: JSX.IntrinsicElements['section'] & TDefaultStylingProps;
@@ -1627,7 +2431,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['select'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'select',
     options?: {
       defaultProps?: JSX.IntrinsicElements['select'] & TDefaultStylingProps;
@@ -1645,7 +2458,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['small'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'small',
     options?: {
       defaultProps?: JSX.IntrinsicElements['small'] & TDefaultStylingProps;
@@ -1663,7 +2485,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['source'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'source',
     options?: {
       defaultProps?: JSX.IntrinsicElements['source'] & TDefaultStylingProps;
@@ -1681,7 +2512,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['span'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'span',
     options?: {
       defaultProps?: JSX.IntrinsicElements['span'] & TDefaultStylingProps;
@@ -1699,7 +2539,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['strong'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'strong',
     options?: {
       defaultProps?: JSX.IntrinsicElements['strong'] & TDefaultStylingProps;
@@ -1717,7 +2566,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['style'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'style',
     options?: {
       defaultProps?: JSX.IntrinsicElements['style'] & TDefaultStylingProps;
@@ -1735,7 +2593,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['sub'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'sub',
     options?: {
       defaultProps?: JSX.IntrinsicElements['sub'] & TDefaultStylingProps;
@@ -1753,7 +2620,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['summary'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'summary',
     options?: {
       defaultProps?: JSX.IntrinsicElements['summary'] & TDefaultStylingProps;
@@ -1771,7 +2647,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['sup'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'sup',
     options?: {
       defaultProps?: JSX.IntrinsicElements['sup'] & TDefaultStylingProps;
@@ -1789,7 +2674,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['svg'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'svg',
     options?: {
       defaultProps?: JSX.IntrinsicElements['svg'] & TDefaultStylingProps;
@@ -1807,7 +2701,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['table'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'table',
     options?: {
       defaultProps?: JSX.IntrinsicElements['table'] & TDefaultStylingProps;
@@ -1825,7 +2728,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['tbody'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'tbody',
     options?: {
       defaultProps?: JSX.IntrinsicElements['tbody'] & TDefaultStylingProps;
@@ -1843,7 +2755,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['td'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'td',
     options?: {
       defaultProps?: JSX.IntrinsicElements['td'] & TDefaultStylingProps;
@@ -1861,7 +2782,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['textarea'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'textarea',
     options?: {
       defaultProps?: JSX.IntrinsicElements['textarea'] & TDefaultStylingProps;
@@ -1879,7 +2809,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['tfoot'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'tfoot',
     options?: {
       defaultProps?: JSX.IntrinsicElements['tfoot'] & TDefaultStylingProps;
@@ -1897,7 +2836,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['th'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'th',
     options?: {
       defaultProps?: JSX.IntrinsicElements['th'] & TDefaultStylingProps;
@@ -1915,7 +2863,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['thead'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'thead',
     options?: {
       defaultProps?: JSX.IntrinsicElements['thead'] & TDefaultStylingProps;
@@ -1933,7 +2890,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['time'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'time',
     options?: {
       defaultProps?: JSX.IntrinsicElements['time'] & TDefaultStylingProps;
@@ -1951,7 +2917,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['title'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'title',
     options?: {
       defaultProps?: JSX.IntrinsicElements['title'] & TDefaultStylingProps;
@@ -1969,7 +2944,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['tr'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'tr',
     options?: {
       defaultProps?: JSX.IntrinsicElements['tr'] & TDefaultStylingProps;
@@ -1987,7 +2971,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['track'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'track',
     options?: {
       defaultProps?: JSX.IntrinsicElements['track'] & TDefaultStylingProps;
@@ -2005,7 +2998,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['u'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'u',
     options?: {
       defaultProps?: JSX.IntrinsicElements['u'] & TDefaultStylingProps;
@@ -2023,7 +3025,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['ul'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'ul',
     options?: {
       defaultProps?: JSX.IntrinsicElements['ul'] & TDefaultStylingProps;
@@ -2041,7 +3052,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['var'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'var',
     options?: {
       defaultProps?: JSX.IntrinsicElements['var'] & TDefaultStylingProps;
@@ -2059,7 +3079,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['video'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'video',
     options?: {
       defaultProps?: JSX.IntrinsicElements['video'] & TDefaultStylingProps;
@@ -2077,7 +3106,16 @@ export interface ComponentFactory<TDefaultStylingProps> {
         }
       >
   >;
-  <TExtraStylers = { [key: string]: (theme: Theme, propValue: any) => any }>(
+  <
+    TExtraStylers = {
+      [key: string]: (
+        theme: Theme,
+        propValue: any,
+        componentProps: JSX.IntrinsicElements['wbr'],
+        styleProps: TDefaultStylingProps,
+      ) => any;
+    }
+  >(
     As: 'wbr',
     options?: {
       defaultProps?: JSX.IntrinsicElements['wbr'] & TDefaultStylingProps;

@@ -9,5 +9,8 @@ export function createTheme(breakpoint: number): Theme {
     resolve(prop, value, defaultValue) {
       return getResponsiveValue(breakpoint, defaultValue, value);
     },
+    stylers() {
+      return {};
+    },
   };
 }
