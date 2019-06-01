@@ -2243,6 +2243,11 @@
   resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.3.29.tgz#7f2ad7ec55f914482fc9b1ec4bb1ae6028d46066"
   integrity sha1-fyrX7FX5FEgvybHsS7GuYCjUYGY=
 
+"@types/modular-scale@5.1.1":
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/@types/modular-scale/-/modular-scale-5.1.1.tgz#fe1d5612401e17cf6e4238705c6338ef673d47a6"
+  integrity sha512-AMcyB+hD2ofTRiMMSCh5NBQwzRnAOMTx9jF6U3gp21jijlKh0C06zou1oAZWHt+UxrJ0Xbnh+OIcCOOPGtroXg==
+
 "@types/node@*":
   version "12.0.3"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.3.tgz#5d8d24e0033fc6393efadc85cb59c1f638095c9a"
@@ -10702,6 +10707,11 @@ modify-values@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
+
+modular-scale@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/modular-scale/-/modular-scale-5.1.0.tgz#697858b2600462fa4fc5c800e6ad5a161a19f381"
+  integrity sha512-jg69U8oktFpjBbtOdd7rWl7bmSIOo4OohJL8TXa4CMh8HaNYDxmq9+k3L2jx95VS1SW/TyoF+eQ/6dPfGguYrQ==
 
 module-details-from-path@^1.0.3:
   version "1.0.3"

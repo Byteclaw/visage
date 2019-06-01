@@ -26,8 +26,8 @@ export function Heading({
         return {
           fontSize: 4,
           lineHeight: 4,
-          marginTop: 0,
-          marginBottom: -1,
+          marginTop: 2,
+          marginBottom: 1,
           fontWeight: 'normal',
           ...styles,
         };
@@ -36,8 +36,8 @@ export function Heading({
         return {
           fontSize: 3,
           lineHeight: 3,
-          marginTop: -1,
-          marginBottom: -1,
+          marginTop: 1,
+          marginBottom: 1,
           fontWeight: 'normal',
           ...styles,
         };
@@ -46,8 +46,8 @@ export function Heading({
         return {
           fontSize: 2,
           lineHeight: 2,
-          marginTop: -1,
-          marginBottom: -1,
+          marginTop: 1,
+          marginBottom: 1,
           fontWeight: 'normal',
           ...styles,
         };
@@ -56,8 +56,8 @@ export function Heading({
         return {
           fontSize: 1,
           lineHeight: 1,
-          marginTop: -1,
-          marginBottom: -1,
+          marginTop: 1,
+          marginBottom: 1,
           fontWeight: 'normal',
           ...styles,
         };
@@ -67,8 +67,8 @@ export function Heading({
           fontSize: 0,
           lineHeight: 0,
           fontWeight: 'normal',
-          marginTop: -1,
-          marginBottom: -1,
+          marginTop: 1,
+          marginBottom: 1,
           ...styles,
         };
       }
@@ -78,8 +78,8 @@ export function Heading({
           lineHeight: 0,
           fontWeight: 'normal',
           fontStyle: 'italic',
-          marginTop: -1,
-          marginBottom: -1,
+          marginTop: 1,
+          marginBottom: 1,
           ...styles,
         };
       }

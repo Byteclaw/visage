@@ -30,12 +30,18 @@ interface ExtensionStylesMap {
 }
 
 interface ExtraStylersMap {
-  [stylerPropName: string]: (theme: Theme, propValue: any) => CSSProperties;
+  [stylerPropName: string]: (
+    theme: Theme,
+    propValue: any,
+    componentProps: { [key: string]: any },
+    styleProps: CSSProps,
+  ) => CSSProperties;
 }
 
 function resolveCssProps(
   theme: Theme,
   cssProps: CSSProps | undefined,
+  componentProps: { [key: string]: any },
   extraStylers: ExtraStylersMap = {},
 ): CSSProperties {
   if (cssProps == null) {
@@ -48,8 +54,14 @@ function resolveCssProps(
 
       // cssProp is a part of extra stylers, do not resolve it agains theme directly
       const props = extraStylers[cssProp]
-        ? extraStylers[cssProp](theme, propValue)
-        : theme.resolve(cssProp, propValue);
+        ? extraStylers[cssProp](theme, propValue, componentProps, cssProps)
+        : theme.resolve(
+            cssProp,
+            propValue,
+            undefined,
+            componentProps,
+            cssProps || {},
+          );
 
       if (typeof props === 'object') {
         return {
@@ -78,10 +90,12 @@ export function finish(
   extensionStylesMap: ExtensionStylesMap,
   theme: Theme,
   extraStylers: ExtraStylersMap = {},
+  componentProps: { [key: string]: any },
 ): GeneratedStyles {
   const cssObj: GeneratedStyles = resolveCssProps(
     theme,
     stylingProps.styles,
+    componentProps,
     extraStylers,
   ) as GeneratedStyles;
   const extensionStyles = Object.keys(extensionStylesMap);
@@ -98,6 +112,7 @@ export function finish(
       cssObj[`&:${extensionStylesMap[stylePropName]}`] = resolveCssProps(
         theme,
         cssProps,
+        componentProps,
         extraStylers,
       );
   }
@@ -144,6 +159,10 @@ export const createEmotionStyleSheetHook: StyleSheetCreatorHook<
   { className?: string }
 > = theme => {
   return (componentProps, defaultProps, extraStylers = {}) => {
+    const mergedExtraStylers = {
+      ...theme.stylers(),
+      ...extraStylers,
+    };
     function flatten() {
       const extensionStyles: StylingProps = {};
       const parentFlattenedStyleSheet = componentProps.parentStyleSheet
@@ -182,7 +201,8 @@ export const createEmotionStyleSheetHook: StyleSheetCreatorHook<
           flatten(),
           extensionStyleMap,
           theme,
-          extraStylers,
+          mergedExtraStylers,
+          componentProps,
         );
         const className =
           Object.keys(cssObj).length > 0 ? css(cssObj as any) : undefined;

@@ -8,6 +8,7 @@ import { CSSProperties } from 'react';
 
 export interface ThemeSettings {
   colors: {
+    bodyText: string | ScaleValue<string>;
     primary: string | ScaleValue<string>;
     primaryText: string | ScaleValue<string>;
     [name: string]: string | ScaleValue<string>;
@@ -36,7 +37,7 @@ export function createTheme(
       breakpoint() {
         return breakpoint;
       },
-      resolve(cssProp, cssPropValue, defaultValue) {
+      resolve(cssProp: any, cssPropValue: any, defaultValue: any) {
         // resolve style value
         const value = getResponsiveValue(
           breakpoint,
@@ -78,6 +79,9 @@ export function createTheme(
         }
 
         return getScaleValue(theme[alias], value);
+      },
+      stylers() {
+        return {};
       },
     };
   };

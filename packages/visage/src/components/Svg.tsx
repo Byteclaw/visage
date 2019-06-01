@@ -9,18 +9,42 @@ export const Svg = createComponent('div', {
     },
   },
   extraStylers: {
-    color: (theme: Theme, color: any): any => {
+    color: (
+      theme: Theme,
+      color: any,
+      componentProps: any,
+      styleProps: any,
+    ): any => {
       // @ts-ignore
       return {
-        fill: theme.resolve('color', color),
+        fill: theme.resolve(
+          'color',
+          color,
+          undefined,
+          componentProps,
+          styleProps,
+        ),
         'path:last-child': {
-          fill: theme.resolve('color', color),
+          fill: theme.resolve(
+            'color',
+            color,
+            undefined,
+            componentProps,
+            styleProps,
+          ),
         },
       };
     },
     // override font size to so we can use larger size
-    // fontSize: (theme: Theme, fontSize: any) => fontSize,
-    height: (theme: Theme, height: any) => theme.resolve('lineHeight', height),
-    width: (theme: Theme, width: any) => theme.resolve('lineHeight', width),
+    height: (theme: Theme, height: any, componentProps: any, styleProps: any) =>
+      theme.resolve(
+        'lineHeight',
+        height,
+        undefined,
+        componentProps,
+        styleProps,
+      ),
+    width: (theme: Theme, width: any, componentProps: any, styleProps: any) =>
+      theme.resolve('lineHeight', width, undefined, componentProps, styleProps),
   },
 });

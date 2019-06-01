@@ -5,6 +5,7 @@ export const Text = createComponent('span', {
   defaultProps: {
     styles: {
       fontFamily: 'body',
+      marginBottom: 0,
     },
   },
 });

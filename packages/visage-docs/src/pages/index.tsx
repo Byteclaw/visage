@@ -3,7 +3,8 @@ import {
   Button,
   Flex,
   Heading,
-  createModularScaleTheme,
+  ratios,
+  createNPointTheme,
   ResponsiveDesignSystem,
   Svg,
   Text,
@@ -14,11 +15,12 @@ import { GridDebugTogglerButton } from '../components';
 // @ts-ignore
 import { ReactComponent as VisageLogo } from '../../static/logo.svg';
 
-const theme = createModularScaleTheme(
+const theme = createNPointTheme(
   {
     baseFontSize: 16,
-    lineHeightRatio: 1.6,
-    scaleFactor: 1.618,
+    baseLineHeightRatio: 1.6,
+    baselineGridSize: 8,
+    fontScaleRatio: ratios.goldenSection,
     colors: {
       bodyText: '#444',
       primary: 'black',
@@ -61,21 +63,19 @@ export default () => {
           <Svg
             as={VisageLogo}
             styles={{
-              fontSize: 5,
+              fontSize: 6,
               height: 6,
-              verticalAlign: 'top',
               width: 6,
-              marginBottom: '0px',
             }}
           />
           <Heading>Visage</Heading>
-          <Text as="p" styles={{ fontSize: 1, lineHeight: 1, marginTop: -1 }}>
+          <Text as="p" styles={{ fontSize: 1, lineHeight: 1, marginTop: 1 }}>
             Ready-to-use React component library with minimalist approach
           </Text>
           <Button as="a" href="/" variant="primary">
             Documentation
           </Button>
-          <Button as="a" href="/">
+          <Button as="a" href="/" styles={{ borderWidth: 1 }}>
             Github
           </Button>
           <GridDebugTogglerButton />

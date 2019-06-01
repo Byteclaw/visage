@@ -5,10 +5,7 @@ import React, { Fragment, useState } from 'react';
 export function GridDebugTogglerButton() {
   const [showGrid, shouldShowGrid] = useState(true);
   const { theme } = useDesignSystem();
-  const baseLineHeight = Number(
-    theme.resolve('lineHeight', 0).replace('px', ''),
-  );
-  const halfLineHeight = baseLineHeight / 2;
+  const baselineGridHeight = theme.resolve('margin', 1);
 
   return (
     <Fragment>
@@ -16,11 +13,14 @@ export function GridDebugTogglerButton() {
         <Global
           styles={{
             body: {
-              backgroundImage: `linear-gradient(to bottom,rgba(0,170,255,.3) 1px,transparent 1px,transparent ${halfLineHeight}px,rgba(0,170,255,.2) ${halfLineHeight}px,transparent ${halfLineHeight +
-                1}px,transparent ${baseLineHeight}px)`,
+              backgroundImage: `linear-gradient(to bottom,rgba(0,170,255,.3) 1px,transparent 1px,transparent ${baselineGridHeight}px,rgba(0,170,255,.2) ${baselineGridHeight}px,transparent ${baselineGridHeight +
+                1}px,transparent ${baselineGridHeight * 2}px),
+                linear-gradient(90deg,rgba(0,170,255,.3) 1px,transparent 1px,transparent ${baselineGridHeight}px,rgba(0,170,255,.2) ${baselineGridHeight}px,transparent ${baselineGridHeight +
+                1}px,transparent ${baselineGridHeight * 2}px)`,
               backgroundPosition: 'left top',
               backgroundRepeat: 'repeat',
-              backgroundSize: `100% ${theme.resolve('lineHeight', 0)}`,
+              backgroundSize: `${baselineGridHeight *
+                2}px ${baselineGridHeight * 2}px`,
             },
           }}
         />

@@ -8,14 +8,14 @@ const ButtonBase = createComponent('button', {
       borderColor: 'transparent',
       borderStyle: 'solid',
       borderRadius: 3,
-      borderWidth: 0,
+      borderWidth: 1,
       color: 'primary',
       cursor: 'pointer',
       display: 'inline-block',
       fontSize: 0,
       fontWeight: 'normal',
-      margin: -1,
-      padding: -1,
+      margin: 1,
+      padding: 1,
       textDecoration: 'none',
     },
   },
@@ -23,20 +23,30 @@ const ButtonBase = createComponent('button', {
 
 export function Button({
   variant,
+  styles,
   ...restProps
 }: ComponentProps<typeof ButtonBase> & { variant?: 'primary' }) {
   const variantStyleProps = useMemo(() => {
-    if (variant === 'primary') {
-      return {
-        styles: {
-          backgroundColor: 'primary',
-          borderColor: 'primary',
-          color: 'primaryText',
-        },
-      };
+    switch (variant) {
+      case 'primary':
+        return {
+          styles: {
+            backgroundColor: 'primary',
+            borderColor: 'primary',
+            color: 'primaryText',
+            ...styles,
+          },
+        };
+      default:
+        return {
+          styles: {
+            backgroundColor: 'transparent',
+            borderColor: 'bodyText',
+            color: 'bodyText',
+            ...styles,
+          },
+        };
     }
-
-    return {};
   }, [variant]);
 
   return <ButtonBase {...restProps} {...variantStyleProps} />;

@@ -6,20 +6,21 @@ export function GlobalReset() {
   const { theme } = useDesignSystem();
   const styles: Interpolation = useMemo(
     () => ({
-      '*': {
-        boxSizing: 'border-box',
-        lineHeight: theme.resolve('lineHeight', 0),
-        marginBottom: theme.resolve('lineHeight', 0),
+      '*, *:before, *:after': {
+        boxSizing: 'inherit',
+        lineHeight: theme.resolve('lineHeight', 0, undefined, {}, {}),
+        padding: '0.05px', // prevent margin collapsing between parent and child
       },
       body: {
-        color: theme.resolve('color', 'bodyText'),
-        fontFamily: theme.resolve('fontFamily', 'body'),
+        color: theme.resolve('color', 'bodyText', undefined, {}, {}),
+        fontFamily: theme.resolve('fontFamily', 'body', undefined, {}, {}),
         margin: 0,
         width: '100%',
         maxWidth: 'none',
       },
       html: {
-        fontSize: theme.resolve('fontSize', 0),
+        boxSizing: 'border-box',
+        fontSize: theme.resolve('fontSize', 0, undefined, {}, {}),
         margin: 0,
         width: '100%',
         maxWidth: 'none',
