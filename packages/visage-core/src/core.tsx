@@ -42,7 +42,11 @@ export function createComponent<
   ExtractProps<TComponent>,
   TStylingProps &
     Partial<
-      { [K in keyof TStylingProps]: { [EK in keyof TExtraStylers]: any } }
+      {
+        [K in keyof TStylingProps]: Partial<
+          { [EK in keyof TExtraStylers]: any }
+        >
+      }
     >
 > {
   const Component = forwardRef<any, { as: ValidComponent }>(
