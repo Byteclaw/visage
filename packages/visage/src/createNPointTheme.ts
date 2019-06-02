@@ -141,7 +141,7 @@ export function createNPointTheme(
             return color;
           }
 
-          return getScaleValue(color, Number(colorShade));
+          return getScaleValue(color, Number(colorShade || 0));
         }
 
         if (alias === 'fontFamilies') {
