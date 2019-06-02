@@ -23,7 +23,7 @@ import { ComponentClass, FunctionComponent, ReactElement } from 'react';
 import { Theme } from './theme';
 
 export interface ComponentFactory<TDefaultStylingProps> {
-  <P, TStylingProps = TDefaultStylingProps, TExtraStylers = { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any }>(
+  <P, TStylingProps = TDefaultStylingProps, TExtraStylers extends { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any } = { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any }>(
     As: FunctionComponent<P>,
     options?: { 
       defaultProps?: P & TDefaultStylingProps; 
@@ -31,7 +31,7 @@ export interface ComponentFactory<TDefaultStylingProps> {
       extraStylers?: TExtraStylers;
     }
   ): VisageComponent<P, TStylingProps & Partial<{ [K in keyof TStylingProps]: { [EK in keyof TExtraStylers]: any } }>>;
-  <P, TStylingProps = TDefaultStylingProps, TExtraStylers = { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any }>(
+  <P, TStylingProps = TDefaultStylingProps, TExtraStylers extends { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any } = { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any }>(
     As: ComponentClass<P>,
     options?: { 
       defaultProps?: P & TDefaultStylingProps; 
@@ -39,7 +39,7 @@ export interface ComponentFactory<TDefaultStylingProps> {
       extraStylers?: TExtraStylers;
     }
   ): VisageComponent<P, TStylingProps & Partial<{ [K in keyof TStylingProps]: { [EK in keyof TExtraStylers]: any } }>>;
-  <P, PS, TStylingProps = TDefaultStylingProps, TExtraStylers = { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any }>(
+  <P, PS, TStylingProps = TDefaultStylingProps, TExtraStylers extends { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any } = { [key: string]: (theme: Theme, propValue: any, componentProps: P, styleProps: TStylingProps) => any }>(
     As: VisageComponent<P, PS>,
     options?: { 
       defaultProps?: P & TDefaultStylingProps; 
@@ -51,7 +51,7 @@ export interface ComponentFactory<TDefaultStylingProps> {
     .filter(el => !unknownElements.has(el))
     .map(el =>
       `
-      <TExtraStylers = { [key: string]: (theme: Theme, propValue: any, componentProps: JSX.IntrinsicElements['${el}'], styleProps: TDefaultStylingProps) => any }>(As: '${el}', options?: { 
+      <TExtraStylers extends { [key: string]: (theme: Theme, propValue: any, componentProps: JSX.IntrinsicElements['${el}'], styleProps: TDefaultStylingProps) => any } = { [key: string]: (theme: Theme, propValue: any, componentProps: JSX.IntrinsicElements['${el}'], styleProps: TDefaultStylingProps) => any }>(As: '${el}', options?: { 
         defaultProps?: JSX.IntrinsicElements['${el}'] & TDefaultStylingProps; 
         displayName?: string; 
         extraStylers?: TExtraStylers;
