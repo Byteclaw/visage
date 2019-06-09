@@ -1,90 +1,59 @@
-import React, { ComponentProps, useMemo } from 'react';
-import { createComponent } from '../core';
+import { createComponent, createVariant } from '../core';
 
 const HeadingBase = createComponent('h1', {
   displayName: 'HeadingBase',
-  defaultProps: {
-    styles: {
-      fontFamily: 'heading',
-    },
+  defaultStyles: {
+    fontFamily: 'heading',
   },
 });
 
-interface HeadingProps {
-  /** heading level from 1 to 6 */
-  level?: number;
-}
-
-export function Heading({
-  level = 1,
-  styles,
-  ...restProps
-}: ComponentProps<typeof HeadingBase> & HeadingProps) {
-  const typographicStyles = useMemo(() => {
-    switch (level) {
-      case 1: {
-        return {
-          fontSize: 4,
-          lineHeight: 4,
-          marginTop: 2,
-          marginBottom: 1,
-          fontWeight: 'normal',
-          ...styles,
-        };
-      }
-      case 2: {
-        return {
-          fontSize: 3,
-          lineHeight: 3,
-          marginTop: 1,
-          marginBottom: 1,
-          fontWeight: 'normal',
-          ...styles,
-        };
-      }
-      case 3: {
-        return {
-          fontSize: 2,
-          lineHeight: 2,
-          marginTop: 1,
-          marginBottom: 1,
-          fontWeight: 'normal',
-          ...styles,
-        };
-      }
-      case 4: {
-        return {
-          fontSize: 1,
-          lineHeight: 1,
-          marginTop: 1,
-          marginBottom: 1,
-          fontWeight: 'normal',
-          ...styles,
-        };
-      }
-      case 5: {
-        return {
-          fontSize: 0,
-          lineHeight: 0,
-          fontWeight: 'normal',
-          marginTop: 1,
-          marginBottom: 1,
-          ...styles,
-        };
-      }
-      default: {
-        return {
-          fontSize: 0,
-          lineHeight: 0,
-          fontWeight: 'normal',
-          fontStyle: 'italic',
-          marginTop: 1,
-          marginBottom: 1,
-          ...styles,
-        };
-      }
-    }
-  }, [level, styles]);
-
-  return <HeadingBase styles={typographicStyles} {...restProps} />;
-}
+export const Heading = createVariant(
+  HeadingBase,
+  'level',
+  {
+    1: {
+      fontSize: 4,
+      lineHeight: 4,
+      mt: 2,
+      mb: 1,
+      fontWeight: 'normal',
+    },
+    2: {
+      fontSize: 3,
+      lineHeight: 3,
+      mt: 1,
+      mb: 1,
+      fontWeight: 'normal',
+    },
+    3: {
+      fontSize: 2,
+      lineHeight: 2,
+      mt: 1,
+      mb: 1,
+      fontWeight: 'normal',
+    },
+    4: {
+      fontSize: 1,
+      lineHeight: 1,
+      mt: 1,
+      mb: 1,
+      fontWeight: 'normal',
+    },
+    5: {
+      fontSize: 0,
+      lineHeight: 0,
+      fontWeight: 'normal',
+      mt: 1,
+      mb: 1,
+    },
+    default: {
+      fontSize: 0,
+      lineHeight: 0,
+      fontWeight: 'normal',
+      fontStyle: 'italic',
+      mt: 1,
+      mb: 1,
+    },
+  },
+  1,
+);

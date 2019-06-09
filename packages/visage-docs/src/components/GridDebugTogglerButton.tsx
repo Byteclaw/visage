@@ -5,7 +5,9 @@ import React, { Fragment, useState } from 'react';
 export function GridDebugTogglerButton() {
   const [showGrid, shouldShowGrid] = useState(true);
   const { theme } = useDesignSystem();
-  const baselineGridHeight = theme.resolve('margin', 1);
+  const baselineGridHeight = Number(
+    theme.resolve('m', 1, 0).value.replace('px', ''),
+  );
 
   return (
     <Fragment>

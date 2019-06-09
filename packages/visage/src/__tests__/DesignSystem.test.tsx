@@ -1,40 +1,28 @@
 import React from 'react';
 import { render } from 'react-testing-library';
-import { createComponent, createTheme, DesignSystem } from '..';
+import { createComponent, createNPointTheme, DesignSystem } from '..';
 
 const Link = createComponent('a');
 
-const theme = createTheme(
-  {
-    colors: {
-      primary: {
-        values: ['light-blue', 'blue', 'dark-blue'],
-        offset: 0,
-      },
-      secondary: 'blue',
-    },
-    fontSizes: {
-      values: [10],
-      offset: 0,
-    },
-    lineHeights: {
-      values: [20],
-      offset: 0,
-    },
-    spacings: {
-      values: [0, 2, 4, 8, 16, 32],
-      offset: 0,
-    },
+const theme = createNPointTheme({
+  baseFontSize: 16,
+  baseLineHeightRatio: 1.6,
+  baselineGridSize: 8,
+  fontScaleRatio: 1.6,
+  fontFamilies: {
+    body: 'body-font',
+    heading: 'heading-font',
   },
-  {
-    color: 'colors',
-    backgroundColor: 'colors',
-    fontSize: 'fontSizes',
-    lineHeight: 'lineHeights',
-    margin: 'spacings',
-    padding: 'spacings',
+  colors: {
+    primaryText: 'white',
+    bodyText: 'black',
+    primary: {
+      values: ['light-blue', 'blue', 'dark-blue'],
+      offset: 0,
+    },
+    secondary: 'blue',
   },
-);
+});
 
 describe('DesignSystem', () => {
   it('works correctly', async () => {
@@ -46,10 +34,13 @@ describe('DesignSystem', () => {
         </Link>
         <Link
           href="a"
-          activeStyles={{ color: 'blue' }}
-          hoverStyles={{ color: 'pink' }}
-          focusStyles={{ color: 'black' }}
-          styles={{ background: '#ccc', color: 'white' }}
+          styles={{
+            background: '#ccc',
+            color: 'white',
+            active: { color: 'blue' },
+            hover: { color: 'pink' },
+            focus: { color: 'black' },
+          }}
         >
           Link with extension styles
         </Link>
@@ -57,61 +48,64 @@ describe('DesignSystem', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-                                                <DocumentFragment>
-                                                  <a
-                                                    href="a"
-                                                  >
-                                                    Link without styles
-                                                  </a>
-                                                  .emotion-0 {
-                                                  background: #ccc;
-                                                  color: red;
-                                                }
+            <DocumentFragment>
+              <a
+                class="emotion-0"
+                href="a"
+              >
+                Link without styles
+              </a>
+              .emotion-0 {
+              background: #ccc;
+              color: red;
+            }
 
-                                                <a
-                                                    class="emotion-0"
-                                                    href="a"
-                                                  >
-                                                    Link with styles
-                                                  </a>
-                                                  .emotion-0 {
-                                                  background: #ccc;
-                                                  color: white;
-                                                }
+            <a
+                class="emotion-0"
+                href="a"
+              >
+                Link with styles
+              </a>
+              .emotion-0 {
+              background: #ccc;
+              color: white;
+            }
 
-                                                .emotion-0:active {
-                                                  color: blue;
-                                                }
+            .emotion-0:active {
+              color: blue;
+            }
 
-                                                .emotion-0:focus {
-                                                  color: black;
-                                                }
+            .emotion-0:hover {
+              color: pink;
+            }
 
-                                                .emotion-0:hover {
-                                                  color: pink;
-                                                }
+            .emotion-0:focus {
+              color: black;
+            }
 
-                                                <a
-                                                    class="emotion-0"
-                                                    href="a"
-                                                  >
-                                                    Link with extension styles
-                                                  </a>
-                                                </DocumentFragment>
-                                `);
+            <a
+                class="emotion-0"
+                href="a"
+              >
+                Link with extension styles
+              </a>
+            </DocumentFragment>
+        `);
   });
 
   it('works with extending', () => {
     const A = createComponent('a', {
-      defaultProps: {
-        hoverStyles: { background: 'black' },
-        styles: { color: 'red' },
+      defaultStyles: {
+        color: 'red',
+
+        hover: { background: 'black' },
       },
     });
     const B = createComponent('span', {
-      defaultProps: {
-        hoverStyles: { background: 'red', color: 'white' },
-        styles: { background: 'black', color: 'blue' },
+      defaultStyles: {
+        background: 'black',
+        color: 'blue',
+        hover: { background: 'red', color: 'white' },
       },
     });
     const { asFragment } = render(
@@ -124,73 +118,71 @@ describe('DesignSystem', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-                              <DocumentFragment>
-                                .emotion-0 {
-                                color: red;
-                              }
+                  <DocumentFragment>
+                    .emotion-0 {
+                    color: red;
+                  }
 
-                              .emotion-0:hover {
-                                background: black;
-                              }
+                  .emotion-0:hover {
+                    background: black;
+                  }
 
-                              <a
-                                  class="emotion-0"
-                                  href="/"
-                                />
-                                .emotion-0 {
-                                background: black;
-                                color: blue;
-                              }
+                  <a
+                      class="emotion-0"
+                      href="/"
+                    />
+                    .emotion-0 {
+                    background: black;
+                    color: blue;
+                  }
 
-                              .emotion-0:hover {
-                                background: red;
-                                color: white;
-                              }
+                  .emotion-0:hover {
+                    background: red;
+                    color: white;
+                  }
 
-                              <span
-                                  class="emotion-0"
-                                />
-                                .emotion-0 {
-                                background: black;
-                                color: red;
-                              }
+                  <span
+                      class="emotion-0"
+                    />
+                    .emotion-0 {
+                    background: black;
+                    color: red;
+                  }
 
-                              .emotion-0:hover {
-                                background: black;
-                                color: white;
-                              }
+                  .emotion-0:hover {
+                    background: black;
+                    color: white;
+                  }
 
-                              <span
-                                  class="emotion-0"
-                                  href="/"
-                                />
-                                .emotion-0 {
-                                color: blue;
-                                background: black;
-                              }
+                  <span
+                      class="emotion-0"
+                      href="/"
+                    />
+                    .emotion-0 {
+                    color: blue;
+                    background: black;
+                  }
 
-                              .emotion-0:hover {
-                                background: red;
-                                color: white;
-                              }
+                  .emotion-0:hover {
+                    background: red;
+                    color: white;
+                  }
 
-                              <a
-                                  class="emotion-0"
-                                  href="/"
-                                />
-                              </DocumentFragment>
-                    `);
+                  <a
+                      class="emotion-0"
+                      href="/"
+                    />
+                  </DocumentFragment>
+            `);
   });
 
   it('works with theme', () => {
     const Box = createComponent('div', {
-      defaultProps: {
-        styles: {
-          color: 'red',
-          backgroundColor: 'secondary',
-          fontSize: 0,
-          lineHeight: 0,
-        },
+      defaultStyles: {
+        color: 'red',
+        backgroundColor: 'secondary',
+        fontSize: 0,
+        lineHeight: 0,
       },
     });
     const { asFragment } = render(
@@ -207,29 +199,8 @@ describe('DesignSystem', () => {
         .emotion-0 {
         color: red;
         background-color: blue;
-        font-size: 10px;
-        line-height: 20;
-      }
-
-      <div
-          class="emotion-0"
-        />
-        .emotion-0 {
-        background-color: blue;
-        font-size: 10px;
-        line-height: 20;
-      }
-
-      <div
-          class="emotion-0"
-        />
-        .emotion-0 {
-        color: blue;
-        background-color: blue;
-        font-size: 10px;
-        line-height: 20;
-        margin: 2px;
-        padding: 4px;
+        font-size: 16px;
+        line-height: 24px;
       }
 
       <div
@@ -238,10 +209,32 @@ describe('DesignSystem', () => {
         .emotion-0 {
         color: light-blue;
         background-color: blue;
-        font-size: 10px;
-        line-height: 20;
-        margin: 4px;
-        padding: 8px;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      <div
+          class="emotion-0"
+        />
+        .emotion-0 {
+        color: blue;
+        background-color: blue;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 8px;
+        padding: 16px;
+      }
+
+      <div
+          class="emotion-0"
+        />
+        .emotion-0 {
+        color: light-blue;
+        background-color: blue;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 16px;
+        padding: 24px;
       }
 
       <div

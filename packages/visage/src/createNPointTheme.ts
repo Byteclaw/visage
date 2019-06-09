@@ -1,15 +1,28 @@
-import { ThemeCreator } from '@byteclaw/visage-core';
-import {
-  getResponsiveValue,
-  ScaleValue,
-  getScaleValue,
-} from '@byteclaw/visage-utils';
+import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
+import { ScaleValue } from '@byteclaw/visage-utils';
 import ModularScale, { ratios } from 'modular-scale';
-import { CSSProperties } from 'react';
+import React from 'react';
 
 export { ratios };
 
-export interface NPointThemeSettings {
+export interface StyleProps extends React.CSSProperties {
+  m?: string | number;
+  my?: string | number;
+  mx?: string | number;
+  mb?: string | number;
+  ml?: string | number;
+  mr?: string | number;
+  mt?: string | number;
+  p?: string | number;
+  py?: string | number;
+  px?: string | number;
+  pb?: string | number;
+  pl?: string | number;
+  pr?: string | number;
+  pt?: string | number;
+}
+
+interface NPointThemeSettings extends ThemeSettings {
   baseFontSize: number;
   baseLineHeightRatio: number;
   baselineGridSize: number;
@@ -27,172 +40,123 @@ export interface NPointThemeSettings {
   };
 }
 
-/**
- * A map of css prop name to theme key name
- */
-type StyleAliases = {
-  [K in keyof CSSProperties]: Exclude<
-    keyof NPointThemeSettings,
-    | 'baseFontSize'
-    | 'baselineGridSize'
-    | 'baseLineHeightRatio'
-    | 'fontScaleRatio'
-  >
-};
-
-enum PropCalculationType {
-  modular,
-  modularMultiplier,
-  multiplier,
-}
-
-interface PropCalculationTypes {
-  [key: string]: PropCalculationType;
-}
-
-const defaultPropCalculationTypes: PropCalculationTypes = {
-  fontSize: PropCalculationType.modular,
-  lineHeight: PropCalculationType.modularMultiplier,
-  margin: PropCalculationType.multiplier,
-  marginBottom: PropCalculationType.multiplier,
-  marginLeft: PropCalculationType.multiplier,
-  marginRight: PropCalculationType.multiplier,
-  marginTop: PropCalculationType.multiplier,
-  padding: PropCalculationType.multiplier,
-  paddingBottom: PropCalculationType.multiplier,
-  paddingLeft: PropCalculationType.multiplier,
-  paddingRight: PropCalculationType.multiplier,
-  paddingTop: PropCalculationType.multiplier,
-};
-
-export function createNPointTheme(
-  theme: NPointThemeSettings,
-  aliases: StyleAliases = {},
-  propCalculationTypes: PropCalculationTypes = {},
-): ThemeCreator {
-  const calculationTypes = {
-    ...defaultPropCalculationTypes,
-    ...propCalculationTypes,
-  };
-  const baseLineHeight = theme.baseFontSize * theme.baseLineHeightRatio;
-  const alignedBaseLineHeight =
-    Math.round(baseLineHeight / theme.baselineGridSize) *
-    theme.baselineGridSize;
+export function createNPointTheme(settings: NPointThemeSettings) {
   const modularScale = ModularScale({
-    base: theme.baseFontSize,
-    ratio: theme.fontScaleRatio,
+    base: settings.baseFontSize,
+    ratio: settings.fontScaleRatio,
   });
-  return function themeCreator(breakpoint: number) {
-    return {
-      breakpoint() {
-        return breakpoint;
+  const baseLineHeight = settings.baseFontSize * settings.baseLineHeightRatio;
+  const alignedBaseLineHeight =
+    Math.round(baseLineHeight / settings.baselineGridSize) *
+    settings.baselineGridSize;
+
+  return createTheme<any, 'gridSize' | 'modularSize' | 'modularLineHeight'>({
+    resolvers: {
+      // this is pseudostyler used to compute sizes based on grid size (basically multipliers)
+      gridSize(value) {
+        const numericValue = Number(value);
+
+        if (!Number.isNaN(numericValue)) {
+          return settings.baselineGridSize * numericValue;
+        }
+        return value;
       },
-      resolve(cssProp: any, cssPropValue: any, defaultValue: any) {
-        // resolve style value
-        const value = getResponsiveValue(
-          breakpoint,
-          defaultValue,
-          cssPropValue,
-        );
+      modularSize(value) {
+        const numericValue = Number(value);
 
-        if (value == null) {
-          return value;
+        if (!Number.isNaN(numericValue)) {
+          return modularScale(numericValue);
         }
 
-        if (typeof value === 'number') {
-          switch (calculationTypes[cssProp]) {
-            case PropCalculationType.modular:
-              return `${Math.round(modularScale(value))}px`;
-            case PropCalculationType.modularMultiplier: {
-              // compute the font size and then compute line height with respect to the font size
-              // and baseline grid units, so it is always a multiple of baseline grid units
-              const fontSize = modularScale(value);
-              const lineHeightCoefficient = Math.ceil(
-                fontSize / alignedBaseLineHeight,
-              );
-              const alignedLineHeight =
-                lineHeightCoefficient * alignedBaseLineHeight;
-
-              return `${alignedLineHeight}px`;
-            }
-            case PropCalculationType.multiplier: {
-              return theme.baselineGridSize * value;
-            }
-          }
-        }
-
-        const alias = aliases[cssProp as keyof CSSProperties];
-
-        if (alias == null) {
-          return value;
-        }
-
-        // now look if given theme prop is scale or hash of scales
-        if (alias === 'colors') {
-          // parse color to scale value
-          const [colorName, colorShade] = value.split('.');
-          const color = theme[alias][colorName];
-
-          if (color == null) {
-            return value;
-          }
-
-          if (typeof color === 'string') {
-            return color;
-          }
-
-          return getScaleValue(color, Number(colorShade || 0));
-        }
-
-        if (alias === 'fontFamilies') {
-          const fontFamily = theme[alias][value];
-
-          return fontFamily || value;
-        }
-
-        return undefined;
+        return value;
       },
-      stylers() {
-        return {
-          /* 
-          // @TODO we need more robust solution
-          borderWidth(t, propValue, componentProps, styleProps) {
-            const margin =
-              styleProps.margin ||
-              styleProps.marginTop ||
-              styleProps.marginBottom;
-            const borderWidth = t.resolve(
-              'borderWidth',
-              propValue,
-              undefined,
-              componentProps,
-              styleProps,
-            );
+      modularLineHeight(value, { resolve }) {
+        const numericValue = Number(value);
 
-            if (margin == null) {
-              return {
-                borderWidth,
-                marginTop: -borderWidth,
-                marginBottom: -borderWidth,
-              };
-            }
+        if (!Number.isNaN(numericValue)) {
+          const modularSize = resolve('modularSize', value);
 
-            const marginSize = t.resolve(
-              'margin',
-              margin,
-              undefined,
-              componentProps,
-              styleProps,
-            );
+          const lineHeightCoefficient = Math.ceil(
+            modularSize / alignedBaseLineHeight,
+          );
+          const alignedLineHeight =
+            lineHeightCoefficient * alignedBaseLineHeight;
 
-            return {
-              borderWidth,
-              marginBottom: marginSize - borderWidth,
-              marginTop: marginSize - borderWidth,
-            };
-          }, */
-        };
+          return alignedLineHeight;
+        }
+
+        return value;
       },
-    };
-  };
+    },
+    stylers: {
+      backgroundColor: {
+        themeKey: 'colors',
+      },
+      borderColor: {
+        themeKey: 'colors',
+      },
+      color: {
+        themeKey: 'colors',
+      },
+      fill: {
+        themeKey: 'colors',
+      },
+      fontFamily: {
+        themeKey: 'fontFamilies',
+      },
+      fontSize: {
+        format: 'px',
+        resolver: 'modularSize',
+      },
+      lineHeight: {
+        format: 'px',
+        resolver: 'modularLineHeight',
+      },
+      m: { format: 'px', resolver: 'gridSize', outputProps: ['margin'] },
+      margin: { format: 'px', resolver: 'gridSize' },
+      my: {
+        format: 'px',
+        resolver: 'gridSize',
+        outputProps: ['marginTop', 'marginBottom'],
+      },
+      mx: {
+        format: 'px',
+        resolver: 'gridSize',
+        outputProps: ['marginLeft', 'marginRight'],
+      },
+      mb: { format: 'px', resolver: 'gridSize', outputProps: ['marginBottom'] },
+      marginBottom: { format: 'px', resolver: 'gridSize' },
+      marginLeft: { format: 'px', resolver: 'gridSize' },
+      marginRight: { format: 'px', resolver: 'gridSize' },
+      marginTop: { format: 'px', resolver: 'gridSize' },
+      ml: { format: 'px', resolver: 'gridSize', outputProps: ['marginLeft'] },
+      mr: { format: 'px', resolver: 'gridSize', outputProps: ['marginRight'] },
+      mt: { format: 'px', resolver: 'gridSize', outputProps: ['marginTop'] },
+      p: { format: 'px', resolver: 'gridSize', outputProps: ['padding'] },
+      padding: { format: 'px', resolver: 'gridSize' },
+      py: {
+        format: 'px',
+        resolver: 'gridSize',
+        outputProps: ['paddingTop', 'paddingBottom'],
+      },
+      px: {
+        format: 'px',
+        resolver: 'gridSize',
+        outputProps: ['paddingLeft', 'paddingRight'],
+      },
+      paddingBottom: { format: 'px', resolver: 'gridSize' },
+      paddingLeft: { format: 'px', resolver: 'gridSize' },
+      paddingRight: { format: 'px', resolver: 'gridSize' },
+      paddingTop: { format: 'px', resolver: 'gridSize' },
+      pb: {
+        format: 'px',
+        resolver: 'gridSize',
+        outputProps: ['paddingBottom'],
+      },
+      pl: { format: 'px', resolver: 'gridSize', outputProps: ['paddingLeft'] },
+      pr: { format: 'px', resolver: 'gridSize', outputProps: ['paddingRight'] },
+      pt: { format: 'px', resolver: 'gridSize', outputProps: ['paddingTop'] },
+    },
+    theme: settings,
+  });
 }

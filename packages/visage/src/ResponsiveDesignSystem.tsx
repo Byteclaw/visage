@@ -1,10 +1,11 @@
 import {
   DesignSystem as BaseDesignSystem,
-  ThemeCreator,
+  Theme,
+  useBreakpointManager,
 } from '@byteclaw/visage-core';
 import React, { Fragment, ReactNode } from 'react';
-import { createEmotionStyleSheetHook } from './createEmotionStyleSheetHook';
-import { useBreakpointDetection, useBreakpointManager } from './hooks';
+import { useBreakpointDetection } from './hooks';
+import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 
 const MOBILE_BP = `only screen`; // 40em
@@ -22,7 +23,7 @@ export interface ResponsiveDesignSystemProps {
   breakpoints?: string[];
   /** Default breakpoint */
   is?: number;
-  theme: ThemeCreator;
+  theme: Theme;
 }
 
 export function ResponsiveDesignSystem({
@@ -37,7 +38,7 @@ export function ResponsiveDesignSystem({
   return (
     <BaseDesignSystem
       is={breakpoint}
-      styleSheet={createEmotionStyleSheetHook}
+      styleGenerator={styleGenerator}
       theme={theme}
     >
       <Fragment>

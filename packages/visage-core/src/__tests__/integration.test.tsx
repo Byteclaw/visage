@@ -25,10 +25,8 @@ describe('integration', () => {
 
     it('works correctly with default props', () => {
       const Link = createComponent('a', {
-        defaultProps: {
-          styles: {
-            background: '#ccc',
-          },
+        defaultStyles: {
+          background: '#ccc',
         },
       });
 
@@ -51,19 +49,15 @@ describe('integration', () => {
 
   describe('extending', () => {
     const A = createComponent('a', {
-      defaultProps: {
-        styles: {
-          background: '#ccc',
-          color: 'red',
-        },
+      defaultStyles: {
+        background: '#ccc',
+        color: 'red',
       },
     });
     const B = createComponent('a', {
-      defaultProps: {
-        styles: {
-          color: 'black',
-          margin: 1,
-        },
+      defaultStyles: {
+        color: 'black',
+        margin: 1,
       },
     });
 
@@ -99,33 +93,6 @@ describe('integration', () => {
                           />
                         </DocumentFragment>
                   `);
-    });
-  });
-
-  describe('extra stylers', () => {
-    const A = createComponent('div', {
-      extraStylers: {
-        trololo: (theme, propValue) => ({
-          color: theme.resolve('colors', propValue),
-        }),
-      },
-    });
-
-    it('uses extra stylers', () => {
-      const { asFragment } = render(
-        <DesignSystem>
-          <A href="a" styles={{ color: '#eee', trololo: 'blue' }} />
-        </DesignSystem>,
-      );
-
-      expect(asFragment()).toMatchInlineSnapshot(`
-        <DocumentFragment>
-          <div
-            href="a"
-            style="color: blue;"
-          />
-        </DocumentFragment>
-      `);
     });
   });
 });

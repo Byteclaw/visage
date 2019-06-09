@@ -1,40 +1,24 @@
-import React, { FunctionComponent, ReactNode, useMemo } from 'react';
-import { DesignSystemContext, DesignSystemContextValue } from './context';
-import { StyleSheetCreatorHook, ThemeCreator } from './types';
+import React from 'react';
+import { VisageContext } from './context';
+import { useDesignSystem } from './hooks';
+import { Theme, StyleGenerator } from './types';
 
-export interface DesignSystemState {
-  is: number;
+interface DesignSystemProps<TTheme extends Theme> {
+  children?: React.ReactNode;
+  is?: number;
+  styleGenerator: StyleGenerator;
+  theme: TTheme;
 }
 
-export type DesignSystemProps<TStylingProps, TStyleProps> = {
-  children?: ReactNode;
-  is: number;
-  theme: ThemeCreator;
-  styleSheet: StyleSheetCreatorHook<TStylingProps, TStyleProps>;
-};
-
-export interface DesignSystemComponent<TStylingProps = {}, TStyleProps = {}>
-  extends FunctionComponent<DesignSystemProps<TStylingProps, TStyleProps>> {}
-
-const DesignSystem: DesignSystemComponent = ({
+export function DesignSystem<TTheme extends Theme>({
+  is = 0,
   children,
-  is,
-  styleSheet,
-  theme: createTheme,
-}) => {
-  const theme = useMemo(() => createTheme(is), [is]);
-  const context = useMemo<DesignSystemContextValue<any, any>>(() => {
-    return {
-      theme,
-      useStyleSheet: styleSheet(theme),
-    };
-  }, [is, theme, styleSheet]);
+  styleGenerator,
+  theme,
+}: DesignSystemProps<TTheme>) {
+  const visage = useDesignSystem({ is, styleGenerator, theme });
 
   return (
-    <DesignSystemContext.Provider value={context}>
-      {children}
-    </DesignSystemContext.Provider>
+    <VisageContext.Provider value={visage}>{children}</VisageContext.Provider>
   );
-};
-
-export { DesignSystem };
+}

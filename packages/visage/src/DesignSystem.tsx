@@ -1,16 +1,13 @@
-import {
-  DesignSystem as BaseDesignSystem,
-  ThemeCreator,
-} from '@byteclaw/visage-core';
+import { DesignSystem as BaseDesignSystem, Theme } from '@byteclaw/visage-core';
 import React, { Fragment, FunctionComponent, ReactNode } from 'react';
-import { createEmotionStyleSheetHook } from './createEmotionStyleSheetHook';
+import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 
 export interface DesignSystemProps {
   children?: ReactNode;
   /** Default breakpoint */
   is?: number;
-  theme: ThemeCreator;
+  theme: Theme;
 }
 
 const DesignSystem: FunctionComponent<DesignSystemProps> = ({
@@ -18,11 +15,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   theme,
   children,
 }) => (
-  <BaseDesignSystem
-    is={is}
-    styleSheet={createEmotionStyleSheetHook}
-    theme={theme}
-  >
+  <BaseDesignSystem is={is} styleGenerator={styleGenerator} theme={theme}>
     <Fragment>
       <GlobalReset />
       {children}

@@ -1,0 +1,1 @@
+export const VisageComponentSymbol = '@@vsg';

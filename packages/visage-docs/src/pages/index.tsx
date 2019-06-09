@@ -9,35 +9,45 @@ import {
   Svg,
   Text,
 } from '@byteclaw/visage';
+import color from 'color';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { GridDebugTogglerButton } from '../components';
 // @ts-ignore
 import { ReactComponent as VisageLogo } from '../../static/logo.svg';
 
-const theme = createNPointTheme(
-  {
-    baseFontSize: 16,
-    baseLineHeightRatio: 1.6,
-    baselineGridSize: 8,
-    fontScaleRatio: ratios.goldenSection,
-    colors: {
-      bodyText: '#444',
-      primary: 'black',
-      primaryText: 'white',
+const theme = createNPointTheme({
+  baseFontSize: 16,
+  baseLineHeightRatio: 1.6,
+  baselineGridSize: 8,
+  fontScaleRatio: ratios.goldenSection,
+  colors: {
+    bodyText: '#444',
+    primary: {
+      values: [
+        '#000000',
+        color('#000000')
+          .fade(0.1)
+          .hex()
+          .toString(),
+        color('#000000')
+          .fade(0.2)
+          .hex()
+          .toString(),
+        color('#000000')
+          .fade(0.3)
+          .rgb()
+          .string(),
+      ],
+      offset: 0,
     },
-    fontFamilies: {
-      body: 'Lato,serif',
-      heading: 'Raleway,sans-serif',
-    },
+    primaryText: 'white',
   },
-  {
-    color: 'colors',
-    backgroundColor: 'colors',
-    borderColor: 'colors',
-    fontFamily: 'fontFamilies',
+  fontFamilies: {
+    body: 'Lato,serif',
+    heading: 'Raleway,sans-serif',
   },
-);
+});
 
 export default () => {
   return (
@@ -54,8 +64,8 @@ export default () => {
           alignContent: 'center',
           flexWrap: 'wrap',
           height: '100vh',
-          paddingLeft: 3,
-          paddingRight: 3,
+          pl: 3,
+          pr: 3,
           width: '100vw',
         }}
       >
@@ -63,13 +73,13 @@ export default () => {
           <Svg
             as={VisageLogo}
             styles={{
-              fontSize: 6,
-              height: 6,
-              width: 6,
+              flexGrow: 0,
+              height: 250,
+              width: 250,
             }}
           />
-          <Heading>Visage</Heading>
-          <Text as="p" styles={{ fontSize: 1, lineHeight: 1, marginTop: 1 }}>
+          <Heading level={1}>Visage</Heading>
+          <Text as="p" styles={{ fontSize: 1, lineHeight: 1, mt: 1 }}>
             Ready-to-use React component library with minimalist approach
           </Text>
           <Button as="a" href="/" variant="primary">

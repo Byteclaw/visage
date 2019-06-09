@@ -1,7 +1,7 @@
 /* eslint-disable react/no-multi-comp, react/prefer-stateless-function */
 import React from 'react';
 import { isValidElementType } from 'react-is';
-import { createComponent, displayName, isVisageComponent } from '../core';
+import { createComponent, displayName, isVisageComponent } from '..';
 
 describe('core', () => {
   describe('displayName', () => {
@@ -19,19 +19,19 @@ describe('core', () => {
       expect(displayName(() => <div />)).toBe('Unknown');
       expect(displayName(class extends React.Component {})).toBe('Component');
       expect(displayName(class Trolo extends React.Component {})).toBe('Trolo');
-      expect(displayName(createComponent('a'))).toBe('VisageComponent<a>');
+      expect(displayName(createComponent('a'))).toBe('VisageComponent(a)');
       expect(displayName(createComponent(Anonymous))).toBe(
-        'VisageComponent<Anonymous>',
+        'VisageComponent(Anonymous)',
       );
       expect(displayName(createComponent(Named))).toBe(
-        'VisageComponent<Named>',
+        'VisageComponent(Named)',
       );
       expect(
         displayName(createComponent(class extends React.Component {})),
-      ).toBe('VisageComponent<Component>');
+      ).toBe('VisageComponent(Component)');
       expect(
         displayName(createComponent(class Trolo extends React.Component {})),
-      ).toBe('VisageComponent<Trolo>');
+      ).toBe('VisageComponent(Trolo)');
     });
   });
 

@@ -1,53 +1,53 @@
-import React, { ComponentProps, useMemo } from 'react';
-import { createComponent } from '../core';
+import { createComponent, createVariant } from '../core';
 
 const ButtonBase = createComponent('button', {
   displayName: 'ButtonBase',
-  defaultProps: {
-    styles: {
-      borderColor: 'transparent',
-      borderStyle: 'solid',
-      borderRadius: 3,
-      borderWidth: 1,
-      color: 'primary',
-      cursor: 'pointer',
-      display: 'inline-block',
-      fontSize: 0,
-      fontWeight: 'normal',
-      margin: 1,
-      padding: 1,
-      textDecoration: 'none',
-    },
+  defaultStyles: {
+    alignItems: 'center',
+    borderColor: 'transparent',
+    borderStyle: 'solid',
+    borderRadius: 3,
+    borderWidth: 1,
+    color: 'primary',
+    cursor: 'pointer',
+    display: 'inline-flex',
+    flexShrink: 0,
+    fontSize: 0,
+    fontWeight: 'normal',
+    justifyContent: 'space-between',
+    m: 1,
+    minHeight: '2rem',
+    maxWidth: '20rem',
+    outlineStyle: 'solid',
+    outlineColor: 'transparent',
+    outlineWidth: 3,
+    p: 1,
+    position: 'relative',
+    textDecoration: 'none',
   },
 });
 
-export function Button({
-  variant,
-  styles,
-  ...restProps
-}: ComponentProps<typeof ButtonBase> & { variant?: 'primary' }) {
-  const variantStyleProps = useMemo(() => {
-    switch (variant) {
-      case 'primary':
-        return {
-          styles: {
-            backgroundColor: 'primary',
-            borderColor: 'primary',
-            color: 'primaryText',
-            ...styles,
-          },
-        };
-      default:
-        return {
-          styles: {
-            backgroundColor: 'transparent',
-            borderColor: 'bodyText',
-            color: 'bodyText',
-            ...styles,
-          },
-        };
-    }
-  }, [variant]);
-
-  return <ButtonBase {...restProps} {...variantStyleProps} />;
-}
+export const Button = createVariant(ButtonBase, 'variant', {
+  primary: {
+    backgroundColor: 'primary',
+    borderColor: 'primary',
+    color: 'primaryText',
+    active: {
+      backgroundColor: 'primary.2',
+      color: 'primaryText.2',
+    },
+    hover: {
+      backgroundColor: 'primary.1',
+      color: 'primaryText.1',
+    },
+    focus: {
+      backgroundColor: 'primary.3',
+      color: 'primaryText.3',
+    },
+  },
+  default: {
+    backgroundColor: 'default',
+    borderColor: 'bodyText',
+    color: 'bodyText',
+  },
+});
