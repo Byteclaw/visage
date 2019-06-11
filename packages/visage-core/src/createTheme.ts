@@ -142,6 +142,10 @@ function applyStyler(
 type DefaultFormatters = 'px';
 const defaultFormatters: FormatterMap<DefaultFormatters> = {
   px(value) {
+    if (typeof value !== 'number') {
+      return value;
+    }
+
     return `${Math.round(value)}px`;
   },
 };
