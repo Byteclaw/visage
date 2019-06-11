@@ -5,6 +5,7 @@ export * from './Flex';
 export * from './Grid';
 export * from './Header';
 export * from './Heading';
+export * from './Input';
 export * from './LayerManager';
 export * from './Layout';
 export * from './Link';

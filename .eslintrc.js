@@ -18,6 +18,7 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/prop-types': 'off',
     'no-continue': 'off',
+    'no-nested-ternary': 'off',
     'no-plusplus': 'off',
   },
 };
