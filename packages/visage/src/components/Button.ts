@@ -24,6 +24,7 @@ const ButtonBase = createComponent('button', {
     p: 1,
     position: 'relative',
     textDecoration: 'none',
+    verticalAlign: 'middle',
   },
 });
 
