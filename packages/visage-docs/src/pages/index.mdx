@@ -1,0 +1,29 @@
+import { Text } from '../../../visage/src';
+
+# Visage
+
+```sh
+npm install @byteclaw/visage
+# or
+yarn add @byteclaw/visage
+```
+
+```jsx
+import {
+  createNPointTheme,
+  ResponsiveDesignSystem,
+  Text,
+} from '@byteclaw/visage';
+
+const theme = createNPointTheme();
+
+<ResponsiveDesignSystem theme={theme}>
+  <Text>Hello world!</Text>
+</ResponseDesignSystem>
+```
+
+```jsx live=true
+<Text styles={{ color: 'tomato' }}>
+  Try changing the text color to something else
+</Text>
+```
