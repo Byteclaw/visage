@@ -6,6 +6,8 @@ import React from 'react';
 export { ratios };
 
 export interface StyleProps extends React.CSSProperties {
+  /** Height based on line height */
+  linedHeight?: string | number;
   m?: string | number;
   my?: string | number;
   mx?: string | number;
@@ -112,6 +114,11 @@ export function createNPointTheme(settings: NPointThemeSettings) {
         format: 'px',
         resolver: 'modularLineHeight',
       },
+      linedHeight: {
+        format: 'px',
+        resolver: 'modularLineHeight',
+        outputProps: ['height'],
+      },
       m: { format: 'px', resolver: 'gridSize', outputProps: ['margin'] },
       margin: { format: 'px', resolver: 'gridSize' },
       my: {
@@ -156,6 +163,7 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       pl: { format: 'px', resolver: 'gridSize', outputProps: ['paddingLeft'] },
       pr: { format: 'px', resolver: 'gridSize', outputProps: ['paddingRight'] },
       pt: { format: 'px', resolver: 'gridSize', outputProps: ['paddingTop'] },
+      stroke: { themeKey: 'colors' },
     },
     theme: settings,
   });
