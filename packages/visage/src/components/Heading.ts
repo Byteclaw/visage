@@ -1,3 +1,4 @@
+import { createElement, forwardRef } from 'react';
 import { createComponent, createVariant } from '../core';
 
 const HeadingBase = createComponent('h1', {
@@ -7,7 +8,7 @@ const HeadingBase = createComponent('h1', {
   },
 });
 
-export const Heading = createVariant(
+const VariantedHeading = createVariant(
   HeadingBase,
   'level',
   {
@@ -46,6 +47,14 @@ export const Heading = createVariant(
       mt: 1,
       mb: 1,
     },
+    6: {
+      fontSize: 0,
+      lineHeight: 0,
+      fontWeight: 'normal',
+      fontStyle: 'italic',
+      mt: 1,
+      mb: 1,
+    },
     default: {
       fontSize: 0,
       lineHeight: 0,
@@ -57,3 +66,15 @@ export const Heading = createVariant(
   },
   1,
 );
+
+export const Heading: typeof VariantedHeading = forwardRef(
+  ({ level, ...restProps }: any, ref: any) =>
+    createElement(VariantedHeading, {
+      as: `h${level || '1'}`,
+      ref,
+      level,
+      ...restProps,
+    }),
+) as any;
+
+Heading.displayName = 'Heading';

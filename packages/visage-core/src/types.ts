@@ -75,6 +75,7 @@ export interface VisageComponent<
   TComponentProps,
   TStyleSheet extends ValidStyleSheet
 > {
+  displayName?: string;
   <P>(
     props: { as: React.FunctionComponent<P> } & TComponentProps &
       P &
