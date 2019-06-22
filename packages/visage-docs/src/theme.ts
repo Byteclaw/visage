@@ -5,7 +5,7 @@ export const theme = createNPointTheme({
   baseFontSize: 16,
   baseLineHeightRatio: 1.6,
   baselineGridSize: 8,
-  fontScaleRatio: ratios.perfectFifth,
+  fontScaleRatio: ratios.perfectFourth,
   colors: {
     bodyText: '#444',
     primary: {
