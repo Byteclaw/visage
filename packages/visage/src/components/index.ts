@@ -7,6 +7,7 @@ export * from './Heading';
 export * from './LayerManager';
 export * from './Layout';
 export * from './Link';
+export * from './List';
 export * from './Paragraph';
 export * from './Svg';
 export * from './Text';

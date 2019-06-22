@@ -4,6 +4,8 @@ import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 
+const { Box, Heading } = DSScope;
+
 interface CodeBlockProps {
   className: string;
   children: string;
@@ -19,27 +21,37 @@ export function CodeBlock({
 
   if (live) {
     return (
-      <LiveProvider code={children.trim()} scope={DSScope}>
-        <LivePreview />
-        <LiveEditor />
-        <LiveError />
-      </LiveProvider>
+      <Box styles={{ pb: 2 }}>
+        <LiveProvider code={children.trim()} scope={DSScope}>
+          <Box styles={{ pb: 2 }}>
+            <Heading level={5}>Preview</Heading>
+            <LivePreview />
+          </Box>
+          <Box>
+            <Heading level={5}>Code</Heading>
+            <LiveEditor />
+            <LiveError />
+          </Box>
+        </LiveProvider>
+      </Box>
     );
   }
 
   return (
-    <Highlight {...defaultProps} code={children.trim()} language={language}>
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={{ ...style, padding: '20px' }}>
-          {tokens.map((line, i) => (
-            <div key={i} {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token, key })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
+    <Box styles={{ py: 2 }}>
+      <Highlight {...defaultProps} code={children.trim()} language={language}>
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <pre className={className} style={{ ...style, padding: '20px' }}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line, key: i })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
+    </Box>
   );
 }

@@ -16,7 +16,7 @@ export function Layout({ children }: Props) {
         <Text styles={{ fontSize: 2, lineHeight: 2 }}>Visage</Text>
       </Header>
       <Container>
-        <Column styles={{ minWidth: 150, maxWidth: 300 }}>
+        <Column as="nav" styles={{ width: '16rem' }}>
           <Sidebar />
         </Column>
         <Column styles={{ width: '100%', '& > div': { width: '100%' } }}>
