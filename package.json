@@ -4,6 +4,7 @@
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "build": "tsc -b .",
+    "build:docs": "lerna run build --scope @byteclaw/visage-docs",
     "build:watch": "tsc -b . --watch",
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",
     "lint-staged": "lint-staged",
