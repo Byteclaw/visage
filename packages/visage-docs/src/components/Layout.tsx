@@ -1,6 +1,7 @@
+import { Column, Container, Header, Svg, Text } from '@byteclaw/visage';
 import React, { Fragment, ReactNode } from 'react';
+// @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
-import { Column, Container, Header, Svg, Text } from '../../../visage/src';
 import { Sidebar } from './Sidebar';
 
 interface Props {

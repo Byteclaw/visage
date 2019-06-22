@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
-import { ResponsiveDesignSystem, Heading, Paragraph } from '../../visage/src';
+import { ResponsiveDesignSystem, Heading, Paragraph } from '@byteclaw/visage';
 import { CodeBlock, Layout } from './components';
 import { theme } from './theme';
 

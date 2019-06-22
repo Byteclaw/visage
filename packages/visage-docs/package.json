@@ -18,6 +18,7 @@
     "gatsby": "^2.5.2",
     "gatsby-mdx": "^0.6.3",
     "gatsby-plugin-emotion": "^4.0.6",
+    "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-plugin-typescript": "^2.0.14",

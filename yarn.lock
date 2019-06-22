@@ -6978,6 +6978,13 @@ gatsby-mdx@^0.6.3:
     unist-util-remove "^1.0.1"
     unist-util-visit "^1.4.0"
 
+gatsby-plugin-alias-imports@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-alias-imports/-/gatsby-plugin-alias-imports-1.0.5.tgz#44c0856d77acb74b58b89ec725dadd8f5d5b327d"
+  integrity sha512-q58JrSjuVNh4NApamqElR0zqwm55FOb9vFAVb2i2ftPRu0uYzWJkbOz2IN3vSw7a+5PmGzX7VL8XDFXlNHrMNA==
+  dependencies:
+    "@babel/runtime" "^7.2.0"
+
 gatsby-plugin-emotion@^4.0.6:
   version "4.0.7"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-emotion/-/gatsby-plugin-emotion-4.0.7.tgz#370c6a723a2aef0d88d837361aeea6ac6e6b4598"

@@ -1,5 +1,5 @@
+import { Link } from '@byteclaw/visage';
 import React from 'react';
-import { Link } from '../../../visage/src';
 
 export function Sidebar() {
   return (

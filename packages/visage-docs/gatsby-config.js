@@ -1,3 +1,5 @@
+const { resolve } = require('path');
+
 module.exports = {
   siteMetadata: {
     title: 'Visage',
@@ -8,6 +10,17 @@ module.exports = {
   },
   __experimentalThemes: [],
   plugins: [
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          '@byteclaw/visage-core': resolve(__dirname, '../visage-core/src'),
+          '@byteclaw/visage-utils': resolve(__dirname, '../visage-utils/src'),
+          '@byteclaw/visage': resolve(__dirname, '../visage/src'),
+        },
+        extensions: ['ts', 'tsx', 'js', 'jsx'],
+      },
+    },
     'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-svgr',

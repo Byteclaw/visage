@@ -1,5 +1,5 @@
 import color from 'color';
-import { createNPointTheme, ratios } from '../../visage/src';
+import { createNPointTheme, ratios } from '@byteclaw/visage';
 
 export const theme = createNPointTheme({
   baseFontSize: 16,

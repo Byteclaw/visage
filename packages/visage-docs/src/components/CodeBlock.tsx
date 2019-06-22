@@ -2,7 +2,7 @@
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import React from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import * as DSScope from '../../../visage/src';
+import * as DSScope from '@byteclaw/visage';
 
 interface CodeBlockProps {
   className: string;
