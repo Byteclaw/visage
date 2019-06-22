@@ -1,6 +1,7 @@
 import React, {
   createContext,
   cloneElement,
+  Fragment,
   ReactElement,
   ReactNode,
   useCallback,
@@ -109,12 +110,14 @@ export function List({
   });
 
   return cloneElement(container, {
-    children: [
-      heading,
-      <ListDepthContext.Provider value={depth + 1}>
-        {listItems}
-      </ListDepthContext.Provider>,
-    ],
+    children: (
+      <Fragment>
+        {heading}
+        <ListDepthContext.Provider value={depth + 1}>
+          {listItems}
+        </ListDepthContext.Provider>
+      </Fragment>
+    ),
   });
 }
 
@@ -151,12 +154,14 @@ export function CollapsibleList({
   }
 
   return cloneElement(container, {
-    children: [
-      heading,
-      toggle,
-      <ListDepthContext.Provider value={depth + 1}>
-        {listItems}
-      </ListDepthContext.Provider>,
-    ],
+    children: (
+      <Fragment>
+        {heading}
+        {toggle}
+        <ListDepthContext.Provider value={depth + 1}>
+          {listItems}
+        </ListDepthContext.Provider>
+      </Fragment>
+    ),
   });
 }
