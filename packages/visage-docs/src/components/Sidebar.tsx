@@ -57,7 +57,7 @@ export function Sidebar() {
         <ListItemRouteLink to="/">Core</ListItemRouteLink>
       </ListItem>
       <ListItem>
-        <ListItemRouteLink to="/">Utilities</ListItemRouteLink>
+        <ListItemRouteLink to="/utilities">Utilities</ListItemRouteLink>
       </ListItem>
     </List>
   );
