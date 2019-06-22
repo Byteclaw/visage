@@ -8,6 +8,6 @@ export const Paragraph = createComponent('p', {
     lineHeight: 0,
     p: 0,
     mx: 0,
-    my: 1,
+    my: 2,
   },
 });
