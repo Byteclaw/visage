@@ -3,7 +3,6 @@
   "scripts": {
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "postinstall": "npm run build",
     "build": "tsc -b .",
     "build:watch": "tsc -b . --watch",
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",

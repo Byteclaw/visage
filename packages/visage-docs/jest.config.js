@@ -11,7 +11,6 @@ module.exports = {
     '!**/.cache/**',
   ],
   rootDir: __dirname,
-  setupFilesAfterEnv: ['react-testing-library/cleanup-after-each'],
   testMatch: [
     '**/src/**/__tests__/**/*.test.ts',
     '**/src/**/__tests__/**/*.test.tsx',
