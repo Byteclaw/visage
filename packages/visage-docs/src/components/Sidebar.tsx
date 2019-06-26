@@ -49,6 +49,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/box">Box</ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/checkbox">
+                  Checkbox
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleList>
           )}
         </Match>
