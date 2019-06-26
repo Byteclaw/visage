@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
-import React from 'react';
+import React, { Fragment } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
@@ -8,6 +8,7 @@ import * as Utilities from '@byteclaw/visage-utils';
 
 const { Box, Heading } = DSScope;
 const Scope = {
+  Fragment,
   ...DSScope,
   ...Core,
   ...Utilities,
