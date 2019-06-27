@@ -54,6 +54,11 @@ export function Sidebar() {
                   Checkbox
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/text-input">
+                  TextInput
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleList>
           )}
         </Match>

@@ -6,8 +6,14 @@ import React from 'react';
 export { ratios };
 
 export interface StyleProps extends React.CSSProperties {
-  /** Height based on line height */
-  linedHeight?: string | number;
+  /**
+   * Use same value as for line height to set a height of an element
+   */
+  linedHeight?: number | string;
+  /**
+   * Use same value as for line height to set a width of an element
+   */
+  linedWidth?: number | string;
   m?: string | number;
   my?: string | number;
   mx?: string | number;
@@ -20,6 +26,8 @@ export interface StyleProps extends React.CSSProperties {
   px?: string | number;
   pb?: string | number;
   pl?: string | number;
+  plOffset?: string | number;
+  prOffset?: string | number;
   pr?: string | number;
   pt?: string | number;
 }
@@ -114,10 +122,18 @@ export function createNPointTheme(settings: NPointThemeSettings) {
         format: 'px',
         resolver: 'modularLineHeight',
       },
+      /**
+       * Calculates a height based similarly to lineHeight
+       */
       linedHeight: {
         format: 'px',
         resolver: 'modularLineHeight',
         outputProps: ['height'],
+      },
+      linedWidth: {
+        format: 'px',
+        resolver: 'modularLineHeight',
+        outputProps: ['width'],
       },
       m: { format: 'px', resolver: 'gridSize', outputProps: ['margin'] },
       margin: { format: 'px', resolver: 'gridSize' },
@@ -139,6 +155,9 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       ml: { format: 'px', resolver: 'gridSize', outputProps: ['marginLeft'] },
       mr: { format: 'px', resolver: 'gridSize', outputProps: ['marginRight'] },
       mt: { format: 'px', resolver: 'gridSize', outputProps: ['marginTop'] },
+      outlineColor: {
+        themeKey: 'colors',
+      },
       p: { format: 'px', resolver: 'gridSize', outputProps: ['padding'] },
       padding: { format: 'px', resolver: 'gridSize' },
       py: {
@@ -164,6 +183,16 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       pr: { format: 'px', resolver: 'gridSize', outputProps: ['paddingRight'] },
       pt: { format: 'px', resolver: 'gridSize', outputProps: ['paddingTop'] },
       stroke: { themeKey: 'colors' },
+      plOffset: {
+        format: 'px',
+        resolver: 'modularLineHeight',
+        outputProps: ['paddingLeft'],
+      },
+      prOffset: {
+        format: 'px',
+        resolver: 'modularLineHeight',
+        outputProps: ['paddingRight'],
+      },
     },
     theme: settings,
   });

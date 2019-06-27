@@ -51,7 +51,7 @@ const CheckboxLabel = createVariant(
         width: '1em',
       },
       ':focus::before': {
-        borderColor: 'red',
+        borderColor: 'blue',
         borderWidth: '2px',
       },
       display: 'flex',

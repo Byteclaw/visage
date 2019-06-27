@@ -12,3 +12,4 @@ export * from './List';
 export * from './Paragraph';
 export * from './Svg';
 export * from './Text';
+export * from './TextInput';

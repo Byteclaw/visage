@@ -6,13 +6,22 @@ import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
 import * as Utilities from '@byteclaw/visage-utils';
 
-const { Box, Heading } = DSScope;
+const { Box, Flex, createComponent } = DSScope;
 const Scope = {
   Fragment,
   ...DSScope,
   ...Core,
   ...Utilities,
 };
+
+const EditorError = createComponent(LiveError, {
+  defaultStyles: {
+    backgroundColor: 'red',
+    color: 'white',
+    m: 0,
+    p: 1,
+  },
+});
 
 interface CodeBlockProps {
   className: string;
@@ -31,23 +40,23 @@ export function CodeBlock({
 
   if (live) {
     return (
-      <Box styles={{ pb: 2 }}>
+      <Flex styles={{ mb: 2 }}>
         <LiveProvider
           code={children.trim()}
           transformCode={stringify ? code => `'' + ${code}` : undefined}
           scope={Scope}
         >
-          <Box styles={{ pb: 2 }}>
-            <Heading level={5}>Preview</Heading>
+          <Box styles={{ width: ['100%', '50%', '40%'] }}>
             <LivePreview />
           </Box>
-          <Box>
-            <Heading level={5}>Code</Heading>
+          <Box
+            styles={{ backgroundColor: 'black', width: ['100%', '50%', '60%'] }}
+          >
             <LiveEditor />
-            <LiveError />
+            <EditorError />
           </Box>
         </LiveProvider>
-      </Box>
+      </Flex>
     );
   }
 
