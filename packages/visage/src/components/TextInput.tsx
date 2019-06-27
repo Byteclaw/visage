@@ -29,6 +29,7 @@ const InputBase = createVariant(
       borderWidth: '1px',
       background: 'none',
       color: 'inherit',
+      fontFamily: 'inherit',
       fontSize: 'inherit',
       lineHeight: 'inherit',
       outline: '2px solid transparent',
