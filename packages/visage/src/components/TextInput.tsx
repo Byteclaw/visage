@@ -16,6 +16,7 @@ const InputExtraElement = createComponent('div', {
     height: '100%',
     justifyContent: 'center',
     position: 'absolute',
+    overflow: 'hidden',
     top: 0,
   },
 });
