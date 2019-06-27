@@ -14,6 +14,7 @@ type MakeResponsiveStyleSheet<TStyleSheet extends ValidStyleSheet> = {
   [K in keyof TStyleSheet]:
     | TStyleSheet[K]
     | null
+    | undefined
     | (string | number | null | undefined | TStyleSheet[K])[]
 };
 
@@ -24,6 +25,7 @@ export type StyleSheet<
     | string
     | number
     | null
+    | undefined
     | (string | number | null | undefined)[]
     | MakeResponsiveStyleSheet<TStyleSheet>;
 };
@@ -70,6 +72,13 @@ export type VisageComponentProps<
 } & React.ComponentProps<TDefaultComponent> &
   React.ComponentProps<TOverrideComponent> &
   StyleProps<TStyleSheet>;
+
+export type ExtractVisageComponentProps<T> = T extends VisageComponent<
+  infer P,
+  infer S
+>
+  ? P & StyleProps<S>
+  : {};
 
 export interface VisageComponent<
   TComponentProps,

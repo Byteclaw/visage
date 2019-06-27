@@ -1,10 +1,9 @@
-import React, {
-  ReactElement,
-  ReactNode,
-  ComponentPropsWithRef,
-  useMemo,
-} from 'react';
-import { StyleSheet } from '@byteclaw/visage-core';
+import React, { ReactElement, ReactNode, useMemo } from 'react';
+import {
+  StyleSheet,
+  ExtractVisageComponentProps,
+  VisageComponent,
+} from '@byteclaw/visage-core';
 import { createComponent, createVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
@@ -80,14 +79,18 @@ const InputBox = createComponent('div', {
   defaultStyles: inputBoxDefaultStyles,
 });
 
-interface Props extends ComponentPropsWithRef<typeof InputBase> {
+interface Props extends ExtractVisageComponentProps<typeof TextInputBase> {
   append?: ReactElement;
+  disabled?: boolean;
   invalid?: boolean;
   prepend?: ReactElement;
   extra?: ReactNode;
 }
 
-export function TextInput({
+export const TextInput: VisageComponent<
+  Props,
+  StyleProps
+> = function TextInput({
   append,
   disabled,
   prepend,
@@ -133,4 +136,4 @@ export function TextInput({
       {extra}
     </InputBox>
   );
-}
+};
