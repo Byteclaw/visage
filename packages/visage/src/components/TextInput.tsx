@@ -21,29 +21,29 @@ const InputExtraElement = createComponent('div', {
   },
 });
 
+const TextInputBase = createComponent('input', {
+  displayName: 'TextInputBaseInput',
+  defaultStyles: {
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    background: 'none',
+    color: 'inherit',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    outline: '2px solid transparent',
+    outlineOffset: '-2px',
+    m: 0,
+    py: 1,
+    px: 2,
+    width: '100%',
+  },
+});
+
 const InputBase = createVariant(
-  createComponent('input', {
-    displayName: 'TextInputBaseInput',
-    defaultStyles: {
-      borderColor: 'black',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      background: 'none',
-      color: 'inherit',
-      fontFamily: 'inherit',
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-      outline: '2px solid transparent',
-      outlineOffset: '-2px',
-      m: 0,
-      py: 1,
-      px: 2,
-      width: '100%',
-    },
-  }),
-  'variant',
-  {
-    invalid: {
+  createVariant(TextInputBase, 'isInvalid', {
+    yes: {
       borderColor: 'red',
       borderWidth: '2px',
       focus: {
@@ -55,6 +55,15 @@ const InputBase = createVariant(
         outlineColor: 'blue',
       },
     },
+  }),
+  'isDisabled',
+  {
+    yes: {
+      color: 'grey',
+      cursor: 'not-allowed',
+      outlineColor: 'grey',
+    },
+    default: {},
   },
 );
 
@@ -73,13 +82,14 @@ const InputBox = createComponent('div', {
 
 interface Props extends ComponentPropsWithRef<typeof InputBase> {
   append?: ReactElement;
+  invalid?: boolean;
   prepend?: ReactElement;
   extra?: ReactNode;
-  invalid?: boolean;
 }
 
 export function TextInput({
   append,
+  disabled,
   prepend,
   extra,
   styles: outerStyles,
@@ -106,11 +116,13 @@ export function TextInput({
         </InputExtraElement>
       ) : null}
       <InputBase
+        disabled={disabled}
+        isDisabled={disabled ? 'yes' : undefined}
+        isInvalid={invalid ? 'yes' : undefined}
         styles={{
           plOffset: prepend ? styles.lineHeight : undefined,
           prOffset: append ? styles.lineHeight : undefined,
         }}
-        variant={invalid ? 'invalid' : undefined}
         {...restProps}
       />
       {append ? (
