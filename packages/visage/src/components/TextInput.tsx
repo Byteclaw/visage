@@ -11,22 +11,12 @@ import { StyleProps } from '../createNPointTheme';
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
   defaultStyles: {
-    display: 'grid',
-    height: '100%',
-    position: 'absolute',
-    py: 1,
-    '& > *': {
-      gridArea: '1 / 1 / 2 / 2',
-    },
-  },
-});
-
-const InputExtraElementContent = createComponent('div', {
-  displayName: 'InputExtraElementContent',
-  defaultStyles: {
-    display: 'flex',
     alignItems: 'center',
+    display: 'flex',
+    height: '100%',
     justifyContent: 'center',
+    position: 'absolute',
+    top: 0,
   },
 });
 
@@ -79,16 +69,6 @@ const InputBox = createComponent('div', {
   defaultStyles: inputBoxDefaultStyles,
 });
 
-const prependStyles: StyleSheet<StyleProps> = {
-  left: 0,
-  top: 0,
-};
-
-const appendStyles: StyleSheet<StyleProps> = {
-  right: 0,
-  top: 0,
-};
-
 interface Props extends ComponentPropsWithRef<typeof InputBase> {
   append?: ReactElement;
   prepend?: ReactElement;
@@ -119,9 +99,8 @@ export function TextInput({
   return (
     <InputBox>
       {prepend ? (
-        <InputExtraElement styles={prependStyles}>
-          <svg viewBox="0 0 1 1" style={{ height: '100%' }} />
-          <InputExtraElementContent>{prepend}</InputExtraElementContent>
+        <InputExtraElement styles={{ left: 0, linedWidth: styles.lineHeight }}>
+          {prepend}
         </InputExtraElement>
       ) : null}
       <InputBase
@@ -133,9 +112,8 @@ export function TextInput({
         {...restProps}
       />
       {append ? (
-        <InputExtraElement styles={appendStyles}>
-          <svg viewBox="0 0 1 1" style={{ height: '100%' }} />
-          <InputExtraElementContent>{append}</InputExtraElementContent>
+        <InputExtraElement styles={{ linedWidth: styles.lineHeight, right: 0 }}>
+          {append}
         </InputExtraElement>
       ) : null}
       {extra}
