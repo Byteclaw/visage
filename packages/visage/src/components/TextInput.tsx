@@ -59,7 +59,6 @@ const InputBase = createVariant(
   {
     yes: {
       color: 'grey',
-      cursor: 'not-allowed',
       outlineColor: 'grey',
     },
     default: {},
