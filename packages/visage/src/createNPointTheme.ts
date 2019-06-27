@@ -155,6 +155,9 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       ml: { format: 'px', resolver: 'gridSize', outputProps: ['marginLeft'] },
       mr: { format: 'px', resolver: 'gridSize', outputProps: ['marginRight'] },
       mt: { format: 'px', resolver: 'gridSize', outputProps: ['marginTop'] },
+      outlineColor: {
+        themeKey: 'colors',
+      },
       p: { format: 'px', resolver: 'gridSize', outputProps: ['padding'] },
       padding: { format: 'px', resolver: 'gridSize' },
       py: {
