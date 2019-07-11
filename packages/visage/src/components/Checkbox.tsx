@@ -12,7 +12,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { createComponent, createVariant } from '../core';
+import { createBooleanVariant, createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
 const CheckboxControl = createComponent('input', {
@@ -31,60 +31,81 @@ const CheckboxControl = createComponent('input', {
   },
 });
 
-const CheckboxLabel = createVariant(
-  createComponent('label', {
-    displayName: 'CheckboxLabel',
-    defaultStyles: {
-      '&::before': {
-        content: '""',
-        alignSelf: 'center',
-        borderStyle: 'solid',
-        borderColor: 'black',
-        borderWidth: '1px',
-        display: 'inline-flex',
-        height: '1em',
-        m: 0,
-        mr: 1,
-        overflow: 'hidden',
-        p: 0,
-        position: 'relative',
-        width: '1em',
-      },
-      ':focus::before': {
-        borderColor: 'blue',
-        borderWidth: '2px',
-      },
-      display: 'flex',
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-      cursor: 'pointer',
-      position: 'relative',
-      outline: 'none',
-      userSelect: 'none',
-    },
-  }),
-  'variant',
+const labelCheckedVariant = createBooleanVariant('checked', {
+  '&::after': {
+    background: 'none',
+    borderLeft: '2px solid black',
+    borderBottom: '2px solid black',
+    content: '""',
+    height: '.3em',
+    left: '0px',
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%) translateX(33%) rotate(-45deg)',
+    transformOrigin: 'center',
+    width: '.6em',
+  },
+});
+
+const labelDisabledVariant = createBooleanVariant(
+  'disabled',
   {
-    checked: {
-      '&::after': {
-        background: 'none',
-        borderLeft: '2px solid black',
-        borderBottom: '2px solid black',
-        content: '""',
-        height: '.3em',
-        left: '0px',
-        position: 'absolute',
-        top: '50%',
-        transform: 'translateY(-50%) translateX(33%) rotate(-45deg)',
-        transformOrigin: 'center',
-        width: '.6em',
-      },
+    color: 'grey',
+    '&::before': {
+      borderColor: 'grey',
     },
-    default: {},
+  },
+  {
+    ':focus::before': {
+      borderColor: 'blue',
+      borderWidth: '2px',
+    },
   },
 );
 
-const CheckboxLabelText = createVariant(
+const CheckboxLabel = labelDisabledVariant(
+  labelCheckedVariant(
+    createComponent('label', {
+      displayName: 'CheckboxLabel',
+      defaultStyles: {
+        '&::before': {
+          content: '""',
+          alignSelf: 'center',
+          borderStyle: 'solid',
+          borderColor: 'black',
+          borderWidth: '1px',
+          display: 'inline-flex',
+          height: '1em',
+          m: 0,
+          mr: 1,
+          overflow: 'hidden',
+          p: 0,
+          position: 'relative',
+          width: '1em',
+        },
+        display: 'flex',
+        fontSize: 'inherit',
+        lineHeight: 'inherit',
+        cursor: 'pointer',
+        position: 'relative',
+        outline: 'none',
+        userSelect: 'none',
+      },
+    }),
+  ),
+);
+
+const labelTextHiddenVariant = createBooleanVariant('hidden', {
+  border: '0',
+  clip: 'rect(0, 0, 0, 0)',
+  overflow: 'hidden',
+  margin: '-1px',
+  padding: '0px',
+  whiteSpace: 'nowrap',
+  width: '1px',
+});
+
+const CheckboxLabelText = labelTextHiddenVariant(
   createComponent('span', {
     displayName: 'CheckboxLabelText',
     defaultStyles: {
@@ -92,20 +113,6 @@ const CheckboxLabelText = createVariant(
       lineHeight: 'inherit',
     },
   }),
-  'variant',
-  {
-    invisible: {
-      border: '0',
-      clip: 'rect(0, 0, 0, 0)',
-      overflow: 'hidden',
-      margin: '-1px',
-      padding: '0px',
-      visibility: 'hidden',
-      whiteSpace: 'nowrap',
-      width: '1px',
-    },
-    default: {},
-  },
 );
 
 const CheckboxWrapper = createComponent('div', {
@@ -125,10 +132,12 @@ const CheckboxWrapper = createComponent('div', {
 interface CheckboxProps extends VisageStyleProps<StyleProps> {
   checked?: boolean;
   defaultChecked?: boolean;
+  disabled?: boolean;
   hiddenLabel?: boolean;
   label: ReactNode;
-  name: string;
+  name?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  readOnly?: boolean;
   wrapper?: ReactElement;
 }
 
@@ -137,11 +146,13 @@ export const Checkbox: VisageComponent<
   StyleProps
 > = function Checkbox({
   defaultChecked,
+  disabled,
   checked,
   hiddenLabel = false,
   label,
   name,
   onChange,
+  readOnly,
   styles,
 }: CheckboxProps) {
   const checkedValue = checked != null ? checked : !!defaultChecked;
@@ -163,7 +174,10 @@ export const Checkbox: VisageComponent<
     },
     [inputRef],
   );
+  const isMutable = !disabled && !readOnly;
   const ariaChecked = isChecked.toString() as 'true' | 'false';
+  const ariaDisabled = (!!disabled).toString() as 'true' | 'false';
+  const ariaReadOnly = (!!readOnly).toString() as 'true' | 'false';
 
   // if value from outside has changed, set the internal state
   if (checkedRef.current !== checkedValue) {
@@ -173,25 +187,29 @@ export const Checkbox: VisageComponent<
   return (
     <CheckboxWrapper styles={styles}>
       <CheckboxControl
-        aria-checked={ariaChecked}
-        defaultChecked={isChecked}
-        checked={isChecked}
+        defaultChecked={isMutable ? undefined : isChecked}
+        disabled={disabled}
+        checked={isMutable ? isChecked : undefined}
         id={id}
         name={name}
         onChange={onChange}
         ref={inputRef}
+        readOnly={readOnly}
         type="checkbox"
       />
       <CheckboxLabel
+        aria-checked={ariaChecked}
+        aria-disabled={ariaDisabled}
+        aria-readonly={ariaReadOnly}
+        checked={isChecked}
+        disabled={disabled}
         htmlFor={id}
-        tabIndex={0}
-        onKeyDown={onKeyDown}
-        onClick={onClick}
-        variant={isChecked ? 'checked' : undefined}
+        role="checkbox"
+        tabIndex={disabled ? -1 : 0}
+        onKeyDown={!disabled && !readOnly ? onKeyDown : undefined}
+        onClick={!disabled && !readOnly ? onClick : undefined}
       >
-        <CheckboxLabelText variant={hiddenLabel ? 'invisible' : undefined}>
-          {label}
-        </CheckboxLabelText>
+        <CheckboxLabelText hidden={hiddenLabel}>{label}</CheckboxLabelText>
       </CheckboxLabel>
     </CheckboxWrapper>
   );
