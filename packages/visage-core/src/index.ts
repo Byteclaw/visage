@@ -1,3 +1,4 @@
+export * from './createBooleanVariant';
 export * from './createComponent';
 export * from './createTheme';
 export * from './createVariant';

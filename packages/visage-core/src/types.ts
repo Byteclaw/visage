@@ -211,3 +211,33 @@ export interface VariantedComponentCreator<TStyleProps extends {}> {
     TStyleProps
   >;
 }
+
+export interface BooleanVariantCreator<TStyleProps extends {}> {
+  <TPropName extends keyof any>(
+    propName: TPropName,
+    onStyles: StyleSheet<TStyleProps>,
+    offStyles?: StyleSheet<TStyleProps>,
+  ): BooleanVariantedComponentCreator<TStyleProps, TPropName>;
+}
+
+export interface BooleanVariantedComponentCreator<
+  TStyleProps extends {},
+  TPropName extends keyof any
+> {
+  <P>(component: React.FunctionComponent<P>): VisageComponent<
+    P & { [K in TPropName]?: boolean },
+    TStyleProps
+  >;
+  <P>(component: React.ComponentClass<P>): VisageComponent<
+    P & { [K in TPropName]?: boolean },
+    TStyleProps
+  >;
+  <P>(component: VisageComponent<P, any>): VisageComponent<
+    P & { [K in TPropName]?: boolean },
+    TStyleProps
+  >;
+  <C extends keyof JSX.IntrinsicElements>(component: C): VisageComponent<
+    JSX.IntrinsicElements[C] & { [K in TPropName]?: boolean },
+    TStyleProps
+  >;
+}
