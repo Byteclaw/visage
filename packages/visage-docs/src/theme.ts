@@ -27,6 +27,22 @@ export const theme = createNPointTheme({
       offset: 0,
     },
     primaryText: 'white',
+    grey: {
+      values: [
+        '#ffffff',
+        '#e6e6e6',
+        '#cccccc',
+        '#b3b3b3',
+        '#999999',
+        '#808080',
+        '#666666',
+        '#4d4d4d',
+        '#333333',
+        '#1a1a1a',
+        '#000000',
+      ],
+      offset: 0,
+    },
   },
   fontFamilies: {
     body: 'Lato,serif',

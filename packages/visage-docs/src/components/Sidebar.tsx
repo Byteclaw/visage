@@ -1,5 +1,6 @@
 import {
   CollapsibleList,
+  Divider,
   List,
   ListItem,
   ListItemLink,
@@ -73,6 +74,12 @@ export function Sidebar() {
       </ListItem>
       <ListItem>
         <ListItemRouteLink to="/utilities">Utilities</ListItemRouteLink>
+      </ListItem>
+      <Divider />
+      <ListItem>
+        <ListItemRouteLink to="https://github.com/byteclaw/visage">
+          Github
+        </ListItemRouteLink>
       </ListItem>
     </List>
   );

@@ -13,7 +13,8 @@
     "test:ci": "jest --ci --coverage"
   },
   "resolutions": {
-    "@types/react": "^16.8.14"
+    "@types/react": "^16.8.14",
+    "@types/react-dom": "^16.8.4"
   },
   "devDependencies": {
     "@babel/core": "7.4.4",
