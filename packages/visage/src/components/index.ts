@@ -10,6 +10,7 @@ export * from './Layout';
 export * from './Link';
 export * from './List';
 export * from './Paragraph';
+export * from './Radio';
 export * from './Svg';
 export * from './Text';
 export * from './TextInput';
