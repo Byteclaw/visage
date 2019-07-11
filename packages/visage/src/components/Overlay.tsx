@@ -12,15 +12,14 @@ const OverlayDiv = createComponent('div', {
     right: 0,
     top: 0,
     width: '100vw',
-    zIndex: 33,
   },
 });
 
-interface Props {
+interface OverlayProps {
   containerId: string;
 }
 
-export function Overlay({ containerId, ...rest }: Props) {
+export function Overlay({ containerId, ...rest }: OverlayProps) {
   return (
     <Portal containerId={containerId}>
       <OverlayDiv {...rest} />

@@ -7,7 +7,7 @@ export const Divider = createComponent('hr', {
     borderRight: 0,
     borderTop: 0,
     display: 'block',
-    borderColor: 'greyLight',
+    borderColor: 'grey.4',
     borderStyle: 'solid',
     minHeight: '2px',
     mx: 0,

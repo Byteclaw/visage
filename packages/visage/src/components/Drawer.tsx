@@ -115,14 +115,16 @@ export const Drawer: VisageComponent<
   }
 
   useEffect(() => {
-    if (onClose != null) {
+    if (onClose != null && typeof document !== 'undefined') {
       document.addEventListener('keyup', handleEscKey);
       document.addEventListener('click', handleDocumentClick);
     }
 
     return () => {
-      document.removeEventListener('keyup', handleEscKey);
-      document.removeEventListener('click', handleDocumentClick);
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('keyup', handleEscKey);
+        document.removeEventListener('click', handleDocumentClick);
+      }
     };
   }, []);
 
@@ -134,22 +136,24 @@ export const Drawer: VisageComponent<
   return (
     <Portal containerId={containerId}>
       <LayerManager>
-        <Fixed
-          onClick={handleClickPropagation}
-          styles={{
-            height: ['100%'],
-            width: ['100%', '75%', '50%'],
-            ...memoizedTransform,
-            zIndex: zIndex + 2,
-            ...styles,
-          }}
-          {...rest}
-        />
+        <LayerManager>
+          <Fixed
+            onClick={handleClickPropagation}
+            styles={{
+              height: ['100%'],
+              width: ['100%', '75%', '50%'],
+              ...memoizedTransform,
+              zIndex,
+              ...styles,
+            }}
+            {...rest}
+          />
+        </LayerManager>
         {overlayed ? (
           <Overlay
             {...allOverlayProps}
             containerId={overlayContainerId}
-            styles={{ zIndex: zIndex + 1 }}
+            styles={{ zIndex }}
           />
         ) : null}
       </LayerManager>

@@ -1,18 +1,20 @@
 import { ReactNode, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 
-interface IProps {
+interface PortalProps {
   children: ReactNode;
-  containerId: string;
-  removeOnUnmount: boolean;
+  containerId?: string;
+  removeOnUnmount?: boolean;
 }
 
-export function Portal(props: IProps) {
-  const { containerId, children, removeOnUnmount } = props;
-
+export function Portal({
+  children,
+  containerId = 'portal-root',
+  removeOnUnmount = true,
+}: PortalProps) {
   const portalContainer: null | HTMLDivElement = useMemo(() => {
     if (typeof document !== 'undefined') {
-      let el = document.getElementById(props.containerId);
+      let el = document.getElementById(containerId);
 
       if (el != null) {
         return el as HTMLDivElement;
@@ -45,8 +47,3 @@ export function Portal(props: IProps) {
 
   return createPortal(children, portalContainer);
 }
-
-Portal.defaultProps = {
-  containerId: 'portal-root',
-  removeOnUnmount: true,
-};

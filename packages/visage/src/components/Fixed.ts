@@ -1,7 +1,6 @@
 import { createComponent } from '../core';
-import { Box } from './Box';
 
-export const Fixed = createComponent(Box, {
+export const Fixed = createComponent('div', {
   displayName: 'Fixed',
   defaultStyles: {
     position: 'fixed',
