@@ -55,6 +55,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/radio">
+                  Radio
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/text-input">
                   TextInput
                 </ListItemRouteLink>
