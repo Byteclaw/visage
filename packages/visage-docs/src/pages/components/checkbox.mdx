@@ -5,14 +5,15 @@ import { Fragment } from 'react';
 
 ```jsx live=true
 <Fragment>
-  <Checkbox hiddenLabel label="Checkbox label" name="checkbox-1" />
-  <Checkbox defaultChecked label="Checkbox label" name="checkbox-2" />
-  <Checkbox checked label="Checkbox label" name="checkbox-3" />
+  <Checkbox hiddenLabel label="Checkbox label" />
+  <Checkbox defaultChecked label="Checkbox label" />
+  <Checkbox checked label="Checkbox label" />
   <Checkbox
     label="Checkbox label"
-    name="checkbox-4"
     onChange={e => console.log(e.currentTarget)}
     styles={{ fontSize: 2, lineHeight: 2 }}
   />
+  <Checkbox disabled label="Disabled checkbox" />
+  <Checkbox readOnly label="Read only checkbox" />
 </Fragment>
 ```
