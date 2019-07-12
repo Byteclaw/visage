@@ -7,6 +7,7 @@ import React, { Fragment, ReactNode } from 'react';
 import { useBreakpointDetection } from './hooks';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
+import { LayerManager } from './components/LayerManager';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -41,10 +42,12 @@ export function ResponsiveDesignSystem({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <Fragment>
-        <GlobalReset />
-        {children}
-      </Fragment>
+      <LayerManager>
+        <Fragment>
+          <GlobalReset />
+          {children}
+        </Fragment>
+      </LayerManager>
     </BaseDesignSystem>
   );
 }
