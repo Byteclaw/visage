@@ -1,0 +1,32 @@
+import { Button, Modal } from '@byteclaw/visage';
+import { Fragment } from 'react';
+import { WithState } from '../../components';
+
+# Modal
+
+```jsx live=true
+<WithState defaultValue={false}>
+  {(show, setShow) => {
+    if (!show) {
+      return (
+        <Button onClick={() => setShow(true)} type="button">
+          Show modal
+        </Button>
+      );
+    }
+
+    return (
+      <Modal
+        id="unique-id"
+        label="Closable modal"
+        onClose={e => {
+          console.log(e);
+          setShow(false);
+        }}
+      >
+        Content
+      </Modal>
+    );
+  }}
+</WithState>
+```
