@@ -5,6 +5,7 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
 import * as Utilities from '@byteclaw/visage-utils';
+import { WithState } from './WithState';
 
 const { Box, Flex, createComponent } = DSScope;
 const Scope = {
@@ -12,6 +13,7 @@ const Scope = {
   ...DSScope,
   ...Core,
   ...Utilities,
+  WithState,
 };
 
 const EditorError = createComponent(LiveError, {
