@@ -1,4 +1,4 @@
-import { Column, Container, Drawer, Header, Svg, Text } from '@byteclaw/visage';
+import { Column, Container, Header, Svg, Text } from '@byteclaw/visage';
 import React, { Fragment, ReactNode } from 'react';
 // @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
@@ -23,18 +23,6 @@ export function Layout({ children }: Props) {
           {children}
         </Column>
       </Container>
-      <Drawer
-        open
-        overlayed
-        side="right"
-        styles={{
-          width: '30%',
-          backgroundColor: 'white',
-          boxShadow: '1px 2px 5px 2px rgba(0,0,0,0.5)',
-        }}
-      >
-        f
-      </Drawer>
     </Fragment>
   );
 }
