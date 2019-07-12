@@ -6,6 +6,10 @@ interface LayerManagerProps {
   children: ReactNode;
 }
 
+export function useLayerManager() {
+  return useContext(LayerManagerContext);
+}
+
 export function LayerManager({ children }: LayerManagerProps) {
   const currentZIndex = useContext(LayerManagerContext);
 
