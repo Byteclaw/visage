@@ -51,6 +51,11 @@ export function Sidebar() {
                 <ListItemRouteLink to="/components/box">Box</ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/button">
+                  Button
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/checkbox">
                   Checkbox
                 </ListItemRouteLink>

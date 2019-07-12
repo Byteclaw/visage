@@ -50,5 +50,14 @@ export const Button = createVariant(ButtonBase, 'variant', {
     backgroundColor: 'default',
     borderColor: 'bodyText',
     color: 'bodyText',
+    active: {
+      backgroundColor: 'grey.3',
+    },
+    hover: {
+      backgroundColor: 'grey.1',
+    },
+    focus: {
+      backgroundColor: 'grey.2',
+    },
   },
 });
