@@ -50,6 +50,10 @@ const TabNavigationAnchor = createComponent('a', {
     '&[aria-disabled="false"]:focus': {
       borderColor: 'blue',
     },
+    '&[aria-selected="true"]': {
+      borderBottomColor: 'black',
+      fontWeight: 'bold',
+    },
   },
 });
 
