@@ -40,6 +40,7 @@ const TabNavigationAnchor = createComponent('a', {
     borderColor: 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
+    color: 'bodyText',
     outline: 'none',
     px: 2,
     textDecoration: 'none',
