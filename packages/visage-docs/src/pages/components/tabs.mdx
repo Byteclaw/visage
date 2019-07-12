@@ -1,0 +1,19 @@
+import { Tab, Tabs } from '@byteclaw/visage';
+import { Fragment } from 'react';
+
+# Tabs
+
+```jsx live=true
+<Tabs id="tabs">
+  <Tab label="Tab 1" onClick={e => console.log(e)}>
+    Content 1
+  </Tab>
+  <Tab label="Tab 2" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab disabled label="Tab 3">
+    Content 3
+  </Tab>
+  <Tab label="Tab 4">{() => 'Lazy rendered only if selected'}</Tab>
+</Tabs>
+```

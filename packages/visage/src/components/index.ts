@@ -17,5 +17,6 @@ export * from './Paragraph';
 export * from './Portal';
 export * from './Radio';
 export * from './Svg';
+export * from './Tabs';
 export * from './Text';
 export * from './TextInput';
