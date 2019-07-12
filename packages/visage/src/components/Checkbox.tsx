@@ -33,7 +33,7 @@ const CheckboxControl = createComponent('input', {
 
 const labelCheckedVariant = createBooleanVariant('checked', {
   '&::after': {
-    background: 'none',
+    backgroundColor: 'none',
     borderLeft: '2px solid black',
     borderBottom: '2px solid black',
     content: '""',
@@ -50,9 +50,13 @@ const labelCheckedVariant = createBooleanVariant('checked', {
 const labelDisabledVariant = createBooleanVariant(
   'disabled',
   {
-    color: 'grey',
+    color: 'grey.1',
+    cursor: 'not-allowed',
     '&::before': {
-      borderColor: 'grey',
+      borderColor: 'grey.1',
+    },
+    '&::after': {
+      borderColor: 'grey.1',
     },
   },
   {

@@ -99,7 +99,7 @@ const RadioControl = createComponent('input', {
 
 const labelCheckedVariant = createBooleanVariant('checked', {
   '&::after': {
-    background: 'black',
+    backgroundColor: 'black',
     borderRadius: '50%',
     content: '""',
     height: '.4em',
@@ -115,12 +115,13 @@ const labelCheckedVariant = createBooleanVariant('checked', {
 const labelDisabledVariant = createBooleanVariant(
   'disabled',
   {
-    color: 'grey',
+    color: 'grey.1',
+    cursor: 'not-allowed',
     '&::before': {
-      borderColor: 'grey',
+      borderColor: 'grey.1',
     },
     '&::after': {
-      background: 'grey',
+      backgroundColor: 'grey.1',
     },
   },
   {
