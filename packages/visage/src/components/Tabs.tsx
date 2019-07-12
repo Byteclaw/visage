@@ -165,7 +165,7 @@ export function Tabs({ children, id, selected = 0 }: TabsProps) {
           const isSelected = selectedTab === i;
 
           return (
-            <div
+            <Box
               id={`${id}-tab-panel-${i}`}
               key={i}
               role="tabpanel"
@@ -174,7 +174,7 @@ export function Tabs({ children, id, selected = 0 }: TabsProps) {
               aria-labelledby={`${id}-tab-label-${i}`}
             >
               {typeof tab === 'function' && isSelected ? tab() : tab}
-            </div>
+            </Box>
           );
         })}
       </Box>
