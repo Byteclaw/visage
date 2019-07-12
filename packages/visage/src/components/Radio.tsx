@@ -172,7 +172,7 @@ const labelTextHiddenVariant = createBooleanVariant('hidden', {
   margin: '-1px',
   padding: '0px',
   whiteSpace: 'nowrap',
-  width: '1px',
+  width: '0px',
 });
 
 const RadioLabelText = labelTextHiddenVariant(
