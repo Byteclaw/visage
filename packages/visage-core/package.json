@@ -38,7 +38,7 @@
     "@testing-library/react": "8.0.1",
     "@types/react-is": "^16.7.1",
     "html-tags": "^3.0.0",
-    "microbundle": "^0.11.0",
+    "microbundle": "next",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-is": "^16.8.6",
@@ -48,7 +48,7 @@
   },
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "microbundle",
+    "build": "microbundle --jsx React.createElement",
     "test:types": "tsc -p . --noEmit"
   }
 }

@@ -3,7 +3,6 @@
     "allowJs": false,
     "composite": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
