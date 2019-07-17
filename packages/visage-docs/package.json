@@ -1,11 +1,11 @@
 {
   "name": "@byteclaw/visage-docs",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "private": true,
   "license": "MIT",
   "main": "src/index.ts",
   "dependencies": {
-    "@byteclaw/visage": "0.0.0",
+    "@byteclaw/visage": "^0.1.0-alpha.0",
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
     "@mdx-js/mdx": "^1.0.20",
@@ -18,8 +18,8 @@
     "color": "^3.1.1",
     "gatsby": "^2.5.2",
     "gatsby-mdx": "^0.6.3",
-    "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-alias-imports": "^1.0.5",
+    "gatsby-plugin-emotion": "^4.0.6",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-plugin-typescript": "^2.0.14",
@@ -29,8 +29,8 @@
     "prism-react-renderer": "^0.1.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-live": "^2.1.2",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "react-live": "^2.1.2"
   },
   "devDependencies": {
     "typescript": "^3.4.4"
