@@ -28,6 +28,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "microbundle": "next",
     "rimraf": "2.6.3",

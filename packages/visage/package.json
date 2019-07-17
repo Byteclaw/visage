@@ -26,6 +26,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@byteclaw/visage-core": "^0.1.0-alpha.0",
     "@byteclaw/visage-utils": "^0.1.0-alpha.0",
