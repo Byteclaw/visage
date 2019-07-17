@@ -7,7 +7,7 @@
 
 ![@byteclaw/visage version](https://img.shields.io/npm/v/@byteclaw/visage.svg?style=flat-square&label=@byteclaw/visage)
 ![@byteclaw/visage-core version](https://img.shields.io/npm/v/@byteclaw/visage-core.svg?style=flat-square&label=@byteclaw/visage-core)
-![@byteclaw/visage-utils version](https://img.shields.io/npm/v/@byteclaw/visage-components.svg?style=flat-square&label=@byteclaw/visage-utils)
+![@byteclaw/visage-utils version](https://img.shields.io/npm/v/@byteclaw/visage-utils.svg?style=flat-square&label=@byteclaw/visage-utils)
 
 ## Contributors
 
