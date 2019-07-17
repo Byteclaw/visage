@@ -1,8 +1,18 @@
 {
   "npmClient": "yarn",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "README.md",
+        "jest.config.js",
+        "tsconfig.json",
+        "*.test.ts",
+        "*.test.tsx",
+        "packages/visage-docs/**"
+      ]
+    }
+  },
   "version": "independent",
   "useWorkspaces": true
 }
