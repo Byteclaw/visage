@@ -16,6 +16,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
     'prettier/prettier': 'error',
+    'react/no-multi-comp': 'off',
     'react/prop-types': 'off',
     'no-continue': 'off',
     'no-nested-ternary': 'off',

@@ -9,7 +9,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { createComponent, createVariant } from '../core';
+import { createComponent, createBooleanVariant } from '../core';
 
 const ListDepthContext = createContext(0);
 
@@ -23,7 +23,12 @@ export const ListContainer = createComponent('section', {
     width: '100%',
   },
 });
-export const ListItemsContainer = createVariant(
+export const ListItemsContainer = createBooleanVariant('collapsed', {
+  onStyles: {
+    maxHeight: 0,
+    visibility: 'hidden',
+  },
+})(
   createComponent('ul', {
     displayName: 'ListItemsContainer',
     defaultStyles: {
@@ -37,14 +42,6 @@ export const ListItemsContainer = createVariant(
       width: 'auto',
     },
   }),
-  'collapsed',
-  {
-    true: {
-      maxHeight: 0,
-      visibility: 'hidden',
-    },
-    default: {},
-  },
 );
 export const ListItem = createComponent('li', {
   displayName: 'ListItem',

@@ -215,8 +215,12 @@ export interface VariantedComponentCreator<TStyleProps extends {}> {
 export interface BooleanVariantCreator<TStyleProps extends {}> {
   <TPropName extends keyof any>(
     propName: TPropName,
-    onStyles: StyleSheet<TStyleProps>,
-    offStyles?: StyleSheet<TStyleProps>,
+    options: {
+      /** Should strip the prop from underlying component? default is true */
+      stripProp?: boolean;
+      onStyles: StyleSheet<TStyleProps>;
+      offStyles?: StyleSheet<TStyleProps>;
+    },
   ): BooleanVariantedComponentCreator<TStyleProps, TPropName>;
 }
 

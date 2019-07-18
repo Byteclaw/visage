@@ -4,7 +4,7 @@ import {
   ExtractVisageComponentProps,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import { createComponent, createVariant } from '../core';
+import { createComponent, createBooleanVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
 const InputExtraElement = createComponent('div', {
@@ -40,30 +40,29 @@ const TextInputBase = createComponent('input', {
   },
 });
 
-const InputBase = createVariant(
-  createVariant(TextInputBase, 'isInvalid', {
-    yes: {
-      borderColor: 'red',
-      borderWidth: '2px',
-      focus: {
-        outlineColor: 'red',
-      },
-    },
-    default: {
-      focus: {
-        outlineColor: 'blue',
-      },
-    },
-  }),
-  'isDisabled',
-  {
-    yes: {
-      color: 'grey',
-      outlineColor: 'grey',
-    },
-    default: {},
+const inputBaseDisabled = createBooleanVariant('disabled', {
+  onStyles: {
+    color: 'grey.1',
+    outlineColor: 'grey.1',
   },
-);
+  stripProp: false,
+});
+const inputBaseInvalid = createBooleanVariant('invalid', {
+  onStyles: {
+    borderColor: 'red',
+    borderWidth: '2px',
+    '&:focus': {
+      outlineColor: 'blue',
+    },
+  },
+  offStyles: {
+    '&:focus': {
+      outlineColor: 'blue',
+    },
+  },
+});
+
+const InputBase = inputBaseInvalid(inputBaseDisabled(TextInputBase));
 
 const inputBoxDefaultStyles: StyleSheet<StyleProps> = {
   border: 'none',
@@ -119,8 +118,7 @@ export const TextInput: VisageComponent<
       ) : null}
       <InputBase
         disabled={disabled}
-        isDisabled={disabled ? 'yes' : undefined}
-        isInvalid={invalid ? 'yes' : undefined}
+        invalid={invalid}
         styles={{
           plOffset: prepend ? styles.lineHeight : undefined,
           prOffset: append ? styles.lineHeight : undefined,

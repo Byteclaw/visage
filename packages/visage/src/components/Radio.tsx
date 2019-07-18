@@ -98,23 +98,24 @@ const RadioControl = createComponent('input', {
 });
 
 const labelCheckedVariant = createBooleanVariant('checked', {
-  '&::after': {
-    backgroundColor: 'black',
-    borderRadius: '50%',
-    content: '""',
-    height: '.4em',
-    left: '.3em',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    transformOrigin: 'center',
-    width: '.4em',
+  onStyles: {
+    '&::after': {
+      backgroundColor: 'black',
+      borderRadius: '50%',
+      content: '""',
+      height: '.4em',
+      left: '.3em',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      transformOrigin: 'center',
+      width: '.4em',
+    },
   },
 });
 
-const labelDisabledVariant = createBooleanVariant(
-  'disabled',
-  {
+const labelDisabledVariant = createBooleanVariant('disabled', {
+  onStyles: {
     color: 'grey.1',
     cursor: 'not-allowed',
     '&::before': {
@@ -124,13 +125,13 @@ const labelDisabledVariant = createBooleanVariant(
       backgroundColor: 'grey.1',
     },
   },
-  {
+  offStyles: {
     ':focus::before': {
       borderColor: 'blue',
       borderWidth: '2px',
     },
   },
-);
+});
 
 const RadioLabel = labelDisabledVariant(
   labelCheckedVariant(
@@ -166,13 +167,15 @@ const RadioLabel = labelDisabledVariant(
 );
 
 const labelTextHiddenVariant = createBooleanVariant('hidden', {
-  border: '0',
-  clip: 'rect(0, 0, 0, 0)',
-  overflow: 'hidden',
-  margin: '-1px',
-  padding: '0px',
-  whiteSpace: 'nowrap',
-  width: '0px',
+  onStyles: {
+    border: '0',
+    clip: 'rect(0, 0, 0, 0)',
+    overflow: 'hidden',
+    margin: '-1px',
+    padding: '0px',
+    whiteSpace: 'nowrap',
+    width: '0px',
+  },
 });
 
 const RadioLabelText = labelTextHiddenVariant(

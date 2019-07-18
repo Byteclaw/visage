@@ -32,24 +32,25 @@ const CheckboxControl = createComponent('input', {
 });
 
 const labelCheckedVariant = createBooleanVariant('checked', {
-  '&::after': {
-    backgroundColor: 'none',
-    borderLeft: '2px solid black',
-    borderBottom: '2px solid black',
-    content: '""',
-    height: '.3em',
-    left: '0px',
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%) translateX(33%) rotate(-45deg)',
-    transformOrigin: 'center',
-    width: '.6em',
+  onStyles: {
+    '&::after': {
+      backgroundColor: 'none',
+      borderLeft: '2px solid black',
+      borderBottom: '2px solid black',
+      content: '""',
+      height: '.3em',
+      left: '0px',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%) translateX(33%) rotate(-45deg)',
+      transformOrigin: 'center',
+      width: '.6em',
+    },
   },
 });
 
-const labelDisabledVariant = createBooleanVariant(
-  'disabled',
-  {
+const labelDisabledVariant = createBooleanVariant('disabled', {
+  onStyles: {
     color: 'grey.1',
     cursor: 'not-allowed',
     '&::before': {
@@ -59,13 +60,13 @@ const labelDisabledVariant = createBooleanVariant(
       borderColor: 'grey.1',
     },
   },
-  {
+  offStyles: {
     ':focus::before': {
       borderColor: 'blue',
       borderWidth: '2px',
     },
   },
-);
+});
 
 const CheckboxLabel = labelDisabledVariant(
   labelCheckedVariant(
@@ -100,13 +101,15 @@ const CheckboxLabel = labelDisabledVariant(
 );
 
 const labelTextHiddenVariant = createBooleanVariant('hidden', {
-  border: '0',
-  clip: 'rect(0, 0, 0, 0)',
-  overflow: 'hidden',
-  margin: '-1px',
-  padding: '0px',
-  whiteSpace: 'nowrap',
-  width: '0px',
+  onStyles: {
+    border: '0',
+    clip: 'rect(0, 0, 0, 0)',
+    overflow: 'hidden',
+    margin: '-1px',
+    padding: '0px',
+    whiteSpace: 'nowrap',
+    width: '0px',
+  },
 });
 
 const CheckboxLabelText = labelTextHiddenVariant(

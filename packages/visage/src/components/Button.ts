@@ -33,15 +33,15 @@ export const Button = createVariant(ButtonBase, 'variant', {
     backgroundColor: 'primary',
     borderColor: 'primary',
     color: 'primaryText',
-    active: {
+    '&:active': {
       backgroundColor: 'primary.2',
       color: 'primaryText.2',
     },
-    hover: {
+    '&:hover': {
       backgroundColor: 'primary.1',
       color: 'primaryText.1',
     },
-    focus: {
+    '&:focus': {
       backgroundColor: 'primary.3',
       color: 'primaryText.3',
     },
@@ -50,13 +50,13 @@ export const Button = createVariant(ButtonBase, 'variant', {
     backgroundColor: 'default',
     borderColor: 'bodyText',
     color: 'bodyText',
-    active: {
+    '&:active': {
       backgroundColor: 'grey.3',
     },
-    hover: {
+    '&:hover': {
       backgroundColor: 'grey.1',
     },
-    focus: {
+    '&:focus': {
       backgroundColor: 'grey.2',
     },
   },
