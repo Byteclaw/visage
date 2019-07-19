@@ -110,7 +110,7 @@ export const TextInput: VisageComponent<
   }, [outerStyles, prepend, append]);
 
   return (
-    <InputBox>
+    <InputBox styles={styles}>
       {prepend ? (
         <InputExtraElement styles={{ left: 0, linedWidth: styles.lineHeight }}>
           {prepend}
