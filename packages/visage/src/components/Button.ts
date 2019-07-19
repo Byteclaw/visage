@@ -13,6 +13,7 @@ const ButtonBase = createComponent('button', {
     display: 'inline-flex',
     flexShrink: 0,
     fontSize: 0,
+    fontFamily: 'body',
     fontWeight: 'normal',
     justifyContent: 'space-between',
     m: 1,
