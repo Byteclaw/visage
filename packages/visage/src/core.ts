@@ -20,7 +20,9 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
   defaultValue: any = 'default',
 ) => {
   const variantPropName = `data-${propName.toLowerCase()}`;
-  const styleSheet = Object.keys(variantStyles).reduce((res, variantName) => {
+  const styleSheet: { [key: string]: StyleSheet<any> } = Object.keys(
+    variantStyles,
+  ).reduce((res, variantName) => {
     return {
       ...res,
       [`&[${variantPropName}="${variantName}"]`]: variantStyles[variantName],
@@ -31,11 +33,20 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
     ({ [propName]: variant, styles: customStyles, ...rest }: any, ref: any) => {
       // constructs object with &[data-variant="variantName"] from variantStyles
       const styles = React.useMemo(
-        () => ({
-          ...styleSheet,
-          ...customStyles,
-        }),
-        [customStyles],
+        () =>
+          customStyles
+            ? Object.keys(styleSheet).reduce(
+                (customizedVariants, variantName) => ({
+                  ...customizedVariants,
+                  [variantName]: {
+                    ...customizedVariants[variantName],
+                    ...customStyles,
+                  },
+                }),
+                styleSheet,
+              )
+            : styleSheet,
+        [customStyles, styleSheet],
       );
 
       return React.createElement(Component, {
@@ -67,7 +78,7 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
   const variantPropName = `data-${propName.toLowerCase()}`;
   const styleSheet = {
     [`&[${variantPropName}="true"]`]: onStyles,
-    [`&[${variantPropName}="false"]`]: offStyles,
+    [`&[${variantPropName}="false"]`]: offStyles || {},
   };
 
   return function booleanVariantCreator(Component: any) {
@@ -77,11 +88,20 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
         ref: any,
       ) => {
         const styles = React.useMemo(
-          () => ({
-            ...styleSheet,
-            ...customStyles,
-          }),
-          [customStyles],
+          () =>
+            customStyles
+              ? Object.keys(styleSheet).reduce(
+                  (customizedVariants, variantName) => ({
+                    ...customizedVariants,
+                    [variantName]: {
+                      ...customizedVariants[variantName],
+                      ...customStyles,
+                    },
+                  }),
+                  styleSheet,
+                )
+              : styleSheet,
+          [customStyles, styleSheet],
         );
 
         return React.createElement(Component, {
