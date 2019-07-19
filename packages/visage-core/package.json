@@ -50,8 +50,8 @@
     "typescript": "^3.4.4"
   },
   "scripts": {
-    "prebuild": "rimraf dist",
-    "build": "microbundle --jsx React.createElement",
+    "build": "rimraf dist && microbundle --jsx React.createElement",
+    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",
     "test:types": "tsc -p . --noEmit"
   }
 }
