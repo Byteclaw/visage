@@ -145,6 +145,7 @@ interface CheckboxProps extends VisageStyleProps<StyleProps> {
   name?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   readOnly?: boolean;
+  value?: any;
   wrapper?: ReactElement;
 }
 
@@ -161,6 +162,7 @@ export const Checkbox: VisageComponent<
   onChange,
   readOnly,
   styles,
+  value,
 }: CheckboxProps) {
   const checkedValue = checked != null ? checked : !!defaultChecked;
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -203,6 +205,7 @@ export const Checkbox: VisageComponent<
         ref={inputRef}
         readOnly={readOnly}
         type="checkbox"
+        value={value}
       />
       <CheckboxLabel
         aria-checked={ariaChecked}
