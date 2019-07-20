@@ -190,6 +190,7 @@ export const Checkbox: VisageComponent<
 
   // if value from outside has changed, set the internal state
   if (checkedRef.current !== checkedValue) {
+    checkedRef.current = checkedValue;
     setChecked(checkedValue);
   }
 
