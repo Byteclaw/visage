@@ -4,6 +4,7 @@ import {
   VariantedComponentCreator,
   createComponent as baseCreateComponent,
   displayName,
+  markAsVisageComponent,
   StyleSheet,
 } from '@byteclaw/visage-core';
 import React from 'react';
@@ -59,6 +60,7 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
   );
 
   Comp.displayName = `VariantedComponent(${displayName(Component)})`;
+  markAsVisageComponent(Comp);
 
   return Comp;
 };
@@ -115,6 +117,7 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
     );
 
     Comp.displayName = `BooleanVariantedComponent(${displayName(Component)})`;
+    markAsVisageComponent(Comp);
 
     return Comp;
   };

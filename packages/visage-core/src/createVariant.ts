@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentConstraint, StyleSheet } from './types';
-import { extendStyleSheet, displayName } from './utils';
+import { extendStyleSheet, displayName, markAsVisageComponent } from './utils';
 
 export function createVariant<
   TPropName extends keyof any,
@@ -43,6 +43,7 @@ export function createVariant<
   });
 
   Comp.displayName = `VariantedComponent(${displayName(Component)})`;
+  markAsVisageComponent(Comp);
 
   return Comp;
 }

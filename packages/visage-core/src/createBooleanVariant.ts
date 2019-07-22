@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentConstraint, StyleSheet } from './types';
-import { extendStyleSheet, displayName } from './utils';
+import { extendStyleSheet, displayName, markAsVisageComponent } from './utils';
 
 export function createBooleanVariant<TPropName extends keyof any>(
   propName: TPropName,
@@ -35,6 +35,7 @@ export function createBooleanVariant<TPropName extends keyof any>(
     );
 
     Comp.displayName = `BooleanVariantedComponent(${displayName(Component)})`;
+    markAsVisageComponent(Comp);
 
     return Comp;
   };

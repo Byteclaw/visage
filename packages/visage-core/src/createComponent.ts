@@ -1,7 +1,6 @@
 import React from 'react';
-import { VisageComponentSymbol } from './constants';
 import { useVisage } from './hooks';
-import { displayName } from './utils';
+import { displayName, markAsVisageComponent } from './utils';
 import { StyleProps, ComponentConstraint, VisageComponent } from './types';
 
 export function createComponent(
@@ -23,7 +22,7 @@ export function createComponent(
   ) as any;
 
   Component.displayName = `VisageComponent(${displayName(name || defaultAs)})`;
-  (Component as any)[VisageComponentSymbol] = true;
+  markAsVisageComponent(Component);
 
   return Component;
 }
