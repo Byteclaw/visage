@@ -1,3 +1,4 @@
+import { markAsVisageComponent } from '@byteclaw/visage-core';
 import { createElement, forwardRef } from 'react';
 import { createComponent, createVariant } from '../core';
 
@@ -78,3 +79,4 @@ export const Heading: typeof VariantedHeading = forwardRef(
 ) as any;
 
 Heading.displayName = 'Heading';
+markAsVisageComponent(Heading);
