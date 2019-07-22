@@ -13,6 +13,15 @@ export function displayName(
   );
 }
 
+export function markAsVisageComponent<
+  T extends React.ComponentClass | React.FunctionComponent
+>(component: T): T {
+  // eslint-disable-next-line
+  (component as any)[VisageComponentSymbol] = true;
+
+  return component;
+}
+
 export function isVisageComponent(
   component: React.ComponentClass | React.FunctionComponent | string,
 ): boolean {
