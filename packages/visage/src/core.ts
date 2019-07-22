@@ -4,6 +4,7 @@ import {
   VariantedComponentCreator,
   createComponent as baseCreateComponent,
   displayName,
+  isVisageComponent,
   markAsVisageComponent,
   StyleSheet,
 } from '@byteclaw/visage-core';
@@ -20,6 +21,10 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
   variantStyles: any,
   defaultValue: any = 'default',
 ) => {
+  const C = isVisageComponent(Component)
+    ? createComponent(Component)
+    : Component;
+
   const variantPropName = `data-${propName.toLowerCase()}`;
   const styleSheet: { [key: string]: StyleSheet<any> } = Object.keys(
     variantStyles,
@@ -31,26 +36,28 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
   }, {});
 
   const Comp = React.forwardRef(
-    ({ [propName]: variant, styles: customStyles, ...rest }: any, ref: any) => {
+    (
+      { [propName]: variant, styles: customStyles, parentStyles, ...rest }: any,
+      ref: any,
+    ) => {
       // constructs object with &[data-variant="variantName"] from variantStyles
       const styles = React.useMemo(
         () =>
-          customStyles
-            ? Object.keys(styleSheet).reduce(
-                (customizedVariants, variantName) => ({
-                  ...customizedVariants,
-                  [variantName]: {
-                    ...customizedVariants[variantName],
-                    ...customStyles,
-                  },
-                }),
-                styleSheet,
-              )
-            : styleSheet,
-        [customStyles, styleSheet],
+          Object.keys(styleSheet).reduce(
+            (customizedVariants, variantName) => ({
+              ...customizedVariants,
+              [variantName]: {
+                ...customizedVariants[variantName],
+                ...customStyles,
+                ...parentStyles,
+              },
+            }),
+            styleSheet,
+          ),
+        [customStyles, styleSheet, parentStyles],
       );
 
-      return React.createElement(Component, {
+      return React.createElement(C, {
         ...rest,
         [variantPropName]: variant || defaultValue,
         styles,
@@ -84,29 +91,36 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
   };
 
   return function booleanVariantCreator(Component: any) {
+    const C = isVisageComponent(Component)
+      ? createComponent(Component)
+      : Component;
     const Comp = React.forwardRef(
       (
-        { [propName]: variant, styles: customStyles, ...rest }: any,
+        {
+          [propName]: variant,
+          parentStyles,
+          styles: customStyles,
+          ...rest
+        }: any,
         ref: any,
       ) => {
         const styles = React.useMemo(
           () =>
-            customStyles
-              ? Object.keys(styleSheet).reduce(
-                  (customizedVariants, variantName) => ({
-                    ...customizedVariants,
-                    [variantName]: {
-                      ...customizedVariants[variantName],
-                      ...customStyles,
-                    },
-                  }),
-                  styleSheet,
-                )
-              : styleSheet,
-          [customStyles, styleSheet],
+            Object.keys(styleSheet).reduce(
+              (customizedVariants, variantName) => ({
+                ...customizedVariants,
+                [variantName]: {
+                  ...customizedVariants[variantName],
+                  ...parentStyles,
+                  ...customStyles,
+                },
+              }),
+              styleSheet,
+            ),
+          [customStyles, parentStyles, styleSheet],
         );
 
-        return React.createElement(Component, {
+        return React.createElement(C, {
           ...rest,
           [variantPropName]: variant ? variant.toString() : 'false',
           [propName]: stripProp ? undefined : variant,
