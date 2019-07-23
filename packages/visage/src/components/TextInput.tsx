@@ -1,5 +1,12 @@
-import React, { ReactElement, ReactNode, useMemo } from 'react';
+import React, {
+  forwardRef,
+  ReactElement,
+  ReactNode,
+  useMemo,
+  Ref,
+} from 'react';
 import {
+  markAsVisageComponent,
   StyleSheet,
   ExtractVisageComponentProps,
   VisageComponent,
@@ -85,52 +92,61 @@ interface Props extends ExtractVisageComponentProps<typeof TextInputBase> {
   extra?: ReactNode;
 }
 
-export const TextInput: VisageComponent<
-  Props,
-  StyleProps
-> = function TextInput({
-  append,
-  disabled,
-  prepend,
-  extra,
-  styles: outerStyles,
-  invalid,
-  ...restProps
-}: Props) {
-  const styles = useMemo(() => {
-    const lineHeight =
-      outerStyles && outerStyles.lineHeight != null
-        ? outerStyles.lineHeight
-        : inputBoxDefaultStyles.lineHeight;
+export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
+  (
+    {
+      append,
+      disabled,
+      prepend,
+      extra,
+      styles: outerStyles,
+      invalid,
+      ...restProps
+    }: Props,
+    ref: Ref<HTMLInputElement>,
+  ) => {
+    const styles = useMemo(() => {
+      const lineHeight =
+        outerStyles && outerStyles.lineHeight != null
+          ? outerStyles.lineHeight
+          : inputBoxDefaultStyles.lineHeight;
 
-    return {
-      lineHeight,
-      ...outerStyles,
-    };
-  }, [outerStyles, prepend, append]);
+      return {
+        lineHeight,
+        ...outerStyles,
+      };
+    }, [outerStyles, prepend, append]);
 
-  return (
-    <InputBox styles={styles}>
-      {prepend ? (
-        <InputExtraElement styles={{ left: 0, linedWidth: styles.lineHeight }}>
-          {prepend}
-        </InputExtraElement>
-      ) : null}
-      <InputBase
-        disabled={disabled}
-        invalid={invalid}
-        styles={{
-          plOffset: prepend ? styles.lineHeight : undefined,
-          prOffset: append ? styles.lineHeight : undefined,
-        }}
-        {...restProps}
-      />
-      {append ? (
-        <InputExtraElement styles={{ linedWidth: styles.lineHeight, right: 0 }}>
-          {append}
-        </InputExtraElement>
-      ) : null}
-      {extra}
-    </InputBox>
-  );
-};
+    return (
+      <InputBox styles={styles}>
+        {prepend ? (
+          <InputExtraElement
+            styles={{ left: 0, linedWidth: styles.lineHeight }}
+          >
+            {prepend}
+          </InputExtraElement>
+        ) : null}
+        <InputBase
+          disabled={disabled}
+          invalid={invalid}
+          ref={ref}
+          styles={{
+            plOffset: prepend ? styles.lineHeight : undefined,
+            prOffset: append ? styles.lineHeight : undefined,
+          }}
+          {...restProps}
+        />
+        {append ? (
+          <InputExtraElement
+            styles={{ linedWidth: styles.lineHeight, right: 0 }}
+          >
+            {append}
+          </InputExtraElement>
+        ) : null}
+        {extra}
+      </InputBox>
+    );
+  },
+) as any;
+
+markAsVisageComponent(TextInput);

@@ -64,3 +64,18 @@ TextInput component.
 ```jsx live=true
 <TextInput append="B" prepend="A" placeholder="Placeholder text" />
 ```
+
+### Support for refs
+
+```jsx live=true
+<WithRef>
+  {ref => (
+    <Fragment>
+      <TextInput ref={ref} />
+      <Button onClick={() => ref.current.focus()} type="button">
+        Focus input
+      </Button>
+    </Fragment>
+  )}
+</WithRef>
+```

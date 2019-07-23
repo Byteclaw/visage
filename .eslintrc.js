@@ -15,6 +15,7 @@ module.exports = {
     'default-case': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'prettier/prettier': 'error',
     'react/no-multi-comp': 'off',
     'react/prop-types': 'off',
