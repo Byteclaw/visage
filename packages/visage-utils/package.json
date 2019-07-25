@@ -34,7 +34,7 @@
   "devDependencies": {
     "microbundle": "next",
     "rimraf": "2.6.3",
-    "typescript": "^3.4.4"
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "build": "rimraf dist && microbundle --jsx React.createElement",
