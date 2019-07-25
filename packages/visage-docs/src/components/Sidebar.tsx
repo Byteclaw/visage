@@ -92,8 +92,8 @@ export function Sidebar() {
               toggler={<ListItemLink>Core</ListItemLink>}
             >
               <ListItem>
-                <ListItemRouteLink to="/core/if-breakpoint">
-                  IfBreakpoint
+                <ListItemRouteLink to="/core/is-breakpoint">
+                  IsBreakpoint
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleList>
