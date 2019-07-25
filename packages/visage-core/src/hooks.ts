@@ -22,15 +22,16 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
   // otherwise we want to connect to parent
   const ctx: Visage<TTheme> | undefined = React.useContext(VisageContext);
 
-  // if context is undefined, this means we are in root
-  // we need to create a context, so we need options
   if (!ctx) {
     if (!options) {
       throw new Error(
         `Options must be provided to useDesignSystem if used for first time`,
       );
     }
+  }
 
+  // if we pass options, we want to create new design system root
+  if (options) {
     return React.useMemo<Visage<TTheme>>(() => {
       const breakpoint = options.is || 0;
 
@@ -50,7 +51,8 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
     }, [options.is, options.theme, options.styleGenerator]);
   }
 
-  return ctx;
+  // ctx is defined because there is a check above
+  return ctx as Visage<TTheme>;
 }
 
 export function useVisage<
