@@ -20,9 +20,15 @@ function generateStyle(styleSheet) {
   return { style: styleSheet };
 }
 
-export function DesignSystem({ children }: { children: ReactNode }) {
+export function DesignSystem({
+  is = 0,
+  children,
+}: {
+  is?: number;
+  children: ReactNode;
+}) {
   return (
-    <BaseDesignSystem is={0} styleGenerator={generateStyle} theme={theme}>
+    <BaseDesignSystem is={is} styleGenerator={generateStyle} theme={theme}>
       {children}
     </BaseDesignSystem>
   );
