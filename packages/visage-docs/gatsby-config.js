@@ -21,7 +21,6 @@ module.exports = {
         extensions: ['ts', 'tsx', 'js', 'jsx'],
       },
     },
-    'gatsby-plugin-emotion',
     'gatsby-plugin-netlify',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-svgr',
