@@ -37,11 +37,11 @@ interface ResolvedStylerSettings {
 }
 
 export type FormatterMap<TFormatterNames extends keyof any> = {
-  [K in TFormatterNames]: FormatterFn
+  [K in TFormatterNames]: FormatterFn;
 };
 
 export type ResolverMap<TResolverNames extends keyof any> = {
-  [K in TResolverNames]: ResolverFn
+  [K in TResolverNames]: ResolverFn;
 };
 
 export interface StylerMap<

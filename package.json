@@ -8,6 +8,7 @@
     "build:docs": "lerna run build --scope @byteclaw/visage-docs",
     "build:watch": "tsc -b . --watch",
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --fix \"packages/**/src/**/*.{ts,tsx}\"",
     "lint-staged": "lint-staged",
     "test": "jest --coverage",
     "test:watch": "jest --watch",

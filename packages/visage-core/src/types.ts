@@ -15,7 +15,7 @@ type MakeResponsiveStyleSheet<TStyleSheet extends ValidStyleSheet> = {
     | TStyleSheet[K]
     | null
     | undefined
-    | (string | number | null | undefined | TStyleSheet[K])[]
+    | (string | number | null | undefined | TStyleSheet[K])[];
 };
 
 export type StyleSheet<
