@@ -155,6 +155,10 @@ export function Modal({
     }
   }, []);
 
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
   return (
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
