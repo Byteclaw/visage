@@ -85,7 +85,20 @@ export function Sidebar() {
         </Match>
       </ListItem>
       <ListItem>
-        <ListItemRouteLink to="/">Core</ListItemRouteLink>
+        <Match path="/core/*">
+          {({ match }) => (
+            <CollapsibleList
+              collapsed={match == null}
+              toggler={<ListItemLink>Core</ListItemLink>}
+            >
+              <ListItem>
+                <ListItemRouteLink to="/core/if-breakpoint">
+                  IfBreakpoint
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleList>
+          )}
+        </Match>
       </ListItem>
       <ListItem>
         <ListItemRouteLink to="/utilities">Utilities</ListItemRouteLink>
