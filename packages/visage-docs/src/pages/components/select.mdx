@@ -1,0 +1,51 @@
+# Select
+
+## Examples
+
+### Select with simple array
+
+If items are passed as an array, filtering is not available
+
+```jsx live=true
+<Fragment>
+  <Select items={['A', 'B', 'C', 'D', 'E', 'F']} placeholder="Select a value" />
+</Fragment>
+```
+
+### Read only select
+
+Read only select can be focused but can't be manipulated
+
+```jsx live=true
+<Fragment>
+  <Select
+    items={['A', 'B', 'C', 'D', 'E', 'F']}
+    readOnly
+    placeholder="Select a value"
+    defaultValue="A"
+  />
+</Fragment>
+```
+
+### Select with simple a function
+
+If items are passed as a function, filtering is available. On filter the value from filter input will be passed to items function.
+
+```jsx live=true
+<Fragment>
+  <Select
+    items={filter =>
+      new Promise(resolve =>
+        setTimeout(
+          resolve,
+          1000,
+          ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
+            !filter ? true : val === filter,
+          ),
+        ),
+      )
+    }
+    placeholder="Select a value"
+  />
+</Fragment>
+```
