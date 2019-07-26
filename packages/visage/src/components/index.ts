@@ -17,6 +17,7 @@ export * from './Overlay';
 export * from './Paragraph';
 export * from './Portal';
 export * from './Radio';
+export * from './Select';
 export * from './Svg';
 export * from './Tabs';
 export * from './Text';

@@ -12,6 +12,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
+    'consistent-return': 'off',
     'default-case': 'off',
     'import/prefer-default-export': 'off',
     'import/no-unresolved': 'off',

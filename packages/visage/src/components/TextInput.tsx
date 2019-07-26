@@ -63,7 +63,7 @@ const inputBaseInvalid = createBooleanVariant('invalid', {
     },
   },
   offStyles: {
-    '&:focus': {
+    '&:focus, &[data-focused="true"]': {
       outlineColor: 'blue',
     },
   },

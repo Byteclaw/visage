@@ -1,0 +1,44 @@
+# Select
+
+## Examples
+
+### Select with simple array
+
+If items are passed as an array, filtering is not available
+
+```jsx live=true
+<Fragment>
+  <select name="" id="">
+    <option value="">A</option>
+    <option value="B">B</option>
+  </select>
+  <select name="" id="">
+    <option value="">A</option>
+    <option value="B">B</option>
+  </select>
+  <Select items={['A', 'B', 'C', 'D', 'E', 'F']} placeholder="Select a value" />
+</Fragment>
+```
+
+### Select with simple a function
+
+If items are passed as a function, filtering is available. On filter the value from filter input will be passed to items function.
+
+```jsx live=true
+<Fragment>
+  <Select
+    items={filter =>
+      new Promise(resolve =>
+        setTimeout(
+          resolve,
+          1000,
+          ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
+            !filter ? true : val === filter,
+          ),
+        ),
+      )
+    }
+    placeholder="Select a value"
+  />
+</Fragment>
+```
