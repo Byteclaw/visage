@@ -59,10 +59,12 @@ interface SelectProps extends ExtractVisageComponentProps<typeof TextInput> {
     focused: boolean;
     placeholder?: string;
     open: boolean;
+    readOnly?: boolean;
   }) => ReactNode;
   renderValue?: (props: {
     focused: boolean;
     open: boolean;
+    readOnly?: boolean;
     value: any;
   }) => ReactNode;
 }
@@ -311,6 +313,7 @@ export function Select({
   name,
   onChange,
   placeholder,
+  readOnly,
   renderFilter = defaultRenderFilter,
   renderOption = defaultRenderOption,
   renderPlaceholder = defaultRenderPlaceholder,
@@ -375,13 +378,13 @@ export function Select({
   );
   const onMouseUp = useCallback(
     (e: MouseEvent) => {
-      if (e.button === 0 && !state.open) {
+      if (e.button === 0 && !state.open && !readOnly) {
         dispatch({ type: 'OPEN' });
       }
     },
-    [state.open],
+    [state.open, readOnly],
   );
-  const onKeyPress = useCallback(
+  const onKeyUp = useCallback(
     (e: KeyboardEvent) => {
       if (state.filterFocused || !hasFilter) {
         return;
@@ -391,9 +394,10 @@ export function Select({
       // @TODO how to handle composition with accents? SHIFT + accent, C => Č
       if (e.key.length === 1) {
         dispatch({ type: 'FILTER', value: e.key });
+        notifyFilterFinished();
       }
     },
-    [state.filterFocused],
+    [state.filterFocused, notifyFilterFinished],
   );
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -402,6 +406,7 @@ export function Select({
         dispatch({ type: 'CLOSE' });
         return;
       }
+
       if (e.key === 'ArrowUp') {
         e.preventDefault(); // disable scroll
 
@@ -440,7 +445,7 @@ export function Select({
         ) {
           (focusedOptionRef.current.nextSibling as any).focus();
         }
-      } else if (e.key === ' ') {
+      } else if (e.key === ' ' && !readOnly) {
         if (!state.open) {
           e.preventDefault();
           dispatch({ type: 'OPEN' });
@@ -454,7 +459,7 @@ export function Select({
         }
       }
     },
-    [state.filterFocused, state.open],
+    [state.filterFocused, state.open, readOnly],
   );
 
   // propagate change of value
@@ -518,12 +523,13 @@ export function Select({
   return (
     <SelectBase
       aria-activedescendant={activeDescendantId || undefined}
+      aria-readonly={readOnly}
       id={id}
       name={name}
       onBlurCapture={onBlurCapture}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
-      onKeyPress={onKeyPress}
+      onKeyUp={onKeyUp}
       onMouseUp={onMouseUp}
       ref={ref}
       role="listbox"
@@ -533,11 +539,13 @@ export function Select({
         ? renderValue({
             focused: state.focused,
             open: state.open,
+            readOnly,
             value: state.value,
           })
         : renderPlaceholder({
             focused: state.focused,
             open: state.open,
+            readOnly,
             placeholder,
           })}
       {!state.open ? null : (

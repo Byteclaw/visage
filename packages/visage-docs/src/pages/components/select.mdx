@@ -8,15 +8,22 @@ If items are passed as an array, filtering is not available
 
 ```jsx live=true
 <Fragment>
-  <select name="" id="">
-    <option value="">A</option>
-    <option value="B">B</option>
-  </select>
-  <select name="" id="">
-    <option value="">A</option>
-    <option value="B">B</option>
-  </select>
   <Select items={['A', 'B', 'C', 'D', 'E', 'F']} placeholder="Select a value" />
+</Fragment>
+```
+
+### Read only select
+
+Read only select can be focused but can't be manipulated
+
+```jsx live=true
+<Fragment>
+  <Select
+    items={['A', 'B', 'C', 'D', 'E', 'F']}
+    readOnly
+    placeholder="Select a value"
+    defaultValue="A"
+  />
 </Fragment>
 ```
 
