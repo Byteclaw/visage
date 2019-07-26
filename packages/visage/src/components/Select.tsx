@@ -306,7 +306,9 @@ function selectReducer(state: SelectState, action: SelectActions): SelectState {
 
 export function Select({
   defaultValue,
+  id,
   items,
+  name,
   onChange,
   placeholder,
   renderFilter = defaultRenderFilter,
@@ -516,6 +518,8 @@ export function Select({
   return (
     <SelectBase
       aria-activedescendant={activeDescendantId || undefined}
+      id={id}
+      name={name}
       onBlurCapture={onBlurCapture}
       onFocus={onFocus}
       onKeyDown={onKeyDown}
@@ -557,17 +561,18 @@ export function Select({
               ? null
               : state.items.map((item, i, arr) => {
                   const selected = item === state.value;
+                  const optionId = `${id || name}-${i}`;
                   const props = {
                     'aria-selected': selected,
                     tabIndex: -1,
                     role: 'option',
-                    id: i,
+                    id: optionId,
                     onBlur: () => {
                       setActiveDescendantId(undefined);
                     },
                     onFocus: (e: FocusEvent) => {
                       focusedOptionRef.current = e.currentTarget as any;
-                      setActiveDescendantId(i.toString());
+                      setActiveDescendantId(id);
                     },
                     onClick: () => {
                       dispatch({ type: 'CHANGE', value: item });
@@ -593,7 +598,7 @@ export function Select({
                     },
                   };
 
-                  return renderOption(item, i, selected, props);
+                  return renderOption(item, optionId, selected, props);
                 })}
           </SelectOptions>
         </LayerManager>
