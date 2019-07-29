@@ -27,7 +27,7 @@
 
 ```jsx live=true
 <AutocompleteInput
-  id="automatic-field"
+  id="automatic-async-field"
   onChange={value => console.log('automatic-async-field', value)}
   options={async () => ['a', 'b', 'c', 'd']}
 />
@@ -37,7 +37,7 @@
 
 ```jsx live=true
 <AutocompleteInput
-  id="manual-field"
+  id="manual-async-field"
   mode="manual"
   onChange={value => console.log('manual-async-field', value)}
   options={async () => ['a', 'b', 'c', 'd']}

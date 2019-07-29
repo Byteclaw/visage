@@ -34,6 +34,7 @@ interface ValueProps {
   'aria-autocomplete': 'list';
   'aria-activedescendant'?: string;
   'aria-controls': string;
+  id: string;
   onBlur: FocusEventHandler<any>;
   onFocus: FocusEventHandler<any>;
   onChange: ChangeEventHandler<any>;
@@ -103,6 +104,7 @@ export function AutocompleteInput({
   renderValue = defaultValueRenderer,
   value,
 }: AutocompleteInputProps) {
+  const listBoxId = `${id}-listbox`;
   const inputRef = useRef<HTMLInputElement | null>(null);
   const loadOptions = useCallback(
     async (search: string | null): Promise<any[]> => {
@@ -226,7 +228,7 @@ export function AutocompleteInput({
     'aria-expanded': state.expanded,
     'aria-haspopup': 'listbox',
     'aria-labelledby': labelId,
-    'aria-owns': id,
+    'aria-owns': listBoxId,
     children: (
       <Fragment>
         {renderValue({
@@ -235,8 +237,9 @@ export function AutocompleteInput({
             state.selectedOption != null
               ? `${id}-item-${state.selectedOption}`
               : undefined,
-          'aria-controls': id,
+          'aria-controls': listBoxId,
           'aria-multiline': false,
+          id,
           onBlur,
           onFocus,
           onChange: onInnerChange,
@@ -257,7 +260,7 @@ export function AutocompleteInput({
                   role: 'option',
                 }),
               ),
-              id,
+              id: listBoxId,
               role: 'listbox',
             })
           : null}
