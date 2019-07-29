@@ -48,6 +48,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/autocomplete-input">
+                  AutocompleteInput
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/box">Box</ListItemRouteLink>
               </ListItem>
               <ListItem>
