@@ -1,619 +1,324 @@
-import {
-  markAsVisageComponent,
-  ExtractVisageComponentProps,
-} from '@byteclaw/visage-core';
+/* eslint jsx-a11y/role-has-required-aria-props:warn */
 import React, {
-  KeyboardEvent,
+  Fragment,
   ReactNode,
   useCallback,
-  useLayoutEffect,
-  useRef,
+  useEffect,
   useReducer,
+  useRef,
   ChangeEvent,
-  useState,
-  FocusEvent,
+  KeyboardEvent,
   MouseEvent,
   FocusEventHandler,
   ChangeEventHandler,
-  RefObject,
+  KeyboardEventHandler,
+  MutableRefObject,
+  MouseEventHandler,
 } from 'react';
-import { createComponent } from '../core';
-import { useDebouncedCallback } from '../hooks';
-import { LayerManager, useLayerManager } from './LayerManager';
+import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
 import { TextInput } from './TextInput';
+import { SelectState, selectReducer } from './selectReducer';
 
-const SelectBase = createComponent('div', {
-  displayName: 'SelectBase',
-  defaultStyles: {
-    display: 'inline-flex',
-    position: 'relative',
-    outline: 'none',
-  },
-});
-
-const SelectOptions = createComponent('div', {
-  displayName: 'SelectOptions',
-  defaultStyles: {
-    position: 'absolute',
-    width: '100%',
-  },
-});
-
-interface SelectProps extends ExtractVisageComponentProps<typeof TextInput> {
-  items: any[] | ((filterText?: string) => Promise<any[]>);
-  onChange?: (item: any) => void;
-  renderFilter?: (props: {
-    ref: RefObject<any>;
-    onBlur: FocusEventHandler;
-    onFocus: FocusEventHandler;
-    onChange: ChangeEventHandler;
-    value?: string;
-  }) => ReactNode;
-  renderOption?: (
-    item: any,
-    key: any,
-    currentValue: any,
-    props: object,
-  ) => ReactNode;
-  renderPlaceholder?: (props: {
-    focused: boolean;
-    placeholder?: string;
-    open: boolean;
-    readOnly?: boolean;
-  }) => ReactNode;
-  renderValue?: (props: {
-    focused: boolean;
-    open: boolean;
-    readOnly?: boolean;
-    value: any;
-  }) => ReactNode;
+interface BaseProps {
+  'aria-expanded': boolean;
+  'aria-haspopup': 'listbox';
+  'aria-labelledby'?: string;
+  'aria-owns': string;
+  children: ReactNode;
+  role: 'combobox';
 }
 
-function defaultRenderFilter(props: {
-  value?: string;
-  onChange: (e: ChangeEvent<any>) => void;
-}) {
-  return <TextInput styles={{ width: '100%' }} {...props} />;
-}
-
-function defaultRenderPlaceholder({
-  focused,
-  open,
-  ...restProps
-}: {
-  focused: boolean;
+interface ValueProps {
+  'aria-autocomplete': 'list';
+  'aria-disabled'?: boolean;
+  'aria-activedescendant'?: string;
+  'aria-controls': string;
+  'aria-readonly': boolean;
+  'aria-placeholder'?: string;
+  id: string;
+  disabled?: boolean;
+  invalid?: boolean;
   open: boolean;
+  onBlur: FocusEventHandler<any>;
+  onClick: MouseEventHandler<any>;
+  onFocus: FocusEventHandler<any>;
+  onChange: ChangeEventHandler<any>;
+  onKeyDown: KeyboardEventHandler<any>;
   placeholder?: string;
-}) {
-  return (
-    <TextInput
-      append={<span>{open ? 'C' : 'O'}</span>}
-      data-focused={focused}
-      role="presentation"
-      tabIndex={-1}
-      readOnly
-      {...restProps}
-    />
-  );
-}
-
-function defaultRenderValue({
-  focused,
-  open,
-  value,
-}: {
-  focused: boolean;
-  open: boolean;
+  ref: MutableRefObject<any>;
+  readOnly: boolean;
   value: any;
-}) {
-  return (
-    <TextInput
-      append={<span>{open ? 'C' : 'O'}</span>}
-      data-focused={focused}
-      role="presentation"
-      defaultValue={value}
-      tabIndex={-1}
-      readOnly
-    />
-  );
+  [key: string]: any;
 }
 
-function defaultRenderOption(
-  item: string,
-  key: any,
-  selected: boolean,
-  props: object,
-) {
-  return (
-    <div key={key} {...props}>
-      {item}
-    </div>
-  );
+interface OptionProps {
+  'aria-selected': boolean;
+  'data-ai-option': number;
+  id: string;
+  key: any;
+  onMouseDown: (e: MouseEvent<any>) => void;
+  option: any;
+  role: 'option';
 }
 
-interface SelectState {
-  itemsLoaded: boolean;
-  focused: boolean;
-  filterFocused: boolean;
-  loading: boolean;
-  open: boolean;
-  items: any[];
-  status: 'IDLE' | 'FILTERING' | 'LOADING_ITEMS';
-  filter: string | undefined;
-  value: any;
+interface OptionsProps {
+  children: ReactNode;
+  id: string;
+  role: 'listbox';
 }
 
-interface SelectBlurAction {
-  type: 'BLUR';
-}
+type BaseRenderer = (props: BaseProps) => ReactNode;
+type OptionRenderer = (props: OptionProps) => ReactNode;
+type OptionsRenderer = (props: OptionsProps) => ReactNode;
+type ValueRenderer = (props: ValueProps) => ReactNode;
 
-interface SelectFocusAction {
-  type: 'FOCUS';
-}
+const defaultOptionRenderer: OptionRenderer = ({ option, ...restProps }) => (
+  <li {...restProps}>{option}</li>
+);
 
-interface SelectCloseAction {
-  type: 'CLOSE';
-}
+const defaultOptionsRenderer: OptionsRenderer = props => <ul {...props} />;
 
-interface SelectOpenAction {
-  type: 'OPEN';
-}
+const defaultValueRenderer: ValueRenderer = ({ open, ...restProps }) => (
+  <TextInput
+    {...restProps}
+    append={<span>{open ? 'C' : 'O'}</span>}
+    type="text"
+  />
+);
 
-interface SelectFocusFilterAction {
-  type: 'FOCUS_FILTER';
-  filter?: any;
-}
+const defaultBaseRenderer: BaseRenderer = props => <div {...props} />;
 
-interface SelectBlurFilterAction {
-  type: 'BLUR_FILTER';
-}
-
-interface SelectChangeAction {
-  type: 'CHANGE';
-  value: any;
-}
-
-interface SelectFilterAction {
-  type: 'FILTER';
-  value: string;
-}
-
-interface SelectFilterDoneAction {
-  type: 'FILTER_DONE';
-}
-
-interface SelectItemsLoadingDoneAction {
-  type: 'ITEMS_LOADING_DONE';
-  items: any[];
-}
-
-interface SelectItemsLoadingFailedAction {
-  type: 'ITEMS_LOADING_FAILED';
-}
-
-type SelectActions =
-  | SelectFocusAction
-  | SelectBlurAction
-  | SelectFilterAction
-  | SelectFilterDoneAction
-  | SelectOpenAction
-  | SelectCloseAction
-  | SelectChangeAction
-  | SelectItemsLoadingDoneAction
-  | SelectItemsLoadingFailedAction
-  | SelectFocusFilterAction
-  | SelectBlurFilterAction;
-
-function selectReducer(state: SelectState, action: SelectActions): SelectState {
-  switch (action.type) {
-    case 'BLUR': {
-      return {
-        ...state,
-        open: false,
-        focused: false,
-      };
-    }
-    case 'FOCUS': {
-      // if Select does not have itemsLoaded (it haven't loaded items yet), load them
-      return {
-        ...state,
-        status: state.itemsLoaded ? state.status : 'LOADING_ITEMS',
-        focused: true,
-      };
-    }
-    case 'CLOSE': {
-      return {
-        ...state,
-        open: false,
-      };
-    }
-    case 'OPEN': {
-      return {
-        ...state,
-        open: true,
-      };
-    }
-    case 'BLUR_FILTER': {
-      return {
-        ...state,
-        filterFocused: false,
-      };
-    }
-    case 'FOCUS_FILTER': {
-      return {
-        ...state,
-        filterFocused: true,
-        filter: action.filter != null ? action.filter : state.filter,
-      };
-    }
-    case 'CHANGE': {
-      if (state.status !== 'IDLE') {
-        return state;
-      }
-
-      return {
-        ...state,
-        filter: '',
-        open: false,
-        value: action.value,
-      };
-    }
-    case 'FILTER': {
-      if (state.status !== 'IDLE' && state.status !== 'FILTERING') {
-        return state;
-      }
-
-      return {
-        ...state,
-        status: 'FILTERING',
-        filter: action.value,
-      };
-    }
-    case 'FILTER_DONE': {
-      if (state.status !== 'FILTERING') {
-        return state;
-      }
-
-      return {
-        ...state,
-        status: 'LOADING_ITEMS',
-      };
-    }
-    case 'ITEMS_LOADING_DONE': {
-      if (state.status !== 'LOADING_ITEMS') {
-        return state;
-      }
-
-      return {
-        ...state,
-        itemsLoaded: true,
-        status: 'IDLE',
-        items: action.items,
-      };
-    }
-    case 'ITEMS_LOADING_FAILED': {
-      if (state.status !== 'LOADING_ITEMS') {
-        return state;
-      }
-
-      return {
-        ...state,
-        status: 'IDLE',
-      };
-    }
-    default:
-      return state;
-  }
+interface SelectProps {
+  defaultValue?: string;
+  disabled?: boolean;
+  id: string;
+  invalid?: boolean;
+  labelId?: string;
+  filterable?: boolean;
+  onChange?: (value: any) => void;
+  options: any[] | ((search: string | null) => Promise<any[]>);
+  placeholder?: string;
+  /**
+   * Select can be manipulated
+   */
+  readOnly?: boolean;
+  renderBase?: BaseRenderer;
+  renderOption?: OptionRenderer;
+  renderOptions?: OptionsRenderer;
+  renderValue?: ValueRenderer;
+  value?: string;
 }
 
 export function Select({
   defaultValue,
+  disabled,
   id,
-  items,
-  name,
+  invalid,
+  labelId,
   onChange,
+  options,
+  filterable,
   placeholder,
   readOnly,
-  renderFilter = defaultRenderFilter,
-  renderOption = defaultRenderOption,
-  renderPlaceholder = defaultRenderPlaceholder,
-  renderValue = defaultRenderValue,
-  value: outerValue,
+  renderBase = defaultBaseRenderer,
+  renderOption = defaultOptionRenderer,
+  renderOptions = defaultOptionsRenderer,
+  renderValue = defaultValueRenderer,
+  value,
 }: SelectProps) {
-  const zIndex = useLayerManager();
-  const hasFilter = !Array.isArray(items);
-  const [state, dispatch] = useReducer(selectReducer, {
-    itemsLoaded: !hasFilter,
-    focused: false,
-    filterFocused: false,
-    filter: undefined,
-    items: !hasFilter ? (items as any) : [],
-    loading: false,
-    open: false,
-    status: 'IDLE',
-    value: defaultValue || outerValue,
-  });
-  const valueRef = useRef(defaultValue || outerValue);
-  const ref = useRef<HTMLDivElement>(null);
+  const listBoxId = `${id}-listbox`;
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const firstOptionRef = useRef<HTMLElement | null>(null);
-  const lastOptionRef = useRef<HTMLElement | null>(null);
-  const selectedOptionRef = useRef<HTMLElement | null>(null);
-  const focusedOptionRef = useRef<HTMLElement | null>(null);
-  const previousState = useRef(state);
-  const onFocus = useCallback(() => dispatch({ type: 'FOCUS' }), []);
-  const [activeDescendantId, setActiveDescendantId] = useState<
-    string | undefined
-  >();
-  const [notifyFilterFinished] = useDebouncedCallback(
-    () => dispatch({ type: 'FILTER_DONE' }),
+  const loadOptions = useCallback(
+    async (search: string | null): Promise<any[]> => {
+      if (filterable) {
+        if (Array.isArray(options)) {
+          const term = (search || '').trim().toLowerCase();
+
+          if (!search) {
+            return options;
+          }
+
+          return options.filter(option => {
+            if (typeof option === 'string') {
+              return option.toLowerCase().startsWith(term);
+            }
+
+            if (typeof option === 'object' && option !== null) {
+              return Object.keys(option).find(
+                key =>
+                  typeof option[key] === 'string' &&
+                  option[key].toLowerCase().startsWith(term),
+              );
+            }
+
+            return false;
+          });
+        }
+
+        return options(search);
+      }
+
+      return Array.isArray(options) ? options : options('');
+    },
+    [options, filterable],
+  );
+  const [state, dispatch] = useReducer(selectReducer, {
+    selectedValue: defaultValue || value || '',
+    focused: false,
+    expanded: false,
+    selectedOption: null,
+    options: Array.isArray(options) ? options : [],
+    status: 'IDLE',
+    value: defaultValue || value || '',
+  });
+  const outerValueRef = useRef(value);
+  const previousState = useRef<SelectState>(state);
+  const [notifyChange, cancelNotifyChange] = useDebouncedCallback(
+    () => {
+      dispatch({ type: 'CHANGE_DONE' });
+    },
     300,
     [],
   );
-  const onFilterInputBlur = useCallback(
-    () => dispatch({ type: 'BLUR_FILTER' }),
-    [],
-  );
-  const onFilterInputFocus = useCallback(
-    () => dispatch({ type: 'FOCUS_FILTER' }),
-    [],
-  );
-  const onFilterChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch({ type: 'FILTER', value: e.currentTarget.value });
-      notifyFilterFinished();
-    },
-    [notifyFilterFinished],
-  );
-  const onBlurCapture = useCallback(
-    (e: FocusEvent) => {
-      if (state.open) {
-        e.preventDefault();
-      } else if (focusedOptionRef.current == null) {
-        focusedOptionRef.current = null;
-        dispatch({ type: 'BLUR' });
-      }
-    },
-    [state.open],
-  );
-  const onMouseUp = useCallback(
-    (e: MouseEvent) => {
-      if (e.button === 0 && !state.open && !readOnly) {
-        dispatch({ type: 'OPEN' });
-      }
-    },
-    [state.open, readOnly],
-  );
-  const onKeyUp = useCallback(
-    (e: KeyboardEvent) => {
-      if (state.filterFocused || !hasFilter) {
-        return;
-      }
+  const onOptionMouseDown = useCallback((e: MouseEvent<HTMLElement>) => {
+    e.preventDefault(); // keep focus on input
 
-      // is character printable?
-      // @TODO how to handle composition with accents? SHIFT + accent, C => Č
-      if (e.key.length === 1) {
-        dispatch({ type: 'FILTER', value: e.key });
-        notifyFilterFinished();
-      }
+    dispatch({
+      type: 'SELECT_OPTION',
+      index: Number(e.currentTarget!.dataset.aiOption),
+    });
+  }, []);
+  const onInnerChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch({ type: 'CHANGE', value: e.currentTarget.value });
+      notifyChange();
     },
-    [state.filterFocused, notifyFilterFinished],
+    [notifyChange],
   );
   const onKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        // blur
-        dispatch({ type: 'CLOSE' });
+      const code = e.which || e.keyCode;
+
+      if (disabled || readOnly) {
         return;
       }
 
-      if (e.key === 'ArrowUp') {
-        e.preventDefault(); // disable scroll
+      if (code === 38) {
+        // up arrow
+        dispatch({ type: 'FOCUS_PREVIOUS_OPTION' });
 
-        // if filter is focused, filter the last option
-        if (state.filterFocused && lastOptionRef.current) {
-          lastOptionRef.current.focus();
-        } else if (focusedOptionRef.current === firstOptionRef.current) {
-          if (inputRef.current) {
-            inputRef.current.focus();
-          } else if (lastOptionRef.current) {
-            lastOptionRef.current.focus();
-          }
-        } else if (
-          focusedOptionRef.current &&
-          focusedOptionRef.current.previousSibling
-        ) {
-          (focusedOptionRef.current.previousSibling as any).focus();
-        }
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault(); // disable scroll
+        e.preventDefault(); // prevent scroll
+      } else if (code === 40) {
+        // down arrow
+        dispatch({ type: 'FOCUS_NEXT_OPTION' });
 
-        // if filter is focused, filter the first option
-        if (state.filterFocused) {
-          if (firstOptionRef.current) {
-            firstOptionRef.current.focus();
-          }
-        } else if (focusedOptionRef.current === lastOptionRef.current) {
-          if (inputRef.current) {
-            inputRef.current.focus();
-          } else if (firstOptionRef.current) {
-            firstOptionRef.current.focus();
-          }
-        } else if (
-          focusedOptionRef.current &&
-          focusedOptionRef.current.nextSibling
-        ) {
-          (focusedOptionRef.current.nextSibling as any).focus();
-        }
-      } else if (e.key === ' ' && !readOnly) {
-        if (!state.open) {
-          e.preventDefault();
-          dispatch({ type: 'OPEN' });
-        }
-
-        // do nothing. space is handled by focused option
-      } else if (e.key === 'Tab') {
-        // prevent navigation with shift + tab and tab if select is open
-        if (state.open) {
-          e.preventDefault();
-        }
+        e.preventDefault(); // prevent scroll
+      } else if (code === 13) {
+        // enter
+        dispatch({ type: 'SELECT_OPTION' });
+        e.preventDefault(); // prevent form submission
+      } else if (code === 27) {
+        // escape
+        dispatch({ type: 'RESET', value: '' });
       }
     },
-    [state.filterFocused, state.open, readOnly],
+    [disabled, readOnly],
   );
+  const onBlur = useCallback(() => {
+    dispatch({ type: 'BLUR' });
+  }, []);
+  const onFocus = useCallback(() => {
+    dispatch({ type: 'FOCUS', readOnly });
+  }, [readOnly]);
+  const onClick = useCallback(() => dispatch({ type: 'CLICK', readOnly }), [
+    readOnly,
+  ]);
 
-  // propagate change of value
-  if (onChange) {
-    if (valueRef.current !== state.value) {
-      onChange(state.value);
-    } else if (valueRef.current !== outerValue) {
-      dispatch({ type: 'CHANGE', value: outerValue });
-    }
-  }
-
-  // focus option management
-  useLayoutEffect(() => {
-    // if select is focused and not open, force focus
-    if (state.focused && !state.open) {
-      if (ref.current) {
-        focusedOptionRef.current = null;
-        ref.current.focus();
-      }
-    }
-
-    // do not automatically select option if filter input is selected or there is already focused option
-    if (state.filterFocused || focusedOptionRef.current) {
-      return;
-    }
-
-    if (selectedOptionRef.current) {
-      selectedOptionRef.current.focus();
-    } else if (firstOptionRef.current) {
-      firstOptionRef.current.focus();
-    }
-  }, [state.items, state.focused, state.open, state.filterFocused]);
+  // cancel debounced change on unmount
+  useEffect(() => {
+    return () => cancelNotifyChange();
+  }, [cancelNotifyChange]);
 
   if (previousState.current !== state) {
-    if (previousState.current.status !== state.status) {
-      if (state.status === 'LOADING_ITEMS') {
-        // start loading suggestions (this is possible only if items is a function)
-        if (typeof items === 'function') {
-          items(state.filter)
-            .then(filteredItems =>
-              dispatch({ type: 'ITEMS_LOADING_DONE', items: filteredItems }),
-            )
-            .catch(() => dispatch({ type: 'ITEMS_LOADING_FAILED' }));
-        }
-      } else if (state.status === 'FILTERING') {
-        // focus filter input
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }
+    if (
+      previousState.current.status !== state.status &&
+      state.status === 'LOADING_OPTIONS'
+    ) {
+      loadOptions(state.value)
+        .then(loadedOptions =>
+          dispatch({ type: 'LOAD_OPTIONS_DONE', options: loadedOptions }),
+        )
+        .catch(() => dispatch({ type: 'LOAD_OPTIONS_FAILED' }));
     }
 
-    // if we are not focused, clear out focusedOptionRef
-    if (!state.focused && previousState.current.focused !== state.focused) {
-      focusedOptionRef.current = null;
+    if (
+      state.selectedValue !== previousState.current.selectedValue &&
+      onChange
+    ) {
+      onChange(state.selectedValue);
     }
 
     previousState.current = state;
   }
 
-  return (
-    <SelectBase
-      aria-activedescendant={activeDescendantId || undefined}
-      aria-readonly={readOnly}
-      id={id}
-      name={name}
-      onBlurCapture={onBlurCapture}
-      onFocus={onFocus}
-      onKeyDown={onKeyDown}
-      onKeyUp={onKeyUp}
-      onMouseUp={onMouseUp}
-      ref={ref}
-      role="listbox"
-      tabIndex={0}
-    >
-      {state.value
-        ? renderValue({
-            focused: state.focused,
-            open: state.open,
-            readOnly,
-            value: state.value,
-          })
-        : renderPlaceholder({
-            focused: state.focused,
-            open: state.open,
-            readOnly,
-            placeholder,
-          })}
-      {!state.open ? null : (
-        <LayerManager>
-          <SelectOptions
-            styles={{
-              top: ref.current!.clientHeight,
-              zIndex,
-            }}
-          >
-            {hasFilter
-              ? renderFilter({
-                  ref: inputRef,
-                  onBlur: onFilterInputBlur,
-                  onChange: onFilterChange,
-                  onFocus: onFilterInputFocus,
-                  value: state.filter || '',
-                })
-              : null}
-            {!state.items || state.items.length === 0
-              ? null
-              : state.items.map((item, i, arr) => {
-                  const selected = item === state.value;
-                  const optionId = `${id || name}-${i}`;
-                  const props = {
-                    'aria-selected': selected,
-                    tabIndex: -1,
-                    role: 'option',
-                    id: optionId,
-                    onBlur: () => {
-                      setActiveDescendantId(undefined);
-                    },
-                    onFocus: (e: FocusEvent) => {
-                      focusedOptionRef.current = e.currentTarget as any;
-                      setActiveDescendantId(id);
-                    },
-                    onClick: () => {
-                      dispatch({ type: 'CHANGE', value: item });
-                    },
-                    onKeyDown: (e: KeyboardEvent) => {
-                      if (e.key === ' ') {
-                        e.preventDefault();
-                        dispatch({ type: 'CHANGE', value: item });
-                      }
-                    },
-                    ref: (el: HTMLElement) => {
-                      if (i === 0) {
-                        (firstOptionRef as any).current = el;
-                      }
+  // if outer value changes, reset input to outer value
+  if (outerValueRef.current !== value) {
+    outerValueRef.current = value;
+    // reset input to outer value
+    dispatch({ type: 'RESET', value });
+  }
 
-                      if (arr.length - 1 === i) {
-                        (lastOptionRef as any).current = el;
-                      }
-
-                      if (selected) {
-                        (selectedOptionRef as any).current = el;
-                      }
-                    },
-                  };
-
-                  return renderOption(item, optionId, selected, props);
-                })}
-          </SelectOptions>
-        </LayerManager>
-      )}
-    </SelectBase>
-  );
+  return renderBase({
+    'aria-expanded': state.expanded,
+    'aria-haspopup': 'listbox',
+    'aria-labelledby': labelId,
+    'aria-owns': listBoxId,
+    children: (
+      <Fragment>
+        {renderValue({
+          'aria-autocomplete': 'list',
+          'aria-activedescendant':
+            state.selectedOption != null
+              ? `${id}-item-${state.selectedOption}`
+              : undefined,
+          'aria-controls': listBoxId,
+          'aria-disabled': disabled,
+          'aria-multiline': false,
+          'aria-readonly': readOnly || !filterable,
+          'aria-placeholder': placeholder,
+          disabled,
+          invalid,
+          id,
+          onBlur,
+          onClick,
+          onFocus,
+          onChange: onInnerChange,
+          onKeyDown,
+          open: state.expanded && state.focused,
+          placeholder,
+          readOnly: readOnly || !filterable,
+          ref: inputRef,
+          value: state.value,
+        })}
+        {state.expanded && state.focused
+          ? renderOptions({
+              children: state.options.map((option, i) =>
+                renderOption({
+                  'aria-selected': state.selectedOption === i,
+                  'data-ai-option': i,
+                  id: `${id}-item-${id}`,
+                  key: i,
+                  onMouseDown: onOptionMouseDown,
+                  option,
+                  role: 'option',
+                }),
+              ),
+              id: listBoxId,
+              role: 'listbox',
+            })
+          : null}
+      </Fragment>
+    ),
+    role: 'combobox',
+  });
 }
-
-// @ts-ignore
-markAsVisageComponent(Select);

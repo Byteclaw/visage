@@ -2,24 +2,59 @@
 
 ## Examples
 
-### Select with simple array
+### Non filterable Select with simple array
 
 If items are passed as an array, filtering is not available
 
 ```jsx live=true
 <Fragment>
-  <Select items={['A', 'B', 'C', 'D', 'E', 'F']} placeholder="Select a value" />
+  <Select
+    onChange={value => console.log(value)}
+    options={['A', 'B', 'C', 'D', 'E', 'F']}
+    placeholder="Select a value"
+  />
 </Fragment>
 ```
 
-### Read only select
+### Filterable Select with simple array
+
+If items are passed as an array, filtering is not available
+
+```jsx live=true
+<Fragment>
+  <Select
+    filterable
+    onChange={value => console.log(value)}
+    options={['A', 'B', 'C', 'D', 'E', 'F']}
+    placeholder="Select a value"
+  />
+</Fragment>
+```
+
+### Read only Select with simple array
 
 Read only select can be focused but can't be manipulated
 
 ```jsx live=true
 <Fragment>
   <Select
-    items={['A', 'B', 'C', 'D', 'E', 'F']}
+    onChange={value => console.log(value)}
+    options={['A', 'B', 'C', 'D', 'E', 'F']}
+    readOnly
+    placeholder="Select a value"
+  />
+</Fragment>
+```
+
+### Read only Select
+
+Read only select can be focused but can't be manipulated
+
+```jsx live=true
+<Fragment>
+  <Select
+    onChange={value => console.log(value)}
+    options={['A', 'B', 'C', 'D', 'E', 'F']}
     readOnly
     placeholder="Select a value"
     defaultValue="A"
@@ -27,14 +62,84 @@ Read only select can be focused but can't be manipulated
 </Fragment>
 ```
 
-### Select with simple a function
-
-If items are passed as a function, filtering is available. On filter the value from filter input will be passed to items function.
+### Non filterable Select with simple a function
 
 ```jsx live=true
 <Fragment>
   <Select
-    items={filter =>
+    onChange={value => console.log(value)}
+    options={filter =>
+      new Promise(resolve =>
+        setTimeout(
+          resolve,
+          1000,
+          ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
+            !filter ? true : val === filter,
+          ),
+        ),
+      )
+    }
+    placeholder="Select a value"
+  />
+</Fragment>
+```
+
+### Filterable Select with simple a function
+
+```jsx live=true
+<Fragment>
+  <Select
+    filterable
+    onChange={value => console.log(value)}
+    options={filter =>
+      new Promise(resolve =>
+        setTimeout(
+          resolve,
+          1000,
+          ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
+            !filter ? true : val === filter,
+          ),
+        ),
+      )
+    }
+    placeholder="Select a value"
+  />
+</Fragment>
+```
+
+### Disabled Select
+
+```jsx live=true
+<Fragment>
+  <Select
+    disabled
+    filterable
+    onChange={value => console.log(value)}
+    options={filter =>
+      new Promise(resolve =>
+        setTimeout(
+          resolve,
+          1000,
+          ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
+            !filter ? true : val === filter,
+          ),
+        ),
+      )
+    }
+    placeholder="Select a value"
+  />
+</Fragment>
+```
+
+### Invalid Select
+
+```jsx live=true
+<Fragment>
+  <Select
+    invalid
+    filterable
+    onChange={value => console.log(value)}
+    options={filter =>
       new Promise(resolve =>
         setTimeout(
           resolve,
