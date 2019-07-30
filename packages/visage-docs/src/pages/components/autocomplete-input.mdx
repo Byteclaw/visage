@@ -1,0 +1,45 @@
+# AutocompleteInput
+
+## Examples
+
+### Automatic mode with array options
+
+```jsx live=true
+<AutocompleteInput
+  id="automatic-field"
+  onChange={value => console.log('automatic-field', value)}
+  options={['a', 'b', 'c', 'd']}
+/>
+```
+
+### Manual mode with array options
+
+```jsx live=true
+<AutocompleteInput
+  id="manual-field"
+  mode="manual"
+  onChange={value => console.log('manual-field', value)}
+  options={['a', 'b', 'c', 'd']}
+/>
+```
+
+### Automatic mode with async options
+
+```jsx live=true
+<AutocompleteInput
+  id="automatic-async-field"
+  onChange={value => console.log('automatic-async-field', value)}
+  options={async () => ['a', 'b', 'c', 'd']}
+/>
+```
+
+### Manual mode with async options
+
+```jsx live=true
+<AutocompleteInput
+  id="manual-async-field"
+  mode="manual"
+  onChange={value => console.log('manual-async-field', value)}
+  options={async () => ['a', 'b', 'c', 'd']}
+/>
+```
