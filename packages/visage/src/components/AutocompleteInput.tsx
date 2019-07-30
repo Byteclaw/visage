@@ -247,7 +247,7 @@ export function AutocompleteInput({
           ref: inputRef,
           value: state.value,
         })}
-        {state.expanded
+        {state.expanded && state.focused
           ? renderOptions({
               children: state.options.map((option, i) =>
                 renderOption({
