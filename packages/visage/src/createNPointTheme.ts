@@ -1,5 +1,5 @@
 import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
-import { ScaleValue } from '@byteclaw/visage-utils';
+import { getResponsiveValue, ScaleValue } from '@byteclaw/visage-utils';
 import ModularScale, { ratios } from 'modular-scale';
 import React from 'react';
 
@@ -33,7 +33,7 @@ export interface StyleProps extends React.CSSProperties {
 }
 
 interface NPointThemeSettings extends ThemeSettings {
-  baseFontSize: number;
+  baseFontSize: number | ScaleValue<number>;
   baseLineHeightRatio: number;
   baselineGridSize: number;
   fontScaleRatio: number;
@@ -51,14 +51,25 @@ interface NPointThemeSettings extends ThemeSettings {
 }
 
 export function createNPointTheme(settings: NPointThemeSettings) {
-  const modularScale = ModularScale({
-    base: settings.baseFontSize,
-    ratio: settings.fontScaleRatio,
+  const modularScaleSettings = (typeof settings.baseFontSize === 'number'
+    ? [settings.baseFontSize]
+    : settings.baseFontSize.values
+  ).map(baseFontSize => {
+    const modularScale = ModularScale({
+      base: baseFontSize,
+      ratio: settings.fontScaleRatio,
+    });
+    const baseLineHeight = baseFontSize * settings.baseLineHeightRatio;
+    const alignedBaseLineHeight =
+      Math.round(baseLineHeight / settings.baselineGridSize) *
+      settings.baselineGridSize;
+
+    return {
+      modularScale,
+      baseLineHeight,
+      alignedBaseLineHeight,
+    };
   });
-  const baseLineHeight = settings.baseFontSize * settings.baseLineHeightRatio;
-  const alignedBaseLineHeight =
-    Math.round(baseLineHeight / settings.baselineGridSize) *
-    settings.baselineGridSize;
 
   return createTheme<any, 'gridSize' | 'modularSize' | 'modularLineHeight'>({
     resolvers: {
@@ -71,8 +82,12 @@ export function createNPointTheme(settings: NPointThemeSettings) {
         }
         return value;
       },
-      modularSize(value) {
+      modularSize(value, _, breakpoint) {
         const numericValue = Number(value);
+        const { modularScale } = getResponsiveValue(
+          breakpoint,
+          modularScaleSettings as any,
+        );
 
         if (!Number.isNaN(numericValue)) {
           return modularScale(numericValue);
@@ -80,11 +95,15 @@ export function createNPointTheme(settings: NPointThemeSettings) {
 
         return value;
       },
-      modularLineHeight(value, { resolve }) {
+      modularLineHeight(value, { resolve }, breakpoint) {
         const numericValue = Number(value);
+        const { alignedBaseLineHeight } = getResponsiveValue(
+          breakpoint,
+          modularScaleSettings as any,
+        );
 
         if (!Number.isNaN(numericValue)) {
-          const modularSize = resolve('modularSize', value);
+          const modularSize = resolve('modularSize', value, breakpoint);
 
           const lineHeightCoefficient = Math.ceil(
             modularSize / alignedBaseLineHeight,

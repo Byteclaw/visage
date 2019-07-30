@@ -10,12 +10,12 @@ interface FormatterFn {
 }
 
 interface ResolverFn {
-  (value: any, ctx: FormatterAndResolverContext): any;
+  (value: any, ctx: FormatterAndResolverContext, breakpoint: number): any;
 }
 
 interface FormatterAndResolverContext {
   format(name: string, value: any): any;
-  resolve(name: string, value: any): any;
+  resolve(name: string, value: any, breakpoint: number): any;
   themeSettings: ThemeSettings;
 }
 
@@ -112,6 +112,7 @@ function applyStyler(
   value: any,
   stylers: ResolvedStylerMap,
   ctx: FormatterAndResolverContext,
+  breakpoint: number,
 ): { properties: string[]; value: any } {
   // if there is a styler for this prop, apply it, otherwise return a value under the same propName
   const styler = stylers[propName];
@@ -123,6 +124,7 @@ function applyStyler(
           ? resolveOnTheme(value, styler.themeKey, ctx.themeSettings)
           : value,
         ctx,
+        breakpoint,
       ),
       ctx,
     );
@@ -222,10 +224,11 @@ export function createTheme<
         formatterAndResolverContext,
       );
     },
-    resolve(name, value) {
+    resolve(name, value, breakpoint) {
       return resolveResolver(resolvers, name)(
         value,
         formatterAndResolverContext,
+        breakpoint,
       );
     },
     themeSettings,
@@ -243,6 +246,7 @@ export function createTheme<
       value,
       resolvedStylers,
       formatterAndResolverContext,
+      breakpoint,
     );
   }
 
