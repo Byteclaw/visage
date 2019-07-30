@@ -86,7 +86,6 @@ export function selectReducer(
   state: SelectState,
   action: SelectActions,
 ): SelectState {
-  console.log(state, action);
   switch (action.type) {
     case 'FOCUS': {
       return {
