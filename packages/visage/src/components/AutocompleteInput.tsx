@@ -34,12 +34,17 @@ interface ValueProps {
   'aria-autocomplete': 'list';
   'aria-activedescendant'?: string;
   'aria-controls': string;
+  'aria-disabled'?: boolean;
+  'aria-readonly'?: boolean;
+  disabled?: boolean;
   id: string;
+  invalid?: boolean;
   onBlur: FocusEventHandler<any>;
   onFocus: FocusEventHandler<any>;
   onChange: ChangeEventHandler<any>;
   onKeyDown: KeyboardEventHandler<any>;
   ref: MutableRefObject<any>;
+  readOnly?: boolean;
   value: any;
   [key: string]: any;
 }
@@ -79,11 +84,14 @@ const defaultBaseRenderer: BaseRenderer = props => <div {...props} />;
 
 interface AutocompleteInputProps {
   defaultValue?: string;
+  disabled?: boolean;
   id: string;
+  invalid?: boolean;
   labelId?: string;
   mode?: 'automatic' | 'manual';
   onChange?: (value: any) => void;
   options: any[] | ((search: string | null) => Promise<any[]>);
+  readOnly?: boolean;
   renderBase?: BaseRenderer;
   renderOption?: OptionRenderer;
   renderOptions?: OptionsRenderer;
@@ -93,11 +101,14 @@ interface AutocompleteInputProps {
 
 export function AutocompleteInput({
   defaultValue,
+  disabled,
   id,
+  invalid,
   labelId,
   mode = 'automatic',
   options,
   onChange,
+  readOnly,
   renderBase = defaultBaseRenderer,
   renderOption = defaultOptionRenderer,
   renderOptions = defaultOptionsRenderer,
@@ -168,30 +179,39 @@ export function AutocompleteInput({
     },
     [notifyChange],
   );
-  const onKeyDown = useCallback((e: KeyboardEvent) => {
-    const code = e.which || e.keyCode;
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      const code = e.which || e.keyCode;
 
-    if (code === 38) {
-      // up arrow
-      dispatch({ type: 'FOCUS_PREVIOUS_OPTION' });
-    } else if (code === 40) {
-      // down arrow
-      dispatch({ type: 'FOCUS_NEXT_OPTION' });
-    } else if (code === 13) {
-      // enter
-      dispatch({ type: 'SELECT_OPTION' });
-      e.preventDefault(); // prevent form submission
-    } else if (code === 27) {
-      // escape
-      dispatch({ type: 'RESET', value: '' });
-    }
-  }, []);
+      if (readOnly || disabled) {
+        return;
+      }
+
+      if (code === 38) {
+        // up arrow
+        dispatch({ type: 'FOCUS_PREVIOUS_OPTION' });
+      } else if (code === 40) {
+        // down arrow
+        dispatch({ type: 'FOCUS_NEXT_OPTION' });
+      } else if (code === 13) {
+        // enter
+        dispatch({ type: 'SELECT_OPTION' });
+        e.preventDefault(); // prevent form submission
+      } else if (code === 27) {
+        // escape
+        dispatch({ type: 'RESET', value: '' });
+      }
+    },
+    [readOnly, disabled],
+  );
   const onBlur = useCallback(() => {
     dispatch({ type: 'BLUR', mode });
   }, [mode]);
   const onFocus = useCallback(() => {
-    dispatch({ type: 'FOCUS' });
-  }, []);
+    if (!readOnly) {
+      dispatch({ type: 'FOCUS' });
+    }
+  }, [readOnly]);
 
   // cancel debounced change on unmount
   useEffect(() => {
@@ -238,12 +258,17 @@ export function AutocompleteInput({
               ? `${id}-item-${state.selectedOption}`
               : undefined,
           'aria-controls': listBoxId,
+          'aria-disabled': disabled,
           'aria-multiline': false,
+          'aria-readonly': readOnly,
+          disabled,
           id,
+          invalid,
           onBlur,
           onFocus,
           onChange: onInnerChange,
           onKeyDown,
+          readOnly,
           ref: inputRef,
           value: state.value,
         })}
