@@ -199,7 +199,7 @@ export function Select({
     (e: KeyboardEvent) => {
       const code = e.which || e.keyCode;
 
-      if ((disabled, readOnly)) {
+      if (disabled || readOnly) {
         return;
       }
 
