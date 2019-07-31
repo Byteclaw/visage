@@ -90,6 +90,11 @@ export function Sidebar() {
                   TextInput
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/toggle">
+                  Toggle
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleList>
           )}
         </Match>
