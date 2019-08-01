@@ -81,7 +81,7 @@ const defaultOptionRenderer: OptionRenderer<any> = ({
 const defaultOptionsRenderer: OptionsRenderer = props => <ul {...props} />;
 
 const defaultValueRenderer: ValueRenderer<any> = props => (
-  <TextInput {...props} type="text" />
+  <TextInput autoComplete="off" {...props} type="text" />
 );
 
 const defaultBaseRenderer: BaseRenderer = props => <div {...props} />;
