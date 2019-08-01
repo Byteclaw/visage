@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/role-has-required-aria-props:warn */
 import React, {
   Fragment,
+  ReactElement,
   ReactNode,
   useCallback,
   useEffect,
@@ -13,10 +14,12 @@ import React, {
   ChangeEventHandler,
   KeyboardEventHandler,
   MutableRefObject,
+  Reducer,
 } from 'react';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
 import { TextInput } from './TextInput';
 import {
+  AutocompleteActions,
   AutocompleteInputState,
   autocompleteInputReducer,
 } from './autocompleteInputReducer';
@@ -30,7 +33,7 @@ interface BaseProps {
   role: 'combobox';
 }
 
-interface ValueProps {
+interface ValueProps<TValue> {
   'aria-autocomplete': 'list';
   'aria-activedescendant'?: string;
   'aria-controls': string;
@@ -45,17 +48,17 @@ interface ValueProps {
   onKeyDown: KeyboardEventHandler<any>;
   ref: MutableRefObject<any>;
   readOnly?: boolean;
-  value: any;
+  value: TValue;
   [key: string]: any;
 }
 
-interface OptionProps {
+interface OptionProps<TOption> {
   'aria-selected': boolean;
   'data-ai-option': number;
   id: string;
   key: any;
   onMouseDown: (e: MouseEvent<any>) => void;
-  option: any;
+  option: TOption;
   role: 'option';
 }
 
@@ -65,41 +68,44 @@ interface OptionsProps {
   role: 'listbox';
 }
 
-type BaseRenderer = (props: BaseProps) => ReactNode;
-type OptionRenderer = (props: OptionProps) => ReactNode;
-type OptionsRenderer = (props: OptionsProps) => ReactNode;
-type ValueRenderer = (props: ValueProps) => ReactNode;
+type BaseRenderer = (props: BaseProps) => ReactElement;
+type OptionRenderer<TOption> = (props: OptionProps<TOption>) => ReactElement;
+type OptionsRenderer = (props: OptionsProps) => ReactElement;
+type ValueRenderer<TValue> = (props: ValueProps<TValue>) => ReactElement;
 
-const defaultOptionRenderer: OptionRenderer = ({ option, ...restProps }) => (
-  <li {...restProps}>{option}</li>
-);
+const defaultOptionRenderer: OptionRenderer<any> = ({
+  option,
+  ...restProps
+}) => <li {...restProps}>{option}</li>;
 
 const defaultOptionsRenderer: OptionsRenderer = props => <ul {...props} />;
 
-const defaultValueRenderer: ValueRenderer = props => (
+const defaultValueRenderer: ValueRenderer<any> = props => (
   <TextInput {...props} type="text" />
 );
 
 const defaultBaseRenderer: BaseRenderer = props => <div {...props} />;
 
-interface AutocompleteInputProps {
-  defaultValue?: string;
+interface AutocompleteInputProps<TValue extends any> {
+  defaultValue?: TValue;
   disabled?: boolean;
   id: string;
   invalid?: boolean;
   labelId?: string;
   mode?: 'automatic' | 'manual';
-  onChange?: (value: any) => void;
-  options: any[] | ((search: string | null) => Promise<any[]>);
+  onChange?: (value: TValue | undefined | string) => void;
+  options:
+    | TValue[]
+    | ((search: TValue | undefined | string) => Promise<TValue[]>);
   readOnly?: boolean;
   renderBase?: BaseRenderer;
-  renderOption?: OptionRenderer;
+  renderOption?: OptionRenderer<TValue>;
   renderOptions?: OptionsRenderer;
-  renderValue?: ValueRenderer;
-  value?: string;
+  renderValue?: ValueRenderer<TValue | undefined | string>;
+  value?: TValue;
 }
 
-export function AutocompleteInput({
+export function AutocompleteInput<TValue = any>({
   defaultValue,
   disabled,
   id,
@@ -114,15 +120,15 @@ export function AutocompleteInput({
   renderOptions = defaultOptionsRenderer,
   renderValue = defaultValueRenderer,
   value,
-}: AutocompleteInputProps) {
+}: AutocompleteInputProps<TValue>) {
   const listBoxId = `${id}-listbox`;
   const inputRef = useRef<HTMLInputElement | null>(null);
   const loadOptions = useCallback(
-    async (search: string | null): Promise<any[]> => {
+    async (search: string | undefined | TValue): Promise<TValue[]> => {
       if (Array.isArray(options)) {
-        const term = (search || '').trim();
+        const term = typeof search === 'string' ? (search || '').trim() : '';
 
-        if (!search) {
+        if (!term) {
           return options;
         }
 
@@ -134,8 +140,8 @@ export function AutocompleteInput({
           if (typeof option === 'object' && option !== null) {
             return Object.keys(option).find(
               key =>
-                typeof option[key] === 'string' &&
-                option[key].toLowerCase().startsWith(term),
+                typeof (option as any)[key] === 'string' &&
+                (option as any)[key].toLowerCase().startsWith(term),
             );
           }
 
@@ -147,16 +153,21 @@ export function AutocompleteInput({
     },
     [options],
   );
-  const [state, dispatch] = useReducer(autocompleteInputReducer, {
+  const [state, dispatch] = useReducer<
+    Reducer<
+      AutocompleteInputState<TValue | undefined | string>,
+      AutocompleteActions<TValue | undefined | string>
+    >
+  >(autocompleteInputReducer, {
     focused: false,
     expanded: false,
     selectedOption: null,
     options: Array.isArray(options) ? options : [],
     status: 'IDLE',
-    value: defaultValue || value || '',
+    value: defaultValue || value,
   });
   const outerValueRef = useRef(value);
-  const previousState = useRef<AutocompleteInputState>(state);
+  const previousState = useRef(state);
   const [notifyChange, cancelNotifyChange] = useDebouncedCallback(
     () => {
       dispatch({ type: 'CHANGE_DONE' });

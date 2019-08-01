@@ -1,10 +1,10 @@
-export interface AutocompleteInputState {
+export interface AutocompleteInputState<TValue> {
   focused: boolean;
   expanded: boolean;
   options: any[];
   selectedOption: number | undefined | null;
   status: 'IDLE' | 'LOADING_OPTIONS';
-  value: string;
+  value: TValue;
 }
 
 interface AutocompleteFocusAction {
@@ -19,9 +19,9 @@ interface AutocompleteBlurAction {
   mode: 'automatic' | 'manual';
 }
 
-interface AutocompleteResetAction {
+interface AutocompleteResetAction<TValue> {
   type: 'RESET';
-  value: any;
+  value: TValue;
 }
 
 interface AutocompleteFocusPreviousOption {
@@ -37,9 +37,9 @@ interface AutocompleteSelectOption {
   index?: number;
 }
 
-interface AutocompleteChangeAction {
+interface AutocompleteChangeAction<TValue> {
   type: 'CHANGE';
-  value: string;
+  value: TValue;
 }
 
 interface AutocompleteChangeDoneAction {
@@ -50,32 +50,32 @@ interface AutocompleteLoadOptionsAction {
   type: 'LOAD_OPTIONS';
 }
 
-interface AutocompleteLoadOptionsDoneAction {
+interface AutocompleteLoadOptionsDoneAction<TValue> {
   type: 'LOAD_OPTIONS_DONE';
-  options: any[];
+  options: TValue[];
 }
 
 interface AutocompleteLoadOptionsFailedAction {
   type: 'LOAD_OPTIONS_FAILED';
 }
 
-export type AutocompleteActions =
+export type AutocompleteActions<TValue> =
   | AutocompleteFocusAction
   | AutocompleteBlurAction
-  | AutocompleteResetAction
+  | AutocompleteResetAction<TValue>
   | AutocompleteFocusPreviousOption
   | AutocompleteFocusNextOption
   | AutocompleteSelectOption
-  | AutocompleteChangeAction
+  | AutocompleteChangeAction<TValue>
   | AutocompleteChangeDoneAction
   | AutocompleteLoadOptionsAction
-  | AutocompleteLoadOptionsDoneAction
+  | AutocompleteLoadOptionsDoneAction<TValue>
   | AutocompleteLoadOptionsFailedAction;
 
-export function autocompleteInputReducer(
-  state: AutocompleteInputState,
-  action: AutocompleteActions,
-): AutocompleteInputState {
+export function autocompleteInputReducer<TValue>(
+  state: AutocompleteInputState<TValue>,
+  action: AutocompleteActions<TValue>,
+): AutocompleteInputState<TValue> {
   switch (action.type) {
     case 'FOCUS': {
       return {
