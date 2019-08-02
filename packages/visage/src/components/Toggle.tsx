@@ -51,20 +51,34 @@ const containerDisabledVariant = createBooleanVariant('disabled', {
   },
 });
 
+const togglerCheckedVariant = createBooleanVariant('checked', {
+  onStyles: {
+    transform: 'translateX(calc(100% - 1.25em - 0px))',
+    '&::before': {
+      left: '-50%',
+    },
+  },
+  offStyles: {
+    '&::before': {
+      left: '50%',
+    },
+  },
+});
+
 const ToggleContainer = containerDisabledVariant(
   containerCheckedVariant(
     createComponent('div', {
       displayName: 'ToggleContainer',
       defaultStyles: {
         overflowX: 'hidden',
+        overflowY: 'visible',
         borderRadius: 999,
         width: 'auto',
         display: 'inline-flex',
-        position: 'relative',
         height: '1.5em',
-        minWidth: '3em',
+        minWidth: '2.75em',
         backgroundColor: 'primary',
-        fontSize: '20px',
+        fontSize: '16px',
         borderWidth: '2px',
         borderStyle: 'solid',
         borderColor: 'transparent',
@@ -91,51 +105,49 @@ const ToggleControl = createComponent('input', {
   },
 });
 
-const Toggler = createComponent('div', {
-  displayName: 'Toggler',
-  defaultStyles: {
-    fontSize: 'inherit',
-    display: 'inline-block',
-    top: 0,
-    left: 0,
-    padding: '1px',
-    width: '100%',
-    height: '100%',
-    cursor: 'pointer',
-    position: 'relative',
-    transitionProperty: 'transform, color',
-    transitionDuration: '0.1s',
-    transitionTimingFunction: 'ease-out',
-    '&::after': {
-      content: '""',
-      verticalAlign: 'middle',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      width: '1.25em',
-      height: '1.25em',
-      position: 'absolute',
-      borderRadius: '50%',
-      backgroundColor: 'white',
+const Toggler = togglerCheckedVariant(
+  createComponent('div', {
+    displayName: 'Toggler',
+    defaultStyles: {
+      fontSize: 'inherit',
+      display: 'inline-block',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      cursor: 'pointer',
+      position: 'relative',
       transitionProperty: 'transform, color',
       transitionDuration: '0.1s',
-      mx: '1px',
       transitionTimingFunction: 'ease-out',
+      '&::after': {
+        content: '""',
+        verticalAlign: 'middle',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        width: '1.25em',
+        height: '1.25em',
+        position: 'absolute',
+        borderRadius: '50%',
+        backgroundColor: 'white',
+        transitionProperty: 'transform, color',
+        transitionDuration: '0.1s',
+        transitionTimingFunction: 'ease-out',
+      },
+      '&::before': {
+        content: 'attr(data-label-content)',
+        position: 'absolute',
+        mx: 1,
+        fontSize: '0.75em',
+        textAlign: 'center',
+        color: 'white',
+        top: '50%',
+        transform: 'translate(-50%,-50%)',
+        whiteSpace: 'nowrap',
+      },
     },
-    '&::before': {
-      content: 'attr(data-label-content)',
-      position: 'absolute',
-      mx: 1,
-      fontSize: '0.75em',
-      textAlign: 'center',
-      color: 'white',
-      left: 'calc(50%)',
-      top: '50%',
-      transform: 'translate(-50%,-50%)',
-      zIndex: 0,
-      whiteSpace: 'nowrap',
-    },
-  },
-});
+  }),
+);
 
 const ToggleLabel = createComponent('label', {
   displayName: 'ToggleLabel',
@@ -204,7 +216,7 @@ export const Toggle: VisageComponent<
         onClick={!disabled && !readOnly ? onClick : undefined}
         checked={isChecked}
         disabled={disabled}
-        role="checkbox"
+        role="switch"
         tabIndex={disabled ? -1 : 0}
         aria-checked={ariaChecked}
         aria-disabled={ariaDisabled}
@@ -223,12 +235,8 @@ export const Toggle: VisageComponent<
           type="checkbox"
         />
         <Toggler
+          checked={isChecked}
           data-label-content={isChecked ? rightContent : leftContent}
-          styles={{
-            transform: `translateX(${
-              isChecked ? 'calc(100% - 1.25em - 4px)' : '0'
-            })`,
-          }}
         />
       </ToggleContainer>
       {label != null && (

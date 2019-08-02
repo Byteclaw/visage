@@ -25,7 +25,7 @@ function ListItemRouteLink({ to, ...restProps }: ListItemRouteLink) {
 
 export function Sidebar() {
   return (
-    <List>
+    <List navigation>
       <ListItem>
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
@@ -35,12 +35,12 @@ export function Sidebar() {
       <ListItem>
         <ListItemRouteLink to="/typography">Typography</ListItemRouteLink>
       </ListItem>
-      <ListItem>
+      <ListItem styles={{ p: 0 }}>
         <Match path="/components/*">
           {({ match }) => (
             <CollapsibleList
               collapsed={match == null}
-              toggler={<ListItemLink>Components</ListItemLink>}
+              toggler={<ListItemLink tabIndex={0}>Components</ListItemLink>}
             >
               <ListItem>
                 <ListItemRouteLink to="/components/overview">
@@ -63,6 +63,16 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/checkbox">
                   Checkbox
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/list">
+                  List
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/menu">
+                  Menu
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -104,7 +114,7 @@ export function Sidebar() {
           {({ match }) => (
             <CollapsibleList
               collapsed={match == null}
-              toggler={<ListItemLink>Core</ListItemLink>}
+              toggler={<ListItemLink tabIndex={0}>Core</ListItemLink>}
             >
               <ListItem>
                 <ListItemRouteLink to="/core/is-breakpoint">
