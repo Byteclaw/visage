@@ -1,3 +1,4 @@
+import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
 import React, {
   createContext,
   cloneElement,
@@ -8,8 +9,11 @@ import React, {
   useContext,
   useRef,
   useState,
+  useMemo,
+  KeyboardEventHandler,
 } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
+import { StyleProps } from '../createNPointTheme';
 
 const ListDepthContext = createContext(0);
 
@@ -27,6 +31,8 @@ export const ListItemsContainer = createBooleanVariant('collapsed', {
   onStyles: {
     maxHeight: 0,
     visibility: 'hidden',
+    p: 0,
+    m: 0,
   },
 })(
   createComponent('ul', {
@@ -39,21 +45,47 @@ export const ListItemsContainer = createBooleanVariant('collapsed', {
       overflowY: 'auto',
       m: 0,
       p: 0,
+      py: 1,
       width: 'auto',
     },
   }),
 );
-export const ListItem = createComponent('li', {
-  displayName: 'ListItem',
-  defaultStyles: {
-    border: 0,
-    height: 'auto',
-    m: 0,
-    p: 0,
-    overflow: 'hidden',
-    width: 'auto',
+
+const activeItemVariant = createBooleanVariant('active', {
+  onStyles: {
+    backgroundColor: 'primary.1',
+    color: 'primaryText.1',
   },
 });
+
+export const BaseListItem = createBooleanVariant('gutters', {
+  onStyles: {
+    px: 2,
+    py: 1,
+  },
+})(
+  activeItemVariant(
+    createComponent('li', {
+      displayName: 'ListItem',
+      defaultStyles: {
+        display: 'flex',
+        border: 0,
+        height: 'auto',
+        m: 0,
+        overflow: 'hidden',
+        width: 'auto',
+        '&[role="button"]:hover, &[role="button"]:focus': {
+          outline: 'none',
+          backgroundColor: 'primary.1',
+          color: 'primaryText.1',
+          cursor: 'pointer',
+          userSelect: 'none',
+        },
+      },
+    }),
+  ),
+);
+
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
   defaultStyles: {
@@ -63,17 +95,25 @@ const ListItemLinkBase = createComponent('a', {
     fontSize: 'inherit',
     lineHeight: 'inherit',
     m: 0,
-    p: 0,
     px: 2,
+    py: 1,
     textDecoration: 'none',
     width: '100%',
+    '&:hover, &:focus': {
+      outline: 'none',
+      backgroundColor: 'primary.1',
+      color: 'primaryText.1',
+      userSelect: 'none',
+    },
   },
 });
+
 export const ListItemLink: typeof ListItemLinkBase = (props: any) => {
   const depth = useContext(ListDepthContext);
 
   return <ListItemLinkBase {...props} styles={{ pl: 2 * depth }} />;
 };
+
 export const ListHeader = createComponent('h1', {
   displayName: 'ListHeader',
   defaultStyles: {
@@ -90,16 +130,47 @@ interface ListProps {
   container?: ReactElement;
   heading?: ReactElement;
   itemsContainer?: ReactElement;
+  navigation?: boolean;
+}
+
+interface ListItemProps extends VisageStyleProps<StyleProps> {
+  button?: boolean;
+  gutters?: boolean;
+  children: ReactNode;
 }
 
 const defaultContainer = <ListContainer />;
 const defaultItemsContainer = <ListItemsContainer />;
+
+export function ListItem({
+  button = false,
+  children,
+  gutters,
+  ...rest
+}: ListItemProps) {
+  const guttersValue = useMemo(() => {
+    if (gutters != null) {
+      return gutters;
+    }
+    return typeof children === 'string';
+  }, [gutters, children]);
+  return (
+    <BaseListItem
+      role={button === true ? 'button' : undefined}
+      gutters={guttersValue}
+      {...rest}
+    >
+      {children}
+    </BaseListItem>
+  );
+}
 
 export function List({
   children,
   container = defaultContainer,
   heading,
   itemsContainer = defaultItemsContainer,
+  navigation = false,
 }: ListProps) {
   const depth = useContext(ListDepthContext);
   const listItems = cloneElement(itemsContainer, {
@@ -115,6 +186,7 @@ export function List({
         </ListDepthContext.Provider>
       </Fragment>
     ),
+    role: navigation === true ? 'navigation' : undefined,
   });
 }
 
@@ -139,7 +211,19 @@ export function CollapsibleList({
   const collapsedRef = useRef(isCollapsed);
   const [collapsed, setCollapsed] = useState(isCollapsed);
   const onToggle = useCallback(() => setCollapsed(!collapsed), [collapsed]);
-  const toggle = cloneElement(toggler, { collapsed, onClick: onToggle });
+  const onKeyDown: KeyboardEventHandler<HTMLLabelElement> = useCallback(
+    e => {
+      if (e.key === 'Enter') {
+        setCollapsed(!collapsed);
+      }
+    },
+    [collapsed],
+  );
+  const toggle = cloneElement(toggler, {
+    collapsed,
+    onClick: onToggle,
+    onKeyDown,
+  });
   const listItems = cloneElement(itemsContainer, {
     children,
     collapsed,
