@@ -3,7 +3,6 @@ import {
   StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
 import React, {
-  ChangeEventHandler,
   KeyboardEventHandler,
   MouseEventHandler,
   ReactElement,
@@ -143,11 +142,13 @@ interface CheckboxProps extends VisageStyleProps<StyleProps> {
   hiddenLabel?: boolean;
   label: ReactNode;
   name?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (checked: boolean) => void;
   readOnly?: boolean;
   value?: any;
   wrapper?: ReactElement;
 }
+
+const defaultOnChange = () => {};
 
 export const Checkbox: VisageComponent<
   CheckboxProps,
@@ -159,59 +160,63 @@ export const Checkbox: VisageComponent<
   hiddenLabel = false,
   label,
   name,
-  onChange,
+  onChange = defaultOnChange,
   readOnly,
   styles,
   value,
 }: CheckboxProps) {
-  const checkedValue = checked != null ? checked : !!defaultChecked;
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const isControlled = checked != null;
+  const checkedValue = !!(defaultChecked || checked);
   const id = `chkbx-${name}`;
   const [isChecked, setChecked] = useState(checkedValue);
-  const checkedRef = useRef(checkedValue);
-  const onClick: MouseEventHandler<HTMLLabelElement> = useCallback(() => {
-    if (inputRef.current) {
-      setChecked(!inputRef.current.checked);
-    }
-  }, [inputRef]);
+  const currentCheckedValueRef = useRef(checkedValue);
+  const outerValueRef = useRef(checkedValue);
+  const onClick: MouseEventHandler<HTMLLabelElement> = useCallback(
+    () => (!isControlled ? setChecked(!isChecked) : onChange(!isChecked)),
+    [isControlled, isChecked, onChange],
+  );
   const onKeyDown: KeyboardEventHandler<HTMLLabelElement> = useCallback(
     e => {
-      if (inputRef.current && e.key === ' ') {
+      if (e.key === ' ') {
         e.preventDefault();
-        setChecked(!inputRef.current.checked);
+
+        if (!isControlled) {
+          setChecked(!isChecked);
+        } else {
+          onChange(!isChecked);
+        }
       }
     },
-    [inputRef],
+    [isControlled, isChecked, onChange],
   );
-  const isMutable = !disabled && !readOnly;
-  const ariaChecked = isChecked.toString() as 'true' | 'false';
-  const ariaDisabled = (!!disabled).toString() as 'true' | 'false';
-  const ariaReadOnly = (!!readOnly).toString() as 'true' | 'false';
 
-  // if value from outside has changed, set the internal state
-  if (checkedRef.current !== checkedValue) {
-    checkedRef.current = checkedValue;
+  if (!isControlled && currentCheckedValueRef.current !== isChecked) {
+    currentCheckedValueRef.current = isChecked;
+
+    onChange(isChecked);
+  }
+
+  if (isControlled && outerValueRef.current !== checkedValue) {
+    outerValueRef.current = checkedValue;
+
     setChecked(checkedValue);
   }
 
   return (
     <CheckboxWrapper styles={styles}>
       <CheckboxControl
-        defaultChecked={isMutable ? undefined : isChecked}
+        checked={isChecked}
         disabled={disabled}
-        checked={isMutable ? isChecked : undefined}
         id={id}
         name={name}
-        onChange={onChange}
-        ref={inputRef}
         readOnly={readOnly}
         type="checkbox"
         value={value}
       />
       <CheckboxLabel
-        aria-checked={ariaChecked}
-        aria-disabled={ariaDisabled}
-        aria-readonly={ariaReadOnly}
+        aria-checked={isChecked}
+        aria-disabled={!!disabled}
+        aria-readonly={!!readOnly}
         checked={isChecked}
         disabled={disabled}
         htmlFor={id}
