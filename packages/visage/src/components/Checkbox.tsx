@@ -209,6 +209,7 @@ export const Checkbox: VisageComponent<
         disabled={disabled}
         id={id}
         name={name}
+        onChange={defaultOnChange}
         readOnly={readOnly}
         type="checkbox"
         value={value}
