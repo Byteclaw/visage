@@ -11,8 +11,9 @@ import {
   ExtractVisageComponentProps,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import { createComponent, createBooleanVariant } from '../core';
+import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
+import { disabledControl, invalidControl } from './shared';
 
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
@@ -47,29 +48,7 @@ const TextInputBase = createComponent('input', {
   },
 });
 
-const inputBaseDisabled = createBooleanVariant('disabled', {
-  onStyles: {
-    color: 'grey.1',
-    outlineColor: 'grey.1',
-  },
-  stripProp: false,
-});
-const inputBaseInvalid = createBooleanVariant('invalid', {
-  onStyles: {
-    borderColor: 'red',
-    borderWidth: '2px',
-    '&:focus': {
-      outlineColor: 'blue',
-    },
-  },
-  offStyles: {
-    '&:focus, &[data-focused="true"]': {
-      outlineColor: 'blue',
-    },
-  },
-});
-
-const InputBase = inputBaseInvalid(inputBaseDisabled(TextInputBase));
+const InputBase = invalidControl(disabledControl(TextInputBase));
 
 const inputBoxDefaultStyles: StyleSheet<StyleProps> = {
   border: 'none',

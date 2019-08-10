@@ -1,0 +1,50 @@
+# TextArea
+
+## Examples
+
+### Default
+
+```jsx live=true
+<Fragment>
+  <TextArea></TextArea>
+</Fragment>
+```
+
+### ReadOnly
+
+```jsx live=true
+<Fragment>
+  <TextArea readOnly></TextArea>
+</Fragment>
+```
+
+### Invalid
+
+```jsx live=true
+<Fragment>
+  <TextArea invalid></TextArea>
+</Fragment>
+```
+
+### Disabled
+
+```jsx live=true
+<Fragment>
+  <TextArea disabled></TextArea>
+</Fragment>
+```
+
+### Support for refs
+
+```jsx live=true
+<WithRef>
+  {ref => (
+    <Fragment>
+      <TextArea ref={ref} />
+      <Button onClick={() => ref.current.focus()} type="button">
+        Focus textarea
+      </Button>
+    </Fragment>
+  )}
+</WithRef>
+```
