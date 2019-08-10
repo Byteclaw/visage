@@ -9,6 +9,7 @@ export * from './Flex';
 export * from './Grid';
 export * from './Header';
 export * from './Heading';
+export * from './Label';
 export * from './LayerManager';
 export * from './Layout';
 export * from './Link';

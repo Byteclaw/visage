@@ -11,6 +11,8 @@ import {
 import React from 'react';
 import { StyleProps } from './createNPointTheme';
 
+export type EmotionStyleSheet = StyleSheet<StyleProps>;
+
 export const createComponent: ComponentFactory<
   StyleProps
 > = baseCreateComponent;
