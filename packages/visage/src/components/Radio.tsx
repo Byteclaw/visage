@@ -17,6 +17,7 @@ import React, {
 } from 'react';
 import { createBooleanVariant, createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
+import { visuallyHiddenStripped, visuallyHiddenStyles } from './shared';
 
 const RadioGroupContext = createContext<{
   mounted: boolean; // is context mounted (provided by provider)
@@ -83,18 +84,7 @@ export function RadioGroup({
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
-  defaultStyles: {
-    border: '0',
-    clip: 'rect(0, 0, 0, 0)',
-    height: '1px',
-    overflow: 'hidden',
-    position: 'absolute',
-    margin: '-1px',
-    padding: '0px',
-    visibility: 'hidden',
-    whiteSpace: 'nowrap',
-    width: '1px',
-  },
+  defaultStyles: visuallyHiddenStyles,
 });
 
 const labelCheckedVariant = createBooleanVariant('checked', {
@@ -166,19 +156,7 @@ const RadioLabel = labelDisabledVariant(
   ),
 );
 
-const labelTextHiddenVariant = createBooleanVariant('hidden', {
-  onStyles: {
-    border: '0',
-    clip: 'rect(0, 0, 0, 0)',
-    overflow: 'hidden',
-    margin: '-1px',
-    padding: '0px',
-    whiteSpace: 'nowrap',
-    width: '0px',
-  },
-});
-
-const RadioLabelText = labelTextHiddenVariant(
+const RadioLabelText = visuallyHiddenStripped(
   createComponent('span', {
     displayName: 'RadioLabelText',
     defaultStyles: {

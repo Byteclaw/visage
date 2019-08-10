@@ -4,7 +4,7 @@ import {
 } from '@byteclaw/visage-core';
 import React, { Fragment } from 'react';
 import { createComponent } from '../core';
-import { visuallyHiddenNonStripped, visuallyHiddenStyles } from './shared';
+import { visuallyHiddenStripped, visuallyHiddenStyles } from './shared';
 
 const RequirementDescription = createComponent('span', {
   defaultStyles: visuallyHiddenStyles,
@@ -19,7 +19,7 @@ const LabelBase = createComponent('label', {
   },
 });
 
-const Comp = visuallyHiddenNonStripped(LabelBase);
+const Comp = visuallyHiddenStripped(LabelBase);
 
 interface LabelProps extends ExtractVisageComponentProps<typeof Comp> {
   required?: boolean;

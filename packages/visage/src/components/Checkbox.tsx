@@ -13,21 +13,11 @@ import React, {
 } from 'react';
 import { createBooleanVariant, createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
+import { visuallyHiddenStripped, visuallyHiddenStyles } from './shared';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
-  defaultStyles: {
-    border: '0',
-    clip: 'rect(0, 0, 0, 0)',
-    height: '1px',
-    overflow: 'hidden',
-    position: 'absolute',
-    margin: '-1px',
-    padding: '0px',
-    visibility: 'hidden',
-    whiteSpace: 'nowrap',
-    width: '1px',
-  },
+  defaultStyles: visuallyHiddenStyles,
 });
 
 const labelCheckedVariant = createBooleanVariant('checked', {
@@ -99,19 +89,7 @@ const CheckboxLabel = labelDisabledVariant(
   ),
 );
 
-const labelTextHiddenVariant = createBooleanVariant('hidden', {
-  onStyles: {
-    border: '0',
-    clip: 'rect(0, 0, 0, 0)',
-    overflow: 'hidden',
-    margin: '-1px',
-    padding: '0px',
-    whiteSpace: 'nowrap',
-    width: '0px',
-  },
-});
-
-const CheckboxLabelText = labelTextHiddenVariant(
+const CheckboxLabelText = visuallyHiddenStripped(
   createComponent('span', {
     displayName: 'CheckboxLabelText',
     defaultStyles: {

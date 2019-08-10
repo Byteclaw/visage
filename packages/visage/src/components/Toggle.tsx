@@ -15,6 +15,7 @@ import React, {
 import { createBooleanVariant, createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import { Flex } from './Flex';
+import { visuallyHiddenStyles } from './shared';
 
 interface ToggleProps extends VisageStyleProps<StyleProps> {
   checked?: boolean;
@@ -91,18 +92,7 @@ const ToggleContainer = containerDisabledVariant(
 
 const ToggleControl = createComponent('input', {
   displayName: 'ToggleControl',
-  defaultStyles: {
-    border: '0',
-    clip: 'rect(0, 0, 0, 0)',
-    height: '1px',
-    overflow: 'hidden',
-    position: 'absolute',
-    margin: '-1px',
-    padding: '0px',
-    visibility: 'hidden',
-    whiteSpace: 'nowrap',
-    width: '1px',
-  },
+  defaultStyles: visuallyHiddenStyles,
 });
 
 const Toggler = togglerCheckedVariant(
