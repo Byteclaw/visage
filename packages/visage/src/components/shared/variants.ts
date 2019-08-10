@@ -1,5 +1,36 @@
 import { createBooleanVariant, EmotionStyleSheet } from '../../core';
 
+/**
+ * Used to mark form control as invalid
+ */
+export const invalidControl = createBooleanVariant('invalid', {
+  onStyles: {
+    borderColor: 'red',
+    borderWidth: '2px',
+    '&:focus': {
+      outlineColor: 'blue',
+    },
+  },
+  offStyles: {
+    '&:focus, &[data-focused="true"]': {
+      outlineColor: 'blue',
+    },
+  },
+});
+
+/**
+ * Used to mark form control as disabled
+ */
+export const disabledControl = createBooleanVariant('disabled', {
+  onStyles: {
+    color: 'grey.1',
+    outlineColor: 'grey.1',
+    // applicable to textarea
+    resize: 'none',
+  },
+  stripProp: false,
+});
+
 export const visuallyHiddenStyles: EmotionStyleSheet = {
   border: '0',
   clip: 'rect(0, 0, 0, 0)',

@@ -101,6 +101,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/textarea">
+                  TextArea
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/text-input">
                   TextInput
                 </ListItemRouteLink>
