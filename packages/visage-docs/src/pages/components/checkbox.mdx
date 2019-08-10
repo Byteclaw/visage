@@ -3,27 +3,52 @@ import { Fragment } from 'react';
 
 # Checkbox
 
+## Examples
+
+### Default
+
 ```jsx live=true
 <Fragment>
-  <Checkbox
-    defaultChecked
-    onChange={checked => console.log(checked)}
-    label="Checkbox label"
-  />
-  <Checkbox hiddenLabel label="Checkbox label" />
-  <Checkbox defaultChecked label="Uncontrolled checkbox" />
-  <Checkbox checked label="Controlled checkbox" />
-  <Checkbox label="Checkbox label" styles={{ fontSize: 2, lineHeight: 2 }} />
-  <Checkbox disabled label="Disabled checkbox" />
-  <Checkbox readOnly label="Read only checkbox" />
-  <WithState>
-    {(value, setValue) => (
-      <Checkbox
-        checked={!!value}
-        onChange={checked => setValue(checked)}
-        label="Controlled checkbox"
-      />
-    )}
-  </WithState>
+  <Checkbox defaultChecked label="Checkbox label" name="1" />
+  <Checkbox label="Checkbox label" name="2" />
 </Fragment>
+```
+
+### Hidden label
+
+```jsx live=true
+<Checkbox hiddenLabel label="Hidden label" name="3" />
+```
+
+### Invalid
+
+```jsx live=true
+<Checkbox invalid label="Invalid checkbox" name="invalid-checkbox" />
+```
+
+### Read only
+
+```jsx live=true
+<Checkbox readOnly label="Read only checkbox" name="4" />
+```
+
+### Disabled
+
+```jsx live=true
+<Checkbox disabled label="Disabled checkbox" name="5" />
+```
+
+### Controlled
+
+```jsx live=true
+<WithState>
+  {(value, setValue) => (
+    <Checkbox
+      checked={!!value}
+      onChange={e => setValue(e.currentTarget.checked)}
+      label="Controlled checkbox"
+      name="6"
+    />
+  )}
+</WithState>
 ```

@@ -2,27 +2,26 @@ import {
   VisageComponent,
   StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
-import React, {
-  KeyboardEventHandler,
-  MouseEventHandler,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useRef,
-  useState,
-} from 'react';
-import { createBooleanVariant, createComponent } from '../core';
+import React, { ReactElement, ReactNode, ChangeEventHandler } from 'react';
+import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { visuallyHiddenStripped, visuallyHiddenStyles } from './shared';
+import {
+  visuallyHiddenStripped,
+  visuallyHiddenStyles,
+  disabledControl,
+  invalidControl,
+} from './shared';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
-  defaultStyles: visuallyHiddenStyles,
-});
-
-const labelCheckedVariant = createBooleanVariant('checked', {
-  onStyles: {
-    '&::after': {
+  defaultStyles: {
+    ...visuallyHiddenStyles,
+    // prevent blinking when clicking on already focused checkbox
+    '&:focus + label::before, &:active:not([disabled]) + label::before': {
+      borderColor: 'blue',
+      borderWidth: '2px',
+    },
+    '&:checked + label::after': {
       backgroundColor: 'none',
       borderLeft: '2px solid black',
       borderBottom: '2px solid black',
@@ -38,27 +37,8 @@ const labelCheckedVariant = createBooleanVariant('checked', {
   },
 });
 
-const labelDisabledVariant = createBooleanVariant('disabled', {
-  onStyles: {
-    color: 'grey.1',
-    cursor: 'not-allowed',
-    '&::before': {
-      borderColor: 'grey.1',
-    },
-    '&::after': {
-      borderColor: 'grey.1',
-    },
-  },
-  offStyles: {
-    ':focus::before': {
-      borderColor: 'blue',
-      borderWidth: '2px',
-    },
-  },
-});
-
-const CheckboxLabel = labelDisabledVariant(
-  labelCheckedVariant(
+const CheckboxLabel = disabledControl(
+  invalidControl(
     createComponent('label', {
       displayName: 'CheckboxLabel',
       defaultStyles: {
@@ -118,15 +98,19 @@ interface CheckboxProps extends VisageStyleProps<StyleProps> {
   defaultChecked?: boolean;
   disabled?: boolean;
   hiddenLabel?: boolean;
+  id?: string;
+  invalid?: boolean;
   label: ReactNode;
-  name?: string;
-  onChange?: (checked: boolean) => void;
+  /**
+   * Name is required for proper control id
+   * If name is not unique, use id
+   */
+  name: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   readOnly?: boolean;
   value?: any;
   wrapper?: ReactElement;
 }
-
-const defaultOnChange = () => {};
 
 export const Checkbox: VisageComponent<
   CheckboxProps,
@@ -136,74 +120,43 @@ export const Checkbox: VisageComponent<
   disabled,
   checked,
   hiddenLabel = false,
+  id: outerId,
+  invalid,
   label,
   name,
-  onChange = defaultOnChange,
+  onChange,
   readOnly,
   styles,
   value,
 }: CheckboxProps) {
-  const isControlled = checked != null;
-  const checkedValue = !!(defaultChecked || checked);
-  const id = `chkbx-${name}`;
-  const [isChecked, setChecked] = useState(checkedValue);
-  const currentCheckedValueRef = useRef(checkedValue);
-  const outerValueRef = useRef(checkedValue);
-  const onClick: MouseEventHandler<HTMLLabelElement> = useCallback(
-    () => (!isControlled ? setChecked(!isChecked) : onChange(!isChecked)),
-    [isControlled, isChecked, onChange],
-  );
-  const onKeyDown: KeyboardEventHandler<HTMLLabelElement> = useCallback(
-    e => {
-      if (e.key === ' ') {
-        e.preventDefault();
-
-        if (!isControlled) {
-          setChecked(!isChecked);
-        } else {
-          onChange(!isChecked);
-        }
-      }
-    },
-    [isControlled, isChecked, onChange],
-  );
-
-  if (!isControlled && currentCheckedValueRef.current !== isChecked) {
-    currentCheckedValueRef.current = isChecked;
-
-    onChange(isChecked);
-  }
-
-  if (isControlled && outerValueRef.current !== checkedValue) {
-    outerValueRef.current = checkedValue;
-
-    setChecked(checkedValue);
-  }
+  const id = `chkbx-${outerId || ''}${name}`;
 
   return (
     <CheckboxWrapper styles={styles}>
       <CheckboxControl
-        checked={isChecked}
+        aria-invalid={invalid}
+        defaultChecked={defaultChecked}
+        checked={checked}
         disabled={disabled}
         id={id}
         name={name}
-        onChange={defaultOnChange}
+        onChange={onChange}
+        onKeyDown={e => {
+          if (readOnly && e.key === ' ') {
+            e.preventDefault();
+          }
+        }}
+        onClick={e => {
+          if (readOnly) {
+            e.preventDefault();
+          }
+        }}
         readOnly={readOnly}
+        tabIndex={0}
         type="checkbox"
         value={value}
       />
-      <CheckboxLabel
-        aria-checked={isChecked}
-        aria-disabled={!!disabled}
-        aria-readonly={!!readOnly}
-        checked={isChecked}
-        disabled={disabled}
-        htmlFor={id}
-        role="checkbox"
-        tabIndex={disabled ? -1 : 0}
-        onKeyDown={!disabled && !readOnly ? onKeyDown : undefined}
-        onClick={!disabled && !readOnly ? onClick : undefined}
-      >
+      <CheckboxLabel invalid={invalid} disabled={disabled} htmlFor={id}>
         <CheckboxLabelText hidden={hiddenLabel}>{label}</CheckboxLabelText>
       </CheckboxLabel>
     </CheckboxWrapper>

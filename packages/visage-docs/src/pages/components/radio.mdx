@@ -1,16 +1,74 @@
-import { Radio, RadioGroup } from '@byteclaw/visage';
-import { Fragment } from 'react';
-
 # Radio
+
+## Examples
+
+Provide `id` and `name`. Name should be same for radio group that controls the same value. The `id` must be unique per radio.
+
+### Default
 
 ```jsx live=true
 <Fragment>
-  <RadioGroup defaultValue="off" name="state">
-    <Radio label="Turned On" value="on" />
-    <Radio label="Turned Off" value="off" />
-  </RadioGroup>
-  <Radio checked label="Checked radio" />
-  <Radio hiddenLabel label="Checked radio with hidden label" />
-  <Radio disabled label="Disabled radio" />
+  <Radio label="Turned On" id="state-on" value="on" name="state" />
+  <Radio label="Turned Off" id="state-off" value="off" name="state" />
+</Fragment>
+```
+
+### Hidden labels
+
+```jsx live=true
+<Fragment>
+  <Radio
+    hiddenLabel
+    id="hidden-on"
+    name="hide"
+    label="Checked radio with hidden label"
+    value="on"
+  />
+  <Radio
+    hiddenLabel
+    id="hidden-ff"
+    name="hide"
+    label="Checked radio with hidden label"
+    value="off"
+  />
+</Fragment>
+```
+
+### Invalid
+
+```jsx live=true
+<Fragment>
+  <Radio invalid label="Turn On" id="invalid-0" name="invalid-radio" />
+  <Radio invalid label="Turn Off" id="invalid-1" name="invalid-radio" />
+</Fragment>
+```
+
+### Read only
+
+```jsx live=true
+<Fragment>
+  <Radio
+    readOnly
+    label="Turned On"
+    id="readonly-state-on"
+    value="on"
+    name="readonly-state"
+  />
+  <Radio
+    readOnly
+    label="Turned Off"
+    id="readonly-state-off"
+    value="off"
+    name="readonly-state"
+  />
+</Fragment>
+```
+
+### Disabled
+
+```jsx live=true
+<Fragment>
+  <Radio disabled label="Turn On" id="disabled-0" name="disabled-state" />
+  <Radio disabled label="Turn Off" id="disabled-1" name="disabled-state" />
 </Fragment>
 ```

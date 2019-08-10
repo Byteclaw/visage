@@ -10,6 +10,11 @@ export const invalidControl = createBooleanVariant('invalid', {
     '&:focus': {
       outlineColor: 'blue',
     },
+    // checkbox and radio
+    '&::before': {
+      borderColor: 'red',
+      borderWidth: '2px',
+    },
   },
   offStyles: {
     '&:focus, &[data-focused="true"]': {
@@ -24,9 +29,18 @@ export const invalidControl = createBooleanVariant('invalid', {
 export const disabledControl = createBooleanVariant('disabled', {
   onStyles: {
     color: 'grey.1',
+    cursor: 'not-allowed',
     outlineColor: 'grey.1',
     // applicable to textarea
     resize: 'none',
+    // checkbox, radio
+    '&::before': {
+      borderColor: 'grey.1',
+    },
+    // checkbox, radio
+    '&::after': {
+      borderColor: 'grey.1',
+    },
   },
   stripProp: false,
 });

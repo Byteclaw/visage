@@ -2,94 +2,26 @@ import {
   VisageComponent,
   StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
-import React, {
-  createContext,
-  ChangeEventHandler,
-  KeyboardEventHandler,
-  MouseEventHandler,
-  ReactElement,
-  ReactNode,
-  useCallback,
-  useContext,
-  useRef,
-  useState,
-  useMemo,
-} from 'react';
-import { createBooleanVariant, createComponent } from '../core';
+import React, { ChangeEventHandler, ReactElement, ReactNode } from 'react';
+import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { visuallyHiddenStripped, visuallyHiddenStyles } from './shared';
-
-const RadioGroupContext = createContext<{
-  mounted: boolean; // is context mounted (provided by provider)
-  name: string;
-  value: any;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-}>({
-  mounted: false,
-  name: '',
-  value: undefined,
-  onChange: () => {},
-});
-
-interface RadioGroupProps {
-  children: ReactNode;
-  defaultValue?: any;
-  name: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  value?: any;
-}
-
-export function RadioGroup({
-  children,
-  defaultValue,
-  name,
-  onChange,
-  value,
-}: RadioGroupProps) {
-  const valueRef = useRef(value);
-  const [currentValue, setValue] = useState(defaultValue);
-  const internalOnChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
-    e => {
-      if (e.currentTarget.checked) {
-        setValue(e.currentTarget.value);
-      }
-
-      if (onChange) {
-        onChange(e);
-      }
-    },
-    [onChange],
-  );
-  const ctx = useMemo(
-    () => ({
-      mounted: true,
-      name,
-      value: currentValue,
-      onChange: internalOnChange,
-    }),
-    [name, currentValue, internalOnChange],
-  );
-
-  if (valueRef.current !== value) {
-    valueRef.current = value;
-    setValue(value);
-  }
-
-  return (
-    <RadioGroupContext.Provider value={ctx}>
-      {children}
-    </RadioGroupContext.Provider>
-  );
-}
+import {
+  disabledControl,
+  invalidControl,
+  visuallyHiddenStripped,
+  visuallyHiddenStyles,
+} from './shared';
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
-  defaultStyles: visuallyHiddenStyles,
-});
-
-const labelCheckedVariant = createBooleanVariant('checked', {
-  onStyles: {
-    '&::after': {
+  defaultStyles: {
+    ...visuallyHiddenStyles,
+    // prevent blinking when clicking on already focused radio
+    '&:focus + label::before, &:active:not([disabled]) + label::before': {
+      borderColor: 'blue',
+      borderWidth: '2px',
+    },
+    '&:checked + label::after': {
       backgroundColor: 'black',
       borderRadius: '50%',
       content: '""',
@@ -104,27 +36,8 @@ const labelCheckedVariant = createBooleanVariant('checked', {
   },
 });
 
-const labelDisabledVariant = createBooleanVariant('disabled', {
-  onStyles: {
-    color: 'grey.1',
-    cursor: 'not-allowed',
-    '&::before': {
-      borderColor: 'grey.1',
-    },
-    '&::after': {
-      backgroundColor: 'grey.1',
-    },
-  },
-  offStyles: {
-    ':focus::before': {
-      borderColor: 'blue',
-      borderWidth: '2px',
-    },
-  },
-});
-
-const RadioLabel = labelDisabledVariant(
-  labelCheckedVariant(
+const RadioLabel = disabledControl(
+  invalidControl(
     createComponent('label', {
       displayName: 'RadioLabel',
       defaultStyles: {
@@ -185,8 +98,15 @@ interface RadioProps extends VisageStyleProps<StyleProps> {
   defaultChecked?: boolean;
   disabled?: boolean;
   hiddenLabel?: boolean;
+  /**
+   * Id is required for a group
+   */
+  id: string;
+  invalid?: boolean;
   label: ReactNode;
+  name: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  readOnly?: boolean;
   value: any;
   wrapper?: ReactElement;
 }
@@ -196,75 +116,42 @@ export const Radio: VisageComponent<RadioProps, StyleProps> = function Radio({
   defaultChecked,
   disabled,
   hiddenLabel = false,
+  id: outerId,
+  invalid,
   label,
+  name,
   onChange,
+  readOnly,
   styles,
   value,
 }: RadioProps) {
-  const radioGroup = useContext(RadioGroupContext);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const id = `radio-${radioGroup.name}`;
-  const onValueChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      e.persist();
-
-      if (onChange) {
-        onChange(e);
-      }
-
-      if (radioGroup.onChange && radioGroup.mounted) {
-        radioGroup.onChange(e);
-      }
-    },
-    [onChange, radioGroup],
-  );
-  const onClick: MouseEventHandler<HTMLLabelElement> = useCallback(
-    e => {
-      if (inputRef.current) {
-        e.preventDefault();
-        inputRef.current.click();
-      }
-    },
-    [inputRef],
-  );
-  const onKeyDown: KeyboardEventHandler<HTMLLabelElement> = useCallback(
-    e => {
-      if (inputRef.current && e.key === ' ') {
-        e.preventDefault();
-        inputRef.current.click();
-      }
-    },
-    [inputRef],
-  );
-  const isChecked = radioGroup.mounted
-    ? radioGroup.value === value
-    : !!(checked || defaultChecked);
-  const ariaChecked = isChecked.toString() as 'true' | 'false';
-  const ariaDisabled = (!!disabled).toString() as 'true' | 'false';
+  const id = `radio-${outerId || ''}${name}`;
 
   return (
     <RadioWrapper styles={styles}>
       <RadioControl
-        defaultChecked={isChecked}
+        aria-invalid={invalid}
+        defaultChecked={defaultChecked}
+        checked={checked}
         disabled={disabled}
         id={id}
-        name={radioGroup.name}
-        onChange={onValueChange}
-        ref={inputRef}
+        name={name}
+        onChange={onChange}
+        onClick={e => {
+          if (readOnly) {
+            e.preventDefault();
+          }
+        }}
+        onKeyDown={e => {
+          if (readOnly && e.key === ' ') {
+            e.preventDefault();
+          }
+        }}
+        tabIndex={disabled ? -1 : 0}
         type="radio"
         value={value}
       />
-      <RadioLabel
-        aria-checked={ariaChecked}
-        aria-disabled={ariaDisabled}
-        checked={isChecked}
-        disabled={disabled}
-        htmlFor={id}
-        role="radio"
-        tabIndex={disabled ? -1 : 0}
-        onKeyDown={!disabled ? onKeyDown : undefined}
-        onClick={!disabled ? onClick : undefined}
-      >
+      <RadioLabel disabled={disabled} invalid={invalid} htmlFor={id}>
         <RadioLabelText hidden={hiddenLabel}>{label}</RadioLabelText>
       </RadioLabel>
     </RadioWrapper>
