@@ -42,6 +42,7 @@ interface ValueProps<TValue> {
   disabled?: boolean;
   id: string;
   invalid?: boolean;
+  name?: string;
   onBlur: FocusEventHandler<any>;
   onFocus: FocusEventHandler<any>;
   onChange: ChangeEventHandler<any>;
@@ -93,6 +94,7 @@ interface AutocompleteInputProps<TValue extends any> {
   invalid?: boolean;
   labelId?: string;
   mode?: 'automatic' | 'manual';
+  name?: string;
   onChange?: (value: TValue | undefined | string) => void;
   options:
     | TValue[]
@@ -112,6 +114,7 @@ export function AutocompleteInput<TValue = any>({
   invalid,
   labelId,
   mode = 'automatic',
+  name,
   options,
   onChange,
   readOnly,
@@ -275,6 +278,7 @@ export function AutocompleteInput<TValue = any>({
           disabled,
           id,
           invalid,
+          name,
           onBlur,
           onFocus,
           onChange: onInnerChange,

@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/role-has-required-aria-props:warn */
 import React, {
   Fragment,
+  ReactElement,
   ReactNode,
   useCallback,
   useEffect,
@@ -38,6 +39,7 @@ interface ValueProps {
   id: string;
   disabled?: boolean;
   invalid?: boolean;
+  name?: string;
   open: boolean;
   onBlur: FocusEventHandler<any>;
   onClick: MouseEventHandler<any>;
@@ -67,10 +69,10 @@ interface OptionsProps {
   role: 'listbox';
 }
 
-type BaseRenderer = (props: BaseProps) => ReactNode;
-type OptionRenderer = (props: OptionProps) => ReactNode;
-type OptionsRenderer = (props: OptionsProps) => ReactNode;
-type ValueRenderer = (props: ValueProps) => ReactNode;
+type BaseRenderer = (props: BaseProps) => ReactElement;
+type OptionRenderer = (props: OptionProps) => ReactElement;
+type OptionsRenderer = (props: OptionsProps) => ReactElement;
+type ValueRenderer = (props: ValueProps) => ReactElement;
 
 const defaultOptionRenderer: OptionRenderer = ({ option, ...restProps }) => (
   <li {...restProps}>{option}</li>
@@ -95,6 +97,7 @@ interface SelectProps {
   invalid?: boolean;
   labelId?: string;
   filterable?: boolean;
+  name?: string;
   onChange?: (value: any) => void;
   options: any[] | ((search: string | null) => Promise<any[]>);
   placeholder?: string;
@@ -115,6 +118,7 @@ export function Select({
   id,
   invalid,
   labelId,
+  name,
   onChange,
   options,
   filterable,
@@ -289,6 +293,7 @@ export function Select({
           disabled,
           invalid,
           id,
+          name,
           onBlur,
           onClick,
           onFocus,
