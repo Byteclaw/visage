@@ -1,4 +1,7 @@
-export { useDesignSystem } from '@byteclaw/visage-core';
+export {
+  ExtractVisageComponentProps,
+  useDesignSystem,
+} from '@byteclaw/visage-core';
 
 export * from './components';
 export * from './core';
