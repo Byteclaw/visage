@@ -23,7 +23,7 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
   variantStyles: any,
   defaultValue: any = 'default',
 ) => {
-  const C = isVisageComponent(Component)
+  const C = !isVisageComponent(Component)
     ? createComponent(Component)
     : Component;
 
@@ -93,7 +93,7 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
   };
 
   return function booleanVariantCreator(Component: any) {
-    const C = isVisageComponent(Component)
+    const C = !isVisageComponent(Component)
       ? createComponent(Component)
       : Component;
     const Comp = React.forwardRef(
