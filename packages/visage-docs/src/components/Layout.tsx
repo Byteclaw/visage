@@ -1,4 +1,4 @@
-import { Column, Container, Header, Svg, Text } from '@byteclaw/visage';
+import { Column, Container, Header, SvgIcon, Text } from '@byteclaw/visage';
 import React, { Fragment, ReactNode } from 'react';
 // @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
@@ -12,7 +12,7 @@ export function Layout({ children }: Props) {
   return (
     <Fragment>
       <Header>
-        <Svg as={LogoSvg} styles={{ fontSize: 2, linedHeight: 2 }} />{' '}
+        <SvgIcon icon={LogoSvg} styles={{ iconSize: 2 }} />{' '}
         <Text styles={{ fontSize: 2, lineHeight: 2 }}>Visage</Text>
       </Header>
       <Container>

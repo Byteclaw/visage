@@ -7,6 +7,11 @@ export { ratios };
 
 export interface StyleProps extends React.CSSProperties {
   /**
+   * Calculates fontSize and lineHeight to be the same (based on modular scale = lineHeight)
+   * This is needed if wan't bigger icon than fontSize for given lineHeight (sets them to same value)
+   */
+  iconSize?: number | string;
+  /**
    * Use same value as for line height to set a height of an element
    */
   linedHeight?: number | string;
@@ -136,6 +141,14 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       fontSize: {
         format: 'px',
         resolver: 'modularSize',
+      },
+      /**
+       * Calculates fontSize and lineHeight for svg icons
+       */
+      iconSize: {
+        format: 'px',
+        resolver: 'modularLineHeight',
+        outputProps: ['fontSize', 'lineHeight'],
       },
       lineHeight: {
         format: 'px',

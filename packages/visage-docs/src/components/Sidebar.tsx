@@ -96,6 +96,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/svg-icon">
+                  SvgIcon
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/tabs">
                   Tabs
                 </ListItemRouteLink>

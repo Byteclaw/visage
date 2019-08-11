@@ -1,0 +1,56 @@
+# SvgIcon
+
+## Examples
+
+### Default
+
+Default SVG icon uses the body text color specified in theme and the size is inherited from font size.
+
+```jsx live=true
+<SvgIcon
+  icon={props => (
+    <svg viewBox="0 0 100.353 100.353" {...props}>
+      <path
+        d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
+        fill="#231f20"
+      />
+    </svg>
+  )}
+/>
+```
+
+### Bigger icon (font size based)
+
+```jsx live=true
+<SvgIcon
+  icon={props => (
+    <svg viewBox="0 0 100.353 100.353" {...props}>
+      <path
+        d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
+        fill="#231f20"
+      />
+    </svg>
+  )}
+  styles={{ fontSize: 1, lineHeight: 1 }}
+/>
+```
+
+### Bigger icon (height same as line height)
+
+```jsx live=true
+<SvgIcon
+  icon={props => (
+    <svg viewBox="0 0 100.353 100.353" {...props}>
+      <path
+        d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
+        fill="#231f20"
+      />
+    </svg>
+  )}
+  styles={{
+    // basically the same as fontSize: 2, lineHeight: 2
+    // except that the height of icon will be the same as lineHeight
+    iconSize: 2,
+  }}
+/>
+```
