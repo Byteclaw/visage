@@ -1,4 +1,4 @@
-import { VisageComponent } from '@byteclaw/visage-core';
+import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import React, { ReactElement, FunctionComponent } from 'react';
 import { createComponent, createVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
@@ -17,7 +17,6 @@ const SvgIconBase = createVariant(
       },
       '& svg': {
         height: '1em',
-        width: '1em',
         verticalAlign: 'middle',
       },
     },
@@ -49,3 +48,5 @@ export const SvgIcon: VisageComponent<
     </SvgIconBase>
   );
 };
+
+markAsVisageComponent(SvgIcon);

@@ -13,55 +13,53 @@ describe('SvgIcon', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-            <DocumentFragment>
-              .emotion-0 {
-              -webkit-align-items: center;
-              -webkit-box-align: center;
-              -ms-flex-align: center;
-              align-items: center;
-              display: -webkit-inline-box;
-              display: -webkit-inline-flex;
-              display: -ms-inline-flexbox;
-              display: inline-flex;
-              font-size: inherit;
-              line-height: inherit;
-            }
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        font-size: inherit;
+        line-height: inherit;
+      }
 
-            .emotion-0::before {
-              content: "\\200b";
-            }
+      .emotion-0::before {
+        content: "\\200b";
+      }
 
-            .emotion-0 svg {
-              height: 1em;
-              width: 1em;
-              vertical-align: middle;
-            }
+      .emotion-0 svg {
+        height: 1em;
+        vertical-align: middle;
+      }
 
-            .emotion-0[data-variant="stroked"] path:last-child {
-              fill: transparent;
-              stroke: black;
-            }
+      .emotion-0[data-variant="stroked"] path:last-child {
+        fill: transparent;
+        stroke: black;
+      }
 
-            .emotion-0[data-variant="default"] path:last-child {
-              fill: black;
-              stroke: transparent;
-            }
+      .emotion-0[data-variant="default"] path:last-child {
+        fill: black;
+        stroke: transparent;
+      }
 
-            <div
-                class="emotion-0"
-                data-variant="default"
-              >
-                <svg
-                  viewBox="0 0 100.353 100.353"
-                >
-                  <path
-                    d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
-                    fill="#231f20"
-                  />
-                </svg>
-              </div>
-            </DocumentFragment>
-        `);
+      <div
+          class="emotion-0"
+          data-variant="default"
+        >
+          <svg
+            viewBox="0 0 60.963 60.842"
+          >
+            <path
+              d="M59.595 52.861L37.094 30.359 59.473 7.98a4.676 4.676 0 00-6.611-6.611L30.483 23.748 8.105 1.369A4.676 4.676 0 001.494 7.98l22.378 22.379L1.369 52.861a4.674 4.674 0 003.306 7.98 4.66 4.66 0 003.306-1.369L30.483 36.97l22.501 22.502c.913.913 2.109 1.369 3.306 1.369s2.393-.456 3.306-1.369a4.677 4.677 0 00-.001-6.611z"
+            />
+          </svg>
+        </div>
+      </DocumentFragment>
+    `);
   });
 
   it('works correctly with element', () => {
@@ -72,55 +70,53 @@ describe('SvgIcon', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-            <DocumentFragment>
-              .emotion-0 {
-              -webkit-align-items: center;
-              -webkit-box-align: center;
-              -ms-flex-align: center;
-              align-items: center;
-              display: -webkit-inline-box;
-              display: -webkit-inline-flex;
-              display: -ms-inline-flexbox;
-              display: inline-flex;
-              font-size: inherit;
-              line-height: inherit;
-            }
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        font-size: inherit;
+        line-height: inherit;
+      }
 
-            .emotion-0::before {
-              content: "\\200b";
-            }
+      .emotion-0::before {
+        content: "\\200b";
+      }
 
-            .emotion-0 svg {
-              height: 1em;
-              width: 1em;
-              vertical-align: middle;
-            }
+      .emotion-0 svg {
+        height: 1em;
+        vertical-align: middle;
+      }
 
-            .emotion-0[data-variant="stroked"] path:last-child {
-              fill: transparent;
-              stroke: black;
-            }
+      .emotion-0[data-variant="stroked"] path:last-child {
+        fill: transparent;
+        stroke: black;
+      }
 
-            .emotion-0[data-variant="default"] path:last-child {
-              fill: black;
-              stroke: transparent;
-            }
+      .emotion-0[data-variant="default"] path:last-child {
+        fill: black;
+        stroke: transparent;
+      }
 
-            <div
-                class="emotion-0"
-                data-variant="default"
-              >
-                <svg
-                  viewBox="0 0 100.353 100.353"
-                >
-                  <path
-                    d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
-                    fill="#231f20"
-                  />
-                </svg>
-              </div>
-            </DocumentFragment>
-        `);
+      <div
+          class="emotion-0"
+          data-variant="default"
+        >
+          <svg
+            viewBox="0 0 60.963 60.842"
+          >
+            <path
+              d="M59.595 52.861L37.094 30.359 59.473 7.98a4.676 4.676 0 00-6.611-6.611L30.483 23.748 8.105 1.369A4.676 4.676 0 001.494 7.98l22.378 22.379L1.369 52.861a4.674 4.674 0 003.306 7.98 4.66 4.66 0 003.306-1.369L30.483 36.97l22.501 22.502c.913.913 2.109 1.369 3.306 1.369s2.393-.456 3.306-1.369a4.677 4.677 0 00-.001-6.611z"
+            />
+          </svg>
+        </div>
+      </DocumentFragment>
+    `);
   });
 
   it('works correctly with custom styles', () => {
@@ -151,7 +147,6 @@ describe('SvgIcon', () => {
 
       .emotion-0 svg {
         height: 1em;
-        width: 1em;
         vertical-align: middle;
       }
 
@@ -180,11 +175,10 @@ describe('SvgIcon', () => {
           data-variant="default"
         >
           <svg
-            viewBox="0 0 100.353 100.353"
+            viewBox="0 0 60.963 60.842"
           >
             <path
-              d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
-              fill="#231f20"
+              d="M59.595 52.861L37.094 30.359 59.473 7.98a4.676 4.676 0 00-6.611-6.611L30.483 23.748 8.105 1.369A4.676 4.676 0 001.494 7.98l22.378 22.379L1.369 52.861a4.674 4.674 0 003.306 7.98 4.66 4.66 0 003.306-1.369L30.483 36.97l22.501 22.502c.913.913 2.109 1.369 3.306 1.369s2.393-.456 3.306-1.369a4.677 4.677 0 00-.001-6.611z"
             />
           </svg>
         </div>
