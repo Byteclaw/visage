@@ -6,6 +6,11 @@ export function GlobalReset() {
   const { breakpoint, theme } = useDesignSystem<Theme>();
   const styles = useMemo(
     (): any => ({
+      '*': {
+        '-webkit-font-smoothing': 'antialiased',
+        '-moz-osx-font-smoothing': 'grayscale',
+        'text-rendering': 'optimizeLegibility',
+      },
       '*, *::before, *::after': {
         boxSizing: 'inherit',
         lineHeight: theme.resolve('lineHeight', 0, breakpoint).value,
