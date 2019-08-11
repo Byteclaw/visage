@@ -13,7 +13,11 @@ describe('Heading', () => {
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
-        .emotion-0[data-level="1"] {
+        .emotion-0 {
+        font-family: heading-font;
+      }
+
+      .emotion-0[data-level="1"] {
         font-size: 105px;
         line-height: 120px;
         margin-top: 16px;
@@ -90,7 +94,11 @@ describe('Heading', () => {
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
-        .emotion-0[data-level="1"] {
+        .emotion-0 {
+        font-family: heading-font;
+      }
+
+      .emotion-0[data-level="1"] {
         font-size: 105px;
         line-height: 120px;
         margin-top: 16px;
