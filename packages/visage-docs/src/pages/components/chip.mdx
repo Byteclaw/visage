@@ -1,0 +1,38 @@
+# Chip
+
+## Examples
+
+### Default
+
+Default `Chip` component is non interactive.
+
+```jsx live=true
+<Chip>Non interactive chip</Chip>
+```
+
+### Interactive
+
+To make `Chip` interactive provide `onClick` handler.
+Now `Chip` will be focusable and starts reacting to clicks, `Enter` and `Space` key events.
+
+```jsx live=true
+<Chip onClick={() => window.alert('Clicked')}>Interactive chip</Chip>
+```
+
+### Deletable
+
+To make chip deletable, pass `onDelete` handler.
+
+```jsx live=true
+<Fragment>
+  <Chip onDelete={() => window.alert('Deleted')}>
+    Deletable non interactive chip
+  </Chip>
+  <Chip
+    onClick={() => window.alert('Clicked')}
+    onDelete={() => window.alert('Deleted')}
+  >
+    Deletable and clickable chip
+  </Chip>
+</Fragment>
+```

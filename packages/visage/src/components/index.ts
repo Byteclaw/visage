@@ -2,6 +2,7 @@ export * from './AutocompleteInput';
 export * from './Box';
 export * from './Button';
 export * from './Checkbox';
+export * from './Chip';
 export * from './Divider';
 export * from './Drawer';
 export * from './Fixed';
