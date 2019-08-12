@@ -19,9 +19,7 @@ export function Layout({ children }: Props) {
         <Column as="nav" styles={{ width: '16rem' }}>
           <Sidebar />
         </Column>
-        <Column styles={{ width: '100%', '& > div': { width: '100%' } }}>
-          {children}
-        </Column>
+        <Column styles={{ px: 2, width: '100%' }}>{children}</Column>
       </Container>
     </Fragment>
   );
