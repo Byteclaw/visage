@@ -5,6 +5,7 @@ export * from './Checkbox';
 export * from './Chip';
 export * from './Divider';
 export * from './Drawer';
+export * from './FileInput';
 export * from './Fixed';
 export * from './Flex';
 export * from './Grid';

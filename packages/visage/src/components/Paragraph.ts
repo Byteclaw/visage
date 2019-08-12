@@ -9,5 +9,6 @@ export const Paragraph = createComponent('p', {
     p: 0,
     mx: 0,
     my: 2,
+    maxWidth: '80ch',
   },
 });
