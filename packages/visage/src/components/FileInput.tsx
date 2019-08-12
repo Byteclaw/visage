@@ -85,8 +85,12 @@ const defaultLabelFormatter = (files: File[]): string => {
   return `${files.length} files selected`;
 };
 
-interface FileInputProps
+interface BaseFileInputProps
   extends ExtractVisageComponentProps<typeof BaseFileInput> {
+  onChange?: any;
+}
+
+interface FileInputProps extends BaseFileInputProps {
   invalid?: boolean;
   boxProps?: ExtractVisageComponentProps<typeof FileInputBox>;
   controlProps?: ExtractVisageComponentProps<typeof FileInputControl>;
