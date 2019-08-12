@@ -19,6 +19,7 @@ export * from './List';
 export * from './Modal';
 export * from './Overlay';
 export * from './Paragraph';
+export * from './Popover';
 export * from './Portal';
 export * from './Radio';
 export * from './Select';
