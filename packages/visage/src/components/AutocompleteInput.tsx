@@ -27,7 +27,6 @@ import {
 interface BaseProps {
   'aria-expanded': boolean;
   'aria-haspopup': 'listbox';
-  'aria-labelledby'?: string;
   'aria-owns': string;
   children: ReactNode;
   role: 'combobox';
@@ -38,6 +37,7 @@ interface ValueProps<TValue> {
   'aria-activedescendant'?: string;
   'aria-controls': string;
   'aria-disabled'?: boolean;
+  'aria-labelledby'?: string;
   'aria-readonly'?: boolean;
   disabled?: boolean;
   id: string;
@@ -64,6 +64,7 @@ interface OptionProps<TOption> {
 }
 
 interface OptionsProps {
+  'aria-labelledby'?: string;
   children: ReactNode;
   id: string;
   role: 'listbox';
@@ -261,7 +262,6 @@ export function AutocompleteInput<TValue = any>({
   return renderBase({
     'aria-expanded': state.expanded,
     'aria-haspopup': 'listbox',
-    'aria-labelledby': labelId,
     'aria-owns': listBoxId,
     children: (
       <Fragment>
@@ -273,6 +273,7 @@ export function AutocompleteInput<TValue = any>({
               : undefined,
           'aria-controls': listBoxId,
           'aria-disabled': disabled,
+          'aria-labelledby': labelId,
           'aria-multiline': false,
           'aria-readonly': readOnly,
           disabled,
@@ -289,11 +290,12 @@ export function AutocompleteInput<TValue = any>({
         })}
         {state.expanded && state.focused
           ? renderOptions({
+              'aria-labelledby': labelId,
               children: state.options.map((option, i) =>
                 renderOption({
                   'aria-selected': state.selectedOption === i,
                   'data-ai-option': i,
-                  id: `${id}-item-${id}`,
+                  id: `${id}-item-${i}`,
                   key: i,
                   onMouseDown: onOptionMouseDown,
                   option,
