@@ -76,7 +76,7 @@ export function CodeBlock({
                 : 'Hide code'}
             </Button>
           </Flex>
-          {isExpanded || !live ? (
+          {isExpanded ? (
             <Box styles={{ backgroundColor: 'black', width: '100%' }}>
               <LiveEditor />
               <EditorError />
