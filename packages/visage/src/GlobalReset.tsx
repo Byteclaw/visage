@@ -7,9 +7,9 @@ export function GlobalReset() {
   const styles = useMemo(
     (): any => ({
       '*': {
-        '-webkit-font-smoothing': 'antialiased',
-        '-moz-osx-font-smoothing': 'grayscale',
-        'text-rendering': 'optimizeLegibility',
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+        textRendering: 'optimizeLegibility',
       },
       '*, *::before, *::after': {
         boxSizing: 'inherit',
