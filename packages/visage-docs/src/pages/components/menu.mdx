@@ -4,4 +4,78 @@ import { ButtonWithMenu } from '../../components';
 
 # Menu
 
-<ButtonWithMenu />
+## Examples
+
+### Default
+
+```jsx live
+<WithState>
+  {(anchorEl, setAnchorEl) => (
+    <Fragment>
+      <Button
+        aria-controls="buttons-menu"
+        aria-haspopup="menu"
+        aria-expanded={anchorEl != null}
+        onClick={e => {
+          setAnchorEl(e.currentTarget);
+        }}
+      >
+        Pop me
+      </Button>
+      <Menu
+        anchor={anchorEl}
+        id="buttons-menu"
+        onClose={() => setAnchorEl(null)}
+        open={anchorEl != null}
+      >
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+        <Divider />
+        <MenuItem>Button One</MenuItem>
+        <MenuItem>Button Two</MenuItem>
+        <MenuItem>Button Three</MenuItem>
+      </Menu>
+    </Fragment>
+  )}
+</WithState>
+```
+
+### Disabled events
+
+`disableEvents` props turns of key down handling on menu items and it is your responsibility to handle focus.
+Make sure you handle `Escape` key press.
+
+```jsx live
+<WithState>
+  {(anchorEl, setAnchorEl) => (
+    <Fragment>
+      <Button
+        aria-controls="buttons-menu"
+        aria-haspopup="menu"
+        aria-expanded={anchorEl != null}
+        onClick={e => {
+          setAnchorEl(e.currentTarget);
+        }}
+      >
+        Pop me
+      </Button>
+      <Menu
+        disableEvents
+        anchor={anchorEl}
+        id="buttons-menu"
+        onClose={() => setAnchorEl(null)}
+        open={anchorEl != null}
+      >
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+        <Divider />
+        <MenuItem>Button One</MenuItem>
+        <MenuItem>Button Two</MenuItem>
+        <MenuItem>Button Three</MenuItem>
+      </Menu>
+    </Fragment>
+  )}
+</WithState>
+```

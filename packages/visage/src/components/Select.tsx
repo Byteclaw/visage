@@ -15,8 +15,10 @@ import React, {
   KeyboardEventHandler,
   MutableRefObject,
   MouseEventHandler,
+  Ref,
 } from 'react';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
+import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
 import { SelectState, selectReducer } from './selectReducer';
 
@@ -26,6 +28,7 @@ interface BaseProps {
   'aria-labelledby'?: string;
   'aria-owns': string;
   children: ReactNode;
+  ref: Ref<any>;
   role: 'combobox';
 }
 
@@ -64,6 +67,8 @@ interface OptionProps {
 }
 
 interface OptionsProps {
+  'aria-labelledby'?: string;
+  baseRef: HTMLElement | null;
   children: ReactNode;
   id: string;
   role: 'listbox';
@@ -75,10 +80,12 @@ type OptionsRenderer = (props: OptionsProps) => ReactElement;
 type ValueRenderer = (props: ValueProps) => ReactElement;
 
 const defaultOptionRenderer: OptionRenderer = ({ option, ...restProps }) => (
-  <li {...restProps}>{option}</li>
+  <MenuItem {...restProps}>{option}</MenuItem>
 );
 
-const defaultOptionsRenderer: OptionsRenderer = props => <ul {...props} />;
+const defaultOptionsRenderer: OptionsRenderer = ({ baseRef, ...restProps }) => (
+  <Menu anchor={baseRef} disableEvents open {...restProps} />
+);
 
 const defaultValueRenderer: ValueRenderer = ({ open, ...restProps }) => (
   <TextInput
@@ -131,6 +138,7 @@ export function Select({
   value,
 }: SelectProps) {
   const listBoxId = `${id}-listbox`;
+  const baseRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const loadOptions = useCallback(
     async (search: string | null): Promise<any[]> => {
@@ -275,8 +283,8 @@ export function Select({
   return renderBase({
     'aria-expanded': state.expanded,
     'aria-haspopup': 'listbox',
-    'aria-labelledby': labelId,
     'aria-owns': listBoxId,
+    ref: baseRef,
     children: (
       <Fragment>
         {renderValue({
@@ -287,6 +295,7 @@ export function Select({
               : undefined,
           'aria-controls': listBoxId,
           'aria-disabled': disabled,
+          'aria-labelledby': labelId,
           'aria-multiline': false,
           'aria-readonly': readOnly || !filterable,
           'aria-placeholder': placeholder,
@@ -307,11 +316,13 @@ export function Select({
         })}
         {state.expanded && state.focused
           ? renderOptions({
+              'aria-labelledby': labelId,
+              baseRef: baseRef.current,
               children: state.options.map((option, i) =>
                 renderOption({
                   'aria-selected': state.selectedOption === i,
                   'data-ai-option': i,
-                  id: `${id}-item-${id}`,
+                  id: `${id}-item-${i}`,
                   key: i,
                   onMouseDown: onOptionMouseDown,
                   option,

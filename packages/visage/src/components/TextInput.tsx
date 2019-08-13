@@ -100,6 +100,7 @@ export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
       <InputBox styles={styles}>
         {prepend ? (
           <InputExtraElement
+            aria-hidden
             styles={{ left: 0, linedWidth: styles.lineHeight }}
           >
             {prepend}
@@ -117,6 +118,7 @@ export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
         />
         {append ? (
           <InputExtraElement
+            aria-hidden
             styles={{ linedWidth: styles.lineHeight, right: 0 }}
           >
             {append}

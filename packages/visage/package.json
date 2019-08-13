@@ -33,9 +33,11 @@
     "@byteclaw/visage-core": "^0.1.0-alpha.0",
     "@byteclaw/visage-utils": "^0.1.0-alpha.0",
     "@emotion/core": "^10.0.14",
+    "@types/body-scroll-lock": "^2.6.1",
     "@types/modular-scale": "5.1.1",
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
+    "body-scroll-lock": "^2.6.4",
     "emotion": "^10.0.14",
     "modular-scale": "5.1.0"
   },

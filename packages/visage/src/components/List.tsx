@@ -130,12 +130,11 @@ export const ListHeader = createComponent('h1', {
   },
 });
 
-interface ListProps {
+interface ListProps extends ExtractVisageComponentProps<typeof ListContainer> {
   children: ReactNode;
   container?: ReactElement;
   heading?: ReactElement;
   itemsContainer?: ReactElement;
-  navigation?: boolean;
 }
 
 interface ListItemProps
@@ -177,7 +176,7 @@ export function List({
   container = defaultContainer,
   heading,
   itemsContainer = defaultItemsContainer,
-  navigation = false,
+  ...restProps
 }: ListProps) {
   const depth = useContext(ListDepthContext);
   const listItems = cloneElement(itemsContainer, {
@@ -193,11 +192,12 @@ export function List({
         </ListDepthContext.Provider>
       </Fragment>
     ),
-    role: navigation === true ? 'navigation' : undefined,
+    ...restProps,
   });
 }
 
-interface CollapsibleListProps {
+interface CollapsibleListProps
+  extends ExtractVisageComponentProps<typeof ListContainer> {
   children: ReactNode;
   collapsed?: boolean;
   container?: ReactElement;
@@ -213,6 +213,7 @@ export function CollapsibleList({
   heading,
   itemsContainer = defaultItemsContainer,
   toggler,
+  ...restProps
 }: CollapsibleListProps) {
   const depth = useContext(ListDepthContext);
   const collapsedRef = useRef(isCollapsed);
@@ -251,5 +252,6 @@ export function CollapsibleList({
         </ListDepthContext.Provider>
       </Fragment>
     ),
+    ...restProps,
   });
 }
