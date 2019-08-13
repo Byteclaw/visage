@@ -25,7 +25,7 @@ function ListItemRouteLink({ to, ...restProps }: ListItemRouteLink) {
 
 export function Sidebar() {
   return (
-    <List navigation>
+    <List role="navigation">
       <ListItem>
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
