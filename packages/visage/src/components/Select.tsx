@@ -67,8 +67,9 @@ interface OptionProps {
 }
 
 interface OptionsProps {
-  children: ReactNode;
+  'aria-labelledby'?: string;
   baseRef: HTMLElement | null;
+  children: ReactNode;
   id: string;
   role: 'listbox';
 }
@@ -282,7 +283,6 @@ export function Select({
   return renderBase({
     'aria-expanded': state.expanded,
     'aria-haspopup': 'listbox',
-    'aria-labelledby': labelId,
     'aria-owns': listBoxId,
     ref: baseRef,
     children: (
@@ -295,6 +295,7 @@ export function Select({
               : undefined,
           'aria-controls': listBoxId,
           'aria-disabled': disabled,
+          'aria-labelledby': labelId,
           'aria-multiline': false,
           'aria-readonly': readOnly || !filterable,
           'aria-placeholder': placeholder,
@@ -315,12 +316,13 @@ export function Select({
         })}
         {state.expanded && state.focused
           ? renderOptions({
+              'aria-labelledby': labelId,
               baseRef: baseRef.current,
               children: state.options.map((option, i) =>
                 renderOption({
                   'aria-selected': state.selectedOption === i,
                   'data-ai-option': i,
-                  id: `${id}-item-${id}`,
+                  id: `${id}-item-${i}`,
                   key: i,
                   onMouseDown: onOptionMouseDown,
                   option,
