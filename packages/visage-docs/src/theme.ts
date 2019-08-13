@@ -8,6 +8,7 @@ export const theme = createNPointTheme({
   fontScaleRatio: ratios.perfectFourth,
   colors: {
     bodyText: '#444',
+    dangerBodyText: 'red',
     primary: {
       values: [
         '#000000',
