@@ -6,6 +6,7 @@ module.exports = {
     description: 'Visage design system for rapid UI development',
     author: '@byteclaw',
     install: 'npm i visage',
+    image: '/images/logo.png',
     github: 'https://github.com/byteclaw/visage',
   },
   __experimentalThemes: [],
