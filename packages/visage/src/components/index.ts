@@ -16,6 +16,7 @@ export * from './LayerManager';
 export * from './Layout';
 export * from './Link';
 export * from './List';
+export * from './Menu';
 export * from './Modal';
 export * from './Overlay';
 export * from './Paragraph';

@@ -1,23 +1,9 @@
 import { Popover, List, ListItem, Flex } from '@byteclaw/visage';
 import { Fragment } from 'react';
+import { ButtonWithPopover } from '../../components';
 
 # Popover
 
 <Flex styles={{ justifyContent: 'center', alignItems: 'center' }}>
-    <Popover
-      open={true}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'right',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'left',
-      }}
-    >
-      <List>
-      <ListItem button tabIndex={0}>Button One</ListItem>
-      <ListItem button tabIndex={0}>Button Two</ListItem>
-    </List>
-  </Popover>
+    <ButtonWithPopover />
 </Flex>

@@ -1,10 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
-import {
-  getOffsetTop,
-  getOffsetLeft,
-  getTransformOriginValue,
-} from '../helpers';
+import { getOffsetTop, getOffsetLeft, getTransformOriginValue } from './shared';
+import { useBooleanBodyScrollLock } from '../hooks';
 import { Backdrop } from './Backdrop';
 import { LayerManager, useLayerManager } from './LayerManager';
 
@@ -42,21 +39,23 @@ export const BasePopover = openPopoverVariant(
   }),
 );
 
-export interface PopoverProps {
+export type PopoverProps = {
+  allowScrolling?: boolean;
   anchor: any;
   anchorOrigin: any;
   backdrop?: boolean;
   children: ReactNode;
   open: boolean;
-  onClose?: () => any;
   anchorReference?: any;
   marginThreshold?: any;
   transformOrigin?: any;
   anchorPosition?: any;
   getContentAnchorEl?: any;
-}
+  onClose?: any;
+};
 
 export function Popover({
+  allowScrolling = false,
   children,
   anchor,
   anchorPosition,
@@ -94,7 +93,7 @@ export function Popover({
       return {
         top:
           anchorRect.top +
-          (anchorRect.top < 0 ? window.scrollY : 0) +
+          window.scrollY +
           getOffsetTop(anchorRect, anchorVertical),
         left:
           anchorRect.left + getOffsetLeft(anchorRect, anchorOrigin.horizontal),
@@ -224,6 +223,8 @@ export function Popover({
       window.removeEventListener('resize', handleResizeRef.current);
     };
   }, [open, setPositioningStyles]);
+
+  useBooleanBodyScrollLock(!allowScrolling && open, contentRef.current);
 
   return (
     <LayerManager>
