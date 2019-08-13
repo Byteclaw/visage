@@ -1,7 +1,12 @@
-import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
-import React from 'react';
+import {
+  ExtractVisageComponentProps,
+  markAsVisageComponent,
+  VisageComponent,
+} from '@byteclaw/visage-core';
+import React, { forwardRef } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
 import { Text } from './Text';
+import { StyleProps } from '../createNPointTheme';
 
 const verticalLineVariant = createBooleanVariant('vertical', {
   onStyles: {
@@ -78,34 +83,41 @@ interface DividerProps extends ExtractVisageComponentProps<typeof DividerBase> {
   vertical?: boolean;
 }
 
-export function Divider({
-  label,
-  labelProps,
-  lineProps,
-  vertical,
-  ...restProps
-}: DividerProps) {
-  // if label is provided, split horizontal line to 2 elements
-  if (!label) {
+export const Divider: VisageComponent<DividerProps, StyleProps> = forwardRef(
+  (
+    { label, labelProps, lineProps, vertical, ...restProps }: DividerProps,
+    ref,
+  ) => {
+    // if label is provided, split horizontal line to 2 elements
+    if (!label) {
+      return (
+        <DividerBase
+          {...restProps}
+          ref={ref}
+          role="separator"
+          vertical={vertical}
+        >
+          <DividerLine {...lineProps} vertical={vertical} />
+        </DividerBase>
+      );
+    }
+
     return (
-      <DividerBase {...restProps} role="separator" vertical={vertical}>
+      <DividerBase
+        {...restProps}
+        aria-label={label}
+        role="separator"
+        ref={ref}
+        vertical={vertical}
+      >
+        <DividerLine {...lineProps} vertical={vertical} />
+        <DividerLabel {...labelProps} role="presentation" vertical={vertical}>
+          {label}
+        </DividerLabel>
         <DividerLine {...lineProps} vertical={vertical} />
       </DividerBase>
     );
-  }
+  },
+) as any;
 
-  return (
-    <DividerBase
-      {...restProps}
-      aria-label={label}
-      role="separator"
-      vertical={vertical}
-    >
-      <DividerLine {...lineProps} vertical={vertical} />
-      <DividerLabel {...labelProps} role="presentation" vertical={vertical}>
-        {label}
-      </DividerLabel>
-      <DividerLine {...lineProps} vertical={vertical} />
-    </DividerBase>
-  );
-}
+markAsVisageComponent(Divider);
