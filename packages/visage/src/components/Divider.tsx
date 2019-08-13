@@ -93,7 +93,7 @@ export const Divider: VisageComponent<DividerProps, StyleProps> = forwardRef(
       return (
         <DividerBase
           {...restProps}
-          ref={ref}
+          ref={ref as any}
           role="separator"
           vertical={vertical}
         >
@@ -107,7 +107,7 @@ export const Divider: VisageComponent<DividerProps, StyleProps> = forwardRef(
         {...restProps}
         aria-label={label}
         role="separator"
-        ref={ref}
+        ref={ref as any}
         vertical={vertical}
       >
         <DividerLine {...lineProps} vertical={vertical} />
