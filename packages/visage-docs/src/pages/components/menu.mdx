@@ -4,4 +4,75 @@ import { ButtonWithMenu } from '../../components';
 
 # Menu
 
-<ButtonWithMenu />
+## Examples
+
+### Default
+
+```jsx live
+<WithState>
+  {(anchorEl, setAnchorEl) => (
+    <Fragment>
+      <Button
+        aria-controls="buttons-menu"
+        aria-haspopup="menu"
+        aria-expanded={anchorEl != null}
+        onClick={e => {
+          setAnchorEl(e.currentTarget);
+        }}
+      >
+        Pop me
+      </Button>
+      <Menu
+        anchor={anchorEl}
+        id="buttons-menu"
+        onClose={() => setAnchorEl(null)}
+        open={anchorEl != null}
+      >
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+        <Divider />
+        <MenuItem>Button One</MenuItem>
+        <MenuItem>Button Two</MenuItem>
+        <MenuItem>Button Three</MenuItem>
+      </Menu>
+    </Fragment>
+  )}
+</WithState>
+```
+
+### Index managed from outside
+
+```jsx live
+<WithState>
+  {(anchorEl, setAnchorEl) => (
+    <Fragment>
+      <Button
+        aria-controls="buttons-menu"
+        aria-haspopup="menu"
+        aria-expanded={anchorEl != null}
+        onClick={e => {
+          setAnchorEl(e.currentTarget);
+        }}
+      >
+        Pop me
+      </Button>
+      <Menu
+        activeIndex={0}
+        anchor={anchorEl}
+        id="buttons-menu"
+        onClose={() => setAnchorEl(null)}
+        open={anchorEl != null}
+      >
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+        <Divider />
+        <MenuItem>Button One</MenuItem>
+        <MenuItem>Button Two</MenuItem>
+        <MenuItem>Button Three</MenuItem>
+      </Menu>
+    </Fragment>
+  )}
+</WithState>
+```
