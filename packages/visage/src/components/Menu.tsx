@@ -50,32 +50,29 @@ const MenuItemBase = createComponent(ListItem, {
 });
 
 interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
-  /**
-   * Use only if you want to manage synthetic focus
-   */
-  activeIndex?: number;
   anchor?: null | Ref<HTMLElement> | EventTarget;
   anchorOrigin?: {
     vertical: 'bottom' | 'center' | 'top' | number;
     horizontal: 'left' | 'center' | 'right' | number;
   };
   children?: ReactNode;
+  /**
+   * Use only if you are managing focus outside of this component
+   */
+  disableEvents?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
 }
 
 interface MenuItemProps
   extends ExtractVisageComponentProps<typeof MenuItemBase> {
-  autoFocus?: boolean;
-  id: string;
   children?: ReactNode;
 }
 
 export function Menu({
-  activeIndex,
   anchor,
   children,
-  id,
+  disableEvents,
   onClose,
   open,
   anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
@@ -92,7 +89,7 @@ export function Menu({
       }
 
       // if menu is managed from outside, ignore events
-      if (activeIndex != null) {
+      if (disableEvents) {
         return;
       }
 
@@ -150,13 +147,13 @@ export function Menu({
         }
       }
     },
-    [activeIndex, outerOnKeyDown, onClose],
+    [disableEvents, outerOnKeyDown, onClose],
   );
 
   // manage autofocus of first item
   // if not managed from outside
   useLayoutEffect(() => {
-    if (!open || activeIndex != null) {
+    if (!open || disableEvents) {
       return;
     }
 
@@ -169,7 +166,7 @@ export function Menu({
         firstFocusable.focus();
       }
     }
-  }, [open, activeIndex]);
+  }, [open, disableEvents]);
 
   return (
     <Popover
@@ -181,9 +178,6 @@ export function Menu({
       <MenuBase role={role} {...restProps} tabIndex={-1}>
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
-            'aria-selected':
-              activeIndex != null ? activeIndex === i : undefined,
-            id: `${id}-item-${i}`,
             ref: i === 0 ? firstItemRef : lastItemRef,
             onKeyDown,
           });
