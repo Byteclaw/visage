@@ -1,4 +1,8 @@
-import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
+import {
+  ExtractVisageComponentProps,
+  markAsVisageComponent,
+  VisageComponent,
+} from '@byteclaw/visage-core';
 import React, {
   createContext,
   cloneElement,
@@ -11,6 +15,7 @@ import React, {
   useState,
   useMemo,
   KeyboardEventHandler,
+  forwardRef,
 } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
@@ -133,7 +138,8 @@ interface ListProps {
   navigation?: boolean;
 }
 
-interface ListItemProps extends VisageStyleProps<StyleProps> {
+interface ListItemProps
+  extends ExtractVisageComponentProps<typeof BaseListItem> {
   button?: boolean;
   gutters?: boolean;
   children: ReactNode;
@@ -142,28 +148,29 @@ interface ListItemProps extends VisageStyleProps<StyleProps> {
 const defaultContainer = <ListContainer />;
 const defaultItemsContainer = <ListItemsContainer />;
 
-export function ListItem({
-  button = false,
-  children,
-  gutters,
-  ...rest
-}: ListItemProps) {
-  const guttersValue = useMemo(() => {
-    if (gutters != null) {
-      return gutters;
-    }
-    return typeof children === 'string';
-  }, [gutters, children]);
-  return (
-    <BaseListItem
-      role={button === true ? 'button' : undefined}
-      gutters={guttersValue}
-      {...rest}
-    >
-      {children}
-    </BaseListItem>
-  );
-}
+export const ListItem: VisageComponent<ListItemProps, StyleProps> = forwardRef(
+  ({ button = false, children, gutters, ...rest }: ListItemProps, ref) => {
+    const guttersValue = useMemo(() => {
+      if (gutters != null) {
+        return gutters;
+      }
+      return typeof children === 'string';
+    }, [gutters, children]);
+
+    return (
+      <BaseListItem
+        role={button === true ? 'button' : undefined}
+        gutters={guttersValue}
+        ref={ref as any}
+        {...rest}
+      >
+        {children}
+      </BaseListItem>
+    );
+  },
+) as any;
+
+markAsVisageComponent(ListItem as any);
 
 export function List({
   children,
