@@ -15,8 +15,10 @@ import React, {
   KeyboardEventHandler,
   MutableRefObject,
   Reducer,
+  Ref,
 } from 'react';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
+import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
 import {
   AutocompleteActions,
@@ -29,6 +31,7 @@ interface BaseProps {
   'aria-haspopup': 'listbox';
   'aria-owns': string;
   children: ReactNode;
+  ref: Ref<any>;
   role: 'combobox';
 }
 
@@ -65,6 +68,7 @@ interface OptionProps<TOption> {
 
 interface OptionsProps {
   'aria-labelledby'?: string;
+  baseRef: HTMLElement | null;
   children: ReactNode;
   id: string;
   role: 'listbox';
@@ -78,9 +82,11 @@ type ValueRenderer<TValue> = (props: ValueProps<TValue>) => ReactElement;
 const defaultOptionRenderer: OptionRenderer<any> = ({
   option,
   ...restProps
-}) => <li {...restProps}>{option}</li>;
+}) => <MenuItem {...restProps}>{option}</MenuItem>;
 
-const defaultOptionsRenderer: OptionsRenderer = props => <ul {...props} />;
+const defaultOptionsRenderer: OptionsRenderer = ({ baseRef, ...props }) => (
+  <Menu anchor={baseRef} disableEvents open {...props} />
+);
 
 const defaultValueRenderer: ValueRenderer<any> = props => (
   <TextInput autoComplete="off" {...props} type="text" />
@@ -126,6 +132,7 @@ export function AutocompleteInput<TValue = any>({
   value,
 }: AutocompleteInputProps<TValue>) {
   const listBoxId = `${id}-listbox`;
+  const baseRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const loadOptions = useCallback(
     async (search: string | undefined | TValue): Promise<TValue[]> => {
@@ -263,6 +270,7 @@ export function AutocompleteInput<TValue = any>({
     'aria-expanded': state.expanded,
     'aria-haspopup': 'listbox',
     'aria-owns': listBoxId,
+    ref: baseRef,
     children: (
       <Fragment>
         {renderValue({
@@ -291,6 +299,7 @@ export function AutocompleteInput<TValue = any>({
         {state.expanded && state.focused
           ? renderOptions({
               'aria-labelledby': labelId,
+              baseRef: baseRef.current,
               children: state.options.map((option, i) =>
                 renderOption({
                   'aria-selected': state.selectedOption === i,

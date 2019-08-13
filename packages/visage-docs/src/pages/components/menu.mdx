@@ -41,7 +41,10 @@ import { ButtonWithMenu } from '../../components';
 </WithState>
 ```
 
-### Index managed from outside
+### Disabled events
+
+`disableEvents` props turns of key down handling on menu items and it is your responsibility to handle focus.
+Make sure you handle `Escape` key press.
 
 ```jsx live
 <WithState>
@@ -58,7 +61,7 @@ import { ButtonWithMenu } from '../../components';
         Pop me
       </Button>
       <Menu
-        activeIndex={0}
+        disableEvents
         anchor={anchorEl}
         id="buttons-menu"
         onClose={() => setAnchorEl(null)}

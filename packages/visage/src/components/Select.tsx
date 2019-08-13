@@ -15,8 +15,10 @@ import React, {
   KeyboardEventHandler,
   MutableRefObject,
   MouseEventHandler,
+  Ref,
 } from 'react';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
+import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
 import { SelectState, selectReducer } from './selectReducer';
 
@@ -26,6 +28,7 @@ interface BaseProps {
   'aria-labelledby'?: string;
   'aria-owns': string;
   children: ReactNode;
+  ref: Ref<any>;
   role: 'combobox';
 }
 
@@ -65,6 +68,7 @@ interface OptionProps {
 
 interface OptionsProps {
   children: ReactNode;
+  baseRef: HTMLElement | null;
   id: string;
   role: 'listbox';
 }
@@ -75,10 +79,12 @@ type OptionsRenderer = (props: OptionsProps) => ReactElement;
 type ValueRenderer = (props: ValueProps) => ReactElement;
 
 const defaultOptionRenderer: OptionRenderer = ({ option, ...restProps }) => (
-  <li {...restProps}>{option}</li>
+  <MenuItem {...restProps}>{option}</MenuItem>
 );
 
-const defaultOptionsRenderer: OptionsRenderer = props => <ul {...props} />;
+const defaultOptionsRenderer: OptionsRenderer = ({ baseRef, ...restProps }) => (
+  <Menu anchor={baseRef} disableEvents open {...restProps} />
+);
 
 const defaultValueRenderer: ValueRenderer = ({ open, ...restProps }) => (
   <TextInput
@@ -131,6 +137,7 @@ export function Select({
   value,
 }: SelectProps) {
   const listBoxId = `${id}-listbox`;
+  const baseRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const loadOptions = useCallback(
     async (search: string | null): Promise<any[]> => {
@@ -277,6 +284,7 @@ export function Select({
     'aria-haspopup': 'listbox',
     'aria-labelledby': labelId,
     'aria-owns': listBoxId,
+    ref: baseRef,
     children: (
       <Fragment>
         {renderValue({
@@ -307,6 +315,7 @@ export function Select({
         })}
         {state.expanded && state.focused
           ? renderOptions({
+              baseRef: baseRef.current,
               children: state.options.map((option, i) =>
                 renderOption({
                   'aria-selected': state.selectedOption === i,
