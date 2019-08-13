@@ -36,9 +36,6 @@ export function Sidebar() {
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
       <ListItem>
-        <ListItemRouteLink to="/">Getting started</ListItemRouteLink>
-      </ListItem>
-      <ListItem>
         <ListItemRouteLink to="/typography">Typography</ListItemRouteLink>
       </ListItem>
       <ListItem styles={{ p: 0 }}>
