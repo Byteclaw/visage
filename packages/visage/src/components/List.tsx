@@ -16,6 +16,7 @@ import React, {
   useMemo,
   KeyboardEventHandler,
   forwardRef,
+  MouseEventHandler,
 } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
@@ -91,27 +92,29 @@ export const BaseListItem = createBooleanVariant('gutters', {
   ),
 );
 
-const ListItemLinkBase = createComponent('a', {
-  displayName: 'ListItemLink',
-  defaultStyles: {
-    color: 'bodyText',
-    cursor: 'pointer',
-    display: 'flex',
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    m: 0,
-    px: 2,
-    py: 1,
-    textDecoration: 'none',
-    width: '100%',
-    '&:hover, &:focus': {
-      outline: 'none',
-      backgroundColor: 'primary.1',
-      color: 'primaryText.1',
-      userSelect: 'none',
+const ListItemLinkBase = activeItemVariant(
+  createComponent('a', {
+    displayName: 'ListItemLink',
+    defaultStyles: {
+      color: 'bodyText',
+      cursor: 'pointer',
+      display: 'flex',
+      fontSize: 'inherit',
+      lineHeight: 'inherit',
+      m: 0,
+      px: 2,
+      py: 1,
+      textDecoration: 'none',
+      width: '100%',
+      '&:hover, &:focus': {
+        outline: 'none',
+        backgroundColor: 'primary.1',
+        color: 'primaryText.1',
+        userSelect: 'none',
+      },
     },
-  },
-});
+  }),
+);
 
 export const ListItemLink: typeof ListItemLinkBase = (props: any) => {
   const depth = useContext(ListDepthContext);
@@ -196,23 +199,41 @@ export function List({
   });
 }
 
+const defaultContainerRenderer = (
+  children: ReactNode,
+  props: any,
+): ReactElement => <ListContainer {...props}>{children}</ListContainer>;
+const defaultItemsContainerRenderer = (
+  collapsed: boolean,
+  children: ReactNode,
+): ReactNode => (collapsed ? null : children);
+
 interface CollapsibleListProps
   extends ExtractVisageComponentProps<typeof ListContainer> {
   children: ReactNode;
   collapsed?: boolean;
-  container?: ReactElement;
-  heading?: ReactElement;
-  itemsContainer?: ReactElement;
-  toggler: ReactElement;
+  renderContainer?: (
+    children: ReactNode,
+    props: {
+      [extra: string]: any;
+    },
+  ) => ReactElement | null;
+  renderHeading?: () => ReactElement | null;
+  renderItemsContainer?: (collapsed: boolean, children: ReactNode) => ReactNode;
+  renderToggler?: (
+    collapsed: boolean,
+    onClick: MouseEventHandler,
+    onKeyDown: KeyboardEventHandler,
+  ) => ReactElement | null;
 }
 
 export function CollapsibleList({
   collapsed: isCollapsed = true,
   children,
-  container = defaultContainer,
-  heading,
-  itemsContainer = defaultItemsContainer,
-  toggler,
+  renderContainer = defaultContainerRenderer,
+  renderHeading,
+  renderItemsContainer = defaultItemsContainerRenderer,
+  renderToggler,
   ...restProps
 }: CollapsibleListProps) {
   const depth = useContext(ListDepthContext);
@@ -227,31 +248,20 @@ export function CollapsibleList({
     },
     [collapsed],
   );
-  const toggle = cloneElement(toggler, {
-    collapsed,
-    onClick: onToggle,
-    onKeyDown,
-  });
-  const listItems = cloneElement(itemsContainer, {
-    children,
-    collapsed,
-  });
 
   if (collapsedRef.current !== isCollapsed) {
     collapsedRef.current = isCollapsed;
     setCollapsed(isCollapsed);
   }
 
-  return cloneElement(container, {
-    children: (
-      <Fragment>
-        {heading}
-        {toggle}
-        <ListDepthContext.Provider value={depth + 1}>
-          {listItems}
-        </ListDepthContext.Provider>
-      </Fragment>
-    ),
-    ...restProps,
-  });
+  return renderContainer(
+    <Fragment>
+      {renderHeading ? renderHeading() : null}
+      {renderToggler ? renderToggler(collapsed, onToggle, onKeyDown) : null}
+      <ListDepthContext.Provider value={depth + 1}>
+        {renderItemsContainer(collapsed, children)}
+      </ListDepthContext.Provider>
+    </Fragment>,
+    restProps,
+  );
 }

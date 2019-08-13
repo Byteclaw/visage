@@ -17,7 +17,13 @@ function ListItemRouteLink({ to, ...restProps }: ListItemRouteLink) {
   return (
     <Match path={to}>
       {({ match }) => (
-        <ListItemLink active={!!match} as={Link} to={to} {...restProps} />
+        <ListItemLink
+          aria-current={match ? 'page' : undefined}
+          active={!!match}
+          as={Link}
+          to={to}
+          {...restProps}
+        />
       )}
     </Match>
   );
@@ -40,7 +46,16 @@ export function Sidebar() {
           {({ match }) => (
             <CollapsibleList
               collapsed={match == null}
-              toggler={<ListItemLink tabIndex={0}>Components</ListItemLink>}
+              renderToggler={(collapsed, onClick, onKeyDown) => (
+                <ListItemLink
+                  active={!collapsed}
+                  onClick={onClick}
+                  onKeyDown={onKeyDown}
+                  tabIndex={0}
+                >
+                  Components
+                </ListItemLink>
+              )}
             >
               <ListItem>
                 <ListItemRouteLink to="/components/overview">
