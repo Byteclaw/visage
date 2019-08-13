@@ -179,6 +179,7 @@ export function Menu({
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
             ref: i === 0 ? firstItemRef : lastItemRef,
+            role: !open ? 'none' : undefined,
             onKeyDown,
           });
         })}
