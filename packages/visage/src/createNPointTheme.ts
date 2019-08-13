@@ -44,6 +44,7 @@ interface NPointThemeSettings extends ThemeSettings {
   fontScaleRatio: number;
   colors: {
     bodyText: string | ScaleValue<string>;
+    dangerBodyText: string | ScaleValue<string>;
     primary: string | ScaleValue<string>;
     primaryText: string | ScaleValue<string>;
     [name: string]: string | ScaleValue<string>;

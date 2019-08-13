@@ -11,6 +11,7 @@ export * from './Flex';
 export * from './Grid';
 export * from './Header';
 export * from './Heading';
+export * from './InlineError';
 export * from './Label';
 export * from './LayerManager';
 export * from './Layout';
