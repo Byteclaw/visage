@@ -118,6 +118,16 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/paragraph">
+                  Paragraph
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/paragraph-skeleton">
+                  ParagraphSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/popover">
                   Popover
                 </ListItemRouteLink>
