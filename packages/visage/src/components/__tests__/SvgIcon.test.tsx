@@ -36,25 +36,31 @@ describe('SvgIcon', () => {
         vertical-align: middle;
       }
 
-      .emotion-0[data-variant="stroked"] path:last-child {
+      .emotion-0[data-stroked="true"] svg {
         fill: transparent;
-        stroke: black;
+        stroke: currentColor;
       }
 
-      .emotion-0[data-variant="default"] path:last-child {
-        fill: black;
+      .emotion-0[data-stroked="false"] svg {
+        fill: currentColor;
         stroke: transparent;
       }
 
       <div
           class="emotion-0"
-          data-variant="default"
+          data-stroked="false"
         >
           <svg
-            viewBox="0 0 60.963 60.842"
+            height="1em"
+            viewBox="0 0 24 24"
+            width="1em"
           >
             <path
-              d="M59.595 52.861L37.094 30.359 59.473 7.98a4.676 4.676 0 00-6.611-6.611L30.483 23.748 8.105 1.369A4.676 4.676 0 001.494 7.98l22.378 22.379L1.369 52.861a4.674 4.674 0 003.306 7.98 4.66 4.66 0 003.306-1.369L30.483 36.97l22.501 22.502c.913.913 2.109 1.369 3.306 1.369s2.393-.456 3.306-1.369a4.677 4.677 0 00-.001-6.611z"
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
             />
           </svg>
         </div>
@@ -93,25 +99,31 @@ describe('SvgIcon', () => {
         vertical-align: middle;
       }
 
-      .emotion-0[data-variant="stroked"] path:last-child {
+      .emotion-0[data-stroked="true"] svg {
         fill: transparent;
-        stroke: black;
+        stroke: currentColor;
       }
 
-      .emotion-0[data-variant="default"] path:last-child {
-        fill: black;
+      .emotion-0[data-stroked="false"] svg {
+        fill: currentColor;
         stroke: transparent;
       }
 
       <div
           class="emotion-0"
-          data-variant="default"
+          data-stroked="false"
         >
           <svg
-            viewBox="0 0 60.963 60.842"
+            height="1em"
+            viewBox="0 0 24 24"
+            width="1em"
           >
             <path
-              d="M59.595 52.861L37.094 30.359 59.473 7.98a4.676 4.676 0 00-6.611-6.611L30.483 23.748 8.105 1.369A4.676 4.676 0 001.494 7.98l22.378 22.379L1.369 52.861a4.674 4.674 0 003.306 7.98 4.66 4.66 0 003.306-1.369L30.483 36.97l22.501 22.502c.913.913 2.109 1.369 3.306 1.369s2.393-.456 3.306-1.369a4.677 4.677 0 00-.001-6.611z"
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
             />
           </svg>
         </div>
@@ -150,35 +162,41 @@ describe('SvgIcon', () => {
         vertical-align: middle;
       }
 
-      .emotion-0[data-variant="stroked"] {
+      .emotion-0[data-stroked="true"] {
         font-size: 48px;
         line-height: 48px;
       }
 
-      .emotion-0[data-variant="stroked"] path:last-child {
+      .emotion-0[data-stroked="true"] svg {
         fill: transparent;
-        stroke: black;
+        stroke: currentColor;
       }
 
-      .emotion-0[data-variant="default"] {
+      .emotion-0[data-stroked="false"] {
         font-size: 48px;
         line-height: 48px;
       }
 
-      .emotion-0[data-variant="default"] path:last-child {
-        fill: black;
+      .emotion-0[data-stroked="false"] svg {
+        fill: currentColor;
         stroke: transparent;
       }
 
       <div
           class="emotion-0"
-          data-variant="default"
+          data-stroked="false"
         >
           <svg
-            viewBox="0 0 60.963 60.842"
+            height="1em"
+            viewBox="0 0 24 24"
+            width="1em"
           >
             <path
-              d="M59.595 52.861L37.094 30.359 59.473 7.98a4.676 4.676 0 00-6.611-6.611L30.483 23.748 8.105 1.369A4.676 4.676 0 001.494 7.98l22.378 22.379L1.369 52.861a4.674 4.674 0 003.306 7.98 4.66 4.66 0 003.306-1.369L30.483 36.97l22.501 22.502c.913.913 2.109 1.369 3.306 1.369s2.393-.456 3.306-1.369a4.677 4.677 0 00-.001-6.611z"
+              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+            />
+            <path
+              d="M0 0h24v24H0z"
+              fill="none"
             />
           </svg>
         </div>
