@@ -17,8 +17,10 @@ import React, {
   MouseEventHandler,
   Ref,
 } from 'react';
+import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
 import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
 import { Menu, MenuItem } from './Menu';
+import { SvgIcon } from './SvgIcon';
 import { TextInput } from './TextInput';
 import { SelectState, selectReducer } from './selectReducer';
 
@@ -90,7 +92,13 @@ const defaultOptionsRenderer: OptionsRenderer = ({ baseRef, ...restProps }) => (
 const defaultValueRenderer: ValueRenderer = ({ open, ...restProps }) => (
   <TextInput
     {...restProps}
-    append={<span>{open ? 'C' : 'O'}</span>}
+    suffix={
+      open ? (
+        <SvgIcon icon={UnfoldLessIcon} />
+      ) : (
+        <SvgIcon icon={UnfoldMoreIcon} />
+      )
+    }
     type="text"
   />
 );
