@@ -25,6 +25,7 @@ export * from './Popover';
 export * from './Portal';
 export * from './Radio';
 export * from './Select';
+export * from './SkeletonSentence';
 export * from './SvgIcon';
 export * from './Tabs';
 export * from './Text';

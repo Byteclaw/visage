@@ -1,0 +1,29 @@
+# SkeletonSentence
+
+Use this component as component override using `as` prop.
+
+## Examples
+
+### Default
+
+```jsx live
+<SkeletonSentence />
+```
+
+### Custom sentence
+
+```jsx live
+<SkeletonSentence mask={[4, 2, 6, 2, 7]} />
+```
+
+### Skeleton Heading
+
+```jsx live
+<Heading as={SkeletonSentence} mask={[4, 6]} />
+```
+
+### Skeleton Paragraph
+
+```jsx live
+<Paragraph as={SkeletonSentence} />
+```

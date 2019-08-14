@@ -1,6 +1,12 @@
-import { markAsVisageComponent } from '@byteclaw/visage-core';
-import { createElement, forwardRef } from 'react';
+import {
+  ExtractVisageComponentProps,
+  markAsVisageComponent,
+  VisageComponent,
+} from '@byteclaw/visage-core';
+import React, { createElement, forwardRef } from 'react';
 import { createComponent, createVariant } from '../core';
+import { SkeletonSentence } from './SkeletonSentence';
+import { StyleProps } from '../createNPointTheme';
 
 const HeadingBase = createComponent('h1', {
   displayName: 'HeadingBase',
@@ -80,3 +86,12 @@ export const Heading: typeof VariantedHeading = forwardRef(
 
 Heading.displayName = 'Heading';
 markAsVisageComponent(Heading);
+
+const defaultMask = [6];
+
+export const HeadingSkeleton: VisageComponent<
+  ExtractVisageComponentProps<typeof Heading> & { mask?: number[] },
+  StyleProps
+> = function HeadingSkeleton({ mask = defaultMask, ...restProps }: any) {
+  return <Heading as={SkeletonSentence} mask={mask} {...restProps} />;
+};

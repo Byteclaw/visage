@@ -93,6 +93,16 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/heading">
+                  Heading
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/heading-skeleton">
+                  HeadingSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/inline-error">
                   InlineError
                 </ListItemRouteLink>
@@ -140,6 +150,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/select">
                   Select
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/skeleton-sentence">
+                  SkeletonSentence
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
