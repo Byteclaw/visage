@@ -1,6 +1,6 @@
-import { keyframes } from '@emotion/core';
 import React from 'react';
 import { createComponent, EmotionStyleSheet } from '../core';
+import { skeletonAnimation } from './animations';
 
 const paragraphStyles: EmotionStyleSheet = {
   display: 'block',
@@ -14,15 +14,6 @@ const paragraphStyles: EmotionStyleSheet = {
 export const Paragraph = createComponent('p', {
   displayName: 'Paragraph',
   defaultStyles: paragraphStyles,
-});
-
-const skeletonAnimation = keyframes({
-  '0%': {
-    opacity: 0.3,
-  },
-  '100%': {
-    opacity: 0.8,
-  },
 });
 
 interface ParagraphSkeletonProps {
