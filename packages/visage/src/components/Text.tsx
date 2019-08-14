@@ -23,11 +23,7 @@ export const TextSkeleton = createComponent(
   ({ letters = 6, ...restProps }: TextSkeletonProps) => {
     const mask = 'O'.repeat(letters);
 
-    return (
-      <div data-mask={mask} {...restProps}>
-        <div>&#x200b;</div>
-      </div>
-    );
+    return <div data-mask={mask} {...restProps} />;
   },
   {
     displayName: 'TextSkeleton',
@@ -36,19 +32,13 @@ export const TextSkeleton = createComponent(
       backfaceVisibility: 'hidden',
       display: 'inline-block',
       willChange: 'opacity',
+      position: 'relative',
       animation: `${skeletonAnimation} .8s linear infinite alternate`,
-      '& > div': {
-        backgroundColor: 'bodyText',
-        display: 'block',
-        fontSize: 'inherit',
-        lineHeight: '1em',
-        width: '100%',
-      },
       '&:before': {
         content: 'attr(data-mask)',
+        backgroundColor: 'bodyText',
         fontSize: 'inherit',
-        lineHeight: 'inherit',
-        visibility: 'hidden',
+        lineHeight: '1em',
       },
     },
   },
