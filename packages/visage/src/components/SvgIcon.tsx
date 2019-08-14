@@ -1,9 +1,23 @@
 import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import React, { ReactElement, FunctionComponent } from 'react';
-import { createComponent, createVariant } from '../core';
+import { createComponent, createBooleanVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
-const SvgIconBase = createVariant(
+const SvgIconBase = createBooleanVariant('stroked', {
+  onStyles: {
+    '& svg': {
+      fill: 'transparent',
+      stroke: 'currentColor',
+    },
+  },
+  offStyles: {
+    '& svg': {
+      fill: 'currentColor',
+      stroke: 'transparent',
+    },
+  },
+  stripProp: true,
+})(
   createComponent('div', {
     displayName: 'SvgIconBase',
     defaultStyles: {
@@ -21,25 +35,10 @@ const SvgIconBase = createVariant(
       },
     },
   }),
-  'variant',
-  {
-    stroked: {
-      '& path:last-child': {
-        fill: 'transparent',
-        stroke: 'bodyText',
-      },
-    },
-    default: {
-      '& path:last-child': {
-        fill: 'bodyText',
-        stroke: 'transparent',
-      },
-    },
-  },
 );
 
 export const SvgIcon: VisageComponent<
-  { icon: ReactElement | FunctionComponent<any>; variant?: 'stroked' },
+  { icon: ReactElement | FunctionComponent<any>; stroked?: boolean },
   StyleProps
 > = function SvgIcon({ icon: Icon, ...restProps }: any) {
   return (

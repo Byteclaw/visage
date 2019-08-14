@@ -9,11 +9,9 @@ Default SVG icon uses the body text color specified in theme and the size is inh
 ```jsx live=true
 <SvgIcon
   icon={props => (
-    <svg viewBox="0 0 100.353 100.353" {...props}>
-      <path
-        d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
-        fill="#231f20"
-      />
+    <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" />
     </svg>
   )}
 />
@@ -24,11 +22,9 @@ Default SVG icon uses the body text color specified in theme and the size is inh
 ```jsx live=true
 <SvgIcon
   icon={props => (
-    <svg viewBox="0 0 100.353 100.353" {...props}>
-      <path
-        d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
-        fill="#231f20"
-      />
+    <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" />
     </svg>
   )}
   styles={{ fontSize: 1, lineHeight: 1 }}
@@ -40,16 +36,49 @@ Default SVG icon uses the body text color specified in theme and the size is inh
 ```jsx live=true
 <SvgIcon
   icon={props => (
-    <svg viewBox="0 0 100.353 100.353" {...props}>
-      <path
-        d="M99.574 97.399L52.061 49.884 99.345 2.6A1.456 1.456 0 0097.286.54L50.002 47.824 2.721.54A1.456 1.456 0 10.662 2.6l47.281 47.284L.428 97.399a1.456 1.456 0 102.06 2.06l47.515-47.515 47.513 47.515a1.453 1.453 0 002.06 0 1.458 1.458 0 00-.002-2.06z"
-        fill="#231f20"
-      />
+    <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" />
     </svg>
   )}
   styles={{
     // basically the same as fontSize: 2, lineHeight: 2
     // except that the height of icon will be the same as lineHeight
+    iconSize: 2,
+  }}
+/>
+```
+
+### Custom styles
+
+```jsx live=true
+<SvgIcon
+  icon={props => (
+    <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" />
+    </svg>
+  )}
+  styles={{
+    color: 'red',
+    iconSize: 2,
+  }}
+/>
+```
+
+### Stroked variant
+
+```jsx live=true
+<SvgIcon
+  stroked
+  icon={props => (
+    <svg width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      <path d="M0 0h24v24H0z" fill="none" />
+    </svg>
+  )}
+  styles={{
+    color: 'red',
     iconSize: 2,
   }}
 />
