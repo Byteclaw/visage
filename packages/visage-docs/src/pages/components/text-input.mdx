@@ -42,27 +42,27 @@ TextInput component.
 ```jsx live=true
 <TextInput
   readOnly
-  defaultValue="Disabled input"
+  defaultValue="Read only input"
   placeholder="Placeholder text"
 />
 ```
 
-### Input with prepend
+### Input with prefix
 
 ```jsx live=true
-<TextInput prepend={<div>A</div>} placeholder="Placeholder text" />
+<TextInput prefix={<div>A</div>} placeholder="Placeholder text" />
 ```
 
-### Input with append
+### Input with suffix
 
 ```jsx live=true
-<TextInput append="B" placeholder="Placeholder text" />
+<TextInput suffix="B" placeholder="Placeholder text" />
 ```
 
-### Input with prepend and append
+### Input with prefix and suffix
 
 ```jsx live=true
-<TextInput append="B" prepend="A" placeholder="Placeholder text" />
+<TextInput prefix="A" suffix="B" placeholder="Placeholder text" />
 ```
 
 ### Support for refs

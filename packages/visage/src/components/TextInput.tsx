@@ -1,131 +1,160 @@
 import React, {
   forwardRef,
   ReactElement,
-  ReactNode,
-  useMemo,
+  useCallback,
+  useState,
   Ref,
+  FocusEventHandler,
 } from 'react';
 import {
   markAsVisageComponent,
-  StyleSheet,
   ExtractVisageComponentProps,
   VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { disabledControl, invalidControl } from './shared';
+import { disabledControlStripped, invalidControl } from './shared';
 
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
   defaultStyles: {
-    alignItems: 'center',
-    display: 'flex',
-    height: '100%',
-    justifyContent: 'center',
-    position: 'absolute',
-    overflow: 'hidden',
-    top: 0,
+    color: 'currentColor',
+    flexBasis: 'auto',
+    flexGrow: 0,
+    flexShrink: 0,
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    position: 'relative',
+    userSelect: 'none',
+    px: 1,
+    '&[data-suffix]': {
+      pl: 0,
+    },
+    '&[data-prefix]': {
+      pr: 0,
+    },
   },
 });
 
-const TextInputBase = createComponent('input', {
-  displayName: 'TextInputBaseInput',
+const TextInputControl = createComponent('input', {
+  displayName: 'TextInputControl',
   defaultStyles: {
-    borderColor: 'black',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    background: 'none',
-    color: 'inherit',
+    border: 'none',
+    color: 'currentColor',
+    cursor: 'inherit',
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '0%',
     fontFamily: 'inherit',
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    outline: '2px solid transparent',
-    outlineOffset: '-2px',
+    outline: 'none',
     m: 0,
-    py: 1,
-    px: 2,
+    py: 0,
+    px: 1,
     width: '100%',
   },
 });
 
-const InputBase = invalidControl(disabledControl(TextInputBase));
+const InputBase = invalidControl(
+  disabledControlStripped(
+    createComponent('div', {
+      displayName: 'TextInputBase',
+      defaultStyles: {
+        alignItems: 'center',
+        background: 'none',
+        borderColor: 'black',
+        borderStyle: 'solid',
+        borderWidth: '1px',
+        display: 'flex',
+        fontSize: 0,
+        lineHeight: 0,
+        outline: '2px solid transparent',
+        outlineOffset: '-2px',
+        py: 1,
+        px: 0,
+        position: 'relative',
+      },
+    }),
+  ),
+);
 
-const inputBoxDefaultStyles: StyleSheet<StyleProps> = {
-  border: 'none',
-  fontSize: 0,
-  lineHeight: 0,
-  display: 'inline-flex',
-  position: 'relative',
-};
+// we need to override prefix so we can then override it again with correct type
+interface BaseProps
+  extends ExtractVisageComponentProps<typeof TextInputControl> {
+  prefix?: any;
+}
 
-const InputBox = createComponent('div', {
-  displayName: 'TextInputBox',
-  defaultStyles: inputBoxDefaultStyles,
-});
-
-interface Props extends ExtractVisageComponentProps<typeof TextInputBase> {
-  append?: ReactElement;
-  disabled?: boolean;
+interface Props extends BaseProps {
+  baseProps?: ExtractVisageComponentProps<typeof InputBase>;
   invalid?: boolean;
-  prepend?: ReactElement;
-  extra?: ReactNode;
+  prefix?: ReactElement;
+  prefixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
+  suffix?: ReactElement;
+  suffixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
 }
 
 export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
   (
     {
-      append,
+      baseProps,
       disabled,
       prepend,
-      extra,
-      styles: outerStyles,
       invalid,
+      onBlur: outerOnBlur,
+      onFocus: outerOnFocus,
+      prefix,
+      prefixProps,
+      suffix,
+      suffixProps,
       ...restProps
     }: Props,
     ref: Ref<HTMLInputElement>,
   ) => {
-    const styles = useMemo(() => {
-      const lineHeight =
-        outerStyles && outerStyles.lineHeight != null
-          ? outerStyles.lineHeight
-          : inputBoxDefaultStyles.lineHeight;
+    const [focused, setFocused] = useState(false);
+    const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+      e => {
+        setFocused(false);
 
-      return {
-        lineHeight,
-        ...outerStyles,
-      };
-    }, [outerStyles, prepend, append]);
+        if (outerOnBlur) outerOnBlur(e);
+      },
+      [outerOnBlur],
+    );
+    const onFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+      e => {
+        setFocused(true);
+
+        if (outerOnFocus) outerOnFocus(e);
+      },
+      [outerOnFocus],
+    );
 
     return (
-      <InputBox styles={styles}>
-        {prepend ? (
-          <InputExtraElement
-            aria-hidden
-            styles={{ left: 0, linedWidth: styles.lineHeight }}
-          >
-            {prepend}
+      <InputBase
+        {...baseProps}
+        data-focused={focused}
+        disabled={disabled}
+        invalid={invalid}
+      >
+        {prefix ? (
+          <InputExtraElement {...prefixProps} data-prefix>
+            {prefix}
           </InputExtraElement>
         ) : null}
-        <InputBase
+        <TextInputControl
+          aria-invalid={invalid}
           disabled={disabled}
-          invalid={invalid}
+          onBlur={onBlur}
+          onFocus={onFocus}
           ref={ref}
-          styles={{
-            plOffset: prepend ? styles.lineHeight : undefined,
-            prOffset: append ? styles.lineHeight : undefined,
-          }}
           {...restProps}
         />
-        {append ? (
-          <InputExtraElement
-            aria-hidden
-            styles={{ linedWidth: styles.lineHeight, right: 0 }}
-          >
-            {append}
+        {suffix ? (
+          <InputExtraElement {...suffixProps} data-suffix>
+            {suffix}
           </InputExtraElement>
         ) : null}
-        {extra}
-      </InputBox>
+      </InputBase>
     );
   },
 ) as any;
