@@ -10,9 +10,11 @@ import React, {
   KeyboardEvent,
 } from 'react';
 import { createComponent } from '../core';
+import { CloseIcon } from '../assets';
 import { Heading } from './Heading';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
+import { SvgIcon } from './SvgIcon';
 
 const ModalBase = createComponent('div', {
   displayName: 'ModalBase',
@@ -45,11 +47,12 @@ const ModalDialog = createComponent('div', {
 const ModalCloseButton = createComponent('button', {
   displayName: 'ModalCloseButton',
   defaultStyles: {
-    backgroundColor: 'black',
     borderColor: 'transparent',
     borderWidth: 2,
     borderStyle: 'solid',
     cursor: 'pointer',
+    fontSize: 0,
+    lineHeight: 0,
     position: 'absolute',
     outline: 'none',
     overflow: 'hidden',
@@ -181,7 +184,9 @@ export function Modal({
               onClick={onClickHandler}
               ref={closeButtonRef}
               type="button"
-            />
+            >
+              <SvgIcon icon={CloseIcon} />
+            </ModalCloseButton>
             <Heading id={headingId} level={3}>
               {label}
             </Heading>
