@@ -2,44 +2,46 @@
 
 ## Examples
 
-### Automatic mode with array options
+### Default
 
 ```jsx live=true
 <AutocompleteInput
-  id="automatic-field"
+  id="autocomplete-field"
   onChange={value => console.log('automatic-field', value)}
-  options={['a', 'b', 'c', 'd']}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+  placeholder="Enter a value"
 />
 ```
 
-### Manual mode with array options
+### Invalid
 
 ```jsx live=true
 <AutocompleteInput
-  id="manual-field"
-  mode="manual"
-  onChange={value => console.log('manual-field', value)}
-  options={['a', 'b', 'c', 'd']}
+  id="autocomplete-invalid-field"
+  invalid
+  onChange={value => console.log('automatic-field', value)}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
 />
 ```
 
-### Automatic mode with async options
+### Read only
 
 ```jsx live=true
 <AutocompleteInput
-  id="automatic-async-field"
-  onChange={value => console.log('automatic-async-field', value)}
-  options={async () => ['a', 'b', 'c', 'd']}
+  id="readonly-autocomplete-field"
+  onChange={value => console.log('automatic-field', value)}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+  readOnly
 />
 ```
 
-### Manual mode with async options
+### Disabled
 
 ```jsx live=true
 <AutocompleteInput
-  id="manual-async-field"
-  mode="manual"
-  onChange={value => console.log('manual-async-field', value)}
-  options={async () => ['a', 'b', 'c', 'd']}
+  id="disabled-autocomplete-field"
+  disabled
+  onChange={value => console.log('automatic-field', value)}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
 />
 ```

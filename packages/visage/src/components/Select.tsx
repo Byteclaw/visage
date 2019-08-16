@@ -201,7 +201,7 @@ export function Select<TValue extends any>({
         aria-activedescendant={state.activeId ? state.activeId : undefined}
         aria-autocomplete="list"
         aria-controls={`${id}-listbox-popup`}
-        autoComplete="off"
+        autoComplete="none"
         baseProps={{
           'aria-busy': state.busy,
           'aria-expanded': state.expanded,
