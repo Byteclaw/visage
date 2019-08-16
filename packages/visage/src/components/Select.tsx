@@ -1,348 +1,277 @@
-/* eslint jsx-a11y/role-has-required-aria-props:warn */
+import {
+  markAsVisageComponent,
+  ExtractVisageComponentProps,
+} from '@byteclaw/visage-core';
 import React, {
   Fragment,
-  ReactElement,
-  ReactNode,
   useCallback,
   useEffect,
   useReducer,
   useRef,
-  ChangeEvent,
-  KeyboardEvent,
-  MouseEvent,
-  FocusEventHandler,
   ChangeEventHandler,
-  KeyboardEventHandler,
-  MutableRefObject,
+  FocusEventHandler,
   MouseEventHandler,
-  Ref,
+  KeyboardEventHandler,
 } from 'react';
 import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
-import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
+import { useDebouncedCallback } from '../hooks';
+import { initSelectReducer, selectReducer } from './reducers';
 import { Menu, MenuItem } from './Menu';
 import { SvgIcon } from './SvgIcon';
 import { TextInput } from './TextInput';
-import { SelectState, selectReducer } from './selectReducer';
 
-interface BaseProps {
-  'aria-expanded': boolean;
-  'aria-haspopup': 'listbox';
-  'aria-labelledby'?: string;
-  'aria-owns': string;
-  children: ReactNode;
-  ref: Ref<any>;
-  role: 'combobox';
-}
-
-interface ValueProps {
-  'aria-autocomplete': 'list';
-  'aria-disabled'?: boolean;
-  'aria-activedescendant'?: string;
-  'aria-controls': string;
-  'aria-readonly': boolean;
-  'aria-placeholder'?: string;
+interface SelectProps<TValue extends any = 'string'> {
+  defaultValue?: TValue;
   id: string;
-  disabled?: boolean;
-  invalid?: boolean;
-  name?: string;
-  open: boolean;
-  onBlur: FocusEventHandler<any>;
-  onClick: MouseEventHandler<any>;
-  onFocus: FocusEventHandler<any>;
-  onChange: ChangeEventHandler<any>;
-  onKeyDown: KeyboardEventHandler<any>;
-  placeholder?: string;
-  ref: MutableRefObject<any>;
-  readOnly: boolean;
-  value: any;
-  [key: string]: any;
+  options?: (searchValue: string) => Promise<any[]>;
+  searchable?: boolean;
+  value?: TValue;
 }
 
-interface OptionProps {
-  'aria-selected': boolean;
-  'data-ai-option': number;
-  id: string;
-  key: any;
-  onMouseDown: (e: MouseEvent<any>) => void;
-  option: any;
-  role: 'option';
-}
+const defaultOnLoadOptions = () => Promise.resolve([]);
 
-interface OptionsProps {
-  'aria-labelledby'?: string;
-  baseRef: HTMLElement | null;
-  children: ReactNode;
-  id: string;
-  role: 'listbox';
-}
-
-type BaseRenderer = (props: BaseProps) => ReactElement;
-type OptionRenderer = (props: OptionProps) => ReactElement;
-type OptionsRenderer = (props: OptionsProps) => ReactElement;
-type ValueRenderer = (props: ValueProps) => ReactElement;
-
-const defaultOptionRenderer: OptionRenderer = ({ option, ...restProps }) => (
-  <MenuItem {...restProps}>{option}</MenuItem>
-);
-
-const defaultOptionsRenderer: OptionsRenderer = ({ baseRef, ...restProps }) => (
-  <Menu anchor={baseRef} disableEvents open {...restProps} />
-);
-
-const defaultValueRenderer: ValueRenderer = ({ open, ...restProps }) => (
-  <TextInput
-    {...restProps}
-    suffix={
-      open ? (
-        <SvgIcon icon={UnfoldLessIcon} />
-      ) : (
-        <SvgIcon icon={UnfoldMoreIcon} />
-      )
-    }
-    type="text"
-  />
-);
-
-const defaultBaseRenderer: BaseRenderer = props => <div {...props} />;
-
-interface SelectProps {
-  defaultValue?: string;
-  disabled?: boolean;
-  id: string;
-  invalid?: boolean;
-  labelId?: string;
-  filterable?: boolean;
-  name?: string;
-  onChange?: (value: any) => void;
-  options: any[] | ((search: string | null) => Promise<any[]>);
-  placeholder?: string;
-  /**
-   * Select can be manipulated
-   */
-  readOnly?: boolean;
-  renderBase?: BaseRenderer;
-  renderOption?: OptionRenderer;
-  renderOptions?: OptionsRenderer;
-  renderValue?: ValueRenderer;
-  value?: string;
-}
-
-export function Select({
+export function Select<TValue extends any>({
   defaultValue,
   disabled,
   id,
-  invalid,
-  labelId,
-  name,
+  onBlur,
   onChange,
-  options,
-  filterable,
-  placeholder,
+  options: onLoadOptions = defaultOnLoadOptions,
+  onFocus,
+  onKeyDown,
   readOnly,
-  renderBase = defaultBaseRenderer,
-  renderOption = defaultOptionRenderer,
-  renderOptions = defaultOptionsRenderer,
-  renderValue = defaultValueRenderer,
+  required,
+  searchable = false,
   value,
-}: SelectProps) {
-  const listBoxId = `${id}-listbox`;
-  const baseRef = useRef<HTMLInputElement | null>(null);
+  ...restProps
+}: SelectProps<TValue> & ExtractVisageComponentProps<typeof TextInput>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const loadOptions = useCallback(
-    async (search: string | null): Promise<any[]> => {
-      if (filterable) {
-        if (Array.isArray(options)) {
-          const term = (search || '').trim().toLowerCase();
-
-          if (!search) {
-            return options;
-          }
-
-          return options.filter(option => {
-            if (typeof option === 'string') {
-              return option.toLowerCase().startsWith(term);
-            }
-
-            if (typeof option === 'object' && option !== null) {
-              return Object.keys(option).find(
-                key =>
-                  typeof option[key] === 'string' &&
-                  option[key].toLowerCase().startsWith(term),
-              );
-            }
-
-            return false;
-          });
-        }
-
-        return options(search);
-      }
-
-      return Array.isArray(options) ? options : options('');
-    },
-    [options, filterable],
+  const [state, dispatch] = useReducer(
+    selectReducer,
+    { id, value: value || defaultValue ? [value || defaultValue] : [] },
+    initSelectReducer,
   );
-  const [state, dispatch] = useReducer(selectReducer, {
-    selectedValue: defaultValue || value || '',
-    focused: false,
-    expanded: false,
-    selectedOption: null,
-    options: Array.isArray(options) ? options : [],
-    status: 'IDLE',
-    value: defaultValue || value || '',
-  });
-  const outerValueRef = useRef(value);
-  const previousState = useRef<SelectState>(state);
-  const [notifyChange, cancelNotifyChange] = useDebouncedCallback(
-    () => {
-      dispatch({ type: 'CHANGE_DONE' });
-    },
+  const previousStateRef = useRef(state);
+  const previousOuterValueRef = useRef(value);
+  const [loadOptions, cancelLoadOptions] = useDebouncedCallback(
+    () => dispatch({ type: 'LoadingOptions' }),
     300,
     [],
   );
-  const onOptionMouseDown = useCallback((e: MouseEvent<HTMLElement>) => {
-    e.preventDefault(); // keep focus on input
+  const onInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      dispatch({ type: 'Blur' });
 
+      if (onBlur) onBlur(e);
+    },
+    [onBlur],
+  );
+  const onInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      dispatch({ type: 'Focus' });
+
+      if (onFocus) onFocus(e);
+    },
+    [onFocus],
+  );
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      dispatch({ type: 'ChangeSearchValue', value: e.currentTarget.value });
+
+      if (searchable) {
+        loadOptions();
+      }
+    },
+    [loadOptions, searchable],
+  );
+  const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      switch (e.key) {
+        case 'ArrowDown': {
+          e.preventDefault();
+          dispatch({ type: 'ArrowDown' });
+          break;
+        }
+        case 'ArrowUp': {
+          e.preventDefault();
+          dispatch({ type: 'ArrowUp' });
+          break;
+        }
+        case 'End': {
+          e.preventDefault();
+          dispatch({ type: 'End' });
+          break;
+        }
+        case 'Escape': {
+          e.preventDefault();
+          dispatch({ type: 'Escape' });
+          break;
+        }
+        case 'Home': {
+          e.preventDefault();
+          dispatch({ type: 'Home' });
+          break;
+        }
+        case ' ': {
+          // space works only if not searchable
+          if (!searchable) {
+            e.preventDefault();
+
+            if (state.expanded) {
+              dispatch({ type: 'ChooseFocusedOption' });
+              dispatch({ type: 'Close' });
+            } else {
+              dispatch({ type: 'Open' });
+            }
+          }
+
+          break;
+        }
+        case 'Enter': {
+          e.preventDefault();
+
+          if (state.expanded) {
+            dispatch({ type: 'ChooseFocusedOption' });
+            dispatch({ type: 'Close' });
+          }
+
+          break;
+        }
+      }
+
+      if (onKeyDown) onKeyDown(e);
+    },
+    [onKeyDown, searchable, state.expanded],
+  );
+  const onToggleClick: MouseEventHandler<HTMLInputElement> = useCallback(() => {
+    if (state.expanded) {
+      dispatch({ type: 'Close' });
+    } else {
+      dispatch({ type: 'Open' });
+
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+    }
+  }, [state.expanded]);
+  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useCallback(e => {
+    e.preventDefault();
     dispatch({
-      type: 'SELECT_OPTION',
-      index: Number(e.currentTarget!.dataset.aiOption),
+      type: 'ChooseOption',
+      index: Number(e.currentTarget.dataset.optionIndex),
     });
+    dispatch({ type: 'Close' });
   }, []);
-  const onInnerChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch({ type: 'CHANGE', value: e.currentTarget.value });
-      notifyChange();
-    },
-    [notifyChange],
-  );
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      const code = e.which || e.keyCode;
 
-      if (disabled || readOnly) {
-        return;
-      }
-
-      if (code === 38) {
-        // up arrow
-        dispatch({ type: 'FOCUS_PREVIOUS_OPTION' });
-
-        e.preventDefault(); // prevent scroll
-      } else if (code === 40) {
-        // down arrow
-        dispatch({ type: 'FOCUS_NEXT_OPTION' });
-
-        e.preventDefault(); // prevent scroll
-      } else if (code === 13) {
-        // enter
-        dispatch({ type: 'SELECT_OPTION' });
-        e.preventDefault(); // prevent form submission
-      } else if (code === 27) {
-        // escape
-        dispatch({ type: 'RESET', value: '' });
-      }
-    },
-    [disabled, readOnly],
-  );
-  const onBlur = useCallback(() => {
-    dispatch({ type: 'BLUR' });
-  }, []);
-  const onFocus = useCallback(() => {
-    dispatch({ type: 'FOCUS', readOnly });
-  }, [readOnly]);
-  const onClick = useCallback(() => dispatch({ type: 'CLICK', readOnly }), [
-    readOnly,
-  ]);
-
-  // cancel debounced change on unmount
+  // cancel debounced load options on unmount
   useEffect(() => {
-    return () => cancelNotifyChange();
-  }, [cancelNotifyChange]);
+    return () => cancelLoadOptions();
+  }, []);
 
-  if (previousState.current !== state) {
-    if (
-      previousState.current.status !== state.status &&
-      state.status === 'LOADING_OPTIONS'
-    ) {
-      loadOptions(state.value)
-        .then(loadedOptions =>
-          dispatch({ type: 'LOAD_OPTIONS_DONE', options: loadedOptions }),
-        )
-        .catch(() => dispatch({ type: 'LOAD_OPTIONS_FAILED' }));
+  if (previousStateRef.current !== state) {
+    if (previousStateRef.current.busy !== state.busy && state.busy) {
+      // load options
+      onLoadOptions(state.searchValue || '')
+        .then(options => {
+          dispatch({ type: 'LoadingOptionsDone', options });
+        })
+        .catch(e => {
+          dispatch({ type: 'LoadingOptionsFailed', error: e });
+        });
+    } else if (onChange && previousStateRef.current.value !== state.value) {
+      // onChange is called only if it differs from outside value
+      if (previousOuterValueRef.current !== state.value[0]) {
+        onChange(state.value[0]);
+      }
     }
 
-    if (
-      state.selectedValue !== previousState.current.selectedValue &&
-      onChange
-    ) {
-      onChange(state.selectedValue);
-    }
-
-    previousState.current = state;
+    previousStateRef.current = state;
   }
 
-  // if outer value changes, reset input to outer value
-  if (outerValueRef.current !== value) {
-    outerValueRef.current = value;
-    // reset input to outer value
-    dispatch({ type: 'RESET', value });
+  // if value from outside has changed
+  if (!state.busy && previousOuterValueRef.current !== value) {
+    previousOuterValueRef.current = value;
+
+    dispatch({ type: 'SetValue', value: [value] });
   }
 
-  return renderBase({
-    'aria-expanded': state.expanded,
-    'aria-haspopup': 'listbox',
-    'aria-owns': listBoxId,
-    ref: baseRef,
-    children: (
-      <Fragment>
-        {renderValue({
-          'aria-autocomplete': 'list',
-          'aria-activedescendant':
-            state.selectedOption != null
-              ? `${id}-item-${state.selectedOption}`
-              : undefined,
-          'aria-controls': listBoxId,
-          'aria-disabled': disabled,
-          'aria-labelledby': labelId,
-          'aria-multiline': false,
-          'aria-readonly': readOnly || !filterable,
-          'aria-placeholder': placeholder,
-          disabled,
-          invalid,
-          id,
-          name,
-          onBlur,
-          onClick,
-          onFocus,
-          onChange: onInnerChange,
-          onKeyDown,
-          open: state.expanded && state.focused,
-          placeholder,
-          readOnly: readOnly || !filterable,
-          ref: inputRef,
-          value: state.value,
+  return (
+    <Fragment>
+      <TextInput
+        aria-activedescendant={state.activeId ? state.activeId : undefined}
+        aria-autocomplete="list"
+        aria-controls={`${id}-listbox-popup`}
+        autoComplete="off"
+        baseProps={{
+          'aria-busy': state.busy,
+          'aria-expanded': state.expanded,
+          'aria-haspopup': 'listbox',
+          'aria-owns': `${id}-listbox-popup`,
+          'aria-required': required,
+          'aria-readonly': readOnly,
+          role: 'combobox',
+        }}
+        disabled={disabled}
+        id={id}
+        onBlur={onInputBlur}
+        onChange={onInputChange}
+        onClick={disabled ? undefined : onToggleClick}
+        onFocus={onInputFocus}
+        onKeyDown={onInputKeyDown}
+        ref={inputRef}
+        readOnly={readOnly || !searchable}
+        suffix={
+          state.expanded ? (
+            <SvgIcon
+              aria-hidden
+              icon={UnfoldLessIcon}
+              onClick={onToggleClick}
+              tabIndex={-1}
+            />
+          ) : (
+            <SvgIcon
+              aria-hidden
+              icon={UnfoldMoreIcon}
+              onClick={onToggleClick}
+              tabIndex={-1}
+            />
+          )
+        }
+        {...restProps}
+        value={
+          state.searchValue == null ? state.value[0] || '' : state.searchValue
+        }
+      />
+      <Menu
+        anchor={inputRef}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        disableEvents
+        open={state.expanded}
+        id={`${id}-listbox-popup`}
+        role="listbox"
+        tabIndex={-1}
+      >
+        {state.options.map(option => {
+          return (
+            <MenuItem
+              aria-selected={
+                state.value.includes(option.value) ||
+                state.focusedOption === option.index
+              }
+              data-option-index={option.index}
+              id={option.id}
+              key={option.id}
+              onMouseDown={onOptionMouseDown}
+              role="option"
+              tabIndex={-1}
+            >
+              {option.value}
+            </MenuItem>
+          );
         })}
-        {state.expanded && state.focused
-          ? renderOptions({
-              'aria-labelledby': labelId,
-              baseRef: baseRef.current,
-              children: state.options.map((option, i) =>
-                renderOption({
-                  'aria-selected': state.selectedOption === i,
-                  'data-ai-option': i,
-                  id: `${id}-item-${i}`,
-                  key: i,
-                  onMouseDown: onOptionMouseDown,
-                  option,
-                  role: 'option',
-                }),
-              ),
-              id: listBoxId,
-              role: 'listbox',
-            })
-          : null}
-      </Fragment>
-    ),
-    role: 'combobox',
-  });
+      </Menu>
+    </Fragment>
+  );
 }
+
+markAsVisageComponent(Select as any);
