@@ -13,6 +13,18 @@
 />
 ```
 
+### Expand on click
+
+```jsx live
+<AutocompleteInput
+  expandOnClick
+  id="autocomplete-expanded-field"
+  onChange={value => console.log('automatic-field', value)}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+  placeholder="Enter a value"
+/>
+```
+
 ### Invalid
 
 ```jsx live=true

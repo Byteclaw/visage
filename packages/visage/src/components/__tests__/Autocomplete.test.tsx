@@ -273,4 +273,90 @@ describe('Autocomplete', () => {
       expect(onChange).toHaveBeenCalledTimes(2);
     });
   });
+
+  describe('expandOnClick', () => {
+    it('loads options and expands on click', async () => {
+      const onLoadOptions = jest.fn().mockResolvedValue(['a', 'b', 'c']);
+      const onChange = jest.fn();
+
+      const { getByTestId } = render(
+        <TestDesignSystem>
+          <AutocompleteInput
+            data-testid="input"
+            expandOnClick
+            id="root"
+            onChange={onChange}
+            options={onLoadOptions}
+          />
+        </TestDesignSystem>,
+      );
+
+      // now open focus using click
+      fireEvent.click(getByTestId('input'));
+
+      expect(onLoadOptions).toHaveBeenCalledTimes(1);
+
+      await Promise.resolve();
+
+      // now we expect menu to be visible
+      expect(document.querySelectorAll('[role="option"]').length).toBe(3);
+
+      // we expect the first option to be focused
+      expect(getByTestId('input').getAttribute('aria-activedescendant')).toBe(
+        'root-option-0',
+      );
+    });
+
+    it('does not load options and expands on click if read only', async () => {
+      const onLoadOptions = jest.fn().mockResolvedValue(['a', 'b', 'c']);
+      const onChange = jest.fn();
+
+      const { getByTestId } = render(
+        <TestDesignSystem>
+          <AutocompleteInput
+            data-testid="input"
+            expandOnClick
+            id="root"
+            onChange={onChange}
+            options={onLoadOptions}
+            readOnly
+          />
+        </TestDesignSystem>,
+      );
+
+      // now open focus using click
+      fireEvent.click(getByTestId('input'));
+
+      expect(onLoadOptions).not.toHaveBeenCalled();
+
+      // now we expect menu to be visible
+      expect(document.querySelectorAll('[role="option"]').length).toBe(0);
+    });
+
+    it('does not load options and expands on click if disabled', async () => {
+      const onLoadOptions = jest.fn().mockResolvedValue(['a', 'b', 'c']);
+      const onChange = jest.fn();
+
+      const { getByTestId } = render(
+        <TestDesignSystem>
+          <AutocompleteInput
+            data-testid="input"
+            expandOnClick
+            disabled
+            id="root"
+            onChange={onChange}
+            options={onLoadOptions}
+          />
+        </TestDesignSystem>,
+      );
+
+      // now open focus using click
+      fireEvent.click(getByTestId('input'));
+
+      expect(onLoadOptions).not.toHaveBeenCalled();
+
+      // now we expect menu to be visible
+      expect(document.querySelectorAll('[role="option"]').length).toBe(0);
+    });
+  });
 });

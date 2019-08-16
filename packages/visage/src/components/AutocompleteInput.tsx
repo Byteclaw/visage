@@ -25,6 +25,7 @@ interface BaseAutocompleteInputProps
 
 interface AutocompleteInputProps extends BaseAutocompleteInputProps {
   defaultValue?: string;
+  expandOnClick?: boolean;
   id: string;
   onChange?: (value: string) => void;
   options?: (value: string) => Promise<any[]>;
@@ -36,9 +37,11 @@ const defaultOnLoadOptions = () => Promise.resolve([]);
 export function AutocompleteInput({
   defaultValue,
   disabled,
+  expandOnClick,
   id,
   onBlur,
   onChange,
+  onClick,
   options: onLoadOptions = defaultOnLoadOptions,
   onFocus,
   onKeyDown,
@@ -70,6 +73,14 @@ export function AutocompleteInput({
       if (onBlur) onBlur(e);
     },
     [onBlur],
+  );
+  const onInputClick: MouseEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      if (onClick) onClick(e);
+
+      if (expandOnClick && !readOnly && !disabled) dispatch({ type: 'Open' });
+    },
+    [expandOnClick, readOnly, disabled, onClick],
   );
   const onInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
     e => {
@@ -200,6 +211,7 @@ export function AutocompleteInput({
         id={id}
         onBlur={onInputBlur}
         onChange={onInputChange}
+        onClick={onInputClick}
         onFocus={onInputFocus}
         onKeyDown={onInputKeyDown}
         ref={inputRef}
