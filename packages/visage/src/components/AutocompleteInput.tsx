@@ -1,322 +1,239 @@
-/* eslint jsx-a11y/role-has-required-aria-props:warn */
+import {
+  markAsVisageComponent,
+  ExtractVisageComponentProps,
+} from '@byteclaw/visage-core';
 import React, {
   Fragment,
-  ReactElement,
-  ReactNode,
   useCallback,
   useEffect,
   useReducer,
   useRef,
-  ChangeEvent,
-  KeyboardEvent,
-  MouseEvent,
-  FocusEventHandler,
   ChangeEventHandler,
+  FocusEventHandler,
+  MouseEventHandler,
   KeyboardEventHandler,
-  MutableRefObject,
-  Reducer,
-  Ref,
 } from 'react';
-import { useDebouncedCallback } from '../hooks/useDebouncedCallback';
+import { useDebouncedCallback } from '../hooks';
+import { initAutocompleteReducer, autocompleteReducer } from './reducers';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
-import {
-  AutocompleteActions,
-  AutocompleteInputState,
-  autocompleteInputReducer,
-} from './autocompleteInputReducer';
 
-interface BaseProps {
-  'aria-expanded': boolean;
-  'aria-haspopup': 'listbox';
-  'aria-owns': string;
-  children: ReactNode;
-  ref: Ref<any>;
-  role: 'combobox';
+interface BaseAutocompleteInputProps
+  extends ExtractVisageComponentProps<typeof TextInput> {
+  onChange?: any;
 }
 
-interface ValueProps<TValue> {
-  'aria-autocomplete': 'list';
-  'aria-activedescendant'?: string;
-  'aria-controls': string;
-  'aria-disabled'?: boolean;
-  'aria-labelledby'?: string;
-  'aria-readonly'?: boolean;
-  disabled?: boolean;
+interface AutocompleteInputProps extends BaseAutocompleteInputProps {
+  defaultValue?: string;
   id: string;
-  invalid?: boolean;
-  name?: string;
-  onBlur: FocusEventHandler<any>;
-  onFocus: FocusEventHandler<any>;
-  onChange: ChangeEventHandler<any>;
-  onKeyDown: KeyboardEventHandler<any>;
-  ref: MutableRefObject<any>;
-  readOnly?: boolean;
-  value: TValue;
-  [key: string]: any;
+  onChange?: (value: string) => void;
+  options?: (value: string) => Promise<any[]>;
+  value?: string;
 }
 
-interface OptionProps<TOption> {
-  'aria-selected': boolean;
-  'data-ai-option': number;
-  id: string;
-  key: any;
-  onMouseDown: (e: MouseEvent<any>) => void;
-  option: TOption;
-  role: 'option';
-}
+const defaultOnLoadOptions = () => Promise.resolve([]);
 
-interface OptionsProps {
-  'aria-labelledby'?: string;
-  baseRef: HTMLElement | null;
-  children: ReactNode;
-  id: string;
-  role: 'listbox';
-}
-
-type BaseRenderer = (props: BaseProps) => ReactElement;
-type OptionRenderer<TOption> = (props: OptionProps<TOption>) => ReactElement;
-type OptionsRenderer = (props: OptionsProps) => ReactElement;
-type ValueRenderer<TValue> = (props: ValueProps<TValue>) => ReactElement;
-
-const defaultOptionRenderer: OptionRenderer<any> = ({
-  option,
-  ...restProps
-}) => <MenuItem {...restProps}>{option}</MenuItem>;
-
-const defaultOptionsRenderer: OptionsRenderer = ({ baseRef, ...props }) => (
-  <Menu anchor={baseRef} disableEvents open {...props} />
-);
-
-const defaultValueRenderer: ValueRenderer<any> = props => (
-  <TextInput autoComplete="off" {...props} type="text" />
-);
-
-const defaultBaseRenderer: BaseRenderer = props => <div {...props} />;
-
-interface AutocompleteInputProps<TValue extends any> {
-  defaultValue?: TValue;
-  disabled?: boolean;
-  id: string;
-  invalid?: boolean;
-  labelId?: string;
-  mode?: 'automatic' | 'manual';
-  name?: string;
-  onChange?: (value: TValue | undefined | string) => void;
-  options:
-    | TValue[]
-    | ((search: TValue | undefined | string) => Promise<TValue[]>);
-  readOnly?: boolean;
-  renderBase?: BaseRenderer;
-  renderOption?: OptionRenderer<TValue>;
-  renderOptions?: OptionsRenderer;
-  renderValue?: ValueRenderer<TValue | undefined | string>;
-  value?: TValue;
-}
-
-export function AutocompleteInput<TValue = any>({
+export function AutocompleteInput({
   defaultValue,
   disabled,
   id,
-  invalid,
-  labelId,
-  mode = 'automatic',
-  name,
-  options,
+  onBlur,
   onChange,
+  options: onLoadOptions = defaultOnLoadOptions,
+  onFocus,
+  onKeyDown,
   readOnly,
-  renderBase = defaultBaseRenderer,
-  renderOption = defaultOptionRenderer,
-  renderOptions = defaultOptionsRenderer,
-  renderValue = defaultValueRenderer,
+  required,
   value,
-}: AutocompleteInputProps<TValue>) {
-  const listBoxId = `${id}-listbox`;
-  const baseRef = useRef<HTMLInputElement | null>(null);
+  ...restProps
+}: AutocompleteInputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const loadOptions = useCallback(
-    async (search: string | undefined | TValue): Promise<TValue[]> => {
-      if (Array.isArray(options)) {
-        const term = typeof search === 'string' ? (search || '').trim() : '';
-
-        if (!term) {
-          return options;
-        }
-
-        return options.filter(option => {
-          if (typeof option === 'string') {
-            return option.toLowerCase().startsWith(term);
-          }
-
-          if (typeof option === 'object' && option !== null) {
-            return Object.keys(option).find(
-              key =>
-                typeof (option as any)[key] === 'string' &&
-                (option as any)[key].toLowerCase().startsWith(term),
-            );
-          }
-
-          return false;
-        });
-      }
-
-      return options(search);
-    },
-    [options],
+  const [state, dispatch] = useReducer(
+    autocompleteReducer,
+    { id, value: value || defaultValue ? value || defaultValue : '' },
+    initAutocompleteReducer,
   );
-  const [state, dispatch] = useReducer<
-    Reducer<
-      AutocompleteInputState<TValue | undefined | string>,
-      AutocompleteActions<TValue | undefined | string>
-    >
-  >(autocompleteInputReducer, {
-    focused: false,
-    expanded: false,
-    selectedOption: null,
-    options: Array.isArray(options) ? options : [],
-    status: 'IDLE',
-    value: defaultValue || value,
-  });
-  const outerValueRef = useRef(value);
-  const previousState = useRef(state);
-  const [notifyChange, cancelNotifyChange] = useDebouncedCallback(
+  const previousStateRef = useRef(state);
+  const previousOuterValueRef = useRef(value);
+  const [loadOptions, cancelLoadOptions] = useDebouncedCallback(
     () => {
-      dispatch({ type: 'CHANGE_DONE' });
+      dispatch({ type: 'Open' });
+      dispatch({ type: 'LoadingOptions' });
     },
     300,
     [],
   );
-  const onOptionMouseDown = useCallback((e: MouseEvent<HTMLElement>) => {
-    e.preventDefault(); // keep focus on input
+  const onInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      dispatch({ type: 'Blur' });
 
-    dispatch({
-      type: 'SELECT_OPTION',
-      index: Number(e.currentTarget!.dataset.aiOption),
-    });
-  }, []);
-  const onInnerChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch({ type: 'CHANGE', value: e.currentTarget.value });
-      notifyChange();
+      if (onBlur) onBlur(e);
     },
-    [notifyChange],
+    [onBlur],
   );
-  const onKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      const code = e.which || e.keyCode;
+  const onInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      dispatch({ type: 'Focus' });
 
-      if (readOnly || disabled) {
+      if (onFocus) onFocus(e);
+    },
+    [onFocus],
+  );
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      if (readOnly) {
         return;
       }
 
-      if (code === 38) {
-        // up arrow
-        dispatch({ type: 'FOCUS_PREVIOUS_OPTION' });
-      } else if (code === 40) {
-        // down arrow
-        dispatch({ type: 'FOCUS_NEXT_OPTION' });
-      } else if (code === 13) {
-        // enter
-        dispatch({ type: 'SELECT_OPTION' });
-        e.preventDefault(); // prevent form submission
-      } else if (code === 27) {
-        // escape
-        dispatch({ type: 'RESET', value: '' });
-      }
+      dispatch({ type: 'SetValue', value: e.currentTarget.value });
+
+      loadOptions();
     },
-    [readOnly, disabled],
+    [readOnly, loadOptions, onChange],
   );
-  const onBlur = useCallback(() => {
-    dispatch({ type: 'BLUR', mode });
-  }, [mode]);
-  const onFocus = useCallback(() => {
-    if (!readOnly) {
-      dispatch({ type: 'FOCUS' });
-    }
-  }, [readOnly]);
+  const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
+    e => {
+      if (!readOnly) {
+        switch (e.key) {
+          case 'ArrowDown': {
+            e.preventDefault();
+            dispatch({ type: 'ArrowDown' });
+            break;
+          }
+          case 'ArrowUp': {
+            e.preventDefault();
+            dispatch({ type: 'ArrowUp' });
+            break;
+          }
+          case 'End': {
+            e.preventDefault();
+            dispatch({ type: 'End' });
+            break;
+          }
+          case 'Escape': {
+            e.preventDefault();
+            dispatch({ type: 'Escape' });
+            break;
+          }
+          case 'Home': {
+            e.preventDefault();
+            dispatch({ type: 'Home' });
+            break;
+          }
+          case 'Enter': {
+            e.preventDefault();
 
-  // cancel debounced change on unmount
+            if (state.expanded) {
+              dispatch({ type: 'ChooseFocusedOption' });
+              dispatch({ type: 'Close' });
+            }
+
+            break;
+          }
+        }
+      }
+
+      if (onKeyDown) onKeyDown(e);
+    },
+    [onKeyDown, readOnly, state.expanded],
+  );
+  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useCallback(e => {
+    e.preventDefault();
+    dispatch({
+      type: 'ChooseOption',
+      index: Number(e.currentTarget.dataset.optionIndex),
+    });
+    dispatch({ type: 'Close' });
+  }, []);
+
+  // cancel debounced load options on unmount
   useEffect(() => {
-    return () => cancelNotifyChange();
-  }, [cancelNotifyChange]);
+    return () => cancelLoadOptions();
+  }, []);
 
-  if (previousState.current !== state) {
-    if (
-      previousState.current.status !== state.status &&
-      state.status === 'LOADING_OPTIONS'
+  if (previousStateRef.current !== state) {
+    if (previousStateRef.current.busy !== state.busy && state.busy) {
+      // load options
+      onLoadOptions(state.value)
+        .then(options => {
+          dispatch({ type: 'LoadingOptionsDone', options });
+        })
+        .catch(e => {
+          dispatch({ type: 'LoadingOptionsFailed', error: e });
+        });
+    } else if (
+      !readOnly &&
+      onChange &&
+      previousStateRef.current.value !== state.value &&
+      previousOuterValueRef.current !== state.value
     ) {
-      loadOptions(state.value)
-        .then(loadedOptions =>
-          dispatch({ type: 'LOAD_OPTIONS_DONE', options: loadedOptions }),
-        )
-        .catch(() => dispatch({ type: 'LOAD_OPTIONS_FAILED' }));
-    }
-
-    if (state.value !== previousState.current.value && onChange) {
       onChange(state.value);
     }
 
-    previousState.current = state;
+    previousStateRef.current = state;
   }
 
-  // if outer value changes, reset input to outer value
-  if (outerValueRef.current !== value) {
-    outerValueRef.current = value;
-    // reset input to outer value
-    dispatch({ type: 'RESET', value });
+  // if value from outside has changed
+  if (!state.busy && previousOuterValueRef.current !== value) {
+    previousOuterValueRef.current = value;
+
+    dispatch({ type: 'SetValue', value: value || '' });
   }
 
-  return renderBase({
-    'aria-expanded': state.expanded,
-    'aria-haspopup': 'listbox',
-    'aria-owns': listBoxId,
-    ref: baseRef,
-    children: (
-      <Fragment>
-        {renderValue({
-          'aria-autocomplete': 'list',
-          'aria-activedescendant':
-            state.selectedOption != null
-              ? `${id}-item-${state.selectedOption}`
-              : undefined,
-          'aria-controls': listBoxId,
-          'aria-disabled': disabled,
-          'aria-labelledby': labelId,
-          'aria-multiline': false,
+  return (
+    <Fragment>
+      <TextInput
+        aria-activedescendant={state.activeId ? state.activeId : undefined}
+        aria-autocomplete="list"
+        aria-controls={`${id}-listbox-popup`}
+        autoComplete="none"
+        baseProps={{
+          'aria-busy': state.busy,
+          'aria-expanded': state.expanded,
+          'aria-haspopup': 'listbox',
+          'aria-owns': `${id}-listbox-popup`,
+          'aria-required': required,
           'aria-readonly': readOnly,
-          disabled,
-          id,
-          invalid,
-          name,
-          onBlur,
-          onFocus,
-          onChange: onInnerChange,
-          onKeyDown,
-          readOnly,
-          ref: inputRef,
-          value: state.value,
+          role: 'combobox',
+        }}
+        disabled={disabled}
+        id={id}
+        onBlur={onInputBlur}
+        onChange={onInputChange}
+        onFocus={onInputFocus}
+        onKeyDown={onInputKeyDown}
+        ref={inputRef}
+        readOnly={readOnly}
+        {...restProps}
+        value={state.value}
+      />
+      <Menu
+        anchor={inputRef}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        disableEvents
+        open={state.expanded}
+        id={`${id}-listbox-popup`}
+        role="listbox"
+        tabIndex={-1}
+      >
+        {state.options.map(option => {
+          return (
+            <MenuItem
+              aria-selected={state.focusedOption === option.index}
+              data-option-index={option.index}
+              id={option.id}
+              key={option.id}
+              onMouseDown={onOptionMouseDown}
+              role="option"
+              tabIndex={-1}
+            >
+              {option.value}
+            </MenuItem>
+          );
         })}
-        {state.expanded && state.focused
-          ? renderOptions({
-              'aria-labelledby': labelId,
-              baseRef: baseRef.current,
-              children: state.options.map((option, i) =>
-                renderOption({
-                  'aria-selected': state.selectedOption === i,
-                  'data-ai-option': i,
-                  id: `${id}-item-${i}`,
-                  key: i,
-                  onMouseDown: onOptionMouseDown,
-                  option,
-                  role: 'option',
-                }),
-              ),
-              id: listBoxId,
-              role: 'listbox',
-            })
-          : null}
-      </Fragment>
-    ),
-    role: 'combobox',
-  });
+      </Menu>
+    </Fragment>
+  );
 }
+
+markAsVisageComponent(AutocompleteInput as any);
