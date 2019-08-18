@@ -29,8 +29,8 @@
     "gatsby-remark-slug": "^0.1.0",
     "gatsby-source-filesystem": "^2.1.6",
     "prism-react-renderer": "^0.1.7",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-helmet": "^5.2.1",
     "react-live": "^2.1.2"
   },

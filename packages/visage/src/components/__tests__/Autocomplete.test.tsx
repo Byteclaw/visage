@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { TestDesignSystem } from './DesignSystem';
 import { AutocompleteInput } from '../AutocompleteInput';
@@ -86,14 +86,14 @@ describe('Autocomplete', () => {
       expect(onChange).toHaveBeenLastCalledWith('Typed');
 
       // debounce change, so it loads options
-      jest.runAllTimers();
+      act(() => jest.runAllTimers());
 
       // now expect select to be loading options
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
       expect(onLoadOptions).toHaveBeenLastCalledWith('Typed');
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -145,14 +145,14 @@ describe('Autocomplete', () => {
       expect(onChange).toHaveBeenLastCalledWith('Typed');
 
       // debounce change
-      jest.runAllTimers();
+      act(() => jest.runAllTimers());
 
       // now expect select to be loading options
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
       expect(onLoadOptions).toHaveBeenLastCalledWith('Typed');
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -180,14 +180,14 @@ describe('Autocomplete', () => {
       expect(onChange).toHaveBeenLastCalledWith('Typed value new');
 
       // debounce change
-      jest.runAllTimers();
+      act(() => jest.runAllTimers());
 
       // now expect select to be loading options
       expect(onLoadOptions).toHaveBeenCalledTimes(2);
       expect(onLoadOptions).toHaveBeenLastCalledWith('Typed value new');
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -225,12 +225,13 @@ describe('Autocomplete', () => {
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenLastCalledWith('new');
-      jest.runAllTimers();
+
+      act(() => jest.runAllTimers());
 
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
       expect(onLoadOptions).toHaveBeenLastCalledWith('new');
 
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -296,7 +297,7 @@ describe('Autocomplete', () => {
 
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
 
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);

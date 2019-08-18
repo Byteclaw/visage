@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { TestDesignSystem } from './DesignSystem';
 import { Select } from '../Select';
@@ -27,7 +27,7 @@ describe('Select', () => {
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -78,7 +78,7 @@ describe('Select', () => {
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -228,7 +228,7 @@ describe('Select', () => {
       expect(onLoadOptions).toHaveBeenCalledWith('');
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
@@ -244,7 +244,7 @@ describe('Select', () => {
       fireEvent.change(getByTestId('select'), { target: { value: 'abcd' } });
 
       // resolve change debounce
-      jest.runAllTimers();
+      act(() => jest.runAllTimers());
 
       expect(onLoadOptions).toHaveBeenCalledTimes(2);
       expect(onLoadOptions).toHaveBeenLastCalledWith('abcd');
@@ -252,7 +252,7 @@ describe('Select', () => {
       expect(getByTestId('select').getAttribute('value')).toBe('abcd');
 
       // wait for options to resolve
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now blur
       fireEvent.blur(getByTestId('select'));
@@ -292,7 +292,7 @@ describe('Select', () => {
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
 
       // resolve loading
-      await Promise.resolve();
+      await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);

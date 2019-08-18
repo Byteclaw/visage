@@ -13,7 +13,6 @@ module.exports = {
     '^@byteclaw/([a-z-A-Z-_]+)$': '<rootDir>/../$1/src',
   },
   rootDir: __dirname,
-  setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
   snapshotSerializers: ['jest-emotion'],
   testMatch: [
     '**/src/**/__tests__/**/*.test.ts',

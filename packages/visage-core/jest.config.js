@@ -13,7 +13,6 @@ module.exports = {
     '^@byteclaw/([a-z-A-Z-_]+)$': '<rootDir>/../$1/src',
   },
   rootDir: __dirname,
-  setupFilesAfterEnv: ['@testing-library/react/cleanup-after-each'],
   testMatch: [
     '**/src/**/__tests__/**/*.test.ts',
     '**/src/**/__tests__/**/*.test.tsx',
