@@ -1,5 +1,5 @@
 import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
-import React, { ReactElement, FunctionComponent } from 'react';
+import React, { cloneElement, ReactElement, FunctionComponent } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
@@ -38,12 +38,22 @@ const SvgIconBase = createBooleanVariant('stroked', {
 );
 
 export const SvgIcon: VisageComponent<
-  { icon: ReactElement | FunctionComponent<any>; stroked?: boolean },
+  {
+    icon: ReactElement | FunctionComponent<any>;
+    stroked?: boolean;
+    iconProps?: JSX.IntrinsicElements['svg'];
+  },
   StyleProps
-> = function SvgIcon({ icon: Icon, ...restProps }: any) {
+> = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
   return (
     <SvgIconBase {...restProps}>
-      {typeof Icon === 'function' ? <Icon /> : Icon}
+      {typeof Icon === 'function' ? (
+        <Icon {...iconProps} />
+      ) : iconProps ? (
+        cloneElement(Icon, iconProps)
+      ) : (
+        Icon
+      )}
     </SvgIconBase>
   );
 };
