@@ -220,7 +220,7 @@ export function AutocompleteInput({
         value={state.value}
       />
       <Menu
-        anchor={inputRef}
+        anchor={inputRef.current && inputRef.current.parentElement}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         disableEvents
         open={state.expanded}

@@ -12,30 +12,41 @@ import {
   disableBodyScroll,
   enableBodyScroll,
 } from 'body-scroll-lock';
-import { createComponent } from '../core';
+import { createComponent, createBooleanVariant } from '../core';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 import { Backdrop } from './Backdrop';
 import { StyleProps } from '../createNPointTheme';
 
-const BaseModal = createComponent('div', {
-  displayName: 'BaseModal',
-  defaultStyles: {
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'center',
+const fixedModalVariant = createBooleanVariant('fixed', {
+  onStyles: {
     position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+  },
+  offStyles: {
+    position: 'absolute',
   },
 });
+
+const BaseModal = fixedModalVariant(
+  createComponent('div', {
+    displayName: 'BaseModal',
+    defaultStyles: {
+      alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+  }),
+);
 
 interface ModalProps {
   allowScrolling?: boolean;
   backdrop?: boolean;
   backdropStyles?: StyleProps;
+  fixed?: boolean;
   children?: ReactNode;
   /** Close button label (default close modal) */
   /**
@@ -54,6 +65,7 @@ export function Modal({
   allowScrolling = false,
   backdrop = true,
   backdropStyles,
+  fixed = true,
   children,
   id,
   onClose,
@@ -102,7 +114,8 @@ export function Modal({
       <LayerManager>
         <LayerManager>
           <BaseModal
-            tabIndex={-1}
+            allowScrolling={allowScrolling}
+            fixed={fixed}
             onKeyDown={onEscKeyDownHandler}
             ref={modalRef}
             open={open}

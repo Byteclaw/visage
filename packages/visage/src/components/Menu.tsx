@@ -170,6 +170,7 @@ export function Menu({
 
   return (
     <Popover
+      allowScrolling
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={false}

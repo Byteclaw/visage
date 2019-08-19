@@ -2,20 +2,6 @@
 
 ## Examples
 
-### Nonsearchable Select
-
-```jsx live=true
-<form action="">
-  <label htmlFor="nonsearchable">Select nonsearchable value</label>
-  <Select
-    id="nonsearchable"
-    onChange={value => console.log(value)}
-    options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
-    placeholder="Select a value"
-  />
-</form>
-```
-
 ### Searchable Select
 
 ```jsx live=true
@@ -29,33 +15,4 @@
     searchable
   />
 </form>
-```
-
-### Disabled Select
-
-```jsx live=true
-<Select id="disabled-select" disabled placeholder="Select a value" />
-```
-
-### Invalid Select
-
-```jsx live=true
-<Select
-  id="invalid-select"
-  invalid
-  searchable
-  onChange={value => console.log(value)}
-  options={filter =>
-    new Promise(resolve =>
-      setTimeout(
-        resolve,
-        1000,
-        ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
-          !filter ? true : val === filter,
-        ),
-      ),
-    )
-  }
-  placeholder="Select a value"
-/>
 ```
