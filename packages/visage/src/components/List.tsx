@@ -138,7 +138,6 @@ interface ListProps extends ExtractVisageComponentProps<typeof ListContainer> {
   container?: ReactElement;
   heading?: ReactElement;
   itemsContainer?: ReactElement;
-  tabindex?: number;
 }
 
 interface ListItemProps
@@ -180,8 +179,8 @@ export function List({
   container = defaultContainer,
   heading,
   itemsContainer = defaultItemsContainer,
-  tabindex = -1,
-  ...restProps,
+  tabIndex = -1,
+  ...restProps
 }: ListProps) {
   const depth = useContext(ListDepthContext);
   const listItems = cloneElement(itemsContainer, {
@@ -197,7 +196,7 @@ export function List({
         </ListDepthContext.Provider>
       </Fragment>
     ),
-    tabindex,
+    tabIndex,
     ...restProps,
   });
 }

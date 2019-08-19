@@ -172,6 +172,7 @@ export function Menu({
     <Popover
       anchor={anchor}
       anchorOrigin={anchorOrigin}
+      autoFocus={false}
       onClose={onClose}
       open={open}
     >

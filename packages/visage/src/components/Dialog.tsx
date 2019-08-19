@@ -9,8 +9,10 @@ import React, {
   KeyboardEvent,
 } from 'react';
 import { createComponent } from '../core';
+import { CloseIcon } from '../assets';
 import { Heading } from './Heading';
 import { Modal } from './Modal';
+import { SvgIcon } from './SvgIcon';
 
 const BaseDialog = createComponent('div', {
   displayName: 'BaseDialog',
@@ -130,7 +132,9 @@ export function Dialog({
           onClick={onClickHandler}
           ref={closeButtonRef}
           type="button"
-        />
+        >
+          <SvgIcon icon={CloseIcon} />
+        </DialogCloseButton>
         <Heading id={headingId} level={3}>
           {label}
         </Heading>

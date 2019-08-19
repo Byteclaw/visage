@@ -13,10 +13,8 @@ import {
   enableBodyScroll,
 } from 'body-scroll-lock';
 import { createComponent } from '../core';
-import { CloseIcon } from '../assets';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
-import { SvgIcon } from './SvgIcon';
 import { Backdrop } from './Backdrop';
 import { StyleProps } from '../createNPointTheme';
 
@@ -103,7 +101,12 @@ export function Modal({
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
         <LayerManager>
-          <BaseModal tabIndex={-1} onKeyDown={onEscKeyDownHandler} ref={modalRef} open={open}>
+          <BaseModal
+            tabIndex={-1}
+            onKeyDown={onEscKeyDownHandler}
+            ref={modalRef}
+            open={open}
+          >
             {backdrop ? (
               <Backdrop
                 aria-hidden="true"

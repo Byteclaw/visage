@@ -41,6 +41,7 @@ export type PopoverProps = {
   allowScrolling?: boolean;
   anchor: any;
   anchorOrigin: any;
+  autoFocus?: boolean;
   backdrop?: boolean;
   children: ReactNode;
   open: boolean;
@@ -54,6 +55,7 @@ export type PopoverProps = {
 
 export function Popover({
   allowScrolling = false,
+  autoFocus = true,
   children,
   anchor,
   anchorPosition,
@@ -188,16 +190,17 @@ export function Popover({
     ],
   );
 
+  const getContentRef = React.useCallback(instance => {
+    contentRef.current = instance;
+  }, []);
+
+  /**
   const onDocumentFocus: EventListener = React.useCallback(e => {
     e.preventDefault();
 
     if (contentRef.current) {
       contentRef.current.focus();
     }
-  }, []);
-
-  const getContentRef = React.useCallback(instance => {
-    contentRef.current = instance;
   }, []);
 
   // focus trap
@@ -211,6 +214,7 @@ export function Popover({
       };
     }
   }, []);
+  */
 
   const setPositioningStyles = React.useCallback(
     element => {
@@ -243,10 +247,10 @@ export function Popover({
 
   // focus popover content on mount
   React.useEffect(() => {
-    if (contentRef.current && open) {
+    if (contentRef.current && open && autoFocus) {
       contentRef.current.focus();
     }
-  }, [open]);
+  }, [open, contentRef.current, autoFocus]);
 
   return (
     <Modal
@@ -257,7 +261,7 @@ export function Popover({
       onClose={onClose}
       open={open}
     >
-      <BasePopover tabindex={-1} open={open} ref={getContentRef}>
+      <BasePopover tabIndex={-1} open={open} ref={getContentRef}>
         {children}
       </BasePopover>
     </Modal>
