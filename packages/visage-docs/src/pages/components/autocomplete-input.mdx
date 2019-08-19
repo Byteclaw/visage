@@ -7,19 +7,7 @@
 ```jsx live=true
 <AutocompleteInput
   id="autocomplete-field"
-  onChange={value => console.log('automatic-field', value)}
-  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
-  placeholder="Enter a value"
-/>
-```
-
-### Expand on click
-
-```jsx live
-<AutocompleteInput
-  expandOnClick
-  id="autocomplete-expanded-field"
-  onChange={value => console.log('automatic-field', value)}
+  onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
   placeholder="Enter a value"
 />
@@ -31,7 +19,7 @@
 <AutocompleteInput
   id="autocomplete-invalid-field"
   invalid
-  onChange={value => console.log('automatic-field', value)}
+  onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
 />
 ```
@@ -41,7 +29,7 @@
 ```jsx live=true
 <AutocompleteInput
   id="readonly-autocomplete-field"
-  onChange={value => console.log('automatic-field', value)}
+  onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
   readOnly
 />
@@ -53,7 +41,30 @@
 <AutocompleteInput
   id="disabled-autocomplete-field"
   disabled
-  onChange={value => console.log('automatic-field', value)}
+  onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+/>
+```
+
+### Expand on click
+
+```jsx live=true
+<AutocompleteInput
+  id="expand-on-click-field"
+  expandOnClick
+  onChange={value => console.log(value)}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+/>
+```
+
+### Automatically select on blur
+
+```jsx live=true
+<AutocompleteInput
+  id="expand-select-on-click-field"
+  expandOnClick
+  onChange={value => console.log(value)}
+  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+  selectOnBlur
 />
 ```
