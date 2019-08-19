@@ -243,10 +243,10 @@ export function Select<TValue extends any>({
         }
       />
       <Menu
-        anchor={inputRef.current}
+        anchor={inputRef.current && inputRef.current.parentElement}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         disableEvents
-        open
+        open={state.expanded}
         id={`${id}-listbox-popup`}
         role="listbox"
         tabIndex={-1}
