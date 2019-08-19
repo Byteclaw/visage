@@ -1,9 +1,7 @@
 import React, { ReactNode } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
 import { getOffsetTop, getOffsetLeft, getTransformOriginValue } from './shared';
-import { useBooleanBodyScrollLock } from '../hooks';
-import { Backdrop } from './Backdrop';
-import { LayerManager, useLayerManager } from './LayerManager';
+import { Modal } from './Modal';
 
 function getAnchorNode(anchor: any) {
   return typeof anchor === 'function' ? anchor() : anchor;
@@ -73,8 +71,7 @@ export function Popover({
   open = true,
   onClose = () => {},
 }: PopoverProps) {
-  const zIndex = useLayerManager();
-  const contentRef = React.useRef<ReactNode>();
+  const contentRef = React.useRef<HTMLDivElement>();
   const handleResizeRef = React.useRef(() => {});
 
   const getAnchorOffset = React.useCallback(
@@ -191,8 +188,28 @@ export function Popover({
     ],
   );
 
+  const onDocumentFocus: EventListener = React.useCallback(e => {
+    e.preventDefault();
+
+    if (contentRef.current) {
+      contentRef.current.focus();
+    }
+  }, []);
+
   const getContentRef = React.useCallback(instance => {
     contentRef.current = instance;
+  }, []);
+
+  // focus trap
+  // eslint-disable-next-line consistent-return
+  React.useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.addEventListener('focus', onDocumentFocus, true);
+
+      return () => {
+        document.removeEventListener('focus', onDocumentFocus, true);
+      };
+    }
   }, []);
 
   const setPositioningStyles = React.useCallback(
@@ -217,29 +234,32 @@ export function Popover({
     if (open) {
       setPositioningStyles(contentRef.current);
       handleResizeRef.current = () => setPositioningStyles(contentRef.current);
+      window.addEventListener('resize', handleResizeRef.current);
     }
-    window.addEventListener('resize', handleResizeRef.current);
     return () => {
       window.removeEventListener('resize', handleResizeRef.current);
     };
   }, [open, setPositioningStyles]);
 
-  useBooleanBodyScrollLock(!allowScrolling && open, contentRef.current);
+  // focus popover content on mount
+  React.useEffect(() => {
+    if (contentRef.current && open) {
+      contentRef.current.focus();
+    }
+  }, [open]);
 
   return (
-    <LayerManager>
-      <LayerManager>
-        <BasePopover
-          styles={{ zIndex: zIndex + 1 }}
-          open={open}
-          ref={getContentRef}
-        >
-          {children}
-        </BasePopover>
-      </LayerManager>
-      {backdrop ? (
-        <Backdrop styles={{ zIndex }} open={open} onClick={onClose} />
-      ) : null}
-    </LayerManager>
+    <Modal
+      backdrop={open && backdrop}
+      backdropStyles={{ backgroundColor: 'transparent' }}
+      allowScrolling={allowScrolling}
+      id="popover-modal-container"
+      onClose={onClose}
+      open={open}
+    >
+      <BasePopover tabindex={-1} open={open} ref={getContentRef}>
+        {children}
+      </BasePopover>
+    </Modal>
   );
 }
