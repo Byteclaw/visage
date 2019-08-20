@@ -51,6 +51,7 @@ export function AutocompleteInput({
   ...restProps
 }: AutocompleteInputProps) {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const [state, dispatch] = useReducer(
     autocompleteReducer,
     { id, value: value || defaultValue ? value || defaultValue : '' },
@@ -206,6 +207,7 @@ export function AutocompleteInput({
           'aria-required': required,
           'aria-readonly': readOnly,
           role: 'combobox',
+          ref: inputContainerRef,
         }}
         disabled={disabled}
         id={id}
@@ -220,7 +222,7 @@ export function AutocompleteInput({
         value={state.value}
       />
       <Menu
-        anchor={inputRef.current && inputRef.current.parentElement}
+        anchor={inputContainerRef.current}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         disableEvents
         open={state.expanded}
