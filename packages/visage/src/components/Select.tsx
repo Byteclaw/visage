@@ -46,6 +46,7 @@ export function Select<TValue extends any>({
   ...restProps
 }: SelectProps<TValue> & ExtractVisageComponentProps<typeof TextInput>) {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const [state, dispatch] = useReducer(
     selectReducer,
     { id, value: value || defaultValue ? [value || defaultValue] : [] },
@@ -209,6 +210,7 @@ export function Select<TValue extends any>({
           'aria-owns': `${id}-listbox-popup`,
           'aria-required': required,
           'aria-readonly': readOnly,
+          ref: inputContainerRef,
           role: 'combobox',
         }}
         disabled={disabled}
@@ -243,7 +245,7 @@ export function Select<TValue extends any>({
         }
       />
       <Menu
-        anchor={inputRef}
+        anchor={inputContainerRef.current}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         disableEvents
         open={state.expanded}

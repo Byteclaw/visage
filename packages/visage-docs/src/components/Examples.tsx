@@ -14,7 +14,7 @@ export function ButtonWithPopover() {
     <Fragment>
       <Button onClick={handleClick}>Pop me</Button>
       <Popover
-        allowScrolling={false}
+        allowScrolling
         open={open}
         anchor={anchorEl}
         anchorOrigin={{

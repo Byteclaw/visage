@@ -1,76 +1,54 @@
 import React, {
   KeyboardEventHandler,
   MouseEventHandler,
-  ReactElement,
   ReactNode,
   useCallback,
-  useEffect,
   useRef,
   MouseEvent,
   KeyboardEvent,
 } from 'react';
-import { createComponent } from '../core';
-import { CloseIcon } from '../assets';
-import { Heading } from './Heading';
+import {
+  clearAllBodyScrollLocks,
+  disableBodyScroll,
+  enableBodyScroll,
+} from 'body-scroll-lock';
+import { createComponent, createBooleanVariant } from '../core';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
-import { SvgIcon } from './SvgIcon';
+import { Backdrop } from './Backdrop';
+import { StyleProps } from '../createNPointTheme';
 
-const ModalBase = createComponent('div', {
-  displayName: 'ModalBase',
-  defaultStyles: {
-    alignItems: 'center',
-    backgroundColor: 'hsla(0,0%,9%,.5)',
-    display: 'flex',
-    justifyContent: 'center',
+const fixedModalVariant = createBooleanVariant('fixed', {
+  onStyles: {
     position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
   },
-});
-
-const ModalDialog = createComponent('div', {
-  displayName: 'ModalDialog',
-  defaultStyles: {
-    backgroundColor: 'white',
-    height: ['100%', null],
-    maxHeight: ['100%', '75%', '50%'],
-    p: 1,
-    position: 'relative',
-    width: ['100%', '75%', '50%'],
-    transform: 'translateZ(0)',
-  },
-});
-
-const ModalCloseButton = createComponent('button', {
-  displayName: 'ModalCloseButton',
-  defaultStyles: {
-    borderColor: 'transparent',
-    borderWidth: 2,
-    borderStyle: 'solid',
-    cursor: 'pointer',
-    fontSize: 0,
-    lineHeight: 0,
+  offStyles: {
     position: 'absolute',
-    outline: 'none',
-    overflow: 'hidden',
-    top: 0,
-    right: 0,
-    height: '3em',
-    width: '3em',
-    '&:focus': {
-      borderColor: 'blue',
-    },
   },
 });
+
+const BaseModal = fixedModalVariant(
+  createComponent('div', {
+    displayName: 'BaseModal',
+    defaultStyles: {
+      alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+  }),
+);
 
 interface ModalProps {
+  allowScrolling?: boolean;
+  backdrop?: boolean;
+  backdropStyles?: StyleProps;
+  fixed?: boolean;
   children?: ReactNode;
   /** Close button label (default close modal) */
-  closeButtonLabel?: string;
-  label: string | ReactElement;
   /**
    * Unique id of the modal
    */
@@ -80,56 +58,31 @@ interface ModalProps {
    * Accessibility role, use alert dialog if you need user's interaction
    * Default is dialog (you don't need users immediate action)
    */
-  role?: 'dialog' | 'alertdialog';
+  open: boolean;
 }
 
 export function Modal({
+  allowScrolling = false,
+  backdrop = true,
+  backdropStyles,
+  fixed = true,
   children,
-  closeButtonLabel = 'close modal',
-  label,
   id,
   onClose,
-  role = 'dialog',
+  open = true,
 }: ModalProps) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-  const modalBaseRef = useRef<HTMLDivElement>(null);
   const zIndex = useLayerManager();
-  const headingId = `modal-${id}-heading`;
-  const onDocumentFocus: EventListener = useCallback(e => {
-    if (
-      modalRef.current &&
-      modalRef.current.contains(e.target as any) === false
-    ) {
-      e.preventDefault();
 
-      // return focus back to close button
-      if (closeButtonRef.current) {
-        closeButtonRef.current.focus();
-      }
-    }
-  }, []);
   const onClickAwayHandler: MouseEventHandler = useCallback(
     e => {
-      if (modalRef.current && modalRef.current.contains(e.target as any)) {
-        return;
+      if (onClose) {
+        onClose(e);
       }
+    },
+    [onClose],
+  );
 
-      if (onClose) {
-        onClose(e);
-      }
-    },
-    [onClose],
-  );
-  const onClickHandler: MouseEventHandler = useCallback(
-    e => {
-      if (onClose) {
-        e.preventDefault();
-        onClose(e);
-      }
-    },
-    [onClose],
-  );
   const onEscKeyDownHandler: KeyboardEventHandler = useCallback(
     e => {
       if (e.key === 'Escape' && onClose) {
@@ -139,60 +92,49 @@ export function Modal({
     [onClose],
   );
 
-  // focus close button on mount
-  useEffect(() => {
-    if (closeButtonRef.current) {
-      closeButtonRef.current.focus();
+  React.useEffect(() => {
+    if (modalRef.current != null) {
+      if (!allowScrolling && open) {
+        disableBodyScroll(modalRef.current as HTMLElement);
+      } else {
+        enableBodyScroll(modalRef.current as HTMLElement);
+      }
     }
-  }, []);
+    return () => {
+      clearAllBodyScrollLocks();
+    };
+  }, [allowScrolling, open, modalRef.current]);
 
-  // focus trap
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('focus', onDocumentFocus, true);
-
-      return () => {
-        document.removeEventListener('focus', onDocumentFocus, true);
-      };
-    }
-  }, []);
-
-  if (typeof document === 'undefined') {
+  if (typeof document === 'undefined' || !open) {
     return null;
   }
 
   return (
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
-        <ModalBase
-          ref={modalBaseRef}
-          onClick={onClickAwayHandler}
-          onKeyDown={onEscKeyDownHandler}
-          id={id}
-          styles={{ zIndex }}
-          tabIndex={-1}
-        >
-          <ModalDialog
-            aria-labelledby={headingId}
-            aria-modal
+        <LayerManager>
+          <BaseModal
+            allowScrolling={allowScrolling}
+            fixed={fixed}
+            onKeyDown={onEscKeyDownHandler}
             ref={modalRef}
-            role={role}
+            open={open}
           >
-            <ModalCloseButton
-              aria-label={closeButtonLabel}
-              onClick={onClickHandler}
-              ref={closeButtonRef}
-              type="button"
-            >
-              <SvgIcon icon={CloseIcon} />
-            </ModalCloseButton>
-            <Heading id={headingId} level={3}>
-              {label}
-            </Heading>
+            {backdrop ? (
+              <Backdrop
+                aria-hidden="true"
+                styles={{
+                  zIndex: zIndex - 1,
+                  backgroundColor: 'hsla(0,0%,9%,.5)',
+                  ...backdropStyles,
+                }}
+                open={open}
+                onClick={onClickAwayHandler}
+              />
+            ) : null}
             {children}
-          </ModalDialog>
-        </ModalBase>
+          </BaseModal>
+        </LayerManager>
       </LayerManager>
     </Portal>
   );

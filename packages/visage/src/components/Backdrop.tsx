@@ -1,10 +1,9 @@
-import React, { MouseEventHandler, Ref } from 'react';
+import React, { Ref } from 'react';
 import { VisageComponent } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
 interface BackdropProps {
-  onClick?: MouseEventHandler<HTMLDivElement>;
   open: boolean;
 }
 

@@ -33,6 +33,7 @@ const MenuBase = createComponent(List, {
     maxHeight: ['100vh', 'calc(100vh - 32px)'],
     maxWidth: ['100vw', 'calc(100vw - 32px)'],
     overflowY: 'scroll',
+    backgroundColor: 'white',
   },
 });
 
@@ -170,8 +171,10 @@ export function Menu({
 
   return (
     <Popover
+      allowScrolling
       anchor={anchor}
       anchorOrigin={anchorOrigin}
+      autoFocus={false}
       onClose={onClose}
       open={open}
     >

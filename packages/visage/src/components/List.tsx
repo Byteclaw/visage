@@ -179,6 +179,7 @@ export function List({
   container = defaultContainer,
   heading,
   itemsContainer = defaultItemsContainer,
+  tabIndex = -1,
   ...restProps
 }: ListProps) {
   const depth = useContext(ListDepthContext);
@@ -195,6 +196,7 @@ export function List({
         </ListDepthContext.Provider>
       </Fragment>
     ),
+    tabIndex,
     ...restProps,
   });
 }
