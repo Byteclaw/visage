@@ -107,7 +107,7 @@ interface RadioProps extends VisageStyleProps<StyleProps> {
   name: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   readOnly?: boolean;
-  value: any;
+  value?: any;
   wrapper?: ReactElement;
 }
 
