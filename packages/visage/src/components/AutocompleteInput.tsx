@@ -74,6 +74,7 @@ export function AutocompleteInput<TValue extends any = string>({
   onInputValueChange,
   onStateChange,
   options,
+  optionToString,
   readOnly,
   selectOnBlur,
   value,
@@ -176,6 +177,7 @@ export function AutocompleteInput<TValue extends any = string>({
     enhanceReducer: enhancedReducer,
     onChange,
     onInputValueChange,
+    optionToString,
     onStateChange: enhancedOnStateChange,
     value,
   });
