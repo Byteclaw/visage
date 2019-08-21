@@ -114,7 +114,6 @@ export function Modal({
       <LayerManager>
         <LayerManager>
           <BaseModal
-            allowScrolling={allowScrolling}
             fixed={fixed}
             onKeyDown={onEscKeyDownHandler}
             ref={modalRef}
