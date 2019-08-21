@@ -78,6 +78,7 @@ export function AutocompleteInput<TValue extends any = string>({
   readOnly,
   selectOnBlur,
   value,
+  valueToString,
   ...restProps
 }: AutocompleteInputProps<TValue>) {
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
@@ -180,6 +181,7 @@ export function AutocompleteInput<TValue extends any = string>({
     optionToString,
     onStateChange: enhancedOnStateChange,
     value,
+    valueToString,
   });
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const inputEventHandlers: InputEventHandlers = useMemo(

@@ -79,6 +79,7 @@ export function Select<TValue extends any = string>({
   readOnly,
   searchable,
   value,
+  valueToString,
   ...restProps
 }: SelectProps<TValue>) {
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
@@ -183,6 +184,7 @@ export function Select<TValue extends any = string>({
     onInputValueChange,
     onStateChange: enhancedOnStateChange,
     value,
+    valueToString,
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
   const inputContainerRef = useRef<HTMLInputElement | null>(null);

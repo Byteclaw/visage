@@ -26,6 +26,7 @@ export interface SelectorState<TValue extends any> {
   isOpen: boolean;
   options: any[];
   optionToString: (option: TValue) => string;
+  valueToString: (option: TValue) => string;
   value: TValue | null;
   invokedBy: SelectorAction<TValue>;
 }
@@ -33,12 +34,14 @@ export interface SelectorState<TValue extends any> {
 interface InitSelectReducerOptions<TValue extends any> {
   defaultValue?: TValue;
   optionToString?: (option: TValue) => string;
+  valueToString?: (option: TValue) => string;
   value?: TValue;
 }
 
 function initSelectorReducer({
   defaultValue = null,
   optionToString,
+  valueToString,
   value = null,
 }: InitSelectReducerOptions<any>): SelectorState<any> {
   const val = value || defaultValue;
@@ -52,6 +55,7 @@ function initSelectorReducer({
     isOpen: false,
     options: [],
     optionToString: optToString,
+    valueToString: valueToString || optToString,
     value: val,
     invokedBy: { type: 'Unknown' },
   };
@@ -145,7 +149,7 @@ function selectorReducer(
         focusedIndex: -1,
         options: [],
         inputValue: state.defaultValue
-          ? state.optionToString(state.defaultValue)
+          ? state.valueToString(state.defaultValue)
           : '',
         value: state.defaultValue,
       };
@@ -163,7 +167,7 @@ function selectorReducer(
       if (state.focusedIndex !== -1 && state.options[state.focusedIndex]) {
         const value = state.options[state.focusedIndex];
 
-        changes = { inputValue: state.optionToString(value), value };
+        changes = { inputValue: state.valueToString(value), value };
       }
       break;
     }
@@ -173,7 +177,7 @@ function selectorReducer(
       if (value) {
         changes = {
           ...changes,
-          inputValue: state.optionToString(value),
+          inputValue: state.valueToString(value),
           value,
         };
       }
@@ -183,7 +187,7 @@ function selectorReducer(
       changes = {
         ...changes,
         inputValue:
-          action.value == null ? '' : state.optionToString(action.value),
+          action.value == null ? '' : state.valueToString(action.value),
         value: action.value,
       };
       break;
@@ -215,6 +219,7 @@ export interface SelectorOptions<TValue extends any> {
   onStateChange?: SelectorStateChangeListener<TValue>;
   optionToString?: (option: any) => string;
   value?: any;
+  valueToString?: (option: any) => string;
 }
 
 export function useSelector<TValue extends any = string>({
@@ -225,6 +230,7 @@ export function useSelector<TValue extends any = string>({
   onStateChange,
   optionToString,
   value,
+  valueToString,
 }: SelectorOptions<TValue>): [
   SelectorState<TValue>,
   Dispatch<SelectorAction<TValue>>,
@@ -242,7 +248,7 @@ export function useSelector<TValue extends any = string>({
   );
   const [state, dispatch] = useReducer(
     reducer,
-    { defaultValue, optionToString, value },
+    { defaultValue, optionToString, value, valueToString },
     initSelectorReducer,
   );
   const previousState = useRef(state);
