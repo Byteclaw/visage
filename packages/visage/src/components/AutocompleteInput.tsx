@@ -1,250 +1,335 @@
+/* eslint-disable react/no-array-index-key */
 import {
-  markAsVisageComponent,
   ExtractVisageComponentProps,
+  markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
+  ChangeEventHandler,
   Fragment,
   useCallback,
-  useEffect,
-  useReducer,
+  useMemo,
   useRef,
-  ChangeEventHandler,
   FocusEventHandler,
   MouseEventHandler,
   KeyboardEventHandler,
+  Dispatch,
 } from 'react';
-import { useDebouncedCallback } from '../hooks';
-import { initAutocompleteReducer, autocompleteReducer } from './reducers';
+import {
+  SelectorOptions,
+  SelectorReducerEnhancer,
+  SelectorStateChangeListener,
+  useSelector,
+  SelectorAction,
+} from './hooks/useSelector';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
+import { useDebouncedCallback } from '../hooks';
+import { normalizeKeyboardEventKey } from './shared';
 
-interface BaseAutocompleteInputProps
-  extends ExtractVisageComponentProps<typeof TextInput> {
-  onChange?: any;
-}
+type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
 
-interface AutocompleteInputProps extends BaseAutocompleteInputProps {
-  defaultValue?: string;
+interface BaseTextInputProps
+  extends Pick<
+    RawTextInputProps,
+    Exclude<keyof RawTextInputProps, 'defaultValue' | 'onChange' | 'value'>
+  > {}
+
+const listboxId = (id: string): string => `${id}-listbox`;
+
+const optionId = (id: string, index: number): string | undefined => {
+  return index === -1 ? undefined : `${id}-listbox-option-${index}`;
+};
+
+interface AutocompleteInputProps<TValue extends any>
+  extends BaseTextInputProps,
+    SelectorOptions<TValue> {
+  debounceDelay?: number;
   expandOnClick?: boolean;
   id: string;
-  onChange?: (value: string) => void;
-  options?: (value: string) => Promise<any[]>;
-  value?: string;
+  options?: (inputValue: string) => Promise<TValue[]>;
+  /** Set focused option as value on blur */
+  selectOnBlur?: boolean;
 }
 
-const defaultOnLoadOptions = () => Promise.resolve([]);
+interface InputEventHandlers {
+  onBlur: FocusEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onClick: MouseEventHandler<HTMLInputElement>;
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
+}
 
-export function AutocompleteInput({
+interface OptionEventHandlers {
+  onClick: MouseEventHandler<HTMLElement>;
+  onMouseDown: MouseEventHandler<HTMLElement>;
+  onMouseMove: MouseEventHandler<HTMLElement>;
+}
+
+export function AutocompleteInput<TValue extends any = string>({
+  debounceDelay = 500,
   defaultValue,
-  disabled,
+  enhanceReducer,
   expandOnClick,
   id,
-  onBlur,
   onChange,
-  onClick,
-  options: onLoadOptions = defaultOnLoadOptions,
-  onFocus,
-  onKeyDown,
+  onInputValueChange,
+  onStateChange,
+  options,
+  optionToString,
   readOnly,
-  required,
+  selectOnBlur,
   value,
   ...restProps
-}: AutocompleteInputProps) {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const inputContainerRef = useRef<HTMLDivElement | null>(null);
-  const [state, dispatch] = useReducer(
-    autocompleteReducer,
-    { id, value: value || defaultValue ? value || defaultValue : '' },
-    initAutocompleteReducer,
-  );
-  const previousStateRef = useRef(state);
-  const previousOuterValueRef = useRef(value);
-  const [loadOptions, cancelLoadOptions] = useDebouncedCallback(
-    () => {
-      dispatch({ type: 'Open' });
-      dispatch({ type: 'LoadingOptions' });
-    },
-    300,
-    [],
-  );
-  const onInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      dispatch({ type: 'Blur' });
-
-      if (onBlur) onBlur(e);
-    },
-    [onBlur],
-  );
-  const onInputClick: MouseEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      if (onClick) onClick(e);
-
-      if (expandOnClick && !readOnly && !disabled) dispatch({ type: 'Open' });
-    },
-    [expandOnClick, readOnly, disabled, onClick],
-  );
-  const onInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      dispatch({ type: 'Focus' });
-
-      if (onFocus) onFocus(e);
-    },
-    [onFocus],
-  );
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      if (readOnly) {
+}: AutocompleteInputProps<TValue>) {
+  // last arrow pressed is used to automatically focus an option if automatic mode is turn on
+  // and is reset to null when options are loaded
+  const lastArrowPressed = useRef<string | null>(null);
+  const loadOptions = useCallback(
+    (inputValue: string, dispatch: Dispatch<SelectorAction<TValue>>) => {
+      if (!options) {
         return;
       }
 
-      dispatch({ type: 'SetValue', value: e.currentTarget.value });
+      // open menu
+      dispatch({ type: 'MenuOpen' });
+      // load options sets the input as busy
+      dispatch({ type: 'SetBusy', isBusy: true });
 
-      loadOptions();
-    },
-    [readOnly, loadOptions, onChange],
-  );
-  const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      if (!readOnly) {
-        switch (e.key) {
-          case 'ArrowDown': {
-            e.preventDefault();
-            dispatch({ type: 'ArrowDown' });
-            break;
+      // and then on resolution sets options and not busy
+      options(inputValue)
+        .then(newOptions =>
+          dispatch({ type: 'SetOptions', options: newOptions }),
+        )
+        .finally(() => {
+          dispatch({ type: 'SetBusy', isBusy: false });
+
+          // automatic mode
+          if (selectOnBlur) {
+            if (lastArrowPressed.current === 'ArrowUp') {
+              dispatch({ type: 'SetOptionFocusToLastOption' });
+            } else {
+              dispatch({ type: 'SetOptionFocusToFirstOption' });
+            }
           }
+
+          // reset last arrow pressed
+          lastArrowPressed.current = null;
+        });
+    },
+    [options, selectOnBlur],
+  );
+  const [
+    debouncedLoadOptions,
+    cancelDebouncedLoadOptions,
+  ] = useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
+  const enhancedReducer: SelectorReducerEnhancer<TValue> = useCallback(
+    (currentState, nextState) => {
+      // allow only to set value from outside if read only
+      if (readOnly && nextState.invokedBy.type !== 'SetValue') {
+        return currentState;
+      }
+
+      // if value changed, close the popup
+      if (currentState.value !== nextState.value) {
+        // eslint-disable-next-line no-param-reassign
+        nextState.isOpen = false;
+      }
+
+      return enhanceReducer
+        ? enhanceReducer(currentState, nextState)
+        : nextState;
+    },
+    [enhanceReducer, readOnly],
+  );
+  const enhancedOnStateChange: SelectorStateChangeListener<
+    TValue
+  > = useCallback(
+    (previousState, currentState, dispatch) => {
+      // eslint-disable-next-line no-unused-expressions
+      onStateChange && onStateChange(previousState, currentState, dispatch);
+
+      // if input value has changed because of InputChanged action
+      // load options debounced
+      if (
+        currentState.invokedBy.type === 'InputChange' &&
+        previousState.inputValue !== currentState.inputValue
+      ) {
+        debouncedLoadOptions(currentState.inputValue, dispatch);
+      }
+
+      // if input has opened cancel debounced load options and load options directly
+      // only if it was not open by InputChange action
+      if (
+        previousState.invokedBy.type !== 'InputChange' &&
+        previousState.isOpen !== currentState.isOpen &&
+        currentState.isOpen
+      ) {
+        cancelDebouncedLoadOptions();
+
+        if (currentState.options.length === 0) {
+          loadOptions(currentState.inputValue, dispatch);
+        }
+      }
+    },
+    [onStateChange, selectOnBlur],
+  );
+  const [state, dispatch] = useSelector({
+    defaultValue,
+    enhanceReducer: enhancedReducer,
+    onChange,
+    onInputValueChange,
+    optionToString,
+    onStateChange: enhancedOnStateChange,
+    value,
+  });
+  const inputContainerRef = useRef<HTMLDivElement | null>(null);
+  const inputEventHandlers: InputEventHandlers = useMemo(
+    () => ({
+      onBlur() {
+        if (selectOnBlur) {
+          dispatch({ type: 'SetCurrentFocusedOption' });
+        }
+
+        dispatch({ type: 'MenuClose' });
+      },
+      onChange(e) {
+        dispatch({ type: 'InputChange', value: e.currentTarget.value });
+      },
+      onClick() {
+        if (expandOnClick && !state.isOpen) {
+          dispatch({ type: 'MenuOpen' });
+        }
+      },
+      onKeyDown(e) {
+        const key = normalizeKeyboardEventKey(e);
+
+        switch (key) {
           case 'ArrowUp': {
             e.preventDefault();
-            dispatch({ type: 'ArrowUp' });
+            lastArrowPressed.current = key;
+
+            if (state.isOpen) {
+              dispatch({ type: 'SetOptionFocusByOffset', offset: -1 });
+            } else {
+              dispatch({ type: 'MenuOpen' });
+              dispatch({ type: 'SetOptionFocusToLastOption' });
+            }
+            break;
+          }
+          case 'ArrowDown': {
+            e.preventDefault();
+            lastArrowPressed.current = key;
+
+            if (state.isOpen) {
+              dispatch({ type: 'SetOptionFocusByOffset', offset: 1 });
+            } else {
+              dispatch({ type: 'MenuOpen' });
+              dispatch({ type: 'SetOptionFocusToFirstOption' });
+            }
             break;
           }
           case 'End': {
             e.preventDefault();
-            dispatch({ type: 'End' });
-            break;
-          }
-          case 'Escape': {
-            e.preventDefault();
-            dispatch({ type: 'Escape' });
-            break;
-          }
-          case 'Home': {
-            e.preventDefault();
-            dispatch({ type: 'Home' });
+            dispatch({ type: 'SetOptionFocusToLastOption' });
             break;
           }
           case 'Enter': {
             e.preventDefault();
+            dispatch({ type: 'SetCurrentFocusedOption' });
+            break;
+          }
+          case 'Escape': {
+            e.preventDefault();
 
-            if (state.expanded) {
-              dispatch({ type: 'ChooseFocusedOption' });
-              dispatch({ type: 'Close' });
+            // close menu if open, or reset the input
+            if (state.isOpen) {
+              dispatch({ type: 'MenuClose' });
+            } else {
+              dispatch({ type: 'Reset' });
             }
 
             break;
           }
+          case 'Home': {
+            e.preventDefault();
+            dispatch({ type: 'SetOptionFocusToFirstOption' });
+            break;
+          }
         }
-      }
-
-      if (onKeyDown) onKeyDown(e);
-    },
-    [onKeyDown, readOnly, state.expanded],
+      },
+    }),
+    [state.isOpen, expandOnClick, selectOnBlur],
   );
-  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useCallback(e => {
-    e.preventDefault();
-    dispatch({
-      type: 'ChooseOption',
-      index: Number(e.currentTarget.dataset.optionIndex),
-    });
-    dispatch({ type: 'Close' });
-  }, []);
+  const optionEventHandlers: OptionEventHandlers = useMemo(
+    () => ({
+      onClick(e) {
+        e.preventDefault();
 
-  // cancel debounced load options on unmount
-  useEffect(() => {
-    return () => cancelLoadOptions();
-  }, []);
-
-  if (previousStateRef.current !== state) {
-    if (previousStateRef.current.busy !== state.busy && state.busy) {
-      // load options
-      onLoadOptions(state.value)
-        .then(options => {
-          dispatch({ type: 'LoadingOptionsDone', options });
-        })
-        .catch(e => {
-          dispatch({ type: 'LoadingOptionsFailed', error: e });
+        dispatch({
+          type: 'SetValueByIndex',
+          index: Number(e.currentTarget.dataset.optionIndex),
         });
-    } else if (
-      !readOnly &&
-      onChange &&
-      previousStateRef.current.value !== state.value &&
-      previousOuterValueRef.current !== state.value
-    ) {
-      onChange(state.value);
-    }
+      },
+      onMouseDown(e) {
+        // prevent changing body activeElement and blur on input
+        e.preventDefault();
+      },
+      onMouseMove(e) {
+        const index = Number(e.currentTarget.dataset.optionIndex);
 
-    previousStateRef.current = state;
-  }
-
-  // if value from outside has changed
-  if (!state.busy && previousOuterValueRef.current !== value) {
-    previousOuterValueRef.current = value;
-
-    dispatch({ type: 'SetValue', value: value || '' });
-  }
+        if (state.focusedIndex !== index) {
+          dispatch({ type: 'SetOptionFocusByIndex', index });
+        }
+      },
+    }),
+    [state.focusedIndex],
+  );
 
   return (
     <Fragment>
       <TextInput
-        aria-activedescendant={state.activeId ? state.activeId : undefined}
+        {...restProps}
+        aria-activedescendant={
+          state.isOpen ? optionId(id, state.focusedIndex) : undefined
+        }
         aria-autocomplete="list"
-        aria-controls={`${id}-listbox-popup`}
-        autoComplete="none"
+        aria-controls={listboxId(id)}
+        autoComplete="off"
         baseProps={{
-          'aria-busy': state.busy,
-          'aria-expanded': state.expanded,
-          'aria-haspopup': 'listbox',
-          'aria-owns': `${id}-listbox-popup`,
-          'aria-required': required,
-          'aria-readonly': readOnly,
+          ...restProps.baseProps,
+          'aria-busy': state.isBusy,
+          'aria-expanded': state.isOpen,
+          'aria-owns': listboxId(id),
           role: 'combobox',
           ref: inputContainerRef,
         }}
-        disabled={disabled}
         id={id}
-        onBlur={onInputBlur}
-        onChange={onInputChange}
-        onClick={onInputClick}
-        onFocus={onInputFocus}
-        onKeyDown={onInputKeyDown}
-        ref={inputRef}
+        {...inputEventHandlers}
         readOnly={readOnly}
-        {...restProps}
-        value={state.value}
+        value={state.inputValue}
       />
       <Menu
         anchor={inputContainerRef.current}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         disableEvents
-        open={state.expanded}
-        id={`${id}-listbox-popup`}
+        id={listboxId(id)}
+        open={state.isOpen}
         role="listbox"
         tabIndex={-1}
       >
-        {state.options.map(option => {
-          return (
-            <MenuItem
-              aria-selected={state.focusedOption === option.index}
-              data-option-index={option.index}
-              id={option.id}
-              key={option.id}
-              onMouseDown={onOptionMouseDown}
-              role="option"
-              tabIndex={-1}
-            >
-              {option.value}
-            </MenuItem>
-          );
-        })}
+        {state.isOpen
+          ? state.options.map((option, index) => (
+              <MenuItem
+                aria-selected={index === state.focusedIndex}
+                data-option-index={index}
+                key={state.inputValue + index}
+                id={optionId(id, index)}
+                role="option"
+                {...optionEventHandlers}
+              >
+                {state.optionToString(option)}
+              </MenuItem>
+            ))
+          : null}
       </Menu>
     </Fragment>
   );

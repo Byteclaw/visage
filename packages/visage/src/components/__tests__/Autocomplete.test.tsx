@@ -70,7 +70,7 @@ describe('Autocomplete', () => {
           <AutocompleteInput
             data-testid="input"
             id="root"
-            onChange={onChange}
+            onInputValueChange={onChange}
             options={onLoadOptions}
           />
         </TestDesignSystem>,
@@ -98,24 +98,20 @@ describe('Autocomplete', () => {
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
-      // we expect the first option to be focused
-      expect(getByTestId('input').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
-      );
+      // we don't expect the option to be selected
+      expect(
+        getByTestId('input').getAttribute('aria-activedescendant'),
+      ).toBeNull();
 
       // now click on option b
-      fireEvent.mouseDown(
-        document.querySelector('[role="option"]:nth-child(2)'),
-      );
+      fireEvent.click(document.querySelector('[role="option"]:nth-child(2)'));
 
+      expect(getByTestId('input').getAttribute('value')).toBe('b');
       expect(onChange).toHaveBeenCalledTimes(2);
       expect(onChange).toHaveBeenLastCalledWith('b');
 
-      expect(getByTestId('input').getAttribute('value')).toBe('b');
-
       // we expect popup to close
       expect(document.querySelectorAll('[role="option"]').length).toBe(0);
-
       expect(onChange).toHaveBeenCalledTimes(2);
     });
 
@@ -129,7 +125,7 @@ describe('Autocomplete', () => {
           <AutocompleteInput
             data-testid="input"
             id="root"
-            onChange={onChange}
+            onInputValueChange={onChange}
             options={onLoadOptions}
           />
         </TestDesignSystem>,
@@ -157,9 +153,16 @@ describe('Autocomplete', () => {
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
-      // we expect the first option to be focused
+      // we don't expect the first option to be focused
+      expect(
+        getByTestId('input').getAttribute('aria-activedescendant'),
+      ).toBeNull();
+
+      // now go to first option
+      fireEvent.keyDown(getByTestId('input'), { key: 'ArrowDown' });
+
       expect(getByTestId('input').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // now select the option using Enter
@@ -191,6 +194,20 @@ describe('Autocomplete', () => {
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
+
+      // now close menu with escape
+      fireEvent.keyDown(getByTestId('input'), { key: 'Escape' });
+
+      // now we expect menu not to be visible
+      expect(document.querySelectorAll('[role="option"]').length).toBe(0);
+
+      // open menu
+      fireEvent.keyDown(getByTestId('input'), { key: 'ArrowDown' });
+
+      // now we expect menu to be visible
+      expect(document.querySelectorAll('[role="option"]').length).toBe(3);
+
+      expect(onLoadOptions).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -203,10 +220,9 @@ describe('Autocomplete', () => {
       const { getByTestId, rerender } = render(
         <TestDesignSystem>
           <AutocompleteInput
-            defaultValue="a"
             data-testid="input"
             id="root"
-            onChange={onChange}
+            onInputValueChange={onChange}
             options={onLoadOptions}
             value="b"
           />
@@ -236,15 +252,13 @@ describe('Autocomplete', () => {
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
-      // we expect the first option to be focused
-      expect(getByTestId('input').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
-      );
+      // we don't expect the first option to be focused
+      expect(
+        getByTestId('input').getAttribute('aria-activedescendant'),
+      ).toBeNull();
 
       // now click on option b
-      fireEvent.mouseDown(
-        document.querySelector('[role="option"]:nth-child(1)'),
-      );
+      fireEvent.click(document.querySelector('[role="option"]:nth-child(1)'));
 
       expect(onChange).toHaveBeenCalledTimes(2);
       expect(onChange).toHaveBeenCalledWith('a');
@@ -259,7 +273,6 @@ describe('Autocomplete', () => {
       rerender(
         <TestDesignSystem>
           <AutocompleteInput
-            defaultValue="a"
             data-testid="select"
             id="root"
             onChange={onChange}
@@ -286,7 +299,7 @@ describe('Autocomplete', () => {
             data-testid="input"
             expandOnClick
             id="root"
-            onChange={onChange}
+            onInputValueChange={onChange}
             options={onLoadOptions}
           />
         </TestDesignSystem>,
@@ -296,16 +309,17 @@ describe('Autocomplete', () => {
       fireEvent.click(getByTestId('input'));
 
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
+      expect(onLoadOptions).toHaveBeenCalledWith('');
 
       await act(() => Promise.resolve());
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
-      // we expect the first option to be focused
-      expect(getByTestId('input').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
-      );
+      // we don't expect the first option to be focused
+      expect(
+        getByTestId('input').getAttribute('aria-activedescendant'),
+      ).toBeNull();
     });
 
     it('does not load options and expands on click if read only', async () => {
@@ -318,7 +332,7 @@ describe('Autocomplete', () => {
             data-testid="input"
             expandOnClick
             id="root"
-            onChange={onChange}
+            onInputValueChange={onChange}
             options={onLoadOptions}
             readOnly
           />
@@ -345,7 +359,7 @@ describe('Autocomplete', () => {
             expandOnClick
             disabled
             id="root"
-            onChange={onChange}
+            onInputValueChange={onChange}
             options={onLoadOptions}
           />
         </TestDesignSystem>,

@@ -34,13 +34,11 @@ describe('Select', () => {
 
       // we expect the first option to be focused
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // now click on option b
-      fireEvent.mouseDown(
-        document.querySelector('[role="option"]:nth-child(2)'),
-      );
+      fireEvent.click(document.querySelector('[role="option"]:nth-child(2)'));
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith('b');
@@ -85,7 +83,7 @@ describe('Select', () => {
 
       // we expect the first option to be focused
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // now select the option using Enter
@@ -104,14 +102,14 @@ describe('Select', () => {
 
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
-      // one value should be already selected and one focused
+      // one value should be focused
       expect(document.querySelectorAll('[aria-selected="true"]').length).toBe(
-        2,
+        1,
       );
 
       // we expect the last option to be focused
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-2',
+        'root-listbox-option-2',
       );
 
       // now select the option using Space
@@ -135,7 +133,7 @@ describe('Select', () => {
 
       // we expect the first option to be focused
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // focus the last using End
@@ -143,51 +141,51 @@ describe('Select', () => {
 
       // we expect the last option to be focused
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-2',
+        'root-listbox-option-2',
       );
 
       // cycle through list downward
       fireEvent.keyDown(getByTestId('select'), { key: 'ArrowDown' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       fireEvent.keyDown(getByTestId('select'), { key: 'ArrowDown' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-1',
+        'root-listbox-option-1',
       );
 
       fireEvent.keyDown(getByTestId('select'), { key: 'ArrowDown' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-2',
+        'root-listbox-option-2',
       );
 
       fireEvent.keyDown(getByTestId('select'), { key: 'Home' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // cycle through list upward
       fireEvent.keyDown(getByTestId('select'), { key: 'ArrowUp' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-2',
+        'root-listbox-option-2',
       );
 
       fireEvent.keyDown(getByTestId('select'), { key: 'ArrowUp' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-1',
+        'root-listbox-option-1',
       );
 
       fireEvent.keyDown(getByTestId('select'), { key: 'ArrowUp' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // now close popup using escape
@@ -234,9 +232,7 @@ describe('Select', () => {
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
       // now select an option
-      fireEvent.mouseDown(
-        document.querySelector('[role="option"]:first-of-type'),
-      );
+      fireEvent.click(document.querySelector('[role="option"]:first-of-type'));
 
       expect(getByTestId('select').getAttribute('value')).toBe('a');
 
@@ -270,7 +266,6 @@ describe('Select', () => {
       const { getByTestId, rerender } = render(
         <TestDesignSystem>
           <Select
-            defaultValue="a"
             data-testid="select"
             id="root"
             onChange={onChange}
@@ -301,13 +296,11 @@ describe('Select', () => {
 
       // we expect the first option to be focused
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
-        'root-option-0',
+        'root-listbox-option-0',
       );
 
       // now click on option b
-      fireEvent.mouseDown(
-        document.querySelector('[role="option"]:nth-child(1)'),
-      );
+      fireEvent.click(document.querySelector('[role="option"]:nth-child(1)'));
 
       expect(onChange).toHaveBeenCalledTimes(1);
       expect(onChange).toHaveBeenCalledWith('a');
@@ -322,7 +315,6 @@ describe('Select', () => {
       rerender(
         <TestDesignSystem>
           <Select
-            defaultValue="a"
             data-testid="select"
             id="root"
             onChange={onChange}

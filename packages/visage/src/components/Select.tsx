@@ -1,276 +1,369 @@
+/* eslint-disable react/no-array-index-key */
 import {
-  markAsVisageComponent,
   ExtractVisageComponentProps,
+  markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
   Fragment,
-  useCallback,
-  useEffect,
-  useReducer,
   useRef,
-  ChangeEventHandler,
   FocusEventHandler,
+  ChangeEventHandler,
   MouseEventHandler,
   KeyboardEventHandler,
+  useMemo,
+  useCallback,
+  Dispatch,
 } from 'react';
+import {
+  SelectorOptions,
+  useSelector,
+  SelectorStateChangeListener,
+  SelectorAction,
+  SelectorReducerEnhancer,
+} from './hooks/useSelector';
 import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
 import { useDebouncedCallback } from '../hooks';
-import { initSelectReducer, selectReducer } from './reducers';
 import { Menu, MenuItem } from './Menu';
 import { SvgIcon } from './SvgIcon';
 import { TextInput } from './TextInput';
+import { normalizeKeyboardEventKey } from './shared';
 
-interface SelectProps<TValue extends any = 'string'> {
-  defaultValue?: TValue;
-  id: string;
-  options?: (searchValue: string) => Promise<any[]>;
-  searchable?: boolean;
-  value?: TValue;
+const listboxId = (id: string): string => `${id}-listbox`;
+
+const optionId = (id: string, index: number): string | undefined => {
+  return index === -1 ? undefined : `${id}-listbox-option-${index}`;
+};
+
+interface InputEventHandlers {
+  onBlur: FocusEventHandler<HTMLInputElement>;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  onClick: MouseEventHandler<HTMLInputElement>;
+  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
 }
 
-const defaultOnLoadOptions = () => Promise.resolve([]);
+interface OptionEventHandlers {
+  onClick: MouseEventHandler<HTMLElement>;
+  onMouseDown: MouseEventHandler<HTMLElement>;
+  onMouseMove: MouseEventHandler<HTMLElement>;
+}
 
-export function Select<TValue extends any>({
+type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
+
+interface BaseTextInputProps
+  extends Pick<
+    RawTextInputProps,
+    Exclude<keyof RawTextInputProps, 'defaultValue' | 'onChange' | 'value'>
+  > {}
+
+interface SelectProps<TValue extends any = string>
+  extends BaseTextInputProps,
+    SelectorOptions<TValue> {
+  debounceDelay?: number;
+  id: string;
+  options?: (inputValue: string) => Promise<TValue[]>;
+  searchable?: boolean;
+}
+
+export function Select<TValue extends any = string>({
+  debounceDelay = 500,
   defaultValue,
-  disabled,
+  children,
   id,
-  onBlur,
+  enhanceReducer,
   onChange,
-  options: onLoadOptions = defaultOnLoadOptions,
-  onFocus,
-  onKeyDown,
+  onInputValueChange,
+  onSelect,
+  onStateChange,
+  optionToString,
+  options,
   readOnly,
-  required,
-  searchable = false,
+  searchable,
   value,
   ...restProps
-}: SelectProps<TValue> & ExtractVisageComponentProps<typeof TextInput>) {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const inputContainerRef = useRef<HTMLDivElement | null>(null);
-  const [state, dispatch] = useReducer(
-    selectReducer,
-    { id, value: value || defaultValue ? [value || defaultValue] : [] },
-    initSelectReducer,
-  );
-  const previousStateRef = useRef(state);
-  const previousOuterValueRef = useRef(value);
-  const [loadOptions, cancelLoadOptions] = useDebouncedCallback(
-    () => dispatch({ type: 'LoadingOptions' }),
-    300,
-    [],
-  );
-  const onInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      dispatch({ type: 'Blur' });
+}: SelectProps<TValue>) {
+  // last arrow pressed is used to automatically focus an option if automatic mode is turn on
+  // and is reset to null when options are loaded
+  const lastArrowPressed = useRef<string | null>(null);
+  const loadOptions = useCallback(
+    (inputValue: string, dispatch: Dispatch<SelectorAction<TValue>>) => {
+      if (!options) {
+        return;
+      }
 
-      if (onBlur) onBlur(e);
+      // open menu
+      dispatch({ type: 'MenuOpen' });
+      // load options sets the input as busy
+      dispatch({ type: 'SetBusy', isBusy: true });
+
+      // and then on resolution sets options and not busy
+      options(inputValue)
+        .then(newOptions =>
+          dispatch({ type: 'SetOptions', options: newOptions }),
+        )
+        .finally(() => {
+          dispatch({ type: 'SetBusy', isBusy: false });
+
+          if (lastArrowPressed.current === 'ArrowUp') {
+            dispatch({ type: 'SetOptionFocusToLastOption' });
+          } else {
+            dispatch({ type: 'SetOptionFocusToFirstOption' });
+          }
+
+          // reset last arrow pressed
+          lastArrowPressed.current = null;
+        });
     },
-    [onBlur],
+    [options],
   );
-  const onInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      dispatch({ type: 'Focus' });
+  const [
+    debouncedLoadOptions,
+    cancelDebouncedLoadOptions,
+  ] = useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
+  const enhancedReducer: SelectorReducerEnhancer<TValue> = useCallback(
+    (currentState, nextState) => {
+      // allow only to set value from outside if read only
+      if (readOnly && nextState.invokedBy.type !== 'SetValue') {
+        return currentState;
+      }
 
-      if (onFocus) onFocus(e);
+      // if value changed, close the popup
+      if (currentState.value !== nextState.value) {
+        // eslint-disable-next-line no-param-reassign
+        nextState.isOpen = false;
+      }
+
+      // if the action is MenuClose, reset input value if value is empty
+      if (nextState.invokedBy.type === 'MenuClose' && nextState.value == null) {
+        // eslint-disable-next-line no-param-reassign
+        nextState.inputValue = '';
+      }
+
+      return enhanceReducer
+        ? enhanceReducer(currentState, nextState)
+        : nextState;
     },
-    [onFocus],
+    [enhanceReducer, readOnly],
   );
-  const onInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      dispatch({ type: 'ChangeSearchValue', value: e.currentTarget.value });
+  const enhancedOnStateChange: SelectorStateChangeListener<
+    TValue
+  > = useCallback(
+    (previousState, currentState, dispatch) => {
+      // eslint-disable-next-line no-unused-expressions
+      onStateChange && onStateChange(previousState, currentState, dispatch);
 
-      if (searchable) {
-        loadOptions();
+      // if input value has changed because of InputChanged action
+      // load options debounced
+      if (
+        currentState.invokedBy.type === 'InputChange' &&
+        previousState.inputValue !== currentState.inputValue
+      ) {
+        debouncedLoadOptions(currentState.inputValue, dispatch);
+      }
+
+      // if input has opened cancel debounced load options and load options directly
+      // only if it was not open by InputChange action
+      if (
+        previousState.invokedBy.type !== 'InputChange' &&
+        previousState.isOpen !== currentState.isOpen &&
+        currentState.isOpen
+      ) {
+        cancelDebouncedLoadOptions();
+
+        if (currentState.options.length === 0) {
+          loadOptions(currentState.inputValue, dispatch);
+        }
       }
     },
-    [loadOptions, searchable],
+    [onStateChange],
   );
-  const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
-    e => {
-      switch (e.key) {
-        case 'ArrowDown': {
-          e.preventDefault();
-          dispatch({ type: 'ArrowDown' });
-          break;
+  const [state, dispatch] = useSelector({
+    defaultValue,
+    enhanceReducer: enhancedReducer,
+    onChange,
+    onInputValueChange,
+    onStateChange: enhancedOnStateChange,
+    value,
+  });
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputContainerRef = useRef<HTMLInputElement | null>(null);
+  const onToggleClick = useCallback(() => {
+    if (!readOnly) {
+      dispatch({ type: 'MenuToggle' });
+      // eslint-disable-next-line no-unused-expressions
+      inputRef.current && inputRef.current.focus();
+    }
+  }, [readOnly]);
+  const inputEventHandlers: InputEventHandlers = useMemo(
+    () => ({
+      onBlur() {
+        dispatch({ type: 'MenuClose' });
+      },
+      onChange(e) {
+        dispatch({ type: 'InputChange', value: e.currentTarget.value });
+      },
+      onClick() {
+        if (!searchable && !state.isOpen) {
+          dispatch({ type: 'MenuOpen' });
+          dispatch({ type: 'SetOptionFocusToFirstOption' });
         }
-        case 'ArrowUp': {
-          e.preventDefault();
-          dispatch({ type: 'ArrowUp' });
-          break;
-        }
-        case 'End': {
-          e.preventDefault();
-          dispatch({ type: 'End' });
-          break;
-        }
-        case 'Escape': {
-          e.preventDefault();
-          dispatch({ type: 'Escape' });
-          break;
-        }
-        case 'Home': {
-          e.preventDefault();
-          dispatch({ type: 'Home' });
-          break;
-        }
-        case ' ': {
-          // space works only if not searchable
-          if (!searchable) {
+      },
+      onKeyDown(e) {
+        const key = normalizeKeyboardEventKey(e);
+
+        switch (key) {
+          case 'ArrowUp': {
+            e.preventDefault();
+            lastArrowPressed.current = key;
+
+            if (state.isOpen) {
+              dispatch({ type: 'SetOptionFocusByOffset', offset: -1 });
+            } else {
+              dispatch({ type: 'MenuOpen' });
+              dispatch({ type: 'SetOptionFocusToLastOption' });
+            }
+            break;
+          }
+          case 'ArrowDown': {
+            e.preventDefault();
+            lastArrowPressed.current = key;
+
+            if (state.isOpen) {
+              dispatch({ type: 'SetOptionFocusByOffset', offset: 1 });
+            } else {
+              dispatch({ type: 'MenuOpen' });
+              dispatch({ type: 'SetOptionFocusToFirstOption' });
+            }
+            break;
+          }
+          case 'End': {
+            e.preventDefault();
+            dispatch({ type: 'SetOptionFocusToLastOption' });
+            break;
+          }
+          case 'Enter': {
+            e.preventDefault();
+            dispatch({ type: 'SetCurrentFocusedOption' });
+            break;
+          }
+          case 'Escape': {
             e.preventDefault();
 
-            if (state.expanded) {
-              dispatch({ type: 'ChooseFocusedOption' });
-              dispatch({ type: 'Close' });
+            // close menu if open, or reset the input
+            if (state.isOpen) {
+              dispatch({ type: 'MenuClose' });
             } else {
-              dispatch({ type: 'Open' });
+              dispatch({ type: 'Reset' });
             }
+
+            break;
           }
-
-          break;
-        }
-        case 'Enter': {
-          e.preventDefault();
-
-          if (state.expanded) {
-            dispatch({ type: 'ChooseFocusedOption' });
-            dispatch({ type: 'Close' });
+          case 'Home': {
+            e.preventDefault();
+            dispatch({ type: 'SetOptionFocusToFirstOption' });
+            break;
           }
-
-          break;
+          case ' ': {
+            if (state.isOpen) {
+              e.preventDefault();
+              dispatch({ type: 'SetCurrentFocusedOption' });
+            }
+            break;
+          }
         }
-      }
-
-      if (onKeyDown) onKeyDown(e);
-    },
-    [onKeyDown, searchable, state.expanded],
+      },
+    }),
+    [state.isOpen, searchable],
   );
-  const onToggleClick: MouseEventHandler<HTMLInputElement> = useCallback(() => {
-    if (state.expanded) {
-      dispatch({ type: 'Close' });
-    } else {
-      dispatch({ type: 'Open' });
+  const optionEventHandlers: OptionEventHandlers = useMemo(
+    () => ({
+      onClick(e) {
+        e.preventDefault();
 
-      if (inputRef.current) {
-        inputRef.current.focus();
-      }
-    }
-  }, [state.expanded]);
-  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useCallback(e => {
-    e.preventDefault();
-    dispatch({
-      type: 'ChooseOption',
-      index: Number(e.currentTarget.dataset.optionIndex),
-    });
-    dispatch({ type: 'Close' });
-  }, []);
-
-  // cancel debounced load options on unmount
-  useEffect(() => {
-    return () => cancelLoadOptions();
-  }, []);
-
-  if (previousStateRef.current !== state) {
-    if (previousStateRef.current.busy !== state.busy && state.busy) {
-      // load options
-      onLoadOptions(state.searchValue || '')
-        .then(options => {
-          dispatch({ type: 'LoadingOptionsDone', options });
-        })
-        .catch(e => {
-          dispatch({ type: 'LoadingOptionsFailed', error: e });
+        dispatch({
+          type: 'SetValueByIndex',
+          index: Number(e.currentTarget.dataset.optionIndex),
         });
-    } else if (onChange && previousStateRef.current.value !== state.value) {
-      // onChange is called only if it differs from outside value
-      if (previousOuterValueRef.current !== state.value[0]) {
-        onChange(state.value[0]);
-      }
-    }
+        dispatch({ type: 'MenuClose' });
+      },
+      onMouseDown(e) {
+        // prevent changing body activeElement and blur on input
+        e.preventDefault();
+      },
+      onMouseMove(e) {
+        const index = Number(e.currentTarget.dataset.optionIndex);
 
-    previousStateRef.current = state;
-  }
-
-  // if value from outside has changed
-  if (!state.busy && previousOuterValueRef.current !== value) {
-    previousOuterValueRef.current = value;
-
-    dispatch({ type: 'SetValue', value: [value] });
-  }
+        if (state.focusedIndex !== index) {
+          dispatch({ type: 'SetOptionFocusByIndex', index });
+        }
+      },
+    }),
+    [state.focusedIndex],
+  );
 
   return (
     <Fragment>
       <TextInput
-        aria-activedescendant={state.activeId ? state.activeId : undefined}
+        {...restProps}
+        aria-activedescendant={
+          state.isOpen ? optionId(id, state.focusedIndex) : undefined
+        }
         aria-autocomplete="list"
-        aria-controls={`${id}-listbox-popup`}
-        autoComplete="none"
+        aria-controls={listboxId(id)}
+        autoComplete="off"
         baseProps={{
-          'aria-busy': state.busy,
-          'aria-expanded': state.expanded,
-          'aria-haspopup': 'listbox',
-          'aria-owns': `${id}-listbox-popup`,
-          'aria-required': required,
-          'aria-readonly': readOnly,
+          ...restProps.baseProps,
+          'aria-busy': state.isBusy,
+          'aria-expanded': state.isOpen,
+          'aria-owns': listboxId(id),
           ref: inputContainerRef,
           role: 'combobox',
         }}
-        disabled={disabled}
         id={id}
-        onBlur={onInputBlur}
-        onChange={onInputChange}
-        onClick={disabled ? undefined : onToggleClick}
-        onFocus={onInputFocus}
-        onKeyDown={onInputKeyDown}
-        ref={inputRef}
         readOnly={readOnly || !searchable}
+        ref={inputRef}
         suffix={
-          state.expanded ? (
+          state.isOpen ? (
             <SvgIcon
               aria-hidden
               icon={UnfoldLessIcon}
-              onClick={onToggleClick}
+              onClick={readOnly ? onToggleClick : undefined}
               tabIndex={-1}
             />
           ) : (
             <SvgIcon
               aria-hidden
               icon={UnfoldMoreIcon}
-              onClick={onToggleClick}
+              onClick={!readOnly ? onToggleClick : undefined}
               tabIndex={-1}
             />
           )
         }
-        {...restProps}
-        value={
-          state.searchValue == null ? state.value[0] || '' : state.searchValue
-        }
+        value={state.inputValue}
+        {...inputEventHandlers}
       />
       <Menu
         anchor={inputContainerRef.current}
         anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
         disableEvents
-        open={state.expanded}
-        id={`${id}-listbox-popup`}
+        id={listboxId(id)}
+        open={state.isOpen}
         role="listbox"
         tabIndex={-1}
       >
-        {state.options.map(option => {
-          return (
-            <MenuItem
-              aria-selected={
-                state.value.includes(option.value) ||
-                state.focusedOption === option.index
-              }
-              data-option-index={option.index}
-              id={option.id}
-              key={option.id}
-              onMouseDown={onOptionMouseDown}
-              role="option"
-              tabIndex={-1}
-            >
-              {option.value}
-            </MenuItem>
-          );
-        })}
+        {state.isOpen
+          ? state.options.map((option, index) => (
+              <MenuItem
+                aria-selected={state.focusedIndex === index}
+                data-option-index={index}
+                id={optionId(id, index)}
+                key={state.inputValue + index}
+                role="option"
+                {...optionEventHandlers}
+              >
+                {state.optionToString(option)}
+              </MenuItem>
+            ))
+          : null}
       </Menu>
     </Fragment>
   );

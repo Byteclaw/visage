@@ -19,20 +19,28 @@ const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
   defaultStyles: {
     color: 'currentColor',
+    display: 'flex',
     flexBasis: 'auto',
     flexGrow: 0,
     flexShrink: 0,
     fontSize: 'inherit',
     lineHeight: 'inherit',
+    maxWidth: '100%',
     position: 'relative',
     userSelect: 'none',
     px: 1,
-    '&[data-suffix]': {
-      pl: 0,
-    },
-    '&[data-prefix]': {
-      pr: 0,
-    },
+  },
+});
+
+const TextInputControlBase = createComponent('div', {
+  displayName: 'TextInputControlBase',
+  defaultStyles: {
+    display: 'flex',
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: '0%',
+    flexWrap: 'wrap',
+    width: '100%',
   },
 });
 
@@ -53,6 +61,12 @@ const TextInputControl = createComponent('input', {
     py: 0,
     px: 1,
     width: '100%',
+    '&[data-prefix]': {
+      pl: 0,
+    },
+    '&[data-suffix]': {
+      pr: 0,
+    },
   },
 });
 
@@ -74,6 +88,7 @@ const InputBase = invalidControl(
         py: 1,
         px: 0,
         position: 'relative',
+        flexWrap: 'wrap',
       },
     }),
   ),
@@ -90,7 +105,11 @@ interface Props extends BaseProps {
   invalid?: boolean;
   prefix?: ReactElement;
   prefixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
+  /** Elements included between prefix and input */
+  prefixExtra?: ReactElement;
   suffix?: ReactElement;
+  /** Elements included between input and suffix */
+  suffixExtra?: ReactElement;
   suffixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
 }
 
@@ -104,8 +123,10 @@ export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
       onBlur: outerOnBlur,
       onFocus: outerOnFocus,
       prefix,
+      prefixExtra,
       prefixProps,
       suffix,
+      suffixExtra,
       suffixProps,
       ...restProps
     }: Props,
@@ -141,14 +162,20 @@ export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
             {prefix}
           </InputExtraElement>
         ) : null}
-        <TextInputControl
-          aria-invalid={invalid}
-          disabled={disabled}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          ref={ref}
-          {...restProps}
-        />
+        <TextInputControlBase>
+          {prefixExtra}
+          <TextInputControl
+            aria-invalid={invalid}
+            data-prefix={prefix ? true : undefined}
+            data-suffix={suffix ? true : undefined}
+            disabled={disabled}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            ref={ref}
+            {...restProps}
+          />
+          {suffixExtra}
+        </TextInputControlBase>
         {suffix ? (
           <InputExtraElement {...suffixProps} data-suffix>
             {suffix}
