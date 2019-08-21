@@ -185,6 +185,7 @@ export function Select<TValue extends any = string>({
     value,
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputContainerRef = useRef<HTMLInputElement | null>(null);
   const onToggleClick = useCallback(() => {
     if (!readOnly) {
       dispatch({ type: 'MenuToggle' });
@@ -314,6 +315,7 @@ export function Select<TValue extends any = string>({
           'aria-busy': state.isBusy,
           'aria-expanded': state.isOpen,
           'aria-owns': listboxId(id),
+          ref: inputContainerRef,
           role: 'combobox',
         }}
         id={id}
@@ -340,7 +342,9 @@ export function Select<TValue extends any = string>({
         {...inputEventHandlers}
       />
       <Menu
-        anchor={inputRef}
+        anchor={inputContainerRef.current}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        disableEvents
         id={listboxId(id)}
         open={state.isOpen}
         role="listbox"

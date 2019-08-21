@@ -181,7 +181,7 @@ export function AutocompleteInput<TValue extends any = string>({
     onStateChange: enhancedOnStateChange,
     value,
   });
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputContainerRef = useRef<HTMLDivElement | null>(null);
   const inputEventHandlers: InputEventHandlers = useMemo(
     () => ({
       onBlur() {
@@ -190,9 +190,6 @@ export function AutocompleteInput<TValue extends any = string>({
         }
 
         dispatch({ type: 'MenuClose' });
-      },
-      onFocus(e) {
-        e.target.autocomplete = 'ignore-complete-here';
       },
       onChange(e) {
         dispatch({ type: 'InputChange', value: e.currentTarget.value });
@@ -308,11 +305,12 @@ export function AutocompleteInput<TValue extends any = string>({
         id={id}
         {...inputEventHandlers}
         readOnly={readOnly}
-        ref={inputRef}
         value={state.inputValue}
       />
       <Menu
-        anchor={inputRef}
+        anchor={inputContainerRef.current}
+        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        disableEvents
         id={listboxId(id)}
         open={state.isOpen}
         role="listbox"
