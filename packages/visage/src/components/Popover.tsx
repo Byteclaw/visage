@@ -9,12 +9,12 @@ function getAnchorNode(anchor: any) {
 
 const openPopoverVariant = createBooleanVariant('open', {
   onStyles: {
-    opacity: 1,
-    visibility: 'visible',
+    visibility: 'hidden',
+    opacity: 0,
   },
   offStyles: {
     visibility: 'hidden',
-    opacity: 1,
+    opacity: 0,
   },
 });
 
@@ -142,29 +142,37 @@ export function Popover({
 
       const anchorOffset = getAnchorOffset(contentAnchorOffset);
 
-      let top = anchorOffset.top - elemTransformOrigin.vertical;
-      let left = anchorOffset.left - elemTransformOrigin.horizontal;
-      const bottom = top + elemRect.height;
-      const right = left + elemRect.width;
+      const top = anchorOffset.top - elemTransformOrigin.vertical;
+      const left = anchorOffset.left - elemTransformOrigin.horizontal;
+      // const bottom = top + elemRect.height;
+      // const right = left + elemRect.width;
 
-      const containerWindow = window;
+      // const containerWindow = window;
 
       // margin box around inside the window
-      const heightThreshold = containerWindow.innerHeight - marginThreshold;
-      const widthThreshold = containerWindow.innerWidth - marginThreshold;
+      // const heightThreshold = containerWindow.innerHeight - marginThreshold;
+      // const widthThreshold = containerWindow.innerWidth - marginThreshold;
 
       // transform if too close
-      if (top < marginThreshold) {
+      /*
+      if ((top) < marginThreshold) {
+        console.log('too close to top!');
         const diff = top - marginThreshold;
         top -= diff;
         elemTransformOrigin.vertical += diff;
       } else if (bottom > heightThreshold) {
+        console.log('bottom', bottom);
+        console.log('top', top);
+        console.log('scroll', window.scrollY);
+        console.log('too close to bottom!');
         const diff = bottom - heightThreshold;
         top -= diff;
         elemTransformOrigin.vertical += diff;
       }
+      */
 
       // transform horizontal if too close
+      /*
       if (left < marginThreshold) {
         const diff = left - marginThreshold;
         left -= diff;
@@ -174,6 +182,7 @@ export function Popover({
         left -= diff;
         elemTransformOrigin.horizontal += diff;
       }
+      */
 
       return {
         top: `${top}px`,
@@ -230,6 +239,10 @@ export function Popover({
       }
       // eslint-disable-next-line no-param-reassign
       element.style.transformOrigin = positioning.transformOrigin;
+      // eslint-disable-next-line no-param-reassign
+      element.style.opacity = 1;
+      // eslint-disable-next-line no-param-reassign
+      element.style.visibility = 'visible';
     },
     [getPositioningStyle],
   );
@@ -243,7 +256,7 @@ export function Popover({
     return () => {
       window.removeEventListener('resize', handleResizeRef.current);
     };
-  }, [open, setPositioningStyles]);
+  }, [open, contentRef.current, setPositioningStyles]);
 
   // focus popover content on mount
   React.useEffect(() => {
