@@ -201,6 +201,8 @@ export function List({
   });
 }
 
+markAsVisageComponent(List as any);
+
 const defaultContainerRenderer = (
   children: ReactNode,
   props: any,
