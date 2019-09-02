@@ -47,13 +47,11 @@ const SvgIconBase = createComponent('div', {
   },
 });
 
-export const Spinner: VisageComponent<{}, StyleProps> = function Spinner({
-  icon: Icon,
-  iconProps,
-  ...restProps
-}: any) {
+export const Spinner: VisageComponent<{}, StyleProps> = function Spinner(
+  props: any,
+) {
   return (
-    <SvgIconBase role="status" {...restProps}>
+    <SvgIconBase role="status" {...props}>
       <SpinnerIcon />
     </SvgIconBase>
   );
