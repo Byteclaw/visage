@@ -23,7 +23,7 @@ const indeterminateAnimation = keyframes({
   },
 });
 
-const indeterminateVariant = createBooleanVariant('indeterminated', {
+const indeterminateVariant = createBooleanVariant('indeterminate', {
   onStyles: {
     animation: `${indeterminateAnimation} 2.1s ease-in-out infinite`,
     width: '35%',
@@ -71,7 +71,7 @@ const ProgressBarProgress = indeterminateVariant(
 export const Loading: VisageComponent<
   {
     baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
-    indeterminated?: boolean;
+    indeterminate?: boolean;
     progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
     value?: number;
     valueText?: string;
@@ -79,7 +79,7 @@ export const Loading: VisageComponent<
   StyleProps
 > = function Loading({
   baseProps,
-  indeterminated,
+  indeterminate,
   progressProps,
   value,
   valueText,
@@ -89,16 +89,16 @@ export const Loading: VisageComponent<
     <ProgressBarBase
       role="progressbar"
       aria-valuemin={0}
-      aria-valuenow={indeterminated ? undefined : value}
+      aria-valuenow={indeterminate ? undefined : value}
       aria-valuetext={valueText}
       aria-valuemax={100}
       {...baseProps}
       {...restProps}
     >
       <ProgressBarProgress
-        indeterminated={indeterminated}
+        indeterminate={indeterminate}
         style={
-          indeterminated ? undefined : { transform: `scaleX(${value / 100})` }
+          indeterminate ? undefined : { transform: `scaleX(${value / 100})` }
         }
         {...progressProps}
       />
