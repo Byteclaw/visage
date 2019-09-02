@@ -1,6 +1,6 @@
 import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import { keyframes } from '@emotion/core';
-import React, { ReactElement, FunctionComponent } from 'react';
+import React from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import { SpinnerIcon } from '../assets';
@@ -47,14 +47,11 @@ const SvgIconBase = createComponent('div', {
   },
 });
 
-export const Spinner: VisageComponent<
-  {
-    icon: ReactElement | FunctionComponent<any>;
-    stroked?: boolean;
-    iconProps?: JSX.IntrinsicElements['svg'];
-  },
-  StyleProps
-> = function Spinner({ icon: Icon, iconProps, ...restProps }: any) {
+export const Spinner: VisageComponent<{}, StyleProps> = function Spinner({
+  icon: Icon,
+  iconProps,
+  ...restProps
+}: any) {
   return (
     <SvgIconBase role="status" {...restProps}>
       <SpinnerIcon />
