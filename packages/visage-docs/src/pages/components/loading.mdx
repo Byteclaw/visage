@@ -1,0 +1,38 @@
+# Loading
+
+## Examples
+
+### Default
+
+Default `Loading` respects `value` property which must be in range 0 to 100.
+
+```jsx live=true
+<WithState defaultValue={0}>
+  {(value, setValue) => {
+    React.useLayoutEffect(() => {
+      window.setTimeout(() => {
+        console.log(value);
+        if (value < 100) {
+          setValue(value + 5);
+        }
+      }, 1000);
+    }, [value]);
+
+    return <Loading value={value} valueText="Copying files..." />;
+  }}
+</WithState>
+```
+
+### Indeterminated
+
+Indeterminated `Loading` can be specified using `indeterminated` prop. In this case `value` is ignored.
+
+```jsx live=true
+<Loading indeterminated />
+```
+
+### Custom color and height
+
+```jsx live=true
+<Loading value={60} styles={{ color: 'blue', height: 10 }} />
+```
