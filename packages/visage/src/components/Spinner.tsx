@@ -22,12 +22,6 @@ const circleDashAnimation = keyframes({
   },
 });
 
-const rotateAnimation = keyframes({
-  '100%': {
-    transform: 'rotate(360deg)',
-  },
-});
-
 const SvgIconBase = createComponent('div', {
   displayName: 'SvgIconBase',
   defaultStyles: {
@@ -40,7 +34,6 @@ const SvgIconBase = createComponent('div', {
       content: '"\\200b"',
     },
     '& svg': {
-      animation: `${rotateAnimation} 2s linear`,
       height: '1em',
       transformOrigin: 'center center',
       verticalAlign: 'middle',
