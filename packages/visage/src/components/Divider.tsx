@@ -10,13 +10,13 @@ import { StyleProps } from '../createNPointTheme';
 
 const verticalLineVariant = createBooleanVariant('vertical', {
   onStyles: {
-    borderLeftWidth: '2px',
+    borderLeftWidth: '1px',
     height: '100%',
-    minWidth: '2px',
+    minWidth: '1px',
   },
   offStyles: {
-    borderBottomWidth: '2px',
-    minHeight: '2px',
+    borderBottomWidth: '1px',
+    minHeight: '1px',
     width: '100%',
   },
   stripProp: true,
@@ -50,7 +50,7 @@ const DividerLine = verticalLineVariant(
     defaultStyles: {
       borderWidth: 0,
       display: 'block',
-      borderColor: 'grey.4',
+      borderColor: 'currentColor',
       borderStyle: 'solid',
       mx: 0,
       my: 0,
