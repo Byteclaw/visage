@@ -158,6 +158,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/spinner">
+                  Spinner
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/svg-icon">
                   SvgIcon
                 </ListItemRouteLink>
