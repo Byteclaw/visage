@@ -56,7 +56,7 @@ export const Spinner: VisageComponent<
   StyleProps
 > = function Spinner({ icon: Icon, iconProps, ...restProps }: any) {
   return (
-    <SvgIconBase {...restProps}>
+    <SvgIconBase role="status" {...restProps}>
       <SpinnerIcon />
     </SvgIconBase>
   );
