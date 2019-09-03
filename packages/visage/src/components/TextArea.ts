@@ -16,8 +16,7 @@ const TextAreaBaseControl = createComponent('textarea', {
     outlineOffset: '-2px',
     m: 0,
     resize: 'vertical',
-    py: 1,
-    px: 2,
+    p: 1,
     width: '100%',
   },
 });
