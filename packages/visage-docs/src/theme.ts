@@ -56,7 +56,7 @@ export const theme = createNPointTheme({
     dangerBodyText: 'red',
     ...generateScale<'danger' | 'dangerText'>('danger', 'red', 5, 5),
     ...generateScale<'info' | 'infoText'>('info', '#0099ff', 5, 5),
-    ...generateScale<'neutral' | 'neutralText'>('neutral', '#eee', 5, 5),
+    ...generateScale<'neutral' | 'neutralText'>('neutral', '#ddd', 5, 5),
     ...generateScale<'primary' | 'primaryText'>('primary', '#000', 6),
     ...generateScale<'grey' | 'greyText'>('grey', '#999', 5, 5),
     ...generateScale<'success' | 'successText'>('success', '#99cc33', 5, 5),
