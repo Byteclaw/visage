@@ -8,6 +8,7 @@ import {
   markAsVisageComponent,
   StyleSheet,
 } from '@byteclaw/visage-core';
+import deepMerge from 'deepmerge';
 import React from 'react';
 import { StyleProps } from './createNPointTheme';
 
@@ -48,11 +49,11 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
           Object.keys(styleSheet).reduce(
             (customizedVariants, variantName) => ({
               ...customizedVariants,
-              [variantName]: {
-                ...customizedVariants[variantName],
-                ...customStyles,
-                ...parentStyles,
-              },
+              [variantName]: deepMerge.all<EmotionStyleSheet>([
+                customizedVariants[variantName],
+                parentStyles || {},
+                customStyles || {},
+              ]),
             }),
             styleSheet,
           ),
@@ -111,11 +112,11 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
             Object.keys(styleSheet).reduce(
               (customizedVariants, variantName) => ({
                 ...customizedVariants,
-                [variantName]: {
-                  ...customizedVariants[variantName],
-                  ...parentStyles,
-                  ...customStyles,
-                },
+                [variantName]: deepMerge.all<EmotionStyleSheet>([
+                  customizedVariants[variantName],
+                  parentStyles || {},
+                  customStyles || {},
+                ]),
               }),
               styleSheet,
             ),
