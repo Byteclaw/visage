@@ -37,9 +37,9 @@ describe('DesignSystem', () => {
           styles={{
             background: '#ccc',
             color: 'white',
-            active: { color: 'blue' },
-            hover: { color: 'pink' },
-            focus: { color: 'black' },
+            '&:active': { color: 'blue' },
+            '&:hover': { color: 'pink' },
+            '&:focus': { color: 'black' },
           }}
         >
           Link with extension styles
@@ -48,64 +48,63 @@ describe('DesignSystem', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-            <DocumentFragment>
-              <a
-                class="emotion-0"
-                href="a"
-              >
-                Link without styles
-              </a>
-              .emotion-0 {
-              background: #ccc;
-              color: red;
-            }
+      <DocumentFragment>
+        <a
+          class="emotion-0"
+          href="a"
+        >
+          Link without styles
+        </a>
+        .emotion-0 {
+        background: #ccc;
+        color: red;
+      }
 
-            <a
-                class="emotion-0"
-                href="a"
-              >
-                Link with styles
-              </a>
-              .emotion-0 {
-              background: #ccc;
-              color: white;
-            }
+      <a
+          class="emotion-0"
+          href="a"
+        >
+          Link with styles
+        </a>
+        .emotion-0 {
+        background: #ccc;
+        color: white;
+      }
 
-            .emotion-0:active {
-              color: blue;
-            }
+      .emotion-0:active {
+        color: blue;
+      }
 
-            .emotion-0:hover {
-              color: pink;
-            }
+      .emotion-0:hover {
+        color: pink;
+      }
 
-            .emotion-0:focus {
-              color: black;
-            }
+      .emotion-0:focus {
+        color: black;
+      }
 
-            <a
-                class="emotion-0"
-                href="a"
-              >
-                Link with extension styles
-              </a>
-            </DocumentFragment>
-        `);
+      <a
+          class="emotion-0"
+          href="a"
+        >
+          Link with extension styles
+        </a>
+      </DocumentFragment>
+    `);
   });
 
   it('works with extending', () => {
     const A = createComponent('a', {
       defaultStyles: {
         color: 'red',
-
-        hover: { background: 'black' },
+        '&:hover': { background: 'black' },
       },
     });
     const B = createComponent('span', {
       defaultStyles: {
         background: 'black',
         color: 'blue',
-        hover: { background: 'red', color: 'white' },
+        '&:hover': { background: 'red', color: 'white' },
       },
     });
     const { asFragment } = render(
@@ -118,62 +117,62 @@ describe('DesignSystem', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-                  <DocumentFragment>
-                    .emotion-0 {
-                    color: red;
-                  }
+      <DocumentFragment>
+        .emotion-0 {
+        color: red;
+      }
 
-                  .emotion-0:hover {
-                    background: black;
-                  }
+      .emotion-0:hover {
+        background: black;
+      }
 
-                  <a
-                      class="emotion-0"
-                      href="/"
-                    />
-                    .emotion-0 {
-                    background: black;
-                    color: blue;
-                  }
+      <a
+          class="emotion-0"
+          href="/"
+        />
+        .emotion-0 {
+        background: black;
+        color: blue;
+      }
 
-                  .emotion-0:hover {
-                    background: red;
-                    color: white;
-                  }
+      .emotion-0:hover {
+        background: red;
+        color: white;
+      }
 
-                  <span
-                      class="emotion-0"
-                    />
-                    .emotion-0 {
-                    background: black;
-                    color: red;
-                  }
+      <span
+          class="emotion-0"
+        />
+        .emotion-0 {
+        background: black;
+        color: red;
+      }
 
-                  .emotion-0:hover {
-                    background: black;
-                    color: white;
-                  }
+      .emotion-0:hover {
+        background: black;
+        color: white;
+      }
 
-                  <span
-                      class="emotion-0"
-                      href="/"
-                    />
-                    .emotion-0 {
-                    color: blue;
-                    background: black;
-                  }
+      <span
+          class="emotion-0"
+          href="/"
+        />
+        .emotion-0 {
+        color: blue;
+        background: black;
+      }
 
-                  .emotion-0:hover {
-                    background: red;
-                    color: white;
-                  }
+      .emotion-0:hover {
+        background: red;
+        color: white;
+      }
 
-                  <a
-                      class="emotion-0"
-                      href="/"
-                    />
-                  </DocumentFragment>
-            `);
+      <a
+          class="emotion-0"
+          href="/"
+        />
+      </DocumentFragment>
+    `);
   });
 
   it('works with theme', () => {
@@ -195,52 +194,52 @@ describe('DesignSystem', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-      <DocumentFragment>
-        .emotion-0 {
-        color: red;
-        background-color: blue;
-        font-size: 16px;
-        line-height: 24px;
-      }
+                  <DocumentFragment>
+                    .emotion-0 {
+                    color: red;
+                    background-color: blue;
+                    font-size: 16px;
+                    line-height: 24px;
+                  }
 
-      <div
-          class="emotion-0"
-        />
-        .emotion-0 {
-        color: light-blue;
-        background-color: blue;
-        font-size: 16px;
-        line-height: 24px;
-      }
+                  <div
+                      class="emotion-0"
+                    />
+                    .emotion-0 {
+                    color: light-blue;
+                    background-color: blue;
+                    font-size: 16px;
+                    line-height: 24px;
+                  }
 
-      <div
-          class="emotion-0"
-        />
-        .emotion-0 {
-        color: blue;
-        background-color: blue;
-        font-size: 16px;
-        line-height: 24px;
-        margin: 8px;
-        padding: 16px;
-      }
+                  <div
+                      class="emotion-0"
+                    />
+                    .emotion-0 {
+                    color: blue;
+                    background-color: blue;
+                    font-size: 16px;
+                    line-height: 24px;
+                    margin: 8px;
+                    padding: 16px;
+                  }
 
-      <div
-          class="emotion-0"
-        />
-        .emotion-0 {
-        color: light-blue;
-        background-color: blue;
-        font-size: 16px;
-        line-height: 24px;
-        margin: 16px;
-        padding: 24px;
-      }
+                  <div
+                      class="emotion-0"
+                    />
+                    .emotion-0 {
+                    color: light-blue;
+                    background-color: blue;
+                    font-size: 16px;
+                    line-height: 24px;
+                    margin: 16px;
+                    padding: 24px;
+                  }
 
-      <div
-          class="emotion-0"
-        />
-      </DocumentFragment>
-    `);
+                  <div
+                      class="emotion-0"
+                    />
+                  </DocumentFragment>
+            `);
   });
 });
