@@ -1,11 +1,77 @@
-import { Button } from '@byteclaw/visage';
-import { Fragment } from 'react';
-
 # Button
+
+## Examples
+
+### Default Button
 
 ```jsx live=true
 <Fragment>
-  <Button>Default button</Button>
-  <Button variant="primary">Primary button</Button>
+  <Button>Button</Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button disabled>Disabled button</Button>
+</Fragment>
+```
+
+### Primary Button
+
+```jsx live=true
+<Fragment>
+  <Button variant="primary">Button</Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button disabled variant="primary">
+    Disabled button
+  </Button>
+</Fragment>
+```
+
+### Danger Button
+
+```jsx live=true
+<Fragment>
+  <Button variant="danger">Button</Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button disabled variant="danger">
+    Disabled button
+  </Button>
+</Fragment>
+```
+
+### Outlined Button
+
+```jsx live=true
+<Fragment>
+  <Button outlined>Button</Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button outlined variant="primary">
+    Button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button outlined variant="danger">
+    Button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button disabled outlined>
+    Disabled button
+  </Button>
+</Fragment>
+```
+
+### Monochromatic Button
+
+Monochromatic uses current color as font and border colors. Only outlined buttons can be monochromatic.
+
+```jsx live=true
+<Fragment>
+  <Button monochrome outlined>
+    Button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button monochrome outlined styles={{ color: 'tomato' }}>
+    Button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button disabled monochrome outlined>
+    Disabled button
+  </Button>
 </Fragment>
 ```
