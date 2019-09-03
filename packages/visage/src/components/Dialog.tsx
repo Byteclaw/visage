@@ -9,10 +9,11 @@ import React, {
   KeyboardEvent,
 } from 'react';
 import { createComponent } from '../core';
-import { CloseIcon } from '../assets';
+import { Box } from './Box';
+import { Flex } from './Flex';
+import { CloseButton } from './CloseButton';
 import { Heading } from './Heading';
 import { Modal } from './Modal';
-import { SvgIcon } from './SvgIcon';
 
 const BaseDialog = createComponent('div', {
   displayName: 'BaseDialog',
@@ -24,27 +25,6 @@ const BaseDialog = createComponent('div', {
     position: 'relative',
     width: ['100%', '75%', '50%'],
     transform: 'translateZ(0)',
-  },
-});
-
-const DialogCloseButton = createComponent('button', {
-  displayName: 'DialogCloseButton',
-  defaultStyles: {
-    backgroundColor: 'black',
-    borderColor: 'transparent',
-    borderWidth: 2,
-    borderStyle: 'solid',
-    cursor: 'pointer',
-    position: 'absolute',
-    outline: 'none',
-    overflow: 'hidden',
-    top: 0,
-    right: 0,
-    height: '3em',
-    width: '3em',
-    '&:focus': {
-      borderColor: 'blue',
-    },
   },
 });
 
@@ -67,7 +47,7 @@ interface DialogProps {
 
 export function Dialog({
   children,
-  closeButtonLabel = 'close dialog',
+  closeButtonLabel = 'Close dialog',
   label,
   id,
   onClose,
@@ -127,17 +107,20 @@ export function Dialog({
         ref={dialogRef}
         role={role}
       >
-        <DialogCloseButton
-          aria-label={closeButtonLabel}
-          onClick={onClickHandler}
-          ref={closeButtonRef}
-          type="button"
-        >
-          <SvgIcon icon={CloseIcon} />
-        </DialogCloseButton>
-        <Heading id={headingId} level={3}>
-          {label}
-        </Heading>
+        <Flex>
+          <Box styles={{ width: '100%' }}>
+            <Heading id={headingId} level={3}>
+              {label}
+            </Heading>
+          </Box>
+          <Flex styles={{ alignItems: 'center' }}>
+            <CloseButton
+              aria-label={closeButtonLabel}
+              onClick={onClickHandler}
+              ref={closeButtonRef}
+            />
+          </Flex>
+        </Flex>
         {children}
       </BaseDialog>
     </Modal>
