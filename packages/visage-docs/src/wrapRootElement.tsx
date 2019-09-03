@@ -30,7 +30,7 @@ export const wrapRootElement = ({ element, props }: RootProps) => {
       <MDXProvider components={mdxComponents}>
         <Helmet>
           <link
-            href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,700&display=swap&subset=latin-ext"
+            href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,500,700&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
           <meta property="og:image:type" content="image/png" />

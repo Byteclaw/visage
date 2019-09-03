@@ -34,30 +34,39 @@ export const Button = createVariant(ButtonBase, 'variant', {
     borderColor: 'primary',
     color: 'primaryText',
     '&:active': {
-      backgroundColor: 'primary.2',
-      color: 'primaryText.2',
-    },
-    '&:hover': {
-      backgroundColor: 'primary.1',
-      color: 'primaryText.1',
+      backgroundColor: 'primary.-2',
+      borderColor: 'primary.-2',
+      color: 'primaryText.-2',
     },
     '&:focus': {
-      backgroundColor: 'primary.3',
-      color: 'primaryText.3',
+      backgroundColor: 'primary.-3',
+      borderColor: 'primary.-3',
+      color: 'primaryText.-3',
+    },
+    '&:hover': {
+      backgroundColor: 'primary.-1',
+      borderColor: 'primary.-1',
+      color: 'primaryText.-1',
     },
   },
   default: {
-    backgroundColor: 'default',
-    borderColor: 'bodyText',
-    color: 'bodyText',
+    backgroundColor: 'neutral',
+    borderColor: 'neutral',
+    color: 'neutralText',
     '&:active': {
-      backgroundColor: 'grey.3',
-    },
-    '&:hover': {
-      backgroundColor: 'grey.1',
+      backgroundColor: 'neutral.-2',
+      borderColor: 'neutral.-2',
+      color: 'neutralText.-2',
     },
     '&:focus': {
-      backgroundColor: 'grey.2',
+      backgroundColor: 'neutral.-3',
+      borderColor: 'neutral.-3',
+      color: 'neutralText.-3',
+    },
+    '&:hover': {
+      backgroundColor: 'neutral.-1',
+      borderColor: 'neutral.-1',
+      color: 'neutralText.-1',
     },
   },
 });

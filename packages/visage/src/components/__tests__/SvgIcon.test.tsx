@@ -36,19 +36,8 @@ describe('SvgIcon', () => {
         vertical-align: middle;
       }
 
-      .emotion-0[data-stroked="true"] svg {
-        fill: transparent;
-        stroke: currentColor;
-      }
-
-      .emotion-0[data-stroked="false"] svg {
-        fill: currentColor;
-        stroke: transparent;
-      }
-
       <div
           class="emotion-0"
-          data-stroked="false"
         >
           <svg
             height="1em"
@@ -57,6 +46,7 @@ describe('SvgIcon', () => {
           >
             <path
               d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              fill="currentColor"
             />
             <path
               d="M0 0h24v24H0z"
@@ -99,19 +89,8 @@ describe('SvgIcon', () => {
         vertical-align: middle;
       }
 
-      .emotion-0[data-stroked="true"] svg {
-        fill: transparent;
-        stroke: currentColor;
-      }
-
-      .emotion-0[data-stroked="false"] svg {
-        fill: currentColor;
-        stroke: transparent;
-      }
-
       <div
           class="emotion-0"
-          data-stroked="false"
         >
           <svg
             height="1em"
@@ -120,6 +99,7 @@ describe('SvgIcon', () => {
           >
             <path
               d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              fill="currentColor"
             />
             <path
               d="M0 0h24v24H0z"
@@ -149,8 +129,8 @@ describe('SvgIcon', () => {
         display: -webkit-inline-flex;
         display: -ms-inline-flexbox;
         display: inline-flex;
-        font-size: inherit;
-        line-height: inherit;
+        font-size: 48px;
+        line-height: 48px;
       }
 
       .emotion-0::before {
@@ -162,29 +142,8 @@ describe('SvgIcon', () => {
         vertical-align: middle;
       }
 
-      .emotion-0[data-stroked="true"] {
-        font-size: 48px;
-        line-height: 48px;
-      }
-
-      .emotion-0[data-stroked="true"] svg {
-        fill: transparent;
-        stroke: currentColor;
-      }
-
-      .emotion-0[data-stroked="false"] {
-        font-size: 48px;
-        line-height: 48px;
-      }
-
-      .emotion-0[data-stroked="false"] svg {
-        fill: currentColor;
-        stroke: transparent;
-      }
-
       <div
           class="emotion-0"
-          data-stroked="false"
         >
           <svg
             height="1em"
@@ -193,6 +152,7 @@ describe('SvgIcon', () => {
           >
             <path
               d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+              fill="currentColor"
             />
             <path
               d="M0 0h24v24H0z"

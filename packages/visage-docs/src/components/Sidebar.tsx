@@ -65,6 +65,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/banner">
+                  Banner
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/box">Box</ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -80,6 +85,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/chip">
                   Chip
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/close-button">
+                  CloseButton
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
