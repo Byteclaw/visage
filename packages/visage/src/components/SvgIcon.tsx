@@ -1,46 +1,29 @@
 import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import React, { cloneElement, ReactElement, FunctionComponent } from 'react';
-import { createComponent, createBooleanVariant } from '../core';
+import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
-const SvgIconBase = createBooleanVariant('stroked', {
-  onStyles: {
+const SvgIconBase = createComponent('div', {
+  displayName: 'SvgIconBase',
+  defaultStyles: {
+    alignItems: 'center',
+    display: 'inline-flex',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    '&::before': {
+      // respect line height
+      content: '"\\200b"',
+    },
     '& svg': {
-      fill: 'transparent',
-      stroke: 'currentColor',
+      height: '1em',
+      verticalAlign: 'middle',
     },
   },
-  offStyles: {
-    '& svg': {
-      fill: 'currentColor',
-      stroke: 'transparent',
-    },
-  },
-  stripProp: true,
-})(
-  createComponent('div', {
-    displayName: 'SvgIconBase',
-    defaultStyles: {
-      alignItems: 'center',
-      display: 'inline-flex',
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-      '&::before': {
-        // respect line height
-        content: '"\\200b"',
-      },
-      '& svg': {
-        height: '1em',
-        verticalAlign: 'middle',
-      },
-    },
-  }),
-);
+});
 
 export const SvgIcon: VisageComponent<
   {
     icon: ReactElement | FunctionComponent<any>;
-    stroked?: boolean;
     iconProps?: JSX.IntrinsicElements['svg'];
   },
   StyleProps
