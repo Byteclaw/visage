@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { createComponent } from '../core';
 import { CloseIcon } from '../assets';
 import { SvgIcon } from './SvgIcon';
@@ -28,8 +28,8 @@ const Button = createComponent('button', {
   },
 });
 
-export const CloseButton: typeof Button = (props: any) => (
-  <Button type="button" {...props}>
+export const CloseButton: typeof Button = forwardRef((props: any, ref) => (
+  <Button ref={ref} type="button" {...props}>
     <SvgIcon aria-hidden focusable={false} icon={CloseIcon} />
   </Button>
-);
+)) as any;
