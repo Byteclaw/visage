@@ -1,0 +1,51 @@
+# Banner
+
+## Examples
+
+### Default banner
+
+```jsx live=true
+<Banner onDismiss={() => {}} title="Default banner">
+  <Text>Banner text</Text>
+</Banner>
+```
+
+### Flat banner
+
+```jsx live=true
+<Banner flat onDismiss={() => {}} title="Default flat banner">
+  <Text>Banner text</Text>
+</Banner>
+```
+
+### Not dismissable Banner
+
+Just omit the usage of `onDismiss` prop.
+
+```jsx live=true
+<Banner title="Default flat banner">
+  <Text>Banner text</Text>
+</Banner>
+```
+
+### Variants
+
+```jsx live=true
+<Fragment>
+  <Banner onDismiss={() => {}} title="Default banner">
+    <Text>Banner text</Text>
+  </Banner>
+  <Banner onDismiss={() => {}} status="info" title="Info banner">
+    <Text>Banner text</Text>
+  </Banner>
+  <Banner onDismiss={() => {}} status="success" title="Success banner">
+    <Text>Banner text</Text>
+  </Banner>
+  <Banner onDismiss={() => {}} status="warning" title="Warning banner">
+    <Text>Banner text</Text>
+  </Banner>
+  <Banner onDismiss={() => {}} status="critical" title="Critical banner">
+    <Text>Banner text</Text>
+  </Banner>
+</Fragment>
+```
