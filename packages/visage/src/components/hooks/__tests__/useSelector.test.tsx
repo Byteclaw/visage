@@ -13,9 +13,15 @@ describe('useSelector', () => {
     let [state, dispatch] = result.current;
 
     // set as busy
-    act(() => dispatch({ type: 'SetBusy', isBusy: true }));
+    act(() => dispatch({ type: 'SetBusy', isBusy: true, forInputValue: null }));
     // set some test options
-    act(() => dispatch({ type: 'SetOptions', options: ['a', 'b'] }));
+    act(() =>
+      dispatch({
+        type: 'SetOptions',
+        options: ['a', 'b'],
+        forInputValue: null,
+      }),
+    );
 
     [state, dispatch] = result.current;
 

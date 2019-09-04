@@ -93,16 +93,23 @@ export function AutocompleteInput<TValue extends any = string>({
       // open menu
       dispatch({ type: 'MenuOpen' });
       // load options sets the input as busy
-      dispatch({ type: 'SetBusy', isBusy: true });
+      dispatch({ type: 'SetBusy', isBusy: true, forInputValue: inputValue });
 
       // and then on resolution sets options and not busy
       options(inputValue)
         .then(newOptions =>
-          dispatch({ type: 'SetOptions', options: newOptions }),
+          dispatch({
+            type: 'SetOptions',
+            options: newOptions,
+            forInputValue: inputValue,
+          }),
         )
         .finally(() => {
-          dispatch({ type: 'SetBusy', isBusy: false });
-
+          dispatch({
+            type: 'SetBusy',
+            isBusy: false,
+            forInputValue: inputValue,
+          });
           // automatic mode
           if (selectOnBlur) {
             if (lastArrowPressed.current === 'ArrowUp') {
