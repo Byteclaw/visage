@@ -110,6 +110,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/forms/form-field">
+                  FormField
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/forms/inline-error">
                   InlineError
                 </ListItemRouteLink>

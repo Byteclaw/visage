@@ -11,6 +11,7 @@ export * from './Drawer';
 export * from './FileInput';
 export * from './Fixed';
 export * from './Flex';
+export * from './FormField';
 export * from './Grid';
 export * from './Header';
 export * from './Heading';
