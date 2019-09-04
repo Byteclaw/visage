@@ -8,6 +8,7 @@ export * from './CloseButton';
 export * from './Dialog';
 export * from './Divider';
 export * from './Drawer';
+export * from './FieldSet';
 export * from './FileInput';
 export * from './Fixed';
 export * from './Flex';
