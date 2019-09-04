@@ -106,7 +106,7 @@ export const TextArea: VisageComponent<
     }
 
     useLayoutEffect(() => {
-      if (shadowRef.current && textAreaRef.current) {
+      if (autoResize && shadowRef.current && textAreaRef.current) {
         shadowRef.current.style.lineHeight =
           textAreaRef.current.style.lineHeight;
         shadowRef.current.style.fontSize = textAreaRef.current.style.fontSize;
