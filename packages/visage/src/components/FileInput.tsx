@@ -68,6 +68,9 @@ const FileInputControl = disabledControl(
         textOverflow: 'ellipsis',
         width: '100%',
         whiteSpace: 'nowrap',
+        '&:not([data-readonly="true"])': {
+          cursor: 'pointer',
+        },
       },
     }),
   ),
@@ -212,6 +215,7 @@ export function FileInput({
       <FileInputControl
         {...controlProps}
         data-draggedover={dragging}
+        data-readonly={readOnly}
         disabled={disabled}
         invalid={invalid}
         onClick={onClick}
