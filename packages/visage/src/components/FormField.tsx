@@ -45,7 +45,7 @@ export const FormField: FormFieldComponent = function FormField({
   ...restProps
 }: FormFieldProps & { control?: any }) {
   return (
-    <Box>
+    <Box styles={{ my: 1 }}>
       {label ? (
         <Label htmlFor={id} required={required} hidden={hiddenLabel}>
           {label}

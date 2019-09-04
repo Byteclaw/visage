@@ -105,6 +105,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/forms/field-set">
+                  FieldSet
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/forms/file-input">
                   FileInput
                 </ListItemRouteLink>

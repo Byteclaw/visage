@@ -1,0 +1,31 @@
+# FieldSet
+
+## Examples
+
+### Default
+
+```jsx live=true
+<FieldSet title="Company">
+  <FormField id="company-name" label="Company name" required />
+  <FormField
+    control={FileInput}
+    id="company-logo"
+    label="Company logo"
+    required
+  />
+</FieldSet>
+```
+
+### Flat
+
+```jsx live=true
+<FieldSet flat title="Company">
+  <FormField id="company-name-flat" label="Company name" required />
+  <FormField
+    control={FileInput}
+    id="company-logo-flat"
+    label="Company logo"
+    required
+  />
+</FieldSet>
+```
