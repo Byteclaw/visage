@@ -7,13 +7,13 @@ export type SelectorAction<TValue extends any> =
   | { type: 'MenuOpen' }
   | { type: 'MenuClose' }
   | { type: 'MenuToggle' }
-  | { type: 'SetBusy'; isBusy: boolean }
+  | { type: 'SetBusy'; isBusy: boolean; forInputValue: string | null }
   | { type: 'SetCurrentFocusedOption' }
   | { type: 'SetOptionFocusByOffset'; offset: number }
   | { type: 'SetOptionFocusByIndex'; index: number }
   | { type: 'SetOptionFocusToFirstOption' }
   | { type: 'SetOptionFocusToLastOption' }
-  | { type: 'SetOptions'; options: TValue[] }
+  | { type: 'SetOptions'; options: TValue[]; forInputValue: string | null }
   | { type: 'Reset' }
   | { type: 'SetValue'; value: TValue | null }
   | { type: 'SetValueByIndex'; index: number };
@@ -70,7 +70,7 @@ function selectorReducer(
   };
 
   // change events to interactive and non interactive and use them accordingly to busy state
-  if (!state.isBusy) {
+  /* if (!state.isBusy) {
     // if selector is busy, it ignores all changes until it's not busy
     switch (action.type) {
       case 'InputChange': {
@@ -80,54 +80,61 @@ function selectorReducer(
         };
         break;
       }
-    }
+    } */
 
-    // following are possible only if menu is open
-    if (state.isOpen) {
-      switch (action.type) {
-        case 'SetOptionFocusByIndex': {
-          const optionsSize = state.options.length;
+  // following are possible only if menu is open
+  if (state.isOpen) {
+    switch (action.type) {
+      case 'SetOptionFocusByIndex': {
+        const optionsSize = state.options.length;
 
-          if (
-            optionsSize > 0 &&
-            action.index < optionsSize &&
-            action.index >= 0
-          ) {
-            changes = { ...changes, focusedIndex: action.index };
-          }
-          break;
+        if (
+          optionsSize > 0 &&
+          action.index < optionsSize &&
+          action.index >= 0
+        ) {
+          changes = { ...changes, focusedIndex: action.index };
         }
-        case 'SetOptionFocusByOffset': {
-          const lastIndex = state.options.length - 1;
+        break;
+      }
+      case 'SetOptionFocusByOffset': {
+        const lastIndex = state.options.length - 1;
 
-          changes = {
-            ...changes,
-            focusedIndex: getNextIndexFromCycle(
-              state.focusedIndex,
-              action.offset,
-              lastIndex,
-            ),
-          };
+        changes = {
+          ...changes,
+          focusedIndex: getNextIndexFromCycle(
+            state.focusedIndex,
+            action.offset,
+            lastIndex,
+          ),
+        };
 
-          break;
+        break;
+      }
+      case 'SetOptionFocusToFirstOption': {
+        if (state.options.length > 0) {
+          changes = { ...changes, focusedIndex: 0 };
         }
-        case 'SetOptionFocusToFirstOption': {
-          if (state.options.length > 0) {
-            changes = { ...changes, focusedIndex: 0 };
-          }
-          break;
+        break;
+      }
+      case 'SetOptionFocusToLastOption': {
+        if (state.options.length > 0) {
+          changes = { ...changes, focusedIndex: state.options.length - 1 };
         }
-        case 'SetOptionFocusToLastOption': {
-          if (state.options.length > 0) {
-            changes = { ...changes, focusedIndex: state.options.length - 1 };
-          }
-          break;
-        }
+        break;
       }
     }
   }
+  /* } */
 
   switch (action.type) {
+    case 'InputChange': {
+      changes = {
+        ...changes,
+        inputValue: action.value,
+      };
+      break;
+    }
     case 'MenuToggle':
     case 'MenuClose':
     case 'MenuOpen': {
@@ -156,11 +163,19 @@ function selectorReducer(
       break;
     }
     case 'SetBusy': {
-      changes = { ...changes, isBusy: action.isBusy };
+      // turn off busy state only if input matches
+      if (action.isBusy || action.forInputValue === state.inputValue) {
+        changes = { ...changes, isBusy: action.isBusy };
+      }
+
       break;
     }
     case 'SetOptions': {
-      changes = { ...changes, focusedIndex: -1, options: action.options };
+      // set options only if input value matches
+      if (action.forInputValue === state.inputValue) {
+        changes = { ...changes, focusedIndex: -1, options: action.options };
+      }
+
       break;
     }
     case 'SetCurrentFocusedOption': {
