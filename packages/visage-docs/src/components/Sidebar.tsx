@@ -105,7 +105,7 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/file-input">
+                <ListItemRouteLink to="/components/forms/file-input">
                   FileInput
                 </ListItemRouteLink>
               </ListItem>
