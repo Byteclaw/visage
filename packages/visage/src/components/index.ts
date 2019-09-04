@@ -16,6 +16,7 @@ export * from './FormField';
 export * from './Grid';
 export * from './Header';
 export * from './Heading';
+export * from './Image';
 export * from './InlineError';
 export * from './Label';
 export * from './LayerManager';

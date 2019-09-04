@@ -1,0 +1,42 @@
+# Image
+
+Image component can be set up to respect aspect ratio.
+
+Default aspect ratio is `1/1`.
+
+## Examples
+
+### Without aspect ratio specified (default size)
+
+```jsx live=true
+<Fragment>
+  <Box styles={{ width: 300 }}>
+    <Image src="https://via.placeholder.com/150" />
+    <Image src="https://via.placeholder.com/150x85" />
+  </Box>
+</Fragment>
+```
+
+### Without aspect ratio specified, with specified sizes
+
+```jsx live=true
+<Fragment>
+  <Image src="https://via.placeholder.com/150" width={150} />
+  <Image src="https://via.placeholder.com/150x85" height={85} width={150} />
+</Fragment>
+```
+
+### With aspect ratio (default size)
+
+To specify aspect ratio use `aspectRatio` property e.g. `aspectRatio={16/9}`.
+
+```jsx live=true
+<Fragment>
+  <Box styles={{ width: 150 }}>
+    <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150" />
+    <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150x85" />
+    <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150" />
+    <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150x85" />
+  </Box>
+</Fragment>
+```
