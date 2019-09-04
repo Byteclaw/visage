@@ -1,4 +1,5 @@
 export * from './CodeBlock';
+export * from './CollapsibleNavigationSection';
 export * from './Examples';
 export * from './GridDebugTogglerButton';
 export * from './Layout';

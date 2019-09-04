@@ -1,0 +1,23 @@
+# Flex
+
+Flex component is universal block component that can be customed to do anything you want. It is a `div` with `display: flex` by default.
+
+## Examples
+
+### Default Flex
+
+```jsx live=true
+<Flex>
+  <Box styles={{ background: 'black', height: 50, width: '100%' }}></Box>
+  <Box styles={{ background: 'white', height: 50, width: '100%' }}></Box>
+</Flex>
+```
+
+### Customized Flex
+
+```jsx live=true
+<Flex styles={{ background: 'pink', p: 2, flexWrap: 'wrap' }}>
+  <Box styles={{ background: 'black', height: 50, width: '100%' }}></Box>
+  <Box styles={{ background: 'white', height: 50, width: '100%' }}></Box>
+</Flex>
+```

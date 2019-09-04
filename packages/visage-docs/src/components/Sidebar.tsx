@@ -1,12 +1,7 @@
-import {
-  CollapsibleList,
-  Divider,
-  List,
-  ListItem,
-  ListItemLink,
-} from '@byteclaw/visage';
+import { Divider, List, ListItem, ListItemLink } from '@byteclaw/visage';
 import { Link, Match } from '@reach/router';
 import React, { ReactNode } from 'react';
+import { CollapsibleNavigationSection } from './CollapsibleNavigationSection';
 
 interface ListItemRouteLink {
   children: ReactNode;
@@ -38,63 +33,75 @@ export function Sidebar() {
       <ListItem>
         <ListItemRouteLink to="/typography">Typography</ListItemRouteLink>
       </ListItem>
-      <ListItem styles={{ p: 0 }}>
-        <Match path="/components/*">
-          {({ match }) => (
-            <CollapsibleList
-              collapsed={match == null}
-              renderToggler={(collapsed, onClick, onKeyDown) => (
-                <ListItemLink
-                  active={!collapsed}
-                  onClick={onClick}
-                  onKeyDown={onKeyDown}
-                  tabIndex={0}
-                >
-                  Components
-                </ListItemLink>
-              )}
+      <ListItem>
+        <CollapsibleNavigationSection path="/components/*" title="Components">
+          <ListItem>
+            <ListItemRouteLink to="/components/overview">
+              Overview
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/actions/*"
+              title="Actions"
             >
               <ListItem>
-                <ListItemRouteLink to="/components/overview">
-                  Overview
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/autocomplete-input">
-                  AutocompleteInput
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/banner">
-                  Banner
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/box">Box</ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/button">
-                  Button
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/checkbox">
-                  Checkbox
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/chip">
-                  Chip
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/close-button">
+                <ListItemRouteLink to="/components/actions/close-button">
                   CloseButton
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/divider">
-                  Divider
+                <ListItemRouteLink to="/components/actions/button">
+                  Button
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/actions/menu">
+                  Menu
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/feedback/*"
+              title="Feedback"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/banner">
+                  Banner
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/loading">
+                  Loading
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/spinner">
+                  Spinner
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/forms/*"
+              title="Forms"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/forms/autocomplete-input">
+                  AutocompleteInput
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/forms/checkbox">
+                  Checkbox
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/forms/chip">
+                  Chip
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -103,134 +110,177 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/heading">
-                  Heading
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/heading-skeleton">
-                  HeadingSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/inline-error">
+                <ListItemRouteLink to="/components/forms/inline-error">
                   InlineError
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/label">
+                <ListItemRouteLink to="/components/forms/label">
                   Label
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/list">
-                  List
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/loading">
-                  Loading
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/menu">
-                  Menu
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/modal">
-                  Modal
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/paragraph">
-                  Paragraph
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/paragraph-skeleton">
-                  ParagraphSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/popover">
-                  Popover
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/radio">
+                <ListItemRouteLink to="/components/forms/radio">
                   Radio
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/select">
+                <ListItemRouteLink to="/components/forms/select">
                   Select
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/skeleton-sentence">
-                  SkeletonSentence
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/spinner">
-                  Spinner
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/svg-icon">
-                  SvgIcon
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/tabs">
-                  Tabs
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/text">
-                  Text
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/text-skeleton">
-                  TextSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/textarea">
+                <ListItemRouteLink to="/components/forms/textarea">
                   TextArea
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/text-input">
+                <ListItemRouteLink to="/components/forms/text-input">
                   TextInput
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/toggle">
+                <ListItemRouteLink to="/components/forms/toggle">
                   Toggle
                 </ListItemRouteLink>
               </ListItem>
-            </CollapsibleList>
-          )}
-        </Match>
-      </ListItem>
-      <ListItem>
-        <Match path="/core/*">
-          {({ match }) => (
-            <CollapsibleList
-              collapsed={match == null}
-              toggler={<ListItemLink tabIndex={0}>Core</ListItemLink>}
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/images-icons/*"
+              title="Images and icons"
             >
               <ListItem>
-                <ListItemRouteLink to="/core/is-breakpoint">
+                <ListItemRouteLink to="/components/images-icons/svg-icon">
+                  SvgIcon
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/layout/*"
+              title="Layout"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/box">
+                  Box
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/flex">
+                  Flex
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/misc/*"
+              title="Misc"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/misc/divider">
+                  Divider
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/navigation/*"
+              title="Navigation"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/navigation/list">
+                  List
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/navigation/tabs">
+                  Tabs
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/overlays/*"
+              title="Overlays"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/overlays/dialog">
+                  Dialog
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/overlays/modal">
+                  Modal
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/overlays/popover">
+                  Popover
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/responsive-utils/*"
+              title="Responsive utilities"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/responsive-utils/is-breakpoint">
                   IsBreakpoint
                 </ListItemRouteLink>
               </ListItem>
-            </CollapsibleList>
-          )}
-        </Match>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              path="/components/typography/*"
+              title="Typography"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/heading">
+                  Heading
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/heading-skeleton">
+                  HeadingSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/paragraph">
+                  Paragraph
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/paragraph-skeleton">
+                  ParagraphSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/skeleton-sentence">
+                  SkeletonSentence
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/text">
+                  Text
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/typography/text-skeleton">
+                  TextSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+        </CollapsibleNavigationSection>
       </ListItem>
       <ListItem>
         <ListItemRouteLink to="/utilities">Utilities</ListItemRouteLink>
