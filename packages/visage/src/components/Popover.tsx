@@ -1,10 +1,19 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, RefObject, KeyboardEvent, MouseEvent } from 'react';
 import { createComponent, createBooleanVariant } from '../core';
-import { getOffsetTop, getOffsetLeft, getTransformOriginValue } from './shared';
+import {
+  ElementRect,
+  getOffsetTop,
+  getOffsetLeft,
+  getTransformOriginValue,
+  TransformOriginSettings,
+  TransformVerticalPosition,
+} from './shared';
 import { Modal } from './Modal';
 
-function getAnchorNode(anchor: any) {
-  return typeof anchor === 'function' ? anchor() : anchor;
+function getAnchorNode(
+  anchor: HTMLElement | RefObject<HTMLElement>,
+): HTMLElement | null {
+  return anchor instanceof Element ? anchor : anchor.current;
 }
 
 const openPopoverVariant = createBooleanVariant('open', {
@@ -36,18 +45,23 @@ export const BasePopover = openPopoverVariant(
 
 export type PopoverProps = {
   allowScrolling?: boolean;
-  anchor: any;
-  anchorOrigin: any;
+  anchor?: null | HTMLElement | RefObject<HTMLElement>;
+  anchorOrigin?: TransformOriginSettings;
+  anchorPosition?: { top: number; left: number };
+  anchorReference?: 'anchor' | 'anchorPosition' | 'none';
   autoFocus?: boolean;
   backdrop?: boolean;
   children: ReactNode;
+  keepAnchorWidth?: boolean;
+  marginThreshold?: number;
+  onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
-  anchorReference?: any;
-  marginThreshold?: any;
-  transformOrigin?: any;
-  anchorPosition?: any;
-  getContentAnchorEl?: any;
-  onClose?: any;
+  transformOrigin?: TransformOriginSettings;
+};
+
+const defaultOrigin: TransformOriginSettings = {
+  horizontal: 'left',
+  vertical: 'top',
 };
 
 export function Popover({
@@ -55,35 +69,40 @@ export function Popover({
   autoFocus = true,
   children,
   anchor,
+  anchorOrigin = defaultOrigin,
   anchorPosition,
-  anchorOrigin = {
-    vertical: 'top',
-    horizontal: 'left',
-  },
-  backdrop = true,
-  transformOrigin = {
-    vertical: 'top',
-    horizontal: 'left',
-  },
   anchorReference = 'anchor',
+  backdrop = true,
+  keepAnchorWidth = false,
   marginThreshold = 16,
   open = true,
+  transformOrigin = defaultOrigin,
   onClose = () => {},
 }: PopoverProps) {
-  const contentRef = React.useRef<HTMLDivElement>();
+  const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
 
   const getAnchorOffset = React.useCallback(
-    contentAnchorOffset => {
+    (
+      contentAnchorOffset: number,
+    ): {
+      top: number;
+      left: number;
+      width?: number;
+    } => {
       if (anchorReference === 'anchorPosition') {
-        return anchorPosition;
+        return anchorPosition!;
+      }
+
+      if (anchor == null) {
+        throw new Error('Anchor must be defined');
       }
 
       const resolvedAnchorEl = getAnchorNode(anchor);
       const anchorElement =
         resolvedAnchorEl instanceof Element ? resolvedAnchorEl : document.body;
       const anchorRect = anchorElement.getBoundingClientRect();
-      const anchorVertical =
+      const anchorVertical: TransformVerticalPosition =
         contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
 
       return {
@@ -93,6 +112,7 @@ export function Popover({
           getOffsetTop(anchorRect, anchorVertical),
         left:
           anchorRect.left + getOffsetLeft(anchorRect, anchorOrigin.horizontal),
+        width: anchorRect.width,
       };
     },
     [
@@ -105,7 +125,10 @@ export function Popover({
   );
 
   const getTransformOrigin = React.useCallback(
-    (elemRect, contentAnchorOffset = 0) => {
+    (
+      elemRect: ElementRect,
+      contentAnchorOffset: number = 0,
+    ): { vertical: number; horizontal: number } => {
       return {
         vertical:
           getOffsetTop(elemRect, transformOrigin.vertical) +
@@ -117,7 +140,14 @@ export function Popover({
   );
 
   const getPositioningStyle = React.useCallback(
-    element => {
+    (
+      element: HTMLElement,
+    ): {
+      left: null | string;
+      top: null | string;
+      transformOrigin: string;
+      width?: string;
+    } => {
       const contentAnchorOffset = 0;
       const elemRect = {
         width: element.offsetWidth,
@@ -131,8 +161,8 @@ export function Popover({
 
       if (anchorReference === 'none') {
         return {
-          top: null,
           left: null,
+          top: null,
           transformOrigin: getTransformOriginValue(elemTransformOrigin),
         };
       }
@@ -141,6 +171,7 @@ export function Popover({
 
       const top = anchorOffset.top - elemTransformOrigin.vertical;
       const left = anchorOffset.left - elemTransformOrigin.horizontal;
+      const width = anchorOffset.width ? `${anchorOffset.width}px` : undefined;
       // const bottom = top + elemRect.height;
       // const right = left + elemRect.width;
 
@@ -185,6 +216,7 @@ export function Popover({
         top: `${top}px`,
         left: `${left}px`,
         transformOrigin: getTransformOriginValue(elemTransformOrigin),
+        width,
       };
     },
     [
@@ -195,10 +227,6 @@ export function Popover({
       marginThreshold,
     ],
   );
-
-  const getContentRef = React.useCallback(instance => {
-    contentRef.current = instance;
-  }, []);
 
   /**
   const onDocumentFocus: EventListener = React.useCallback(e => {
@@ -223,8 +251,13 @@ export function Popover({
   */
 
   const setPositioningStyles = React.useCallback(
-    element => {
+    (element: HTMLElement) => {
       const positioning = getPositioningStyle(element);
+
+      if (keepAnchorWidth && positioning.width) {
+        // eslint-disable-next-line no-param-reassign
+        element.style.width = positioning.width;
+      }
 
       if (positioning.top !== null) {
         // eslint-disable-next-line no-param-reassign
@@ -237,17 +270,20 @@ export function Popover({
       // eslint-disable-next-line no-param-reassign
       element.style.transformOrigin = positioning.transformOrigin;
       // eslint-disable-next-line no-param-reassign
-      element.style.opacity = 1;
+      element.style.opacity = '1';
       // eslint-disable-next-line no-param-reassign
       element.style.visibility = 'visible';
     },
-    [getPositioningStyle],
+    [getPositioningStyle, keepAnchorWidth],
   );
 
   React.useEffect(() => {
-    if (open) {
-      setPositioningStyles(contentRef.current);
-      handleResizeRef.current = () => setPositioningStyles(contentRef.current);
+    if (open && contentRef.current) {
+      const el = contentRef.current;
+
+      setPositioningStyles(el);
+
+      handleResizeRef.current = () => setPositioningStyles(el);
       window.addEventListener('resize', handleResizeRef.current);
     }
     return () => {
@@ -272,7 +308,7 @@ export function Popover({
       onClose={onClose}
       open={open}
     >
-      <BasePopover tabIndex={-1} open={open} ref={getContentRef}>
+      <BasePopover tabIndex={-1} open={open} ref={contentRef}>
         {children}
       </BasePopover>
     </Modal>

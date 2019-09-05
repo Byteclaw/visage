@@ -352,9 +352,9 @@ export function Select<TValue extends any = string>({
         {...inputEventHandlers}
       />
       <Menu
-        anchor={inputContainerRef.current}
-        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        anchor={inputContainerRef}
         disableEvents
+        keepAnchorWidth
         id={listboxId(id)}
         open={state.isOpen}
         role="listbox"
