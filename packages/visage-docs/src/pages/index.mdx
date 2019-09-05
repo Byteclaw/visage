@@ -1,12 +1,31 @@
-import { Text } from '../../../visage/src';
-
 # Visage
+
+## Installation
 
 ```sh transpile=false
 npm install @byteclaw/visage
 # or
 yarn add @byteclaw/visage
 ```
+
+## Usage
+
+In order to use Visage in your application, make sure you wrap your application to `<DesignSystem />` or `<ResponsiveDesignSystem />` and provide `theme`.
+
+### Non Responsive
+
+```jsx transpile=false
+import { createNPointTheme, DesignSystem, Text } from '@byteclaw/visage';
+
+const theme = createNPointTheme(/* see below on how to set up theme */);
+
+// responsive design system
+<DesignSystem theme={theme}>
+  <Text>Hello world!</Text>
+</DesignSystem>;
+```
+
+### Responsive
 
 ```jsx transpile=false
 import {
@@ -15,15 +34,323 @@ import {
   Text,
 } from '@byteclaw/visage';
 
-const theme = createNPointTheme();
+const theme = createNPointTheme(/* see below on how to set up theme */);
 
+// responsive design system
 <ResponsiveDesignSystem theme={theme}>
   <Text>Hello world!</Text>
-</ResponseDesignSystem>
+</ResponsiveDesignSystem>;
 ```
 
-```jsx live expanded
-<Text styles={{ color: 'tomato' }}>
-  Try changing the text color to something else
-</Text>
+## N Point Theme
+
+`createNPointTheme` is [N pixel based grid system](https://spec.fm/specifics/8-pt-grid) with [Modular scale](https://www.modularscale.com/) used for typography.
+
+### Grid
+
+The grid is defined by [N pixel based grid system](https://spec.fm/specifics/8-pt-grid).
+
+The size of the grid is specified by `baselineGridSize: number`. This value is then used to calculate spacings.
+
+### Typography
+
+Typography is using [Modular scale](https://www.modularscale.com/).
+
+To set up the typography use:
+
+```ts transpile=false
+{
+  /**
+   * Base font size can be specified as responsive if you use ScaleValue
+   */
+  baseFontSize: number | ScaleValue<number>;
+  baseLineHeightRatio: number;
+  fontScaleRatio: number;
+  fontFamilies: {
+    body: string;
+    heading: string;
+    [custom: string]: string;
+  }
+}
+```
+
+**Make sure you set up the custom font families in your document, visage is not responsible for importing custom fonts.**
+
+### Color palette
+
+In theme every color in a palette accepts `string` or `scale`.
+
+#### Scale
+
+Scale is an object that have `{ values: string[], offset: number }`.
+
+Offset is used to calculate a shade of a color.
+
+```jsx transpile=false
+createNPointTheme({
+  colors: {
+    body: 'black', // string color
+    neutral: { // scale color
+      values: [
+        'rgb(249, 249, 249)', // neutral.-5
+        'rgb(244, 244, 244)',
+        'rgb(238, 238, 238)',
+        'rgb(232, 232, 232)', // neutral.-2
+        'rgb(227, 227, 227)', // neutral.-1
+        '#DDDDDD',
+        'rgb(184, 184, 184)', // neutral.1
+        'rgb(147, 147, 147)', // neutral.2
+        'rgb(111, 111, 111)',
+        'rgb(74, 74, 74)',
+        'rgb(37, 37, 37)', // neutral.5
+      ],
+      offset: 5,
+    },
+  }
+});
+
+// neutral shade is a shade of the color at index defined by offset in the scale.
+<Box styles={{ color: 'neutral' }}></Box>
+// is same as
+<Box styles={{ color: 'neutral.0' }}></Box>
+// is same as
+<Box styles={{ color: '#DDDDDD' }}></Box>
+
+// to get lighter shade use negative step
+<Box styles={{ color: 'neutral.-1' }}></Box>
+// is same as
+<Box styles={{ color: 'rgb(227, 227, 227)' }}></Box>
+
+// to get darker shade use positive step
+<Box styles={{ color: 'neutral.1' }}></Box>
+// is same as
+<Box styles={{ color: 'rgb(184, 184, 184)' }}></Box>
+
+```
+
+#### Example
+
+```jsx transpile=false
+createNPointTheme({
+  baseFontSize: 16,
+  baseLineHeightRatio: 1.6,
+  baselineGridSize: 8,
+  fontScaleRatio: 1.333,
+  colors: {
+    bodyText: 'black',
+    dangerBodyText: 'red',
+    danger: {
+      values: [
+        'rgb(255, 213, 213)',
+        'rgb(255, 170, 170)',
+        'rgb(255, 128, 128)',
+        'rgb(255, 85, 85)',
+        'rgb(255, 43, 43)',
+        '#FF0000',
+        'rgb(213, 0, 0)',
+        'rgb(170, 0, 0)',
+        'rgb(128, 0, 0)',
+        'rgb(85, 0, 0)',
+        'rgb(43, 0, 0)',
+      ],
+      offset: 5,
+    },
+    dangerText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    info: {
+      values: [
+        'rgb(213, 238, 255)',
+        'rgb(170, 221, 255)',
+        'rgb(128, 204, 255)',
+        'rgb(85, 187, 255)',
+        'rgb(43, 170, 255)',
+        '#0099FF',
+        'rgb(0, 128, 213)',
+        'rgb(0, 102, 170)',
+        'rgb(0, 77, 128)',
+        'rgb(0, 51, 85)',
+        'rgb(0, 26, 43)',
+      ],
+      offset: 5,
+    },
+    infoText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    neutral: {
+      values: [
+        'rgb(249, 249, 249)',
+        'rgb(244, 244, 244)',
+        'rgb(238, 238, 238)',
+        'rgb(232, 232, 232)',
+        'rgb(227, 227, 227)',
+        '#DDDDDD',
+        'rgb(184, 184, 184)',
+        'rgb(147, 147, 147)',
+        'rgb(111, 111, 111)',
+        'rgb(74, 74, 74)',
+        'rgb(37, 37, 37)',
+      ],
+      offset: 5,
+    },
+    neutralText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    primary: {
+      values: [
+        'rgb(219, 219, 219)',
+        'rgb(182, 182, 182)',
+        'rgb(146, 146, 146)',
+        'rgb(109, 109, 109)',
+        'rgb(73, 73, 73)',
+        'rgb(36, 36, 36)',
+        '#000000',
+      ],
+      offset: 6,
+    },
+    primaryText: {
+      values: ['black', 'black', 'black', 'white', 'white', 'white', 'white'],
+      offset: 6,
+    },
+    grey: {
+      values: [
+        'rgb(238, 238, 238)',
+        'rgb(221, 221, 221)',
+        'rgb(204, 204, 204)',
+        'rgb(187, 187, 187)',
+        'rgb(170, 170, 170)',
+        '#999999',
+        'rgb(128, 128, 128)',
+        'rgb(102, 102, 102)',
+        'rgb(77, 77, 77)',
+        'rgb(51, 51, 51)',
+        'rgb(26, 26, 26)',
+      ],
+      offset: 5,
+    },
+    greyText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    success: {
+      values: [
+        'rgb(238, 247, 221)',
+        'rgb(221, 238, 187)',
+        'rgb(204, 230, 153)',
+        'rgb(187, 221, 119)',
+        'rgb(170, 213, 85)',
+        '#99CC33',
+        'rgb(128, 170, 43)',
+        'rgb(102, 136, 34)',
+        'rgb(77, 102, 26)',
+        'rgb(51, 68, 17)',
+        'rgb(26, 34, 9)',
+      ],
+      offset: 5,
+    },
+    successText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    warning: {
+      values: [
+        'rgb(255, 247, 213)',
+        'rgb(255, 238, 170)',
+        'rgb(255, 230, 128)',
+        'rgb(255, 221, 85)',
+        'rgb(255, 213, 43)',
+        '#FFCC00',
+        'rgb(213, 170, 0)',
+        'rgb(170, 136, 0)',
+        'rgb(128, 102, 0)',
+        'rgb(85, 68, 0)',
+        'rgb(43, 34, 0)',
+      ],
+      offset: 5,
+    },
+    warningText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+  },
+  fontFamilies: {
+    body: 'Lato,serif',
+    heading: 'Raleway,sans-serif',
+  },
+});
 ```
