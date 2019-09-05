@@ -1,11 +1,19 @@
 export interface TransformOriginSettings {
-  horizontal: number | string;
-  vertical: number | string;
+  horizontal: TransformHorizontalPosition;
+  vertical: TransformVerticalPosition;
+}
+
+export type TransformHorizontalPosition = 'left' | 'center' | 'right' | number;
+export type TransformVerticalPosition = 'top' | 'center' | 'bottom' | number;
+
+export interface ElementRect {
+  height: number;
+  width: number;
 }
 
 export function getOffsetTop(
-  rect: ClientRect | DOMRect,
-  vertical: 'top' | 'center' | 'bottom' | number,
+  rect: ElementRect,
+  vertical: TransformVerticalPosition,
 ): number {
   let offset = 0;
 
@@ -21,8 +29,8 @@ export function getOffsetTop(
 }
 
 export function getOffsetLeft(
-  rect: ClientRect | DOMRect,
-  horizontal: 'left' | 'center' | 'right' | number,
+  rect: ElementRect,
+  horizontal: TransformHorizontalPosition,
 ): number {
   let offset = 0;
 
