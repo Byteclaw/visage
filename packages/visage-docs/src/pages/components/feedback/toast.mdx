@@ -1,6 +1,52 @@
 # Toast
 
+Toast can be controlled using `duration` and `onDismiss` prop.
+
+Toast will pause expiration on mouse over/focus.
+
+**⚠️ Make sure you always specify `onDismiss` so you can hide `<Toast />`**
+
 ## Examples
+
+### Default
+
+```jsx live=true
+<WithState>
+  {(show, setShow) => (
+    <Fragment>
+      <Button disabled={show} onClick={() => setShow(true)} type="button">
+        Show toast
+      </Button>
+      {show ? (
+        <Toast onDismiss={() => setShow(false)}>Default toast</Toast>
+      ) : null}
+    </Fragment>
+  )}
+</WithState>
+```
+
+### Custom duration
+
+Duration can be specified in `milliseconds`.
+
+```jsx live=true
+<WithState>
+  {(show, setShow) => (
+    <Fragment>
+      <Button disabled={show} onClick={() => setShow(true)} type="button">
+        Show toast
+      </Button>
+      {show ? (
+        <Toast duration={10000} onDismiss={() => setShow(false)}>
+          Custom toast
+        </Toast>
+      ) : null}
+    </Fragment>
+  )}
+</WithState>
+```
+
+### Variants
 
 ```jsx live=true
 <WithState defaultValue={[]}>
@@ -23,7 +69,6 @@
           if (show.includes(variant)) {
             return (
               <Toast
-                duration={5000}
                 key={variant}
                 onDismiss={() => setShow(show.filter(v => v !== variant))}
                 variant={variant}
@@ -36,7 +81,6 @@
           return null;
         },
       )}
-      <ToastManager></ToastManager>
     </Fragment>
   )}
 </WithState>
