@@ -317,10 +317,10 @@ export function AutocompleteInput<TValue extends any = string>({
         value={state.inputValue}
       />
       <Menu
-        anchor={inputContainerRef.current}
-        anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+        anchor={inputContainerRef}
         disableEvents
         id={listboxId(id)}
+        keepAnchorWidth
         open={state.isOpen}
         role="listbox"
         tabIndex={-1}
