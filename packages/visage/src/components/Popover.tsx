@@ -22,9 +22,6 @@ export const BasePopover = openPopoverVariant(
   createComponent('div', {
     displayName: 'BasePopover',
     defaultStyles: {
-      borderColor: 'primary',
-      borderWidth: '1px',
-      borderStyle: 'solid',
       position: 'absolute',
       overflowY: 'auto',
       overflowX: 'hidden',
