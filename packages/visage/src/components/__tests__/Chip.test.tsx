@@ -14,6 +14,27 @@ describe('Chip', () => {
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
         .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
+        .emotion-0 {
         border: 1px;
         border-color: light-blue;
         border-style: solid;

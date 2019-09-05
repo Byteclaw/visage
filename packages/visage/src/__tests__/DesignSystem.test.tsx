@@ -49,6 +49,27 @@ describe('DesignSystem', () => {
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
         <a
           class="emotion-0"
           href="a"
@@ -118,6 +139,27 @@ describe('DesignSystem', () => {
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
         .emotion-0 {
         color: red;
       }
@@ -194,52 +236,73 @@ describe('DesignSystem', () => {
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
-                  <DocumentFragment>
-                    .emotion-0 {
-                    color: red;
-                    background-color: blue;
-                    font-size: 16px;
-                    line-height: 24px;
-                  }
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
 
-                  <div
-                      class="emotion-0"
-                    />
-                    .emotion-0 {
-                    color: light-blue;
-                    background-color: blue;
-                    font-size: 16px;
-                    line-height: 24px;
-                  }
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
+        .emotion-0 {
+        color: red;
+        background-color: blue;
+        font-size: 16px;
+        line-height: 24px;
+      }
 
-                  <div
-                      class="emotion-0"
-                    />
-                    .emotion-0 {
-                    color: blue;
-                    background-color: blue;
-                    font-size: 16px;
-                    line-height: 24px;
-                    margin: 8px;
-                    padding: 16px;
-                  }
+      <div
+          class="emotion-0"
+        />
+        .emotion-0 {
+        color: light-blue;
+        background-color: blue;
+        font-size: 16px;
+        line-height: 24px;
+      }
 
-                  <div
-                      class="emotion-0"
-                    />
-                    .emotion-0 {
-                    color: light-blue;
-                    background-color: blue;
-                    font-size: 16px;
-                    line-height: 24px;
-                    margin: 16px;
-                    padding: 24px;
-                  }
+      <div
+          class="emotion-0"
+        />
+        .emotion-0 {
+        color: blue;
+        background-color: blue;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 8px;
+        padding: 16px;
+      }
 
-                  <div
-                      class="emotion-0"
-                    />
-                  </DocumentFragment>
-            `);
+      <div
+          class="emotion-0"
+        />
+        .emotion-0 {
+        color: light-blue;
+        background-color: blue;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 16px;
+        padding: 24px;
+      }
+
+      <div
+          class="emotion-0"
+        />
+      </DocumentFragment>
+    `);
   });
 });

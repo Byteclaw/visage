@@ -47,21 +47,42 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                                                                                <DocumentFragment>
-                                                                                                                  .emotion-0 {
-                                                                                                                  color: blue;
-                                                                                                                }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                                                                                .emotion-0[data-variant="bold"] {
-                                                                                                                  font-weight: bold;
-                                                                                                                }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                                                                                <span
-                                                                                                                    class="emotion-0"
-                                                                                                                    data-variant="default"
-                                                                                                                  />
-                                                                                                                </DocumentFragment>
-                                                                                    `);
+        .emotion-0[data-variant="bold"] {
+          font-weight: bold;
+        }
+
+        <span
+            class="emotion-0"
+            data-variant="default"
+          />
+        </DocumentFragment>
+      `);
     });
 
     it('works correctly with override', () => {
@@ -78,21 +99,42 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                                                                        <DocumentFragment>
-                                                                                                          .emotion-0 {
-                                                                                                          color: blue;
-                                                                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                                                                        .emotion-0[data-variant="bold"] {
-                                                                                                          font-weight: bold;
-                                                                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                                                                        <p
-                                                                                                            class="emotion-0"
-                                                                                                            data-variant="default"
-                                                                                                          />
-                                                                                                        </DocumentFragment>
-                                                                              `);
+        .emotion-0[data-variant="bold"] {
+          font-weight: bold;
+        }
+
+        <p
+            class="emotion-0"
+            data-variant="default"
+          />
+        </DocumentFragment>
+      `);
     });
   });
 
@@ -111,21 +153,42 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                                        <DocumentFragment>
-                                                                          .emotion-0 {
-                                                                          color: blue;
-                                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                                        .emotion-0[data-disabled="true"] {
-                                                                          color: grey;
-                                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                                        <span
-                                                                            class="emotion-0"
-                                                                            data-disabled="false"
-                                                                          />
-                                                                        </DocumentFragment>
-                                                      `);
+        .emotion-0[data-disabled="true"] {
+          color: grey;
+        }
+
+        <span
+            class="emotion-0"
+            data-disabled="false"
+          />
+        </DocumentFragment>
+      `);
 
       rerender(
         <DesignSystem theme={theme}>
@@ -134,21 +197,42 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                                        <DocumentFragment>
-                                                                          .emotion-0 {
-                                                                          color: blue;
-                                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                                        .emotion-0[data-disabled="true"] {
-                                                                          color: grey;
-                                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                                        <span
-                                                                            class="emotion-0"
-                                                                            data-disabled="true"
-                                                                          />
-                                                                        </DocumentFragment>
-                                                      `);
+        .emotion-0[data-disabled="true"] {
+          color: grey;
+        }
+
+        <span
+            class="emotion-0"
+            data-disabled="true"
+          />
+        </DocumentFragment>
+      `);
 
       rerender(
         <DesignSystem theme={theme}>
@@ -157,21 +241,42 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                        <DocumentFragment>
-                                                          .emotion-0 {
-                                                          color: blue;
-                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                        .emotion-0[data-disabled="true"] {
-                                                          color: grey;
-                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                        <p
-                                                            class="emotion-0"
-                                                            data-disabled="true"
-                                                          />
-                                                        </DocumentFragment>
-                                          `);
+        .emotion-0[data-disabled="true"] {
+          color: grey;
+        }
+
+        <p
+            class="emotion-0"
+            data-disabled="true"
+          />
+        </DocumentFragment>
+      `);
     });
 
     it('works correctly (does not strip prop if stripProp is false)', () => {
@@ -189,21 +294,42 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                                        <DocumentFragment>
-                                                                          .emotion-0 {
-                                                                          color: blue;
-                                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                                        .emotion-0[data-disabled="true"] {
-                                                                          color: grey;
-                                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                                        <span
-                                                                            class="emotion-0"
-                                                                            data-disabled="false"
-                                                                          />
-                                                                        </DocumentFragment>
-                                                      `);
+        .emotion-0[data-disabled="true"] {
+          color: grey;
+        }
+
+        <span
+            class="emotion-0"
+            data-disabled="false"
+          />
+        </DocumentFragment>
+      `);
 
       rerender(
         <DesignSystem theme={theme}>
@@ -212,22 +338,43 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                                        <DocumentFragment>
-                                                                          .emotion-0 {
-                                                                          color: blue;
-                                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                                        .emotion-0[data-disabled="true"] {
-                                                                          color: grey;
-                                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                                        <span
-                                                                            class="emotion-0"
-                                                                            data-disabled="true"
-                                                                            disabled=""
-                                                                          />
-                                                                        </DocumentFragment>
-                                                      `);
+        .emotion-0[data-disabled="true"] {
+          color: grey;
+        }
+
+        <span
+            class="emotion-0"
+            data-disabled="true"
+            disabled=""
+          />
+        </DocumentFragment>
+      `);
 
       rerender(
         <DesignSystem theme={theme}>
@@ -236,22 +383,43 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                                        <DocumentFragment>
-                                                          .emotion-0 {
-                                                          color: blue;
-                                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                                        .emotion-0[data-disabled="true"] {
-                                                          color: grey;
-                                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: blue;
+        }
 
-                                                        <p
-                                                            class="emotion-0"
-                                                            data-disabled="true"
-                                                            disabled=""
-                                                          />
-                                                        </DocumentFragment>
-                                          `);
+        .emotion-0[data-disabled="true"] {
+          color: grey;
+        }
+
+        <p
+            class="emotion-0"
+            data-disabled="true"
+            disabled=""
+          />
+        </DocumentFragment>
+      `);
     });
   });
 
@@ -280,23 +448,44 @@ describe('core', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                        <DocumentFragment>
-                                          .emotion-0 {
-                                          color: pink;
-                                          margin: 8px;
-                                          padding: 8px;
-                                        }
+        <DocumentFragment>
+          .emotion-0 {
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 600;
+        }
 
-                                        .emotion-0[role="listbox-option"]:hover,
-                                        .emotion-0[role="listbox-option"]:focus {
-                                          color: blue;
-                                        }
+        <div
+            aria-live="polite"
+            class="emotion-0"
+            data-toastmanager="true"
+          />
+          .emotion-0 {
+          color: pink;
+          margin: 8px;
+          padding: 8px;
+        }
 
-                                        <span
-                                            class="emotion-0"
-                                          />
-                                        </DocumentFragment>
-                              `);
+        .emotion-0[role="listbox-option"]:hover,
+        .emotion-0[role="listbox-option"]:focus {
+          color: blue;
+        }
+
+        <span
+            class="emotion-0"
+          />
+        </DocumentFragment>
+      `);
     });
   });
 
@@ -339,6 +528,27 @@ describe('core', () => {
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
         .emotion-0 {
         color: black;
         margin: 8px;
