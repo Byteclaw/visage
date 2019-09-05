@@ -2,12 +2,20 @@ import React from 'react';
 import Helmet from 'react-helmet';
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
-import { ResponsiveDesignSystem, Heading, Paragraph } from '@byteclaw/visage';
+import {
+  ResponsiveDesignSystem,
+  Heading,
+  Paragraph,
+  Text,
+} from '@byteclaw/visage';
 import { CodeBlock, Layout } from './components';
 import { theme } from './theme';
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
   code: (props: any) => <CodeBlock {...props} />,
+  inlineCode: (props: any) => (
+    <Text styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 1 }} {...props} />
+  ),
   h1: (props: any) => <Heading {...props} level={1} />,
   h2: (props: any) => <Heading {...props} level={2} />,
   h3: (props: any) => <Heading {...props} level={3} />,
