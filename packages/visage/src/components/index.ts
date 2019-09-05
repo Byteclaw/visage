@@ -31,6 +31,7 @@ export * from './Overlay';
 export * from './Paragraph';
 export * from './Popover';
 export * from './Portal';
+export * from './ProgressBar';
 export * from './Radio';
 export * from './Select';
 export * from './SkeletonSentence';

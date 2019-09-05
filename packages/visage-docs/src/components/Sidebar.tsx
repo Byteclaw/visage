@@ -73,6 +73,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/feedback/progress-bar">
+                  ProgressBar
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/feedback/spinner">
                   Spinner
                 </ListItemRouteLink>
