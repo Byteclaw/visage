@@ -12,6 +12,7 @@ import {
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
+import { ToastManager } from './components/Toast';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -51,6 +52,7 @@ export function ResponsiveDesignSystem({
         <Fragment>
           <GlobalReset />
           <EventEmitterContext.Provider value={toastEventEmitter}>
+            <ToastManager />
             {children}
           </EventEmitterContext.Provider>
         </Fragment>
