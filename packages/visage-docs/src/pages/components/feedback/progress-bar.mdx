@@ -1,0 +1,43 @@
+# ProgressBar
+
+## Import
+
+```js transpile=false
+import { ProgressBar } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+Default `ProgressBar` uses current font color as bar's color.
+
+```jsx live=true
+<ProgressBar value={75}></ProgressBar>
+```
+
+### Custom color or size
+
+Progress bar uses current line height and font size to specify it's size.
+
+```jsx live=true
+<WithState defaultValue={0}>
+  {(value, setValue) => {
+    React.useLayoutEffect(() => {
+      window.setTimeout(() => {
+        if (value < 100) {
+          setValue(value + 5);
+        } else {
+          setValue(0);
+        }
+      }, 1000);
+    }, [value]);
+
+    return (
+      <Box styles={{ color: 'warning', fontSize: -2 }}>
+        <ProgressBar value={value} valueText="Copying files..."></ProgressBar>
+      </Box>
+    );
+  }}
+</WithState>
+```
