@@ -8,7 +8,6 @@ import React, {
   Children,
   cloneElement,
   ReactNode,
-  Ref,
   MouseEvent,
   KeyboardEvent,
   useCallback,
@@ -16,6 +15,7 @@ import React, {
   useRef,
   KeyboardEventHandler,
   forwardRef,
+  RefObject,
 } from 'react';
 
 import { StyleProps } from '../createNPointTheme';
@@ -23,6 +23,7 @@ import {
   findNextFocusableElement,
   findPreviousFocusableElement,
   isFocusableElement,
+  TransformOriginSettings,
 } from './shared';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
@@ -51,16 +52,14 @@ const MenuItemBase = createComponent(ListItem, {
 });
 
 interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
-  anchor?: null | Ref<HTMLElement> | EventTarget;
-  anchorOrigin?: {
-    vertical: 'bottom' | 'center' | 'top' | number;
-    horizontal: 'left' | 'center' | 'right' | number;
-  };
+  anchor?: null | HTMLElement | RefObject<HTMLElement>;
+  anchorOrigin?: TransformOriginSettings;
   children?: ReactNode;
   /**
    * Use only if you are managing focus outside of this component
    */
   disableEvents?: boolean;
+  keepAnchorWidth?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
 }
@@ -70,13 +69,19 @@ interface MenuItemProps
   children?: ReactNode;
 }
 
+const defaultAnchorOrigin: TransformOriginSettings = {
+  vertical: 'bottom',
+  horizontal: 'left',
+};
+
 export function Menu({
   anchor,
+  anchorOrigin = defaultAnchorOrigin,
   children,
   disableEvents,
+  keepAnchorWidth,
   onClose,
   open,
-  anchorOrigin = { vertical: 'bottom', horizontal: 'left' },
   role = 'menu',
   onKeyDown: outerOnKeyDown,
   ...restProps
@@ -175,6 +180,7 @@ export function Menu({
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={false}
+      keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
       open={open}
     >
