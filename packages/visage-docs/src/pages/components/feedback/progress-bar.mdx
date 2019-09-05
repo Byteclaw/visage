@@ -27,6 +27,8 @@ Progress bar uses current line height and font size to specify it's size.
       window.setTimeout(() => {
         if (value < 100) {
           setValue(value + 5);
+        } else {
+          setValue(0);
         }
       }, 1000);
     }, [value]);

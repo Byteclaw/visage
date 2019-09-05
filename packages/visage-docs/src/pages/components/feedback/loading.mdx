@@ -19,6 +19,8 @@ Default `Loading` respects `value` property which must be in range 0 to 100.
       window.setTimeout(() => {
         if (value < 100) {
           setValue(value + 5);
+        } else {
+          setValue(0);
         }
       }, 1000);
     }, [value]);
