@@ -36,11 +36,6 @@ export function Sidebar() {
       <ListItem>
         <CollapsibleNavigationSection path="/components/*" title="Components">
           <ListItem>
-            <ListItemRouteLink to="/components/overview">
-              Overview
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
             <CollapsibleNavigationSection
               path="/components/actions/*"
               title="Actions"
