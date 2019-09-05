@@ -4,7 +4,11 @@ import {
   useBreakpointManager,
 } from '@byteclaw/visage-core';
 import React, { Fragment, ReactNode } from 'react';
-import { useBreakpointDetection } from './hooks';
+import {
+  EventEmitterContext,
+  useBreakpointDetection,
+  useEventEmitterInstance,
+} from './hooks';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
@@ -33,6 +37,7 @@ export function ResponsiveDesignSystem({
   is = 0,
   theme,
 }: ResponsiveDesignSystemProps) {
+  const toastEventEmitter = useEventEmitterInstance();
   const [breakpoint, setBreakpoint] = useBreakpointManager(is, breakpoints);
   useBreakpointDetection(breakpoints, setBreakpoint);
 
@@ -45,7 +50,9 @@ export function ResponsiveDesignSystem({
       <LayerManager>
         <Fragment>
           <GlobalReset />
-          {children}
+          <EventEmitterContext.Provider value={toastEventEmitter}>
+            {children}
+          </EventEmitterContext.Provider>
         </Fragment>
       </LayerManager>
     </BaseDesignSystem>

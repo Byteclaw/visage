@@ -14,7 +14,8 @@ const Button = createComponent('button', {
     fontSize: 0,
     lineHeight: 0,
     outline: 'none',
-    mt: -1,
+    my: -1,
+    ml: 1,
     p: 1,
     '&:focus': {
       backgroundColor: 'rgba(0, 0, 0, 0.05)',

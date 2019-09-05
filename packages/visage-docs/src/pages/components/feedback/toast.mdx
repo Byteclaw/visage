@@ -1,0 +1,43 @@
+# Toast
+
+## Examples
+
+```jsx live=true
+<WithState defaultValue={[]}>
+  {(show, setShow) => (
+    <Fragment>
+      {['default', 'danger', 'info', 'primary', 'success', 'warning'].map(
+        variant => (
+          <Button
+            disabled={show.includes(variant)}
+            key={variant}
+            onClick={() => setShow([...show, variant])}
+            type="button"
+          >
+            {variant} toast
+          </Button>
+        ),
+      )}
+      {['default', 'danger', 'info', 'primary', 'success', 'warning'].map(
+        variant => {
+          if (show.includes(variant)) {
+            return (
+              <Toast
+                duration={5000}
+                key={variant}
+                onDismiss={() => setShow(show.filter(v => v !== variant))}
+                variant={variant}
+              >
+                {variant} toast
+              </Toast>
+            );
+          }
+
+          return null;
+        },
+      )}
+      <ToastManager></ToastManager>
+    </Fragment>
+  )}
+</WithState>
+```

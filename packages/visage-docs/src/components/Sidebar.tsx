@@ -82,6 +82,11 @@ export function Sidebar() {
                   Spinner
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/toast">
+                  Toast
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
