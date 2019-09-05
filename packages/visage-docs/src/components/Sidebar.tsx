@@ -162,6 +162,11 @@ export function Sidebar() {
               title="Images and icons"
             >
               <ListItem>
+                <ListItemRouteLink to="/components/images-icons/badge">
+                  Badge
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/images-icons/image">
                   Image
                 </ListItemRouteLink>
