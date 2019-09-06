@@ -1,0 +1,46 @@
+# Card
+
+## Examples
+
+### Default
+
+```jsx live=true
+<Card styles={{ maxWidth: 300 }}>
+  <Paragraph>This is a card</Paragraph>
+</Card>
+```
+
+### Clickable
+
+Clickable card is specified using `touchable` prop. Clickable card have `hover, focus, active` styles.
+
+```jsx live=true
+<Card
+  styles={{ maxWidth: 300 }}
+  touchable={
+    <Button onClick={() => console.log('clicked')} type="button">
+      This is a click handle
+    </Button>
+  }
+>
+  <Paragraph>This is a clickable card</Paragraph>
+</Card>
+```
+
+#### Clickable with clickable content
+
+```jsx live=true
+<Card
+  styles={{ maxWidth: 300 }}
+  touchable={
+    <Button onClick={() => console.log('clicked')} type="button">
+      This is a click handle
+    </Button>
+  }
+>
+  <Paragraph>This is a clickable card</Paragraph>
+  <Button onClick={() => console.log('add to cart')} type="button">
+    Add to cart
+  </Button>
+</Card>
+```

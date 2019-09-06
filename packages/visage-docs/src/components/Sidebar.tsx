@@ -265,6 +265,18 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
+              path="/components/structure/*"
+              title="Structure"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/structure/card">
+                  Card
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
               path="/components/typography/*"
               title="Typography"
             >
