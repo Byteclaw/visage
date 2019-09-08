@@ -213,7 +213,7 @@ export function Select<TValue extends any = string>({
         dispatch({ type: 'InputChange', value: e.currentTarget.value });
       },
       onClick() {
-        if (!searchable && !state.isOpen) {
+        if (!state.isOpen) {
           dispatch({ type: 'MenuOpen' });
           dispatch({ type: 'SetOptionFocusToFirstOption' });
         }
