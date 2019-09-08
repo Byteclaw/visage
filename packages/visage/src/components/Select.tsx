@@ -367,7 +367,7 @@ export function Select<TValue extends any = string>({
                 aria-selected={state.focusedIndex === index}
                 data-option-index={index}
                 id={optionId(id, index)}
-                key={state.inputValue + index}
+                key={optionId(id, index)}
                 role="option"
                 {...optionEventHandlers}
               >

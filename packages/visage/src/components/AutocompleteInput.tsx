@@ -330,7 +330,7 @@ export function AutocompleteInput<TValue extends any = string>({
               <MenuItem
                 aria-selected={index === state.focusedIndex}
                 data-option-index={index}
-                key={state.inputValue + index}
+                key={optionId(id, index)}
                 id={optionId(id, index)}
                 role="option"
                 {...optionEventHandlers}
