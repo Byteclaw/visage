@@ -190,6 +190,7 @@ export function Select<TValue extends any = string>({
     enhanceReducer: enhancedReducer,
     onChange,
     onInputValueChange,
+    optionToString,
     onStateChange: enhancedOnStateChange,
     value,
     valueToString,
