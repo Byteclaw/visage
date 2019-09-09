@@ -13,12 +13,20 @@ import { Select } from '@byteclaw/visage';
 ```jsx live=true
 <form action="">
   <label htmlFor="nonsearchable">Select nonsearchable value</label>
-  <Select
-    id="nonsearchable"
-    onChange={value => console.log(value)}
-    options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
-    placeholder="Select a value"
-  />
+  <WithState
+    defaultValue={Array(200)
+      .fill(null)
+      .map((_, i) => i)}
+  >
+    {options => (
+      <Select
+        id="nonsearchable"
+        onChange={value => console.log(value)}
+        options={() => Promise.resolve(options)}
+        placeholder="Select a value"
+      />
+    )}
+  </WithState>
 </form>
 ```
 
