@@ -138,9 +138,7 @@ export function useMemoizedCallback<T extends (...args: any[]) => any>(
   if (previousCbRef.current !== cb) {
     previousCbRef.current = cb;
     memoizedArgs.current = null;
-  }
 
-  if (cbRef.current == null) {
     cbRef.current = ((...args: any[]): any => {
       if (
         memoizedArgs.current == null ||
@@ -154,7 +152,7 @@ export function useMemoizedCallback<T extends (...args: any[]) => any>(
     }) as T;
   }
 
-  return cbRef.current;
+  return cbRef.current!;
 }
 
 export function useVisage<
