@@ -2,6 +2,8 @@ import React, { createContext, ReactNode, useContext } from 'react';
 
 export const LayerManagerContext = createContext(0);
 
+LayerManagerContext.displayName = 'LayerManagerContext';
+
 interface LayerManagerProps {
   children: ReactNode;
 }
