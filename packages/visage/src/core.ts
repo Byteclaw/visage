@@ -1,12 +1,13 @@
 import {
   BooleanVariantCreator,
   ComponentFactory,
+  StyleSheet,
   VariantedComponentCreator,
   createComponent as baseCreateComponent,
   displayName,
   isVisageComponent,
   markAsVisageComponent,
-  StyleSheet,
+  useMemoizedCall,
 } from '@byteclaw/visage-core';
 import { depthFirstObjectMerge } from '@byteclaw/visage-utils';
 import React from 'react';
@@ -17,6 +18,24 @@ export type EmotionStyleSheet = StyleSheet<StyleProps>;
 export const createComponent: ComponentFactory<
   StyleProps
 > = baseCreateComponent;
+
+function combineVariantedStyleSheet(
+  styleSheet: any,
+  parentStyles: any,
+  customStyles: any,
+) {
+  return Object.keys(styleSheet).reduce(
+    (customizedVariants, variantName) => ({
+      ...customizedVariants,
+      [variantName]: depthFirstObjectMerge<EmotionStyleSheet>(
+        customizedVariants[variantName],
+        parentStyles || {},
+        customStyles || {},
+      ),
+    }),
+    styleSheet,
+  );
+}
 
 export const createVariant: VariantedComponentCreator<StyleProps> = (
   Component: any,
@@ -44,20 +63,11 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
       ref: any,
     ) => {
       // constructs object with &[data-variant="variantName"] from variantStyles
-      const styles = React.useMemo(
-        () =>
-          Object.keys(styleSheet).reduce(
-            (customizedVariants, variantName) => ({
-              ...customizedVariants,
-              [variantName]: depthFirstObjectMerge<EmotionStyleSheet>(
-                customizedVariants[variantName],
-                parentStyles || {},
-                customStyles || {},
-              ),
-            }),
-            styleSheet,
-          ),
-        [customStyles, styleSheet, parentStyles],
+      const styles = useMemoizedCall(
+        combineVariantedStyleSheet,
+        styleSheet,
+        parentStyles,
+        customStyles,
       );
 
       return React.createElement(C, {
@@ -107,20 +117,11 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
         }: any,
         ref: any,
       ) => {
-        const styles = React.useMemo(
-          () =>
-            Object.keys(styleSheet).reduce(
-              (customizedVariants, variantName) => ({
-                ...customizedVariants,
-                [variantName]: depthFirstObjectMerge<EmotionStyleSheet>(
-                  customizedVariants[variantName],
-                  parentStyles || {},
-                  customStyles || {},
-                ),
-              }),
-              styleSheet,
-            ),
-          [customStyles, parentStyles, styleSheet],
+        const styles = useMemoizedCall(
+          combineVariantedStyleSheet,
+          styleSheet,
+          parentStyles,
+          customStyles,
         );
 
         return React.createElement(C, {
