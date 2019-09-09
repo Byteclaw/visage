@@ -1,10 +1,7 @@
-import React from 'react';
+import { depthFirstObjectMerge } from '@byteclaw/visage-utils';
+import React, { useRef } from 'react';
 import { VisageContext } from './context';
-import {
-  extendStyleSheet,
-  isVisageComponent,
-  resolveStyleSheet,
-} from './utils';
+import { isVisageComponent, resolveStyleSheet } from './utils';
 import {
   StyleProps,
   StyleSheet,
@@ -21,6 +18,8 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
   // if options are provided, we want to create new Visage instance
   // otherwise we want to connect to parent
   const ctx: Visage<TTheme> | undefined = React.useContext(VisageContext);
+  const cacheRef = useRef<{ [key: string]: any }>({});
+  const themeRef = useRef(options ? options.theme : null);
 
   if (!ctx) {
     if (!options) {
@@ -35,16 +34,31 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
     return React.useMemo<Visage<TTheme>>(() => {
       const breakpoint = options.is || 0;
 
+      // if theme has changed, clear cache
+      if (themeRef.current !== options.theme) {
+        themeRef.current = options.theme;
+        cacheRef.current = {};
+      }
+
       return {
         breakpoint,
         generate(styleSheet) {
+          const key = JSON.stringify(styleSheet) + breakpoint;
+
+          if (cacheRef.current[key]) {
+            return cacheRef.current[key];
+          }
+
           const resolvedStyleSheet = resolveStyleSheet(
             styleSheet,
             breakpoint,
             options.theme,
           );
 
-          return options.styleGenerator(resolvedStyleSheet);
+          const res = options.styleGenerator(resolvedStyleSheet);
+          cacheRef.current[key] = res;
+
+          return res;
         },
         theme: options.theme,
       };
@@ -55,6 +69,94 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
   return ctx as Visage<TTheme>;
 }
 
+type ExtractArgs<T extends (...args: any[]) => any> = T extends (
+  ...args: infer A
+) => any
+  ? A
+  : never;
+type ExtractReturn<T extends (...args: any[]) => any> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : never;
+
+function compare(previousArgs: any[], currentArgs: any[]): boolean {
+  if (previousArgs.length !== currentArgs.length) {
+    return false;
+  }
+
+  for (let i = 0; i < previousArgs.length; i++) {
+    const a = previousArgs[i];
+    const b = currentArgs[i];
+
+    if (a !== b) {
+      return JSON.stringify(a) === JSON.stringify(b);
+    }
+  }
+
+  return true;
+}
+
+/**
+ * Uses memoizes call and returns the result
+ * Refreshes if args or callback has changed
+ */
+export function useMemoizedCall<T extends (...args: any[]) => any>(
+  cb: T,
+  ...args: ExtractArgs<T>
+): ExtractReturn<T> {
+  const cbRef = useRef<T>(cb);
+  const previousArgsRef = useRef<ExtractArgs<T> | undefined>(undefined);
+  const resultRef = useRef<ExtractReturn<T> | undefined>(undefined);
+
+  if (
+    cbRef.current !== cb ||
+    previousArgsRef.current == null ||
+    !compare(previousArgsRef.current, args)
+  ) {
+    cbRef.current = cb;
+    previousArgsRef.current = args;
+    // first call
+    resultRef.current = cb(...args);
+  }
+
+  // @ts-ignore
+  return resultRef.current;
+}
+
+/**
+ * Creates memoized callback that returns the last known result if args did not change
+ */
+export function useMemoizedCallback<T extends (...args: any[]) => any>(
+  cb: T,
+): T {
+  const previousCbRef = useRef<T | null>(null);
+  const memoizedResult = useRef<any>();
+  const memoizedArgs = useRef<any[] | null>();
+  const cbRef = useRef<T | null>(null);
+
+  if (previousCbRef.current !== cb) {
+    previousCbRef.current = cb;
+    memoizedArgs.current = null;
+  }
+
+  if (cbRef.current == null) {
+    cbRef.current = ((...args: any[]): any => {
+      if (
+        memoizedArgs.current == null ||
+        !compare(memoizedArgs.current, args)
+      ) {
+        memoizedArgs.current = args;
+        memoizedResult.current = cb(...args);
+      }
+
+      return memoizedResult.current;
+    }) as T;
+  }
+
+  return cbRef.current;
+}
+
 export function useVisage<
   TStyleSheet extends ValidStyleSheet,
   TOutputProps extends { [prop: string]: any }
@@ -62,17 +164,22 @@ export function useVisage<
   { styles, parentStyles, ...restProps }: StyleProps<TStyleSheet>,
   options: UseVisageHookOptions<TStyleSheet>,
 ): TOutputProps {
-  const styleSheet = extendStyleSheet<StyleSheet<TStyleSheet>>(
-    options.defaultStyles,
-    extendStyleSheet<StyleSheet<TStyleSheet>>(styles, parentStyles),
+  const styleSheet = useMemoizedCall<
+    (...args: StyleSheet<TStyleSheet>[]) => StyleSheet<TStyleSheet>
+  >(
+    depthFirstObjectMerge,
+    options.defaultStyles || ({} as StyleSheet<TStyleSheet>),
+    parentStyles || ({} as StyleSheet<TStyleSheet>),
+    styles || ({} as StyleSheet<TStyleSheet>),
   );
   const visage = useDesignSystem();
+  const generateStyles = useMemoizedCallback(visage.generate);
 
   // strip styles, parentStyles from props
   // if component is visage component, pass parentStyles and styles
   // otherwise generate styles
   if (!isVisageComponent(options.as)) {
-    const styleProps = visage.generate(styleSheet);
+    const styleProps = generateStyles(styleSheet);
 
     return { ...restProps, ...styleProps } as any;
   }
