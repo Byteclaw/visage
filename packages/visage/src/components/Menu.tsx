@@ -188,11 +188,7 @@ export function Menu({
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
             ref: i === 0 ? firstItemRef : lastItemRef,
-            role: !open
-              ? 'none'
-              : typeof menuItem !== 'string'
-              ? (menuItem as any).props.role
-              : undefined,
+            role: !open ? 'none' : (menuItem as any).props.role,
             onKeyDown,
           });
         })}
@@ -215,5 +211,7 @@ export const MenuItem: VisageComponent<MenuItemProps, StyleProps> = forwardRef(
     );
   },
 );
+
+MenuItem.displayName = 'MenuItem';
 
 markAsVisageComponent(MenuItem);

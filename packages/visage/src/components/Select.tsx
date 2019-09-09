@@ -44,7 +44,6 @@ interface InputEventHandlers {
 interface OptionEventHandlers {
   onClick: MouseEventHandler<HTMLElement>;
   onMouseDown: MouseEventHandler<HTMLElement>;
-  onMouseMove: MouseEventHandler<HTMLElement>;
 }
 
 type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
@@ -300,15 +299,8 @@ export function Select<TValue extends any = string>({
         // prevent changing body activeElement and blur on input
         e.preventDefault();
       },
-      onMouseMove(e) {
-        const index = Number(e.currentTarget.dataset.optionIndex);
-
-        if (state.focusedIndex !== index) {
-          dispatch({ type: 'SetOptionFocusByIndex', index });
-        }
-      },
     }),
-    [state.focusedIndex],
+    [],
   );
 
   return (
