@@ -74,11 +74,15 @@ export interface ThemeOptions<
 }
 
 function resolveOnTheme(
-  value: any,
+  value: string | number | null | undefined,
   themeKey: string,
   themeSettings: ThemeSettings,
 ): any {
   const themeValue = themeSettings[themeKey];
+
+  if (value == null) {
+    return value;
+  }
 
   switch (typeof themeValue) {
     case 'undefined':
@@ -109,11 +113,11 @@ function resolveOnTheme(
 
 function applyStyler(
   propName: string,
-  value: any,
+  value: string | number | null | undefined,
   stylers: ResolvedStylerMap,
   ctx: FormatterAndResolverContext,
   breakpoint: number,
-): { properties: string[]; value: any } {
+): { properties: string[]; value: string | number | null | undefined } {
   // if there is a styler for this prop, apply it, otherwise return a value under the same propName
   const styler = stylers[propName];
 
@@ -236,10 +240,15 @@ export function createTheme<
 
   function resolve(
     propName: string,
-    propValue: any,
+    propValue:
+      | string
+      | number
+      | null
+      | undefined
+      | (string | number | null | undefined)[],
     breakpoint: number,
   ): { properties: string[]; value: any } {
-    const value = getResponsiveValue(breakpoint, undefined, propValue);
+    const value = getResponsiveValue(breakpoint, propValue, undefined);
 
     return applyStyler(
       propName,
