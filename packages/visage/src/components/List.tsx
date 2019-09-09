@@ -23,6 +23,8 @@ import { StyleProps } from '../createNPointTheme';
 
 const ListDepthContext = createContext(0);
 
+ListDepthContext.displayName = 'ListDepthContext';
+
 export const ListContainer = createComponent('section', {
   displayName: 'ListContainer',
   defaultStyles: {
