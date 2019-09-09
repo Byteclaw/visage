@@ -28,6 +28,8 @@ export const EventEmitterContext = createContext<EventEmitter<any>>(
   createEventEmitter(),
 );
 
+EventEmitterContext.displayName = 'EventEmitterContext';
+
 /**
  * Connects to event emitter in context
  */
