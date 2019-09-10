@@ -1,6 +1,12 @@
-import { createBooleanVariant, createComponent, createVariant } from '../core';
+import { createComponent } from '../core';
+import {
+  variantStyles,
+  booleanVariantStyles,
+  booleanVariant,
+  variant,
+} from '../variants';
 
-const ButtonBase = createComponent('button', {
+export const Button = createComponent('button', {
   displayName: 'Button',
   defaultStyles: {
     alignItems: 'center',
@@ -25,34 +31,9 @@ const ButtonBase = createComponent('button', {
     position: 'relative',
     textDecoration: 'none',
     verticalAlign: 'middle',
-    '&[disabled]': {
-      cursor: 'not-allowed',
-      opacity: 0.2,
-    },
-    '&[data-monochrome="true"][data-outlined="true"]': {
-      color: 'currentColor',
-      borderColor: 'currentColor',
-      '&:not([disabled]):hover, &:not([disabled]):focus': {
-        outlineColor: 'currentColor',
-      },
-      '&:not([disabled]):active': {
-        outlineWidth: 2,
-      },
-    },
-  },
-});
-
-export const Button = createBooleanVariant('monochrome', {
-  onStyles: {},
-  stripProp: true,
-})(
-  createBooleanVariant('outlined', {
-    onStyles: {},
-    stripProp: true,
-  })(
-    createVariant(ButtonBase, 'variant', {
-      danger: {
-        '&[data-outlined="true"][data-monochrome="false"]': {
+    ...variantStyles('variant', {
+      danger: booleanVariantStyles('outlined', {
+        on: {
           backgroundColor: 'transparent',
           borderColor: 'danger',
           color: 'danger',
@@ -70,7 +51,7 @@ export const Button = createBooleanVariant('monochrome', {
             outlineWidth: 2,
           },
         },
-        '&[data-outlined="false"][data-monochrome="false"]': {
+        off: {
           backgroundColor: 'danger',
           borderColor: 'danger',
           color: 'dangerText',
@@ -88,9 +69,9 @@ export const Button = createBooleanVariant('monochrome', {
             color: 'dangerText.-3',
           },
         },
-      },
-      primary: {
-        '&[data-outlined="true"][data-monochrome="false"]': {
+      }),
+      primary: booleanVariantStyles('outlined', {
+        on: {
           backgroundColor: 'transparent',
           borderColor: 'primary',
           color: 'primary',
@@ -108,7 +89,7 @@ export const Button = createBooleanVariant('monochrome', {
             outlineWidth: 2,
           },
         },
-        '&[data-outlined="false"][data-monochrome="false"]': {
+        off: {
           backgroundColor: 'primary',
           borderColor: 'primary',
           color: 'primaryText',
@@ -127,27 +108,39 @@ export const Button = createBooleanVariant('monochrome', {
             outlineWidth: 2,
           },
         },
-      },
-      default: {
-        '&[data-outlined="true"][data-monochrome="false"]': {
-          backgroundColor: 'transparent',
-          borderColor: 'neutral',
-          color: 'neutralText',
-          '&:not([disabled]):hover': {
-            borderColor: 'neutral.-1',
-            outlineColor: 'neutral.-1',
+      }),
+      default: booleanVariantStyles('outlined', {
+        on: booleanVariantStyles('monochrome', {
+          on: {
+            color: 'currentColor',
+            borderColor: 'currentColor',
+            '&:not([disabled]):hover, &:not([disabled]):focus': {
+              outlineColor: 'currentColor',
+            },
+            '&:not([disabled]):active': {
+              outlineWidth: 2,
+            },
           },
-          '&:not([disabled]):focus': {
-            borderColor: 'neutral.-3',
-            outlineColor: 'neutral.-3',
+          off: {
+            backgroundColor: 'transparent',
+            borderColor: 'neutral',
+            color: 'neutralText',
+            '&:not([disabled]):hover': {
+              borderColor: 'neutral.-1',
+              outlineColor: 'neutral.-1',
+            },
+            '&:not([disabled]):focus': {
+              borderColor: 'neutral.-3',
+              outlineColor: 'neutral.-3',
+            },
+            '&:not([disabled]):active': {
+              borderColor: 'neutral.-2',
+              outlineColor: 'neutral.-2',
+              outlineWidth: 2,
+            },
           },
-          '&:not([disabled]):active': {
-            borderColor: 'neutral.-2',
-            outlineColor: 'neutral.-2',
-            outlineWidth: 2,
-          },
-        },
-        '&[data-outlined="false"][data-monochrome="false"]': {
+        }),
+        off: {
           backgroundColor: 'neutral',
           borderColor: 'neutral',
           color: 'neutralText',
@@ -165,7 +158,16 @@ export const Button = createBooleanVariant('monochrome', {
             color: 'neutralText.-3',
           },
         },
-      },
+      }),
     }),
-  ),
-);
+    '&[disabled]': {
+      cursor: 'not-allowed',
+      opacity: 0.2,
+    },
+  },
+  variants: [
+    booleanVariant('outlined', true),
+    booleanVariant('monochrome', true),
+    variant('variant', true, ['danger', 'primary'] as const),
+  ],
+});
