@@ -20,7 +20,7 @@ const CardBase = createBooleanVariant('clickable', {
   stripProp: true,
 })(
   createComponent('div', {
-    displayName: 'CardBase',
+    displayName: 'Card',
     defaultStyles: {
       boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
       p: 1,

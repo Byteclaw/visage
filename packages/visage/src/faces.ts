@@ -1,26 +1,20 @@
 import { EmotionStyleSheet } from './types';
 
 export interface VisageFaces {
+  // Backdrop.tsx
+  Backdrop?: EmotionStyleSheet;
   // Badge.ts
   Badge?: EmotionStyleSheet;
   // Banner.tsx
   Banner?: EmotionStyleSheet;
   // Banner.tsx
   BannerRibbon?: EmotionStyleSheet;
-  // Backdrop.tsx
-  BaseBackdrop?: EmotionStyleSheet;
-  // Dialog.tsx
-  BaseDialog?: EmotionStyleSheet;
-  // Modal.tsx
-  BaseModal?: EmotionStyleSheet;
-  // Popover.tsx
-  BasePopover?: EmotionStyleSheet;
   // Box.ts
   Box?: EmotionStyleSheet;
   // Button.ts
   Button?: EmotionStyleSheet;
   // Card.tsx
-  CardBase?: EmotionStyleSheet;
+  Card?: EmotionStyleSheet;
   // Card.tsx
   CardContent?: EmotionStyleSheet;
   // Card.tsx
@@ -43,8 +37,10 @@ export interface VisageFaces {
   Column?: EmotionStyleSheet;
   // Layout.ts
   Container?: EmotionStyleSheet;
+  // Dialog.tsx
+  Dialog?: EmotionStyleSheet;
   // Divider.tsx
-  DividerBase?: EmotionStyleSheet;
+  Divider?: EmotionStyleSheet;
   // Divider.tsx
   DividerLabel?: EmotionStyleSheet;
   // Divider.tsx
@@ -54,11 +50,11 @@ export interface VisageFaces {
   // FieldSet.tsx
   FieldSetLegend?: EmotionStyleSheet;
   // FileInput.tsx
-  FileInputBaseControl?: EmotionStyleSheet;
-  // FileInput.tsx
   FileInputBox?: EmotionStyleSheet;
   // FileInput.tsx
   FileInputControl?: EmotionStyleSheet;
+  // FileInput.tsx
+  FileInputControlBase?: EmotionStyleSheet;
   // Fixed.ts
   Fixed?: EmotionStyleSheet;
   // Flex.ts
@@ -70,7 +66,7 @@ export interface VisageFaces {
   // Header.ts
   Header?: EmotionStyleSheet;
   // Heading.tsx
-  HeadingBase?: EmotionStyleSheet;
+  Heading?: EmotionStyleSheet;
   // Image.tsx
   ImageContainer?: EmotionStyleSheet;
   // Image.tsx
@@ -96,15 +92,19 @@ export interface VisageFaces {
   // Loading.tsx
   LoadingProgressBarProgress?: EmotionStyleSheet;
   // Menu.tsx
-  MenuBase?: EmotionStyleSheet;
+  Menu?: EmotionStyleSheet;
   // Menu.tsx
-  MenuItemBase?: EmotionStyleSheet;
+  MenuItem?: EmotionStyleSheet;
+  // Modal.tsx
+  Modal?: EmotionStyleSheet;
   // Overlay.tsx
   OverlayDiv?: EmotionStyleSheet;
   // Paragraph.tsx
   Paragraph?: EmotionStyleSheet;
   // Paragraph.tsx
   ParagraphSkeleton?: EmotionStyleSheet;
+  // Popover.tsx
+  Popover?: EmotionStyleSheet;
   // ProgressBar.tsx
   ProgressBar?: EmotionStyleSheet;
   // ProgressBar.tsx

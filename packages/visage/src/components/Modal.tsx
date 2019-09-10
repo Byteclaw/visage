@@ -29,7 +29,7 @@ const fixedModalVariant = createBooleanVariant('fixed', {
 
 const BaseModal = fixedModalVariant(
   createComponent('div', {
-    displayName: 'BaseModal',
+    displayName: 'Modal',
     defaultStyles: {
       alignItems: 'center',
       display: 'flex',

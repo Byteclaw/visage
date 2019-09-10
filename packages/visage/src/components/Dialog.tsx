@@ -16,7 +16,7 @@ import { Heading } from './Heading';
 import { Modal } from './Modal';
 
 const BaseDialog = createComponent('div', {
-  displayName: 'BaseDialog',
+  displayName: 'Dialog',
   defaultStyles: {
     backgroundColor: 'white',
     height: ['100%', null],

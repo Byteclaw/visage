@@ -29,7 +29,7 @@ const openPopoverVariant = createBooleanVariant('open', {
 
 export const BasePopover = openPopoverVariant(
   createComponent('div', {
-    displayName: 'BasePopover',
+    displayName: 'Popover',
     defaultStyles: {
       position: 'absolute',
       overflowY: 'auto',
