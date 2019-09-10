@@ -13,6 +13,7 @@ import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
+import { VisageFaces } from './faces';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -21,20 +22,22 @@ const DESKTOP_BP = `screen and (min-width: ${1025 / 16}em)`; // 64.036em
 const defaultBreakpoints = [MOBILE_BP, TABLET_BP, DESKTOP_BP];
 
 export interface ResponsiveDesignSystemProps {
-  children?: ReactNode;
   /**
    * Css media query conditions orders from smallest to largest
    * e.g. ['only screen', 'screen and (min-width: 1024px)']
    */
   breakpoints?: string[];
+  children?: ReactNode;
+  faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
   theme: Theme;
 }
 
 export function ResponsiveDesignSystem({
-  children,
   breakpoints = defaultBreakpoints,
+  children,
+  faces,
   is = 0,
   theme,
 }: ResponsiveDesignSystemProps) {
@@ -45,6 +48,7 @@ export function ResponsiveDesignSystem({
   return (
     <BaseDesignSystem
       is={breakpoint}
+      faces={faces}
       styleGenerator={styleGenerator}
       theme={theme}
     >

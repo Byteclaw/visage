@@ -12,8 +12,7 @@ import {
 import { depthFirstObjectMerge } from '@byteclaw/visage-utils';
 import React from 'react';
 import { StyleProps } from './createNPointTheme';
-
-export type EmotionStyleSheet = StyleSheet<StyleProps>;
+import { EmotionStyleSheet } from './types';
 
 export const createComponent: ComponentFactory<
   StyleProps
@@ -73,7 +72,7 @@ export const createVariant: VariantedComponentCreator<StyleProps> = (
       return React.createElement(C, {
         ...rest,
         [variantPropName]: variant || defaultValue,
-        styles,
+        parentStyles: styles,
         ref,
       });
     },
@@ -128,7 +127,7 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
           ...rest,
           [variantPropName]: variant ? variant.toString() : 'false',
           [propName]: stripProp ? undefined : variant,
-          styles,
+          parentStyles: styles,
           ref,
         });
       },

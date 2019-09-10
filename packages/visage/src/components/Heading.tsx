@@ -9,7 +9,7 @@ import { SkeletonSentence } from './SkeletonSentence';
 import { StyleProps } from '../createNPointTheme';
 
 const HeadingBase = createComponent('h1', {
-  displayName: 'HeadingBase',
+  displayName: 'Heading',
   defaultStyles: {
     fontFamily: 'heading',
   },

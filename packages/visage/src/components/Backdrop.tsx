@@ -8,7 +8,7 @@ interface BackdropProps {
 }
 
 const BaseBackdrop = createComponent('div', {
-  displayName: 'BaseBackdrop',
+  displayName: 'Backdrop',
   defaultStyles: {
     backgroundColor: 'transparent',
     position: 'fixed',

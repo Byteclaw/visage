@@ -1,5 +1,6 @@
 import React from 'react';
-import { createComponent, EmotionStyleSheet } from '../core';
+import { createComponent } from '../core';
+import { EmotionStyleSheet } from '../types';
 import { skeletonAnimation } from './animations';
 
 const paragraphStyles: EmotionStyleSheet = {

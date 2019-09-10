@@ -1,7 +1,7 @@
 import { createBooleanVariant, createComponent, createVariant } from '../core';
 
 const ButtonBase = createComponent('button', {
-  displayName: 'ButtonBase',
+  displayName: 'Button',
   defaultStyles: {
     alignItems: 'center',
     borderColor: 'transparent',

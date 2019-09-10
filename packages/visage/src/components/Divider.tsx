@@ -60,7 +60,7 @@ const DividerLine = verticalLineVariant(
 
 const DividerBase = verticalBaseVariant(
   createComponent('div', {
-    displayName: 'DividerBase',
+    displayName: 'Divider',
     defaultStyles: {
       display: 'flex',
       alignItems: 'center',

@@ -16,7 +16,7 @@ import {
 } from './shared';
 
 const BaseFileInput = createComponent('input', {
-  displayName: 'FileInputBaseControl',
+  displayName: 'FileInputControl',
   defaultStyles: {
     ...visuallyHiddenStyles,
     '&:focus + div': {
@@ -40,7 +40,7 @@ const FileInputBox = createComponent('div', {
 const FileInputControl = disabledControl(
   invalidControl(
     createComponent('div', {
-      displayName: 'FileInputControl',
+      displayName: 'FileInputControlBase',
       defaultStyles: {
         '&::before': {
           // respect line height

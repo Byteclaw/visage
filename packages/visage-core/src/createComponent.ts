@@ -10,9 +10,10 @@ export function createComponent(
     displayName: name,
   }: { defaultStyles?: any; displayName?: string } = {},
 ): VisageComponent<{}, any> {
+  const componentName = displayName(name || defaultAs);
   const Component: any = React.forwardRef(
     ({ as = defaultAs, ...restProps }: StyleProps, ref) => {
-      const props = useVisage(restProps, { defaultStyles, as });
+      const props = useVisage(restProps, { componentName, defaultStyles, as });
 
       return React.createElement(as, {
         ...props,
@@ -21,7 +22,7 @@ export function createComponent(
     },
   ) as any;
 
-  Component.displayName = `VisageComponent(${displayName(name || defaultAs)})`;
+  Component.displayName = `VisageComponent(${componentName})`;
   markAsVisageComponent(Component);
 
   return Component;

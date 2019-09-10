@@ -55,11 +55,13 @@
     "react-is": "^16.9.0",
     "react-test-renderer": "^16.9.0",
     "rimraf": "2.6.3",
+    "ts-node": "8.3.0",
     "typescript": "^3.5.3"
   },
   "scripts": {
     "build": "rimraf dist && microbundle --jsx React.createElement",
     "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",
+    "generate:faces": "ts-node -P tools/tsconfig.json tools/generateFaces.ts",
     "test:types": "tsc -p . --noEmit"
   }
 }

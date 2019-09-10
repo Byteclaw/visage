@@ -22,8 +22,8 @@ const circleDashAnimation = keyframes({
   },
 });
 
-const SvgIconBase = createComponent('div', {
-  displayName: 'SvgIconBase',
+const SpinnerSvgBase = createComponent('div', {
+  displayName: 'SpinnerSvgBase',
   defaultStyles: {
     alignItems: 'center',
     display: 'inline-flex',
@@ -51,9 +51,9 @@ export const Spinner: VisageComponent<{}, StyleProps> = function Spinner(
   props: any,
 ) {
   return (
-    <SvgIconBase role="status" {...props}>
+    <SpinnerSvgBase role="status" {...props}>
       <SpinnerIcon />
-    </SvgIconBase>
+    </SpinnerSvgBase>
   );
 };
 

@@ -29,7 +29,7 @@ import { List, ListItem } from './List';
 import { Popover } from './Popover';
 
 const MenuBase = createComponent(List, {
-  displayName: 'MenuBase',
+  displayName: 'Menu',
   defaultStyles: {
     maxHeight: ['100vh', 'calc(100vh - 32px)'],
     maxWidth: ['100vw', 'calc(100vw - 32px)'],
@@ -39,7 +39,7 @@ const MenuBase = createComponent(List, {
 });
 
 const MenuItemBase = createComponent(ListItem, {
-  displayName: 'MenuItemBase',
+  displayName: 'MenuItem',
   defaultStyles: {
     '&:hover, &:focus, &[aria-selected="true"]': {
       outline: 'none',

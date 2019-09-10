@@ -2,6 +2,7 @@ import React from 'react';
 
 export interface Visage<TTheme extends Theme> {
   breakpoint: number;
+  face(componentName: string): StyleSheet<any>;
   generate(styleSheet: StyleSheet<any>): { [prop: string]: any };
   theme: TTheme;
 }
@@ -122,6 +123,7 @@ export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
 
 export interface UseDesignSystemHookOptions<TTheme extends Theme = Theme> {
   is?: number;
+  faces?: { [componenName: string]: undefined | StyleSheet<any> };
   styleGenerator: StyleGenerator;
   theme: TTheme;
 }
@@ -132,6 +134,7 @@ export interface UseDesignSystemHook<TTheme extends Theme = Theme> {
 
 export interface UseVisageHookOptions<TStyleSheet extends ValidStyleSheet> {
   as: any;
+  componentName: string;
   defaultStyles?: StyleSheet<TStyleSheet>;
 }
 
