@@ -13,3 +13,4 @@ export * from './createNPointTheme';
 export * from './faces';
 export * from './hooks';
 export * from './types';
+export * from './variants';
