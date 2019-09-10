@@ -1,5 +1,5 @@
 import { VisageComponentSymbol } from './constants';
-import { ResolvedStyleSheet, Theme, ValidStyleSheet } from './types';
+import { ResolvedStyleSheet, Theme } from './types';
 
 export function displayName(
   Component: React.ComponentClass | React.FunctionComponent | string,
@@ -30,45 +30,6 @@ export function isVisageComponent(
   }
 
   return !!(component as any)[VisageComponentSymbol];
-}
-
-export function extendStyleSheet<TStyleSheet extends ValidStyleSheet>(
-  styles?: TStyleSheet,
-  parentStyles?: TStyleSheet,
-): TStyleSheet {
-  if (!(styles && parentStyles)) {
-    return styles || parentStyles || ({} as TStyleSheet);
-  }
-
-  const styleSheet: TStyleSheet = Object.assign({}, styles);
-
-  // merge parent styles to styleSheet
-  // we need to use parent styles to override local styles
-  // because <Button as={Link} /> should be a Button with Link behaviour
-  const keys = Object.keys(parentStyles);
-  const keysLength = keys.length;
-
-  for (let i = 0; i < keysLength; i++) {
-    const key: keyof TStyleSheet = keys[i];
-    const value = parentStyles[key];
-    const valueType = typeof value;
-
-    if (valueType === 'object' && value !== null && !Array.isArray(value)) {
-      // this is pseudo
-      if (!styleSheet[key]) {
-        styleSheet[key] = value;
-      } else {
-        styleSheet[key] = {
-          ...styleSheet[key],
-          ...value,
-        };
-      }
-    } else if (valueType !== 'undefined') {
-      styleSheet[key] = value;
-    }
-  }
-
-  return styleSheet;
 }
 
 export function resolveStyleSheet<
