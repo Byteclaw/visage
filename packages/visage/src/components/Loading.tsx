@@ -37,7 +37,7 @@ const indeterminateVariant = createBooleanVariant('indeterminate', {
 });
 
 const ProgressBarBase = createComponent('div', {
-  displayName: 'ProgressBar',
+  displayName: 'LoadingProgressBar',
   defaultStyles: {
     height: 4,
     overflow: 'hidden',
@@ -56,7 +56,7 @@ const ProgressBarBase = createComponent('div', {
 
 const ProgressBarProgress = indeterminateVariant(
   createComponent('div', {
-    displayName: 'ProgressBarProgress',
+    displayName: 'LoadingProgressBarProgress',
     defaultStyles: {
       backgroundColor: 'currentColor',
       height: '100%',

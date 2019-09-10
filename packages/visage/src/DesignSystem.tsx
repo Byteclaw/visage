@@ -8,23 +8,31 @@ import {
   EventEmitterContext,
   useEventEmitterInstance,
 } from './hooks/useEventEmitter';
+import { VisageFaces } from './faces';
 
 export interface DesignSystemProps {
   children?: ReactNode;
+  faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
   theme: Theme;
 }
 
 const DesignSystem: FunctionComponent<DesignSystemProps> = ({
+  children,
+  faces,
   is = 0,
   theme,
-  children,
 }) => {
   const toastEventEmitter = useEventEmitterInstance();
 
   return (
-    <BaseDesignSystem is={is} styleGenerator={styleGenerator} theme={theme}>
+    <BaseDesignSystem
+      is={is}
+      faces={faces}
+      styleGenerator={styleGenerator}
+      theme={theme}
+    >
       <LayerManager>
         <Fragment>
           <GlobalReset />

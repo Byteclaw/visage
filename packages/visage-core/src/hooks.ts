@@ -12,6 +12,8 @@ import {
   ValidStyleSheet,
 } from './types';
 
+const defaultFace: StyleSheet<any> = {};
+
 export function useDesignSystem<TTheme extends Theme = Theme>(
   options?: UseDesignSystemHookOptions<TTheme>,
 ): Visage<TTheme> {
@@ -19,6 +21,7 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
   // otherwise we want to connect to parent
   const ctx: Visage<TTheme> | undefined = React.useContext(VisageContext);
   const cacheRef = useRef<{ [key: string]: any }>({});
+  const facesRef = useRef(options ? options.faces : null);
   const themeRef = useRef(options ? options.theme : null);
 
   if (!ctx) {
@@ -40,8 +43,24 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
         cacheRef.current = {};
       }
 
+      if (
+        facesRef.current == null ||
+        (facesRef.current !== options.faces &&
+          JSON.stringify(facesRef.current) !== JSON.stringify(options.faces))
+      ) {
+        facesRef.current = options.faces;
+        cacheRef.current = {};
+      }
+
       return {
         breakpoint,
+        face(componentName) {
+          if (options.faces && options.faces[componentName]) {
+            return options.faces[componentName]!;
+          }
+
+          return defaultFace;
+        },
         generate(styleSheet) {
           const key = JSON.stringify(styleSheet) + breakpoint;
 
@@ -62,7 +81,7 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
         },
         theme: options.theme,
       };
-    }, [options.is, options.theme, options.styleGenerator]);
+    }, [options.is, options.faces, options.theme, options.styleGenerator]);
   }
 
   // ctx is defined because there is a check above
@@ -162,16 +181,17 @@ export function useVisage<
   { styles, parentStyles, ...restProps }: StyleProps<TStyleSheet>,
   options: UseVisageHookOptions<TStyleSheet>,
 ): TOutputProps {
+  const visage = useDesignSystem();
+  const generateStyles = useMemoizedCallback(visage.generate);
   const styleSheet = useMemoizedCall<
     (...args: StyleSheet<TStyleSheet>[]) => StyleSheet<TStyleSheet>
   >(
     depthFirstObjectMerge,
     options.defaultStyles || ({} as StyleSheet<TStyleSheet>),
     parentStyles || ({} as StyleSheet<TStyleSheet>),
+    visage.face(options.componentName),
     styles || ({} as StyleSheet<TStyleSheet>),
   );
-  const visage = useDesignSystem();
-  const generateStyles = useMemoizedCallback(visage.generate);
 
   // strip styles, parentStyles from props
   // if component is visage component, pass parentStyles and styles

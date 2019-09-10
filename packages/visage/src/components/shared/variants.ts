@@ -1,4 +1,5 @@
-import { createBooleanVariant, EmotionStyleSheet } from '../../core';
+import { createBooleanVariant } from '../../core';
+import { EmotionStyleSheet } from '../../types';
 
 /**
  * Used to mark form control as invalid

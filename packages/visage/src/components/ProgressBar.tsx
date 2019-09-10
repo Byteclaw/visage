@@ -9,7 +9,6 @@ import { StyleProps } from '../createNPointTheme';
 import { visuallyHiddenStyles } from './shared';
 
 const HiddenProgressBar = createComponent('progress', {
-  displayName: 'progress',
   defaultStyles: visuallyHiddenStyles,
 });
 
@@ -60,7 +59,7 @@ export const ProgressBar: VisageComponent<
     valueText?: string;
   },
   StyleProps
-> = function Loading({
+> = function ProgressBar({
   baseProps,
   progressProps,
   value,
