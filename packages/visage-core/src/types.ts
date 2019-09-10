@@ -112,13 +112,21 @@ export interface VisageComponent<
 }
 
 export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
-  <TDefaultComponent extends ComponentConstraint>(
+  <
+    TDefaultComponent extends ComponentConstraint,
+    TVariantsProps extends any[] | undefined = undefined
+  >(
     as: TDefaultComponent,
     options?: {
       displayName?: string;
       defaultStyles?: StyleSheet<TStyleSheet>;
+      variants?: TVariantsProps;
     },
-  ): VisageComponent<React.ComponentProps<TDefaultComponent>, TStyleSheet>;
+  ): VisageComponent<
+    React.ComponentProps<TDefaultComponent> &
+      (TVariantsProps extends Array<infer P> ? P : {}),
+    TStyleSheet
+  >;
 }
 
 export interface UseDesignSystemHookOptions<TTheme extends Theme = Theme> {
@@ -136,6 +144,11 @@ export interface UseVisageHookOptions<TStyleSheet extends ValidStyleSheet> {
   as: any;
   componentName: string;
   defaultStyles?: StyleSheet<TStyleSheet>;
+  variants?: {
+    name: string;
+    stripProp: boolean;
+    defaultValue: string | boolean;
+  }[];
 }
 
 export interface UseVisageHook<

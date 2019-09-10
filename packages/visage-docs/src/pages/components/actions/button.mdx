@@ -71,10 +71,11 @@ Monochromatic uses current color as font and border colors. Only outlined button
   <Button monochrome outlined>
     Button
   </Button>
-  <Box styles={{ mt: 2 }}></Box>
-  <Button monochrome outlined styles={{ color: 'tomato' }}>
-    Button
-  </Button>
+  <Box styles={{ color: 'tomato', mt: 2 }}>
+    <Button monochrome outlined>
+      Button
+    </Button>
+  </Box>
   <Box styles={{ mt: 2 }}></Box>
   <Button disabled monochrome outlined>
     Disabled button

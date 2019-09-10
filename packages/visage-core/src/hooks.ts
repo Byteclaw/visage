@@ -1,4 +1,4 @@
-import { depthFirstObjectMerge } from '@byteclaw/visage-utils';
+import { depthFirstObjectMerge, omitProps } from '@byteclaw/visage-utils';
 import React, { useRef } from 'react';
 import { VisageContext } from './context';
 import { isVisageComponent, resolveStyleSheet } from './utils';
@@ -193,17 +193,21 @@ export function useVisage<
     styles || ({} as StyleSheet<TStyleSheet>),
   );
 
+  const passProps = options.variants
+    ? omitProps(restProps, options.variants)
+    : restProps;
+
   // strip styles, parentStyles from props
   // if component is visage component, pass parentStyles and styles
   // otherwise generate styles
   if (!isVisageComponent(options.as)) {
     const styleProps = generateStyles(styleSheet);
 
-    return { ...restProps, ...styleProps } as any;
+    return { ...passProps, ...styleProps } as any;
   }
 
   return {
-    ...restProps,
+    ...passProps,
     parentStyles: styleSheet,
   } as any;
 }
