@@ -48,6 +48,8 @@ export interface VisageFaces {
   // FieldSet.tsx
   FieldSet?: EmotionStyleSheet;
   // FieldSet.tsx
+  FieldSetHeading?: EmotionStyleSheet;
+  // FieldSet.tsx
   FieldSetLegend?: EmotionStyleSheet;
   // FileInput.tsx
   FileInputBox?: EmotionStyleSheet;
