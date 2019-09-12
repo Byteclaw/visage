@@ -53,6 +53,7 @@ const CardContent = createComponent('div', {
   defaultStyles: {
     '& a, & button, & input, & select, &[role="button"], &[role="checkbox"], &[role="radio"], &[role="combobox"], &[role="listbox"], &[role="search"], &[role="switch"], &[role="textbox"]': {
       position: 'relative',
+      width: '100%',
       zIndex: 0,
     },
   },
