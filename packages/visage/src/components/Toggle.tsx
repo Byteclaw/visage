@@ -4,18 +4,19 @@ import {
 } from '@byteclaw/visage-core';
 import React, {
   ChangeEventHandler,
-  KeyboardEventHandler,
-  MouseEventHandler,
+  forwardRef,
   ReactElement,
   ReactNode,
-  useCallback,
-  useRef,
+  Ref,
   useState,
+  useMemo,
 } from 'react';
-import { createBooleanVariant, createComponent } from '../core';
+import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import { Flex } from './Flex';
-import { visuallyHiddenStyles } from './shared';
+import { disabledControl, visuallyHiddenStyles } from './shared';
+import { Box } from './Box';
+import { useGenerateId } from '../hooks';
 
 interface ToggleProps extends VisageStyleProps<StyleProps> {
   checked?: boolean;
@@ -31,216 +32,183 @@ interface ToggleProps extends VisageStyleProps<StyleProps> {
   wrapper?: ReactElement;
 }
 
-const containerCheckedVariant = createBooleanVariant('checked', {
-  onStyles: {
-    backgroundColor: 'green',
-  },
-  offStyles: {
+const ToggleContainer = createComponent('div', {
+  displayName: 'ToggleContainer',
+  defaultStyles: {
+    overflowX: 'hidden',
+    overflowY: 'visible',
+    borderRadius: 999,
+    width: 'auto',
+    display: 'inline-flex',
+    height: '1.5em',
+    minWidth: '2.75em',
     backgroundColor: 'primary',
+    fontSize: '16px',
+    borderWidth: '2px',
+    borderStyle: 'solid',
+    borderColor: 'transparent',
+    outline: 'none',
+    userSelect: 'none',
   },
 });
-
-const containerDisabledVariant = createBooleanVariant('disabled', {
-  onStyles: {
-    backgroundColor: 'grey.1',
-  },
-  offStyles: {
-    ':focus': {
-      borderColor: 'blue',
-      borderWidth: '2px',
-    },
-  },
-});
-
-const togglerCheckedVariant = createBooleanVariant('checked', {
-  onStyles: {
-    transform: 'translateX(calc(100% - 1.25em - 0px))',
-    '&::before': {
-      left: '-50%',
-    },
-  },
-  offStyles: {
-    '&::before': {
-      left: '50%',
-    },
-  },
-});
-
-const ToggleContainer = containerDisabledVariant(
-  containerCheckedVariant(
-    createComponent('div', {
-      displayName: 'ToggleContainer',
-      defaultStyles: {
-        overflowX: 'hidden',
-        overflowY: 'visible',
-        borderRadius: 999,
-        width: 'auto',
-        display: 'inline-flex',
-        height: '1.5em',
-        minWidth: '2.75em',
-        backgroundColor: 'primary',
-        fontSize: '16px',
-        borderWidth: '2px',
-        borderStyle: 'solid',
-        borderColor: 'transparent',
-        outline: 'none',
-        userSelect: 'none',
-      },
-    }),
-  ),
-);
 
 const ToggleControl = createComponent('input', {
   displayName: 'ToggleControl',
-  defaultStyles: visuallyHiddenStyles,
-});
-
-const Toggler = togglerCheckedVariant(
-  createComponent('div', {
-    displayName: 'Toggler',
-    defaultStyles: {
-      fontSize: 'inherit',
-      display: 'inline-block',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      cursor: 'pointer',
-      position: 'relative',
+  defaultStyles: {
+    ...visuallyHiddenStyles,
+    '&:checked + div > div': {
+      transform: 'translateX(calc(100% - 1.25em - 0px))',
+    },
+    '& + div > div::after': {
+      content: '""',
+      verticalAlign: 'middle',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: '1.25em',
+      height: '1.25em',
+      position: 'absolute',
+      borderRadius: '50%',
+      backgroundColor: 'white',
       transitionProperty: 'transform, color',
       transitionDuration: '0.1s',
       transitionTimingFunction: 'ease-out',
-      '&::after': {
-        content: '""',
-        verticalAlign: 'middle',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        width: '1.25em',
-        height: '1.25em',
-        position: 'absolute',
-        borderRadius: '50%',
-        backgroundColor: 'white',
-        transitionProperty: 'transform, color',
-        transitionDuration: '0.1s',
-        transitionTimingFunction: 'ease-out',
-      },
-      '&::before': {
-        content: 'attr(data-label-content)',
-        position: 'absolute',
-        mx: 1,
-        fontSize: '0.75em',
-        textAlign: 'center',
-        color: 'white',
-        top: '50%',
-        transform: 'translate(-50%,-50%)',
-        whiteSpace: 'nowrap',
-      },
+    },
+    '& + div > div::before': {
+      content: 'attr(data-label-content)',
+      position: 'absolute',
+      mx: 1,
+      fontSize: '0.75em',
+      textAlign: 'center',
+      color: 'white',
+      top: '50%',
+      transform: 'translate(-50%,-50%)',
+      whiteSpace: 'nowrap',
+      left: '50%',
+    },
+    '&:checked + div > div::before': {
+      left: '-50%',
+    },
+    '& + div': {
+      cursor: 'pointer',
+      backgroundColor: 'primary',
+    },
+    '&:checked + div': {
+      backgroundColor: 'green',
+    },
+    '&:focus + div': {
+      boxShadow: '0 0 0 2px blue',
+    },
+    '&[disabled] + div': {
+      backgroundColor: 'grey.1',
+      cursor: 'not-allowed',
+    },
+  },
+});
+
+const Toggler = createComponent('div', {
+  displayName: 'Toggler',
+  defaultStyles: {
+    fontSize: 'inherit',
+    display: 'inline-block',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    transitionProperty: 'transform, color',
+    transitionDuration: '0.2s',
+    transitionTimingFunction: 'ease-out',
+  },
+});
+
+const ToggleLabel = disabledControl(
+  createComponent('label', {
+    displayName: 'ToggleLabel',
+    defaultStyles: {
+      fontSize: 'inherit',
+      lineHeight: 'inherit',
+      cursor: 'pointer',
+      position: 'relative',
+      outline: 'none',
+      userSelect: 'none',
+      mx: 1,
     },
   }),
 );
 
-const ToggleLabel = createComponent('label', {
-  displayName: 'ToggleLabel',
-  defaultStyles: {
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    cursor: 'pointer',
-    position: 'relative',
-    outline: 'none',
-    userSelect: 'none',
-    mx: 1,
+export const Toggle: VisageComponent<ToggleProps, StyleProps> = forwardRef(
+  function Toggle(
+    {
+      defaultChecked,
+      disabled,
+      checked,
+      hiddenLabel = false,
+      label,
+      leftContent,
+      rightContent,
+      id: outerId,
+      name,
+      onChange,
+      onBlur,
+      onFocus,
+      readOnly,
+      styles,
+      value,
+    }: ToggleProps,
+    ref: Ref<HTMLInputElement>,
+  ) {
+    const [inputChecked, setInputChecked] = useState(checked);
+    const id = useMemo(() => {
+      const idTemplate = useGenerateId();
+      return `toggle-${idTemplate.current}-${name || ''}`;
+    }, [outerId]);
+
+    return (
+      <Flex styles={{ display: 'flex', mb: 1 }}>
+        <Box styles={{ display: 'flex', alignItems: 'center' }} as="label">
+          <ToggleControl
+            defaultChecked={defaultChecked}
+            checked={checked}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onChange={e => {
+              setInputChecked(e.target.checked);
+              if (onChange) {
+                onChange(e);
+              }
+            }}
+            ref={ref}
+            readOnly={readOnly}
+            value={value}
+            tabIndex={0}
+            type="checkbox"
+            onKeyDown={e => {
+              if (readOnly && e.key === ' ') {
+                e.preventDefault();
+              }
+            }}
+            onClick={e => {
+              if (readOnly) {
+                e.preventDefault();
+              }
+            }}
+            onBlur={onBlur}
+            onFocus={onFocus}
+          />
+          <ToggleContainer styles={styles}>
+            <Toggler
+              checked={checked}
+              data-label-content={inputChecked ? rightContent : leftContent}
+            />
+          </ToggleContainer>
+          {label != null && (
+            <ToggleLabel disabled={disabled} htmlFor={id} hidden={hiddenLabel}>
+              {label}
+            </ToggleLabel>
+          )}
+        </Box>
+      </Flex>
+    );
   },
-});
-
-export const Toggle: VisageComponent<
-  ToggleProps,
-  StyleProps
-> = function Toggle({
-  defaultChecked,
-  disabled,
-  checked,
-  hiddenLabel = false,
-  label,
-  leftContent,
-  rightContent,
-  name,
-  onChange,
-  readOnly,
-  styles,
-  value,
-}: ToggleProps) {
-  const checkedValue = checked != null ? checked : !!defaultChecked;
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const id = `toggle-${name}`;
-  const [isChecked, setChecked] = useState(checkedValue);
-  const checkedRef = useRef(checkedValue);
-  const onClick: MouseEventHandler<HTMLElement> = useCallback(() => {
-    if (inputRef.current) {
-      setChecked(!inputRef.current.checked);
-    }
-  }, [inputRef]);
-  const onKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
-    e => {
-      if (inputRef.current && e.key === ' ') {
-        e.preventDefault();
-        setChecked(!inputRef.current.checked);
-      }
-    },
-    [inputRef],
-  );
-  const isMutable = !disabled && !readOnly;
-  const ariaChecked = isChecked.toString() as 'true' | 'false';
-  const ariaDisabled = (!!disabled).toString() as 'true' | 'false';
-  const ariaReadOnly = (!!readOnly).toString() as 'true' | 'false';
-
-  if (checkedRef.current !== checkedValue) {
-    checkedRef.current = checkedValue;
-    setChecked(checkedValue);
-  }
-
-  return (
-    <Flex styles={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-      <ToggleContainer
-        styles={styles}
-        onKeyDown={!disabled && !readOnly ? onKeyDown : undefined}
-        onClick={!disabled && !readOnly ? onClick : undefined}
-        checked={isChecked}
-        disabled={disabled}
-        role="switch"
-        tabIndex={disabled ? -1 : 0}
-        aria-checked={ariaChecked}
-        aria-disabled={ariaDisabled}
-        aria-readonly={ariaReadOnly}
-      >
-        <ToggleControl
-          defaultChecked={isMutable ? undefined : isChecked}
-          disabled={disabled}
-          checked={isMutable ? isChecked : undefined}
-          id={id}
-          name={name}
-          onChange={onChange}
-          ref={inputRef}
-          readOnly={readOnly}
-          value={value}
-          type="checkbox"
-        />
-        <Toggler
-          checked={isChecked}
-          data-label-content={isChecked ? rightContent : leftContent}
-        />
-      </ToggleContainer>
-      {label != null && (
-        <ToggleLabel
-          onKeyDown={!disabled && !readOnly ? onKeyDown : undefined}
-          onClick={!disabled && !readOnly ? onClick : undefined}
-          checked={isChecked}
-          disabled={disabled}
-          htmlFor={id}
-          hidden={hiddenLabel}
-        >
-          {label}
-        </ToggleLabel>
-      )}
-    </Flex>
-  );
-};
+);

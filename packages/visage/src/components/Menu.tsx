@@ -3,6 +3,7 @@ import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
   VisageComponent,
+  useDesignSystem,
 } from '@byteclaw/visage-core';
 import React, {
   Children,
@@ -16,6 +17,7 @@ import React, {
   KeyboardEventHandler,
   forwardRef,
   RefObject,
+  useMemo,
 } from 'react';
 
 import { StyleProps } from '../createNPointTheme';
@@ -27,16 +29,26 @@ import {
 } from './shared';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
+import { createBooleanVariant } from '../core';
 
-const MenuBase = createComponent(List, {
-  displayName: 'Menu',
-  defaultStyles: {
-    maxHeight: ['100vh', 'calc(100vh - 32px)'],
-    maxWidth: ['100vw', 'calc(100vw - 32px)'],
-    overflowY: 'scroll',
-    backgroundColor: 'white',
+const fullscreenMenuVariant = createBooleanVariant('isFullscreen', {
+  onStyles: {
+    width: '100vw',
+    height: '100vh',
   },
 });
+
+const MenuBase = fullscreenMenuVariant(
+  createComponent(List, {
+    displayName: 'Menu',
+    defaultStyles: {
+      maxHeight: ['100vh', 'calc(100vh - 32px)'],
+      maxWidth: ['100vw', 'calc(100vw - 32px)'],
+      overflowY: 'scroll',
+      backgroundColor: 'white',
+    },
+  }),
+);
 
 const MenuItemBase = createComponent(ListItem, {
   displayName: 'MenuItem',
@@ -79,6 +91,7 @@ export function Menu({
   anchorOrigin = defaultAnchorOrigin,
   children,
   disableEvents,
+  fullscreen = [true, false],
   keepAnchorWidth,
   onClose,
   open,
@@ -86,6 +99,17 @@ export function Menu({
   onKeyDown: outerOnKeyDown,
   ...restProps
 }: MenuProps) {
+  const visage = useDesignSystem();
+  const isFullscreen = useMemo(() => {
+    if (
+      fullscreen === true ||
+      (Array.isArray(fullscreen) && fullscreen[visage.breakpoint] === true)
+    ) {
+      return true;
+    }
+    return false;
+  }, [visage.breakpoint, fullscreen]);
+
   const firstItemRef = useRef<HTMLElement | null>(null);
   const lastItemRef = useRef<HTMLElement | null>(null);
   const onKeyDown: KeyboardEventHandler = useCallback(
@@ -176,15 +200,22 @@ export function Menu({
 
   return (
     <Popover
-      allowScrolling
+      allowScrolling={!isFullscreen}
+      alwaysVisible
       anchor={anchor}
       anchorOrigin={anchorOrigin}
-      autoFocus={false}
+      autoFocus={isFullscreen}
+      fullscreen={isFullscreen}
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
       open={open}
     >
-      <MenuBase role={role} {...restProps} tabIndex={-1}>
+      <MenuBase
+        isFullscreen={isFullscreen}
+        role={role}
+        {...restProps}
+        tabIndex={-1}
+      >
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
             ref: i === 0 ? firstItemRef : lastItemRef,
