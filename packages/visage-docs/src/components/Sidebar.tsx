@@ -218,6 +218,11 @@ export function Sidebar() {
               title="Navigation"
             >
               <ListItem>
+                <ListItemRouteLink to="/components/navigation/link">
+                  Link
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/navigation/list">
                   List
                 </ListItemRouteLink>
