@@ -36,8 +36,8 @@ export const BasePopover = openPopoverVariant(
       overflowX: 'hidden',
       minWidth: '1rem',
       minHeight: '1rem',
-      maxWidth: 'calc(100% - 1rem)',
-      maxHeight: 'calc(100% - 1rem)',
+      maxWidth: ['100vw', 'calc(100% - 1rem)'],
+      maxHeight: ['100vh', 'calc(100% - 1rem)'],
       outline: 'none',
     },
   }),
@@ -45,6 +45,7 @@ export const BasePopover = openPopoverVariant(
 
 export type PopoverProps = {
   allowScrolling?: boolean;
+  alwaysVisible?: boolean;
   anchor?: null | HTMLElement | RefObject<HTMLElement>;
   anchorOrigin?: TransformOriginSettings;
   anchorPosition?: { top: number; left: number };
@@ -52,10 +53,20 @@ export type PopoverProps = {
   autoFocus?: boolean;
   backdrop?: boolean;
   children: ReactNode;
+  fullscreen?: boolean;
   keepAnchorWidth?: boolean;
   marginThreshold?: number;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
+  placement?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right';
   transformOrigin?: TransformOriginSettings;
 };
 
@@ -66,6 +77,7 @@ const defaultOrigin: TransformOriginSettings = {
 
 export function Popover({
   allowScrolling = false,
+  alwaysVisible = false,
   autoFocus = true,
   children,
   anchor,
@@ -73,11 +85,13 @@ export function Popover({
   anchorPosition,
   anchorReference = 'anchor',
   backdrop = true,
+  fullscreen = false,
   keepAnchorWidth = false,
   marginThreshold = 16,
   open = true,
   transformOrigin = defaultOrigin,
   onClose = () => {},
+  placement = 'bottom',
 }: PopoverProps) {
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
@@ -148,6 +162,13 @@ export function Popover({
       transformOrigin: string;
       width?: string;
     } => {
+      if (anchor == null) {
+        throw new Error('Anchor must be defined');
+      }
+
+      const resolvedAnchor = getAnchorNode(anchor);
+      const containerWindow = window;
+
       const contentAnchorOffset = 0;
       const elemRect = {
         width: element.offsetWidth,
@@ -167,50 +188,60 @@ export function Popover({
         };
       }
 
+      if (fullscreen) {
+        return {
+          left: `${containerWindow.scrollX}px`,
+          top: `${containerWindow.scrollY}px`,
+          transformOrigin: getTransformOriginValue(elemTransformOrigin),
+          width: '100vw',
+        };
+      }
+
       const anchorOffset = getAnchorOffset(contentAnchorOffset);
 
-      const top = anchorOffset.top - elemTransformOrigin.vertical;
-      const left = anchorOffset.left - elemTransformOrigin.horizontal;
+      let top = anchorOffset.top - elemTransformOrigin.vertical;
+      let left = anchorOffset.left - elemTransformOrigin.horizontal;
       const width = anchorOffset.width ? `${anchorOffset.width}px` : undefined;
+
+      // if placement is custom or Popover content is to be always completely in the viewport
+      if (
+        placement === 'top' ||
+        placement === 'top-left' ||
+        placement === 'top-right' ||
+        (alwaysVisible &&
+          top - containerWindow.scrollY + elemRect.height >
+            containerWindow.innerHeight)
+      ) {
+        top =
+          anchorOffset.top -
+          resolvedAnchor!.offsetHeight -
+          elemRect.height -
+          elemTransformOrigin.vertical;
+      }
+
+      // if placement is custom or cropped by the viewport right edge, render it right-left
+      if (
+        placement === 'left' ||
+        placement === 'top-left' ||
+        placement === 'bottom-right' ||
+        (alwaysVisible &&
+          left - containerWindow.scrollX + elemRect.width >
+            containerWindow.innerWidth)
+      ) {
+        left =
+          anchorOffset.left -
+          resolvedAnchor!.offsetWidth -
+          elemRect.width -
+          elemTransformOrigin.horizontal;
+      }
+
       // const bottom = top + elemRect.height;
       // const right = left + elemRect.width;
-
-      // const containerWindow = window;
 
       // margin box around inside the window
       // const heightThreshold = containerWindow.innerHeight - marginThreshold;
       // const widthThreshold = containerWindow.innerWidth - marginThreshold;
-
       // transform if too close
-      /*
-      if ((top) < marginThreshold) {
-        console.log('too close to top!');
-        const diff = top - marginThreshold;
-        top -= diff;
-        elemTransformOrigin.vertical += diff;
-      } else if (bottom > heightThreshold) {
-        console.log('bottom', bottom);
-        console.log('top', top);
-        console.log('scroll', window.scrollY);
-        console.log('too close to bottom!');
-        const diff = bottom - heightThreshold;
-        top -= diff;
-        elemTransformOrigin.vertical += diff;
-      }
-      */
-
-      // transform horizontal if too close
-      /*
-      if (left < marginThreshold) {
-        const diff = left - marginThreshold;
-        left -= diff;
-        elemTransformOrigin.horizontal += diff;
-      } else if (right > widthThreshold) {
-        const diff = right - widthThreshold;
-        left -= diff;
-        elemTransformOrigin.horizontal += diff;
-      }
-      */
 
       return {
         top: `${top}px`,
@@ -220,35 +251,16 @@ export function Popover({
       };
     },
     [
+      alwaysVisible,
       anchor,
       anchorReference,
+      fullscreen,
       getAnchorOffset,
       getTransformOrigin,
       marginThreshold,
+      placement,
     ],
   );
-
-  /**
-  const onDocumentFocus: EventListener = React.useCallback(e => {
-    e.preventDefault();
-
-    if (contentRef.current) {
-      contentRef.current.focus();
-    }
-  }, []);
-
-  // focus trap
-  // eslint-disable-next-line consistent-return
-  React.useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('focus', onDocumentFocus, true);
-
-      return () => {
-        document.removeEventListener('focus', onDocumentFocus, true);
-      };
-    }
-  }, []);
-  */
 
   const setPositioningStyles = React.useCallback(
     (element: HTMLElement) => {
