@@ -26,18 +26,18 @@ export const invalidControl = createBooleanVariant('invalid', {
 });
 
 export const disabledControlStyles: EmotionStyleSheet = {
-  color: 'grey.1',
+  color: 'neutral.1',
   cursor: 'not-allowed',
-  outlineColor: 'grey.1',
+  outlineColor: 'neutral.1',
   // applicable to textarea
   resize: 'none',
   // checkbox, radio
   '&::before': {
-    borderColor: 'grey.1',
+    borderColor: 'neutral.1',
   },
   // checkbox, radio
   '&::after': {
-    borderColor: 'grey.1',
+    borderColor: 'neutral.1',
   },
 };
 
