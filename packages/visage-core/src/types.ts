@@ -4,6 +4,15 @@ export interface Visage<TTheme extends Theme> {
   breakpoint: number;
   face(componentName: string): StyleSheet<any>;
   generate(styleSheet: StyleSheet<any>): { [prop: string]: any };
+  resolveStyle(
+    prop: string,
+    value:
+      | string
+      | number
+      | null
+      | undefined
+      | (string | number | null | undefined)[],
+  ): string | number | null | undefined;
   theme: TTheme;
 }
 
