@@ -27,6 +27,7 @@ export const BoxSkeleton = createComponent(
       display: 'block',
       willChange: 'opacity',
       animation: `${skeletonAnimation} .8s linear infinite alternate`,
+      width: '100%',
     },
   },
 );
