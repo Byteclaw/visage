@@ -11,6 +11,8 @@ export interface VisageFaces {
   BannerRibbon?: EmotionStyleSheet;
   // Box.ts
   Box?: EmotionStyleSheet;
+  // Box.ts
+  BoxSkeleton?: EmotionStyleSheet;
   // Button.ts
   Button?: EmotionStyleSheet;
   // Card.tsx
