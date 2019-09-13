@@ -79,6 +79,9 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
 
           return res;
         },
+        resolveStyle(prop, value) {
+          return options.theme.resolve(prop, value, breakpoint).value;
+        },
         theme: options.theme,
       };
     }, [options.is, options.faces, options.theme, options.styleGenerator]);
