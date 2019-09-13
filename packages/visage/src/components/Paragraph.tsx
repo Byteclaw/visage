@@ -51,7 +51,7 @@ export const ParagraphSkeleton = createComponent(
         width: '100%',
       },
       '& > div > div': {
-        backgroundColor: 'bodyText',
+        backgroundColor: 'currentColor',
         fontSize: 'inherit',
         lineHeight: '1em',
         width: '100%',

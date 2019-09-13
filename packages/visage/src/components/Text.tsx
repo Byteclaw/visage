@@ -37,7 +37,7 @@ export const TextSkeleton = createComponent(
       animation: `${skeletonAnimation} .8s linear infinite alternate`,
       '&:before': {
         content: 'attr(data-mask)',
-        backgroundColor: 'bodyText',
+        backgroundColor: 'currentColor',
         fontSize: 'inherit',
         lineHeight: '1em',
       },
