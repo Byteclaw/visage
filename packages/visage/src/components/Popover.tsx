@@ -1,4 +1,5 @@
 import React, { ReactNode, RefObject, KeyboardEvent, MouseEvent } from 'react';
+import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
 import { createComponent, createBooleanVariant } from '../core';
 import {
   ElementRect,
@@ -9,6 +10,7 @@ import {
   TransformVerticalPosition,
 } from './shared';
 import { Modal } from './Modal';
+import { StyleProps } from '../createNPointTheme';
 
 function getAnchorNode(
   anchor: HTMLElement | RefObject<HTMLElement>,
@@ -43,7 +45,7 @@ export const BasePopover = openPopoverVariant(
   }),
 );
 
-export type PopoverProps = {
+interface PopoverProps extends VisageStyleProps<StyleProps> {
   allowScrolling?: boolean;
   alwaysVisible?: boolean;
   anchor?: null | HTMLElement | RefObject<HTMLElement>;
@@ -68,7 +70,7 @@ export type PopoverProps = {
     | 'bottom-left'
     | 'bottom-right';
   transformOrigin?: TransformOriginSettings;
-};
+}
 
 const defaultOrigin: TransformOriginSettings = {
   horizontal: 'left',
@@ -92,6 +94,7 @@ export function Popover({
   transformOrigin = defaultOrigin,
   onClose = () => {},
   placement = 'bottom',
+  ...restProps
 }: PopoverProps) {
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
@@ -320,7 +323,7 @@ export function Popover({
       onClose={onClose}
       open={open}
     >
-      <BasePopover tabIndex={-1} open={open} ref={contentRef}>
+      <BasePopover {...restProps} tabIndex={-1} open={open} ref={contentRef}>
         {children}
       </BasePopover>
     </Modal>

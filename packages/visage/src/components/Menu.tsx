@@ -209,6 +209,12 @@ export function Menu({
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
       open={open}
+      styles={{
+        boxShadow: [
+          'none',
+          '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
+        ],
+      }}
     >
       <MenuBase
         isFullscreen={isFullscreen}
