@@ -194,6 +194,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/layout/box-skeleton">
+                  BoxSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/layout/flex">
                   Flex
                 </ListItemRouteLink>
