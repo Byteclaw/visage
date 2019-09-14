@@ -28,6 +28,10 @@ export interface ResponsiveDesignSystemProps {
    */
   breakpoints?: string[];
   children?: ReactNode;
+  /**
+   * Sets the default zIndex (default is 1)
+   */
+  defaultZIndex?: number;
   faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
@@ -37,6 +41,7 @@ export interface ResponsiveDesignSystemProps {
 export function ResponsiveDesignSystem({
   breakpoints = defaultBreakpoints,
   children,
+  defaultZIndex = 1,
   faces,
   is = 0,
   theme,
@@ -52,7 +57,7 @@ export function ResponsiveDesignSystem({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <LayerManager>
+      <LayerManager increaseBy={defaultZIndex}>
         <Fragment>
           <GlobalReset />
           <EventEmitterContext.Provider value={toastEventEmitter}>

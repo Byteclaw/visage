@@ -12,6 +12,10 @@ import { VisageFaces } from './faces';
 
 export interface DesignSystemProps {
   children?: ReactNode;
+  /**
+   * Sets the default zIndex (default is 1)
+   */
+  defaultZIndex?: number;
   faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
@@ -19,6 +23,7 @@ export interface DesignSystemProps {
 }
 
 const DesignSystem: FunctionComponent<DesignSystemProps> = ({
+  defaultZIndex = 1,
   children,
   faces,
   is = 0,
@@ -33,7 +38,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <LayerManager>
+      <LayerManager increaseBy={defaultZIndex}>
         <Fragment>
           <GlobalReset />
           <EventEmitterContext.Provider value={toastEventEmitter}>
