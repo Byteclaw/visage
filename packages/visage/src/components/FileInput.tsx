@@ -201,6 +201,7 @@ export function FileInput({
     <FileInputBox {...boxProps}>
       <BaseFileInput
         {...restProps}
+        accept={accept}
         aria-invalid={invalid}
         aria-readonly={readOnly}
         disabled={disabled}
