@@ -205,6 +205,7 @@ export function Menu({
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={isFullscreen}
+      backdrop={false}
       fullscreen={isFullscreen}
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}

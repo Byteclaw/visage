@@ -1,8 +1,6 @@
 import { EmotionStyleSheet } from './types';
 
 export interface VisageFaces {
-  // Backdrop.tsx
-  Backdrop?: EmotionStyleSheet;
   // Badge.ts
   Badge?: EmotionStyleSheet;
   // Banner.tsx
