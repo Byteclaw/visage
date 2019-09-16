@@ -5,6 +5,7 @@ import {
   VisageComponent,
   useDesignSystem,
 } from '@byteclaw/visage-core';
+import { getResponsiveValue } from '@byteclaw/visage-utils';
 import React, {
   Children,
   cloneElement,
@@ -100,15 +101,10 @@ export function Menu({
   ...restProps
 }: MenuProps) {
   const visage = useDesignSystem();
-  const isFullscreen = useMemo(() => {
-    if (
-      fullscreen === true ||
-      (Array.isArray(fullscreen) && fullscreen[visage.breakpoint] === true)
-    ) {
-      return true;
-    }
-    return false;
-  }, [visage.breakpoint, fullscreen]);
+  const isFullscreen = useMemo(
+    () => getResponsiveValue(visage.breakpoint, fullscreen),
+    [visage.breakpoint, fullscreen],
+  );
 
   const firstItemRef = useRef<HTMLElement | null>(null);
   const lastItemRef = useRef<HTMLElement | null>(null);
