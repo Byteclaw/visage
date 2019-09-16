@@ -316,7 +316,6 @@ export function Popover({
   return (
     <Modal
       backdrop={open && backdrop}
-      backdropStyles={{ backgroundColor: 'transparent' }}
       allowScrolling={allowScrolling}
       fixed={false}
       id="popover-modal-container"
