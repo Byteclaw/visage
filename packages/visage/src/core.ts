@@ -123,13 +123,23 @@ export const createBooleanVariant: BooleanVariantCreator<StyleProps> = (
           customStyles,
         );
 
-        return React.createElement(C, {
-          ...rest,
-          [variantPropName]: variant ? variant.toString() : 'false',
-          [propName]: stripProp ? undefined : variant,
-          parentStyles: styles,
-          ref,
-        });
+        return React.createElement(
+          C,
+          stripProp
+            ? {
+                ...rest,
+                [variantPropName]: variant ? variant.toString() : 'false',
+                parentStyles: styles,
+                ref,
+              }
+            : {
+                ...rest,
+                [variantPropName]: variant ? variant.toString() : 'false',
+                [propName]: variant,
+                parentStyles: styles,
+                ref,
+              },
+        );
       },
     );
 
