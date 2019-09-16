@@ -46,6 +46,7 @@ interface AutocompleteInputProps<TValue extends any>
   debounceDelay?: number;
   expandOnClick?: boolean;
   id: string;
+  menuProps?: ExtractVisageComponentProps<typeof Menu>;
   options?: (inputValue: string) => Promise<TValue[]>;
   /** Set focused option as value on blur */
   selectOnBlur?: boolean;
@@ -74,6 +75,7 @@ export function AutocompleteInput<TValue extends any = string>({
   onStateChange,
   options,
   optionToString,
+  menuProps,
   readOnly,
   selectOnBlur,
   value,
@@ -316,6 +318,7 @@ export function AutocompleteInput<TValue extends any = string>({
         open={state.isOpen}
         role="listbox"
         tabIndex={-1}
+        {...menuProps}
       >
         {state.isOpen
           ? state.options.map((option, index) => (

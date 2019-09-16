@@ -59,6 +59,7 @@ interface SelectProps<TValue extends any = string>
     SelectorOptions<TValue> {
   debounceDelay?: number;
   id: string;
+  menuProps?: ExtractVisageComponentProps<typeof Menu>;
   options?: (inputValue: string) => Promise<TValue[]>;
   searchable?: boolean;
 }
@@ -75,6 +76,7 @@ export function Select<TValue extends any = string>({
   onStateChange,
   optionToString,
   options,
+  menuProps,
   readOnly,
   searchable,
   value,
@@ -352,6 +354,7 @@ export function Select<TValue extends any = string>({
         open={state.isOpen}
         role="listbox"
         tabIndex={-1}
+        {...menuProps}
       >
         {state.isOpen
           ? state.options.map((option, index) => (
