@@ -37,6 +37,7 @@ const fullscreenMenuVariant = createBooleanVariant('isFullscreen', {
     width: '100vw',
     height: '100vh',
   },
+  stripProp: true,
 });
 
 const MenuBase = fullscreenMenuVariant(
