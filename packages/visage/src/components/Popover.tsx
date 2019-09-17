@@ -304,7 +304,7 @@ export function Popover({
     return () => {
       window.removeEventListener('resize', handleResizeRef.current);
     };
-  }, [open, contentRef.current, setPositioningStyles]);
+  }, [open, contentRef.current, children, setPositioningStyles]);
 
   // focus popover content on mount
   React.useEffect(() => {

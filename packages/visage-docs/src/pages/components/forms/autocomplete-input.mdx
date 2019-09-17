@@ -14,7 +14,21 @@ import { AutocompleteInput } from '@byteclaw/visage';
 <AutocompleteInput
   id="autocomplete-field"
   onChange={value => console.log(value)}
-  options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+  options={filter => {
+    return new Promise(resolve => {
+      const options = Array(100)
+        .fill(null)
+        .map((_, i) => i);
+
+      if (filter) {
+        const regex = new RegExp(filter, 'i');
+
+        return resolve(options.filter(o => regex.test(o)));
+      }
+
+      return resolve(options);
+    });
+  }}
   placeholder="Enter a value"
 />
 ```
