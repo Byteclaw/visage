@@ -72,6 +72,7 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
    * Use only if you are managing focus outside of this component
    */
   disableEvents?: boolean;
+  fullscreen?: boolean | boolean[];
   keepAnchorWidth?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
