@@ -61,12 +61,12 @@ import { Select } from '@byteclaw/visage';
   onChange={value => console.log(value)}
   options={filter =>
     new Promise(resolve =>
-      setTimeout(
-        resolve,
-        1000,
-        ['A', 'B', 'C', 'D', 'E', 'F'].filter(val =>
-          !filter ? true : val === filter,
-        ),
+      resolve(
+        Array(30)
+          .fill(null)
+          .map((i, id) => id)
+          .filter(i => (filter ? i > Number(filter) : true))
+          .map(i => i.toString()),
       ),
     )
   }

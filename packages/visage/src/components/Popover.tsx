@@ -163,6 +163,7 @@ export function Popover({
       left: null | string;
       top: null | string;
       transformOrigin: string;
+      height?: string;
       width?: string;
     } => {
       if (anchor == null) {
@@ -175,7 +176,7 @@ export function Popover({
       const contentAnchorOffset = 0;
       const elemRect = {
         width: element.offsetWidth,
-        height: element.offsetHeight,
+        height: alwaysVisible ? element.offsetHeight : element.offsetHeight,
       };
 
       const elemTransformOrigin = getTransformOrigin(
@@ -196,6 +197,7 @@ export function Popover({
           left: `${containerWindow.scrollX}px`,
           top: `${containerWindow.scrollY}px`,
           transformOrigin: getTransformOriginValue(elemTransformOrigin),
+          height: '100vh',
           width: '100vw',
         };
       }
@@ -204,6 +206,7 @@ export function Popover({
 
       let top = anchorOffset.top - elemTransformOrigin.vertical;
       let left = anchorOffset.left - elemTransformOrigin.horizontal;
+      let height;
       const width = anchorOffset.width ? `${anchorOffset.width}px` : undefined;
 
       // if placement is custom or Popover content is to be always completely in the viewport
@@ -215,11 +218,44 @@ export function Popover({
           top - containerWindow.scrollY + elemRect.height >
             containerWindow.innerHeight)
       ) {
-        top =
+        // look in which half of the screen (upper/lower) the anchor is
+        if (
           anchorOffset.top -
-          resolvedAnchor!.offsetHeight -
-          elemRect.height -
-          elemTransformOrigin.vertical;
+            resolvedAnchor!.getBoundingClientRect().height / 2 -
+            containerWindow.scrollY -
+            marginThreshold <
+          containerWindow.innerHeight / 2
+        ) {
+          // upper half of the screen - just cut the height at the end
+          height =
+            containerWindow.innerHeight -
+            (anchorOffset.top -
+              containerWindow.scrollY -
+              elemTransformOrigin.vertical) -
+            marginThreshold;
+        } else {
+          // lower part - it means we will open it bottom-top
+          if (
+            anchorOffset.top -
+              elemTransformOrigin.vertical -
+              containerWindow.scrollY -
+              marginThreshold <
+            elemRect.height
+          ) {
+            // first we will cut the top end if needed
+            height =
+              anchorOffset.top -
+              resolvedAnchor!.getBoundingClientRect().height -
+              containerWindow.scrollY -
+              elemTransformOrigin.vertical -
+              marginThreshold;
+          }
+          top =
+            anchorOffset.top -
+            resolvedAnchor!.offsetHeight -
+            (height == null ? elemRect.height : height) -
+            elemTransformOrigin.vertical;
+        }
       }
 
       // if placement is custom or cropped by the viewport right edge, render it right-left
@@ -238,19 +274,16 @@ export function Popover({
           elemTransformOrigin.horizontal;
       }
 
-      // const bottom = top + elemRect.height;
-      // const right = left + elemRect.width;
-
       // margin box around inside the window
       // const heightThreshold = containerWindow.innerHeight - marginThreshold;
       // const widthThreshold = containerWindow.innerWidth - marginThreshold;
-      // transform if too close
 
       return {
         top: `${top}px`,
         left: `${left}px`,
         transformOrigin: getTransformOriginValue(elemTransformOrigin),
         width,
+        height: height ? `${height}px` : undefined,
       };
     },
     [
@@ -272,6 +305,11 @@ export function Popover({
       if (keepAnchorWidth && positioning.width) {
         // eslint-disable-next-line no-param-reassign
         element.style.width = positioning.width;
+      }
+
+      if (positioning.height != null) {
+        // eslint-disable-next-line no-param-reassign
+        element.style.height = positioning.height;
       }
 
       if (positioning.top !== null) {
