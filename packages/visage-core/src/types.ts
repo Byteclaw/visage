@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ComponentType } from 'react';
 
 export interface Visage<TTheme extends Theme> {
   breakpoint: number;
@@ -88,6 +88,8 @@ export type ExtractVisageComponentProps<T> = T extends VisageComponent<
   infer S
 >
   ? P & StyleProps<S>
+  : T extends ComponentType<infer P>
+  ? P
   : {};
 
 export interface VisageComponent<
