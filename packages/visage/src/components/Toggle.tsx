@@ -158,10 +158,10 @@ export const Toggle: VisageComponent<ToggleProps, StyleProps> = forwardRef(
     ref: Ref<HTMLInputElement>,
   ) {
     const [inputChecked, setInputChecked] = useState(checked);
+    const idTemplate = useGenerateId();
     const id = useMemo(() => {
-      const idTemplate = useGenerateId();
-      return `toggle-${idTemplate.current}-${name || ''}`;
-    }, [outerId]);
+      return `toggle-${idTemplate}-${name || ''}`;
+    }, [outerId, idTemplate]);
 
     return (
       <Flex styles={{ display: 'flex', mb: 1 }}>

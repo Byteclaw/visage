@@ -1,4 +1,10 @@
-import React, { ReactNode, RefObject, KeyboardEvent, MouseEvent } from 'react';
+import React, {
+  ReactNode,
+  RefObject,
+  KeyboardEvent,
+  MouseEvent,
+  useMemo,
+} from 'react';
 import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
 import { createComponent, createBooleanVariant } from '../core';
 import {
@@ -11,7 +17,7 @@ import {
 } from './shared';
 import { Modal } from './Modal';
 import { StyleProps } from '../createNPointTheme';
-import { useDebouncedCallback } from '../hooks';
+import { useDebouncedCallback, useGenerateId } from '../hooks';
 
 function getAnchorNode(
   anchor: HTMLElement | RefObject<HTMLElement>,
@@ -57,6 +63,7 @@ interface PopoverProps extends VisageStyleProps<StyleProps> {
   backdrop?: boolean;
   children: ReactNode;
   fullscreen?: boolean;
+  id?: string;
   keepAnchorWidth?: boolean;
   marginThreshold?: number;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
@@ -89,6 +96,7 @@ export function Popover({
   anchorReference = 'anchor',
   backdrop = true,
   fullscreen = false,
+  id: outerId,
   keepAnchorWidth = false,
   marginThreshold = 16,
   open = true,
@@ -97,6 +105,11 @@ export function Popover({
   placement = 'bottom',
   ...restProps
 }: PopoverProps) {
+  const idTemplate = useGenerateId();
+  const id = useMemo(() => {
+    return `popover-${idTemplate}`;
+  }, [idTemplate, outerId]);
+
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
 
@@ -359,7 +372,7 @@ export function Popover({
       backdrop={open && backdrop}
       allowScrolling={allowScrolling}
       fixed={false}
-      id="popover-modal-container"
+      id={id}
       onClose={onClose}
       open={open}
       contentRef={contentRef}
