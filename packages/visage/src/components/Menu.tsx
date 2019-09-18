@@ -13,7 +13,7 @@ import React, {
   MouseEvent,
   KeyboardEvent,
   useCallback,
-  useLayoutEffect,
+  useEffect,
   useRef,
   KeyboardEventHandler,
   forwardRef,
@@ -180,7 +180,7 @@ export function Menu({
 
   // manage autofocus of first item
   // if not managed from outside
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!open || disableEvents) {
       return;
     }
@@ -202,7 +202,7 @@ export function Menu({
       alwaysVisible
       anchor={anchor}
       anchorOrigin={anchorOrigin}
-      autoFocus={isFullscreen}
+      autoFocus={false}
       backdrop={false}
       fullscreen={isFullscreen}
       keepAnchorWidth={keepAnchorWidth}

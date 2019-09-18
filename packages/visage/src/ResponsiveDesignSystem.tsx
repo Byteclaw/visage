@@ -41,7 +41,7 @@ export interface ResponsiveDesignSystemProps {
 export function ResponsiveDesignSystem({
   breakpoints = defaultBreakpoints,
   children,
-  defaultZIndex = 1,
+  defaultZIndex = 10,
   faces,
   is = 0,
   theme,

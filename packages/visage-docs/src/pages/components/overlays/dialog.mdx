@@ -28,6 +28,16 @@ import { Dialog } from '@byteclaw/visage';
           setShow(false);
         }}
       >
+        <form action="">
+          <label htmlFor="searchable">Searchable select value</label>
+          <Select
+            id="searchable"
+            onChange={value => console.log(value)}
+            options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+            placeholder="Select a value"
+            searchable
+          />
+        </form>
         Content
       </Dialog>
     );

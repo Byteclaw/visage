@@ -11,6 +11,7 @@ import {
 } from './shared';
 import { Modal } from './Modal';
 import { StyleProps } from '../createNPointTheme';
+import { useDebouncedCallback } from '../hooks';
 
 function getAnchorNode(
   anchor: HTMLElement | RefObject<HTMLElement>,
@@ -176,7 +177,7 @@ export function Popover({
       const contentAnchorOffset = 0;
       const elemRect = {
         width: element.offsetWidth,
-        height: alwaysVisible ? element.offsetHeight : element.offsetHeight,
+        height: element.scrollHeight,
       };
 
       const elemTransformOrigin = getTransformOrigin(
@@ -264,19 +265,15 @@ export function Popover({
         placement === 'top-left' ||
         placement === 'bottom-right' ||
         (alwaysVisible &&
+          keepAnchorWidth === false &&
           left - containerWindow.scrollX + elemRect.width >
             containerWindow.innerWidth)
       ) {
         left =
           anchorOffset.left -
-          resolvedAnchor!.offsetWidth -
-          elemRect.width -
+          (elemRect.width - resolvedAnchor!.offsetWidth) -
           elemTransformOrigin.horizontal;
       }
-
-      // margin box around inside the window
-      // const heightThreshold = containerWindow.innerHeight - marginThreshold;
-      // const widthThreshold = containerWindow.innerWidth - marginThreshold;
 
       return {
         top: `${top}px`,
@@ -310,6 +307,9 @@ export function Popover({
       if (positioning.height != null) {
         // eslint-disable-next-line no-param-reassign
         element.style.height = positioning.height;
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        element.style.height = 'auto';
       }
 
       if (positioning.top !== null) {
@@ -330,13 +330,16 @@ export function Popover({
     [getPositioningStyle, keepAnchorWidth],
   );
 
+  const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 25, []);
+
   React.useEffect(() => {
     if (open && contentRef.current) {
       const el = contentRef.current;
 
       setPositioningStyles(el);
 
-      handleResizeRef.current = () => setPositioningStyles(el);
+      handleResizeRef.current = () => resizeHandler(el);
+
       window.addEventListener('resize', handleResizeRef.current);
     }
     return () => {
@@ -359,6 +362,7 @@ export function Popover({
       id="popover-modal-container"
       onClose={onClose}
       open={open}
+      contentRef={contentRef}
     >
       <BasePopover {...restProps} tabIndex={-1} open={open} ref={contentRef}>
         {children}
