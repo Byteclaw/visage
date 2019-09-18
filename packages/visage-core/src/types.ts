@@ -97,24 +97,19 @@ export interface VisageComponent<
   TStyleSheet extends ValidStyleSheet
 > {
   displayName?: string;
-  <P>(
-    props: { as: React.FunctionComponent<P> } & TComponentProps &
-      P &
+  <C extends keyof JSX.IntrinsicElements>(
+    props: { as: C } & TComponentProps &
+      JSX.IntrinsicElements[C] &
       StyleProps<TStyleSheet>,
   ): React.ReactElement | null;
   <P>(
-    props: { as: React.ComponentClass<P> } & TComponentProps &
-      P &
+    props: { as: React.ComponentType<P> } & P &
+      TComponentProps &
       StyleProps<TStyleSheet>,
   ): React.ReactElement | null;
   <P>(
     props: { as: VisageComponent<P, any> } & TComponentProps &
       P &
-      StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
-  <C extends keyof JSX.IntrinsicElements>(
-    props: { as: C } & TComponentProps &
-      JSX.IntrinsicElements[C] &
       StyleProps<TStyleSheet>,
   ): React.ReactElement | null;
   (
