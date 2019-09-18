@@ -6,6 +6,7 @@ import React, {
   useRef,
   MouseEvent,
   KeyboardEvent,
+  MutableRefObject,
 } from 'react';
 import {
   clearAllBodyScrollLocks,
@@ -17,6 +18,18 @@ import { booleanVariant, booleanVariantStyles } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
+const Backdrop = createComponent('div', {
+  displayName: 'Backdrop',
+  defaultStyles: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    height: '100vh',
+    width: '100vw',
+    zIndex: 0,
+  },
+});
+
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
   defaultStyles: {
@@ -27,7 +40,8 @@ const BaseModal = createComponent('div', {
     left: 0,
     right: 0,
     bottom: 0,
-    position: 'absolute',
+    position: 'static',
+    height: '100%',
     ...booleanVariantStyles('fixed', {
       on: {
         position: 'fixed',
@@ -45,6 +59,7 @@ const BaseModal = createComponent('div', {
 interface ModalProps {
   allowScrolling?: boolean;
   backdrop?: boolean;
+  contentRef?: MutableRefObject<HTMLElement | null>;
   fixed?: boolean;
   children?: ReactNode;
   /** Close button label (default close modal) */
@@ -63,6 +78,7 @@ interface ModalProps {
 export function Modal({
   allowScrolling = false,
   backdrop = true,
+  contentRef,
   fixed = true,
   children,
   id,
@@ -70,10 +86,19 @@ export function Modal({
   open = true,
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
   const zIndex = useLayerManager();
   const onClickAwayHandler: MouseEventHandler = useCallback(
     e => {
-      if (e.target === modalRef.current && onClose) {
+      if (
+        onClose &&
+        ((contentRef &&
+          contentRef.current !== e.currentTarget &&
+          e.currentTarget === e.target) ||
+          (contentRef == null &&
+            (e.target === modalRef.current ||
+              e.target === backdropRef.current)))
+      ) {
         onClose(e);
       }
     },
@@ -109,13 +134,14 @@ export function Modal({
   return (
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
+        <Backdrop onClick={onClickAwayHandler} />
         <BaseModal
+          onClick={onClickAwayHandler}
           backdrop={backdrop}
           fixed={fixed}
-          onClick={onClickAwayHandler}
           onKeyDown={onEscKeyDownHandler}
           ref={modalRef}
-          styles={{ zIndex }}
+          styles={{ zIndex: zIndex + 1 }}
         >
           {children}
         </BaseModal>

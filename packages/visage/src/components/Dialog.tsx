@@ -100,7 +100,7 @@ export function Dialog({
   }, []);
 
   return (
-    <Modal open id={id} onClose={onClose}>
+    <Modal contentRef={dialogRef} open id={id} onClose={onClose}>
       <BaseDialog
         aria-labelledby={headingId}
         aria-modal
