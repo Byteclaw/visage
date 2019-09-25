@@ -92,6 +92,10 @@ export type ExtractVisageComponentProps<T> = T extends VisageComponent<
   ? P
   : {};
 
+export type OmittableProps<T extends {}> = {
+  [K in keyof T]?: undefined | T[K];
+};
+
 export interface VisageComponent<
   TComponentProps,
   TStyleSheet extends ValidStyleSheet
