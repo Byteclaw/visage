@@ -12,10 +12,10 @@ const Button = createComponent('button', {
     color: 'currentColor',
     cursor: 'pointer',
     fontSize: 0,
-    lineHeight: 0,
+    lineHeight: '1em',
     outline: 'none',
-    my: -1,
-    ml: 1,
+    my: 0,
+    ml: 0,
     p: 1,
     '&:focus': {
       backgroundColor: 'rgba(0, 0, 0, 0.05)',
@@ -31,6 +31,11 @@ const Button = createComponent('button', {
 
 export const CloseButton: typeof Button = forwardRef((props: any, ref) => (
   <Button ref={ref} type="button" {...props}>
-    <SvgIcon aria-hidden focusable={false} icon={CloseIcon} />
+    <SvgIcon
+      aria-hidden
+      focusable={false}
+      icon={CloseIcon}
+      styles={{ width: '1em', height: '1em' }}
+    />
   </Button>
 )) as any;
