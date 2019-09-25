@@ -33,6 +33,7 @@ import { List, ListItem } from './List';
 import { Popover } from './Popover';
 import { createBooleanVariant } from '../core';
 import { CloseButton } from './CloseButton';
+import { Flex } from './Flex';
 
 const fullscreenMenuVariant = createBooleanVariant('isFullscreen', {
   onStyles: {
@@ -227,13 +228,13 @@ export function Menu({
         tabIndex={-1}
       >
         {isFullscreen && (
-          <ListItem>
+          <Flex>
             <CloseButton
               styles={{ fontSize: 1, ml: 'auto' }}
               aria-label="Close menu"
               onClick={onClose}
             />
-          </ListItem>
+          </Flex>
         )}
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
