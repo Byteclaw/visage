@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import {
   ExtractVisageComponentProps,
+  OmittableProps,
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
@@ -46,7 +47,7 @@ interface AutocompleteInputProps<TValue extends any>
   debounceDelay?: number;
   expandOnClick?: boolean;
   id: string;
-  menuProps?: ExtractVisageComponentProps<typeof Menu>;
+  menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
   options?: (inputValue: string) => Promise<TValue[]>;
   /** Set focused option as value on blur */
   selectOnBlur?: boolean;

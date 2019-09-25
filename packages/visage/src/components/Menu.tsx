@@ -1,8 +1,9 @@
 import {
-  createComponent,
   ExtractVisageComponentProps,
-  markAsVisageComponent,
+  OmittableProps,
   VisageComponent,
+  createComponent,
+  markAsVisageComponent,
   useDesignSystem,
 } from '@byteclaw/visage-core';
 import { getResponsiveValue } from '@byteclaw/visage-utils';
@@ -77,6 +78,7 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
   keepAnchorWidth?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
+  popoverProps?: OmittableProps<ExtractVisageComponentProps<typeof Popover>>;
 }
 
 interface MenuItemProps
@@ -100,6 +102,7 @@ export function Menu({
   open,
   role = 'menu',
   onKeyDown: outerOnKeyDown,
+  popoverProps,
   ...restProps
 }: MenuProps) {
   const visage = useDesignSystem();
@@ -214,6 +217,7 @@ export function Menu({
           '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
         ],
       }}
+      {...popoverProps}
     >
       <MenuBase
         isFullscreen={isFullscreen}

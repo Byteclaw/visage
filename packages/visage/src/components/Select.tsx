@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import {
   ExtractVisageComponentProps,
+  OmittableProps,
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
@@ -59,7 +60,7 @@ interface SelectProps<TValue extends any = string>
     SelectorOptions<TValue> {
   debounceDelay?: number;
   id: string;
-  menuProps?: ExtractVisageComponentProps<typeof Menu>;
+  menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
   options?: (inputValue: string) => Promise<TValue[]>;
   searchable?: boolean;
 }
