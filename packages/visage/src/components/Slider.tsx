@@ -1,9 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { getTrackBackground, Range } from 'react-range';
 import { Box } from './Box';
 import { Flex } from './Flex';
 
 export interface SliderProps {
+  allowedValues?: number[];
   colors: string[];
   max: number;
   min: number;
@@ -13,6 +14,7 @@ export interface SliderProps {
 }
 
 export const Slider = ({
+  allowedValues,
   colors = ['#548BF4', '#ccc'],
   max,
   min,
@@ -32,13 +34,23 @@ export const Slider = ({
     [colors, values, min, max],
   );
 
+  const handleChange = useCallback(
+    (vals: number[]) => {
+      if (allowedValues && !vals.every(it => allowedValues.includes(it))) {
+        return;
+      }
+      onChange(vals);
+    },
+    [onChange],
+  );
+
   return (
     <Range
       values={values}
       step={step}
       min={min}
       max={max}
-      onChange={onChange}
+      onChange={handleChange}
       {...restProps}
       renderTrack={({ props, children }) => (
         <Flex

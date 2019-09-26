@@ -21,3 +21,20 @@ import { Slider } from '@byteclaw/visage';
   )}
 </WithState>
 ```
+
+### Controlled with allowed steps
+
+```jsx live=true
+<WithState defaultValue={[10]}>
+  {(value, setValue) => (
+    <Slider
+      allowedValues={[0, 5, 10]}
+      min={0}
+      max={20}
+      step={1}
+      onChange={values => setValue(values)}
+      values={value}
+    />
+  )}
+</WithState>
+```
