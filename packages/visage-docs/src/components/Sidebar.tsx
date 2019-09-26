@@ -145,6 +145,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/forms/slider">
+                  Slider
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/forms/textarea">
                   TextArea
                 </ListItemRouteLink>

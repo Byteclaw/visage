@@ -36,6 +36,7 @@ export * from './ProgressBar';
 export * from './Radio';
 export * from './Select';
 export * from './SkeletonSentence';
+export * from './Slider';
 export * from './Spinner';
 export * from './SvgIcon';
 export * from './Tabs';

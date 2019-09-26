@@ -13487,6 +13487,11 @@ react-live@^2.1.2:
     react-simple-code-editor "^0.9.0"
     unescape "^0.2.0"
 
+react-range@1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-range/-/react-range-1.4.1.tgz#f211c0fbf9695bf46bcfcef3047bc46c1dbf3f9b"
+  integrity sha512-uzqRgrFZzQI96H7vS7WNE8yyVrZzNq0N1JJMhgFb9BxBGBzy0LHbZjyhLiSZrbJTFkPD0hC99Z5U/2sGEeuy+Q==
+
 react-reconciler@^0.20.0:
   version "0.20.4"
   resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.20.4.tgz#3da6a95841592f849cb4edd3d38676c86fd920b2"

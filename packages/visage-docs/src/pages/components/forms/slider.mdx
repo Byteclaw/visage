@@ -1,0 +1,23 @@
+# Slider
+
+## Import
+
+```js transpile=false
+import { Slider } from '@byteclaw/visage';
+```
+
+### Controlled
+
+```jsx live=true
+<WithState defaultValue={[10]}>
+  {(value, setValue) => (
+    <Slider
+      min={0}
+      max={20}
+      step={1}
+      onChange={values => setValue(values)}
+      values={value}
+    />
+  )}
+</WithState>
+```

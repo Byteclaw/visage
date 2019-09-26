@@ -85,3 +85,25 @@ Duration can be specified in `milliseconds`.
   )}
 </WithState>
 ```
+
+### Longer width
+
+```jsx live=true
+<WithState>
+  {(show, setShow) => (
+    <Fragment>
+      <Button disabled={show} onClick={() => setShow(true)} type="button">
+        Show toast
+      </Button>
+      {show ? (
+        <Toast onDismiss={() => setShow(false)}>
+          This is a default toast with a litte bit longer message. See how this
+          component deals with a multi-line child text. Lorem ipsum is
+          placeholder text commonly used in the graphic, print, and publishing
+          industries for previewing layouts and visual mockups.
+        </Toast>
+      ) : null}
+    </Fragment>
+  )}
+</WithState>
+```

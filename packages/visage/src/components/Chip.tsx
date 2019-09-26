@@ -7,9 +7,8 @@ import React, {
   ReactElement,
   MouseEventHandler,
 } from 'react';
-import { CloseIcon } from '../assets';
 import { createComponent } from '../core';
-import { SvgIcon } from './SvgIcon';
+import { CloseButton } from './CloseButton';
 import { StyleProps } from '../createNPointTheme';
 
 const ChipBase = createComponent('div', {
@@ -32,20 +31,9 @@ const ChipBase = createComponent('div', {
   },
 });
 
-const ChipDeleter = createComponent(SvgIcon, {
-  displayName: 'ChipDeleter',
-  defaultStyles: {
-    cursor: 'pointer',
-    ml: 1,
-    '&:hover path': {
-      fill: 'blue',
-    },
-  },
-});
-
 const defaultChipDeleteRenderer = (props: {
   onClick: MouseEventHandler<any>;
-}) => <ChipDeleter aria-hidden icon={CloseIcon} {...props} />;
+}) => <CloseButton styles={{ ml: 1, p: 0.5 }} {...props} />;
 
 interface ChipProps {
   children: ReactNode;

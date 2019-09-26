@@ -139,7 +139,7 @@ export const Toast = createVariant(
             onBlur={onMouseOut}
           >
             {children}
-            <CloseButton onClick={dismiss} />
+            <CloseButton styles={{ ml: 'auto' }} onClick={dismiss} />
           </div>
         );
 
@@ -158,17 +158,19 @@ export const Toast = createVariant(
     {
       displayName: 'Toast',
       defaultStyles: {
+        alignItems: 'center',
         boxShadow:
-          '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+          '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 15px 0px rgba(0,0,0,0.12)',
         display: 'inline-flex',
-        lineHeight: 1,
+        lineHeight: 0,
         position: 'absolute',
         transition: 'transform .4s ease, opacity .4s ease',
         willChange: 'transform, opacity',
-        fontSize: 1,
+        fontSize: 0,
+        minWidth: '240px',
         pl: 2,
         pr: 1,
-        py: 2,
+        py: 1,
       },
     },
   ),
