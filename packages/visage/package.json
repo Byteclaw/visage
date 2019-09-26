@@ -39,7 +39,8 @@
     "@types/react-dom": "^16.8.5",
     "body-scroll-lock": "^2.6.4",
     "emotion": "^10.0.14",
-    "modular-scale": "5.1.0"
+    "modular-scale": "5.1.0",
+    "react-range": "1.4.1"
   },
   "peerDependencies": {
     "react": "^16.8.6",

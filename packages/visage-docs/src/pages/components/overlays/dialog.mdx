@@ -44,3 +44,45 @@ import { Dialog } from '@byteclaw/visage';
   }}
 </WithState>
 ```
+
+#### Optional label
+
+```jsx live=true
+<WithState defaultValue={false}>
+  {(show, setShow) => {
+    if (!show) {
+      return (
+        <Button onClick={() => setShow(true)} type="button">
+          Show dialog
+        </Button>
+      );
+    }
+
+    return (
+      <Dialog
+        id="dialog-unique-id"
+        label="Closable modal"
+        secondaryLabel="Optionally-labeled dialog"
+        onClose={e => {
+          console.log(e);
+          setShow(false);
+        }}
+      >
+        <form action="">
+          <label htmlFor="searchable">Searchable select value</label>
+          <Select
+            id="searchable"
+            onChange={value => console.log(value)}
+            options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+            placeholder="Select a value"
+            searchable
+          />
+        </form>
+        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean
+        lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+        scelerisque nisl consectetur et.</p>
+      </Dialog>
+    );
+  }}
+</WithState>
+```

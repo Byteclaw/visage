@@ -9,11 +9,11 @@ import React, {
   KeyboardEvent,
 } from 'react';
 import { createComponent } from '../core';
-import { Box } from './Box';
 import { Flex } from './Flex';
 import { CloseButton } from './CloseButton';
 import { Heading } from './Heading';
 import { Modal } from './Modal';
+import { Text } from './Text';
 
 const BaseDialog = createComponent('div', {
   displayName: 'Dialog',
@@ -21,8 +21,9 @@ const BaseDialog = createComponent('div', {
     backgroundColor: 'white',
     height: ['100%', null],
     maxHeight: ['100%', '75%', '50%'],
-    p: 1,
     position: 'relative',
+    pb: 2,
+    px: 2,
     width: ['100%', '75%', '50%'],
     transform: 'translateZ(0)',
   },
@@ -43,6 +44,7 @@ interface DialogProps {
    * Default is dialog (you don't need users immediate action)
    */
   role?: 'dialog' | 'alertdialog';
+  secondaryLabel?: string | ReactElement;
 }
 
 export function Dialog({
@@ -52,6 +54,7 @@ export function Dialog({
   id,
   onClose,
   role = 'dialog',
+  secondaryLabel,
 }: DialogProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -108,13 +111,26 @@ export function Dialog({
         role={role}
       >
         <Flex>
-          <Box styles={{ width: '100%' }}>
+          <Flex styles={{ width: '100%', flexDirection: 'column' }}>
+            {secondaryLabel != null && (
+              <Text styles={{ mt: 2, mb: -2, color: 'neutral.4' }}>
+                {secondaryLabel}
+              </Text>
+            )}
             <Heading id={headingId} level={3}>
               {label}
             </Heading>
-          </Box>
-          <Flex styles={{ alignItems: 'center' }}>
+          </Flex>
+          <Flex
+            styles={{
+              alignItems: 'flex-start',
+              position: 'absolute',
+              right: 0,
+              top: 0,
+            }}
+          >
             <CloseButton
+              styles={{ fontSize: 1, mx: 2, my: 2 }}
               aria-label={closeButtonLabel}
               onClick={onClickHandler}
               ref={closeButtonRef}

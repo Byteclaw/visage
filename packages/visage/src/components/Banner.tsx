@@ -40,7 +40,7 @@ const BannerBase = createVariant(
       defaultStyles: {
         borderColor: 'transparent',
         borderStyle: 'solid',
-        borderWidth: 2,
+        borderWidth: 1,
         outline: 'none',
         p: 2,
         my: 1,
@@ -178,7 +178,7 @@ export const Banner: VisageComponent<
         {children}
       </Box>
       {onDismiss ? (
-        <Box>
+        <Box styles={{ mr: -1, mt: -1 }}>
           <CloseButton aria-label={dismissLabel} onClick={onDismiss} />
         </Box>
       ) : null}
