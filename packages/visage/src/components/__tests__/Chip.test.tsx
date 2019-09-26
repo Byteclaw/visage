@@ -80,7 +80,7 @@ describe('Chip', () => {
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('false');
     expect(document.querySelector('[data-testid="chip"] div')).not.toBeNull();
 
-    fireEvent.click(document.querySelector('[data-testid="chip"] > div'));
+    fireEvent.click(document.querySelector('[data-testid="chip"] > button'));
 
     expect(onDelete).toHaveBeenCalledTimes(1);
   });
@@ -119,7 +119,7 @@ describe('Chip', () => {
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('true');
     expect(document.querySelector('[data-testid="chip"] div')).not.toBeNull();
 
-    fireEvent.click(document.querySelector('[data-testid="chip"] > div'));
+    fireEvent.click(document.querySelector('[data-testid="chip"] > button'));
 
     expect(onDelete).toHaveBeenCalledTimes(1);
 
