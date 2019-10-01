@@ -11,6 +11,7 @@ export * from './ResponsiveDesignSystem';
 export * from './components';
 export * from './core';
 export * from './createNPointTheme';
+export * from './createScaleTheme';
 export * from './faces';
 export * from './hooks';
 export * from './types';

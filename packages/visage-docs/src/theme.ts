@@ -1,6 +1,6 @@
 import color from 'color';
 import { ScaleValue } from '@byteclaw/visage-utils';
-import { createNPointTheme, ratios } from '@byteclaw/visage';
+import { createScaleTheme, ratios } from '@byteclaw/visage';
 
 function generateScale<TKey extends string = string>(
   name: TKey,
@@ -46,9 +46,9 @@ function generateScale<TKey extends string = string>(
   } as Record<TKey, ScaleValue<string>>;
 }
 
-export const theme = createNPointTheme({
-  baseFontSize: 16,
-  baseLineHeightRatio: 1.6,
+export const theme = createScaleTheme({
+  fontSizes: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 0 },
+  lineHeights: { values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56], offset: 0 },
   baselineGridSize: 8,
   fontScaleRatio: ratios.perfectFourth,
   colors: {
@@ -63,7 +63,7 @@ export const theme = createNPointTheme({
     ...generateScale<'warning' | 'warningText'>('warning', '#ffcc00', 5, 5),
   },
   fontFamilies: {
-    body: 'Lato,serif',
-    heading: 'Raleway,sans-serif',
+    body: 'Open Sans,sans-serif',
+    heading: 'Nunito Sans,sans-serif',
   },
 });
