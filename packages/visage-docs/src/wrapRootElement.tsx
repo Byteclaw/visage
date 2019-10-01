@@ -10,6 +10,7 @@ import {
 } from '@byteclaw/visage';
 import { CodeBlock, Layout } from './components';
 import { theme } from './theme';
+import { visageDocsFaces } from './visageDocsFaces';
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
   code: (props: any) => <CodeBlock {...props} />,
@@ -34,7 +35,7 @@ interface RootProps {
 
 export const wrapRootElement = ({ element, props }: RootProps) => {
   return (
-    <ResponsiveDesignSystem theme={theme}>
+    <ResponsiveDesignSystem theme={theme} faces={visageDocsFaces}>
       <MDXProvider components={mdxComponents}>
         <Helmet>
           <link
