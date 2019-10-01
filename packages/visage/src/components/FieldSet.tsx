@@ -58,7 +58,12 @@ export function FieldSet({
     <FieldSetBase {...baseProps} flat={flat}>
       <Fragment>
         <FieldSetLegend>{title}</FieldSetLegend>
-        <FieldSetHeading aria-hidden role="presentation" {...headingProps}>
+        <FieldSetHeading
+          level={5}
+          aria-hidden
+          role="presentation"
+          {...headingProps}
+        >
           {title}
         </FieldSetHeading>
       </Fragment>
