@@ -10,6 +10,7 @@ import {
 } from '@byteclaw/visage';
 import { CodeBlock, Layout } from './components';
 import { theme } from './theme';
+import { visageDocsFaces } from './visageDocsFaces';
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
   code: (props: any) => <CodeBlock {...props} />,
@@ -34,11 +35,15 @@ interface RootProps {
 
 export const wrapRootElement = ({ element, props }: RootProps) => {
   return (
-    <ResponsiveDesignSystem theme={theme}>
+    <ResponsiveDesignSystem theme={theme} faces={visageDocsFaces}>
       <MDXProvider components={mdxComponents}>
         <Helmet>
           <link
-            href="https://fonts.googleapis.com/css?family=Lato:400,700|Raleway:400,500,700&display=swap&subset=latin-ext"
+            href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,700,700i&display=swap&subset=latin-ext"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
           <meta property="og:image:type" content="image/png" />

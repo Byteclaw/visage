@@ -163,6 +163,8 @@ export const Banner: VisageComponent<
       <Box styles={{ width: '100%' }}>
         {title != null ? (
           <Heading
+            as="h5"
+            level={5}
             styles={{
               fontSize: 1,
               fontWeight: 500,
