@@ -20,10 +20,7 @@ import {
   invalidControl,
 } from './shared';
 import { Flex } from './Flex';
-
-const Svg = createComponent('svg', {
-  displayName: 'Svg',
-});
+import { Svg } from './Svg';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',

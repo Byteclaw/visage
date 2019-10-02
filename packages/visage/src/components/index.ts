@@ -38,6 +38,7 @@ export * from './Select';
 export * from './SkeletonSentence';
 export * from './Slider';
 export * from './Spinner';
+export * from './Svg';
 export * from './SvgIcon';
 export * from './Tabs';
 export * from './Text';

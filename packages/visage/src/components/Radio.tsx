@@ -20,10 +20,7 @@ import {
   visuallyHiddenStyles,
 } from './shared';
 import { Flex } from './Flex';
-
-const Svg = createComponent('svg', {
-  displayName: 'Svg',
-});
+import { Svg } from './Svg';
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
