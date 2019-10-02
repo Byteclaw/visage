@@ -2,7 +2,14 @@ import {
   VisageComponent,
   StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
-import React, { ReactElement, ReactNode, ChangeEventHandler } from 'react';
+import React, {
+  ReactElement,
+  ReactNode,
+  ChangeEventHandler,
+  forwardRef,
+  Ref,
+  useMemo,
+} from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import {
@@ -11,28 +18,32 @@ import {
   disabledControl,
   invalidControl,
 } from './shared';
+import { Flex } from './Flex';
+import { useGenerateId } from '../hooks';
+
+const Svg = createComponent('svg', {
+  displayName: 'Svg',
+});
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
   defaultStyles: {
     ...visuallyHiddenStyles,
     // prevent blinking when clicking on already focused checkbox
-    '&:focus + label::before, &:active:not([disabled]) + label::before': {
-      borderColor: 'blue',
-      borderWidth: '2px',
+    '&:focus + div, &:active:not([disabled]) + div': {
+      boxShadow: '0 0 0 3px blue',
     },
-    '&:checked + label::after': {
-      backgroundColor: 'none',
-      borderLeft: '2px solid black',
-      borderBottom: '2px solid black',
-      content: '""',
-      height: '.3em',
-      left: '0px',
-      position: 'absolute',
-      top: '50%',
-      transform: 'translateY(-50%) translateX(33%) rotate(-45deg)',
-      transformOrigin: 'center',
-      width: '.6em',
+    '& + div': {
+      background: 'papayawhip',
+    },
+    '&:checked + div': {
+      background: 'salmon',
+    },
+    '& + div > svg': {
+      visibility: 'hidden',
+    },
+    '&:checked + div > svg': {
+      visibility: 'visible',
     },
   },
 });
@@ -42,21 +53,6 @@ const CheckboxLabel = disabledControl(
     createComponent('label', {
       displayName: 'CheckboxLabel',
       defaultStyles: {
-        '&::before': {
-          content: '""',
-          alignSelf: 'center',
-          borderStyle: 'solid',
-          borderColor: 'black',
-          borderWidth: '1px',
-          display: 'inline-flex',
-          height: '1em',
-          m: 0,
-          mr: 1,
-          overflow: 'hidden',
-          p: 0,
-          position: 'relative',
-          width: '1em',
-        },
         display: 'flex',
         fontSize: 'inherit',
         lineHeight: 'inherit',
@@ -108,57 +104,87 @@ interface CheckboxProps extends VisageStyleProps<StyleProps> {
   name: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   readOnly?: boolean;
+  toggler?: boolean | ReactElement;
   value?: any;
   wrapper?: ReactElement;
 }
 
-export const Checkbox: VisageComponent<
-  CheckboxProps,
-  StyleProps
-> = function Checkbox({
-  defaultChecked,
-  disabled,
-  checked,
-  hiddenLabel = false,
-  id: outerId,
-  invalid,
-  label,
-  name,
-  onChange,
-  readOnly,
-  styles,
-  value,
-}: CheckboxProps) {
-  const id = `chkbx-${outerId || ''}${name}`;
-
-  return (
-    <CheckboxWrapper styles={styles}>
-      <CheckboxControl
-        aria-invalid={invalid}
-        defaultChecked={defaultChecked}
-        checked={checked}
-        disabled={disabled}
-        id={id}
-        name={name}
-        onChange={onChange}
-        onKeyDown={e => {
-          if (readOnly && e.key === ' ') {
-            e.preventDefault();
-          }
-        }}
-        onClick={e => {
-          if (readOnly) {
-            e.preventDefault();
-          }
-        }}
-        readOnly={readOnly}
-        tabIndex={0}
-        type="checkbox"
-        value={value}
-      />
-      <CheckboxLabel invalid={invalid} disabled={disabled} htmlFor={id}>
-        <CheckboxLabelText hidden={hiddenLabel}>{label}</CheckboxLabelText>
-      </CheckboxLabel>
-    </CheckboxWrapper>
-  );
+const togglerStyles = {
+  alignSelf: 'center',
+  transition: 'all 150ms',
+  borderRadius: '3px',
+  mr: 1,
 };
+
+export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
+  function Checkbox(
+    {
+      defaultChecked,
+      disabled,
+      checked,
+      hiddenLabel = false,
+      id: outerId,
+      invalid,
+      label,
+      name,
+      onChange,
+      readOnly,
+      styles,
+      toggler,
+      value,
+    }: CheckboxProps,
+    ref: Ref<HTMLInputElement>,
+  ) {
+    const idTemplate = useGenerateId();
+    const id = useMemo(() => {
+      return `chkbx-${idTemplate}-${name || ''}`;
+    }, [outerId, idTemplate]);
+
+    return (
+      <CheckboxWrapper styles={styles}>
+        <CheckboxLabel invalid={invalid} disabled={disabled} htmlFor={id}>
+          <CheckboxControl
+            aria-invalid={invalid}
+            defaultChecked={defaultChecked}
+            checked={checked}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onKeyDown={e => {
+              if (readOnly && e.key === ' ') {
+                e.preventDefault();
+              }
+            }}
+            onClick={e => {
+              if (readOnly) {
+                e.preventDefault();
+              }
+            }}
+            onChange={onChange}
+            ref={ref}
+            readOnly={readOnly}
+            tabIndex={0}
+            type="checkbox"
+            value={value}
+            htmlOnly={toggler === false}
+          />
+          <Flex aria-hidden styles={togglerStyles}>
+            <Svg
+              viewBox="0 0 24 24"
+              styles={{
+                width: '1em',
+                height: '1em',
+                stroke: 'white',
+                strokeWidth: '2px',
+                fill: 'none',
+              }}
+            >
+              <polyline points="20 6 9 17 4 12" />
+            </Svg>
+          </Flex>
+          <CheckboxLabelText hidden={hiddenLabel}>{label}</CheckboxLabelText>
+        </CheckboxLabel>
+      </CheckboxWrapper>
+    );
+  },
+);

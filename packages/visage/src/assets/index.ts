@@ -1,4 +1,5 @@
 export * from './CloseIcon';
+export * from './CheckIcon';
 export * from './DangerIcon';
 export * from './ErrorIcon';
 export * from './InfoIcon';
