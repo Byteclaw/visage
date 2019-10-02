@@ -98,7 +98,7 @@ const ToggleControl = createComponent('input', {
     '&:checked + div': {
       backgroundColor: 'salmon',
     },
-    '&:focus + div': {
+    '&:focus + div, &:active:not([disabled]) + div': {
       boxShadow: '0 0 0 2px blue',
     },
     '&[disabled] + div': {
