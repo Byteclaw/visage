@@ -33,11 +33,16 @@ const RadioControl = createComponent('input', {
     '&:focus + div, &:active:not([disabled]) + div': {
       boxShadow: '0 0 0 3px blue',
     },
+    '&:checked + div': {
+      background: 'salmon',
+      borderColor: 'salmon',
+    },
     '& + div > svg': {
       visibility: 'hidden',
     },
     '&:checked + div > svg': {
       visibility: 'visible',
+      fill: 'white',
     },
     '&:disabled + div, &:disabled + div > svg': {
       borderColor: 'neutral.1',
@@ -94,7 +99,7 @@ const togglerStyles = {
   borderRadius: 999,
   borderStyle: 'solid',
   borderWidth: '2px',
-  borderColor: 'black',
+  borderColor: 'neutral.0',
   mr: 1,
 };
 
@@ -171,12 +176,9 @@ export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
               styles={{
                 width: '1em',
                 height: '1em',
-                stroke: 'white',
-                strokeWidth: '2px',
-                fill: 'black',
               }}
             >
-              <circle cx="12" cy="12" r="8" />
+              <circle cx="12" cy="12" r="6" />
             </Svg>
           </Flex>
           <RadioLabelText hidden={hiddenLabel}>{label}</RadioLabelText>

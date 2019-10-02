@@ -90,16 +90,19 @@ const ToggleControl = createComponent('input', {
     },
     '& + div': {
       cursor: 'pointer',
-      backgroundColor: 'primary',
+      backgroundColor: 'neutral.1',
+      transitionProperty: 'all',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-out',
     },
     '&:checked + div': {
-      backgroundColor: 'green',
+      backgroundColor: 'salmon',
     },
-    '&:focus + div': {
+    '&:focus + div, &:active:not([disabled]) + div': {
       boxShadow: '0 0 0 2px blue',
     },
     '&[disabled] + div': {
-      backgroundColor: 'grey.1',
+      backgroundColor: 'neutral.0',
       cursor: 'not-allowed',
     },
   },
