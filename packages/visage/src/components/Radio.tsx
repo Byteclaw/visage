@@ -2,36 +2,46 @@ import {
   VisageComponent,
   StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
-import React, { ChangeEventHandler, ReactElement, ReactNode } from 'react';
+import React, {
+  ChangeEventHandler,
+  ReactElement,
+  ReactNode,
+  useMemo,
+  forwardRef,
+  Ref,
+} from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
+import { useGenerateId } from '../hooks';
 import {
   disabledControl,
   invalidControl,
   visuallyHiddenStripped,
   visuallyHiddenStyles,
 } from './shared';
+import { Flex } from './Flex';
+import { Svg } from './Svg';
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
   defaultStyles: {
     ...visuallyHiddenStyles,
     // prevent blinking when clicking on already focused radio
-    '&:focus + label::before, &:active:not([disabled]) + label::before': {
-      borderColor: 'blue',
-      borderWidth: '2px',
+    '&[aria-invalid="true"] + div': {
+      boxShadow: '0 0 0 2px red',
     },
-    '&:checked + label::after': {
-      backgroundColor: 'black',
-      borderRadius: '50%',
-      content: '""',
-      height: '.4em',
-      left: '.3em',
-      position: 'absolute',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      transformOrigin: 'center',
-      width: '.4em',
+    '&:focus + div, &:active:not([disabled]) + div': {
+      boxShadow: '0 0 0 3px blue',
+    },
+    '& + div > svg': {
+      visibility: 'hidden',
+    },
+    '&:checked + div > svg': {
+      visibility: 'visible',
+    },
+    '&:disabled + div, &:disabled + div > svg': {
+      borderColor: 'neutral.1',
+      fill: 'neutral.1',
     },
   },
 });
@@ -41,22 +51,6 @@ const RadioLabel = disabledControl(
     createComponent('label', {
       displayName: 'RadioLabel',
       defaultStyles: {
-        '&::before': {
-          content: '""',
-          alignSelf: 'center',
-          borderStyle: 'solid',
-          borderColor: 'black',
-          borderWidth: '1px',
-          borderRadius: '50%',
-          display: 'inline-flex',
-          height: '1em',
-          m: 0,
-          mr: 1,
-          overflow: 'hidden',
-          p: 0,
-          position: 'relative',
-          width: '1em',
-        },
         display: 'flex',
         fontSize: 'inherit',
         lineHeight: 'inherit',
@@ -93,6 +87,17 @@ const RadioWrapper = createComponent('div', {
   },
 });
 
+const togglerStyles = {
+  background: 'white',
+  alignSelf: 'center',
+  transition: 'all 150ms',
+  borderRadius: 999,
+  borderStyle: 'solid',
+  borderWidth: '2px',
+  borderColor: 'black',
+  mr: 1,
+};
+
 interface RadioProps extends VisageStyleProps<StyleProps> {
   checked?: boolean;
   defaultChecked?: boolean;
@@ -111,49 +116,72 @@ interface RadioProps extends VisageStyleProps<StyleProps> {
   wrapper?: ReactElement;
 }
 
-export const Radio: VisageComponent<RadioProps, StyleProps> = function Radio({
-  checked,
-  defaultChecked,
-  disabled,
-  hiddenLabel = false,
-  id: outerId,
-  invalid,
-  label,
-  name,
-  onChange,
-  readOnly,
-  styles,
-  value,
-}: RadioProps) {
-  const id = `radio-${outerId || ''}${name}`;
+export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
+  function Radio(
+    {
+      checked,
+      defaultChecked,
+      disabled,
+      hiddenLabel = false,
+      id: outerId,
+      invalid,
+      label,
+      name,
+      onChange,
+      readOnly,
+      styles,
+      value,
+    }: RadioProps,
+    ref: Ref<HTMLInputElement>,
+  ) {
+    const idTemplate = useGenerateId();
+    const id = useMemo(() => {
+      return `chkbx-${idTemplate}-${name || ''}`;
+    }, [outerId, idTemplate]);
 
-  return (
-    <RadioWrapper styles={styles}>
-      <RadioControl
-        aria-invalid={invalid}
-        defaultChecked={defaultChecked}
-        checked={checked}
-        disabled={disabled}
-        id={id}
-        name={name}
-        onChange={onChange}
-        onClick={e => {
-          if (readOnly) {
-            e.preventDefault();
-          }
-        }}
-        onKeyDown={e => {
-          if (readOnly && e.key === ' ') {
-            e.preventDefault();
-          }
-        }}
-        tabIndex={disabled ? -1 : 0}
-        type="radio"
-        value={value}
-      />
-      <RadioLabel disabled={disabled} invalid={invalid} htmlFor={id}>
-        <RadioLabelText hidden={hiddenLabel}>{label}</RadioLabelText>
-      </RadioLabel>
-    </RadioWrapper>
-  );
-};
+    return (
+      <RadioWrapper styles={styles}>
+        <RadioLabel disabled={disabled} invalid={invalid} htmlFor={id}>
+          <RadioControl
+            aria-invalid={invalid}
+            defaultChecked={defaultChecked}
+            checked={checked}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onChange={onChange}
+            onClick={e => {
+              if (readOnly) {
+                e.preventDefault();
+              }
+            }}
+            onKeyDown={e => {
+              if (readOnly && e.key === ' ') {
+                e.preventDefault();
+              }
+            }}
+            ref={ref}
+            tabIndex={disabled ? -1 : 0}
+            type="radio"
+            value={value}
+          />
+          <Flex aria-hidden styles={togglerStyles}>
+            <Svg
+              viewBox="0 0 24 24"
+              styles={{
+                width: '1em',
+                height: '1em',
+                stroke: 'white',
+                strokeWidth: '2px',
+                fill: 'black',
+              }}
+            >
+              <circle cx="12" cy="12" r="8" />
+            </Svg>
+          </Flex>
+          <RadioLabelText hidden={hiddenLabel}>{label}</RadioLabelText>
+        </RadioLabel>
+      </RadioWrapper>
+    );
+  },
+);

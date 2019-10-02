@@ -12,6 +12,7 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
+import { useGenerateId } from '../hooks';
 import {
   visuallyHiddenStripped,
   visuallyHiddenStyles,
@@ -19,11 +20,7 @@ import {
   invalidControl,
 } from './shared';
 import { Flex } from './Flex';
-import { useGenerateId } from '../hooks';
-
-const Svg = createComponent('svg', {
-  displayName: 'Svg',
-});
+import { Svg } from './Svg';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
@@ -47,6 +44,9 @@ const CheckboxControl = createComponent('input', {
     },
     '&:checked + div > svg': {
       visibility: 'visible',
+    },
+    '&:disabled + div': {
+      backgroundColor: 'neutral.1',
     },
   },
 });
