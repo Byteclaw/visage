@@ -1,0 +1,34 @@
+# DescriptionList
+
+## Examples
+
+### Default
+
+```jsx live=true
+<DescriptionList>
+  <DescriptionListItem
+    term="Logistics"
+    description="The management of products or other resources as they travel between a point of origin and a destination."
+  />
+  <DescriptionListItem
+    term="Sole proprietorship"
+    description="A business structure where a single individual both owns and runs the company."
+    suffix={
+      <Box
+        styles={{
+          p: 1,
+          fontSize: -1,
+          backgroundColor: 'neutral.-2',
+          flexGrow: 1,
+        }}
+      >
+        This is a suffix message informing you about a feature of this term.
+      </Box>
+    }
+  />
+  <DescriptionListItem
+    term="Discount code"
+    description="A series of numbers and/or letters that an online shopper may enter at checkout to get a discount or special offer."
+  />
+</DescriptionList>
+```

@@ -288,6 +288,11 @@ export function Sidebar() {
                   Card
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/structure/description-list">
+                  DescriptionList
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
