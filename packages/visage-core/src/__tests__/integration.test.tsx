@@ -4,7 +4,7 @@ import { createComponent, DesignSystem } from './designSystem';
 
 describe('integration', () => {
   describe('basic usage', () => {
-    it('works correctly without default props', () => {
+    it('works correctly without default styles', () => {
       const Link = createComponent('a');
 
       const { asFragment } = render(
@@ -14,16 +14,16 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                <DocumentFragment>
-                                  <a
-                                    href="a"
-                                    style="background: rgb(204, 204, 204);"
-                                  />
-                                </DocumentFragment>
-                        `);
+                                        <DocumentFragment>
+                                          <a
+                                            href="a"
+                                            style="background: rgb(204, 204, 204);"
+                                          />
+                                        </DocumentFragment>
+                              `);
     });
 
-    it('works correctly with default props', () => {
+    it('works correctly with default styles', () => {
       const Link = createComponent('a', {
         defaultStyles: {
           background: '#ccc',
@@ -37,13 +37,38 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                <DocumentFragment>
-                                  <a
-                                    href="a"
-                                    style="background: rgb(204, 204, 204);"
-                                  />
-                                </DocumentFragment>
-                        `);
+                                        <DocumentFragment>
+                                          <a
+                                            href="a"
+                                            style="background: rgb(204, 204, 204);"
+                                          />
+                                        </DocumentFragment>
+                              `);
+    });
+
+    it('works correctly with default props', () => {
+      const Link = createComponent('a', {
+        defaultStyles: {
+          background: '#ccc',
+        },
+        defaultProps: { href: '/test', id: 'id' },
+      });
+
+      const { asFragment } = render(
+        <DesignSystem>
+          <Link href="a" />
+        </DesignSystem>,
+      );
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            href="a"
+            id="id"
+            style="background: rgb(204, 204, 204);"
+          />
+        </DocumentFragment>
+      `);
     });
   });
 
@@ -75,13 +100,13 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                <DocumentFragment>
-                                  <a
-                                    href="a"
-                                    style="background: rgb(204, 204, 204); color: rgb(238, 238, 238);"
-                                  />
-                                </DocumentFragment>
-                        `);
+                                        <DocumentFragment>
+                                          <a
+                                            href="a"
+                                            style="background: rgb(204, 204, 204); color: rgb(238, 238, 238);"
+                                          />
+                                        </DocumentFragment>
+                              `);
     });
 
     it('extends props of overriden component', () => {
@@ -92,13 +117,13 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                <DocumentFragment>
-                                  <a
-                                    href="a"
-                                    style="color: red; margin: 1px; background: rgb(204, 204, 204);"
-                                  />
-                                </DocumentFragment>
-                        `);
+                                        <DocumentFragment>
+                                          <a
+                                            href="a"
+                                            style="color: red; margin: 1px; background: rgb(204, 204, 204);"
+                                          />
+                                        </DocumentFragment>
+                              `);
     });
 
     it('extends visage component', () => {
@@ -109,12 +134,12 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-        <DocumentFragment>
-          <a
-            style="color: pink; margin: 1px; padding: 1px;"
-          />
-        </DocumentFragment>
-      `);
+                <DocumentFragment>
+                  <a
+                    style="color: pink; margin: 1px; padding: 1px;"
+                  />
+                </DocumentFragment>
+            `);
     });
   });
 });

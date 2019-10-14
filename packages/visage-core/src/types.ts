@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import React, { ComponentProps, ComponentType } from 'react';
 
 export interface Visage<TTheme extends Theme> {
   breakpoint: number;
@@ -83,14 +83,13 @@ export type VisageComponentProps<
   React.ComponentProps<TOverrideComponent> &
   StyleProps<TStyleSheet>;
 
-export type ExtractVisageComponentProps<T> = T extends VisageComponent<
-  infer P,
-  infer S
->
+export type ExtractVisageComponentProps<
+  T extends ComponentConstraint
+> = T extends VisageComponent<infer P, infer S>
   ? P & StyleProps<S>
   : T extends ComponentType<infer P>
   ? P
-  : {};
+  : ComponentProps<T>;
 
 export type OmittableProps<T extends {}> = {
   [K in keyof T]?: undefined | T[K];
@@ -129,6 +128,7 @@ export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
     as: TDefaultComponent,
     options?: {
       displayName?: string;
+      defaultProps?: ExtractVisageComponentProps<TDefaultComponent>;
       defaultStyles?: StyleSheet<TStyleSheet>;
       variants?: TVariantsProps;
     },

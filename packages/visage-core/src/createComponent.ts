@@ -6,10 +6,12 @@ import { StyleProps, ComponentConstraint, VisageComponent } from './types';
 export function createComponent(
   defaultAs: ComponentConstraint,
   {
+    defaultProps,
     defaultStyles,
     displayName: name,
     variants,
   }: {
+    defaultProps?: any;
     defaultStyles?: any;
     displayName?: string;
     variants?: {
@@ -22,12 +24,18 @@ export function createComponent(
   const componentName = displayName(name || defaultAs);
   const Component: any = React.forwardRef(
     ({ as = defaultAs, ...restProps }: StyleProps, ref) => {
-      const props = useVisage(restProps, {
-        as,
-        componentName,
-        defaultStyles,
-        variants,
-      });
+      const props = useVisage(
+        {
+          ...defaultProps,
+          ...restProps,
+        },
+        {
+          as,
+          componentName,
+          defaultStyles,
+          variants,
+        },
+      );
 
       return React.createElement(as, {
         ...props,
