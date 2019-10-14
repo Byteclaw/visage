@@ -3,80 +3,76 @@ import {
   markAsVisageComponent,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import React, { createElement, forwardRef } from 'react';
-import { createComponent, createVariant } from '../core';
+import React, { forwardRef, createElement } from 'react';
+import { createComponent } from '../core';
+import { variant, variantStyles } from '../variants';
 import { SkeletonSentence } from './SkeletonSentence';
 import { StyleProps } from '../createNPointTheme';
 
-const HeadingBase = createComponent('h1', {
+const BaseHeading = createComponent('h1', {
   displayName: 'Heading',
   defaultStyles: {
     fontFamily: 'heading',
+    ...variantStyles('level', {
+      1: {
+        fontSize: 4,
+        lineHeight: 4,
+        mt: 2,
+        mb: 1,
+        fontWeight: 'normal',
+      },
+      2: {
+        fontSize: 3,
+        lineHeight: 3,
+        mt: 1,
+        mb: 1,
+        fontWeight: 'normal',
+      },
+      3: {
+        fontSize: 2,
+        lineHeight: 2,
+        mt: 1,
+        mb: 1,
+        fontWeight: 'normal',
+      },
+      4: {
+        fontSize: 1,
+        lineHeight: 1,
+        mt: 1,
+        mb: 1,
+        fontWeight: 'normal',
+      },
+      5: {
+        fontSize: 0,
+        lineHeight: 0,
+        fontWeight: 'normal',
+        mt: 1,
+        mb: 1,
+      },
+      6: {
+        fontSize: 0,
+        lineHeight: 0,
+        fontWeight: 'normal',
+        fontStyle: 'italic',
+        mt: 1,
+        mb: 1,
+      },
+      default: {
+        fontSize: 0,
+        lineHeight: 0,
+        fontWeight: 'normal',
+        fontStyle: 'italic',
+        mt: 1,
+        mb: 1,
+      },
+    }),
   },
+  variants: [variant('level', true, [1, 2, 3, 4, 5, 6], 1)],
 });
 
-const VariantedHeading = createVariant(
-  HeadingBase,
-  'level',
-  {
-    1: {
-      fontSize: 4,
-      lineHeight: 4,
-      mt: 2,
-      mb: 1,
-      fontWeight: 'normal',
-    },
-    2: {
-      fontSize: 3,
-      lineHeight: 3,
-      mt: 1,
-      mb: 1,
-      fontWeight: 'normal',
-    },
-    3: {
-      fontSize: 2,
-      lineHeight: 2,
-      mt: 1,
-      mb: 1,
-      fontWeight: 'normal',
-    },
-    4: {
-      fontSize: 1,
-      lineHeight: 1,
-      mt: 1,
-      mb: 1,
-      fontWeight: 'normal',
-    },
-    5: {
-      fontSize: 0,
-      lineHeight: 0,
-      fontWeight: 'normal',
-      mt: 1,
-      mb: 1,
-    },
-    6: {
-      fontSize: 0,
-      lineHeight: 0,
-      fontWeight: 'normal',
-      fontStyle: 'italic',
-      mt: 1,
-      mb: 1,
-    },
-    default: {
-      fontSize: 0,
-      lineHeight: 0,
-      fontWeight: 'normal',
-      fontStyle: 'italic',
-      mt: 1,
-      mb: 1,
-    },
-  },
-  1,
-);
-
-export const Heading: typeof VariantedHeading = forwardRef(
+export const Heading: typeof BaseHeading = forwardRef(
   ({ level, ...restProps }: any, ref: any) =>
-    createElement(VariantedHeading, {
+    createElement(BaseHeading, {
       as: `h${level || '1'}`,
       ref,
       level,
