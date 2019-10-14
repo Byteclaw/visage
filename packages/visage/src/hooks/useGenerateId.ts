@@ -1,6 +1,8 @@
 import { createContext, useContext, useRef } from 'react';
 
-const IdContext = createContext({ id: 0 });
+export const IdContext = createContext({ id: 0 });
+
+IdContext.displayName = 'ComponentIdContext';
 
 export function useGenerateId(): number {
   const ctx = useContext(IdContext);

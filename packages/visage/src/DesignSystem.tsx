@@ -1,5 +1,5 @@
 import { DesignSystem as BaseDesignSystem, Theme } from '@byteclaw/visage-core';
-import React, { Fragment, FunctionComponent, ReactNode } from 'react';
+import React, { Fragment, FunctionComponent, ReactNode, useState } from 'react';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
@@ -8,6 +8,7 @@ import {
   EventEmitterContext,
   useEventEmitterInstance,
 } from './hooks/useEventEmitter';
+import { IdContext } from './hooks/useGenerateId';
 import { VisageFaces } from './faces';
 
 export interface DesignSystemProps {
@@ -29,6 +30,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   is = 0,
   theme,
 }) => {
+  const [idContextValue] = useState({ id: 0 });
   const toastEventEmitter = useEventEmitterInstance();
 
   return (
@@ -38,15 +40,17 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <LayerManager increaseBy={defaultZIndex}>
-        <Fragment>
-          <GlobalReset />
-          <EventEmitterContext.Provider value={toastEventEmitter}>
-            <ToastManager />
-            {children}
-          </EventEmitterContext.Provider>
-        </Fragment>
-      </LayerManager>
+      <IdContext.Provider value={idContextValue}>
+        <LayerManager increaseBy={defaultZIndex}>
+          <Fragment>
+            <GlobalReset />
+            <EventEmitterContext.Provider value={toastEventEmitter}>
+              <ToastManager />
+              {children}
+            </EventEmitterContext.Provider>
+          </Fragment>
+        </LayerManager>
+      </IdContext.Provider>
     </BaseDesignSystem>
   );
 };

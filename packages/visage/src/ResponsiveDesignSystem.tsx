@@ -3,7 +3,7 @@ import {
   Theme,
   useBreakpointManager,
 } from '@byteclaw/visage-core';
-import React, { Fragment, ReactNode } from 'react';
+import React, { Fragment, ReactNode, useState } from 'react';
 import {
   EventEmitterContext,
   useBreakpointDetection,
@@ -14,6 +14,7 @@ import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
 import { VisageFaces } from './faces';
+import { IdContext } from './hooks/useGenerateId';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -46,6 +47,7 @@ export function ResponsiveDesignSystem({
   is = 0,
   theme,
 }: ResponsiveDesignSystemProps) {
+  const [idContextValue] = useState({ id: 0 });
   const toastEventEmitter = useEventEmitterInstance();
   const [breakpoint, setBreakpoint] = useBreakpointManager(is, breakpoints);
   useBreakpointDetection(breakpoints, setBreakpoint);
@@ -57,15 +59,17 @@ export function ResponsiveDesignSystem({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <LayerManager increaseBy={defaultZIndex}>
-        <Fragment>
-          <GlobalReset />
-          <EventEmitterContext.Provider value={toastEventEmitter}>
-            <ToastManager />
-            {children}
-          </EventEmitterContext.Provider>
-        </Fragment>
-      </LayerManager>
+      <IdContext.Provider value={idContextValue}>
+        <LayerManager increaseBy={defaultZIndex}>
+          <Fragment>
+            <GlobalReset />
+            <EventEmitterContext.Provider value={toastEventEmitter}>
+              <ToastManager />
+              {children}
+            </EventEmitterContext.Provider>
+          </Fragment>
+        </LayerManager>
+      </IdContext.Provider>
     </BaseDesignSystem>
   );
 }
