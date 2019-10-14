@@ -128,7 +128,8 @@ export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
     as: TDefaultComponent,
     options?: {
       displayName?: string;
-      defaultProps?: ExtractVisageComponentProps<TDefaultComponent>;
+      defaultProps?: ExtractVisageComponentProps<TDefaultComponent> &
+        (TVariantsProps extends Array<infer P> ? P : {});
       defaultStyles?: StyleSheet<TStyleSheet>;
       variants?: TVariantsProps;
     },
