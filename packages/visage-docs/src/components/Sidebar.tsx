@@ -255,6 +255,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/overlays/drawer">
+                  Drawer
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/overlays/modal">
                   Modal
                 </ListItemRouteLink>

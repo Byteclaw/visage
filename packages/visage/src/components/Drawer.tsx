@@ -1,162 +1,174 @@
+import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, {
+  KeyboardEvent,
+  MouseEvent,
   ReactNode,
+  useCallback,
   useEffect,
-  MouseEvent as IMouseEvent,
-  useMemo,
-  useContext,
 } from 'react';
-import { VisageComponent } from '@byteclaw/visage-core';
-import { StyleProps } from '../createNPointTheme';
-import { Fixed } from './Fixed';
-import { LayerManager, LayerManagerContext } from './LayerManager';
-import { Overlay } from './Overlay';
+import { createComponent } from '../core';
+import { useGenerateId } from '../hooks/useGenerateId';
+import {
+  booleanVariant,
+  booleanVariantStyles,
+  variant,
+  variantStyles,
+} from '../variants';
+import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
-const transforms = {
-  bottom: 'translateY(100%)',
-  left: 'translateX(-100%)',
-  right: 'translateX(100%)',
-  top: 'translateY(-100%)',
-};
-
-interface DrawerBaseProps {
-  children: ReactNode;
-  onClick?: (e: MouseEvent) => void;
-  open: boolean;
-  side: keyof (typeof transforms);
-}
-
-const getSide = ({
-  side: toSide,
-}: {
-  side: keyof (typeof transforms);
-}): {
-  bottom: null | number;
-  left: null | number;
-  right: null | number;
-  top: null | number;
-} => {
-  if (!transforms[toSide]) {
-    return {
-      bottom: 0,
-      left: 0,
-      right: null,
-      top: 0,
-    };
-  }
-  const top = /^(top|left|right)$/.test(toSide) ? 0 : null;
-  const bottom = /^(bottom|left|right)$/.test(toSide) ? 0 : null;
-  const left = /^(left|top|bottom)$/.test(toSide) ? 0 : null;
-  const right = /^(right|top|bottom)$/.test(toSide) ? 0 : null;
-
-  return {
-    bottom,
-    left,
-    right,
-    top,
-  };
-};
-
-const transform = ({
-  open,
-  side: toSide,
-}: {
-  open: boolean;
-  side: keyof (typeof transforms);
-}) => ({
-  transform: open ? null : transforms[toSide] || transforms.left,
+const Backdrop = createComponent('div', {
+  displayName: 'Backdrop',
+  defaultStyles: {
+    backgroundColor: 'hsla(0,0%,9%,.5)',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    height: '100vh',
+    width: '100vw',
+  },
 });
 
-interface DrawerProps extends DrawerBaseProps {
-  containerId: string;
-  onClose?: (e: Event) => void;
-  overlayContainerId: string;
-  overlayed: boolean;
-  overlayProps?: object;
+export enum DrawerPosition {
+  bottom = 'bottom',
+  left = 'left',
+  right = 'right',
+  top = 'top',
 }
 
-export const Drawer: VisageComponent<
-  DrawerProps,
-  StyleProps
-> = function Drawer({
-  containerId = 'drawer-root',
-  onClick,
-  onClose,
+const BaseDrawer = createComponent('div', {
+  displayName: 'Drawer',
+  defaultStyles: {
+    background: 'white',
+    ...booleanVariantStyles('relative', {
+      on: {
+        position: 'relative',
+      },
+      off: {
+        position: 'fixed',
+        ...variantStyles('side', {
+          bottom: {
+            ...booleanVariantStyles('open', {
+              off: {
+                transform: 'translateY(100%)',
+              },
+            }),
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: ['90vh', '75vh', '50vh'],
+          },
+          left: {
+            ...booleanVariantStyles('open', {
+              off: {
+                transform: 'translateX(-100%)',
+              },
+            }),
+            bottom: 0,
+            left: 0,
+            top: 0,
+            width: ['90vw', '75vw', '50vw'],
+          },
+          right: {
+            ...booleanVariantStyles('open', {
+              off: {
+                transform: 'translateX(100%)',
+              },
+            }),
+            bottom: 0,
+            right: 0,
+            top: 0,
+            width: ['90vw', '75vw', '50vw'],
+          },
+          top: {
+            ...booleanVariantStyles('open', {
+              off: {
+                transform: 'translateY(-00%)',
+              },
+            }),
+            top: 0,
+            left: 0,
+            right: 0,
+            height: ['90vh', '75vh', '50vh'],
+          },
+        }),
+      },
+    }),
+  },
+  variants: [
+    variant('side', true, ['bottom', 'left', 'right', 'top'], 'left' as any),
+    booleanVariant('open', true),
+    booleanVariant('relative', true),
+  ],
+});
+
+export function Drawer({
+  children,
+  inPortal = false,
+  onClose = () => {},
   open = false,
-  overlayContainerId = 'drawer-overlay-root',
-  overlayProps = false,
-  overlayed = false,
-  side = 'left',
+  relative = false,
+  side,
   styles,
-  zIndex: BASE_DRAWER_ZINDEX,
-  ...rest
-}: any) {
-  const zIndex = useContext(LayerManagerContext);
-
-  const allOverlayProps = {
-    zIndex: Number(BASE_DRAWER_ZINDEX) - 1,
-    ...(overlayProps || {}),
-  };
-
-  function handleDocumentClick(e: MouseEvent) {
-    if (onClose) {
-      onClose(e);
-    }
-  }
-
-  function handleEscKey(e: KeyboardEvent) {
-    if (onClose && e.keyCode === 27) {
-      onClose(e);
-    }
-  }
-
-  function handleClickPropagation(e: IMouseEvent<Element, MouseEvent>) {
-    return e.stopPropagation();
-  }
+}: {
+  children?: ReactNode;
+  inPortal?: boolean;
+  onClose?: (e?: KeyboardEvent | MouseEvent) => void;
+  open?: boolean;
+  /**
+   * Use relative position instead of fixed
+   */
+  relative?: boolean;
+  side?: DrawerPosition;
+  styles?: ExtractVisageComponentProps<typeof BaseDrawer>['styles'];
+}) {
+  const id = useGenerateId();
+  const zIndex = useLayerManager();
+  const onEscKeyUp = useCallback(
+    (e: KeyboardEvent) => {
+      if (open && onClose && e.keyCode === 27) {
+        onClose(e);
+      }
+    },
+    [onClose, open],
+  );
 
   useEffect(() => {
     if (onClose != null && typeof document !== 'undefined') {
-      document.addEventListener('keyup', handleEscKey);
-      document.addEventListener('click', handleDocumentClick);
+      document.addEventListener('keyup', onEscKeyUp as any);
     }
 
     return () => {
       if (typeof document !== 'undefined') {
-        document.removeEventListener('keyup', handleEscKey);
-        document.removeEventListener('click', handleDocumentClick);
+        document.removeEventListener('keyup', onEscKeyUp as any);
       }
     };
-  }, []);
+  }, [onEscKeyUp]);
 
-  const memoizedTransform = useMemo(
-    () => ({ ...transform({ open, side }), ...getSide({ side }) }),
-    [open, side],
+  if (relative) {
+    return (
+      <BaseDrawer relative={relative} styles={styles}>
+        {children}
+      </BaseDrawer>
+    );
+  }
+
+  const drawer = (
+    <LayerManager>
+      <Backdrop onClick={onClose} styles={{ zIndex }} />
+      <BaseDrawer open={open} side={side} styles={{ zIndex, ...styles }}>
+        {children}
+      </BaseDrawer>
+    </LayerManager>
   );
 
-  return (
-    <Portal containerId={containerId}>
-      <LayerManager>
-        <LayerManager>
-          <Fixed
-            onClick={handleClickPropagation}
-            styles={{
-              height: ['100%'],
-              width: ['100%', '75%', '50%'],
-              ...memoizedTransform,
-              zIndex,
-              ...styles,
-            }}
-            {...rest}
-          />
-        </LayerManager>
-        {overlayed ? (
-          <Overlay
-            {...allOverlayProps}
-            containerId={overlayContainerId}
-            styles={{ zIndex }}
-          />
-        ) : null}
-      </LayerManager>
-    </Portal>
-  );
-};
+  if (inPortal) {
+    if (typeof document === 'undefined' || !open) {
+      return null;
+    }
+
+    return <Portal containerId={`drawer-root-${id}`}>{drawer}</Portal>;
+  }
+
+  return drawer;
+}

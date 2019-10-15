@@ -1,0 +1,107 @@
+# Drawer
+
+## Import
+
+```js transpile=false
+import { Drawer } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+Default drawer is rendered with `position: fixed`.
+
+```jsx live=true
+<WithState defaultValue={false}>
+  {(show, setShow) => {
+    if (!show) {
+      return (
+        <Button onClick={() => setShow(true)} type="button">
+          Show drawer
+        </Button>
+      );
+    }
+
+    return (
+      <Drawer
+        onClose={e => {
+          console.log(e);
+          setShow(false);
+        }}
+        open={show}
+      >
+        Drawer content
+      </Drawer>
+    );
+  }}
+</WithState>
+```
+
+### Custom render side
+
+To control a side where `Drawer` is rendered, use `side` prop. Possible values are `bottm, left, right, top`
+
+```jsx live=true
+<WithState defaultValue={false}>
+  {(show, setShow) => {
+    if (!show) {
+      return (
+        <Button onClick={() => setShow(true)} type="button">
+          Show drawer
+        </Button>
+      );
+    }
+
+    return (
+      <Drawer
+        onClose={e => {
+          console.log(e);
+          setShow(false);
+        }}
+        open={show}
+        side={DrawerPosition.bottom}
+      >
+        Drawer content
+      </Drawer>
+    );
+  }}
+</WithState>
+```
+
+### Render to Portal
+
+If you want to render `Drawer` in `Portal`, use `inPortal` prop.
+
+```jsx live=true
+<WithState defaultValue={false}>
+  {(show, setShow) => {
+    if (!show) {
+      return (
+        <Button onClick={() => setShow(true)} type="button">
+          Show drawer
+        </Button>
+      );
+    }
+
+    return (
+      <Drawer
+        inPortal
+        onClose={e => {
+          console.log(e);
+          setShow(false);
+        }}
+        open={show}
+      >
+        Drawer content
+      </Drawer>
+    );
+  }}
+</WithState>
+```
+
+### Relative
+
+```jsx live=true
+<Drawer relative>This is relative drawer</Drawer>
+```
