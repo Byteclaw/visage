@@ -170,5 +170,5 @@ export function Drawer({
     return <Portal containerId={`drawer-root-${id}`}>{drawer}</Portal>;
   }
 
-  return drawer;
+  return open ? drawer : null;
 }
