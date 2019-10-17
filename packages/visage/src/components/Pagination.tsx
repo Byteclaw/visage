@@ -4,7 +4,7 @@ import { Button } from './Button';
 import { NextPageIcon } from '../assets';
 import { SvgIcon } from './SvgIcon';
 
-export const NextPageButton: typeof Button = forwardRef(
+export const NextPageButton = forwardRef(
   (
     {
       children = (
