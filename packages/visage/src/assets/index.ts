@@ -4,6 +4,7 @@ export * from './DangerIcon';
 export * from './ErrorIcon';
 export * from './InfoIcon';
 export * from './NeutralMessageIcon';
+export * from './PreviousPageIcon';
 export * from './SpinnerIcon';
 export * from './SuccessIcon';
 export * from './UnfoldLess';
