@@ -4,30 +4,33 @@ import {
   markAsVisageComponent,
   ExtractVisageComponentProps,
 } from '@byteclaw/visage-core';
-import { createBooleanVariant, createComponent } from '../core';
+import { createComponent } from '../core';
+import { booleanVariant, booleanVariantStyles } from '../variants';
 import { StyleProps } from '../createNPointTheme';
 
-const CardBase = createBooleanVariant('clickable', {
-  onStyles: {
-    cursor: 'pointer',
-    '&:focus-within, &:focus, &:hover': {
-      boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.40)',
-    },
-    '&:active': {
-      boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
-    },
+const CardBase = createComponent('div', {
+  displayName: 'Card',
+  defaultStyles: {
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+    p: 1,
+    position: 'relative',
+    ...booleanVariantStyles('touchable', {
+      on: {
+        cursor: 'pointer',
+        '&:focus-within, &:focus, &:hover': {
+          boxShadow:
+            '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.40)',
+        },
+        '&:active': {
+          boxShadow:
+            '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
+        },
+      },
+    }),
   },
-  stripProp: true,
-})(
-  createComponent('div', {
-    displayName: 'Card',
-    defaultStyles: {
-      boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
-      p: 1,
-      position: 'relative',
-    },
-  }),
-);
+  variants: [booleanVariant('touchable', true)],
+});
+
 const CardTouchable = createComponent('div', {
   displayName: 'CardTouchable',
   defaultStyles: {
@@ -48,6 +51,7 @@ const CardTouchable = createComponent('div', {
     zIndex: 0,
   },
 });
+
 const CardContent = createComponent('div', {
   displayName: 'CardContent',
   defaultStyles: {
@@ -69,11 +73,24 @@ interface CardProps {
 export const Card: VisageComponent<
   CardProps & ExtractVisageComponentProps<typeof CardBase>,
   StyleProps
-> = forwardRef(({ children, touchable, ...restProps }: CardProps, ref: any) => (
-  <CardBase clickable={!!touchable} ref={ref} {...restProps}>
-    {touchable ? <CardTouchable>{touchable}</CardTouchable> : null}
-    <CardContent>{children}</CardContent>
-  </CardBase>
-)) as any;
+> = forwardRef(
+  (
+    {
+      children,
+      contentProps,
+      touchable,
+      touchableProps,
+      ...restProps
+    }: CardProps,
+    ref: any,
+  ) => (
+    <CardBase touchable={!!touchable} ref={ref} {...restProps}>
+      {touchable ? (
+        <CardTouchable {...touchableProps}>{touchable}</CardTouchable>
+      ) : null}
+      <CardContent {...contentProps}>{children}</CardContent>
+    </CardBase>
+  ),
+) as any;
 
 markAsVisageComponent(Card);
