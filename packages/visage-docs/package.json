@@ -35,7 +35,7 @@
     "react-live": "^2.1.2"
   },
   "devDependencies": {
-    "typescript": "^3.5.3"
+    "typescript": "^3.6.4"
   },
   "scripts": {
     "start": "gatsby develop",

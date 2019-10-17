@@ -61,8 +61,8 @@ export const ListItemsContainer = createBooleanVariant('collapsed', {
 
 const activeItemVariant = createBooleanVariant('active', {
   onStyles: {
-    backgroundColor: 'primary.1',
-    color: 'primaryText.1',
+    color: 'salmon',
+    fontWeight: 'bolder',
   },
 });
 
@@ -110,18 +110,25 @@ const ListItemLinkBase = activeItemVariant(
       width: '100%',
       '&:hover, &:focus': {
         outline: 'none',
-        backgroundColor: 'primary.1',
-        color: 'primaryText.1',
         userSelect: 'none',
+      },
+      '&:hover': {
+        backgroundColor: 'neutral.-1',
+      },
+      '&:focus': {
+        backgroundColor: 'neutral.-3',
       },
     },
   }),
 );
 
-export const ListItemLink: typeof ListItemLinkBase = (props: any) => {
+export const ListItemLink: typeof ListItemLinkBase = ({
+  styles,
+  ...props
+}: any) => {
   const depth = useContext(ListDepthContext);
 
-  return <ListItemLinkBase {...props} styles={{ pl: 2 * depth }} />;
+  return <ListItemLinkBase {...props} styles={{ pl: 2 * depth, ...styles }} />;
 };
 
 export const ListHeader = createComponent('h1', {

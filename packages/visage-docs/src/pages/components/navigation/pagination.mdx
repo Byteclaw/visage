@@ -1,0 +1,31 @@
+# Pagination
+
+## Import
+
+```js transpile=false
+import { NextPageButton, Pagination, PreviousPageButton } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Arrow pagination only
+
+```jsx live=true
+<Fragment>
+  <Pagination>
+    <PreviousPageButton />
+    <NextPageButton />
+    </Pagination>
+</Fragment>
+```
+
+### Arrow pagination for just one page (disabled arrows)
+
+```jsx live=true
+<Fragment>
+  <Pagination>
+    <PreviousPageButton disabled />
+    <NextPageButton disabled />
+    </Pagination>
+</Fragment>
+```

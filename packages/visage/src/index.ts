@@ -8,6 +8,7 @@ export {
 export * from './DesignSystem';
 export * from './GlobalReset';
 export * from './ResponsiveDesignSystem';
+export * from './assets';
 export * from './components';
 export * from './core';
 export * from './createNPointTheme';

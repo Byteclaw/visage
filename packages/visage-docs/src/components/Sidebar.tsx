@@ -250,6 +250,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/navigation/pagination">
+                  Pagination
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/navigation/tabs">
                   Tabs
                 </ListItemRouteLink>
