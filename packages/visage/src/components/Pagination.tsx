@@ -1,8 +1,7 @@
-import React, { forwardRef, ReactNode, Ref } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 import {
   markAsVisageComponent,
   ExtractVisageComponentProps,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import { PreviousPageIcon, NextPageIcon } from '../assets';
 import { Button } from './Button';
@@ -14,10 +13,7 @@ interface PaginationProps extends ExtractVisageComponentProps<typeof Flex> {
   children?: ReactNode;
 }
 
-export const NextPageButton: VisageComponent<
-  {},
-  ExtractVisageComponentProps<typeof Button>
-> = forwardRef(
+export const NextPageButton: typeof Button = forwardRef(
   (
     {
       children = (
@@ -30,18 +26,15 @@ export const NextPageButton: VisageComponent<
       ),
       ...props
     }: ExtractVisageComponentProps<typeof Button>,
-    ref: Ref<HTMLButtonElement>,
+    ref: any,
   ) => (
     <Button type="button" ref={ref} {...props}>
       {children}
     </Button>
   ),
-);
+) as any;
 
-export const PreviousPageButton: VisageComponent<
-  {},
-  ExtractVisageComponentProps<typeof Button>
-> = forwardRef(
+export const PreviousPageButton: typeof Button = forwardRef(
   (
     {
       children = (
@@ -54,13 +47,13 @@ export const PreviousPageButton: VisageComponent<
       ),
       ...props
     }: ExtractVisageComponentProps<typeof Button>,
-    ref: Ref<HTMLButtonElement>,
+    ref: any,
   ) => (
     <Button type="button" ref={ref} {...props}>
       {children}
     </Button>
   ),
-);
+) as any;
 
 export const Pagination: typeof Flex = ({
   ariaLabel = 'pagination',
