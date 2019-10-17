@@ -14,7 +14,7 @@ export function GlobalReset() {
       '*, *::before, *::after': {
         boxSizing: 'inherit',
         lineHeight: theme.resolve('lineHeight', 0, breakpoint).value,
-        padding: '0.05px', // prevent margin collapsing between parent and child
+        // padding: '0.05px', // prevent margin collapsing between parent and child
       },
       body: {
         color: theme.resolve('color', 'bodyText', breakpoint).value,
