@@ -179,7 +179,10 @@ function selectorReducer(
       break;
     }
     case 'SetCurrentFocusedOption': {
-      if (state.focusedIndex !== -1 && state.options[state.focusedIndex]) {
+      if (
+        state.focusedIndex > -1 &&
+        state.options.length > state.focusedIndex
+      ) {
         const value = state.options[state.focusedIndex];
 
         changes = { inputValue: state.valueToString(value), value };
