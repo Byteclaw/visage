@@ -6,4 +6,5 @@ tsconfig.tsbuildinfo
 .cache
 public
 .idea
+.vscode
 yarn-error.log
