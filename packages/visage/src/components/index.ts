@@ -31,6 +31,7 @@ export * from './Loading';
 export * from './Menu';
 export * from './Modal';
 export * from './Overlay';
+export * from './Pagination';
 export * from './Paragraph';
 export * from './Popover';
 export * from './Portal';
