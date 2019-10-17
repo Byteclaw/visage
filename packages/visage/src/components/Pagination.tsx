@@ -1,18 +1,9 @@
 import React from 'react';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { Button } from './Button';
-import { NextPageIcon } from '../assets';
-import { SvgIcon } from './SvgIcon';
 
 export function NextPageButton({
-  children = (
-    <SvgIcon
-      aria-hidden
-      focusable={false}
-      icon={NextPageIcon}
-      styles={{ width: '1em', height: '1em' }}
-    />
-  ),
+  children,
   ...props
 }: ExtractVisageComponentProps<typeof Button>) {
   return (
