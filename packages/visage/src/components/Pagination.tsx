@@ -1,8 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react';
-import {
-  markAsVisageComponent,
-  ExtractVisageComponentProps,
-} from '@byteclaw/visage-core';
+import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { PreviousPageIcon, NextPageIcon } from '../assets';
 import { Button } from './Button';
 import { Flex } from './Flex';
@@ -70,7 +67,3 @@ export const Pagination: typeof Flex = ({
     {children}
   </Flex>
 );
-
-markAsVisageComponent(NextPageButton);
-markAsVisageComponent(PreviousPageButton);
-markAsVisageComponent(Pagination);
