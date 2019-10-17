@@ -59,6 +59,18 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
+              path="/components/data-and-information/*"
+              title="Data and Information"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/data-table">
+                  DataTable
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
               path="/components/feedback/*"
               title="Feedback"
             >
