@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef } from 'react';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { PreviousPageIcon, NextPageIcon } from '../assets';
 import { Button } from './Button';
@@ -7,7 +7,6 @@ import { SvgIcon } from './SvgIcon';
 
 interface PaginationProps extends ExtractVisageComponentProps<typeof Flex> {
   ariaLabel?: string;
-  children?: ReactNode;
 }
 
 export const NextPageButton: typeof Button = forwardRef(
