@@ -4,7 +4,7 @@ import { Button } from './Button';
 import { NextPageIcon } from '../assets';
 import { SvgIcon } from './SvgIcon';
 
-export const NextPageButton = ({
+export function NextPageButton({
   children = (
     <SvgIcon
       aria-hidden
@@ -14,11 +14,13 @@ export const NextPageButton = ({
     />
   ),
   ...props
-}: ExtractVisageComponentProps<typeof Button>) => (
-  <Button type="button" {...props}>
-    {children}
-  </Button>
-);
+}: ExtractVisageComponentProps<typeof Button>) {
+  return (
+    <Button type="button" {...props}>
+      {children}
+    </Button>
+  );
+}
 
 export const PreviousPageButton = () => null;
 
