@@ -190,15 +190,16 @@ function selectorReducer(
       break;
     }
     case 'SetValueByIndex': {
-      const value = state.options[action.index];
+      if (action.index >= 0 && state.options.length > action.index) {
+        const value = state.options[action.index];
 
-      if (value) {
         changes = {
           ...changes,
           inputValue: state.valueToString(value),
           value,
         };
       }
+
       break;
     }
     case 'SetValue': {
