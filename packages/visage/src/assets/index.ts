@@ -6,6 +6,8 @@ export * from './ErrorIcon';
 export * from './ExpandDownIcon';
 export * from './InfoIcon';
 export * from './NeutralMessageIcon';
+export * from './NextPageIcon';
+export * from './PreviousPageIcon';
 export * from './SpinnerIcon';
 export * from './SuccessIcon';
 export * from './UnfoldLess';
