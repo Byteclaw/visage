@@ -1,10 +1,11 @@
 import React, { forwardRef } from 'react';
+import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { PreviousPageIcon, NextPageIcon } from '../assets';
 import { Button } from './Button';
 import { Flex } from './Flex';
 import { SvgIcon } from './SvgIcon';
 
-interface PaginationProps {
+interface PaginationProps extends ExtractVisageComponentProps<typeof Flex> {
   ariaLabel?: string;
 }
 
@@ -20,7 +21,7 @@ export const NextPageButton: typeof Button = forwardRef(
         />
       ),
       ...props
-    }: any,
+    }: ExtractVisageComponentProps<typeof Button>,
     ref: any,
   ) => (
     <Button type="button" ref={ref} {...props}>
@@ -41,7 +42,7 @@ export const PreviousPageButton: typeof Button = forwardRef(
         />
       ),
       ...props
-    }: any,
+    }: ExtractVisageComponentProps<typeof Button>,
     ref: any,
   ) => (
     <Button type="button" ref={ref} {...props}>
@@ -55,7 +56,7 @@ export const Pagination: typeof Flex = ({
   children,
   styles,
   ...props
-}: any) => (
+}: PaginationProps) => (
   <Flex
     aria-label={ariaLabel}
     as="nav"
