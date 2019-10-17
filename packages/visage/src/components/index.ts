@@ -7,6 +7,7 @@ export * from './Card';
 export * from './Checkbox';
 export * from './Chip';
 export * from './CloseButton';
+export * from './DataTable';
 export * from './DescriptionList';
 export * from './Dialog';
 export * from './Divider';
