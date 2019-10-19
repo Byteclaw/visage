@@ -87,7 +87,6 @@ const CheckboxWrapper = createComponent('div', {
     lineHeight: 0,
     alignItems: 'flex-start',
     m: 0,
-    mb: 1,
     p: 0,
   },
 });
