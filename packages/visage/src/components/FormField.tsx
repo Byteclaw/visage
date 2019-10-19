@@ -52,7 +52,7 @@ export const FormField: FormFieldComponent = function FormField({
 }: FormFieldProps & { control?: any }) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `field-${outerId || idTemplate}-${name || ''}`;
+    return outerId || `field-${idTemplate}-${name || ''}`;
   }, [outerId, idTemplate]);
   return (
     <Box styles={{ my: 1 }}>

@@ -140,7 +140,7 @@ export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
   ) {
     const idTemplate = useGenerateId();
     const id = useMemo(() => {
-      return `chkbx-${idTemplate}-${name || ''}`;
+      return outerId || `chkbx-${idTemplate}-${name || ''}`;
     }, [outerId, idTemplate]);
 
     return (

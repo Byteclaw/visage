@@ -89,7 +89,7 @@ export function Modal({
 }: ModalProps) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `modal-${outerId || idTemplate}`;
+    return outerId || `modal-${idTemplate}`;
   }, [outerId, idTemplate]);
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);

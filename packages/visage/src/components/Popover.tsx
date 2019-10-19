@@ -107,7 +107,7 @@ export function Popover({
 }: PopoverProps) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `popover-${idTemplate}`;
+    return outerId || `popover-${idTemplate}`;
   }, [idTemplate, outerId]);
 
   const contentRef = React.useRef<HTMLDivElement | null>(null);

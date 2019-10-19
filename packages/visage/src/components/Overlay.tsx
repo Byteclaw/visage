@@ -23,7 +23,7 @@ interface OverlayProps {
 export function Overlay({ containerId, ...rest }: OverlayProps) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `overlay-container-${containerId || idTemplate}}`;
+    return containerId || `overlay-container-${idTemplate}}`;
   }, [containerId, idTemplate]);
   return (
     <Portal containerId={id}>

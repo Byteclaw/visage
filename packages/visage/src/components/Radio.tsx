@@ -141,7 +141,7 @@ export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
   ) {
     const idTemplate = useGenerateId();
     const id = useMemo(() => {
-      return `chkbx-${outerId || idTemplate}-${name || ''}`;
+      return outerId || `chkbx-${idTemplate}-${name || ''}`;
     }, [outerId, idTemplate]);
 
     return (

@@ -86,7 +86,7 @@ export function Select<TValue extends any = string>({
 }: SelectProps<TValue>) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `select-${outerId || idTemplate}}`;
+    return outerId || `select-${idTemplate}`;
   }, [outerId, idTemplate]);
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded

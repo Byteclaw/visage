@@ -86,7 +86,7 @@ export function AutocompleteInput<TValue extends any = string>({
 }: AutocompleteInputProps<TValue>) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `autocomplete-${outerId || idTemplate}`;
+    return outerId || `autocomplete-${idTemplate}`;
   }, [outerId, idTemplate]);
 
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on

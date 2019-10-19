@@ -60,7 +60,7 @@ export function Dialog({
 }: DialogProps) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
-    return `dialog-${outerId || idTemplate}}`;
+    return outerId || `dialog-${idTemplate}`;
   }, [outerId, idTemplate]);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
