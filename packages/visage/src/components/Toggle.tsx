@@ -167,7 +167,7 @@ export const Toggle: VisageComponent<ToggleProps, StyleProps> = forwardRef(
     }, [outerId, idTemplate]);
 
     return (
-      <Flex styles={{ display: 'flex', mb: 1 }}>
+      <Flex>
         <Box styles={{ display: 'flex', alignItems: 'center' }} as="label">
           <ToggleControl
             defaultChecked={defaultChecked}
