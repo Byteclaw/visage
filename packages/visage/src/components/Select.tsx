@@ -23,7 +23,7 @@ import {
   SelectorReducerEnhancer,
 } from './hooks/useSelector';
 import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
-import { useDebouncedCallback } from '../hooks';
+import { useDebouncedCallback, useGenerateId } from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { SvgIcon } from './SvgIcon';
 import { TextInput } from './TextInput';
@@ -59,7 +59,7 @@ interface SelectProps<TValue extends any = string>
   extends BaseTextInputProps,
     SelectorOptions<TValue> {
   debounceDelay?: number;
-  id: string;
+  id?: string;
   menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
   options?: (inputValue: string) => Promise<TValue[]>;
   searchable?: boolean;
@@ -69,7 +69,7 @@ export function Select<TValue extends any = string>({
   debounceDelay = 500,
   defaultValue,
   children,
-  id,
+  id: outerId,
   enhanceReducer,
   onChange,
   onInputValueChange,
@@ -84,6 +84,10 @@ export function Select<TValue extends any = string>({
   valueToString,
   ...restProps
 }: SelectProps<TValue>) {
+  const idTemplate = useGenerateId();
+  const id = useMemo(() => {
+    return `select-${outerId || idTemplate}}`;
+  }, [outerId, idTemplate]);
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
   const lastArrowPressed = useRef<string | null>(null);

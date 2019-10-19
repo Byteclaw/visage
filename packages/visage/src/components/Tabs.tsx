@@ -8,8 +8,10 @@ import React, {
   useCallback,
   useRef,
   useState,
+  useMemo,
 } from 'react';
 import { createComponent } from '../core';
+import { useGenerateId } from '../hooks';
 import { Box } from './Box';
 import { Flex } from './Flex';
 
@@ -76,11 +78,15 @@ interface TabsProps {
   /**
    * Unique id used to generate references between tabs (accessibility)
    */
-  id: string;
+  id?: string;
   selected?: number;
 }
 
-export function Tabs({ children, id, selected = 0 }: TabsProps) {
+export function Tabs({ children, id: outerId, selected = 0 }: TabsProps) {
+  const idTemplate = useGenerateId();
+  const id = useMemo(() => {
+    return outerId || idTemplate;
+  }, [outerId, idTemplate]);
   const childrenArray = Children.toArray(children);
   const tabsLabel = childrenArray.map(c => c.props.label);
   const tabs = childrenArray.map(c => c.props.children);
