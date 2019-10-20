@@ -7,8 +7,10 @@ import React, {
   useRef,
   MouseEvent,
   KeyboardEvent,
+  useMemo,
 } from 'react';
 import { createComponent } from '../core';
+import { useGenerateId } from '../hooks';
 import { Flex } from './Flex';
 import { CloseButton } from './CloseButton';
 import { Heading } from './Heading';
@@ -37,7 +39,7 @@ interface DialogProps {
   /**
    * Unique id of the dialog
    */
-  id: string;
+  id?: string;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   /**
    * Accessibility role, use alert dialog if you need user's interaction
@@ -51,11 +53,15 @@ export function Dialog({
   children,
   closeButtonLabel = 'Close dialog',
   label,
-  id,
+  id: outerId,
   onClose,
   role = 'dialog',
   secondaryLabel,
 }: DialogProps) {
+  const idTemplate = useGenerateId();
+  const id = useMemo(() => {
+    return outerId || `dialog-${idTemplate}`;
+  }, [outerId, idTemplate]);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const headingId = `dialog-${id}-heading`;

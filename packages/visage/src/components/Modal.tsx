@@ -7,6 +7,7 @@ import React, {
   MouseEvent,
   KeyboardEvent,
   MutableRefObject,
+  useMemo,
 } from 'react';
 import {
   clearAllBodyScrollLocks,
@@ -14,6 +15,7 @@ import {
   enableBodyScroll,
 } from 'body-scroll-lock';
 import { createComponent } from '../core';
+import { useGenerateId } from '../hooks';
 import { booleanVariant, booleanVariantStyles } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
@@ -66,7 +68,7 @@ interface ModalProps {
   /**
    * Unique id of the modal
    */
-  id: string;
+  id?: string;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   /**
    * Accessibility role, use alert dialog if you need user's interaction
@@ -81,10 +83,14 @@ export function Modal({
   contentRef,
   fixed = true,
   children,
-  id,
+  id: outerId,
   onClose,
   open = true,
 }: ModalProps) {
+  const idTemplate = useGenerateId();
+  const id = useMemo(() => {
+    return outerId || `modal-${idTemplate}`;
+  }, [outerId, idTemplate]);
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const zIndex = useLayerManager();

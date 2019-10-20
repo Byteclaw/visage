@@ -110,7 +110,7 @@ interface RadioProps extends VisageStyleProps<StyleProps> {
   /**
    * Id is required for a group
    */
-  id: string;
+  id?: string;
   invalid?: boolean;
   label: ReactNode;
   name: string;
@@ -140,7 +140,7 @@ export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
   ) {
     const idTemplate = useGenerateId();
     const id = useMemo(() => {
-      return `chkbx-${idTemplate}-${name || ''}`;
+      return outerId || `chkbx-${idTemplate}-${name || ''}`;
     }, [outerId, idTemplate]);
 
     return (

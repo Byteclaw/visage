@@ -163,7 +163,7 @@ export const Toggle: VisageComponent<ToggleProps, StyleProps> = forwardRef(
     const [inputChecked, setInputChecked] = useState(checked);
     const idTemplate = useGenerateId();
     const id = useMemo(() => {
-      return `toggle-${idTemplate}-${name || ''}`;
+      return outerId || `toggle-${idTemplate}-${name || ''}`;
     }, [outerId, idTemplate]);
 
     return (

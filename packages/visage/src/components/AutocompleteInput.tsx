@@ -22,9 +22,10 @@ import {
   useSelector,
   SelectorAction,
 } from './hooks/useSelector';
+import { useGenerateId, useDebouncedCallback } from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
-import { useDebouncedCallback } from '../hooks';
+
 import { normalizeKeyboardEventKey } from './shared';
 
 type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
@@ -46,7 +47,7 @@ interface AutocompleteInputProps<TValue extends any>
     SelectorOptions<TValue> {
   debounceDelay?: number;
   expandOnClick?: boolean;
-  id: string;
+  id?: string;
   menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
   options?: (inputValue: string) => Promise<TValue[]>;
   /** Set focused option as value on blur */
@@ -70,7 +71,7 @@ export function AutocompleteInput<TValue extends any = string>({
   defaultValue,
   enhanceReducer,
   expandOnClick,
-  id,
+  id: outerId,
   onChange,
   onInputValueChange,
   onStateChange,
@@ -83,6 +84,11 @@ export function AutocompleteInput<TValue extends any = string>({
   valueToString,
   ...restProps
 }: AutocompleteInputProps<TValue>) {
+  const idTemplate = useGenerateId();
+  const id = useMemo(() => {
+    return outerId || `autocomplete-${idTemplate}`;
+  }, [outerId, idTemplate]);
+
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
   const lastArrowPressed = useRef<string | null>(null);
