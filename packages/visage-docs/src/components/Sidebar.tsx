@@ -67,6 +67,11 @@ export function Sidebar() {
                   DataTable
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/description-list">
+                  DescriptionList
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
@@ -308,11 +313,6 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/structure/card">
                   Card
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/structure/description-list">
-                  DescriptionList
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
