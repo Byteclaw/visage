@@ -1,4 +1,4 @@
-import React, { ComponentProps, ComponentType } from 'react';
+import React, { ComponentProps, JSXElementConstructor } from 'react';
 
 export interface Visage<TTheme extends Theme> {
   breakpoint: number;
@@ -87,8 +87,6 @@ export type ExtractVisageComponentProps<
   T extends ComponentConstraint
 > = T extends VisageComponent<infer P, infer S>
   ? P & StyleProps<S>
-  : T extends ComponentType<infer P>
-  ? P
   : ComponentProps<T>;
 
 export type OmittableProps<T extends {}> = {
@@ -100,6 +98,21 @@ export interface VisageComponent<
   TStyleSheet extends ValidStyleSheet
 > {
   displayName?: string;
+  <P>(
+    props: { as: JSXElementConstructor<P> } & TComponentProps &
+      P &
+      StyleProps<TStyleSheet>,
+  ): React.ReactElement | null;
+  <C extends keyof JSX.IntrinsicElements>(
+    props: { as: C } & TComponentProps &
+      JSX.IntrinsicElements[C] &
+      StyleProps<TStyleSheet>,
+  ): React.ReactElement | null;
+  (
+    props: { as?: undefined } & TComponentProps & StyleProps<TStyleSheet>,
+  ): React.ReactElement | null;
+  /* 
+  these functions take so long to resolve, sometimes end up in GC heap errors
   <C extends keyof JSX.IntrinsicElements>(
     props: { as: C } & TComponentProps &
       JSX.IntrinsicElements[C] &
@@ -117,7 +130,8 @@ export interface VisageComponent<
   ): React.ReactElement | null;
   (
     props: { as?: undefined } & TComponentProps & StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
+  ): React.ReactElement | null; 
+  */
 }
 
 export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
