@@ -1,4 +1,4 @@
-import React, { ComponentProps, JSXElementConstructor } from 'react';
+import React, { ComponentProps } from 'react';
 
 export interface Visage<TTheme extends Theme> {
   breakpoint: number;
@@ -43,7 +43,6 @@ export type StyleSheet<
 export interface StyleProps<TStyleSheet extends ValidStyleSheet = {}> {
   styles?: StyleSheet<TStyleSheet>;
   parentStyles?: StyleSheet<TStyleSheet>;
-  [extra: string]: any;
 }
 
 export interface StyleGenerator {
@@ -73,16 +72,6 @@ export type ComponentConstraint =
   | keyof JSX.IntrinsicElements
   | React.JSXElementConstructor<any>;
 
-export type VisageComponentProps<
-  TStyleSheet extends ValidStyleSheet,
-  TDefaultComponent extends ComponentConstraint,
-  TOverrideComponent extends ComponentConstraint = React.FunctionComponent<{}>
-> = {
-  as?: TOverrideComponent;
-} & React.ComponentProps<TDefaultComponent> &
-  React.ComponentProps<TOverrideComponent> &
-  StyleProps<TStyleSheet>;
-
 export type ExtractVisageComponentProps<
   T extends ComponentConstraint
 > = T extends VisageComponent<infer P, infer S>
@@ -98,41 +87,19 @@ export interface VisageComponent<
   TStyleSheet extends ValidStyleSheet
 > {
   displayName?: string;
-  <P>(
-    props: { as: JSXElementConstructor<P> } & TComponentProps &
-      P &
-      StyleProps<TStyleSheet>,
+  <
+    C extends undefined | ComponentConstraint,
+    P = C extends ComponentConstraint ? ExtractVisageComponentProps<C> : {}
+  >(
+    props: { as?: C } & StyleProps<TStyleSheet> & TComponentProps & P,
   ): React.ReactElement | null;
-  <C extends keyof JSX.IntrinsicElements>(
-    props: { as: C } & TComponentProps &
-      JSX.IntrinsicElements[C] &
-      StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
-  (
-    props: { as?: undefined } & TComponentProps & StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
-  /* 
-  these functions take so long to resolve, sometimes end up in GC heap errors
-  <C extends keyof JSX.IntrinsicElements>(
-    props: { as: C } & TComponentProps &
-      JSX.IntrinsicElements[C] &
-      StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
-  <P>(
-    props: { as: React.ComponentType<P> } & P &
-      TComponentProps &
-      StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
-  <P>(
-    props: { as: VisageComponent<P, any> } & TComponentProps &
-      P &
-      StyleProps<TStyleSheet>,
-  ): React.ReactElement | null;
-  (
-    props: { as?: undefined } & TComponentProps & StyleProps<TStyleSheet>,
-  ): React.ReactElement | null; 
-  */
 }
+
+type UnionToIntersection<U> = (U extends any
+  ? ((k: U) => void)
+  : never) extends ((k: infer I) => void)
+  ? I
+  : never;
 
 export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
   <
@@ -149,7 +116,7 @@ export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
     },
   ): VisageComponent<
     React.ComponentProps<TDefaultComponent> &
-      (TVariantsProps extends Array<infer P> ? P : {}),
+      (TVariantsProps extends Array<infer P> ? UnionToIntersection<P> : {}),
     TStyleSheet
   >;
 }
@@ -184,105 +151,4 @@ export interface UseVisageHook<
     props: StyleProps<TStyleSheet>,
     options: UseVisageHookOptions<TStyleSheet>,
   ): TOutputProps;
-}
-
-export interface VariantedComponentCreator<TStyleProps extends {}> {
-  <
-    P,
-    TPropName extends keyof any,
-    TVariantStyleSheets extends {
-      default: StyleSheet<TStyleProps>;
-      [variantName: string]: StyleSheet<TStyleProps>;
-    }
-  >(
-    component: React.FunctionComponent<P>,
-    propName: TPropName,
-    variantStyles: TVariantStyleSheets,
-    defaultValue?: keyof TVariantStyleSheets | 'default',
-  ): VisageComponent<
-    P & { [K in TPropName]?: keyof TVariantStyleSheets },
-    TStyleProps
-  >;
-  <
-    P,
-    TPropName extends keyof any,
-    TVariantStyleSheets extends {
-      default: StyleSheet<TStyleProps>;
-      [variantName: string]: StyleSheet<TStyleProps>;
-    }
-  >(
-    component: React.ComponentClass<P>,
-    propName: TPropName,
-    variantStyles: TVariantStyleSheets,
-    defaultValue?: keyof TVariantStyleSheets | 'default',
-  ): VisageComponent<
-    P & { [K in TPropName]?: keyof TVariantStyleSheets },
-    TStyleProps
-  >;
-  <
-    P,
-    TPropName extends keyof any,
-    TVariantStyleSheets extends {
-      default: StyleSheet<TStyleProps>;
-      [variantName: string]: StyleSheet<TStyleProps>;
-    }
-  >(
-    component: VisageComponent<P, any>,
-    propName: TPropName,
-    variantStyles: TVariantStyleSheets,
-    defaultValue?: keyof TVariantStyleSheets | 'default',
-  ): VisageComponent<
-    P & { [K in TPropName]?: keyof TVariantStyleSheets },
-    TStyleProps
-  >;
-  <
-    C extends keyof JSX.IntrinsicElements,
-    TPropName extends keyof any,
-    TVariantStyleSheets extends {
-      default: StyleSheet<TStyleProps>;
-      [variantName: string]: StyleSheet<TStyleProps>;
-    }
-  >(
-    component: C,
-    propName: TPropName,
-    variantStyles: TVariantStyleSheets,
-    defaultValue?: keyof TVariantStyleSheets | 'default',
-  ): VisageComponent<
-    JSX.IntrinsicElements[C] & { [K in TPropName]?: keyof TVariantStyleSheets },
-    TStyleProps
-  >;
-}
-
-export interface BooleanVariantCreator<TStyleProps extends {}> {
-  <TPropName extends keyof any>(
-    propName: TPropName,
-    options: {
-      /** Should strip the prop from underlying component? default is true */
-      stripProp?: boolean;
-      onStyles: StyleSheet<TStyleProps>;
-      offStyles?: StyleSheet<TStyleProps>;
-    },
-  ): BooleanVariantedComponentCreator<TStyleProps, TPropName>;
-}
-
-export interface BooleanVariantedComponentCreator<
-  TStyleProps extends {},
-  TPropName extends keyof any
-> {
-  <P>(component: React.FunctionComponent<P>): VisageComponent<
-    P & { [K in TPropName]?: boolean },
-    TStyleProps
-  >;
-  <P>(component: React.ComponentClass<P>): VisageComponent<
-    P & { [K in TPropName]?: boolean },
-    TStyleProps
-  >;
-  <P>(component: VisageComponent<P, any>): VisageComponent<
-    P & { [K in TPropName]?: boolean },
-    TStyleProps
-  >;
-  <C extends keyof JSX.IntrinsicElements>(component: C): VisageComponent<
-    JSX.IntrinsicElements[C] & { [K in TPropName]?: boolean },
-    TStyleProps
-  >;
 }

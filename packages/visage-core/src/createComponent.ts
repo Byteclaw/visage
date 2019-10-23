@@ -23,7 +23,7 @@ export function createComponent(
 ): VisageComponent<{}, any> {
   const componentName = displayName(name || defaultAs);
   const Component: any = React.forwardRef(
-    ({ as = defaultAs, ...restProps }: StyleProps, ref) => {
+    ({ as = defaultAs, ...restProps }: StyleProps & { as: any }, ref) => {
       const props = useVisage(
         {
           ...defaultProps,
