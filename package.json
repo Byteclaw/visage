@@ -17,6 +17,7 @@
   "resolutions": {
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
+    "caniuse-lite": "1.0.30001002",
     "typescript": "^3.6.4"
   },
   "devDependencies": {
