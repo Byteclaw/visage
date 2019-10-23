@@ -4,7 +4,11 @@ import {
 } from '@byteclaw/visage-core';
 import React, { Fragment } from 'react';
 import { createComponent } from '../core';
-import { visuallyHiddenStripped, visuallyHiddenStyles } from './shared';
+import {
+  visuallyHiddenBooleanVariant,
+  visuallyHiddenBooleanVariantStyles,
+  visuallyHiddenStyles,
+} from './shared';
 
 const RequirementDescription = createComponent('span', {
   defaultStyles: visuallyHiddenStyles,
@@ -20,12 +24,12 @@ const LabelBase = createComponent('label', {
     mb: 1,
     p: 0,
     verticalAlign: 'middle',
+    ...visuallyHiddenBooleanVariantStyles,
   },
+  variants: [visuallyHiddenBooleanVariant],
 });
 
-const Comp = visuallyHiddenStripped(LabelBase);
-
-interface LabelProps extends ExtractVisageComponentProps<typeof Comp> {
+interface LabelProps extends ExtractVisageComponentProps<typeof LabelBase> {
   required?: boolean;
   /**
    * Title used to describe what asterisk means, default is Required
@@ -40,7 +44,7 @@ function Label({
   ...restProps
 }: LabelProps) {
   return (
-    <Comp {...restProps}>
+    <LabelBase {...restProps}>
       {children}
       {required ? (
         <Fragment>
@@ -48,7 +52,7 @@ function Label({
           <RequirementDescription>{requiredTitle}</RequirementDescription>
         </Fragment>
       ) : null}
-    </Comp>
+    </LabelBase>
   );
 }
 

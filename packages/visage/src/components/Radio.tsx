@@ -14,9 +14,12 @@ import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import { useGenerateId } from '../hooks';
 import {
-  disabledControl,
-  invalidControl,
-  visuallyHiddenStripped,
+  disabledControlBooleanStyles,
+  disabledControlBooleanVariant,
+  invalidControlBooleanStyles,
+  invalidControlBooleanVariant,
+  visuallyHiddenBooleanVariant,
+  visuallyHiddenBooleanVariantStyles,
   visuallyHiddenStyles,
 } from './shared';
 import { Flex } from './Flex';
@@ -51,32 +54,31 @@ const RadioControl = createComponent('input', {
   },
 });
 
-const RadioLabel = disabledControl(
-  invalidControl(
-    createComponent('label', {
-      displayName: 'RadioLabel',
-      defaultStyles: {
-        display: 'flex',
-        fontSize: 'inherit',
-        lineHeight: 'inherit',
-        cursor: 'pointer',
-        position: 'relative',
-        outline: 'none',
-        userSelect: 'none',
-      },
-    }),
-  ),
-);
+const RadioLabel = createComponent('label', {
+  displayName: 'RadioLabel',
+  defaultStyles: {
+    display: 'flex',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    cursor: 'pointer',
+    position: 'relative',
+    outline: 'none',
+    userSelect: 'none',
+    ...disabledControlBooleanStyles,
+    ...invalidControlBooleanStyles,
+  },
+  variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
+});
 
-const RadioLabelText = visuallyHiddenStripped(
-  createComponent('span', {
-    displayName: 'RadioLabelText',
-    defaultStyles: {
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-    },
-  }),
-);
+const RadioLabelText = createComponent('span', {
+  displayName: 'RadioLabelText',
+  defaultStyles: {
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    ...visuallyHiddenBooleanVariantStyles,
+  },
+  variants: [visuallyHiddenBooleanVariant],
+});
 
 const RadioWrapper = createComponent('div', {
   displayName: 'RadioWrapper',

@@ -4,7 +4,13 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import React, { ReactNode, MouseEvent } from 'react';
-import { createBooleanVariant, createComponent, createVariant } from '../core';
+import { createComponent } from '../core';
+import {
+  booleanVariant,
+  booleanVariantStyles,
+  variant,
+  variantStyles,
+} from '../variants';
 import { StyleProps } from '../createNPointTheme';
 import { Box } from './Box';
 import { CloseButton } from './CloseButton';
@@ -27,98 +33,109 @@ const statusIcons = {
   warning: WarningIcon,
 };
 
-const flatVariant = createBooleanVariant('flat', {
-  onStyles: {},
-  offStyles: {
-    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
-  },
-});
-const BannerBase = createVariant(
-  flatVariant(
-    createComponent(Flex, {
-      displayName: 'Banner',
-      defaultStyles: {
-        borderColor: 'transparent',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        outline: 'none',
-        p: 2,
-        my: 1,
+const BannerBase = createComponent(Flex, {
+  displayName: 'Banner',
+  defaultStyles: {
+    borderColor: 'transparent',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    outline: 'none',
+    p: 2,
+    my: 1,
+    ...booleanVariantStyles('flat', {
+      off: {
+        boxShadow:
+          '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
       },
     }),
-  ),
-  'status',
-  {
-    critical: {
-      borderColor: 'danger.1',
-      backgroundColor: 'danger.-5',
-      color: 'dangerText.-5',
-      '&:focus': {
-        borderColor: 'danger.2',
+    ...variantStyles('status', {
+      critical: {
+        borderColor: 'danger.1',
+        backgroundColor: 'danger.-5',
+        color: 'dangerText.-5',
+        '&:focus': {
+          borderColor: 'danger.2',
+        },
       },
-    },
-    info: {
-      borderColor: 'info.1',
-      backgroundColor: 'info.-5',
-      color: 'infoText.-5',
-      '&:focus': {
-        borderColor: 'info.2',
+      info: {
+        borderColor: 'info.1',
+        backgroundColor: 'info.-5',
+        color: 'infoText.-5',
+        '&:focus': {
+          borderColor: 'info.2',
+        },
       },
-    },
-    success: {
-      borderColor: 'success.1',
-      backgroundColor: 'success.-5',
-      color: 'successText.-5',
-      '&:focus': {
-        borderColor: 'success.2',
+      success: {
+        borderColor: 'success.1',
+        backgroundColor: 'success.-5',
+        color: 'successText.-5',
+        '&:focus': {
+          borderColor: 'success.2',
+        },
       },
-    },
-    warning: {
-      borderColor: 'warning.1',
-      backgroundColor: 'warning.-5',
-      color: 'warningText.-5',
-      '&:focus': {
-        borderColor: 'warning.2',
+      warning: {
+        borderColor: 'warning.1',
+        backgroundColor: 'warning.-5',
+        color: 'warningText.-5',
+        '&:focus': {
+          borderColor: 'warning.2',
+        },
       },
-    },
-    default: {
-      borderColor: 'neutral.1',
-      backgroundColor: 'neutral.-5',
-      color: 'neutralText.-5',
-      '&:focus': {
-        borderColor: 'neutral.2',
+      default: {
+        borderColor: 'neutral.1',
+        backgroundColor: 'neutral.-5',
+        color: 'neutralText.-5',
+        '&:focus': {
+          borderColor: 'neutral.2',
+        },
       },
-    },
+    }),
   },
-);
+  variants: [
+    booleanVariant('flat', true),
+    variant('status', true, [
+      'critical',
+      'info',
+      'success',
+      'warning',
+      'default',
+    ] as const),
+  ],
+});
 
-const BannerRibbon = createVariant(
-  createComponent('div', {
-    displayName: 'BannerRibbon',
-    defaultStyles: {
-      fontSize: 1,
-      mr: 2,
-    },
-  }),
-  'status',
-  {
-    critical: {
-      color: 'danger.2',
-    },
-    info: {
-      color: 'info.2',
-    },
-    success: {
-      color: 'success.2',
-    },
-    warning: {
-      color: 'warning.2',
-    },
-    default: {
-      color: 'neutral.2',
-    },
+const BannerRibbon = createComponent('div', {
+  displayName: 'BannerRibbon',
+  defaultStyles: {
+    fontSize: 1,
+    mr: 2,
+    ...variantStyles('status', {
+      critical: {
+        color: 'danger.2',
+      },
+      info: {
+        color: 'info.2',
+      },
+      success: {
+        color: 'success.2',
+      },
+      warning: {
+        color: 'warning.2',
+      },
+      default: {
+        color: 'neutral.2',
+      },
+    }),
   },
-);
+  variants: [
+    variant('status', true, [
+      'critical',
+      'info',
+      'success',
+      'warning',
+      'default',
+    ] as const),
+  ],
+});
 
 export const Banner: VisageComponent<
   ExtractVisageComponentProps<typeof BannerBase> & {
@@ -156,7 +173,6 @@ export const Banner: VisageComponent<
               statusIcons[(status as any) as keyof (typeof statusIcons)] ||
               statusIcons.default
             }
-            focusable={false}
           />
         )}
       </BannerRibbon>

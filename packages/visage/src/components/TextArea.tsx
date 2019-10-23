@@ -12,31 +12,35 @@ import {
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { disabledControl, invalidControl } from './shared';
+import {
+  disabledControlBooleanStyles,
+  disabledControlBooleanVariant,
+  invalidControlBooleanStyles,
+  invalidControlBooleanVariant,
+} from './shared';
 
-const TextAreaBaseControl = disabledControl(
-  invalidControl(
-    createComponent('textarea', {
-      displayName: 'TextArea',
-      defaultStyles: {
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: '1px',
-        background: 'none',
-        color: 'currentColor',
-        fontFamily: 'inherit',
-        fontSize: 'inherit',
-        lineHeight: 'inherit',
-        outline: '2px solid transparent',
-        outlineOffset: '-2px',
-        m: 0,
-        resize: 'none',
-        p: 1,
-        width: '100%',
-      },
-    }),
-  ),
-);
+const TextAreaBaseControl = createComponent('textarea', {
+  displayName: 'TextArea',
+  defaultStyles: {
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    background: 'none',
+    color: 'currentColor',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    outline: '2px solid transparent',
+    outlineOffset: '-2px',
+    m: 0,
+    resize: 'none',
+    p: 1,
+    width: '100%',
+    ...disabledControlBooleanStyles,
+    ...invalidControlBooleanStyles,
+  },
+  variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
+});
 
 const TextAreaBase = createComponent('div', {
   displayName: 'TextAreaBase',

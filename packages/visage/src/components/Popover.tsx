@@ -6,7 +6,8 @@ import React, {
   useMemo,
 } from 'react';
 import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
-import { createComponent, createBooleanVariant } from '../core';
+import { createComponent } from '../core';
+import { booleanVariant, booleanVariantStyles } from '../variants';
 import {
   ElementRect,
   getOffsetTop,
@@ -25,32 +26,30 @@ function getAnchorNode(
   return anchor instanceof Element ? anchor : anchor.current;
 }
 
-const openPopoverVariant = createBooleanVariant('open', {
-  onStyles: {
-    visibility: 'hidden',
-    opacity: 0,
+export const BasePopover = createComponent('div', {
+  displayName: 'Popover',
+  defaultStyles: {
+    position: 'absolute',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    minWidth: '1rem',
+    minHeight: '1rem',
+    maxWidth: ['100vw', 'calc(100% - 1rem)'],
+    maxHeight: ['100vh', 'calc(100% - 1rem)'],
+    outline: 'none',
+    ...booleanVariantStyles('open', {
+      on: {
+        visibility: 'hidden',
+        opacity: 0,
+      },
+      off: {
+        visibility: 'hidden',
+        opacity: 0,
+      },
+    }),
   },
-  offStyles: {
-    visibility: 'hidden',
-    opacity: 0,
-  },
+  variants: [booleanVariant('open', true)],
 });
-
-export const BasePopover = openPopoverVariant(
-  createComponent('div', {
-    displayName: 'Popover',
-    defaultStyles: {
-      position: 'absolute',
-      overflowY: 'auto',
-      overflowX: 'hidden',
-      minWidth: '1rem',
-      minHeight: '1rem',
-      maxWidth: ['100vw', 'calc(100% - 1rem)'],
-      maxHeight: ['100vh', 'calc(100% - 1rem)'],
-      outline: 'none',
-    },
-  }),
-);
 
 interface PopoverProps extends VisageStyleProps<StyleProps> {
   allowScrolling?: boolean;

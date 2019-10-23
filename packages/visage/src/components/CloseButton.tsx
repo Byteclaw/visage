@@ -33,7 +33,6 @@ export const CloseButton: typeof Button = forwardRef((props: any, ref) => (
   <Button ref={ref} type="button" {...props}>
     <SvgIcon
       aria-hidden
-      focusable={false}
       icon={CloseIcon}
       styles={{ width: '1em', height: '1em' }}
     />

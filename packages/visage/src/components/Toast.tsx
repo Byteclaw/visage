@@ -5,7 +5,8 @@ import React, {
   ReactElement,
   useRef,
 } from 'react';
-import { createComponent, createVariant } from '../core';
+import { createComponent } from '../core';
+import { variant, variantStyles } from '../variants';
 import { useEventEmitter } from '../hooks';
 import { CloseButton } from './CloseButton';
 
@@ -90,115 +91,118 @@ export const ToastManager = createComponent(
   },
 );
 
-export const Toast = createVariant(
-  createComponent(
-    ({
-      children,
-      duration = 5000,
-      onDismiss,
-      ...restProps
-    }: {
-      duration?: number;
-      onDismiss?: () => void;
-    } & JSX.IntrinsicElements['div']) => {
-      const onDismissRef = useRef<null | undefined | (() => void)>(null);
-      const expirationTimeout = useRef<number | null>(null);
-      const toastEventEmitter = useEventEmitter<ToastEventEmitterEvents>();
+export const Toast = createComponent(
+  ({
+    children,
+    duration = 5000,
+    onDismiss,
+    ...restProps
+  }: {
+    duration?: number;
+    onDismiss?: () => void;
+  } & JSX.IntrinsicElements['div']) => {
+    const onDismissRef = useRef<null | undefined | (() => void)>(null);
+    const expirationTimeout = useRef<number | null>(null);
+    const toastEventEmitter = useEventEmitter<ToastEventEmitterEvents>();
 
-      // override onDismiss every time, we don't want to update toast after initial render
-      onDismissRef.current = onDismiss;
+    // override onDismiss every time, we don't want to update toast after initial render
+    onDismissRef.current = onDismiss;
 
-      useEffect(() => {
-        const dismiss = () => {
-          // eslint-disable-next-line no-unused-expressions
-          onDismissRef.current && onDismissRef.current();
-        };
-        const time = Date.now();
-        const onMouseOver = () => {
-          window.clearTimeout(expirationTimeout.current!);
-        };
-        const onMouseOut = () => {
-          // resume timeout
-          const remainingTime = duration - (Date.now() - time);
+    useEffect(() => {
+      const dismiss = () => {
+        // eslint-disable-next-line no-unused-expressions
+        onDismissRef.current && onDismissRef.current();
+      };
+      const time = Date.now();
+      const onMouseOver = () => {
+        window.clearTimeout(expirationTimeout.current!);
+      };
+      const onMouseOut = () => {
+        // resume timeout
+        const remainingTime = duration - (Date.now() - time);
 
-          if (remainingTime > 0) {
-            expirationTimeout.current = window.setTimeout(
-              dismiss,
-              remainingTime,
-            );
-          } else {
-            dismiss();
-          }
-        };
-        const toast = (
-          <div
-            {...restProps}
-            onFocus={onMouseOver}
-            onMouseOver={onMouseOver}
-            onMouseOut={onMouseOut}
-            onBlur={onMouseOut}
-          >
-            {children}
-            <CloseButton styles={{ ml: 'auto' }} onClick={dismiss} />
-          </div>
-        );
+        if (remainingTime > 0) {
+          expirationTimeout.current = window.setTimeout(dismiss, remainingTime);
+        } else {
+          dismiss();
+        }
+      };
+      const toast = (
+        <div
+          {...restProps}
+          onFocus={onMouseOver}
+          onMouseOver={onMouseOver}
+          onMouseOut={onMouseOut}
+          onBlur={onMouseOut}
+        >
+          {children}
+          <CloseButton styles={{ ml: 'auto' }} onClick={dismiss} />
+        </div>
+      );
 
-        toastEventEmitter.emit('MOUNT', toast);
+      toastEventEmitter.emit('MOUNT', toast);
 
-        expirationTimeout.current = window.setTimeout(dismiss, duration);
+      expirationTimeout.current = window.setTimeout(dismiss, duration);
 
-        return () => {
-          clearTimeout(expirationTimeout.current!);
-          toastEventEmitter.emit('UNMOUNT', toast);
-        };
-      }, []);
+      return () => {
+        clearTimeout(expirationTimeout.current!);
+        toastEventEmitter.emit('UNMOUNT', toast);
+      };
+    }, []);
 
-      return null;
-    },
-    {
-      displayName: 'Toast',
-      defaultStyles: {
-        alignItems: 'center',
-        boxShadow:
-          '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 15px 0px rgba(0,0,0,0.12)',
-        display: 'inline-flex',
-        lineHeight: 0,
-        position: 'absolute',
-        transition: 'transform .4s ease, opacity .4s ease',
-        willChange: 'transform, opacity',
-        fontSize: 0,
-        minWidth: '240px',
-        pl: 2,
-        pr: 1,
-        py: 1,
-      },
-    },
-  ),
-  'variant',
+    return null;
+  },
   {
-    danger: {
-      backgroundColor: 'danger',
-      color: 'dangerText',
+    displayName: 'Toast',
+    defaultStyles: {
+      alignItems: 'center',
+      boxShadow:
+        '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 15px 0px rgba(0,0,0,0.12)',
+      display: 'inline-flex',
+      lineHeight: 0,
+      position: 'absolute',
+      transition: 'transform .4s ease, opacity .4s ease',
+      willChange: 'transform, opacity',
+      fontSize: 0,
+      minWidth: '240px',
+      pl: 2,
+      pr: 1,
+      py: 1,
+      ...variantStyles('variant', {
+        danger: {
+          backgroundColor: 'danger',
+          color: 'dangerText',
+        },
+        info: {
+          backgroundColor: 'info',
+          color: 'infoText',
+        },
+        primary: {
+          backgroundColor: 'primary',
+          color: 'primaryText',
+        },
+        success: {
+          backgroundColor: 'success',
+          color: 'successText',
+        },
+        warning: {
+          backgroundColor: 'warning',
+          color: 'warningText',
+        },
+        default: {
+          backgroundColor: 'neutral',
+          color: 'neutralText',
+        },
+      }),
     },
-    info: {
-      backgroundColor: 'info',
-      color: 'infoText',
-    },
-    primary: {
-      backgroundColor: 'primary',
-      color: 'primaryText',
-    },
-    success: {
-      backgroundColor: 'success',
-      color: 'successText',
-    },
-    warning: {
-      backgroundColor: 'warning',
-      color: 'warningText',
-    },
-    default: {
-      backgroundColor: 'neutral',
-      color: 'neutralText',
-    },
+    variants: [
+      variant('variant', true, [
+        'danger',
+        'info',
+        'primary',
+        'success',
+        'default',
+      ] as const),
+    ],
   },
 );

@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
   createContext,
@@ -13,13 +12,13 @@ import React, {
   useContext,
   useRef,
   useState,
-  useMemo,
   KeyboardEventHandler,
   forwardRef,
   MouseEventHandler,
+  Ref,
 } from 'react';
-import { createComponent, createBooleanVariant } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { createComponent } from '../core';
+import { booleanVariant, booleanVariantStyles } from '../variants';
 
 const ListDepthContext = createContext(0);
 
@@ -35,92 +34,98 @@ export const ListContainer = createComponent('section', {
     width: '100%',
   },
 });
-export const ListItemsContainer = createBooleanVariant('collapsed', {
-  onStyles: {
-    maxHeight: 0,
-    visibility: 'hidden',
-    p: 0,
+export const ListItemsContainer = createComponent('ul', {
+  displayName: 'ListItemsContainer',
+  defaultStyles: {
+    display: 'block',
+    listStyle: 'none',
+    flexGrow: 1,
+    flexShrink: 1,
+    overflowY: 'auto',
     m: 0,
-  },
-})(
-  createComponent('ul', {
-    displayName: 'ListItemsContainer',
-    defaultStyles: {
-      display: 'block',
-      listStyle: 'none',
-      flexGrow: 1,
-      flexShrink: 1,
-      overflowY: 'auto',
-      m: 0,
-      p: 0,
-      py: 1,
-      width: 'auto',
-    },
-  }),
-);
-
-const activeItemVariant = createBooleanVariant('active', {
-  onStyles: {
-    color: 'salmon',
-    fontWeight: 'bolder',
-  },
-});
-
-export const BaseListItem = createBooleanVariant('gutters', {
-  onStyles: {
-    px: 2,
+    p: 0,
     py: 1,
-  },
-})(
-  activeItemVariant(
-    createComponent('li', {
-      displayName: 'ListItem',
-      defaultStyles: {
-        display: 'flex',
-        border: 0,
-        height: 'auto',
+    width: 'auto',
+    ...booleanVariantStyles('collapsed', {
+      on: {
+        maxHeight: 0,
+        visibility: 'hidden',
+        p: 0,
         m: 0,
-        overflow: 'hidden',
-        width: 'auto',
-        '&[role="button"]:hover, &[role="button"]:focus': {
-          outline: 'none',
-          backgroundColor: 'primary.1',
-          color: 'primaryText.1',
-          cursor: 'pointer',
-          userSelect: 'none',
-        },
       },
     }),
-  ),
-);
+  },
+  variants: [booleanVariant('collapsed', true)],
+});
 
-const ListItemLinkBase = activeItemVariant(
-  createComponent('a', {
-    displayName: 'ListItemLink',
-    defaultStyles: {
-      color: 'bodyText',
+export const BaseListItem = createComponent('li', {
+  displayName: 'ListItem',
+  defaultStyles: {
+    display: 'flex',
+    border: 0,
+    height: 'auto',
+    m: 0,
+    overflow: 'hidden',
+    width: 'auto',
+    '&[role="button"]:hover, &[role="button"]:focus': {
+      outline: 'none',
+      backgroundColor: 'primary.1',
+      color: 'primaryText.1',
       cursor: 'pointer',
-      display: 'flex',
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-      m: 0,
-      px: 2,
-      py: 1,
-      textDecoration: 'none',
-      width: '100%',
-      '&:hover, &:focus': {
-        outline: 'none',
-        userSelect: 'none',
-      },
-      '&:hover': {
-        backgroundColor: 'neutral.-1',
-      },
-      '&:focus': {
-        backgroundColor: 'neutral.-3',
-      },
+      userSelect: 'none',
     },
-  }),
-);
+    ...booleanVariantStyles('gutters', {
+      on: {
+        px: 2,
+        py: 1,
+      },
+    }),
+    ...booleanVariantStyles('active', {
+      on: {
+        color: 'salmon',
+        fontWeight: 'bolder',
+      },
+    }),
+  },
+  variants: [
+    booleanVariant('active', true),
+    booleanVariant('button', true), // just for the sake of typing
+    booleanVariant('gutters', true),
+  ],
+});
+
+const ListItemLinkBase = createComponent('a', {
+  displayName: 'ListItemLink',
+  defaultStyles: {
+    color: 'bodyText',
+    cursor: 'pointer',
+    display: 'flex',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    m: 0,
+    px: 2,
+    py: 1,
+    textDecoration: 'none',
+    width: '100%',
+    '&:hover, &:focus': {
+      outline: 'none',
+      userSelect: 'none',
+    },
+    '&:hover': {
+      backgroundColor: 'neutral.-1',
+    },
+    '&:focus': {
+      backgroundColor: 'neutral.-3',
+    },
+    ...booleanVariantStyles('active', {
+      on: {
+        color: 'salmon',
+        fontWeight: 'bolder',
+      },
+    }),
+  },
+  variants: [booleanVariant('active', true)],
+});
 
 export const ListItemLink: typeof ListItemLinkBase = ({
   styles,
@@ -142,37 +147,18 @@ export const ListHeader = createComponent('h1', {
   },
 });
 
-interface ListProps extends ExtractVisageComponentProps<typeof ListContainer> {
-  children: ReactNode;
-  container?: ReactElement;
-  heading?: ReactElement;
-  itemsContainer?: ReactElement;
-}
+type ListItemProps = ExtractVisageComponentProps<typeof BaseListItem>;
 
-interface ListItemProps
-  extends ExtractVisageComponentProps<typeof BaseListItem> {
-  button?: boolean;
-  gutters?: boolean;
-  children: ReactNode;
-}
-
-const defaultContainer = <ListContainer />;
-const defaultItemsContainer = <ListItemsContainer />;
-
-export const ListItem: VisageComponent<ListItemProps, StyleProps> = forwardRef(
-  ({ button = false, children, gutters, ...rest }: ListItemProps, ref) => {
-    const guttersValue = useMemo(() => {
-      if (gutters != null) {
-        return gutters;
-      }
-      return typeof children === 'string';
-    }, [gutters, children]);
-
+export const ListItem: typeof BaseListItem = forwardRef(
+  (
+    { button = false, gutters, children, ...rest }: ListItemProps,
+    ref: Ref<HTMLLIElement>,
+  ) => {
     return (
       <BaseListItem
         role={button === true ? 'button' : undefined}
-        gutters={guttersValue}
-        ref={ref as any}
+        gutters={gutters != null ? gutters : typeof children === 'string'}
+        ref={ref}
         {...rest}
       >
         {children}
@@ -181,7 +167,17 @@ export const ListItem: VisageComponent<ListItemProps, StyleProps> = forwardRef(
   },
 ) as any;
 
-markAsVisageComponent(ListItem as any);
+markAsVisageComponent(ListItem);
+
+export interface ListProps
+  extends ExtractVisageComponentProps<typeof ListContainer> {
+  container?: ReactElement;
+  heading?: ReactElement;
+  itemsContainer?: ReactElement;
+}
+
+const defaultContainer = <ListContainer />;
+const defaultItemsContainer = <ListItemsContainer />;
 
 export function List({
   children,
@@ -210,7 +206,7 @@ export function List({
   });
 }
 
-markAsVisageComponent(List as any);
+markAsVisageComponent(List);
 
 const defaultContainerRenderer = (
   children: ReactNode,

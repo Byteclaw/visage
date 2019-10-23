@@ -1,5 +1,10 @@
 import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
-import React, { cloneElement, ReactElement, FunctionComponent } from 'react';
+import React, {
+  ComponentProps,
+  cloneElement,
+  ReactElement,
+  JSXElementConstructor,
+} from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 
@@ -23,9 +28,9 @@ const SvgIconBase = createComponent('div', {
 
 export const SvgIcon: VisageComponent<
   {
-    icon: ReactElement | FunctionComponent<any>;
+    icon: ReactElement | JSXElementConstructor<any>;
     iconProps?: JSX.IntrinsicElements['svg'];
-  },
+  } & ComponentProps<typeof SvgIconBase>,
   StyleProps
 > = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
   return (
