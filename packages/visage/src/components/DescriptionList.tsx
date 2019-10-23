@@ -1,7 +1,9 @@
-import { VisageComponent } from '@byteclaw/visage-core';
+import {
+  ExtractVisageComponentProps,
+  markAsVisageComponent,
+} from '@byteclaw/visage-core';
 import React, { ReactNode, Children, Fragment } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
 import { Divider } from './Divider';
 
 export const DescriptionListBase = createComponent('dl', {
@@ -16,7 +18,7 @@ export const DescriptionListBase = createComponent('dl', {
 });
 
 export const Description = createComponent('dd', {
-  displayName: 'Description',
+  displayName: 'DescriptionListItemDescription',
   defaultStyles: {
     display: 'block',
     flexGrow: 1,
@@ -29,7 +31,7 @@ export const Description = createComponent('dd', {
 });
 
 export const Term = createComponent('dt', {
-  displayName: 'Term',
+  displayName: 'DescriptionListItemTerm',
   defaultStyles: {
     display: 'block',
     fontWeight: 'bolder',
@@ -44,10 +46,10 @@ export const Term = createComponent('dt', {
 });
 
 export interface DescriptionListItemProps {
-  description: string;
-  prefix: ReactNode;
-  suffix: ReactNode;
-  term: string;
+  description: ReactNode;
+  prefix?: ReactNode;
+  suffix?: ReactNode;
+  term: ReactNode;
 }
 
 export interface DescriptionListProps {
@@ -56,27 +58,30 @@ export interface DescriptionListProps {
 
 export function DescriptionListItem({
   description,
-  prefix = [],
-  suffix = [],
+  prefix,
+  suffix,
   term,
 }: DescriptionListItemProps) {
-  return [
-    prefix,
-    <Term>{term}</Term>,
-    <Description>{description}</Description>,
-    suffix,
-  ];
+  return (
+    <Fragment>
+      {prefix}
+      <Term>{term}</Term>
+      <Description>{description}</Description>
+      {suffix}
+    </Fragment>
+  );
 }
 
-export const DescriptionList: VisageComponent<
-  DescriptionListProps,
-  StyleProps
-> = function DescriptionList({ children, ...restProps }: DescriptionListProps) {
+export const DescriptionList: typeof DescriptionListBase = function DescriptionList({
+  children,
+  ...restProps
+}: ExtractVisageComponentProps<typeof DescriptionListBase>) {
   return (
     <DescriptionListBase {...restProps}>
       {Children.map(children, (item, i) => {
         return (
-          <Fragment>
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={i}>
             {item}
             {i + 1 < Children.count(children) && <Divider />}
           </Fragment>
@@ -85,3 +90,5 @@ export const DescriptionList: VisageComponent<
     </DescriptionListBase>
   );
 };
+
+markAsVisageComponent(DescriptionList);
