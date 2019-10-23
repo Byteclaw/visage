@@ -1,7 +1,4 @@
-import {
-  VisageComponent,
-  StyleProps as VisageStyleProps,
-} from '@byteclaw/visage-core';
+import { VisageComponent, StyleProps } from '@byteclaw/visage-core';
 import React, {
   ChangeEventHandler,
   forwardRef,
@@ -12,13 +9,13 @@ import React, {
   useMemo,
 } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps as StyleSheetProps } from '../createNPointTheme';
 import { Flex } from './Flex';
 import { disabledControl, visuallyHiddenStyles } from './shared';
 import { Box } from './Box';
 import { useGenerateId } from '../hooks';
 
-interface ToggleProps extends VisageStyleProps<StyleProps> {
+interface ToggleProps {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -139,7 +136,7 @@ const ToggleLabel = disabledControl(
   }),
 );
 
-export const Toggle: VisageComponent<ToggleProps, StyleProps> = forwardRef(
+export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
   function Toggle(
     {
       defaultChecked,
@@ -157,7 +154,7 @@ export const Toggle: VisageComponent<ToggleProps, StyleProps> = forwardRef(
       readOnly,
       styles,
       value,
-    }: ToggleProps,
+    }: ToggleProps & StyleProps<StyleSheetProps>,
     ref: Ref<HTMLInputElement>,
   ) {
     const [inputChecked, setInputChecked] = useState(checked);
