@@ -10,7 +10,8 @@ export function booleanVariant<TName extends string>(
   [K in TName]?: boolean;
 } {
   return {
-    name,
+    prop: name,
+    name: name.toLowerCase(),
     stripProp,
     defaultValue: false,
   } as any;
@@ -33,7 +34,8 @@ export function variant<TName extends string, TVariants extends readonly any[]>(
         : string);
 } {
   return {
-    name,
+    prop: name,
+    name: name.toLowerCase(),
     stripProp,
     defaultValue,
   } as any;
