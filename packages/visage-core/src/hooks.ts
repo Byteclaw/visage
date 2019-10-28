@@ -10,6 +10,7 @@ import {
   UseVisageHookOptions,
   Visage,
   ValidStyleSheet,
+  StyleFunction,
 } from './types';
 
 const defaultFace: StyleSheet<any> = {};
@@ -177,23 +178,55 @@ export function useMemoizedCallback<T extends (...args: any[]) => any>(
   return cbRef.current!;
 }
 
+const emptyStyleSheet: StyleSheet<any> = {};
+
+function defaultStyleFunction(
+  defaultStyles: StyleSheet<any> | StyleFunction<any, any> | undefined,
+  props: object,
+  styleOverrides?: StyleSheet<any>,
+  parentStyles?: StyleSheet<any>,
+): StyleSheet<any> {
+  if (defaultStyles == null) {
+    return emptyStyleSheet;
+  }
+
+  if (typeof defaultStyles === 'function') {
+    return defaultStyles(props, styleOverrides, parentStyles);
+  }
+
+  return defaultStyles;
+}
+
 export function useVisage<
   TStyleSheet extends ValidStyleSheet,
   TOutputProps extends { [prop: string]: any }
 >(
-  { styles, parentStyles, ...restProps }: StyleProps<TStyleSheet>,
+  {
+    // extract children because it causes problems with memoization (circular references)
+    children,
+    styles,
+    parentStyles,
+    ...restProps
+  }: StyleProps<TStyleSheet> & { [key: string]: any },
   options: UseVisageHookOptions<TStyleSheet>,
 ): TOutputProps {
   const visage = useDesignSystem();
   const generateStyles = useMemoizedCallback(visage.generate);
+  const localStyles = useMemoizedCall(
+    defaultStyleFunction,
+    options.defaultStyles,
+    restProps,
+    styles,
+    parentStyles,
+  );
   const styleSheet = useMemoizedCall<
     (...args: StyleSheet<TStyleSheet>[]) => StyleSheet<TStyleSheet>
   >(
     depthFirstObjectMerge,
-    options.defaultStyles || ({} as StyleSheet<TStyleSheet>),
-    parentStyles || ({} as StyleSheet<TStyleSheet>),
+    localStyles,
+    parentStyles || emptyStyleSheet,
     visage.face(options.componentName),
-    styles || ({} as StyleSheet<TStyleSheet>),
+    styles || emptyStyleSheet,
   );
 
   const passProps = options.variants
@@ -206,11 +239,12 @@ export function useVisage<
   if (!isVisageComponent(options.as)) {
     const styleProps = generateStyles(styleSheet);
 
-    return { ...passProps, ...styleProps } as any;
+    return { children, ...passProps, ...styleProps } as any;
   }
 
   return {
     ...passProps,
+    children,
     parentStyles: styleSheet,
   } as any;
 }

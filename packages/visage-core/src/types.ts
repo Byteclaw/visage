@@ -88,37 +88,52 @@ export interface VisageComponent<
 > {
   displayName?: string;
   <
-    C extends undefined | ComponentConstraint,
+    C extends ComponentConstraint,
     P = C extends ComponentConstraint ? ExtractVisageComponentProps<C> : {}
   >(
     props: { as?: C } & StyleProps<TStyleSheet> & TComponentProps & P,
   ): React.ReactElement | null;
 }
 
+export interface StyleFunction<
+  TProps extends {},
+  TStyleSheet extends ValidStyleSheet
+> {
+  (
+    props: TProps,
+    styleOverrides?: StyleSheet<TStyleSheet>,
+    parentStyles?: StyleSheet<TStyleSheet>,
+  ): StyleSheet<TStyleSheet>;
+}
+
+type TEmptyObjectType = {};
+
 type UnionToIntersection<U> = (U extends any
   ? ((k: U) => void)
   : never) extends ((k: infer I) => void)
   ? I
-  : never;
+  : TEmptyObjectType;
 
 export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
   <
     TDefaultComponent extends ComponentConstraint,
-    TVariantsProps extends any[] | undefined = undefined
+    TVariantsProps extends any[] | undefined = undefined,
+    TProps extends {} = ExtractVisageComponentProps<TDefaultComponent> &
+      (TVariantsProps extends Array<infer P>
+        ? UnionToIntersection<P>
+        : TEmptyObjectType),
+    TDefaultProps extends {} = Partial<TProps>
   >(
     as: TDefaultComponent,
     options?: {
       displayName?: string;
-      defaultProps?: ExtractVisageComponentProps<TDefaultComponent> &
-        (TVariantsProps extends Array<infer P> ? P : {});
-      defaultStyles?: StyleSheet<TStyleSheet>;
+      defaultProps?: TDefaultProps;
+      defaultStyles?:
+        | StyleSheet<TStyleSheet>
+        | StyleFunction<TProps, TStyleSheet>;
       variants?: TVariantsProps;
     },
-  ): VisageComponent<
-    React.ComponentProps<TDefaultComponent> &
-      (TVariantsProps extends Array<infer P> ? UnionToIntersection<P> : {}),
-    TStyleSheet
-  >;
+  ): VisageComponent<TProps, TStyleSheet>;
 }
 
 export interface UseDesignSystemHookOptions<TTheme extends Theme = Theme> {
@@ -135,7 +150,7 @@ export interface UseDesignSystemHook<TTheme extends Theme = Theme> {
 export interface UseVisageHookOptions<TStyleSheet extends ValidStyleSheet> {
   as: any;
   componentName: string;
-  defaultStyles?: StyleSheet<TStyleSheet>;
+  defaultStyles?: StyleSheet<TStyleSheet> | StyleFunction<any, TStyleSheet>;
   variants?: {
     name: string;
     stripProp: boolean;
