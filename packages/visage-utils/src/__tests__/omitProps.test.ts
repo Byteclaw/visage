@@ -4,8 +4,8 @@ describe('omitProps', () => {
   it('works correctly', () => {
     expect(
       omitProps({ a: 1, b: 2, c: 3 }, [
-        { name: 'a', stripProp: true },
-        { name: 'b' },
+        { prop: 'a', name: 'a', stripProp: true },
+        { prop: 'b', name: 'b' },
       ]),
     ).toEqual({
       a: undefined,
