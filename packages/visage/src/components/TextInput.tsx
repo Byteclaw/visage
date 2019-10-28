@@ -14,9 +14,9 @@ import {
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import {
-  disabledControlBooleanStyles,
+  disabledControlStyles,
   disabledControlBooleanVariant,
-  invalidControlBooleanStyles,
+  invalidControlStyles,
   invalidControlBooleanVariant,
 } from './shared';
 
@@ -77,7 +77,7 @@ const TextInputControl = createComponent('input', {
 
 const InputBase = createComponent('div', {
   displayName: 'TextInputBase',
-  defaultStyles: {
+  defaultStyles: props => ({
     alignItems: 'center',
     background: 'none',
     borderColor: 'black',
@@ -92,9 +92,9 @@ const InputBase = createComponent('div', {
     px: 0,
     position: 'relative',
     flexWrap: 'wrap',
-    ...invalidControlBooleanStyles,
-    ...disabledControlBooleanStyles,
-  },
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 

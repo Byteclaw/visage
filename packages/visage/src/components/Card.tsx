@@ -5,29 +5,29 @@ import {
   ExtractVisageComponentProps,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 import { StyleProps } from '../createNPointTheme';
 
 const CardBase = createComponent('div', {
   displayName: 'Card',
-  defaultStyles: {
+  defaultStyles: props => ({
     boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
     p: 1,
     position: 'relative',
-    ...booleanVariantStyles('touchable', {
-      on: {
-        cursor: 'pointer',
-        '&:focus-within, &:focus, &:hover': {
-          boxShadow:
-            '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.40)',
-        },
-        '&:active': {
-          boxShadow:
-            '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
-        },
-      },
-    }),
-  },
+    ...(props.touchable
+      ? {
+          cursor: 'pointer',
+          '&:focus-within, &:focus, &:hover': {
+            boxShadow:
+              '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.40)',
+          },
+          '&:active': {
+            boxShadow:
+              '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
+          },
+        }
+      : {}),
+  }),
   variants: [booleanVariant('touchable', true)],
 });
 

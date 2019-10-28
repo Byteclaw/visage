@@ -11,7 +11,7 @@ export interface StylingProps {
 }
 
 export const createComponent: ComponentFactory<
-  StylingProps
+  CSSProperties
 > = baseCreateComponent;
 
 const theme = createTheme({});

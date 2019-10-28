@@ -14,13 +14,13 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                        <DocumentFragment>
-                                          <a
-                                            href="a"
-                                            style="background: rgb(204, 204, 204);"
-                                          />
-                                        </DocumentFragment>
-                              `);
+                                                <DocumentFragment>
+                                                  <a
+                                                    href="a"
+                                                    style="background: rgb(204, 204, 204);"
+                                                  />
+                                                </DocumentFragment>
+                                    `);
     });
 
     it('works correctly with default styles', () => {
@@ -37,13 +37,38 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                        <DocumentFragment>
-                                          <a
-                                            href="a"
-                                            style="background: rgb(204, 204, 204);"
-                                          />
-                                        </DocumentFragment>
-                              `);
+                                                <DocumentFragment>
+                                                  <a
+                                                    href="a"
+                                                    style="background: rgb(204, 204, 204);"
+                                                  />
+                                                </DocumentFragment>
+                                    `);
+    });
+
+    it('works correctly with default styles as a function', () => {
+      const Link = createComponent('a', {
+        defaultStyles() {
+          return {
+            color: 'tomato',
+          };
+        },
+      });
+
+      const { asFragment } = render(
+        <DesignSystem>
+          <Link href="a" />
+        </DesignSystem>,
+      );
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            href="a"
+            style="color: tomato;"
+          />
+        </DocumentFragment>
+      `);
     });
 
     it('works correctly with default props', () => {
@@ -61,14 +86,14 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-        <DocumentFragment>
-          <a
-            href="a"
-            id="id"
-            style="background: rgb(204, 204, 204);"
-          />
-        </DocumentFragment>
-      `);
+                <DocumentFragment>
+                  <a
+                    href="a"
+                    id="id"
+                    style="background: rgb(204, 204, 204);"
+                  />
+                </DocumentFragment>
+            `);
     });
   });
 
@@ -100,13 +125,13 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                        <DocumentFragment>
-                                          <a
-                                            href="a"
-                                            style="background: rgb(204, 204, 204); color: rgb(238, 238, 238);"
-                                          />
-                                        </DocumentFragment>
-                              `);
+                                                <DocumentFragment>
+                                                  <a
+                                                    href="a"
+                                                    style="background: rgb(204, 204, 204); color: rgb(238, 238, 238);"
+                                                  />
+                                                </DocumentFragment>
+                                    `);
     });
 
     it('extends props of overriden component', () => {
@@ -117,13 +142,13 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                                        <DocumentFragment>
-                                          <a
-                                            href="a"
-                                            style="color: red; margin: 1px; background: rgb(204, 204, 204);"
-                                          />
-                                        </DocumentFragment>
-                              `);
+                                                <DocumentFragment>
+                                                  <a
+                                                    href="a"
+                                                    style="color: red; margin: 1px; background: rgb(204, 204, 204);"
+                                                  />
+                                                </DocumentFragment>
+                                    `);
     });
 
     it('extends visage component', () => {
@@ -134,12 +159,12 @@ describe('integration', () => {
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
-                <DocumentFragment>
-                  <a
-                    style="color: pink; margin: 1px; padding: 1px;"
-                  />
-                </DocumentFragment>
-            `);
+                        <DocumentFragment>
+                          <a
+                            style="color: pink; margin: 1px; padding: 1px;"
+                          />
+                        </DocumentFragment>
+                  `);
     });
   });
 });

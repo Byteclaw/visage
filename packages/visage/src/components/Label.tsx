@@ -4,11 +4,7 @@ import {
 } from '@byteclaw/visage-core';
 import React, { Fragment } from 'react';
 import { createComponent } from '../core';
-import {
-  visuallyHiddenBooleanVariant,
-  visuallyHiddenBooleanVariantStyles,
-  visuallyHiddenStyles,
-} from './shared';
+import { visuallyHiddenBooleanVariant, visuallyHiddenStyles } from './shared';
 
 const RequirementDescription = createComponent('span', {
   defaultStyles: visuallyHiddenStyles,
@@ -16,7 +12,7 @@ const RequirementDescription = createComponent('span', {
 
 const LabelBase = createComponent('label', {
   displayName: 'Label',
-  defaultStyles: {
+  defaultStyles: props => ({
     display: 'block',
     fontSize: 0,
     lineHeight: 0,
@@ -24,8 +20,8 @@ const LabelBase = createComponent('label', {
     mb: 1,
     p: 0,
     verticalAlign: 'middle',
-    ...visuallyHiddenBooleanVariantStyles,
-  },
+    ...(props.hidden ? visuallyHiddenStyles : {}),
+  }),
   variants: [visuallyHiddenBooleanVariant],
 });
 

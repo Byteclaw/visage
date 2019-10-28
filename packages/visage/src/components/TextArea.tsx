@@ -13,15 +13,15 @@ import {
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import {
-  disabledControlBooleanStyles,
+  disabledControlStyles,
   disabledControlBooleanVariant,
-  invalidControlBooleanStyles,
+  invalidControlStyles,
   invalidControlBooleanVariant,
 } from './shared';
 
 const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
-  defaultStyles: {
+  defaultStyles: props => ({
     borderColor: 'black',
     borderStyle: 'solid',
     borderWidth: '1px',
@@ -36,9 +36,9 @@ const TextAreaBaseControl = createComponent('textarea', {
     resize: 'none',
     p: 1,
     width: '100%',
-    ...disabledControlBooleanStyles,
-    ...invalidControlBooleanStyles,
-  },
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 

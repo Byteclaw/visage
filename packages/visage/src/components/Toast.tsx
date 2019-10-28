@@ -6,9 +6,10 @@ import React, {
   useRef,
 } from 'react';
 import { createComponent } from '../core';
-import { variant, variantStyles } from '../variants';
+import { variant } from '../variants';
 import { useEventEmitter } from '../hooks';
 import { CloseButton } from './CloseButton';
+import { EmotionStyleSheet } from '../types';
 
 type ToastEventEmitterEvents = 'MOUNT' | 'UNMOUNT';
 
@@ -91,6 +92,35 @@ export const ToastManager = createComponent(
   },
 );
 
+const toastVariants: {
+  [key: string]: EmotionStyleSheet;
+} = {
+  danger: {
+    backgroundColor: 'danger',
+    color: 'dangerText',
+  },
+  info: {
+    backgroundColor: 'info',
+    color: 'infoText',
+  },
+  primary: {
+    backgroundColor: 'primary',
+    color: 'primaryText',
+  },
+  success: {
+    backgroundColor: 'success',
+    color: 'successText',
+  },
+  warning: {
+    backgroundColor: 'warning',
+    color: 'warningText',
+  },
+  default: {
+    backgroundColor: 'neutral',
+    color: 'neutralText',
+  },
+};
+
 export const Toast = createComponent(
   ({
     children,
@@ -154,7 +184,7 @@ export const Toast = createComponent(
   },
   {
     displayName: 'Toast',
-    defaultStyles: {
+    defaultStyles: props => ({
       alignItems: 'center',
       boxShadow:
         '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 15px 0px rgba(0,0,0,0.12)',
@@ -168,33 +198,8 @@ export const Toast = createComponent(
       pl: 2,
       pr: 1,
       py: 1,
-      ...variantStyles('variant', {
-        danger: {
-          backgroundColor: 'danger',
-          color: 'dangerText',
-        },
-        info: {
-          backgroundColor: 'info',
-          color: 'infoText',
-        },
-        primary: {
-          backgroundColor: 'primary',
-          color: 'primaryText',
-        },
-        success: {
-          backgroundColor: 'success',
-          color: 'successText',
-        },
-        warning: {
-          backgroundColor: 'warning',
-          color: 'warningText',
-        },
-        default: {
-          backgroundColor: 'neutral',
-          color: 'neutralText',
-        },
-      }),
-    },
+      ...(toastVariants[props.variant || 'default'] || toastVariants.default),
+    }),
     variants: [
       variant('variant', true, [
         'danger',

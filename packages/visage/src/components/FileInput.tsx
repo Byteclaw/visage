@@ -10,9 +10,9 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import {
-  disabledControlBooleanStyles,
+  disabledControlStyles,
   disabledControlBooleanVariant,
-  invalidControlBooleanStyles,
+  invalidControlStyles,
   invalidControlBooleanVariant,
   visuallyHiddenStyles,
 } from './shared';
@@ -41,7 +41,7 @@ const FileInputBox = createComponent('div', {
 
 const FileInputControl = createComponent('div', {
   displayName: 'FileInputControlBase',
-  defaultStyles: {
+  defaultStyles: props => ({
     '&::before': {
       // respect line height
       content: '"\\200b"',
@@ -71,9 +71,9 @@ const FileInputControl = createComponent('div', {
     '&:not([data-readonly="true"])': {
       cursor: 'pointer',
     },
-    ...disabledControlBooleanStyles,
-    ...invalidControlBooleanStyles,
-  },
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 

@@ -18,7 +18,7 @@ import React, {
   Ref,
 } from 'react';
 import { createComponent } from '../core';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 
 const ListDepthContext = createContext(0);
 
@@ -36,7 +36,7 @@ export const ListContainer = createComponent('section', {
 });
 export const ListItemsContainer = createComponent('ul', {
   displayName: 'ListItemsContainer',
-  defaultStyles: {
+  defaultStyles: props => ({
     display: 'block',
     listStyle: 'none',
     flexGrow: 1,
@@ -46,21 +46,16 @@ export const ListItemsContainer = createComponent('ul', {
     p: 0,
     py: 1,
     width: 'auto',
-    ...booleanVariantStyles('collapsed', {
-      on: {
-        maxHeight: 0,
-        visibility: 'hidden',
-        p: 0,
-        m: 0,
-      },
-    }),
-  },
+    ...(props.collapsed
+      ? { maxHeight: 0, visibility: 'hidden', p: 0, m: 0 }
+      : {}),
+  }),
   variants: [booleanVariant('collapsed', true)],
 });
 
 export const BaseListItem = createComponent('li', {
   displayName: 'ListItem',
-  defaultStyles: {
+  defaultStyles: props => ({
     display: 'flex',
     border: 0,
     height: 'auto',
@@ -74,19 +69,9 @@ export const BaseListItem = createComponent('li', {
       cursor: 'pointer',
       userSelect: 'none',
     },
-    ...booleanVariantStyles('gutters', {
-      on: {
-        px: 2,
-        py: 1,
-      },
-    }),
-    ...booleanVariantStyles('active', {
-      on: {
-        color: 'salmon',
-        fontWeight: 'bolder',
-      },
-    }),
-  },
+    ...(props.gutters ? { px: 2, py: 1 } : {}),
+    ...(props.active ? { color: 'salmon', fontWeight: 'bolder' } : {}),
+  }),
   variants: [
     booleanVariant('active', true),
     booleanVariant('button', true), // just for the sake of typing
@@ -96,7 +81,7 @@ export const BaseListItem = createComponent('li', {
 
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
-  defaultStyles: {
+  defaultStyles: props => ({
     color: 'bodyText',
     cursor: 'pointer',
     display: 'flex',
@@ -117,13 +102,8 @@ const ListItemLinkBase = createComponent('a', {
     '&:focus': {
       backgroundColor: 'neutral.-3',
     },
-    ...booleanVariantStyles('active', {
-      on: {
-        color: 'salmon',
-        fontWeight: 'bolder',
-      },
-    }),
-  },
+    ...(props.active ? { color: 'salmon', fontWeight: 'bolder' } : {}),
+  }),
   variants: [booleanVariant('active', true)],
 });
 

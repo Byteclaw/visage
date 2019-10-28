@@ -14,12 +14,11 @@ import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import { useGenerateId } from '../hooks';
 import {
-  disabledControlBooleanStyles,
+  disabledControlStyles,
   disabledControlBooleanVariant,
-  invalidControlBooleanStyles,
+  invalidControlStyles,
   invalidControlBooleanVariant,
   visuallyHiddenBooleanVariant,
-  visuallyHiddenBooleanVariantStyles,
   visuallyHiddenStyles,
 } from './shared';
 import { Flex } from './Flex';
@@ -56,7 +55,7 @@ const RadioControl = createComponent('input', {
 
 const RadioLabel = createComponent('label', {
   displayName: 'RadioLabel',
-  defaultStyles: {
+  defaultStyles: props => ({
     display: 'flex',
     fontSize: 'inherit',
     lineHeight: 'inherit',
@@ -64,19 +63,19 @@ const RadioLabel = createComponent('label', {
     position: 'relative',
     outline: 'none',
     userSelect: 'none',
-    ...disabledControlBooleanStyles,
-    ...invalidControlBooleanStyles,
-  },
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 
 const RadioLabelText = createComponent('span', {
   displayName: 'RadioLabelText',
-  defaultStyles: {
+  defaultStyles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    ...visuallyHiddenBooleanVariantStyles,
-  },
+    ...(props.hidden ? visuallyHiddenStyles : {}),
+  }),
   variants: [visuallyHiddenBooleanVariant],
 });
 

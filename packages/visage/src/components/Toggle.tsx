@@ -15,7 +15,7 @@ import { createComponent } from '../core';
 import { StyleProps as StyleSheetProps } from '../createNPointTheme';
 import { Flex } from './Flex';
 import {
-  disabledControlBooleanStyles,
+  disabledControlStyles,
   disabledControlBooleanVariant,
   visuallyHiddenStyles,
 } from './shared';
@@ -116,7 +116,7 @@ const Toggler = createComponent('div', {
 
 const ToggleLabel = createComponent('label', {
   displayName: 'ToggleLabel',
-  defaultStyles: {
+  defaultStyles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
     cursor: 'pointer',
@@ -124,8 +124,8 @@ const ToggleLabel = createComponent('label', {
     outline: 'none',
     userSelect: 'none',
     mx: 1,
-    ...disabledControlBooleanStyles,
-  },
+    ...(props.disabled ? disabledControlStyles : {}),
+  }),
   variants: [disabledControlBooleanVariant],
 });
 

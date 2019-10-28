@@ -9,11 +9,10 @@ import { useGenerateId } from '../hooks';
 import {
   visuallyHiddenStyles,
   visuallyHiddenBooleanVariant,
-  visuallyHiddenBooleanVariantStyles,
-  invalidControlBooleanStyles,
+  invalidControlStyles,
   invalidControlBooleanVariant,
   disabledControlBooleanVariant,
-  disabledControlBooleanStyles,
+  disabledControlStyles,
 } from './shared';
 import { Flex } from './Flex';
 import { Svg } from './Svg';
@@ -50,7 +49,7 @@ const CheckboxControl = createComponent('input', {
 
 const CheckboxLabel = createComponent('label', {
   displayName: 'CheckboxLabel',
-  defaultStyles: {
+  defaultStyles: props => ({
     display: 'flex',
     fontSize: 'inherit',
     lineHeight: 'inherit',
@@ -58,19 +57,19 @@ const CheckboxLabel = createComponent('label', {
     position: 'relative',
     outline: 'none',
     userSelect: 'none',
-    ...invalidControlBooleanStyles,
-    ...disabledControlBooleanStyles,
-  },
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
   variants: [invalidControlBooleanVariant, disabledControlBooleanVariant],
 });
 
 const CheckboxLabelText = createComponent('span', {
   displayName: 'CheckboxLabelText',
-  defaultStyles: {
+  defaultStyles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    ...visuallyHiddenBooleanVariantStyles,
-  },
+    ...(props.hidden ? visuallyHiddenStyles : {}),
+  }),
   variants: [visuallyHiddenBooleanVariant],
 });
 

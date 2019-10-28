@@ -5,67 +5,42 @@ import {
 } from '@byteclaw/visage-core';
 import React, { forwardRef } from 'react';
 import { createComponent } from '../core';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 import { Text } from './Text';
 import { StyleProps } from '../createNPointTheme';
 
 const DividerLine = createComponent('div', {
   displayName: 'DividerLine',
-  defaultStyles: {
+  defaultStyles: props => ({
     borderWidth: 0,
     display: 'block',
     borderColor: 'currentColor',
     borderStyle: 'solid',
     mx: 0,
     my: 0,
-    ...booleanVariantStyles('vertical', {
-      on: {
-        borderLeftWidth: '1px',
-        height: '100%',
-        minWidth: '1px',
-      },
-      off: {
-        borderBottomWidth: '1px',
-        minHeight: '1px',
-        width: '100%',
-      },
-    }),
-  },
+    ...(props.vertical
+      ? { borderLeftWidth: '1px', height: '100%', minWidth: '1px' }
+      : { borderBottomWidth: '1px', minHeight: '1px', width: '100%' }),
+  }),
   variants: [booleanVariant('vertical', true)],
 });
 
 const DividerBase = createComponent('div', {
   displayName: 'Divider',
-  defaultStyles: {
+  defaultStyles: props => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    ...booleanVariantStyles('vertical', {
-      on: {
-        flexDirection: 'column',
-        height: '100%',
-        maxWidth: '100%',
-      },
-      off: {
-        width: '100%',
-      },
-    }),
-  },
+    ...(props.vertical
+      ? { flexDirection: 'column', height: '100%', maxWidth: '100%' }
+      : { width: '100%' }),
+  }),
   variants: [booleanVariant('vertical', true)],
 });
 
 const DividerLabel = createComponent(Text, {
   displayName: 'DividerLabel',
-  defaultStyles: {
-    ...booleanVariantStyles('vertical', {
-      on: {
-        py: 1,
-      },
-      off: {
-        px: 1,
-      },
-    }),
-  },
+  defaultStyles: props => (props.vertical ? { py: 1 } : { px: 1 }),
   variants: [booleanVariant('vertical', true)],
 });
 

@@ -8,12 +8,7 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { useGenerateId } from '../hooks/useGenerateId';
-import {
-  booleanVariant,
-  booleanVariantStyles,
-  variant,
-  variantStyles,
-} from '../variants';
+import { booleanVariant, variant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
@@ -38,63 +33,58 @@ export enum DrawerPosition {
 
 const BaseDrawer = createComponent('div', {
   displayName: 'Drawer',
-  defaultStyles: {
+  defaultStyles: props => ({
     background: 'white',
-    ...booleanVariantStyles('relative', {
-      on: {
-        position: 'relative',
-      },
-      off: {
-        position: 'fixed',
-        ...variantStyles('side', {
-          bottom: {
-            ...booleanVariantStyles('open', {
-              off: {
-                transform: 'translateY(100%)',
-              },
-            }),
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: ['90vh', '75vh', '50vh'],
-          },
-          left: {
-            ...booleanVariantStyles('open', {
-              off: {
-                transform: 'translateX(-100%)',
-              },
-            }),
-            bottom: 0,
-            left: 0,
-            top: 0,
-            width: ['90vw', '75vw', '50vw'],
-          },
-          right: {
-            ...booleanVariantStyles('open', {
-              off: {
-                transform: 'translateX(100%)',
-              },
-            }),
-            bottom: 0,
-            right: 0,
-            top: 0,
-            width: ['90vw', '75vw', '50vw'],
-          },
-          top: {
-            ...booleanVariantStyles('open', {
-              off: {
-                transform: 'translateY(-00%)',
-              },
-            }),
-            top: 0,
-            left: 0,
-            right: 0,
-            height: ['90vh', '75vh', '50vh'],
-          },
+    ...(props.relative
+      ? { position: 'relative' }
+      : {
+          position: 'fixed',
+          ...(props.side
+            ? {
+                ...(props.side === 'bottom'
+                  ? {
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: ['90vh', '75vh', '50vh'],
+                      ...(!props.open ? { transform: 'translateY(100%)' } : {}),
+                    }
+                  : {}),
+                ...(props.side === 'left'
+                  ? {
+                      bottom: 0,
+                      left: 0,
+                      top: 0,
+                      width: ['90vw', '75vw', '50vw'],
+                      ...(!props.open
+                        ? { transform: 'translateX(-100%)' }
+                        : {}),
+                    }
+                  : {}),
+                ...(props.side === 'right'
+                  ? {
+                      bottom: 0,
+                      right: 0,
+                      top: 0,
+                      width: ['90vw', '75vw', '50vw'],
+                      ...(!props.open ? { transform: 'translateX(100%)' } : {}),
+                    }
+                  : {}),
+                ...(props.side === 'top'
+                  ? {
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: ['90vh', '75vh', '50vh'],
+                      ...(!props.open
+                        ? { transform: 'translateY(-100%)' }
+                        : {}),
+                    }
+                  : {}),
+              }
+            : {}),
         }),
-      },
-    }),
-  },
+  }),
   variants: [
     variant('side', true, ['bottom', 'left', 'right', 'top'], 'left' as any),
     booleanVariant('open', true),

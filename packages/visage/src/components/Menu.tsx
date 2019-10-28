@@ -28,22 +28,17 @@ import {
 import { createComponent } from '../core';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 
 const MenuBase = createComponent(List, {
   displayName: 'Menu',
-  defaultStyles: {
+  defaultStyles: props => ({
     maxHeight: ['100vh', 'calc(100vh - 32px)'],
     maxWidth: ['100vw', 'calc(100vw - 32px)'],
     overflowY: 'scroll',
     backgroundColor: 'white',
-    ...booleanVariantStyles('isFullscreen', {
-      on: {
-        width: '100vw',
-        height: '100vh',
-      },
-    }),
-  },
+    ...(props.isFullscreen ? { width: '100vw', height: '100vh' } : {}),
+  }),
   variants: [booleanVariant('isFullscreen', true)],
 });
 

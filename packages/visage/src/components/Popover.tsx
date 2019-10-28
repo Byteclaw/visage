@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 import {
   ElementRect,
   getOffsetTop,
@@ -37,16 +37,7 @@ export const BasePopover = createComponent('div', {
     maxWidth: ['100vw', 'calc(100% - 1rem)'],
     maxHeight: ['100vh', 'calc(100% - 1rem)'],
     outline: 'none',
-    ...booleanVariantStyles('open', {
-      on: {
-        visibility: 'hidden',
-        opacity: 0,
-      },
-      off: {
-        visibility: 'hidden',
-        opacity: 0,
-      },
-    }),
+    opacity: 0,
   },
   variants: [booleanVariant('open', true)],
 });

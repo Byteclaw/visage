@@ -3,7 +3,7 @@ import React, { Fragment, ReactNode } from 'react';
 import { createComponent } from '../core';
 import { Heading } from './Heading';
 import { visuallyHiddenStyles } from './shared';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 
 const FieldSetLegend = createComponent('legend', {
   displayName: 'FieldSetLegend',
@@ -23,19 +23,19 @@ const FieldSetHeading = createComponent(Heading, {
 
 const FieldSetBase = createComponent('fieldset', {
   displayName: 'FieldSet',
-  defaultStyles: {
+  defaultStyles: props => ({
     borderColor: 'neutral',
     borderWidth: 1,
     my: 1,
     p: 2,
     position: 'relative',
-    ...booleanVariantStyles('flat', {
-      off: {
-        boxShadow:
-          '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
-      },
-    }),
-  },
+    ...(props.flat
+      ? {
+          boxShadow:
+            '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+        }
+      : {}),
+  }),
   variants: [booleanVariant('flat', true)],
 });
 
