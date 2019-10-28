@@ -15,6 +15,7 @@ export function createComponent(
     defaultStyles?: any;
     displayName?: string;
     variants?: {
+      prop: string;
       name: string;
       stripProp: boolean;
       defaultValue: string | boolean;

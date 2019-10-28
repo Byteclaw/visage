@@ -152,6 +152,7 @@ export interface UseVisageHookOptions<TStyleSheet extends ValidStyleSheet> {
   componentName: string;
   defaultStyles?: StyleSheet<TStyleSheet> | StyleFunction<any, TStyleSheet>;
   variants?: {
+    prop: string;
     name: string;
     stripProp: boolean;
     defaultValue: string | boolean;
