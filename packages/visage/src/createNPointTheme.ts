@@ -2,6 +2,7 @@ import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
 import { getResponsiveValue, ScaleValue } from '@byteclaw/visage-utils';
 import ModularScale, { ratios } from 'modular-scale';
 import React from 'react';
+import { colorCssProperties } from './shared';
 
 export { ratios };
 
@@ -131,18 +132,15 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       },
     },
     stylers: {
-      backgroundColor: {
-        themeKey: 'colors',
-      },
-      borderColor: {
-        themeKey: 'colors',
-      },
-      color: {
-        themeKey: 'colors',
-      },
-      fill: {
-        themeKey: 'colors',
-      },
+      ...colorCssProperties.reduce(
+        (acc, cssProp) => ({
+          ...acc,
+          [cssProp]: {
+            themeKey: 'colors',
+          },
+        }),
+        {},
+      ),
       fontFamily: {
         themeKey: 'fontFamilies',
       },
@@ -195,9 +193,6 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       ml: { format: 'px', resolver: 'gridSize', outputProps: ['marginLeft'] },
       mr: { format: 'px', resolver: 'gridSize', outputProps: ['marginRight'] },
       mt: { format: 'px', resolver: 'gridSize', outputProps: ['marginTop'] },
-      outlineColor: {
-        themeKey: 'colors',
-      },
       p: { format: 'px', resolver: 'gridSize', outputProps: ['padding'] },
       padding: { format: 'px', resolver: 'gridSize' },
       py: {
@@ -222,7 +217,6 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       pl: { format: 'px', resolver: 'gridSize', outputProps: ['paddingLeft'] },
       pr: { format: 'px', resolver: 'gridSize', outputProps: ['paddingRight'] },
       pt: { format: 'px', resolver: 'gridSize', outputProps: ['paddingTop'] },
-      stroke: { themeKey: 'colors' },
       plOffset: {
         format: 'px',
         resolver: 'modularLineHeight',

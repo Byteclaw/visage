@@ -4,6 +4,7 @@ import {
   getScaleValue,
   ScaleValue,
 } from '@byteclaw/visage-utils';
+import { colorCssProperties } from './shared';
 
 interface ScaleThemeSettings extends ThemeSettings {
   fontSizes: ScaleValue<number | number[]>;
@@ -78,18 +79,15 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
       },
     },
     stylers: {
-      backgroundColor: {
-        themeKey: 'colors',
-      },
-      borderColor: {
-        themeKey: 'colors',
-      },
-      color: {
-        themeKey: 'colors',
-      },
-      fill: {
-        themeKey: 'colors',
-      },
+      ...colorCssProperties.reduce(
+        (acc, cssProp) => ({
+          ...acc,
+          [cssProp]: {
+            themeKey: 'colors',
+          },
+        }),
+        {},
+      ),
       fontFamily: {
         themeKey: 'fontFamilies',
       },
@@ -142,9 +140,6 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
       ml: { format: 'px', resolver: 'gridSize', outputProps: ['marginLeft'] },
       mr: { format: 'px', resolver: 'gridSize', outputProps: ['marginRight'] },
       mt: { format: 'px', resolver: 'gridSize', outputProps: ['marginTop'] },
-      outlineColor: {
-        themeKey: 'colors',
-      },
       p: { format: 'px', resolver: 'gridSize', outputProps: ['padding'] },
       padding: { format: 'px', resolver: 'gridSize' },
       py: {
@@ -169,7 +164,6 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
       pl: { format: 'px', resolver: 'gridSize', outputProps: ['paddingLeft'] },
       pr: { format: 'px', resolver: 'gridSize', outputProps: ['paddingRight'] },
       pt: { format: 'px', resolver: 'gridSize', outputProps: ['paddingTop'] },
-      stroke: { themeKey: 'colors' },
       plOffset: {
         format: 'px',
         resolver: 'scaleLineHeight',
