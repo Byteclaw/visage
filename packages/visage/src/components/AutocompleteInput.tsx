@@ -49,7 +49,7 @@ interface AutocompleteInputProps<TValue extends any>
   expandOnClick?: boolean;
   id?: string;
   menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
-  options?: (inputValue: string) => Promise<TValue[]>;
+  options?: TValue[] | ((inputValue: string) => Promise<TValue[]>);
   /** Set focused option as value on blur */
   selectOnBlur?: boolean;
 }
@@ -104,7 +104,7 @@ export function AutocompleteInput<TValue extends any = string>({
       dispatch({ type: 'SetBusy', isBusy: true, forInputValue: inputValue });
 
       // and then on resolution sets options and not busy
-      options(inputValue)
+      (Array.isArray(options) ? Promise.resolve(options) : options(inputValue))
         .then(newOptions =>
           dispatch({
             type: 'SetOptions',
