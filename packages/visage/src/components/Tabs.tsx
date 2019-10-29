@@ -1,4 +1,4 @@
-/* eslint-disable react/no-array-index-key, jsx-a11y/anchor-is-valid */
+/* eslint-disable react/no-array-index-key, jsx-a11y/anchor-is-valid, no-constant-condition */
 import React, {
   Children,
   KeyboardEventHandler,
@@ -9,68 +9,92 @@ import React, {
   useRef,
   useState,
   useMemo,
+  FocusEvent,
+  cloneElement,
 } from 'react';
+import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { useGenerateId } from '../hooks';
 import { Box } from './Box';
 import { Flex } from './Flex';
 
-const TabNavigationList = createComponent('ul', {
-  displayName: 'TabNavigationList',
+const TabList = createComponent('div', {
+  displayName: 'TabList',
   defaultStyles: {
-    background: 'none',
     boxShadow: 'none',
     display: 'flex',
-    listStyle: 'none',
     m: 0,
     p: 0,
   },
 });
 
-const TabNavigationListItem = createComponent('li', {
-  displayName: 'TabNavigationListItem',
-  defaultStyles: {
-    cursor: 'pointer',
-    m: 0,
-    p: 0,
-  },
-});
-
-const TabNavigationAnchor = createComponent('a', {
-  displayName: 'TabNavigationAnchor',
+const TabNavigatonButton = createComponent('button', {
+  displayName: 'TabNavigatonButton',
   defaultStyles: {
     borderColor: 'transparent',
     borderStyle: 'solid',
-    borderWidth: 1,
+    borderBottomWidth: 2,
+    fontFamily: 'body',
     color: 'bodyText',
+    cursor: 'pointer',
+    fontSize: 1,
+    lineHeight: 1,
     outline: 'none',
-    px: 2,
+    py: 1,
+    pl: 0,
+    pr: 2,
+    mr: 1,
     textDecoration: 'none',
-    '&[aria-disabled="true"]': {
+    '&[aria-selected="true"]': {
+      color: 'primary',
+      borderBottomColor: 'primary',
+      fontWeight: 'bold',
+    },
+    '&:focus': {
+      borderBottomColor: 'blue',
+    },
+    '&[disabled]': {
       color: 'grey.1',
       cursor: 'not-allowed',
-    },
-    '&[aria-disabled="false"]:focus': {
-      borderColor: 'blue',
-    },
-    '&[aria-selected="true"]': {
-      borderBottomColor: 'black',
-      fontWeight: 'bold',
+      borderBottomColor: 'transparent',
     },
   },
 });
 
-interface TabProps {
+type BoxAllProps = ExtractVisageComponentProps<typeof Box>;
+type BoxProps = Pick<
+  BoxAllProps,
+  Exclude<keyof BoxAllProps, 'children' | 'onKeyDown' | 'onClick'>
+>;
+
+interface TabProps extends BoxProps {
   children?: ReactNode | (() => ReactNode);
   disabled?: boolean;
   label: string | ReactElement;
-  onClick?: MouseEventHandler<HTMLAnchorElement>;
-  onKeyDown?: KeyboardEventHandler<HTMLAnchorElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLButtonElement>;
+  selected?: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function Tab(_: TabProps) {
-  return null;
+export function Tab({
+  children,
+  selected,
+  // strip
+  label,
+  onClick,
+  onKeyDown,
+  // end strip
+  ...restProps
+}: TabProps) {
+  return (
+    <Box {...restProps}>
+      {typeof children === 'function'
+        ? selected
+          ? children()
+          : null
+        : children}
+    </Box>
+  );
 }
 
 interface TabsProps {
@@ -89,10 +113,11 @@ export function Tabs({ children, id: outerId, selected = 0 }: TabsProps) {
   }, [outerId, idTemplate]);
   const childrenArray = Children.toArray(children);
   const tabsLabel = childrenArray.map(c => c.props.label);
-  const tabs = childrenArray.map(c => c.props.children);
+
   const selectedRef = useRef(selected);
+  const focusedTabRef = useRef<HTMLButtonElement | null>(null);
   const [selectedTab, selectTab] = useState(selected);
-  const onClick: MouseEventHandler<HTMLAnchorElement> = useCallback(e => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(e => {
     const index = Number(e.currentTarget.dataset.index);
 
     if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
@@ -113,27 +138,95 @@ export function Tabs({ children, id: outerId, selected = 0 }: TabsProps) {
 
     selectTab(index);
   }, []);
-  const onKeyDown: KeyboardEventHandler<HTMLAnchorElement> = useCallback(e => {
+  const onTabFocus = useCallback((e: FocusEvent<HTMLButtonElement>) => {
+    focusedTabRef.current = e.currentTarget;
+  }, []);
+  const onKeyDown: KeyboardEventHandler<HTMLButtonElement> = useCallback(e => {
     const index = Number(e.currentTarget.dataset.index);
 
-    if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
+    if (e.currentTarget.disabled) {
       return;
     }
 
-    if (e.key === 'Enter') {
-      if (childrenArray[index]!.props.onKeyDown) {
-        e.persist();
+    switch (e.key) {
+      case 'Enter': {
+        if (childrenArray[index]!.props.onKeyDown) {
+          e.persist();
 
-        childrenArray[index]!.props.onKeyDown!(e);
+          childrenArray[index]!.props.onKeyDown!(e);
+        }
+
+        if (e.defaultPrevented) {
+          return;
+        }
+
+        e.preventDefault();
+
+        selectTab(index);
+        break;
       }
+      case 'ArrowLeft':
+      case 'ArrowRight': {
+        e.preventDefault();
 
-      if (e.defaultPrevented) {
-        return;
+        let tab: HTMLButtonElement | null = focusedTabRef.current![
+          e.key === 'ArrowLeft'
+            ? 'previousElementSibling'
+            : 'nextElementSibling'
+        ] as HTMLButtonElement | null;
+
+        do {
+          if (tab) {
+            if (tab.disabled) {
+              // go to next sibling
+              tab = tab[
+                e.key === 'ArrowLeft'
+                  ? 'previousElementSibling'
+                  : 'nextElementSibling'
+              ] as HTMLButtonElement | null;
+            } else {
+              break;
+            }
+          } else {
+            // there is no next tab, find the first children of a parent
+            tab = focusedTabRef.current!.parentElement![
+              e.key === 'ArrowLeft' ? 'lastElementChild' : 'firstElementChild'
+            ] as HTMLButtonElement | null;
+          }
+        } while (true);
+
+        tab.focus();
+        break;
       }
+      case 'End':
+      case 'Home': {
+        e.preventDefault();
 
-      e.preventDefault();
+        let tab: HTMLButtonElement | null = focusedTabRef.current!
+          .parentElement![
+          e.key === 'End' ? 'lastElementChild' : 'firstElementChild'
+        ] as HTMLButtonElement | null;
 
-      selectTab(index);
+        do {
+          if (tab) {
+            if (tab.disabled) {
+              tab = tab[
+                e.key === 'End'
+                  ? 'previousElementSibling'
+                  : 'nextElementSibling'
+              ] as HTMLButtonElement | null;
+            } else {
+              break;
+            }
+          } else {
+            tab = focusedTabRef.current!.parentElement!
+              .firstElementChild as HTMLButtonElement | null;
+          }
+        } while (true);
+
+        tab.focus();
+        break;
+      }
     }
   }, []);
 
@@ -144,51 +237,41 @@ export function Tabs({ children, id: outerId, selected = 0 }: TabsProps) {
 
   return (
     <Flex styles={{ flexDirection: 'column' }}>
-      <Box role="navigation">
-        <TabNavigationList role="tablist">
-          {tabsLabel.map((tabLabel, i) => {
-            const isSelected = selectedTab === i;
-            const isDisabled = !!childrenArray[i]!.props.disabled;
-
-            return (
-              <TabNavigationListItem key={i} role="presentation" tabIndex={-1}>
-                <TabNavigationAnchor
-                  href="#"
-                  role="tab"
-                  id={`${id}-tab-label-${i}`}
-                  aria-controls={`${id}-tab-panel-${i}`}
-                  aria-disabled={isDisabled}
-                  aria-selected={isSelected}
-                  data-index={i}
-                  onClick={onClick}
-                  onKeyDown={onKeyDown}
-                  tabIndex={isDisabled ? -1 : 0}
-                >
-                  {tabLabel}
-                </TabNavigationAnchor>
-              </TabNavigationListItem>
-            );
-          })}
-        </TabNavigationList>
-      </Box>
-      <Box>
-        {tabs.map((tab, i) => {
+      <TabList role="tablist">
+        {tabsLabel.map((tabLabel, i) => {
           const isSelected = selectedTab === i;
+          const isDisabled = !!childrenArray[i]!.props.disabled;
 
           return (
-            <Box
-              id={`${id}-tab-panel-${i}`}
+            <TabNavigatonButton
+              id={`${id}-tab-label-${i}`}
+              aria-controls={`${id}-tab-panel-${i}`}
+              aria-selected={isSelected}
+              disabled={isDisabled}
+              data-index={i}
               key={i}
-              role="tabpanel"
-              hidden={!isSelected}
-              aria-hidden={!isSelected}
-              aria-labelledby={`${id}-tab-label-${i}`}
+              onClick={onClick}
+              onFocus={onTabFocus}
+              onKeyDown={onKeyDown}
+              role="tab"
+              tabIndex={isSelected ? 0 : -1}
+              type="button"
             >
-              {typeof tab === 'function' && isSelected ? tab() : tab}
-            </Box>
+              {tabLabel}
+            </TabNavigatonButton>
           );
         })}
-      </Box>
+      </TabList>
+      {childrenArray.map((tab, i) =>
+        cloneElement(tab, {
+          'aria-labelledby': `${id}-tab-label-${i}`,
+          id: `${id}-tab-panel-${i}`,
+          hidden: selectedTab !== i,
+          role: 'tabpanel',
+          selected: selectedTab === i,
+          tabIndex: 0,
+        }),
+      )}
     </Flex>
   );
 }
