@@ -1,5 +1,5 @@
 import { depthFirstObjectMerge, omitProps } from '@byteclaw/visage-utils';
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { VisageContext } from './context';
 import { isVisageComponent, resolveStyleSheet } from './utils';
 import {
@@ -310,4 +310,39 @@ export function useBreakpointManager(
   );
 
   return [state.viewport, setBreakpoint];
+}
+
+export function useBreakpoint({
+  gte,
+  is,
+  lte,
+  not,
+}: {
+  gte?: number;
+  is?: number | number[];
+  lte?: number;
+  not?: number | number[];
+}): boolean {
+  const visage = useDesignSystem();
+
+  return useMemo(() => {
+    // now check the breakpoints, basically start with more precise breakpoints
+    let isMatch = false;
+
+    if (is != null) {
+      isMatch =
+        is === visage.breakpoint ||
+        (Array.isArray(is) && is.indexOf(visage.breakpoint) !== -1);
+    } else if (not != null) {
+      isMatch = Array.isArray(not)
+        ? not.indexOf(visage.breakpoint) === -1
+        : not !== visage.breakpoint;
+    } else if (gte != null) {
+      isMatch = visage.breakpoint >= gte;
+    } else if (lte != null) {
+      isMatch = visage.breakpoint <= lte;
+    }
+
+    return isMatch;
+  }, [visage, gte, is, lte, not]);
 }
