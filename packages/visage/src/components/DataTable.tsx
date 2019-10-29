@@ -1,5 +1,5 @@
 import { createComponent } from '../core';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 
 export const DataTable = createComponent('table', {
   displayName: 'DataTable',
@@ -15,30 +15,21 @@ export const DataTableHeader = createComponent('thead', {
 
 export const DataTableHeaderColumn = createComponent('th', {
   displayName: 'DataTableHeaderColumn',
-  defaultStyles: {
+  defaultStyles: props => ({
     borderColor: 'neutral',
     borderStyle: 'solid',
     borderWidth: 0,
     fontWeight: 400,
     p: 1,
     textAlign: 'left',
-    ...booleanVariantStyles('numeric', {
-      on: {
-        textAlign: 'right',
-      },
-    }),
-    ...booleanVariantStyles('total', {
-      on: { backgroundColor: 'neutral', color: 'neutralText', fontWeight: 600 },
-    }),
-    ...booleanVariantStyles('inFooter', {
-      on: {
-        borderTopWidth: '.1rem',
-      },
-      off: {
-        borderBottomWidth: '.1rem',
-      },
-    }),
-  },
+    ...(props.numeric ? { textAlign: 'right' } : {}),
+    ...(props.total
+      ? { backgroundColor: 'neutral', color: 'neutralText', fontWeight: 600 }
+      : {}),
+    ...(props.inFooter
+      ? { borderTopWidth: '.1rem' }
+      : { borderBottomWidth: '.1rem' }),
+  }),
   variants: [
     booleanVariant('numeric', true),
     booleanVariant('inFooter', true),
@@ -73,16 +64,12 @@ export const DataTableRow = createComponent('tr', {
 
 export const DataTableColumn = createComponent('td', {
   displayName: 'DataTableColumn',
-  defaultStyles: {
+  defaultStyles: props => ({
     p: 1,
     textAlign: 'left',
-    ...booleanVariantStyles('numeric', {
-      on: { textAlign: 'right' },
-    }),
-    ...booleanVariantStyles('total', {
-      on: { backgroundColor: 'neutral', fontWeight: 600 },
-    }),
-  },
+    ...(props.numeric ? { textAlign: 'right' } : {}),
+    ...(props.total ? { backgroundColor: 'neutral', fontWeight: 600 } : {}),
+  }),
   variants: [booleanVariant('numeric', true), booleanVariant('total', true)],
 });
 

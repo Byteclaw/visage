@@ -1,6 +1,7 @@
 export function omitProps(
   props: { [key: string]: any },
   settings: {
+    prop: string;
     name: string;
     stripProp?: boolean;
     defaultValue?: string | boolean;
@@ -12,11 +13,11 @@ export function omitProps(
   for (let i = 0; i < settingsLength; i++) {
     const setting = settings[i];
 
-    clone[`data-${setting.name}`] = clone[setting.name] || setting.defaultValue;
+    clone[`data-${setting.name}`] = clone[setting.prop] || setting.defaultValue;
 
     if (setting.stripProp) {
       // react strips props that are undefined, so this is fine
-      clone[setting.name] = undefined;
+      clone[setting.prop] = undefined;
     }
   }
 

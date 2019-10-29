@@ -13,7 +13,12 @@ import {
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { disabledControlStripped, invalidControl } from './shared';
+import {
+  disabledControlStyles,
+  disabledControlBooleanVariant,
+  invalidControlStyles,
+  invalidControlBooleanVariant,
+} from './shared';
 
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
@@ -70,29 +75,28 @@ const TextInputControl = createComponent('input', {
   },
 });
 
-const InputBase = invalidControl(
-  disabledControlStripped(
-    createComponent('div', {
-      displayName: 'TextInputBase',
-      defaultStyles: {
-        alignItems: 'center',
-        background: 'none',
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: '1px',
-        display: 'flex',
-        fontSize: 0,
-        lineHeight: 0,
-        outline: '2px solid transparent',
-        outlineOffset: '-2px',
-        py: 1,
-        px: 0,
-        position: 'relative',
-        flexWrap: 'wrap',
-      },
-    }),
-  ),
-);
+const InputBase = createComponent('div', {
+  displayName: 'TextInputBase',
+  defaultStyles: props => ({
+    alignItems: 'center',
+    background: 'none',
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    display: 'flex',
+    fontSize: 0,
+    lineHeight: 0,
+    outline: '2px solid transparent',
+    outlineOffset: '-2px',
+    py: 1,
+    px: 0,
+    position: 'relative',
+    flexWrap: 'wrap',
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
+  variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
+});
 
 // we need to override prefix so we can then override it again with correct type
 interface BaseProps
@@ -118,7 +122,6 @@ export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
     {
       baseProps,
       disabled,
-      prepend,
       invalid,
       onBlur: outerOnBlur,
       onFocus: outerOnFocus,

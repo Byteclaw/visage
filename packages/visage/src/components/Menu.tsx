@@ -1,8 +1,6 @@
 import {
   ExtractVisageComponentProps,
   OmittableProps,
-  VisageComponent,
-  createComponent,
   markAsVisageComponent,
   useDesignSystem,
 } from '@byteclaw/visage-core';
@@ -10,7 +8,6 @@ import { getResponsiveValue } from '@byteclaw/visage-utils';
 import React, {
   Children,
   cloneElement,
-  ReactNode,
   MouseEvent,
   KeyboardEvent,
   useCallback,
@@ -20,38 +17,30 @@ import React, {
   forwardRef,
   RefObject,
   useMemo,
+  Ref,
 } from 'react';
-
-import { StyleProps } from '../createNPointTheme';
 import {
   findNextFocusableElement,
   findPreviousFocusableElement,
   isFocusableElement,
   TransformOriginSettings,
 } from './shared';
+import { createComponent } from '../core';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
-import { createBooleanVariant } from '../core';
+import { booleanVariant } from '../variants';
 
-const fullscreenMenuVariant = createBooleanVariant('isFullscreen', {
-  onStyles: {
-    width: '100vw',
-    height: '100vh',
-  },
-  stripProp: true,
-});
-
-const MenuBase = fullscreenMenuVariant(
-  createComponent(List, {
-    displayName: 'Menu',
-    defaultStyles: {
-      maxHeight: ['100vh', 'calc(100vh - 32px)'],
-      maxWidth: ['100vw', 'calc(100vw - 32px)'],
-      overflowY: 'scroll',
-      backgroundColor: 'white',
-    },
+const MenuBase = createComponent(List, {
+  displayName: 'Menu',
+  defaultStyles: props => ({
+    maxHeight: ['100vh', 'calc(100vh - 32px)'],
+    maxWidth: ['100vw', 'calc(100vw - 32px)'],
+    overflowY: 'scroll',
+    backgroundColor: 'white',
+    ...(props.isFullscreen ? { width: '100vw', height: '100vh' } : {}),
   }),
-);
+  variants: [booleanVariant('isFullscreen', true)],
+});
 
 const MenuItemBase = createComponent(ListItem, {
   displayName: 'MenuItem',
@@ -69,7 +58,6 @@ const MenuItemBase = createComponent(ListItem, {
 interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
   anchor?: null | HTMLElement | RefObject<HTMLElement>;
   anchorOrigin?: TransformOriginSettings;
-  children?: ReactNode;
   /**
    * Use only if you are managing focus outside of this component
    */
@@ -81,10 +69,7 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
   popoverProps?: OmittableProps<ExtractVisageComponentProps<typeof Popover>>;
 }
 
-interface MenuItemProps
-  extends ExtractVisageComponentProps<typeof MenuItemBase> {
-  children?: ReactNode;
-}
+type MenuItemProps = ExtractVisageComponentProps<typeof MenuItemBase>;
 
 const defaultAnchorOrigin: TransformOriginSettings = {
   vertical: 'bottom',
@@ -113,7 +98,7 @@ export function Menu({
 
   const firstItemRef = useRef<HTMLElement | null>(null);
   const lastItemRef = useRef<HTMLElement | null>(null);
-  const onKeyDown: KeyboardEventHandler = useCallback(
+  const onKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
     e => {
       if (outerOnKeyDown) {
         outerOnKeyDown(e);
@@ -237,8 +222,11 @@ export function Menu({
   );
 }
 
-export const MenuItem: VisageComponent<MenuItemProps, StyleProps> = forwardRef(
-  ({ children, role = 'menuitem', ...restProps }: MenuItemProps, ref) => {
+export const MenuItem: typeof MenuItemBase = forwardRef(
+  (
+    { children, role = 'menuitem', ...restProps }: MenuItemProps,
+    ref: Ref<HTMLLIElement>,
+  ) => {
     return (
       <MenuItemBase
         tabIndex={role === 'menuitem' ? 0 : -1}
@@ -250,7 +238,7 @@ export const MenuItem: VisageComponent<MenuItemProps, StyleProps> = forwardRef(
       </MenuItemBase>
     );
   },
-);
+) as any;
 
 MenuItem.displayName = 'MenuItem';
 

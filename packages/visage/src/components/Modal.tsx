@@ -16,7 +16,7 @@ import {
 } from 'body-scroll-lock';
 import { createComponent } from '../core';
 import { useGenerateId } from '../hooks';
-import { booleanVariant, booleanVariantStyles } from '../variants';
+import { booleanVariant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
@@ -34,7 +34,7 @@ const Backdrop = createComponent('div', {
 
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
-  defaultStyles: {
+  defaultStyles: props => ({
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'center',
@@ -44,17 +44,9 @@ const BaseModal = createComponent('div', {
     bottom: 0,
     position: 'static',
     height: '100%',
-    ...booleanVariantStyles('fixed', {
-      on: {
-        position: 'fixed',
-      },
-    }),
-    ...booleanVariantStyles('backdrop', {
-      on: {
-        backgroundColor: 'hsla(0,0%,9%,.5)',
-      },
-    }),
-  },
+    ...(props.fixed ? { position: 'fixed' } : {}),
+    ...(props.backdrop ? { backgroundColor: 'hsla(0,0%,9%,.5)' } : {}),
+  }),
   variants: [booleanVariant('fixed', true), booleanVariant('backdrop', true)],
 });
 

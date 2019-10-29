@@ -1,23 +1,18 @@
 import {
+  ExtractVisageComponentProps,
   VisageComponent,
-  StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
-import React, {
-  ReactElement,
-  ReactNode,
-  ChangeEventHandler,
-  forwardRef,
-  Ref,
-  useMemo,
-} from 'react';
+import React, { ReactNode, forwardRef, Ref, useMemo } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
 import { useGenerateId } from '../hooks';
 import {
-  visuallyHiddenStripped,
   visuallyHiddenStyles,
-  disabledControl,
-  invalidControl,
+  visuallyHiddenBooleanVariant,
+  invalidControlStyles,
+  invalidControlBooleanVariant,
+  disabledControlBooleanVariant,
+  disabledControlStyles,
 } from './shared';
 import { Flex } from './Flex';
 import { Svg } from './Svg';
@@ -49,34 +44,34 @@ const CheckboxControl = createComponent('input', {
       backgroundColor: 'neutral.1',
     },
   },
+  variants: [visuallyHiddenBooleanVariant],
 });
 
-const CheckboxLabel = disabledControl(
-  invalidControl(
-    createComponent('label', {
-      displayName: 'CheckboxLabel',
-      defaultStyles: {
-        display: 'flex',
-        fontSize: 'inherit',
-        lineHeight: 'inherit',
-        cursor: 'pointer',
-        position: 'relative',
-        outline: 'none',
-        userSelect: 'none',
-      },
-    }),
-  ),
-);
-
-const CheckboxLabelText = visuallyHiddenStripped(
-  createComponent('span', {
-    displayName: 'CheckboxLabelText',
-    defaultStyles: {
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-    },
+const CheckboxLabel = createComponent('label', {
+  displayName: 'CheckboxLabel',
+  defaultStyles: props => ({
+    display: 'flex',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    cursor: 'pointer',
+    position: 'relative',
+    outline: 'none',
+    userSelect: 'none',
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
   }),
-);
+  variants: [invalidControlBooleanVariant, disabledControlBooleanVariant],
+});
+
+const CheckboxLabelText = createComponent('span', {
+  displayName: 'CheckboxLabelText',
+  defaultStyles: props => ({
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    ...(props.hidden ? visuallyHiddenStyles : {}),
+  }),
+  variants: [visuallyHiddenBooleanVariant],
+});
 
 const CheckboxWrapper = createComponent('div', {
   displayName: 'CheckboxWrapper',
@@ -91,24 +86,11 @@ const CheckboxWrapper = createComponent('div', {
   },
 });
 
-interface CheckboxProps extends VisageStyleProps<StyleProps> {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  disabled?: boolean;
+interface CheckboxProps
+  extends ExtractVisageComponentProps<typeof CheckboxControl> {
   hiddenLabel?: boolean;
-  id?: string;
   invalid?: boolean;
   label: ReactNode;
-  /**
-   * Name is required for proper control id
-   * If name is not unique, use id
-   */
-  name: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  readOnly?: boolean;
-  toggler?: boolean | ReactElement;
-  value?: any;
-  wrapper?: ReactElement;
 }
 
 const togglerStyles = {
@@ -132,14 +114,13 @@ export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
       onChange,
       readOnly,
       styles,
-      toggler,
       value,
     }: CheckboxProps,
     ref: Ref<HTMLInputElement>,
   ) {
     const idTemplate = useGenerateId();
     const id = useMemo(() => {
-      return outerId || `chkbx-${idTemplate}-${name || ''}`;
+      return outerId || `chkbx-${idTemplate}`;
     }, [outerId, idTemplate]);
 
     return (
@@ -168,7 +149,6 @@ export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
             tabIndex={0}
             type="checkbox"
             value={value}
-            htmlOnly={toggler === false}
           />
           <Flex aria-hidden styles={togglerStyles}>
             <Svg

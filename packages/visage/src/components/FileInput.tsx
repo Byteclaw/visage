@@ -10,8 +10,10 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import {
-  disabledControl,
-  invalidControl,
+  disabledControlStyles,
+  disabledControlBooleanVariant,
+  invalidControlStyles,
+  invalidControlBooleanVariant,
   visuallyHiddenStyles,
 } from './shared';
 
@@ -37,44 +39,43 @@ const FileInputBox = createComponent('div', {
   },
 });
 
-const FileInputControl = disabledControl(
-  invalidControl(
-    createComponent('div', {
-      displayName: 'FileInputControlBase',
-      defaultStyles: {
-        '&::before': {
-          // respect line height
-          content: '"\\200b"',
-        },
-        // synthetic focus on drop
-        '&[data-draggedover="true"]': {
-          // cursor: 'copy',
-          outlineColor: 'blue',
-        },
-        borderColor: 'black',
-        borderStyle: 'solid',
-        borderWidth: '1px',
-        background: 'none',
-        color: 'inherit',
-        fontFamily: 'inherit',
-        fontSize: 'inherit',
-        lineHeight: 'inherit',
-        overflow: 'hidden',
-        outline: '2px solid transparent',
-        outlineOffset: '-2px',
-        m: 0,
-        py: 1,
-        px: 2,
-        textOverflow: 'ellipsis',
-        width: '100%',
-        whiteSpace: 'nowrap',
-        '&:not([data-readonly="true"])': {
-          cursor: 'pointer',
-        },
-      },
-    }),
-  ),
-);
+const FileInputControl = createComponent('div', {
+  displayName: 'FileInputControlBase',
+  defaultStyles: props => ({
+    '&::before': {
+      // respect line height
+      content: '"\\200b"',
+    },
+    // synthetic focus on drop
+    '&[data-draggedover="true"]': {
+      // cursor: 'copy',
+      outlineColor: 'blue',
+    },
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    background: 'none',
+    color: 'inherit',
+    fontFamily: 'inherit',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    overflow: 'hidden',
+    outline: '2px solid transparent',
+    outlineOffset: '-2px',
+    m: 0,
+    py: 1,
+    px: 2,
+    textOverflow: 'ellipsis',
+    width: '100%',
+    whiteSpace: 'nowrap',
+    '&:not([data-readonly="true"])': {
+      cursor: 'pointer',
+    },
+    ...(props.disabled ? disabledControlStyles : {}),
+    ...(props.invalid ? invalidControlStyles : {}),
+  }),
+  variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
+});
 
 const defaultLabelFormatter = (files: File[]): string => {
   if (files.length === 0) {

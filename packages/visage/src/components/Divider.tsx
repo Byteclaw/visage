@@ -4,77 +4,45 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import React, { forwardRef } from 'react';
-import { createComponent, createBooleanVariant } from '../core';
+import { createComponent } from '../core';
+import { booleanVariant } from '../variants';
 import { Text } from './Text';
 import { StyleProps } from '../createNPointTheme';
 
-const verticalLineVariant = createBooleanVariant('vertical', {
-  onStyles: {
-    borderLeftWidth: '1px',
-    height: '100%',
-    minWidth: '1px',
-  },
-  offStyles: {
-    borderBottomWidth: '1px',
-    minHeight: '1px',
+const DividerLine = createComponent('div', {
+  displayName: 'DividerLine',
+  defaultStyles: props => ({
+    borderWidth: 0,
+    display: 'block',
+    borderColor: 'currentColor',
+    borderStyle: 'solid',
+    mx: 0,
+    my: 0,
+    ...(props.vertical
+      ? { borderLeftWidth: '1px', height: '100%', minWidth: '1px' }
+      : { borderBottomWidth: '1px', minHeight: '1px', width: '100%' }),
+  }),
+  variants: [booleanVariant('vertical', true)],
+});
+
+const DividerBase = createComponent('div', {
+  displayName: 'Divider',
+  defaultStyles: props => ({
+    display: 'flex',
+    alignItems: 'center',
     width: '100%',
-  },
-  stripProp: true,
+    ...(props.vertical
+      ? { flexDirection: 'column', height: '100%', maxWidth: '100%' }
+      : { width: '100%' }),
+  }),
+  variants: [booleanVariant('vertical', true)],
 });
 
-const verticalBaseVariant = createBooleanVariant('vertical', {
-  onStyles: {
-    flexDirection: 'column',
-    height: '100%',
-    maxWidth: '100%',
-  },
-  offStyles: {
-    width: '100%',
-  },
-  stripProp: true,
+const DividerLabel = createComponent(Text, {
+  displayName: 'DividerLabel',
+  defaultStyles: props => (props.vertical ? { py: 1 } : { px: 1 }),
+  variants: [booleanVariant('vertical', true)],
 });
-
-const verticalLabelVariant = createBooleanVariant('vertical', {
-  onStyles: {
-    py: 1,
-  },
-  offStyles: {
-    px: 1,
-  },
-  stripProp: true,
-});
-
-const DividerLine = verticalLineVariant(
-  createComponent('div', {
-    displayName: 'DividerLine',
-    defaultStyles: {
-      borderWidth: 0,
-      display: 'block',
-      borderColor: 'currentColor',
-      borderStyle: 'solid',
-      mx: 0,
-      my: 0,
-    },
-  }),
-);
-
-const DividerBase = verticalBaseVariant(
-  createComponent('div', {
-    displayName: 'Divider',
-    defaultStyles: {
-      display: 'flex',
-      alignItems: 'center',
-      width: '100%',
-    },
-  }),
-);
-
-const DividerLabel = verticalLabelVariant(
-  createComponent(Text, {
-    displayName: 'DividerLabel',
-    defaultStyles: {},
-  }),
-);
 
 interface DividerProps extends ExtractVisageComponentProps<typeof DividerBase> {
   label?: string;

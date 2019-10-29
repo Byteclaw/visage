@@ -1,5 +1,5 @@
 import { VisageComponentSymbol } from './constants';
-import { ResolvedStyleSheet, Theme } from './types';
+import { ResolvedStyleSheet, Theme, VisageComponent } from './types';
 
 export function displayName(
   Component: React.ComponentClass | React.FunctionComponent | string,
@@ -14,7 +14,10 @@ export function displayName(
 }
 
 export function markAsVisageComponent<
-  T extends React.ComponentClass | React.FunctionComponent
+  T extends
+    | React.ComponentClass
+    | React.FunctionComponent
+    | VisageComponent<any, any>
 >(component: T): T {
   // eslint-disable-next-line
   (component as any)[VisageComponentSymbol] = true;

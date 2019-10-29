@@ -15,7 +15,6 @@ export const NextPageButton: typeof Button = forwardRef(
       children = (
         <SvgIcon
           aria-hidden
-          focusable={false}
           icon={NextPageIcon}
           styles={{ width: '1em', height: '1em' }}
         />
@@ -36,7 +35,6 @@ export const PreviousPageButton: typeof Button = forwardRef(
       children = (
         <SvgIcon
           aria-hidden
-          focusable={false}
           icon={PreviousPageIcon}
           styles={{ width: '1em', height: '1em' }}
         />

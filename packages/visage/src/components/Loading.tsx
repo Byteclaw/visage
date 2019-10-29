@@ -5,8 +5,10 @@ import {
 } from '@byteclaw/visage-core';
 import { keyframes } from '@emotion/core';
 import React from 'react';
-import { createBooleanVariant, createComponent } from '../core';
+import { createComponent } from '../core';
+import { booleanVariant } from '../variants';
 import { StyleProps } from '../createNPointTheme';
+import { EmotionStyleSheet } from '../types';
 
 const indeterminateAnimation = keyframes({
   '0%': {
@@ -23,22 +25,22 @@ const indeterminateAnimation = keyframes({
   },
 });
 
-const indeterminateVariant = createBooleanVariant('indeterminate', {
-  onStyles: {
+const indeterminateStyles: { on: EmotionStyleSheet; off: EmotionStyleSheet } = {
+  on: {
     animation: `${indeterminateAnimation} 2.1s ease-in-out infinite`,
     width: '35%',
     willChange: 'left, right',
   },
-  offStyles: {
+  off: {
     transformOrigin: 0,
     transition: 'transform .5s cubic-bezier(0,0,.42,1)',
     width: '100%',
   },
-});
+};
 
 const ProgressBarBase = createComponent('div', {
   displayName: 'LoadingProgressBar',
-  defaultStyles: {
+  defaultStyles: props => ({
     height: 4,
     overflow: 'hidden',
     position: 'relative',
@@ -51,22 +53,24 @@ const ProgressBarBase = createComponent('div', {
       width: '100%',
       height: '100%',
     },
-  },
+    ...(props.indeterminate ? indeterminateStyles.on : indeterminateStyles.off),
+  }),
+  variants: [booleanVariant('indeterminate', true)],
 });
 
-const ProgressBarProgress = indeterminateVariant(
-  createComponent('div', {
-    displayName: 'LoadingProgressBarProgress',
-    defaultStyles: {
-      backgroundColor: 'currentColor',
-      height: '100%',
-      left: 0,
-      position: 'absolute',
-      top: 0,
-      maxWidth: '100%',
-    },
+const ProgressBarProgress = createComponent('div', {
+  displayName: 'LoadingProgressBarProgress',
+  defaultStyles: props => ({
+    backgroundColor: 'currentColor',
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    maxWidth: '100%',
+    ...(props.indeterminate ? indeterminateStyles.on : indeterminateStyles.off),
   }),
-);
+  variants: [booleanVariant('indeterminate', true)],
+});
 
 export const Loading: VisageComponent<
   {

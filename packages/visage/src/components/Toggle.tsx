@@ -1,6 +1,9 @@
-import { VisageComponent, StyleProps } from '@byteclaw/visage-core';
+import {
+  ExtractVisageComponentProps,
+  VisageComponent,
+  StyleProps,
+} from '@byteclaw/visage-core';
 import React, {
-  ChangeEventHandler,
   forwardRef,
   ReactElement,
   ReactNode,
@@ -11,23 +14,13 @@ import React, {
 import { createComponent } from '../core';
 import { StyleProps as StyleSheetProps } from '../createNPointTheme';
 import { Flex } from './Flex';
-import { disabledControl, visuallyHiddenStyles } from './shared';
+import {
+  disabledControlStyles,
+  disabledControlBooleanVariant,
+  visuallyHiddenStyles,
+} from './shared';
 import { Box } from './Box';
 import { useGenerateId } from '../hooks';
-
-interface ToggleProps {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  disabled?: boolean;
-  hiddenLabel?: boolean;
-  label: ReactNode;
-  leftContent?: ReactNode;
-  name?: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  readOnly?: boolean;
-  rightContent?: ReactNode;
-  wrapper?: ReactElement;
-}
 
 const ToggleContainer = createComponent('div', {
   displayName: 'ToggleContainer',
@@ -121,20 +114,29 @@ const Toggler = createComponent('div', {
   },
 });
 
-const ToggleLabel = disabledControl(
-  createComponent('label', {
-    displayName: 'ToggleLabel',
-    defaultStyles: {
-      fontSize: 'inherit',
-      lineHeight: 'inherit',
-      cursor: 'pointer',
-      position: 'relative',
-      outline: 'none',
-      userSelect: 'none',
-      mx: 1,
-    },
+const ToggleLabel = createComponent('label', {
+  displayName: 'ToggleLabel',
+  defaultStyles: props => ({
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
+    cursor: 'pointer',
+    position: 'relative',
+    outline: 'none',
+    userSelect: 'none',
+    mx: 1,
+    ...(props.disabled ? disabledControlStyles : {}),
   }),
-);
+  variants: [disabledControlBooleanVariant],
+});
+
+interface ToggleProps
+  extends ExtractVisageComponentProps<typeof ToggleControl> {
+  hiddenLabel?: boolean;
+  label: ReactNode;
+  leftContent?: ReactNode;
+  rightContent?: ReactNode;
+  wrapper?: ReactElement;
+}
 
 export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
   function Toggle(
@@ -198,7 +200,6 @@ export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
           />
           <ToggleContainer styles={styles}>
             <Toggler
-              checked={checked}
               data-label-content={inputChecked ? rightContent : leftContent}
             />
           </ToggleContainer>
