@@ -311,6 +311,11 @@ export function Sidebar() {
               title="Structure"
             >
               <ListItem>
+                <ListItemRouteLink to="/components/structure/accordion">
+                  Accordion
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/structure/card">
                   Card
                 </ListItemRouteLink>

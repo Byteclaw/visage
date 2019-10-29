@@ -1,3 +1,4 @@
+export * from './Accordion';
 export * from './AutocompleteInput';
 export * from './Badge';
 export * from './Banner';
