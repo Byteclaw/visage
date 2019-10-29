@@ -61,7 +61,7 @@ interface SelectProps<TValue extends any = string>
   debounceDelay?: number;
   id?: string;
   menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
-  options?: (inputValue: string) => Promise<TValue[]>;
+  options?: TValue[] | ((inputValue: string) => Promise<TValue[]>);
   searchable?: boolean;
 }
 
@@ -103,7 +103,7 @@ export function Select<TValue extends any = string>({
       dispatch({ type: 'SetBusy', isBusy: true, forInputValue: inputValue });
 
       // and then on resolution sets options and not busy
-      options(inputValue)
+      (Array.isArray(options) ? Promise.resolve(options) : options(inputValue))
         .then(newOptions =>
           dispatch({
             type: 'SetOptions',

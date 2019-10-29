@@ -88,3 +88,22 @@ import { AutocompleteInput } from '@byteclaw/visage';
   selectOnBlur
 />
 ```
+
+### Static options
+
+```jsx live=true
+<WithState
+  defaultValue={Array(100)
+    .fill(null)
+    .map((_, i) => i)}
+>
+  {options => (
+    <AutocompleteInput
+      id="autocomplete-field"
+      onChange={value => console.log(value)}
+      options={options}
+      placeholder="Enter a value"
+    />
+  )}
+</WithState>
+```

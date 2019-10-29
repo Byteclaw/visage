@@ -73,3 +73,22 @@ import { Select } from '@byteclaw/visage';
   placeholder="Select a value"
 />
 ```
+
+### Static options
+
+```jsx live=true
+<WithState
+  defaultValue={Array(100)
+    .fill(null)
+    .map((_, i) => i)}
+>
+  {options => (
+    <Select
+      id="nonsearchable"
+      onChange={value => console.log(value)}
+      options={options}
+      placeholder="Select a value"
+    />
+  )}
+</WithState>
+```
