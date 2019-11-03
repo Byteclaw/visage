@@ -61,6 +61,8 @@ const TabNavigatonButton = createComponent('button', {
   },
 });
 
+type FlexAllProps = ExtractVisageComponentProps<typeof Flex>;
+type TabListAllProps = ExtractVisageComponentProps<typeof TabList>;
 type BoxAllProps = ExtractVisageComponentProps<typeof Box>;
 type BoxProps = Pick<
   BoxAllProps,
@@ -97,16 +99,23 @@ export function Tab({
   );
 }
 
-interface TabsProps {
+interface TabsProps extends FlexAllProps {
   children: ReactElement<TabProps>[];
   /**
    * Unique id used to generate references between tabs (accessibility)
    */
   id?: string;
   selected?: number;
+  tabListProps?: TabListAllProps;
 }
 
-export function Tabs({ children, id: outerId, selected = 0 }: TabsProps) {
+export function Tabs({
+  children,
+  id: outerId,
+  selected = 0,
+  tabListProps,
+  ...restProps
+}: TabsProps) {
   const idTemplate = useGenerateId();
   const id = useMemo(() => {
     return outerId || idTemplate;
@@ -236,8 +245,11 @@ export function Tabs({ children, id: outerId, selected = 0 }: TabsProps) {
   }
 
   return (
-    <Flex styles={{ flexDirection: 'column' }}>
-      <TabList role="tablist">
+    <Flex
+      {...restProps}
+      styles={{ flexDirection: 'column', width: '100%', ...restProps.styles }}
+    >
+      <TabList role="tablist" {...tabListProps}>
         {tabsLabel.map((tabLabel, i) => {
           const isSelected = selectedTab === i;
           const isDisabled = !!childrenArray[i]!.props.disabled;
