@@ -10,7 +10,7 @@ module.exports = {
     '!**/__fixtures__/**',
   ],
   moduleNameMapper: {
-    '^@byteclaw/([a-z-A-Z-_]+)$': '<rootDir>/../$1/src',
+    '^@byteclaw/(visage-[a-z-A-Z-_]+)$': '<rootDir>/../$1/src',
   },
   rootDir: __dirname,
   snapshotSerializers: ['jest-emotion'],
