@@ -11,6 +11,8 @@ import React, {
   useMemo,
 } from 'react';
 import { createComponent } from '../core';
+import { variant } from '../variants';
+import { Box } from './Box';
 import { Flex } from './Flex';
 import { CloseButton } from './CloseButton';
 import { Heading } from './Heading';
@@ -19,16 +21,20 @@ import { Text } from './Text';
 
 const BaseDialog = createComponent('div', {
   displayName: 'Dialog',
-  defaultStyles: {
+  defaultStyles: props => ({
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: 'white',
-    height: ['100%', null],
-    maxHeight: ['100%', '75%', '50%'],
     position: 'relative',
+    ...(props.scroll === 'content' ? { maxHeight: ['100%', '90%'] } : {}),
+    m: 'auto',
     pb: 2,
     px: 2,
-    width: ['100%', '75%', '50%'],
     transform: 'translateZ(0)',
-  },
+  }),
+  variants: [
+    variant('scroll', true, ['content', 'body'] as const, 'content' as any),
+  ],
 });
 
 interface DialogProps {
@@ -46,6 +52,7 @@ interface DialogProps {
    * Default is dialog (you don't need users immediate action)
    */
   role?: 'dialog' | 'alertdialog';
+  scroll?: 'content' | 'body';
   secondaryLabel?: string | ReactElement;
 }
 
@@ -56,6 +63,7 @@ export function Dialog({
   id: outerId,
   onClose,
   role = 'dialog',
+  scroll = 'content',
   secondaryLabel,
 }: DialogProps) {
   const idTemplate = useUniqueId();
@@ -109,12 +117,19 @@ export function Dialog({
   }, []);
 
   return (
-    <Modal contentRef={dialogRef} open id={id} onClose={onClose}>
+    <Modal
+      contentRef={dialogRef}
+      open
+      scrollable={scroll === 'body'}
+      id={id}
+      onClose={onClose}
+    >
       <BaseDialog
         aria-labelledby={headingId}
         aria-modal
         ref={dialogRef}
         role={role}
+        scroll={scroll}
       >
         <Flex>
           <Flex styles={{ width: '100%', flexDirection: 'column' }}>
@@ -143,7 +158,11 @@ export function Dialog({
             />
           </Flex>
         </Flex>
-        {children}
+        <Box
+          styles={{ maxHeight: '100%', maxWidth: '100%', overflowY: 'scroll' }}
+        >
+          {children}
+        </Box>
       </BaseDialog>
     </Modal>
   );

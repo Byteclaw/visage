@@ -28,17 +28,20 @@ import { Dialog } from '@byteclaw/visage';
           setShow(false);
         }}
       >
-        <form action="">
-          <label htmlFor="searchable">Searchable select value</label>
-          <Select
-            id="searchable"
-            onChange={value => console.log(value)}
-            options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
-            placeholder="Select a value"
-            searchable
-          />
-        </form>
-        Content
+        {Array(50)
+          .fill(null)
+          .map(() => (
+            <form action="">
+              <label htmlFor="searchable">Searchable select value</label>
+              <Select
+                id="searchable"
+                onChange={value => console.log(value)}
+                options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+                placeholder="Select a value"
+                searchable
+              />
+            </form>
+          ))}
       </Dialog>
     );
   }}
@@ -78,9 +81,11 @@ import { Dialog } from '@byteclaw/visage';
             searchable
           />
         </form>
-        <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Aenean
-        lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-        scelerisque nisl consectetur et.</p>
+        <p>
+          Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+          Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus
+          magna, vel scelerisque nisl consectetur et.
+        </p>
       </Dialog>
     );
   }}
