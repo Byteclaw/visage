@@ -361,7 +361,7 @@ export function Popover({
   return (
     <Modal
       backdrop={open && backdrop}
-      allowScrolling={allowScrolling}
+      unlockBodyScroll={allowScrolling}
       fixed={false}
       id={id}
       onClose={onClose}
