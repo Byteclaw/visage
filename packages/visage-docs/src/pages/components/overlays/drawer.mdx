@@ -31,7 +31,11 @@ Default drawer is rendered with `position: fixed`.
         }}
         open={show}
       >
-        Drawer content
+        {Array(20)
+          .fill(null)
+          .map(() => (
+            <ParagraphSkeleton />
+          ))}
       </Drawer>
     );
   }}
