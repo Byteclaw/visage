@@ -6,6 +6,9 @@ export const DataTable = createComponent('table', {
   defaultStyles: {
     borderSpacing: 0,
     width: '100%',
+    '& th, td': {
+      verticalAlign: 'top',
+    },
   },
 });
 
