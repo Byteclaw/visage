@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
   KeyboardEventHandler,
   MouseEventHandler,
@@ -15,7 +16,6 @@ import {
   enableBodyScroll,
 } from 'body-scroll-lock';
 import { createComponent } from '../core';
-import { useGenerateId } from '../hooks';
 import { booleanVariant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
@@ -79,7 +79,7 @@ export function Modal({
   onClose,
   open = true,
 }: ModalProps) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `modal-${idTemplate}`;
   }, [outerId, idTemplate]);

@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   OmittableProps,
@@ -22,7 +23,7 @@ import {
   useSelector,
   SelectorAction,
 } from './hooks/useSelector';
-import { useGenerateId, useDebouncedCallback } from '../hooks';
+import { useDebouncedCallback } from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
 
@@ -84,7 +85,7 @@ export function AutocompleteInput<TValue extends any = string>({
   valueToString,
   ...restProps
 }: AutocompleteInputProps<TValue>) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `autocomplete-${idTemplate}`;
   }, [outerId, idTemplate]);

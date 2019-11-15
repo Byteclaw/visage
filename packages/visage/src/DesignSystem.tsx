@@ -1,14 +1,14 @@
+import {
+  EventEmitterContext,
+  useEventEmitterInstance,
+} from '@byteclaw/use-event-emitter';
+import { UniqueIdContextProvider } from '@byteclaw/use-unique-id';
 import { DesignSystem as BaseDesignSystem, Theme } from '@byteclaw/visage-core';
 import React, { Fragment, FunctionComponent, ReactNode, useState } from 'react';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
-import {
-  EventEmitterContext,
-  useEventEmitterInstance,
-} from './hooks/useEventEmitter';
-import { IdContext } from './hooks/useGenerateId';
 import { VisageFaces } from './faces';
 
 export interface DesignSystemProps {
@@ -30,7 +30,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   is = 0,
   theme,
 }) => {
-  const [idContextValue] = useState({ id: 0 });
+  const [idContextValue] = useState(0);
   const toastEventEmitter = useEventEmitterInstance();
 
   return (
@@ -40,7 +40,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <IdContext.Provider value={idContextValue}>
+      <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
           <Fragment>
             <GlobalReset />
@@ -50,7 +50,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
             </EventEmitterContext.Provider>
           </Fragment>
         </LayerManager>
-      </IdContext.Provider>
+      </UniqueIdContextProvider>
     </BaseDesignSystem>
   );
 };

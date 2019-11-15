@@ -1,3 +1,4 @@
+import { useEventEmitter } from '@byteclaw/use-event-emitter';
 import React, {
   cloneElement,
   useEffect,
@@ -7,7 +8,6 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { variant } from '../variants';
-import { useEventEmitter } from '../hooks';
 import { CloseButton } from './CloseButton';
 import { EmotionStyleSheet } from '../types';
 

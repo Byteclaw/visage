@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
   ReactNode,
   RefObject,
@@ -18,7 +19,7 @@ import {
 } from './shared';
 import { Modal } from './Modal';
 import { StyleProps } from '../createNPointTheme';
-import { useDebouncedCallback, useGenerateId } from '../hooks';
+import { useDebouncedCallback } from '../hooks';
 
 function getAnchorNode(
   anchor: HTMLElement | RefObject<HTMLElement>,
@@ -95,7 +96,7 @@ export function Popover({
   placement = 'bottom',
   ...restProps
 }: PopoverProps) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `popover-${idTemplate}`;
   }, [idTemplate, outerId]);

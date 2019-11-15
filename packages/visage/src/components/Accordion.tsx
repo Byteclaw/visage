@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, {
   Children,
@@ -12,7 +13,6 @@ import React, {
   KeyboardEvent,
 } from 'react';
 import { createComponent } from '../core';
-import { useGenerateId } from '../hooks';
 import { getNextIndexFromCycle } from './shared';
 import { booleanVariant } from '../variants';
 
@@ -118,7 +118,7 @@ interface AccordionProps {
 }
 
 export function Accordion({ children, id }: AccordionProps) {
-  const accordionNumId = useGenerateId();
+  const accordionNumId = useUniqueId();
   const accordionId = id || `accordion-${accordionNumId}`;
   const [openItem, setOpenItem] = useState(() => {
     const idx = Children.toArray(children).findIndex(item => item.props.open);

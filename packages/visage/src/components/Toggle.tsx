@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
@@ -20,7 +21,6 @@ import {
   visuallyHiddenStyles,
 } from './shared';
 import { Box } from './Box';
-import { useGenerateId } from '../hooks';
 
 const ToggleContainer = createComponent('div', {
   displayName: 'ToggleContainer',
@@ -160,7 +160,7 @@ export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
     ref: Ref<HTMLInputElement>,
   ) {
     const [inputChecked, setInputChecked] = useState(checked);
-    const idTemplate = useGenerateId();
+    const idTemplate = useUniqueId();
     const id = useMemo(() => {
       return outerId || `toggle-${idTemplate}-${name || ''}`;
     }, [outerId, idTemplate]);

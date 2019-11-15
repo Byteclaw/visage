@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   VisageComponent,
   StyleProps as VisageStyleProps,
@@ -12,7 +13,6 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { useGenerateId } from '../hooks';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
@@ -139,7 +139,7 @@ export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
     }: RadioProps,
     ref: Ref<HTMLInputElement>,
   ) {
-    const idTemplate = useGenerateId();
+    const idTemplate = useUniqueId();
     const id = useMemo(() => {
       return outerId || `chkbx-${idTemplate}-${name || ''}`;
     }, [outerId, idTemplate]);

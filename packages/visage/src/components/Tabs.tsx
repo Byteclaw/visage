@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key, jsx-a11y/anchor-is-valid, no-constant-condition */
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
   Children,
   KeyboardEventHandler,
@@ -14,7 +15,6 @@ import React, {
 } from 'react';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { useGenerateId } from '../hooks';
 import { Box } from './Box';
 import { Flex } from './Flex';
 
@@ -116,7 +116,7 @@ export function Tabs({
   tabListProps,
   ...restProps
 }: TabsProps) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || idTemplate;
   }, [outerId, idTemplate]);

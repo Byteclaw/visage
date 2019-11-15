@@ -1,20 +1,20 @@
 import {
+  EventEmitterContext,
+  useEventEmitterInstance,
+} from '@byteclaw/use-event-emitter';
+import { UniqueIdContextProvider } from '@byteclaw/use-unique-id';
+import {
   DesignSystem as BaseDesignSystem,
   Theme,
   useBreakpointManager,
 } from '@byteclaw/visage-core';
 import React, { Fragment, ReactNode, useState } from 'react';
-import {
-  EventEmitterContext,
-  useBreakpointDetection,
-  useEventEmitterInstance,
-} from './hooks';
+import { useBreakpointDetection } from './hooks';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
 import { VisageFaces } from './faces';
-import { IdContext } from './hooks/useGenerateId';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -47,7 +47,7 @@ export function ResponsiveDesignSystem({
   is = 0,
   theme,
 }: ResponsiveDesignSystemProps) {
-  const [idContextValue] = useState({ id: 0 });
+  const [idContextValue] = useState(0);
   const toastEventEmitter = useEventEmitterInstance();
   const [breakpoint, setBreakpoint] = useBreakpointManager(is, breakpoints);
   useBreakpointDetection(breakpoints, setBreakpoint);
@@ -59,7 +59,7 @@ export function ResponsiveDesignSystem({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <IdContext.Provider value={idContextValue}>
+      <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
           <Fragment>
             <GlobalReset />
@@ -69,7 +69,7 @@ export function ResponsiveDesignSystem({
             </EventEmitterContext.Provider>
           </Fragment>
         </LayerManager>
-      </IdContext.Provider>
+      </UniqueIdContextProvider>
     </BaseDesignSystem>
   );
 }
