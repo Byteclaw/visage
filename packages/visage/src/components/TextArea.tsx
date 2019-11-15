@@ -36,6 +36,10 @@ const TextAreaBaseControl = createComponent('textarea', {
     resize: 'none',
     p: 1,
     width: '100%',
+    // data-focused is used by text input on base
+    '&:focus, &[data-focused="true"]': {
+      outlineColor: 'blue',
+    },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
   }),
