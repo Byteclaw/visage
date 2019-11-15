@@ -31,6 +31,7 @@ const TabList = createComponent('div', {
 const TabNavigatonButton = createComponent('button', {
   displayName: 'TabNavigatonButton',
   defaultStyles: {
+    backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderStyle: 'solid',
     borderBottomWidth: 2,
