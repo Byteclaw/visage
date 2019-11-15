@@ -86,7 +86,7 @@ const BaseDrawer = createComponent('div', {
         }),
   }),
   variants: [
-    variant('side', true, ['bottom', 'left', 'right', 'top'], 'left' as any),
+    variant('side', true, ['bottom', 'left', 'right', 'top']),
     booleanVariant('open', true),
     booleanVariant('relative', true),
   ],
@@ -98,7 +98,7 @@ export function Drawer({
   onClose = () => {},
   open = false,
   relative = false,
-  side,
+  side = DrawerPosition.left,
   styles,
 }: {
   children?: ReactNode;
