@@ -116,6 +116,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   },
 };
 const monochromeButtonVariants: EmotionStyleSheet = {
+  backgroundColor: 'transparent',
   color: 'currentColor',
   borderColor: 'currentColor',
   '&:not([disabled]):hover, &:not([disabled]):focus': {
