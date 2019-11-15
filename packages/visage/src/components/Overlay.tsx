@@ -1,6 +1,6 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, { useMemo } from 'react';
 import { createComponent } from '../core';
-import { useGenerateId } from '../hooks';
 import { Portal } from './Portal';
 
 const OverlayDiv = createComponent('div', {
@@ -21,7 +21,7 @@ interface OverlayProps {
 }
 
 export function Overlay({ containerId, ...rest }: OverlayProps) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return containerId || `overlay-container-${idTemplate}}`;
   }, [containerId, idTemplate]);

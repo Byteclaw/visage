@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, {
   KeyboardEvent,
@@ -7,7 +8,6 @@ import React, {
   useEffect,
 } from 'react';
 import { createComponent } from '../core';
-import { useGenerateId } from '../hooks/useGenerateId';
 import { booleanVariant, variant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
@@ -112,7 +112,7 @@ export function Drawer({
   side?: DrawerPosition;
   styles?: ExtractVisageComponentProps<typeof BaseDrawer>['styles'];
 }) {
-  const id = useGenerateId();
+  const id = useUniqueId();
   const zIndex = useLayerManager();
   const onEscKeyUp = useCallback(
     (e: KeyboardEvent) => {

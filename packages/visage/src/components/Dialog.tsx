@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
   MouseEventHandler,
   ReactElement,
@@ -10,7 +11,6 @@ import React, {
   useMemo,
 } from 'react';
 import { createComponent } from '../core';
-import { useGenerateId } from '../hooks';
 import { Flex } from './Flex';
 import { CloseButton } from './CloseButton';
 import { Heading } from './Heading';
@@ -58,7 +58,7 @@ export function Dialog({
   role = 'dialog',
   secondaryLabel,
 }: DialogProps) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `dialog-${idTemplate}`;
   }, [outerId, idTemplate]);

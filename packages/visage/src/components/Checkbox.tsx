@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
@@ -5,7 +6,6 @@ import {
 import React, { ReactNode, forwardRef, Ref, useMemo } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../createNPointTheme';
-import { useGenerateId } from '../hooks';
 import {
   visuallyHiddenStyles,
   visuallyHiddenBooleanVariant,
@@ -118,7 +118,7 @@ export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
     }: CheckboxProps,
     ref: Ref<HTMLInputElement>,
   ) {
-    const idTemplate = useGenerateId();
+    const idTemplate = useUniqueId();
     const id = useMemo(() => {
       return outerId || `chkbx-${idTemplate}`;
     }, [outerId, idTemplate]);

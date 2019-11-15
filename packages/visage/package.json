@@ -30,6 +30,8 @@
     "access": "public"
   },
   "dependencies": {
+    "@byteclaw/use-event-emitter": "^1.0.0",
+    "@byteclaw/use-unique-id": "^1.0.0",
     "@byteclaw/visage-core": "^0.1.0",
     "@byteclaw/visage-utils": "^0.1.0",
     "@emotion/core": "^10.0.14",

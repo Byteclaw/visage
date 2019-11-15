@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   OmittableProps,
@@ -23,7 +24,7 @@ import {
   SelectorReducerEnhancer,
 } from './hooks/useSelector';
 import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
-import { useDebouncedCallback, useGenerateId } from '../hooks';
+import { useDebouncedCallback } from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { SvgIcon } from './SvgIcon';
 import { TextInput } from './TextInput';
@@ -84,7 +85,7 @@ export function Select<TValue extends any = string>({
   valueToString,
   ...restProps
 }: SelectProps<TValue>) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `select-${idTemplate}`;
   }, [outerId, idTemplate]);

@@ -1,3 +1,4 @@
+import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
@@ -8,7 +9,6 @@ import React, {
   ReactElement,
   useMemo,
 } from 'react';
-import { useGenerateId } from '../hooks';
 import { Box } from './Box';
 import { Label } from './Label';
 import { InlineError } from './InlineError';
@@ -50,7 +50,7 @@ export const FormField: FormFieldComponent = function FormField({
   required,
   ...restProps
 }: FormFieldProps & { control?: any }) {
-  const idTemplate = useGenerateId();
+  const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `field-${idTemplate}-${name || ''}`;
   }, [outerId, idTemplate]);

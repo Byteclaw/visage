@@ -1114,6 +1114,16 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
+"@byteclaw/use-event-emitter@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@byteclaw/use-event-emitter/-/use-event-emitter-1.0.0.tgz#05f88069e098a2cb3b49508f67d5a29b90ed49dc"
+  integrity sha512-HsfNxUnT+VpHa3IlsUNKXQPQMsdsvh3zalJ1AqMXRHAN8YYPoGJelHxDVMDO2INgqtKno919522m7NBZOrTQug==
+
+"@byteclaw/use-unique-id@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@byteclaw/use-unique-id/-/use-unique-id-1.0.0.tgz#afb4caeee3eb923c1ea31c5c219de622aca401fd"
+  integrity sha512-TdZJAELQZS5xlXjATBbFkf9hKdYrJP6ZsoyuE3/AJvFxxKTK1Wp/DOoRJ4qn3RdsBXvblD4DmMSui+tQb1Q7dA==
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
