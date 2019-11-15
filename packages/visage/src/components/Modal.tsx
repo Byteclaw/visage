@@ -35,7 +35,7 @@ const Backdrop = createComponent('div', {
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
   defaultStyles: props => ({
-    alignItems: 'center',
+    alignItems: 'flex-start',
     display: 'flex',
     justifyContent: 'center',
     top: 0,
@@ -43,15 +43,20 @@ const BaseModal = createComponent('div', {
     right: 0,
     bottom: 0,
     position: 'static',
+    p: 2,
     height: '100%',
+    ...(props.scrollable ? { overflowY: 'scroll' } : {}),
     ...(props.fixed ? { position: 'fixed' } : {}),
     ...(props.backdrop ? { backgroundColor: 'hsla(0,0%,9%,.5)' } : {}),
   }),
-  variants: [booleanVariant('fixed', true), booleanVariant('backdrop', true)],
+  variants: [
+    booleanVariant('fixed', true),
+    booleanVariant('backdrop', true),
+    booleanVariant('scrollable', true),
+  ],
 });
 
 interface ModalProps {
-  allowScrolling?: boolean;
   backdrop?: boolean;
   contentRef?: MutableRefObject<HTMLElement | null>;
   fixed?: boolean;
@@ -63,14 +68,22 @@ interface ModalProps {
   id?: string;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   /**
+   * Is scrolling for really big modal enabled?
+   */
+  scrollable?: boolean;
+  /**
    * Accessibility role, use alert dialog if you need user's interaction
    * Default is dialog (you don't need users immediate action)
    */
   open: boolean;
+  /**
+   * Should we allow to scroll document body?
+   */
+  unlockBodyScroll?: boolean;
 }
 
 export function Modal({
-  allowScrolling = false,
+  unlockBodyScroll = false,
   backdrop = true,
   contentRef,
   fixed = true,
@@ -78,6 +91,7 @@ export function Modal({
   id: outerId,
   onClose,
   open = true,
+  scrollable = false,
 }: ModalProps) {
   const idTemplate = useUniqueId();
   const id = useMemo(() => {
@@ -114,7 +128,7 @@ export function Modal({
 
   React.useEffect(() => {
     if (modalRef.current != null) {
-      if (!allowScrolling && open) {
+      if (!unlockBodyScroll && open) {
         disableBodyScroll(modalRef.current as HTMLElement);
       } else {
         enableBodyScroll(modalRef.current as HTMLElement);
@@ -123,7 +137,7 @@ export function Modal({
     return () => {
       clearAllBodyScrollLocks();
     };
-  }, [allowScrolling, open, modalRef.current]);
+  }, [unlockBodyScroll, open, modalRef.current]);
 
   if (typeof document === 'undefined' || !open) {
     return null;
@@ -139,6 +153,7 @@ export function Modal({
           fixed={fixed}
           onKeyDown={onEscKeyDownHandler}
           ref={modalRef}
+          scrollable={scrollable}
           styles={{ zIndex: zIndex + 1 }}
         >
           {children}

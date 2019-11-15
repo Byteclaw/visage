@@ -20,6 +20,7 @@ import {
 import { Modal } from './Modal';
 import { StyleProps } from '../createNPointTheme';
 import { useDebouncedCallback } from '../hooks';
+import { useLayerManager } from './LayerManager';
 
 function getAnchorNode(
   anchor: HTMLElement | RefObject<HTMLElement>,
@@ -103,6 +104,7 @@ export function Popover({
 
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
+  const zIndex = useLayerManager();
 
   const getAnchorOffset = React.useCallback(
     (
@@ -361,14 +363,20 @@ export function Popover({
   return (
     <Modal
       backdrop={open && backdrop}
-      allowScrolling={allowScrolling}
+      unlockBodyScroll={allowScrolling}
       fixed={false}
       id={id}
       onClose={onClose}
       open={open}
       contentRef={contentRef}
     >
-      <BasePopover {...restProps} tabIndex={-1} open={open} ref={contentRef}>
+      <BasePopover
+        {...restProps}
+        tabIndex={-1}
+        open={open}
+        ref={contentRef}
+        styles={{ zIndex, ...restProps.styles }}
+      >
         {children}
       </BasePopover>
     </Modal>
