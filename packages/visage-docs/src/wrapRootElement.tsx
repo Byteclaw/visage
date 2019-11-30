@@ -46,16 +46,6 @@ export const wrapRootElement = ({ element, props }: RootProps) => {
             href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
-          <meta property="og:image:type" content="image/png" />
-          <meta property="og:image:height" content="1080" />
-          <meta property="og:image:width" content="1080" />
-          <meta property="og:title" content="Visage" />
-          <meta property="og:description" content="Visage" />
-          <meta
-            property="og:url"
-            content="https://visage-design-system.netlify.com"
-          />
-          <meta property="og:type" content="website" />
         </Helmet>
         <Layout {...props}>{element}</Layout>
       </MDXProvider>

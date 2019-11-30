@@ -2,12 +2,15 @@ const { resolve } = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Visage',
-    description: 'Visage design system for rapid UI development',
+    banner: '',
+    description:
+      'Highly customizable React design system for rapid UI development',
     author: '@byteclaw',
-    install: 'npm i visage',
-    image: '/images/logo.png',
     github: 'https://github.com/byteclaw/visage',
+    ogLanguage: 'en_US',
+    siteLanguage: 'en',
+    title: 'Visage',
+    url: 'https://visage.design',
   },
   __experimentalThemes: [],
   plugins: [
@@ -30,13 +33,16 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'docs',
-        path: __dirname,
+        path: `${__dirname}/src/pages`,
         ignore: ['**/public/**/*', '**/.cache/**/*'],
       },
     },
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
+        defaultLayouts: {
+          default: require.resolve('./src/components/PageLayout.tsx'),
+        },
         gatsbyRemarkPlugins: [
           { resolve: 'gatsby-remark-emoji' },
           { resolve: 'gatsby-remark-slug' },
