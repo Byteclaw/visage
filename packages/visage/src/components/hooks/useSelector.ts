@@ -185,7 +185,7 @@ function selectorReducer(
       ) {
         const value = state.options[state.focusedIndex];
 
-        changes = { inputValue: state.valueToString(value), value };
+        changes = { ...changes, inputValue: state.valueToString(value), value };
       }
       break;
     }
