@@ -371,9 +371,9 @@ export function Sidebar() {
       </ListItem>
       <Divider />
       <ListItem>
-        <ListItemRouteLink to="https://github.com/byteclaw/visage">
+        <ListItemLink href="https://github.com/byteclaw/visage">
           Github
-        </ListItemRouteLink>
+        </ListItemLink>
       </ListItem>
     </List>
   );
