@@ -50,11 +50,11 @@ module.exports = {
         extensions: ['.md', '.mdx'],
       },
     },
-    /* {
+    {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
-        trackingId: 'UA-4603832-13',
+        trackingId: 'UA-153604238-1',
       },
-    }, */
+    },
   ],
 };
