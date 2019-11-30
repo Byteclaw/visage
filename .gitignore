@@ -8,3 +8,4 @@ public
 .idea
 .vscode
 yarn-error.log
+.envrc
