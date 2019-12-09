@@ -47,6 +47,10 @@ export function createComponent(
   };
 
   componentRenderer.displayName = `VisageComponent(${componentName})`;
+  const Component = markAsVisageComponent(React.forwardRef(
+    componentRenderer,
+  ) as any);
+  Component.displayName = componentRenderer.displayName;
 
-  return markAsVisageComponent(React.forwardRef(componentRenderer) as any);
+  return Component;
 }
