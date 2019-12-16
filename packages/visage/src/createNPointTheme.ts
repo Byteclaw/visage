@@ -56,6 +56,7 @@ interface NPointThemeSettings extends ThemeSettings {
     successText: string | ScaleValue<string>;
     warning: ScaleValue<string>;
     warningText: string | ScaleValue<string>;
+    [extra: string]: string | ScaleValue<string>;
   };
   fontFamilies: {
     body: string;
