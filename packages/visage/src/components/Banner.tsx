@@ -6,7 +6,7 @@ import {
 import React, { ReactNode, MouseEvent } from 'react';
 import { createComponent } from '../core';
 import { booleanVariant, variant } from '../variants';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps, EmotionStyleSheet } from '../types';
 import { Box } from './Box';
 import { CloseButton } from './CloseButton';
 import { Flex } from './Flex';
@@ -19,7 +19,6 @@ import {
   SuccessIcon,
   WarningIcon,
 } from '../assets';
-import { EmotionStyleSheet } from '../types';
 
 const statusIcons = {
   default: NeutralMessageIcon,

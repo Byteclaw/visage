@@ -5,7 +5,7 @@ import {
 } from '@byteclaw/visage-core';
 import React, { forwardRef } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 const ImageContainer = createComponent('div', {
   displayName: 'ImageContainer',

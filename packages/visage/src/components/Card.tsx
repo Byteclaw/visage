@@ -6,7 +6,7 @@ import {
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 const CardBase = createComponent('div', {
   displayName: 'Card',

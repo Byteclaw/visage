@@ -6,7 +6,7 @@ import React, {
   JSXElementConstructor,
 } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 const SvgIconBase = createComponent('div', {
   displayName: 'SvgIconBase',

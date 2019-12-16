@@ -7,8 +7,7 @@ import { keyframes } from '@emotion/core';
 import React from 'react';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
-import { StyleProps } from '../createNPointTheme';
-import { EmotionStyleSheet } from '../types';
+import { StyleProps, EmotionStyleSheet } from '../types';
 
 const indeterminateAnimation = keyframes({
   '0%': {

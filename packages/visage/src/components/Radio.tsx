@@ -12,7 +12,7 @@ import React, {
   Ref,
 } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,

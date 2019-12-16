@@ -13,7 +13,7 @@ import React, {
   useMemo,
 } from 'react';
 import { createComponent } from '../core';
-import { StyleProps as StyleSheetProps } from '../createNPointTheme';
+import { StyleProps as StyleSheetProps } from '../types';
 import { Flex } from './Flex';
 import {
   disabledControlStyles,
