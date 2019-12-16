@@ -57,10 +57,11 @@ interface ResolvedStylerMap {
 
 export interface ThemeSettings {
   [key: string]:
+    | undefined
     | string
     | number
     | ScaleValue<any>
-    | { [nested: string]: string | number | ScaleValue<any> };
+    | { [nested: string]: undefined | string | number | ScaleValue<any> };
 }
 
 export interface ThemeOptions<
