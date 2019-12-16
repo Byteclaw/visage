@@ -17,6 +17,7 @@ export function GlobalReset() {
         // padding: '0.05px', // prevent margin collapsing between parent and child
       },
       body: {
+        backgroundColor: theme.resolve('color', 'body', breakpoint).value,
         color: theme.resolve('color', 'bodyText', breakpoint).value,
         fontFamily: theme.resolve('fontFamily', 'body', breakpoint).value,
         margin: 0,
@@ -24,6 +25,7 @@ export function GlobalReset() {
         maxWidth: 'none',
       },
       html: {
+        backgroundColor: theme.resolve('color', 'body', breakpoint).value,
         boxSizing: 'border-box',
         fontSize: theme.resolve('fontSize', 0, breakpoint).value,
         margin: 0,
