@@ -52,6 +52,7 @@ export const theme = createScaleTheme({
   baselineGridSize: 8,
   fontScaleRatio: ratios.perfectFourth,
   colors: {
+    body: 'white',
     bodyText: 'black',
     dangerBodyText: 'red',
     ...generateScale<'danger' | 'dangerText'>('danger', 'red', 5, 5),
