@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react';
 import { Flex } from './Flex';
 import { ErrorIcon } from '../assets';
 import { SvgIcon } from './SvgIcon';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 interface InlineErrorProps {
   children: ReactNode;

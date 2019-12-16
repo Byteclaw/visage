@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 const ChipBase = createComponent('div', {
   displayName: 'Chip',

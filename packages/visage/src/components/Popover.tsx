@@ -18,8 +18,8 @@ import {
   TransformVerticalPosition,
 } from './shared';
 import { Modal } from './Modal';
-import { StyleProps } from '../createNPointTheme';
 import { useDebouncedCallback } from '../hooks';
+import { StyleProps } from '../types';
 import { useLayerManager } from './LayerManager';
 
 function getAnchorNode(

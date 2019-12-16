@@ -12,7 +12,7 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,

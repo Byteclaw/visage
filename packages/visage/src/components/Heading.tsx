@@ -7,7 +7,7 @@ import React, { forwardRef, createElement } from 'react';
 import { createComponent } from '../core';
 import { variant } from '../variants';
 import { SkeletonSentence } from './SkeletonSentence';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 const headingVariants: { [key: string]: StyleProps } = {
   1: {

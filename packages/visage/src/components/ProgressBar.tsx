@@ -5,7 +5,7 @@ import {
 } from '@byteclaw/visage-core';
 import React from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 import { visuallyHiddenStyles } from './shared';
 
 const HiddenProgressBar = createComponent('progress', {

@@ -7,7 +7,7 @@ import React, { forwardRef } from 'react';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import { Text } from './Text';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 
 const DividerLine = createComponent('div', {
   displayName: 'DividerLine',

@@ -2,7 +2,7 @@ import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import { keyframes } from '@emotion/core';
 import React from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../createNPointTheme';
+import { StyleProps } from '../types';
 import { SpinnerIcon } from '../assets';
 
 // thanks to https://codepen.io/aleksander351/pen/KzgKPo
