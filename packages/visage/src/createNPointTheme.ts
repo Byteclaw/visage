@@ -1,63 +1,17 @@
 import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
 import { getResponsiveValue, ScaleValue } from '@byteclaw/visage-utils';
 import ModularScale, { ratios } from 'modular-scale';
-import React from 'react';
 import { colorCssProperties } from './shared';
+import { ColorPalette } from './types';
 
 export { ratios };
-
-export interface StyleProps extends React.CSSProperties {
-  /**
-   * Calculates fontSize and lineHeight to be the same (based on modular scale = lineHeight)
-   * This is needed if wan't bigger icon than fontSize for given lineHeight (sets them to same value)
-   */
-  iconSize?: number | string;
-  /**
-   * Use same value as for line height to set a height of an element
-   */
-  linedHeight?: number | string;
-  /**
-   * Use same value as for line height to set a width of an element
-   */
-  linedWidth?: number | string;
-  m?: string | number;
-  my?: string | number;
-  mx?: string | number;
-  mb?: string | number;
-  ml?: string | number;
-  mr?: string | number;
-  mt?: string | number;
-  p?: string | number;
-  py?: string | number;
-  px?: string | number;
-  pb?: string | number;
-  pl?: string | number;
-  plOffset?: string | number;
-  prOffset?: string | number;
-  pr?: string | number;
-  pt?: string | number;
-}
 
 interface NPointThemeSettings extends ThemeSettings {
   baseFontSize: number | ScaleValue<number>;
   baseLineHeightRatio: number;
   baselineGridSize: number;
   fontScaleRatio: number;
-  colors: {
-    bodyText: string | ScaleValue<string>;
-    dangerBodyText: string | ScaleValue<string>;
-    danger: ScaleValue<string>;
-    dangerText: string | ScaleValue<string>;
-    neutral: string | ScaleValue<string>;
-    neutralText: string | ScaleValue<string>;
-    primary: string | ScaleValue<string>;
-    primaryText: string | ScaleValue<string>;
-    success: ScaleValue<string>;
-    successText: string | ScaleValue<string>;
-    warning: ScaleValue<string>;
-    warningText: string | ScaleValue<string>;
-    [extra: string]: string | ScaleValue<string>;
-  };
+  colors: ColorPalette;
   fontFamilies: {
     body: string;
     heading: string;

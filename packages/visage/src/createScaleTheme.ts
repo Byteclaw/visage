@@ -5,27 +5,14 @@ import {
   ScaleValue,
 } from '@byteclaw/visage-utils';
 import { colorCssProperties } from './shared';
+import { ColorPalette } from './types';
 
 interface ScaleThemeSettings extends ThemeSettings {
   fontSizes: ScaleValue<number | number[]>;
   lineHeights: ScaleValue<number | number[]>;
   baselineGridSize: number;
   fontScaleRatio: number;
-  colors: {
-    bodyText: string | ScaleValue<string>;
-    dangerBodyText: string | ScaleValue<string>;
-    danger: ScaleValue<string>;
-    dangerText: string | ScaleValue<string>;
-    neutral: string | ScaleValue<string>;
-    neutralText: string | ScaleValue<string>;
-    primary: string | ScaleValue<string>;
-    primaryText: string | ScaleValue<string>;
-    success: ScaleValue<string>;
-    successText: string | ScaleValue<string>;
-    warning: ScaleValue<string>;
-    warningText: string | ScaleValue<string>;
-    [extra: string]: string | ScaleValue<string>;
-  };
+  colors: ColorPalette;
   fontFamilies: {
     body: string;
     heading: string;
