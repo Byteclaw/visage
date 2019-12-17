@@ -29,10 +29,10 @@ const CheckboxControl = createComponent('input', {
       boxShadow: '0 0 0 3px blue',
     },
     '& + div': {
-      background: 'papayawhip',
+      backgroundColor: 'lightAccent',
     },
     '&:checked + div': {
-      background: 'salmon',
+      backgroundColor: 'primary',
     },
     '& + div > svg': {
       visibility: 'hidden',
@@ -41,7 +41,8 @@ const CheckboxControl = createComponent('input', {
       visibility: 'visible',
     },
     '&:disabled + div': {
-      backgroundColor: 'neutral.1',
+      backgroundColor: 'lightAccent',
+      opacity: 0.3,
     },
   },
   variants: [visuallyHiddenBooleanVariant],
