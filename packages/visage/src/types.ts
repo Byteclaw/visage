@@ -3,25 +3,15 @@ import { ScaleValue } from '@byteclaw/visage-utils';
 import React from 'react';
 
 export interface ColorPalette {
-  /** Body background color */
-  body?: string | ScaleValue<string>;
-  bodyText: string | ScaleValue<string>;
-  dangerBodyText: string | ScaleValue<string>;
-  /** Danger background color */
-  danger: ScaleValue<string>;
-  dangerText: string | ScaleValue<string>;
-  /** Neutral background color */
-  neutral: string | ScaleValue<string>;
-  neutralText: string | ScaleValue<string>;
-  /** Primary background color */
-  primary: string | ScaleValue<string>;
-  primaryText: string | ScaleValue<string>;
-  /** Success background color */
-  success: ScaleValue<string>;
-  successText: string | ScaleValue<string>;
-  /** Warning background color */
-  warning: ScaleValue<string>;
-  warningText: string | ScaleValue<string>;
+  /** Accent color to bring attention to design elements */
+  lightAccent: string;
+  /** Used as background color for dark on light design or text color of inverted design */
+  lightShades: string;
+  primary: string;
+  /** Alternative accent color */
+  darkAccent: string;
+  /** Used as text color for dark on light design or background color of inverted design */
+  darkShades: string;
   [extra: string]: undefined | string | ScaleValue<string>;
 }
 
