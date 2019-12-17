@@ -6,7 +6,7 @@ import { ColorPalette } from './types';
 
 export { ratios };
 
-interface NPointThemeSettings extends ThemeSettings {
+export interface NPointThemeSettings extends ThemeSettings {
   baseFontSize: number | ScaleValue<number>;
   baseLineHeightRatio: number;
   baselineGridSize: number;

@@ -7,7 +7,7 @@ import {
 import { colorCssProperties } from './shared';
 import { ColorPalette } from './types';
 
-interface ScaleThemeSettings extends ThemeSettings {
+export interface ScaleThemeSettings extends ThemeSettings {
   fontSizes: ScaleValue<number | number[]>;
   lineHeights: ScaleValue<number | number[]>;
   baselineGridSize: number;
