@@ -2,6 +2,7 @@ export * from './CodeBlock';
 export * from './CollapsibleNavigationSection';
 export * from './DesignSystem';
 export * from './Examples';
+export * from './GeneratePaletteButton';
 export * from './GridDebugTogglerButton';
 export * from './Layout';
 export * from './Search';
