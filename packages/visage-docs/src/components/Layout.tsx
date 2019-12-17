@@ -10,6 +10,7 @@ import React, { Fragment, ReactNode } from 'react';
 // @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
 import { ThemeTogglerContext } from '../theme';
+import { GeneratePaletteButton } from './GeneratePaletteButton';
 import { Sidebar } from './Sidebar';
 import { Search } from './Search';
 
@@ -25,13 +26,16 @@ export function Layout({ children }: Props) {
         <Text styles={{ fontSize: 2, lineHeight: 2 }}>Visage</Text>
         <ThemeTogglerContext.Consumer>
           {value => (
-            <Toggle
-              label="Use dark theme"
-              hiddenLabel
-              onChange={e => value.useDark(e.currentTarget.checked)}
-              checked={value.isDark}
-              styles={{ ml: 2 }}
-            />
+            <>
+              <Toggle
+                label="Use dark theme"
+                hiddenLabel
+                onChange={e => value.useDark(e.currentTarget.checked)}
+                checked={value.isDark}
+                styles={{ mx: 2 }}
+              />
+              <GeneratePaletteButton onSuccess={value.setColors} />
+            </>
           )}
         </ThemeTogglerContext.Consumer>
         <Search />
