@@ -64,13 +64,13 @@ export const BaseListItem = createComponent('li', {
     width: 'auto',
     '&[role="button"]:hover, &[role="button"]:focus': {
       outline: 'none',
-      backgroundColor: 'primary.1',
-      color: 'primaryText.1',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
       cursor: 'pointer',
       userSelect: 'none',
     },
     ...(props.gutters ? { px: 2, py: 1 } : {}),
-    ...(props.active ? { color: 'salmon', fontWeight: 'bolder' } : {}),
+    ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
   }),
   variants: [
     booleanVariant('active', true),
@@ -97,12 +97,14 @@ const ListItemLinkBase = createComponent('a', {
       userSelect: 'none',
     },
     '&:hover': {
-      backgroundColor: 'neutral.-1',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
     '&:focus': {
-      backgroundColor: 'neutral.-3',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
-    ...(props.active ? { color: 'salmon', fontWeight: 'bolder' } : {}),
+    ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
   }),
   variants: [booleanVariant('active', true)],
 });
