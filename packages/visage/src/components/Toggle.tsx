@@ -69,7 +69,7 @@ const ToggleControl = createComponent('input', {
       mx: 1,
       fontSize: '0.75em',
       textAlign: 'center',
-      color: 'white',
+      color: 'lightAccentText',
       top: '50%',
       transform: 'translate(-50%,-50%)',
       whiteSpace: 'nowrap',
@@ -80,20 +80,21 @@ const ToggleControl = createComponent('input', {
     },
     '& + div': {
       cursor: 'pointer',
-      backgroundColor: 'neutral.1',
+      backgroundColor: 'lightAccent',
       transitionProperty: 'all',
       transitionDuration: '0.2s',
       transitionTimingFunction: 'ease-out',
     },
     '&:checked + div': {
-      backgroundColor: 'salmon',
+      backgroundColor: 'primary',
     },
     '&:focus + div, &:active:not([disabled]) + div': {
       boxShadow: '0 0 0 2px blue',
     },
     '&[disabled] + div': {
-      backgroundColor: 'neutral.0',
+      backgroundColor: 'ligthAccent',
       cursor: 'not-allowed',
+      opacity: 0.3,
     },
   },
 });

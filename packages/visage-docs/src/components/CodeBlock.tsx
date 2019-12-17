@@ -7,7 +7,7 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
 import * as Utilities from '@byteclaw/visage-utils';
-import { theme, ThemeTogglerContext } from '../theme';
+import { ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
 import { WithState } from './WithState';
 
@@ -17,7 +17,6 @@ const Scope = {
   ...Core,
   ...DSScope,
   ...Utilities,
-  theme,
   WithRef,
   WithState,
 };
