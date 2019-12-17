@@ -36,8 +36,8 @@ const RadioControl = createComponent('input', {
       boxShadow: '0 0 0 3px blue',
     },
     '&:checked + div': {
-      background: 'salmon',
-      borderColor: 'salmon',
+      backgroundColor: 'primary',
+      borderColor: 'primary',
     },
     '& + div > svg': {
       visibility: 'hidden',
@@ -47,8 +47,9 @@ const RadioControl = createComponent('input', {
       fill: 'white',
     },
     '&:disabled + div, &:disabled + div > svg': {
-      borderColor: 'neutral.1',
-      fill: 'neutral.1',
+      borderColor: 'lightAccent',
+      fill: 'lightAccent',
+      opacity: 0.3,
     },
   },
 });
@@ -93,13 +94,13 @@ const RadioWrapper = createComponent('div', {
 });
 
 const togglerStyles = {
-  background: 'white',
+  background: 'rgba(255,255,255,0.3)',
   alignSelf: 'center',
   transition: 'all 150ms',
   borderRadius: 999,
   borderStyle: 'solid',
   borderWidth: '2px',
-  borderColor: 'neutral.0',
+  borderColor: 'lightAccent',
   mr: 1,
 };
 
