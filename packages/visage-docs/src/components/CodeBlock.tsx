@@ -1,12 +1,13 @@
 /* eslint-disable react/no-array-index-key */
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
-import React, { Fragment, useState } from 'react';
+import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
+import React, { Fragment, useContext, useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
 import * as Utilities from '@byteclaw/visage-utils';
-import { theme } from '../theme';
+import { theme, ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
 import { WithState } from './WithState';
 
@@ -47,6 +48,7 @@ export function CodeBlock({
   stringify,
   transpile = true,
 }: CodeBlockProps) {
+  const { isDark } = useContext(ThemeTogglerContext);
   const [isExpanded, setExpanded] = useState(expanded);
   const language: Language = baseClassName.replace(/language-/, '') as Language;
   const shouldTranspile = transpile !== 'false' && transpile !== false;
@@ -88,7 +90,7 @@ export function CodeBlock({
           {...defaultProps}
           code={children.trim()}
           language={language}
-          theme={duotoneLight}
+          theme={isDark ? duotoneDark : duotoneLight}
         >
           {({ className, style, tokens, getLineProps, getTokenProps }) => (
             <pre className={className} style={{ ...style, padding: '10px' }}>
