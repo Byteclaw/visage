@@ -52,6 +52,7 @@ const TextInputControlBase = createComponent('div', {
 const TextInputControl = createComponent('input', {
   displayName: 'TextInputControl',
   defaultStyles: {
+    backgroundColor: 'transparent',
     border: 'none',
     color: 'currentColor',
     cursor: 'inherit',
@@ -72,6 +73,10 @@ const TextInputControl = createComponent('input', {
     '&[data-suffix]': {
       pr: 0,
     },
+    '::placeholder': {
+      color: 'currentColor',
+      opacity: 0.3,
+    },
   },
 });
 
@@ -79,8 +84,8 @@ const InputBase = createComponent('div', {
   displayName: 'TextInputBase',
   defaultStyles: props => ({
     alignItems: 'center',
-    background: 'none',
-    borderColor: 'black',
+    backgroundColor: 'textInput',
+    borderColor: 'textInputBorder',
     borderStyle: 'solid',
     borderWidth: '1px',
     display: 'flex',
@@ -94,7 +99,7 @@ const InputBase = createComponent('div', {
     flexWrap: 'wrap',
     // data-focused is used by text input on base
     '&:focus, &[data-focused="true"]': {
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),

@@ -12,6 +12,14 @@ export interface ColorPalette {
   darkAccent: string | ScaleValue<string>;
   /** Used as text color for dark on light design or background color of inverted design */
   darkShades: string | ScaleValue<string>;
+  /** Uses as background for danger elements or as invalid color */
+  danger: string | ScaleValue<string>;
+  /** Uses as background for info elements or as info text color */
+  info: string | ScaleValue<string>;
+  /** Uses as background for success elements or as success text color */
+  success: string | ScaleValue<string>;
+  /** Uses as background for warning elements or as warning text color */
+  warning: string | ScaleValue<string>;
   [extra: string]: undefined | string | ScaleValue<string>;
 }
 

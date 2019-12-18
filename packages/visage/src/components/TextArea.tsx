@@ -22,10 +22,10 @@ import {
 const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
   defaultStyles: props => ({
-    borderColor: 'black',
+    borderColor: 'textInputBorder',
     borderStyle: 'solid',
     borderWidth: '1px',
-    background: 'none',
+    background: 'textInput',
     color: 'currentColor',
     fontFamily: 'inherit',
     fontSize: 'inherit',
@@ -38,7 +38,7 @@ const TextAreaBaseControl = createComponent('textarea', {
     width: '100%',
     // data-focused is used by text input on base
     '&:focus, &[data-focused="true"]': {
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
