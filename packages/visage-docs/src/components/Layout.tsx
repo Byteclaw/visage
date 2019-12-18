@@ -1,6 +1,7 @@
 import {
   Column,
   Container,
+  Flex,
   Header,
   SvgIcon,
   Toggle,
@@ -22,23 +23,27 @@ export function Layout({ children }: Props) {
   return (
     <>
       <Header styles={{ alignItems: 'center', pr: 1, py: 1 }}>
-        <SvgIcon icon={LogoSvg} styles={{ iconSize: 2 }} />{' '}
-        <Text styles={{ fontSize: 2, lineHeight: 2 }}>Visage</Text>
-        <ThemeTogglerContext.Consumer>
-          {value => (
-            <>
-              <Toggle
-                label="Use dark theme"
-                hiddenLabel
-                onChange={e => value.useDark(e.currentTarget.checked)}
-                checked={value.isDark}
-                styles={{ mx: 2 }}
-              />
-              <GeneratePaletteButton onSuccess={value.setColors} />
-            </>
-          )}
-        </ThemeTogglerContext.Consumer>
-        <Search />
+        <Flex styles={{ width: '16rem', flexShrink: 0 }}>
+          <SvgIcon icon={LogoSvg} styles={{ iconSize: 2 }} />{' '}
+          <Text styles={{ fontSize: 2, lineHeight: 2 }}>Visage</Text>
+        </Flex>
+        <Flex styles={{ justifyContent: 'space-between' }}>
+          <Search />
+          <ThemeTogglerContext.Consumer>
+            {value => (
+              <>
+                <Toggle
+                  label="Use dark theme"
+                  hiddenLabel
+                  onChange={e => value.useDark(e.currentTarget.checked)}
+                  checked={value.isDark}
+                  styles={{ mx: 2 }}
+                />
+                <GeneratePaletteButton onSuccess={value.setColors} />
+              </>
+            )}
+          </ThemeTogglerContext.Consumer>
+        </Flex>
       </Header>
       <Container>
         <Column as="nav" styles={{ width: '16rem', flexShrink: 0 }}>
