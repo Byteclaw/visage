@@ -38,7 +38,6 @@ const ToggleContainer = createComponent('div', {
     borderStyle: 'solid',
     borderColor: 'transparent',
     outline: 'none',
-    mb: 1,
     userSelect: 'none',
   },
 });

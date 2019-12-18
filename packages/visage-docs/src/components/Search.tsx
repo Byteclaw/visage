@@ -46,7 +46,9 @@ const SearchInput = connectAutoComplete(({ refine, hits: searchHits }: any) => {
           <SvgIcon icon={AlgoliaLogo} />
         </a>
       }
-      baseProps={{ styles: { ml: 'auto', mb: 0 } }}
+      baseProps={{
+        styles: { mr: 'auto', mb: 0, minWidth: ['100%', '100%', '30em'] },
+      }}
       type="search"
     />
   );
