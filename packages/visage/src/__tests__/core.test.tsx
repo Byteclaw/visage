@@ -9,7 +9,7 @@ const theme = createNPointTheme({
   baseLineHeightRatio: 1.6,
   baselineGridSize: 8,
   fontScaleRatio: 1.6,
-  fontFamilies: {
+  fontFamiliy: {
     body: 'body-font',
     heading: 'heading-font',
   },

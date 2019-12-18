@@ -2,10 +2,10 @@ import { depthFirstObjectMerge, omitProps } from '@byteclaw/visage-utils';
 import React, { useMemo, useRef } from 'react';
 import { VisageContext } from './context';
 import { isVisageComponent, resolveStyleSheet } from './utils';
+import { Theme } from './theme';
 import {
   StyleProps,
   StyleSheet,
-  Theme,
   UseDesignSystemHookOptions,
   UseVisageHookOptions,
   Visage,

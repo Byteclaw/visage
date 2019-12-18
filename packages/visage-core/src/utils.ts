@@ -1,5 +1,6 @@
 import { VisageComponentSymbol } from './constants';
-import { ResolvedStyleSheet, Theme, VisageComponent } from './types';
+import { ResolvedStyleSheet, VisageComponent } from './types';
+import { Theme } from './theme';
 
 export function displayName(
   Component: React.ComponentClass | React.FunctionComponent | string,

@@ -1,4 +1,5 @@
 import React, { ComponentProps } from 'react';
+import { Theme } from './theme';
 
 export interface Visage<TTheme extends Theme> {
   breakpoint: number;
@@ -47,14 +48,6 @@ export interface StyleProps<TStyleSheet extends ValidStyleSheet = {}> {
 
 export interface StyleGenerator {
   (styleSheet: ResolvedStyleSheet): { [prop: string]: any };
-}
-
-export interface Theme {
-  resolve(
-    propName: string,
-    propValue: any,
-    breakpoint: number,
-  ): { value: any; properties: string[] };
 }
 
 export interface ResolvedStyleSheet {

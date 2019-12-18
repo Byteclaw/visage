@@ -46,7 +46,7 @@ export const defaultColors: [number, number, number][] = [
 ];
 
 export const themeSettings: ScaleThemeSettings = {
-  fontSizes: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
+  fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
   lineHeights: { values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56], offset: 2 },
   baselineGridSize: 8,
   fontScaleRatio: ratios.perfectFourth,
@@ -57,7 +57,7 @@ export const themeSettings: ScaleThemeSettings = {
     darkAccent: color.rgb(defaultColors[3]).string(),
     darkShades: color.rgb(defaultColors[4]).string(),
   }),
-  fontFamilies: {
+  fontFamily: {
     body: 'Open Sans,sans-serif',
     heading: 'Nunito Sans,sans-serif',
   },
