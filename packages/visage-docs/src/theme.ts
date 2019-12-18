@@ -23,6 +23,12 @@ export function createColors(colors: ColorPalette): ColorPalette {
     infoText: color(colors.info).isDark() ? 'white' : 'black',
     warningText: color(colors.warning).isDark() ? 'white' : 'black',
     successText: color(colors.success).isDark() ? 'white' : 'black',
+    textInput: color(colors.lightShades)
+      .lighten(0.3)
+      .string(),
+    textInputBorder: color(colors.lightShades)
+      .darken(0.3)
+      .string(),
   };
 }
 

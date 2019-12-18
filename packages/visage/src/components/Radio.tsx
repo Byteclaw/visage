@@ -30,10 +30,10 @@ const RadioControl = createComponent('input', {
     ...visuallyHiddenStyles,
     // prevent blinking when clicking on already focused radio
     '&[aria-invalid="true"] + div': {
-      boxShadow: '0 0 0 2px red',
+      boxShadow: '0 0 0 2px danger',
     },
     '&:focus + div, &:active:not([disabled]) + div': {
-      boxShadow: '0 0 0 3px blue',
+      boxShadow: '0 0 0 3px darkAccent',
     },
     '&:checked + div': {
       backgroundColor: 'primary',

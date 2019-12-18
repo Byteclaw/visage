@@ -22,7 +22,7 @@ const BaseFileInput = createComponent('input', {
   defaultStyles: {
     ...visuallyHiddenStyles,
     '&:focus + div': {
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
   },
 });
@@ -49,13 +49,13 @@ const FileInputControl = createComponent('div', {
     // synthetic focus on drop
     '&[data-draggedover="true"]': {
       // cursor: 'copy',
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
-    borderColor: 'black',
+    backgroundColor: 'textInput',
+    borderColor: 'textInputBorder',
     borderStyle: 'solid',
     borderWidth: '1px',
-    background: 'none',
-    color: 'inherit',
+    color: 'currentColor',
     fontFamily: 'inherit',
     fontSize: 'inherit',
     lineHeight: 'inherit',
