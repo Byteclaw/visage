@@ -1,7 +1,8 @@
 import React from 'react';
 import { VisageContext } from './context';
 import { useDesignSystem } from './hooks';
-import { Theme, StyleGenerator, StyleSheet } from './types';
+import { Theme } from './theme';
+import { StyleGenerator, StyleSheet } from './types';
 
 interface DesignSystemProps<
   TTheme extends Theme,
