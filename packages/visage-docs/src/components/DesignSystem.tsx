@@ -5,6 +5,7 @@ import {
   createColors,
   createDarkColors,
   defaultColors,
+  defaultStateColors,
   ThemeTogglerContext,
   themeSettings,
 } from '../theme';
@@ -21,6 +22,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
   const [isDark, setDarkTheme] = useState(false);
   const theme = useMemo(() => {
     const palette = {
+      ...defaultStateColors,
       lightShades: color.rgb(colors[0]).string(),
       lightAccent: color.rgb(colors[1]).string(),
       primary: color.rgb(colors[2]).string(),

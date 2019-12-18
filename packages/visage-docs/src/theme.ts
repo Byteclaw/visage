@@ -19,6 +19,10 @@ export function createColors(colors: ColorPalette): ColorPalette {
     darkAccentText: color(colors.darkAccent).isDark() ? 'white' : 'black',
     darkShadesText: color(colors.darkShades).isDark() ? 'white' : 'black',
     primaryText: color(colors.primary).isDark() ? 'white' : 'black',
+    dangerText: color(colors.danger).isDark() ? 'white' : 'black',
+    infoText: color(colors.info).isDark() ? 'white' : 'black',
+    warningText: color(colors.warning).isDark() ? 'white' : 'black',
+    successText: color(colors.success).isDark() ? 'white' : 'black',
   };
 }
 
@@ -45,12 +49,20 @@ export const defaultColors: [number, number, number][] = [
   [36, 24, 40],
 ];
 
+export const defaultStateColors = {
+  danger: 'red',
+  info: 'blue',
+  success: 'green',
+  warning: 'yellow',
+};
+
 export const themeSettings: ScaleThemeSettings = {
   fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
   lineHeights: { values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56], offset: 2 },
   baselineGridSize: 8,
   fontScaleRatio: ratios.perfectFourth,
   colors: createColors({
+    ...defaultStateColors,
     lightShades: color.rgb(defaultColors[0]).string(),
     lightAccent: color.rgb(defaultColors[1]).string(),
     primary: color.rgb(defaultColors[2]).string(),
