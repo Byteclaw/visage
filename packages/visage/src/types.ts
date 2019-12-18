@@ -4,14 +4,14 @@ import React from 'react';
 
 export interface ColorPalette {
   /** Accent color to bring attention to design elements */
-  lightAccent: string;
+  lightAccent: string | ScaleValue<string>;
   /** Used as background color for dark on light design or text color of inverted design */
-  lightShades: string;
-  primary: string;
+  lightShades: string | ScaleValue<string>;
+  primary: string | ScaleValue<string>;
   /** Alternative accent color */
-  darkAccent: string;
+  darkAccent: string | ScaleValue<string>;
   /** Used as text color for dark on light design or background color of inverted design */
-  darkShades: string;
+  darkShades: string | ScaleValue<string>;
   [extra: string]: undefined | string | ScaleValue<string>;
 }
 

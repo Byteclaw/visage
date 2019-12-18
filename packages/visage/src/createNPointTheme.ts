@@ -1,7 +1,6 @@
 import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
 import { getResponsiveValue, ScaleValue } from '@byteclaw/visage-utils';
 import ModularScale, { ratios } from 'modular-scale';
-import { colorCssProperties } from './shared';
 import { ColorPalette } from './types';
 
 export { ratios };
@@ -12,7 +11,7 @@ export interface NPointThemeSettings extends ThemeSettings {
   baselineGridSize: number;
   fontScaleRatio: number;
   colors: ColorPalette;
-  fontFamilies: {
+  fontFamily: {
     body: string;
     heading: string;
     [name: string]: string;
@@ -40,10 +39,21 @@ export function createNPointTheme(settings: NPointThemeSettings) {
     };
   });
 
-  return createTheme<any, 'gridSize' | 'modularSize' | 'modularLineHeight'>({
+  return createTheme<
+    any,
+    'boxShadowColor' | 'gridSize' | 'modularSize' | 'modularLineHeight'
+  >({
     resolvers: {
+      boxShadowColor(propName, value: string, { resolve }, breakpoint) {
+        // split value by whitespace
+        const parts: string[] = value.split(/\s+/);
+
+        return parts
+          .map(part => resolve(propName, 'color', part, breakpoint))
+          .join(' ');
+      },
       // this is pseudostyler used to compute sizes based on grid size (basically multipliers)
-      gridSize(value) {
+      gridSize(propName, value) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
@@ -51,7 +61,7 @@ export function createNPointTheme(settings: NPointThemeSettings) {
         }
         return value;
       },
-      modularSize(value, _, breakpoint) {
+      modularSize(propName, value, _, breakpoint) {
         const numericValue = Number(value);
         const { modularScale } = getResponsiveValue(
           breakpoint,
@@ -64,7 +74,7 @@ export function createNPointTheme(settings: NPointThemeSettings) {
 
         return value;
       },
-      modularLineHeight(value, { resolve }, breakpoint) {
+      modularLineHeight(propName, value, { resolve }, breakpoint) {
         const numericValue = Number(value);
         const { alignedBaseLineHeight } = getResponsiveValue(
           breakpoint,
@@ -72,7 +82,12 @@ export function createNPointTheme(settings: NPointThemeSettings) {
         );
 
         if (!Number.isNaN(numericValue)) {
-          const modularSize = resolve('modularSize', value, breakpoint);
+          const modularSize = resolve(
+            propName,
+            'modularSize',
+            value,
+            breakpoint,
+          );
 
           const lineHeightCoefficient = Math.ceil(
             modularSize / alignedBaseLineHeight,
@@ -87,17 +102,8 @@ export function createNPointTheme(settings: NPointThemeSettings) {
       },
     },
     stylers: {
-      ...colorCssProperties.reduce(
-        (acc, cssProp) => ({
-          ...acc,
-          [cssProp]: {
-            themeKey: 'colors',
-          },
-        }),
-        {},
-      ),
-      fontFamily: {
-        themeKey: 'fontFamilies',
+      boxShadow: {
+        resolver: 'boxShadowColor',
       },
       fontSize: {
         format: 'px',

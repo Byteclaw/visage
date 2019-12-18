@@ -4,16 +4,15 @@ import {
   getScaleValue,
   ScaleValue,
 } from '@byteclaw/visage-utils';
-import { colorCssProperties } from './shared';
 import { ColorPalette } from './types';
 
 export interface ScaleThemeSettings extends ThemeSettings {
-  fontSizes: ScaleValue<number | number[]>;
+  fontSize: ScaleValue<number | number[]>;
   lineHeights: ScaleValue<number | number[]>;
   baselineGridSize: number;
   fontScaleRatio: number;
   colors: ColorPalette;
-  fontFamilies: {
+  fontFamily: {
     body: string;
     heading: string;
     [name: string]: string;
@@ -21,10 +20,21 @@ export interface ScaleThemeSettings extends ThemeSettings {
 }
 
 export function createScaleTheme(settings: ScaleThemeSettings) {
-  return createTheme<any, 'gridSize' | 'scaleLineHeight' | 'scaleSize'>({
+  return createTheme<
+    any,
+    'boxShadowColor' | 'gridSize' | 'scaleLineHeight' | 'scaleSize'
+  >({
     resolvers: {
+      boxShadowColor(propName, value: string, { resolve }, breakpoint) {
+        // split value by whitespace
+        const parts: string[] = value.split(/\s+/);
+
+        return parts
+          .map(part => resolve(propName, 'color', part, breakpoint))
+          .join(' ');
+      },
       // this is pseudostyler used to compute sizes based on grid size (basically multipliers)
-      gridSize(value) {
+      gridSize(propName, value) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
@@ -32,23 +42,23 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
         }
         return value;
       },
-      scaleSize(value, _, breakpoint) {
+      scaleSize(propName, value, _, breakpoint) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
-          if (Array.isArray(settings.fontSizes.values[numericValue])) {
+          if (Array.isArray(settings.fontSize.values[numericValue])) {
             return getResponsiveValue(
               breakpoint,
-              getScaleValue(settings.fontSizes, numericValue),
+              getScaleValue(settings.fontSize, numericValue),
             );
           }
 
-          return getScaleValue(settings.fontSizes, numericValue);
+          return getScaleValue(settings.fontSize, numericValue);
         }
 
         return value;
       },
-      scaleLineHeight(value, _, breakpoint) {
+      scaleLineHeight(propName, value, _, breakpoint) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
@@ -67,17 +77,8 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
       },
     },
     stylers: {
-      ...colorCssProperties.reduce(
-        (acc, cssProp) => ({
-          ...acc,
-          [cssProp]: {
-            themeKey: 'colors',
-          },
-        }),
-        {},
-      ),
-      fontFamily: {
-        themeKey: 'fontFamilies',
+      boxShadow: {
+        resolver: 'boxShadowColor',
       },
       fontSize: {
         format: 'px',

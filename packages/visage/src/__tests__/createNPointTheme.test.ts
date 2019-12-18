@@ -10,7 +10,7 @@ const theme = createNPointTheme({
     primary: 'black',
     primaryText: 'white',
   },
-  fontFamilies: {
+  fontFamily: {
     body: 'font',
     heading: 'font',
   },
