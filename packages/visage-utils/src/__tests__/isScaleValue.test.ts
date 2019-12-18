@@ -10,6 +10,6 @@ describe('isScaleValue', () => {
     expect(isScaleValue({})).toBe(false);
     expect(isScaleValue(10)).toBe(false);
     expect(isScaleValue({ offset: 'a', values: [] })).toBe(false);
-    expect(isScaleValue({ offset: 0, values: [] })).toBe(false);
+    expect(isScaleValue({ offset: 0, values: [] })).toBe(true);
   });
 });
