@@ -149,6 +149,9 @@ export const Button = createComponent('button', {
     position: 'relative',
     textDecoration: 'none',
     verticalAlign: 'middle',
+    '&:focus': {
+      boxShadow: '0 0 0 3px darkAccent',
+    },
     // only outlined buttons can be monochrome
     ...(props.outlined
       ? props.monochrome
