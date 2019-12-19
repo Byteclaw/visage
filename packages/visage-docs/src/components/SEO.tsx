@@ -48,7 +48,7 @@ export function SEO({
   };
 
   return (
-    <Helmet title={seo.title} titleTemplate="%s - Design System">
+    <Helmet title={seo.title} titleTemplate="%s - Visage Design System">
       <html lang={siteMetadata.siteLanguage} />
       <meta name="description" content={seo.description} />
       <meta name="og:locale" content={siteMetadata.ogLanguage} />
