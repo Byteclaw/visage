@@ -29,14 +29,40 @@ export interface VisageFaces {
   CheckboxWrapper?: EmotionStyleSheet;
   // Chip.tsx
   Chip?: EmotionStyleSheet;
-  // Chip.tsx
-  ChipDeleter?: EmotionStyleSheet;
   // CloseButton.tsx
   CloseButton?: EmotionStyleSheet;
   // Layout.ts
   Column?: EmotionStyleSheet;
   // Layout.ts
   Container?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTable?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableBody?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableColumn?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableColumnSkeleton?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableFooter?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableFooterRow?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableHeader?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableHeaderColumn?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableHeaderRow?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableNumericColumnSkeleton?: EmotionStyleSheet;
+  // DataTable.tsx
+  DataTableRow?: EmotionStyleSheet;
+  // DescriptionList.tsx
+  DescriptionList?: EmotionStyleSheet;
+  // DescriptionList.tsx
+  DescriptionListItemDescription?: EmotionStyleSheet;
+  // DescriptionList.tsx
+  DescriptionListItemTerm?: EmotionStyleSheet;
   // Dialog.tsx
   Dialog?: EmotionStyleSheet;
   // Divider.tsx
@@ -45,6 +71,10 @@ export interface VisageFaces {
   DividerLabel?: EmotionStyleSheet;
   // Divider.tsx
   DividerLine?: EmotionStyleSheet;
+  // Drawer.tsx
+  Drawer?: EmotionStyleSheet;
+  // Drawer.tsx
+  DrawerBackdrop?: EmotionStyleSheet;
   // FieldSet.tsx
   FieldSet?: EmotionStyleSheet;
   // FieldSet.tsx
@@ -99,6 +129,8 @@ export interface VisageFaces {
   MenuItem?: EmotionStyleSheet;
   // Modal.tsx
   Modal?: EmotionStyleSheet;
+  // Modal.tsx
+  ModalBackdrop?: EmotionStyleSheet;
   // Overlay.tsx
   OverlayDiv?: EmotionStyleSheet;
   // Paragraph.tsx
@@ -123,14 +155,14 @@ export interface VisageFaces {
   Row?: EmotionStyleSheet;
   // Spinner.tsx
   SpinnerSvgBase?: EmotionStyleSheet;
+  // Svg.ts
+  Svg?: EmotionStyleSheet;
   // SvgIcon.tsx
   SvgIconBase?: EmotionStyleSheet;
   // Tabs.tsx
-  TabNavigationAnchor?: EmotionStyleSheet;
+  TabList?: EmotionStyleSheet;
   // Tabs.tsx
-  TabNavigationList?: EmotionStyleSheet;
-  // Tabs.tsx
-  TabNavigationListItem?: EmotionStyleSheet;
+  TabNavigatonButton?: EmotionStyleSheet;
   // Text.tsx
   Text?: EmotionStyleSheet;
   // TextArea.tsx
