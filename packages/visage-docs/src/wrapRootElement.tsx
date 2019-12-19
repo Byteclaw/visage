@@ -18,7 +18,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   h6: (props: any) => <Heading {...props} level={6} />,
   p: (props: any) => <Paragraph {...props} />,
   pre: (props: any) => props.children,
-  wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
+  wrapper: ({ children }: any) => <>{children}</>,
 };
 
 interface RootProps {

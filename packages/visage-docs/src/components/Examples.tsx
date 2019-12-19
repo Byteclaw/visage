@@ -1,5 +1,5 @@
-import React, { Fragment, MouseEvent, useCallback, useState } from 'react';
 import { Button, List, ListItem, Popover } from '@byteclaw/visage';
+import React, { MouseEvent, useCallback, useState } from 'react';
 
 export function ButtonWithPopover() {
   const [anchorEl, setAnchorEl] = useState<EventTarget | null>(null);
@@ -11,7 +11,7 @@ export function ButtonWithPopover() {
   const open = Boolean(anchorEl);
 
   return (
-    <Fragment>
+    <>
       <Button onClick={handleClick}>Pop me</Button>
       <Popover
         allowScrolling
@@ -29,6 +29,6 @@ export function ButtonWithPopover() {
           <ListItem button>Three</ListItem>
         </List>
       </Popover>
-    </Fragment>
+    </>
   );
 }

@@ -21,7 +21,7 @@ import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
 const Backdrop = createComponent('div', {
-  displayName: 'Backdrop',
+  displayName: 'ModalBackdrop',
   defaultStyles: {
     position: 'fixed',
     top: 0,

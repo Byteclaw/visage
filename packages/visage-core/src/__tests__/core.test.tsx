@@ -1,4 +1,4 @@
-/* eslint-disable react/no-multi-comp, react/prefer-stateless-function */
+/* eslint-disable react/no-multi-comp, react/prefer-stateless-function, max-classes-per-file */
 import React from 'react';
 import { isValidElementType } from 'react-is';
 import { createComponent, displayName, isVisageComponent } from '..';

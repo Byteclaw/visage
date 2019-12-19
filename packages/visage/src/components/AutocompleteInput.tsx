@@ -7,7 +7,6 @@ import {
 } from '@byteclaw/visage-core';
 import React, {
   ChangeEventHandler,
-  Fragment,
   useCallback,
   useMemo,
   useRef,
@@ -157,12 +156,11 @@ export function AutocompleteInput<TValue extends any = string>({
     },
     [enhanceReducer, readOnly],
   );
-  const enhancedOnStateChange: SelectorStateChangeListener<
-    TValue
-  > = useCallback(
+  const enhancedOnStateChange: SelectorStateChangeListener<TValue> = useCallback(
     (previousState, currentState, dispatch) => {
-      // eslint-disable-next-line no-unused-expressions
-      onStateChange && onStateChange(previousState, currentState, dispatch);
+      if (onStateChange) {
+        onStateChange(previousState, currentState, dispatch);
+      }
 
       // if input value has changed because of InputChanged action
       // load options debounced
@@ -296,7 +294,7 @@ export function AutocompleteInput<TValue extends any = string>({
   );
 
   return (
-    <Fragment>
+    <>
       <TextInput
         {...restProps}
         aria-activedescendant={
@@ -343,7 +341,7 @@ export function AutocompleteInput<TValue extends any = string>({
             ))
           : null}
       </Menu>
-    </Fragment>
+    </>
   );
 }
 

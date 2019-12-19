@@ -5,7 +5,6 @@ import {
 import React, {
   createContext,
   cloneElement,
-  Fragment,
   ReactElement,
   ReactNode,
   useCallback,
@@ -176,12 +175,12 @@ export function List({
 
   return cloneElement(container, {
     children: (
-      <Fragment>
+      <>
         {heading}
         <ListDepthContext.Provider value={depth + 1}>
           {listItems}
         </ListDepthContext.Provider>
-      </Fragment>
+      </>
     ),
     tabIndex,
     ...restProps,
@@ -246,13 +245,13 @@ export function CollapsibleList({
   }
 
   return renderContainer(
-    <Fragment>
+    <>
       {renderHeading ? renderHeading() : null}
       {renderToggler ? renderToggler(collapsed, onToggle, onKeyDown) : null}
       <ListDepthContext.Provider value={depth + 1}>
         {renderItemsContainer(collapsed, children)}
       </ListDepthContext.Provider>
-    </Fragment>,
+    </>,
     restProps,
   );
 }

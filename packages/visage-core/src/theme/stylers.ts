@@ -22,7 +22,7 @@ const colorProps = [
   'stroke',
 ] as const;
 
-type ColorPropNames = (typeof colorProps)[number];
+type ColorPropNames = typeof colorProps[number];
 
 export const stylers: ThemeStylerMap<ColorPropNames | 'catchAll'> = {
   ...colorProps.reduce(
@@ -30,10 +30,7 @@ export const stylers: ThemeStylerMap<ColorPropNames | 'catchAll'> = {
       ...colorStylers,
       [propName]: {
         resolver: 'color',
-      } as ThemeStylerSettings<
-        keyof (typeof formatters),
-        keyof (typeof resolvers)
-      >,
+      } as ThemeStylerSettings<keyof typeof formatters, keyof typeof resolvers>,
     }),
     {} as ThemeStylerMap<ColorPropNames>,
   ),

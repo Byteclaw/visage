@@ -69,19 +69,6 @@ function selectorReducer(
     invokedBy: action,
   };
 
-  // change events to interactive and non interactive and use them accordingly to busy state
-  /* if (!state.isBusy) {
-    // if selector is busy, it ignores all changes until it's not busy
-    switch (action.type) {
-      case 'InputChange': {
-        changes = {
-          ...changes,
-          inputValue: action.value,
-        };
-        break;
-      }
-    } */
-
   // following are possible only if menu is open
   if (state.isOpen) {
     switch (action.type) {
@@ -275,22 +262,24 @@ export function useSelector<TValue extends any = string>({
 
   if (previousState.current !== state) {
     // call on state change if state has changed
-    // eslint-disable-next-line no-unused-expressions
-    onStateChange && onStateChange(previousState.current, state, dispatch);
-
-    // call onInputValueChange only if action used to change it is InputChange
-    if (
-      // state.invokedBy.type === 'InputChange' &&
-      previousState.current.inputValue !== state.inputValue
-    ) {
-      // eslint-disable-next-line no-unused-expressions
-      onInputValueChange && onInputValueChange(state.inputValue);
+    if (onStateChange) {
+      onStateChange(previousState.current, state, dispatch);
     }
 
-    // call onChange if selection changed
-    if (previousState.current.value !== state.value && state.value !== value) {
-      // eslint-disable-next-line no-unused-expressions
-      onChange && onChange(state.value);
+    // call onInputValueChange if inputValue changed
+    if (previousState.current.inputValue !== state.inputValue) {
+      if (onInputValueChange) {
+        onInputValueChange(state.inputValue);
+      }
+    }
+
+    // call onChange if value changed
+    if (
+      previousState.current.value !== state.value &&
+      state.value !== value &&
+      onChange
+    ) {
+      onChange(state.value);
     }
 
     previousState.current = state;

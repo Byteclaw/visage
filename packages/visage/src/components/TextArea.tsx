@@ -100,8 +100,9 @@ export const TextArea: VisageComponent<
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const innerOnChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
       e => {
-        // eslint-disable-next-line no-unused-expressions
-        onChange && onChange(e);
+        if (onChange) {
+          onChange(e);
+        }
 
         setValue(e.currentTarget.value);
       },
