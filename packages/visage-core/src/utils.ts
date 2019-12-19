@@ -2,6 +2,9 @@ import { VisageComponentSymbol } from './constants';
 import { ResolvedStyleSheet, VisageComponent } from './types';
 import { Theme } from './theme';
 
+/**
+ * Returns a display name of a component
+ */
 export function displayName(
   Component: React.ComponentClass | React.FunctionComponent | string,
 ): string {
@@ -14,18 +17,24 @@ export function displayName(
   );
 }
 
+/**
+ * Marks a component as Visage component
+ */
 export function markAsVisageComponent<
   T extends
     | React.ComponentClass
     | React.FunctionComponent
     | VisageComponent<any, any>
 >(component: T): T {
-  // eslint-disable-next-line
+  // eslint-disable-next-line no-param-reassign
   (component as any)[VisageComponentSymbol] = true;
 
   return component;
 }
 
+/**
+ * Detects if component is a Visage component
+ */
 export function isVisageComponent(
   component: React.ComponentClass | React.FunctionComponent | string,
 ): boolean {
@@ -36,6 +45,13 @@ export function isVisageComponent(
   return !!(component as any)[VisageComponentSymbol];
 }
 
+/**
+ * Resolves raw stylesheet using current responsive breakpoint and theme
+ *
+ * This means that for example display: ['block', 'none'] is resolved to block if breakpoint is 0
+ *
+ * Works for nested style sheets too
+ */
 export function resolveStyleSheet<
   TTheme extends Theme,
   TStyleSheet extends { [key: string]: any }

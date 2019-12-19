@@ -2,9 +2,27 @@ import React, { ComponentProps } from 'react';
 import { Theme } from './theme';
 
 export interface Visage<TTheme extends Theme> {
+  /**
+   * Current responsive breakpoint
+   */
   breakpoint: number;
+  /**
+   * Returns a face by component name
+   */
   face(componentName: string): StyleSheet<any>;
+  /**
+   * Generates a style representation for a style sheet
+   *
+   * For example:
+   * In case of css it returns className prop
+   * In case of react-nativr it should return styles prop
+   */
   generate(styleSheet: StyleSheet<any>): { [prop: string]: any };
+  /**
+   * Resolves style prop value to final value
+   *
+   * For example fontSize 0 is resolved to some value by stylers defined in theme
+   */
   resolveStyle(
     prop: string,
     value:
@@ -14,6 +32,9 @@ export interface Visage<TTheme extends Theme> {
       | undefined
       | (string | number | null | undefined)[],
   ): string | number | null | undefined;
+  /**
+   * Current theme
+   */
   theme: TTheme;
 }
 
@@ -41,13 +62,27 @@ export type StyleSheet<
     | MakeResponsiveStyleSheet<TStyleSheet>;
 };
 
+/**
+ * These are the props that are being passed down the tree if you wrap one Visage component
+ * with another Visage component
+ *
+ * For example createComponent(anotherVisageComponent) or `<VisageComponent as={AnotherVisageComponent} />`
+ */
 export interface StyleProps<TStyleSheet extends ValidStyleSheet = {}> {
   styles?: StyleSheet<TStyleSheet>;
   parentStyles?: StyleSheet<TStyleSheet>;
 }
 
-export interface StyleGenerator {
-  (styleSheet: ResolvedStyleSheet): { [prop: string]: any };
+/**
+ * Style generator is responsible for converting style sheet from component to final styles representation
+ * For example to css style sheet and returns a className prop
+ * Or in case of react-native StyleSheet object and returns it in styles prop
+ */
+export interface StyleGenerator<TTheme extends Theme = Theme> {
+  (styleSheet: StyleSheet<any>, breakpoint: number, theme: TTheme): {
+    /** Output prop name that references generated style e.g. className, styles, etc */
+    [prop: string]: any;
+  };
 }
 
 export interface ResolvedStyleSheet {
@@ -132,7 +167,7 @@ export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
 export interface UseDesignSystemHookOptions<TTheme extends Theme = Theme> {
   is?: number;
   faces?: { [componenName: string]: undefined | StyleSheet<any> };
-  styleGenerator: StyleGenerator;
+  styleGenerator: StyleGenerator<TTheme>;
   theme: TTheme;
 }
 

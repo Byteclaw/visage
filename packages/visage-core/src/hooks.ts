@@ -1,7 +1,7 @@
 import { depthFirstObjectMerge, omitProps } from '@byteclaw/visage-utils';
 import React, { useMemo, useRef } from 'react';
 import { VisageContext } from './context';
-import { isVisageComponent, resolveStyleSheet } from './utils';
+import { isVisageComponent } from './utils';
 import { Theme } from './theme';
 import {
   StyleProps,
@@ -69,13 +69,11 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
             return cacheRef.current[key];
           }
 
-          const resolvedStyleSheet = resolveStyleSheet(
+          const res = options.styleGenerator(
             styleSheet,
             breakpoint,
             options.theme,
           );
-
-          const res = options.styleGenerator(resolvedStyleSheet);
           cacheRef.current[key] = res;
 
           return res;
