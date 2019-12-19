@@ -25,7 +25,7 @@ export function variant<TName extends string, TVariants extends readonly any[]>(
   stripProp: boolean,
   // eslint-disable-next-line
   variants: TVariants,
-  defaultValue: (keyof TVariants) | 'default' = 'default',
+  defaultValue: keyof TVariants | 'default' = 'default',
 ): {
   [K in TName]?:
     | 'default'

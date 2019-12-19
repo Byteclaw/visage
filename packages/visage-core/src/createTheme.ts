@@ -14,9 +14,9 @@ import {
   ThemeStylerSettings,
 } from './theme';
 
-type CoreFormattersName = keyof (typeof coreFormatters);
-type CoreResolversName = keyof (typeof coreResolvers);
-type CoreStylersName = keyof (typeof coreStylers);
+type CoreFormattersName = keyof typeof coreFormatters;
+type CoreResolversName = keyof typeof coreResolvers;
+type CoreStylersName = keyof typeof coreStylers;
 
 interface ResolvedStylerSettings {
   format: ThemeFormatterFunction;
@@ -118,7 +118,7 @@ export function createTheme<
     CoreStylersName | TStylersName
   > = {} as any;
 
-  (Object.keys(allStylers) as Array<keyof (typeof allStylers)>).forEach(
+  (Object.keys(allStylers) as Array<keyof typeof allStylers>).forEach(
     propName => {
       const settings = allStylers[propName];
 
@@ -166,7 +166,7 @@ export function createTheme<
     const value = getResponsiveValue(breakpoint, propValue, undefined);
 
     const styler =
-      resolvedStylers[propName as keyof (typeof resolvedStylers)] ||
+      resolvedStylers[propName as keyof typeof resolvedStylers] ||
       resolvedStylers.catchAll;
 
     const styleValue = styler.format(

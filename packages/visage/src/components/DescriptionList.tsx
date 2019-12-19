@@ -63,12 +63,12 @@ export function DescriptionListItem({
   term,
 }: DescriptionListItemProps) {
   return (
-    <Fragment>
+    <>
       {prefix}
       <Term>{term}</Term>
       <Description>{description}</Description>
       {suffix}
-    </Fragment>
+    </>
   );
 }
 

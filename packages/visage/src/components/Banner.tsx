@@ -172,7 +172,7 @@ export const Banner: VisageComponent<
           <SvgIcon
             aria-hidden
             icon={
-              statusIcons[(status as any) as keyof (typeof statusIcons)] ||
+              statusIcons[(status as any) as keyof typeof statusIcons] ||
               statusIcons.default
             }
           />

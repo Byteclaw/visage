@@ -6,7 +6,7 @@ import {
   Toggle,
   Text,
 } from '@byteclaw/visage';
-import React, { Fragment, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 // @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
 import { ThemeTogglerContext } from '../theme';
@@ -20,7 +20,7 @@ interface Props {
 
 export function Layout({ children }: Props) {
   return (
-    <Fragment>
+    <>
       <Header styles={{ alignItems: 'center', pr: 1, py: 1 }}>
         <SvgIcon icon={LogoSvg} styles={{ iconSize: 2 }} />{' '}
         <Text styles={{ fontSize: 2, lineHeight: 2 }}>Visage</Text>
@@ -48,6 +48,6 @@ export function Layout({ children }: Props) {
           {children}
         </Column>
       </Container>
-    </Fragment>
+    </>
   );
 }

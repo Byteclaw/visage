@@ -8,7 +8,7 @@ import {
   Theme,
   useBreakpointManager,
 } from '@byteclaw/visage-core';
-import React, { Fragment, ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useBreakpointDetection } from './hooks';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
@@ -61,13 +61,13 @@ export function ResponsiveDesignSystem({
     >
       <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
-          <Fragment>
+          <>
             <GlobalReset />
             <EventEmitterContext.Provider value={toastEventEmitter}>
               <ToastManager />
               {children}
             </EventEmitterContext.Provider>
-          </Fragment>
+          </>
         </LayerManager>
       </UniqueIdContextProvider>
     </BaseDesignSystem>

@@ -4,7 +4,7 @@ import {
 } from '@byteclaw/use-event-emitter';
 import { UniqueIdContextProvider } from '@byteclaw/use-unique-id';
 import { DesignSystem as BaseDesignSystem, Theme } from '@byteclaw/visage-core';
-import React, { Fragment, FunctionComponent, ReactNode, useState } from 'react';
+import React, { FunctionComponent, ReactNode, useState } from 'react';
 import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
@@ -42,13 +42,13 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
     >
       <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
-          <Fragment>
+          <>
             <GlobalReset />
             <EventEmitterContext.Provider value={toastEventEmitter}>
               <ToastManager />
               {children}
             </EventEmitterContext.Provider>
-          </Fragment>
+          </>
         </LayerManager>
       </UniqueIdContextProvider>
     </BaseDesignSystem>

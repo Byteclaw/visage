@@ -13,7 +13,7 @@ import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
 const Backdrop = createComponent('div', {
-  displayName: 'Backdrop',
+  displayName: 'DrawerBackdrop',
   defaultStyles: {
     backgroundColor: 'hsla(0,0%,9%,.5)',
     position: 'fixed',
