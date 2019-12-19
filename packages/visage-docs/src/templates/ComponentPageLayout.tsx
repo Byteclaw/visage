@@ -12,7 +12,6 @@ interface ComponentPageLayoutProps {
       body: string;
       fields: {
         githubEditLink: string;
-        twitterDiscussLink: string;
       };
       frontmatter: {
         date: string;
@@ -62,25 +61,15 @@ export const pageQuery = graphql`
   }
 `;
 
-export function ComponentPageLayout({
-  data,
-  path,
-  uri,
-}: ComponentPageLayoutProps) {
-  const { body, frontmatter } = data.mdx;
+export function ComponentPageLayout({ data, path }: ComponentPageLayoutProps) {
+  const { body, fields, frontmatter } = data.mdx;
 
   return (
     <>
       <SEO {...frontmatter} pathname={path} />
       <MDXRenderer>{body}</MDXRenderer>
       <Box>
-        <Link
-          href={`https://github.com/Byteclaw/visage/edit/master/packages/visage-docs/src/pages${uri}${
-            uri === '/' ? 'index.mdx' : '.mdx'
-          }`}
-        >
-          Edit on GitHub
-        </Link>
+        <Link href={fields.githubEditLink}>Edit on GitHub</Link>
       </Box>
     </>
   );
