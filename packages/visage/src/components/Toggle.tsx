@@ -38,7 +38,6 @@ const ToggleContainer = createComponent('div', {
     borderStyle: 'solid',
     borderColor: 'transparent',
     outline: 'none',
-    mb: 1,
     userSelect: 'none',
   },
 });
@@ -81,7 +80,7 @@ const ToggleControl = createComponent('input', {
     },
     '& + div': {
       cursor: 'pointer',
-      backgroundColor: 'lightAccent',
+      backgroundColor: 'neutral',
       transitionProperty: 'all',
       transitionDuration: '0.2s',
       transitionTimingFunction: 'ease-out',

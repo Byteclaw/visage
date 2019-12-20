@@ -60,6 +60,7 @@ export const defaultStateColors = {
   info: 'blue',
   success: 'green',
   warning: 'yellow',
+  neutral: '#e3e8ee',
 };
 
 export const themeSettings: ScaleThemeSettings = {
