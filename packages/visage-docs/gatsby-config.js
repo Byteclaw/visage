@@ -40,10 +40,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        gatsbyRemarkPlugins: [
-          { resolve: 'gatsby-remark-emoji' },
-          { resolve: 'gatsby-remark-slug' },
-        ],
+        gatsbyRemarkPlugins: [{ resolve: 'gatsby-remark-emoji' }],
         extensions: ['.md', '.mdx'],
       },
     },
