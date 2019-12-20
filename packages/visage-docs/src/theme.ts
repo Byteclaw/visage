@@ -1,7 +1,7 @@
 import { ScaleThemeSettings, ratios, ColorPalette } from '@byteclaw/visage';
 import color from 'color';
 import { createContext } from 'react';
-import { generateColorScale } from './utils';
+import { generateColorScale, findColor } from './utils';
 
 export const ThemeTogglerContext = createContext<{
   isDark: boolean;
@@ -12,18 +12,39 @@ export const ThemeTogglerContext = createContext<{
 ThemeTogglerContext.displayName = 'ThemeToggler';
 
 export function createColors(colors: ColorPalette): ColorPalette {
+  const danger = findColor(
+    colors.danger as string,
+    color(colors.lightShades).string(),
+  );
+  const info = findColor(
+    colors.info as string,
+    color(colors.lightShades).string(),
+  );
+  const success = findColor(
+    colors.success as string,
+    color(colors.lightShades).string(),
+  );
+  const warning = findColor(
+    colors.warning as string,
+    color(colors.lightShades).string(),
+  );
+
   return {
     ...colors,
+    danger,
+    info,
+    success,
+    warning,
     bodyText: color(colors.lightShades).isDark() ? 'white' : 'black',
     lightAccentText: color(colors.lightAccent).isDark() ? 'white' : 'black',
     lightShadesText: color(colors.lightShades).isDark() ? 'white' : 'black',
     darkAccentText: color(colors.darkAccent).isDark() ? 'white' : 'black',
     darkShadesText: color(colors.darkShades).isDark() ? 'white' : 'black',
     primaryText: color(colors.primary).isDark() ? 'white' : 'black',
-    dangerText: color(colors.danger).isDark() ? 'white' : 'black',
-    infoText: color(colors.info).isDark() ? 'white' : 'black',
-    warningText: color(colors.warning).isDark() ? 'white' : 'black',
-    successText: color(colors.success).isDark() ? 'white' : 'black',
+    dangerText: color(danger).isDark() ? 'white' : 'black',
+    infoText: color(info).isDark() ? 'white' : 'black',
+    warningText: color(warning).isDark() ? 'white' : 'black',
+    successText: color(success).isDark() ? 'white' : 'black',
     textInput: color(colors.lightShades)
       .lighten(0.3)
       .string(),
@@ -60,7 +81,7 @@ export const defaultStateColors = {
   danger: 'red',
   info: 'blue',
   success: 'green',
-  warning: 'yellow',
+  warning: 'orange',
   ...generateColorScale('neutral', '#e3e8ee', 5, 5),
 };
 
