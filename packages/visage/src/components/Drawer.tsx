@@ -96,7 +96,7 @@ const BaseDrawer = createComponent('div', {
 export function Drawer({
   children,
   inPortal = false,
-  onClose = () => {},
+  onClose,
   open = false,
   relative = false,
   side = DrawerPosition.left,
@@ -146,7 +146,7 @@ export function Drawer({
 
   const drawer = (
     <LayerManager>
-      <Backdrop onClick={onClose} styles={{ zIndex }} />
+      {onClose && <Backdrop onClick={onClose} styles={{ zIndex }} />}
       <BaseDrawer open={open} side={side} styles={{ zIndex, ...styles }}>
         {children}
       </BaseDrawer>

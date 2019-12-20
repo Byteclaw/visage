@@ -1,11 +1,13 @@
 import {
   Column,
   Container,
+  Drawer,
   Flex,
   Header,
   SvgIcon,
   Toggle,
   Text,
+  DrawerPosition,
 } from '@byteclaw/visage';
 import React, { Fragment, ReactNode } from 'react';
 // @ts-ignore
@@ -22,49 +24,63 @@ interface Props {
 export function Layout({ children }: Props) {
   return (
     <Fragment>
-      <Header styles={{ py: 1 }}>
-        <Container styles={{ px: 6, alignItems: 'center' }}>
-          <Flex styles={{ width: '20rem', flexShrink: 0, px: 3 }}>
-            <SvgIcon icon={LogoSvg} styles={{ iconSize: 2, mr: 0 }} />{' '}
-            <Text styles={{ fontSize: 2, lineHeight: 2, fontWeight: 'bold' }}>
-              Visage
+      <Drawer
+        styles={{
+          width: '16rem',
+          flexShrink: 0,
+          height: '100vh',
+          overflowY: 'scroll',
+          boxShadow: 'inset -1px 0 0 0 neutral',
+        }}
+        open
+        side={DrawerPosition.left}
+      >
+        <Flex styles={{ alignItems: 'center', py: 1, px: 1 }}>
+          <SvgIcon icon={LogoSvg} styles={{ iconSize: 2, mr: 0 }} />{' '}
+          <Text styles={{ fontSize: 2, lineHeight: 2, fontWeight: 'bold' }}>
+            Visage
+            <Text as="span" styles={{ fontSize: -2, fontWeight: 400 }}>
+              &nbsp; v0.9.0
             </Text>
-          </Flex>
-          <Flex styles={{ flex: 1, pl: 6 }}>
-            <Search />
-            <ThemeTogglerContext.Consumer>
-              {value => (
-                <>
-                  <Toggle
-                    label="Use dark theme"
-                    hiddenLabel
-                    onChange={e => value.useDark(e.currentTarget.checked)}
-                    checked={value.isDark}
-                    styles={{ mx: 2 }}
-                  />
-                  <GeneratePaletteButton onSuccess={value.setColors} />
-                </>
-              )}
-            </ThemeTogglerContext.Consumer>
-          </Flex>
+          </Text>
+        </Flex>
+        <Sidebar />
+      </Drawer>
+      <Flex styles={{ flexDirection: 'column', ml: '16rem' }}>
+        <Header styles={{ py: 1 }}>
+          <Container styles={{ px: 6, alignItems: 'center' }}>
+            <Flex styles={{ flex: 1 }}>
+              <Search />
+              <ThemeTogglerContext.Consumer>
+                {value => (
+                  <>
+                    <Toggle
+                      label="Use dark theme"
+                      hiddenLabel
+                      onChange={e => value.useDark(e.currentTarget.checked)}
+                      checked={value.isDark}
+                      styles={{ mx: 2 }}
+                    />
+                    <GeneratePaletteButton onSuccess={value.setColors} />
+                  </>
+                )}
+              </ThemeTogglerContext.Consumer>
+            </Flex>
+          </Container>
+        </Header>
+        <Container styles={{ px: 6 }}>
+          <Column
+            styles={{
+              pt: 4,
+              pb: 6,
+              width: '100%',
+              '& > div': { width: '100%' },
+            }}
+          >
+            {children}
+          </Column>
         </Container>
-      </Header>
-      <Container styles={{ px: 6 }}>
-        <Column as="nav" styles={{ width: '20rem', flexShrink: 0, px: 2 }}>
-          <Sidebar />
-        </Column>
-        <Column
-          styles={{
-            pl: 6,
-            pt: 4,
-            pb: 6,
-            width: '100%',
-            '& > div': { width: '100%' },
-          }}
-        >
-          {children}
-        </Column>
-      </Container>
+      </Flex>
     </Fragment>
   );
 }
