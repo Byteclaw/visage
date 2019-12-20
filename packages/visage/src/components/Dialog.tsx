@@ -24,7 +24,7 @@ const BaseDialog = createComponent('div', {
   defaultStyles: props => ({
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: 'lightShades',
     position: 'relative',
     ...(props.scroll === 'content' ? { maxHeight: ['100%', '90%'] } : {}),
     m: 'auto',

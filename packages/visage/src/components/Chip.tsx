@@ -20,13 +20,15 @@ const ChipBase = createComponent('div', {
     display: 'inline-flex',
     p: 1,
     position: 'relative',
-    outline: '2px solid transparent',
+    outlineColor: 'transparent',
+    outlineStyle: 'solid',
+    outlineWidth: '2px',
     outlineOffset: '-2px',
     '&[data-clickable="true"]': {
       cursor: 'pointer',
     },
     '&:focus, &[aria-selected="true"]': {
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
   },
 });
