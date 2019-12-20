@@ -16,12 +16,9 @@ export const InlineError: VisageComponent<InlineErrorProps, StyleProps> = ({
   return (
     <Flex
       {...restProps}
-      styles={{ color: 'dangerBodyText', fontSize: 0, lineHeight: 0 }}
+      styles={{ color: 'danger', fontSize: 0, lineHeight: 0 }}
     >
-      <SvgIcon
-        icon={ErrorIcon}
-        styles={{ '& path:last-child': { fill: 'dangerBodyText' }, mr: 1 }}
-      />
+      <SvgIcon icon={ErrorIcon} styles={{ mr: 1 }} />
       {children}
     </Flex>
   );

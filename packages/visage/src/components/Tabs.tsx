@@ -52,12 +52,11 @@ const TabNavigatonButton = createComponent('button', {
       fontWeight: 'bold',
     },
     '&:focus': {
-      borderBottomColor: 'blue',
+      borderBottomColor: 'darkAccent',
     },
     '&[disabled]': {
-      color: 'grey.1',
       cursor: 'not-allowed',
-      borderBottomColor: 'transparent',
+      opacity: 0.3,
     },
   },
 });

@@ -36,7 +36,7 @@ const MenuBase = createComponent(List, {
     maxHeight: ['100vh', 'calc(100vh - 32px)'],
     maxWidth: ['100vw', 'calc(100vw - 32px)'],
     overflowY: 'scroll',
-    backgroundColor: 'white',
+    backgroundColor: 'lightShades',
     ...(props.isFullscreen ? { width: '100vw', height: '100vh' } : {}),
   }),
   variants: [booleanVariant('isFullscreen', true)],
