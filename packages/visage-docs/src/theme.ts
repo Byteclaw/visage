@@ -1,6 +1,7 @@
+import { ScaleThemeSettings, ratios, ColorPalette } from '@byteclaw/visage';
 import color from 'color';
 import { createContext } from 'react';
-import { ScaleThemeSettings, ratios, ColorPalette } from '@byteclaw/visage';
+import { generateColorScale } from './utils';
 
 export const ThemeTogglerContext = createContext<{
   isDark: boolean;
@@ -60,7 +61,7 @@ export const defaultStateColors = {
   info: 'blue',
   success: 'green',
   warning: 'yellow',
-  neutral: '#e3e8ee',
+  ...generateColorScale('neutral', '#e3e8ee', 5, 5),
 };
 
 export const themeSettings: ScaleThemeSettings = {
