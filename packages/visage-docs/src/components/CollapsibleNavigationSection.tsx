@@ -31,6 +31,7 @@ export function CollapsibleNavigationSection({
               tabIndex={0}
               styles={{
                 justifyContent: 'space-between',
+                fontWeight: 600,
               }}
             >
               {title}

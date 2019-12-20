@@ -49,11 +49,11 @@ export const wrapRootElement = ({ element, props }: RootProps) => {
       <MDXProvider components={mdxComponents}>
         <Helmet>
           <link
-            href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,700,700i&display=swap&subset=latin-ext"
+            href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700,700i&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap&subset=latin-ext"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
         </Helmet>

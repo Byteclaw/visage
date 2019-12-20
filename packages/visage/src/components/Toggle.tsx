@@ -80,7 +80,7 @@ const ToggleControl = createComponent('input', {
     },
     '& + div': {
       cursor: 'pointer',
-      backgroundColor: 'lightAccent',
+      backgroundColor: 'neutral',
       transitionProperty: 'all',
       transitionDuration: '0.2s',
       transitionTimingFunction: 'ease-out',
