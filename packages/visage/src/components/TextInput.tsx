@@ -64,7 +64,7 @@ const TextInputControl = createComponent('input', {
     lineHeight: 'inherit',
     outline: 'none',
     m: 0,
-    py: 0,
+    py: 1,
     px: 1,
     width: '100%',
     '&[data-prefix]': {
@@ -93,7 +93,7 @@ const InputBase = createComponent('div', {
     lineHeight: 0,
     outline: '2px solid transparent',
     outlineOffset: '-2px',
-    py: 1,
+    py: 0,
     px: 0,
     position: 'relative',
     flexWrap: 'wrap',
