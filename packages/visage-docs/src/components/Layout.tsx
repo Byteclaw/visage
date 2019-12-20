@@ -9,7 +9,7 @@ import {
   Text,
   DrawerPosition,
 } from '@byteclaw/visage';
-import React, { Fragment, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 // @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
 import { ThemeTogglerContext } from '../theme';
@@ -23,7 +23,7 @@ interface Props {
 
 export function Layout({ children }: Props) {
   return (
-    <Fragment>
+    <>
       <Drawer
         styles={{
           width: '16rem',
@@ -81,6 +81,6 @@ export function Layout({ children }: Props) {
           </Column>
         </Container>
       </Flex>
-    </Fragment>
+    </>
   );
 }
