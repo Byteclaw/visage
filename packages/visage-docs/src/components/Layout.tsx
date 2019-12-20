@@ -11,6 +11,8 @@ import {
 } from '@byteclaw/visage';
 import React, { ReactNode } from 'react';
 // @ts-ignore
+import { version as visageVersion } from '../../../visage/package.json';
+// @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
 import { ThemeTogglerContext } from '../theme';
 import { GeneratePaletteButton } from './GeneratePaletteButton';
@@ -40,7 +42,7 @@ export function Layout({ children }: Props) {
           <Text styles={{ fontSize: 2, lineHeight: 2, fontWeight: 'bold' }}>
             Visage
             <Text as="span" styles={{ fontSize: -2, fontWeight: 400 }}>
-              &nbsp; v0.9.0
+              &nbsp; v{visageVersion}
             </Text>
           </Text>
         </Flex>
