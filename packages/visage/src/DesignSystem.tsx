@@ -3,13 +3,19 @@ import {
   useEventEmitterInstance,
 } from '@byteclaw/use-event-emitter';
 import { UniqueIdContextProvider } from '@byteclaw/use-unique-id';
-import { DesignSystem as BaseDesignSystem, Theme } from '@byteclaw/visage-core';
+import {
+  DesignSystem as BaseDesignSystem,
+  Theme,
+  StyleGenerator,
+} from '@byteclaw/visage-core';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
-import { styleGenerator } from './emotionStyleGenerator';
+import { createEmotionStyleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
 import { VisageFaces } from './faces';
+
+const defaultStyleGenerator = createEmotionStyleGenerator();
 
 export interface DesignSystemProps {
   children?: ReactNode;
@@ -20,6 +26,7 @@ export interface DesignSystemProps {
   faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
+  styleGenerator?: StyleGenerator;
   theme: Theme;
 }
 
@@ -28,6 +35,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   children,
   faces,
   is = 0,
+  styleGenerator = defaultStyleGenerator,
   theme,
 }) => {
   const [idContextValue] = useState(0);

@@ -7,14 +7,17 @@ import {
   DesignSystem as BaseDesignSystem,
   Theme,
   useBreakpointManager,
+  StyleGenerator,
 } from '@byteclaw/visage-core';
 import React, { ReactNode, useState } from 'react';
 import { useBreakpointDetection } from './hooks';
-import { styleGenerator } from './emotionStyleGenerator';
 import { GlobalReset } from './GlobalReset';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
+import { createEmotionStyleGenerator } from './emotionStyleGenerator';
 import { VisageFaces } from './faces';
+
+const defaultStyleGenerator = createEmotionStyleGenerator();
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -36,6 +39,7 @@ export interface ResponsiveDesignSystemProps {
   faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
+  styleGenerator?: StyleGenerator;
   theme: Theme;
 }
 
@@ -45,6 +49,7 @@ export function ResponsiveDesignSystem({
   defaultZIndex = 10,
   faces,
   is = 0,
+  styleGenerator = defaultStyleGenerator,
   theme,
 }: ResponsiveDesignSystemProps) {
   const [idContextValue] = useState(0);
