@@ -294,7 +294,7 @@ export function AutocompleteInput<TValue extends any = string>({
   );
 
   return (
-    <>
+    <React.Fragment>
       <TextInput
         {...restProps}
         aria-activedescendant={
@@ -341,7 +341,7 @@ export function AutocompleteInput<TValue extends any = string>({
             ))
           : null}
       </Menu>
-    </>
+    </React.Fragment>
   );
 }
 

@@ -25,7 +25,7 @@ interface Props {
 
 export function Layout({ children }: Props) {
   return (
-    <>
+    <React.Fragment>
       <Drawer
         styles={{
           width: '16rem',
@@ -55,7 +55,7 @@ export function Layout({ children }: Props) {
               <Search />
               <ThemeTogglerContext.Consumer>
                 {value => (
-                  <>
+                  <React.Fragment>
                     <Toggle
                       label="Use dark theme"
                       hiddenLabel
@@ -64,7 +64,7 @@ export function Layout({ children }: Props) {
                       styles={{ mx: 2 }}
                     />
                     <GeneratePaletteButton onSuccess={value.setColors} />
-                  </>
+                  </React.Fragment>
                 )}
               </ThemeTogglerContext.Consumer>
             </Flex>
@@ -83,6 +83,6 @@ export function Layout({ children }: Props) {
           </Column>
         </Container>
       </Flex>
-    </>
+    </React.Fragment>
   );
 }

@@ -1,5 +1,5 @@
 import { Global } from '@emotion/core';
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Button, useDesignSystem } from '@byteclaw/visage';
 
 export function GridDebugTogglerButton() {
@@ -10,7 +10,7 @@ export function GridDebugTogglerButton() {
   );
 
   return (
-    <>
+    <Fragment>
       {showGrid ? (
         <Global
           styles={{
@@ -30,6 +30,6 @@ export function GridDebugTogglerButton() {
       <Button onClick={() => shouldShowGrid(!showGrid)} type="button">
         Toggle debug grid
       </Button>
-    </>
+    </Fragment>
   );
 }

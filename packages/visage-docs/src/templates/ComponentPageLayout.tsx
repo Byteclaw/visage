@@ -65,13 +65,13 @@ export function ComponentPageLayout({ data, path }: ComponentPageLayoutProps) {
   const { body, fields, frontmatter } = data.mdx;
 
   return (
-    <>
+    <React.Fragment>
       <SEO {...frontmatter} pathname={path} />
       <MDXRenderer>{body}</MDXRenderer>
       <Box>
         <Link href={fields.githubEditLink}>Edit on GitHub</Link>
       </Box>
-    </>
+    </React.Fragment>
   );
 }
 

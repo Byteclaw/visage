@@ -35,7 +35,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   p: Paragraph,
   pre: (props: any) => props.children,
   strong: (props: any) => <Text as="strong" {...props} />,
-  wrapper: ({ children }: any) => <>{children}</>,
+  wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
 };
 
 interface RootProps {
