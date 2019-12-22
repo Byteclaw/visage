@@ -66,13 +66,11 @@ export function ResponsiveDesignSystem({
     >
       <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
-          <>
-            <GlobalReset />
-            <EventEmitterContext.Provider value={toastEventEmitter}>
-              <ToastManager />
-              {children}
-            </EventEmitterContext.Provider>
-          </>
+          <GlobalReset />
+          <EventEmitterContext.Provider value={toastEventEmitter}>
+            <ToastManager />
+            {children}
+          </EventEmitterContext.Provider>
         </LayerManager>
       </UniqueIdContextProvider>
     </BaseDesignSystem>

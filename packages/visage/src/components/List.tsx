@@ -175,12 +175,12 @@ export function List({
 
   return cloneElement(container, {
     children: (
-      <>
+      <React.Fragment>
         {heading}
         <ListDepthContext.Provider value={depth + 1}>
           {listItems}
         </ListDepthContext.Provider>
-      </>
+      </React.Fragment>
     ),
     tabIndex,
     ...restProps,
@@ -245,13 +245,13 @@ export function CollapsibleList({
   }
 
   return renderContainer(
-    <>
+    <React.Fragment>
       {renderHeading ? renderHeading() : null}
       {renderToggler ? renderToggler(collapsed, onToggle, onKeyDown) : null}
       <ListDepthContext.Provider value={depth + 1}>
         {renderItemsContainer(collapsed, children)}
       </ListDepthContext.Provider>
-    </>,
+    </React.Fragment>,
     restProps,
   );
 }

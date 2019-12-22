@@ -86,7 +86,7 @@ export function AccordionItem({
   triggerProps,
 }: AccordionItemProps) {
   return (
-    <>
+    <React.Fragment>
       <AccordionTrigger
         {...regionProps}
         aria-controls={regionId}
@@ -107,7 +107,7 @@ export function AccordionItem({
       >
         {typeof children === 'function' ? children() : children}
       </AccordionRegion>
-    </>
+    </React.Fragment>
   );
 }
 
