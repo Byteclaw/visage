@@ -1,6 +1,8 @@
 import { cache } from 'emotion';
-import { styleGenerator } from '../emotionStyleGenerator';
+import { createEmotionStyleGenerator } from '../emotionStyleGenerator';
 import { createNPointTheme, ratios } from '../createNPointTheme';
+
+const styleGenerator = createEmotionStyleGenerator();
 
 describe('emotion style generator', () => {
   it('works correctly', () => {
