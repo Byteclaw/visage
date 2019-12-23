@@ -80,8 +80,9 @@ export const Slider = ({
           {...props}
           styles={{
             ...props.style,
-            height: '3rem',
-            width: '3rem',
+            height: '3em',
+            width: '3em',
+            borderRadius: 'controlBorderRadius',
             backgroundColor: '#FFF',
             justifyContent: 'center',
             alignItems: 'center',

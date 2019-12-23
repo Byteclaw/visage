@@ -55,6 +55,7 @@ const FileInputControl = createComponent('div', {
     borderColor: 'textInputBorder',
     borderStyle: 'solid',
     borderWidth: '1px',
+    borderRadius: 'controlBorderRadius',
     color: 'currentColor',
     fontFamily: 'inherit',
     fontSize: 'inherit',

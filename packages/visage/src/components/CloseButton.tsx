@@ -8,6 +8,7 @@ const Button = createComponent('button', {
   defaultStyles: {
     borderStyle: 'none',
     borderWidth: 0,
+    borderRadius: 'controlBorderRadius',
     backgroundColor: 'transparent',
     color: 'currentColor',
     cursor: 'pointer',

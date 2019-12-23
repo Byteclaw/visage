@@ -23,6 +23,7 @@ const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
   defaultStyles: props => ({
     borderColor: 'textInputBorder',
+    borderRadius: 'controlBorderRadius',
     borderStyle: 'solid',
     borderWidth: '1px',
     backgroundColor: 'textInput',

@@ -4,6 +4,7 @@ const theme = createNPointTheme({
   baseFontSize: 16,
   baseLineHeightRatio: 1.6,
   baselineGridSize: 4,
+  controlBorderRadius: 10,
   fontScaleRatio: ratios.goldenSection,
   colors: {
     bodyText: 'black',
@@ -48,6 +49,10 @@ describe('createNPointTheme', () => {
       expect(theme.resolve('margin', 2, 0).value).toBe('8px');
       expect(theme.resolve('margin', -1, 0).value).toBe('-4px');
       expect(theme.resolve('margin', -2, 0).value).toBe('-8px');
+    });
+
+    it('resolves control border radius correctly', () => {
+      expect(theme.resolve('controlBorderRadius', 0, 0).value).toBe(10);
     });
 
     it.each([-2, -1, 0, 1, 2, 3, 4, 5, 6])(

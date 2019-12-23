@@ -9,6 +9,7 @@ export interface NPointThemeSettings extends ThemeSettings {
   baseFontSize: number | ScaleValue<number>;
   baseLineHeightRatio: number;
   baselineGridSize: number;
+  controlBorderRadius: number | string;
   fontScaleRatio: number;
   colors: ColorPalette;
   fontFamily: {
@@ -41,7 +42,11 @@ export function createNPointTheme(settings: NPointThemeSettings) {
 
   return createTheme<
     any,
-    'boxShadowColor' | 'gridSize' | 'modularSize' | 'modularLineHeight'
+    | 'boxShadowColor'
+    | 'controlBorderRadius'
+    | 'gridSize'
+    | 'modularSize'
+    | 'modularLineHeight'
   >({
     resolvers: {
       boxShadowColor(propName, value: string, { resolve }, breakpoint) {
@@ -51,6 +56,13 @@ export function createNPointTheme(settings: NPointThemeSettings) {
         return parts
           .map(part => resolve(propName, 'color', part, breakpoint))
           .join(' ');
+      },
+      controlBorderRadius(_, value: string) {
+        if (value === 'controlBorderRadius') {
+          return settings.controlBorderRadius;
+        }
+
+        return value;
       },
       // this is pseudostyler used to compute sizes based on grid size (basically multipliers)
       gridSize(propName, value) {
@@ -104,6 +116,9 @@ export function createNPointTheme(settings: NPointThemeSettings) {
     stylers: {
       boxShadow: {
         resolver: 'boxShadowColor',
+      },
+      borderRadius: {
+        resolver: 'controlBorderRadius',
       },
       fontSize: {
         format: 'px',

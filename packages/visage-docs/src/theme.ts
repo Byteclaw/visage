@@ -64,6 +64,7 @@ export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
 }
 
 export const themeSettings: ScaleThemeSettings = {
+  controlBorderRadius: 6,
   fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
   lineHeights: { values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56], offset: 2 },
   baselineGridSize: 8,
