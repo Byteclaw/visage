@@ -17,6 +17,7 @@ const ChipBase = createComponent('div', {
     border: 1,
     borderColor: 'primary',
     borderStyle: 'solid',
+    borderRadius: 'controlBorderRadius',
     display: 'inline-flex',
     p: 1,
     position: 'relative',

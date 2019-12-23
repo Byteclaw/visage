@@ -10,6 +10,7 @@ export interface ScaleThemeSettings extends ThemeSettings {
   fontSize: ScaleValue<number | number[]>;
   lineHeights: ScaleValue<number | number[]>;
   baselineGridSize: number;
+  controlBorderRadius: number | string;
   fontScaleRatio: number;
   colors: ColorPalette;
   fontFamily: {
@@ -22,7 +23,11 @@ export interface ScaleThemeSettings extends ThemeSettings {
 export function createScaleTheme(settings: ScaleThemeSettings) {
   return createTheme<
     any,
-    'boxShadowColor' | 'gridSize' | 'scaleLineHeight' | 'scaleSize'
+    | 'boxShadowColor'
+    | 'controlBorderRadius'
+    | 'gridSize'
+    | 'scaleLineHeight'
+    | 'scaleSize'
   >({
     resolvers: {
       boxShadowColor(propName, value: string, { resolve }, breakpoint) {
@@ -32,6 +37,13 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
         return parts
           .map(part => resolve(propName, 'color', part, breakpoint))
           .join(' ');
+      },
+      controlBorderRadius(_, value: string) {
+        if (value === 'controlBorderRadius') {
+          return settings.controlBorderRadius;
+        }
+
+        return value;
       },
       // this is pseudostyler used to compute sizes based on grid size (basically multipliers)
       gridSize(propName, value) {
@@ -79,6 +91,9 @@ export function createScaleTheme(settings: ScaleThemeSettings) {
     stylers: {
       boxShadow: {
         resolver: 'boxShadowColor',
+      },
+      borderRadius: {
+        resolver: 'controlBorderRadius',
       },
       fontSize: {
         format: 'px',

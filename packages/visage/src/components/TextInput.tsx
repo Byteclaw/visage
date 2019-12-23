@@ -88,6 +88,7 @@ const InputBase = createComponent('div', {
     borderColor: 'textInputBorder',
     borderStyle: 'solid',
     borderWidth: '1px',
+    borderRadius: 'controlBorderRadius',
     display: 'flex',
     fontSize: 0,
     lineHeight: 0,

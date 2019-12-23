@@ -25,6 +25,7 @@ const BaseDialog = createComponent('div', {
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'lightShades',
+    borderRadius: 'controlBorderRadius',
     position: 'relative',
     ...(props.scroll === 'content' ? { maxHeight: ['100%', '90%'] } : {}),
     m: 'auto',
@@ -140,11 +141,17 @@ export function Dialog({
             }}
           >
             {secondaryLabel != null && (
-              <Text styles={{ mt: 2, mb: -2, color: 'neutral.4' }}>
+              <Text
+                styles={{ mt: 2, mb: -1, color: 'neutral.2', fontSize: -1 }}
+              >
                 {secondaryLabel}
               </Text>
             )}
-            <Heading id={headingId} level={3}>
+            <Heading
+              styles={{ mt: secondaryLabel == null ? 1.5 : 1 }}
+              id={headingId}
+              level={3}
+            >
               {label}
             </Heading>
           </Flex>

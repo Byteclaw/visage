@@ -35,6 +35,9 @@ const RadioControl = createComponent('input', {
     '&:focus + div, &:active:not([disabled]) + div': {
       boxShadow: '0 0 0 3px darkAccent',
     },
+    '& + div': {
+      backgroundColor: 'textInput',
+    },
     '&:checked + div': {
       backgroundColor: 'primary',
       borderColor: 'primary',
