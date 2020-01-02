@@ -36,7 +36,7 @@ const TabNavigatonButton = createComponent('button', {
     borderStyle: 'solid',
     borderBottomWidth: 2,
     fontFamily: 'body',
-    color: 'bodyText',
+    color: 'lightShadesText',
     cursor: 'pointer',
     fontSize: 1,
     lineHeight: 1,
