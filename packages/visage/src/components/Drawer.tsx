@@ -93,15 +93,9 @@ const BaseDrawer = createComponent('div', {
   ],
 });
 
-export function Drawer({
-  children,
-  inPortal = false,
-  onClose,
-  open = false,
-  relative = false,
-  side = DrawerPosition.left,
-  styles,
-}: {
+interface DrawerProps {
+  /** Enables to completely disable backdrop even if Drawer is closable, default is true */
+  backdrop?: boolean;
   children?: ReactNode;
   inPortal?: boolean;
   onClose?: (e?: KeyboardEvent | MouseEvent) => void;
@@ -112,7 +106,18 @@ export function Drawer({
   relative?: boolean;
   side?: DrawerPosition;
   styles?: ExtractVisageComponentProps<typeof BaseDrawer>['styles'];
-}) {
+}
+
+export function Drawer({
+  backdrop = true,
+  children,
+  inPortal = false,
+  onClose,
+  open = false,
+  relative = false,
+  side = DrawerPosition.left,
+  styles,
+}: DrawerProps) {
   const id = useUniqueId();
   const zIndex = useLayerManager();
   const onEscKeyUp = useCallback(
@@ -146,7 +151,9 @@ export function Drawer({
 
   const drawer = (
     <LayerManager>
-      {onClose && <Backdrop onClick={onClose} styles={{ zIndex }} />}
+      {onClose && backdrop ? (
+        <Backdrop onClick={onClose} styles={{ zIndex }} />
+      ) : null}
       <BaseDrawer open={open} side={side} styles={{ zIndex, ...styles }}>
         {children}
       </BaseDrawer>
