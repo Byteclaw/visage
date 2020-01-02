@@ -19,7 +19,7 @@ export function GlobalReset() {
       body: {
         backgroundColor: theme.resolve('color', 'lightShades', breakpoint)
           .value,
-        color: theme.resolve('color', 'bodyText', breakpoint).value,
+        color: theme.resolve('color', 'lightShadesText', breakpoint).value,
         fontFamily: theme.resolve('fontFamily', 'body', breakpoint).value,
         margin: 0,
         width: '100%',

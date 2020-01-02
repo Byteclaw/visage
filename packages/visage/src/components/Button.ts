@@ -60,7 +60,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   danger: {
     backgroundColor: 'transparent',
     borderColor: 'danger',
-    color: 'bodyText',
+    color: 'lightShadesText',
     '&:not([disabled]):hover': {
       borderColor: 'danger.-1',
       outlineColor: 'danger.-1',
@@ -78,7 +78,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   primary: {
     backgroundColor: 'transparent',
     borderColor: 'primary',
-    color: 'bodyText',
+    color: 'lightShadesText',
     '&:not([disabled]):hover': {
       borderColor: 'primary.-1',
       outlineColor: 'primary.-1',
@@ -96,7 +96,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   default: {
     backgroundColor: 'transparent',
     borderColor: 'lightAccent',
-    color: 'bodyText',
+    color: 'lightShadesText',
     '&:not([disabled]):hover': {
       borderColor: 'lightAccent.-1',
       outlineColor: 'lightAccent.-1',

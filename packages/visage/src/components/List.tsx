@@ -81,7 +81,7 @@ export const BaseListItem = createComponent('li', {
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
   defaultStyles: props => ({
-    color: 'bodyText',
+    color: 'lightShadesText',
     cursor: 'pointer',
     display: 'flex',
     fontSize: 'inherit',
