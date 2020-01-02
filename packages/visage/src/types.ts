@@ -23,6 +23,8 @@ export interface ColorPalette {
   /** Uses as background for info elements or as info text color */
   info: string | ScaleValue<string>;
   infoText: string | ScaleValue<string>;
+  neutral: string | ScaleValue<string>;
+  neutralText: string | ScaleValue<string>;
   /** Uses as background for success elements or as success text color */
   success: string | ScaleValue<string>;
   successText: string | ScaleValue<string>;
