@@ -1,13 +1,14 @@
-import { ResponsiveDesignSystem, createScaleTheme } from '@byteclaw/visage';
-import color from 'color';
-import React, { useMemo, useState, ReactNode } from 'react';
 import {
-  createColors,
-  createDarkColors,
-  defaultColors,
-  defaultStateColors,
+  ResponsiveDesignSystem,
+  createScaleTheme,
+  ColorPalette,
+} from '@byteclaw/visage';
+import React, { useCallback, useMemo, useState, ReactNode } from 'react';
+import {
+  defaultColorTheme,
   ThemeTogglerContext,
   themeSettings,
+  toggleColorPaletteMode,
 } from '../theme';
 import { visageDocsFaces } from '../visageDocsFaces';
 
@@ -16,33 +17,28 @@ interface DesignSystemProps {
 }
 
 export function DesignSystem({ children }: DesignSystemProps) {
-  const [colors, setColors] = useState<[number, number, number][]>(
-    defaultColors,
-  );
+  const [colors, setColorPalette] = useState<ColorPalette>(defaultColorTheme);
   const [isDark, setDarkTheme] = useState(false);
   const theme = useMemo(() => {
-    const palette = {
-      ...defaultStateColors,
-      lightShades: color.rgb(colors[0]).string(),
-      lightAccent: color.rgb(colors[1]).string(),
-      primary: color.rgb(colors[2]).string(),
-      darkAccent: color.rgb(colors[3]).string(),
-      darkShades: color.rgb(colors[4]).string(),
-    };
-
     return createScaleTheme({
       ...themeSettings,
-      colors: isDark ? createDarkColors(palette) : createColors(palette),
+      colors,
     });
+  }, [colors]);
+
+  const togglePaletteMode = useCallback(() => {
+    setDarkTheme(!isDark);
+    setColorPalette(toggleColorPaletteMode(colors));
   }, [colors, isDark]);
 
   return (
     <ResponsiveDesignSystem faces={visageDocsFaces} theme={theme}>
       <ThemeTogglerContext.Provider
         value={{
+          colorPalette: colors,
           isDark,
-          useDark: setDarkTheme,
-          setColors,
+          useDark: togglePaletteMode,
+          setColorPalette,
         }}
       >
         {children}

@@ -15,7 +15,7 @@ import { version as visageVersion } from '../../../visage/package.json';
 // @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
 import { ThemeTogglerContext } from '../theme';
-import { GeneratePaletteButton } from './GeneratePaletteButton';
+import { CustomizeThemeButton } from './CustomizeThemeButton';
 import { Sidebar } from './Sidebar';
 import { Search } from './Search';
 
@@ -63,7 +63,7 @@ export function Layout({ children }: Props) {
                       checked={value.isDark}
                       styles={{ mx: 2 }}
                     />
-                    <GeneratePaletteButton onSuccess={value.setColors} />
+                    <CustomizeThemeButton />
                   </React.Fragment>
                 )}
               </ThemeTogglerContext.Consumer>

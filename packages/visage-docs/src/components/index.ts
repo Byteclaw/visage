@@ -1,5 +1,6 @@
 export * from './CodeBlock';
 export * from './CollapsibleNavigationSection';
+export * from './CustomizeThemeButton';
 export * from './DesignSystem';
 export * from './Examples';
 export * from './GeneratePaletteButton';
@@ -7,5 +8,6 @@ export * from './GridDebugTogglerButton';
 export * from './Layout';
 export * from './Search';
 export * from './Sidebar';
+export * from './ThemeEditor';
 export * from './WithRef';
 export * from './WithState';
