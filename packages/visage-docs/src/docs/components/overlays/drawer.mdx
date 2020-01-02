@@ -113,3 +113,35 @@ If you want to render `Drawer` in `Portal`, use `inPortal` prop.
 ```jsx live=true
 <Drawer relative>This is relative drawer</Drawer>
 ```
+
+### Disable backdrop
+
+`Drawer's` backdrop can be disabled using `backdrop={false}`. `Drawer` without `Backdrop` can be closed only by `Escape` or by setting `open` prop to `false`.
+
+```jsx live=true
+<WithState defaultValue={false}>
+  {(show, setShow) => {
+    if (!show) {
+      return (
+        <Button onClick={() => setShow(true)} type="button">
+          Show drawer
+        </Button>
+      );
+    }
+
+    return (
+      <Drawer
+        backdrop={false}
+        inPortal
+        onClose={e => {
+          console.log(e);
+          setShow(false);
+        }}
+        open={show}
+      >
+        Drawer content
+      </Drawer>
+    );
+  }}
+</WithState>
+```
