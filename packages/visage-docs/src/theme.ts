@@ -11,7 +11,20 @@ export const ThemeTogglerContext = createContext<{
 
 ThemeTogglerContext.displayName = 'ThemeToggler';
 
-export function createColors(colors: ColorPalette): ColorPalette {
+export function createColors(
+  colors: Pick<
+    ColorPalette,
+    | 'lightShades'
+    | 'darkShades'
+    | 'danger'
+    | 'info'
+    | 'success'
+    | 'warning'
+    | 'lightAccent'
+    | 'darkAccent'
+    | 'primary'
+  >,
+): ColorPalette {
   const danger = findColor(
     colors.danger as string,
     color(colors.lightShades).string(),
