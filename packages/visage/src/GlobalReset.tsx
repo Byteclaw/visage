@@ -1,42 +1,39 @@
-import { useDesignSystem, Theme } from '@byteclaw/visage-core';
-import { Global } from '@emotion/core';
-import React, { useMemo } from 'react';
+import React from 'react';
+import { EmotionStyleSheet } from './types';
+import { GlobalStyles } from './GlobalStyles';
 
+const globalStyles: { [selector: string]: EmotionStyleSheet } = {
+  '*': {
+    WebkitFontSmoothing: 'antialiased',
+    MozOsxFontSmoothing: 'grayscale',
+    textRendering: 'optimizeLegibility',
+  },
+  '*, *::before, *::after': {
+    boxSizing: 'inherit',
+    lineHeight: 0,
+    // padding: '0.05px', // prevent margin collapsing between parent and child
+  },
+  body: {
+    backgroundColor: 'lightShades',
+    color: 'lightShadesText',
+    fontFamily: 'body',
+    margin: 0,
+    width: '100%',
+    maxWidth: 'none',
+  },
+  html: {
+    backgroundColor: 'lightShades',
+    boxSizing: 'border-box',
+    fontSize: 0,
+    margin: 0,
+    width: '100%',
+    maxWidth: 'none',
+  },
+};
+
+/**
+ * Visage's global reset
+ */
 export function GlobalReset() {
-  const { breakpoint, theme } = useDesignSystem<Theme>();
-  const styles = useMemo(
-    (): any => ({
-      '*': {
-        WebkitFontSmoothing: 'antialiased',
-        MozOsxFontSmoothing: 'grayscale',
-        textRendering: 'optimizeLegibility',
-      },
-      '*, *::before, *::after': {
-        boxSizing: 'inherit',
-        lineHeight: theme.resolve('lineHeight', 0, breakpoint).value,
-        // padding: '0.05px', // prevent margin collapsing between parent and child
-      },
-      body: {
-        backgroundColor: theme.resolve('color', 'lightShades', breakpoint)
-          .value,
-        color: theme.resolve('color', 'lightShadesText', breakpoint).value,
-        fontFamily: theme.resolve('fontFamily', 'body', breakpoint).value,
-        margin: 0,
-        width: '100%',
-        maxWidth: 'none',
-      },
-      html: {
-        backgroundColor: theme.resolve('color', 'lightShades', breakpoint)
-          .value,
-        boxSizing: 'border-box',
-        fontSize: theme.resolve('fontSize', 0, breakpoint).value,
-        margin: 0,
-        width: '100%',
-        maxWidth: 'none',
-      },
-    }),
-    [breakpoint, theme],
-  );
-
-  return <Global styles={styles} />;
+  return <GlobalStyles styles={globalStyles} />;
 }

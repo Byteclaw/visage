@@ -7,6 +7,7 @@ export {
 
 export * from './DesignSystem';
 export * from './GlobalReset';
+export * from './GlobalStyles';
 export * from './ResponsiveDesignSystem';
 export * from './assets';
 export * from './components';
