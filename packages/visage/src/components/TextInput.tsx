@@ -100,7 +100,7 @@ const InputBase = createComponent('div', {
     flexWrap: 'wrap',
     // data-focused is used by text input on base
     '&:focus, &[data-focused="true"]': {
-      outlineColor: 'darkAccent',
+      boxShadow: '0 0 0 3px darkAccent',
     },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
