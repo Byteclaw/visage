@@ -44,6 +44,7 @@ const ProgressBarBase = createComponent('div', {
     overflow: 'hidden',
     position: 'relative',
     width: '100%',
+    borderRadius: 'controlBorderRadius',
     '&:before': {
       backgroundColor: 'currentColor',
       content: '""',

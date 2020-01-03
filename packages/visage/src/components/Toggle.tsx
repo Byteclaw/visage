@@ -39,6 +39,7 @@ const ToggleContainer = createComponent('div', {
     borderColor: 'transparent',
     outline: 'none',
     userSelect: 'none',
+    my: 0.5,
   },
 });
 
