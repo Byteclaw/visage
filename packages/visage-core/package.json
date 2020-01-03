@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage-core",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Visage core",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -31,7 +31,7 @@
     "dist"
   ],
   "dependencies": {
-    "@byteclaw/visage-utils": "^0.1.0",
+    "@byteclaw/visage-utils": "^0.2.0",
     "@types/react": "^16.8.23"
   },
   "peerDependencies": {
