@@ -9,7 +9,7 @@ import React from 'react';
 import { EmotionStyleSheet } from './types';
 
 interface GlobalStylesProps {
-  styles?: EmotionStyleSheet;
+  styles?: { [selector: string]: EmotionStyleSheet };
 }
 
 /**
