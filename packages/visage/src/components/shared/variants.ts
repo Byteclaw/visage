@@ -35,7 +35,7 @@ export const invalidControlStyles: EmotionStyleSheet = {
   borderWidth: '2px',
   // data-focused is used by text input on base
   '&:focus, &[data-focused="true"]': {
-    outlineColor: 'darkAccent',
+    boxShadow: '0 0 0 3px darkAccent',
   },
   // checkbox and radio
   '&::before': {
