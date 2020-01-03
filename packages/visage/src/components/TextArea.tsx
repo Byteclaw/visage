@@ -22,15 +22,18 @@ import {
 const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
   defaultStyles: props => ({
-    borderColor: 'black',
+    borderColor: 'textInputBorder',
+    borderRadius: 'controlBorderRadius',
     borderStyle: 'solid',
     borderWidth: '1px',
-    background: 'none',
+    backgroundColor: 'textInput',
     color: 'currentColor',
     fontFamily: 'inherit',
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    outline: '2px solid transparent',
+    outlineColor: 'transparent',
+    outlineStyle: 'solid',
+    outlineWidth: '2px',
     outlineOffset: '-2px',
     m: 0,
     resize: 'none',
@@ -38,7 +41,7 @@ const TextAreaBaseControl = createComponent('textarea', {
     width: '100%',
     // data-focused is used by text input on base
     '&:focus, &[data-focused="true"]': {
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
@@ -100,8 +103,9 @@ export const TextArea: VisageComponent<
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const innerOnChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
       e => {
-        // eslint-disable-next-line no-unused-expressions
-        onChange && onChange(e);
+        if (onChange) {
+          onChange(e);
+        }
 
         setValue(e.currentTarget.value);
       },

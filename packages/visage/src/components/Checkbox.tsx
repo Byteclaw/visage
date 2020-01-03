@@ -23,16 +23,16 @@ const CheckboxControl = createComponent('input', {
     ...visuallyHiddenStyles,
     // prevent blinking when clicking on already focused checkbox
     '&[aria-invalid="true"] + div': {
-      boxShadow: '0 0 0 2px red',
+      boxShadow: '0 0 0 2px danger',
     },
     '&:focus + div, &:active:not([disabled]) + div': {
-      boxShadow: '0 0 0 3px blue',
+      boxShadow: '0 0 0 3px darkAccent',
     },
     '& + div': {
-      background: 'papayawhip',
+      backgroundColor: 'lightAccent',
     },
     '&:checked + div': {
-      background: 'salmon',
+      backgroundColor: 'primary',
     },
     '& + div > svg': {
       visibility: 'hidden',
@@ -41,7 +41,8 @@ const CheckboxControl = createComponent('input', {
       visibility: 'visible',
     },
     '&:disabled + div': {
-      backgroundColor: 'neutral.1',
+      backgroundColor: 'lightAccent',
+      opacity: 0.3,
     },
   },
   variants: [visuallyHiddenBooleanVariant],

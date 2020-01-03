@@ -31,11 +31,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "devDependencies": {
-    "microbundle": "next",
-    "rimraf": "2.6.3",
-    "typescript": "^3.6.4"
-  },
   "scripts": {
     "build": "rimraf dist && microbundle --jsx React.createElement",
     "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",

@@ -5,7 +5,6 @@ import {
 import React, {
   createContext,
   cloneElement,
-  Fragment,
   ReactElement,
   ReactNode,
   useCallback,
@@ -64,13 +63,13 @@ export const BaseListItem = createComponent('li', {
     width: 'auto',
     '&[role="button"]:hover, &[role="button"]:focus': {
       outline: 'none',
-      backgroundColor: 'primary.1',
-      color: 'primaryText.1',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
       cursor: 'pointer',
       userSelect: 'none',
     },
     ...(props.gutters ? { px: 2, py: 1 } : {}),
-    ...(props.active ? { color: 'salmon', fontWeight: 'bolder' } : {}),
+    ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
   }),
   variants: [
     booleanVariant('active', true),
@@ -82,7 +81,7 @@ export const BaseListItem = createComponent('li', {
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
   defaultStyles: props => ({
-    color: 'bodyText',
+    color: 'lightShadesText',
     cursor: 'pointer',
     display: 'flex',
     fontSize: 'inherit',
@@ -97,12 +96,14 @@ const ListItemLinkBase = createComponent('a', {
       userSelect: 'none',
     },
     '&:hover': {
-      backgroundColor: 'neutral.-1',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
     '&:focus': {
-      backgroundColor: 'neutral.-3',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
-    ...(props.active ? { color: 'salmon', fontWeight: 'bolder' } : {}),
+    ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
   }),
   variants: [booleanVariant('active', true)],
 });
@@ -174,12 +175,12 @@ export function List({
 
   return cloneElement(container, {
     children: (
-      <Fragment>
+      <React.Fragment>
         {heading}
         <ListDepthContext.Provider value={depth + 1}>
           {listItems}
         </ListDepthContext.Provider>
-      </Fragment>
+      </React.Fragment>
     ),
     tabIndex,
     ...restProps,
@@ -244,13 +245,13 @@ export function CollapsibleList({
   }
 
   return renderContainer(
-    <Fragment>
+    <React.Fragment>
       {renderHeading ? renderHeading() : null}
       {renderToggler ? renderToggler(collapsed, onToggle, onKeyDown) : null}
       <ListDepthContext.Provider value={depth + 1}>
         {renderItemsContainer(collapsed, children)}
       </ListDepthContext.Provider>
-    </Fragment>,
+    </React.Fragment>,
     restProps,
   );
 }

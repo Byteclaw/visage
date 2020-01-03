@@ -27,7 +27,6 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     color: 'primaryText',
     '&:not([disabled]):hover': {
       backgroundColor: 'primary.-2',
-      borderColor: 'primary.-2',
       color: 'primaryText.-2',
     },
     '&:not([disabled]):focus': {
@@ -41,21 +40,19 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     },
   },
   default: {
-    backgroundColor: 'neutral',
-    borderColor: 'neutral',
-    color: 'neutralText',
+    backgroundColor: 'lightAccent',
+    color: 'lightAccentText',
     '&:not([disabled]):hover': {
-      backgroundColor: 'neutral.-2',
-      borderColor: 'neutral.-2',
-      color: 'neutralText.-2',
+      backgroundColor: 'lightAccent.-2',
+      color: 'lightAccentText.-2',
     },
     '&:not([disabled]):focus': {
-      backgroundColor: 'neutral.-4',
-      color: 'neutralText.-4',
+      backgroundColor: 'lightAccent.-4',
+      color: 'lightAccentText.-4',
     },
     '&:not([disabled]):active': {
-      backgroundColor: 'neutral.-3',
-      color: 'neutralText.-3',
+      backgroundColor: 'lightAccent.-3',
+      color: 'lightAccentText.-3',
     },
   },
 };
@@ -63,7 +60,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   danger: {
     backgroundColor: 'transparent',
     borderColor: 'danger',
-    color: 'danger',
+    color: 'lightShadesText',
     '&:not([disabled]):hover': {
       borderColor: 'danger.-1',
       outlineColor: 'danger.-1',
@@ -81,7 +78,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   primary: {
     backgroundColor: 'transparent',
     borderColor: 'primary',
-    color: 'primary',
+    color: 'lightShadesText',
     '&:not([disabled]):hover': {
       borderColor: 'primary.-1',
       outlineColor: 'primary.-1',
@@ -98,19 +95,19 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   },
   default: {
     backgroundColor: 'transparent',
-    borderColor: 'neutral',
-    color: 'neutralText',
+    borderColor: 'lightAccent',
+    color: 'lightShadesText',
     '&:not([disabled]):hover': {
-      borderColor: 'neutral.-1',
-      outlineColor: 'neutral.-1',
+      borderColor: 'lightAccent.-1',
+      outlineColor: 'lightAccent.-1',
     },
     '&:not([disabled]):focus': {
-      borderColor: 'neutral.-3',
-      outlineColor: 'neutral.-3',
+      borderColor: 'lightAccent.-3',
+      outlineColor: 'lightAccent.-3',
     },
     '&:not([disabled]):active': {
-      borderColor: 'neutral.-2',
-      outlineColor: 'neutral.-2',
+      borderColor: 'lightAccent.-2',
+      outlineColor: 'lightAccent.-2',
       outlineWidth: 2,
     },
   },
@@ -133,7 +130,7 @@ export const Button = createComponent('button', {
     alignItems: 'center',
     borderColor: 'transparent',
     borderStyle: 'solid',
-    borderRadius: 0,
+    borderRadius: 'controlBorderRadius',
     borderWidth: 2,
     color: 'primary',
     cursor: 'pointer',
@@ -145,13 +142,21 @@ export const Button = createComponent('button', {
     justifyContent: 'space-between',
     minHeight: '2rem',
     maxWidth: '20rem',
+    m: 0.5,
     outlineStyle: 'solid',
     outlineColor: 'transparent',
     outlineWidth: 1,
-    p: 1,
+    py: 1,
+    px: 2,
     position: 'relative',
     textDecoration: 'none',
+    transitionProperty: 'all',
+    transitionDuration: '0.2s',
+    transitionTimingFunction: 'ease-out',
     verticalAlign: 'middle',
+    '&:focus': {
+      boxShadow: '0 0 0 3px darkAccent',
+    },
     // only outlined buttons can be monochrome
     ...(props.outlined
       ? props.monochrome

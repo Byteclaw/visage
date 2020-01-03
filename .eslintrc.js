@@ -23,5 +23,7 @@ module.exports = {
     'no-continue': 'off',
     'no-nested-ternary': 'off',
     'no-plusplus': 'off',
+    'react/jsx-fragments': ['error', 'element'],
+    'react/jsx-props-no-spreading': 'off'
   },
 };

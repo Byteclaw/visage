@@ -1,30 +1,40 @@
-import React from 'react';
-import Helmet from 'react-helmet';
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
-import {
-  ResponsiveDesignSystem,
-  Heading,
-  Paragraph,
-  Text,
-} from '@byteclaw/visage';
-import { CodeBlock, Layout } from './components';
-import { theme } from './theme';
-import { visageDocsFaces } from './visageDocsFaces';
+import { Divider, Heading, Link, Paragraph, Text } from '@byteclaw/visage';
+import React from 'react';
+import Helmet from 'react-helmet';
+import { CodeBlock, DesignSystem, Layout } from './components';
+import { slugify } from './utils';
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
-  code: (props: any) => <CodeBlock {...props} />,
+  a: Link,
+  code: CodeBlock,
   inlineCode: (props: any) => (
     <Text styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 1 }} {...props} />
   ),
-  h1: (props: any) => <Heading {...props} level={1} />,
-  h2: (props: any) => <Heading {...props} level={2} />,
-  h3: (props: any) => <Heading {...props} level={3} />,
-  h4: (props: any) => <Heading {...props} level={4} />,
-  h5: (props: any) => <Heading {...props} level={5} />,
-  h6: (props: any) => <Heading {...props} level={6} />,
-  p: (props: any) => <Paragraph {...props} />,
+  em: (props: any) => <Text as="em" {...props} />,
+  ...Array(6)
+    .fill(null)
+    .reduce(
+      (acc, _, index) => ({
+        ...acc,
+        [`h${index + 1}`]: ({ children, ...restProps }: any) => (
+          <Heading id={slugify(children)} {...restProps} level={index + 1}>
+            <Link
+              href={`#${slugify(children)}`}
+              styles={{ color: 'inherit', textDecoration: 'none' }}
+            >
+              {children}
+            </Link>
+          </Heading>
+        ),
+      }),
+      {},
+    ),
+  hr: Divider,
+  p: Paragraph,
   pre: (props: any) => props.children,
+  strong: (props: any) => <Text as="strong" {...props} />,
   wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
 };
 
@@ -35,20 +45,20 @@ interface RootProps {
 
 export const wrapRootElement = ({ element, props }: RootProps) => {
   return (
-    <ResponsiveDesignSystem theme={theme} faces={visageDocsFaces}>
+    <DesignSystem>
       <MDXProvider components={mdxComponents}>
         <Helmet>
           <link
-            href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,700,700i&display=swap&subset=latin-ext"
+            href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700,700i&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap&subset=latin-ext"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700&display=swap&subset=latin-ext"
             rel="stylesheet"
           />
         </Helmet>
         <Layout {...props}>{element}</Layout>
       </MDXProvider>
-    </ResponsiveDesignSystem>
+    </DesignSystem>
   );
 };

@@ -13,7 +13,7 @@ import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
 const Backdrop = createComponent('div', {
-  displayName: 'Backdrop',
+  displayName: 'DrawerBackdrop',
   defaultStyles: {
     backgroundColor: 'hsla(0,0%,9%,.5)',
     position: 'fixed',
@@ -34,7 +34,7 @@ export enum DrawerPosition {
 const BaseDrawer = createComponent('div', {
   displayName: 'Drawer',
   defaultStyles: props => ({
-    background: 'white',
+    backgroundColor: 'lightShades',
     overflowY: 'scroll',
     ...(props.relative
       ? { position: 'relative' }
@@ -93,15 +93,9 @@ const BaseDrawer = createComponent('div', {
   ],
 });
 
-export function Drawer({
-  children,
-  inPortal = false,
-  onClose = () => {},
-  open = false,
-  relative = false,
-  side = DrawerPosition.left,
-  styles,
-}: {
+interface DrawerProps {
+  /** Enables to completely disable backdrop even if Drawer is closable, default is true */
+  backdrop?: boolean;
   children?: ReactNode;
   inPortal?: boolean;
   onClose?: (e?: KeyboardEvent | MouseEvent) => void;
@@ -112,7 +106,18 @@ export function Drawer({
   relative?: boolean;
   side?: DrawerPosition;
   styles?: ExtractVisageComponentProps<typeof BaseDrawer>['styles'];
-}) {
+}
+
+export function Drawer({
+  backdrop = true,
+  children,
+  inPortal = false,
+  onClose,
+  open = false,
+  relative = false,
+  side = DrawerPosition.left,
+  styles,
+}: DrawerProps) {
   const id = useUniqueId();
   const zIndex = useLayerManager();
   const onEscKeyUp = useCallback(
@@ -146,7 +151,9 @@ export function Drawer({
 
   const drawer = (
     <LayerManager>
-      <Backdrop onClick={onClose} styles={{ zIndex }} />
+      {onClose && backdrop ? (
+        <Backdrop onClick={onClose} styles={{ zIndex }} />
+      ) : null}
       <BaseDrawer open={open} side={side} styles={{ zIndex, ...styles }}>
         {children}
       </BaseDrawer>

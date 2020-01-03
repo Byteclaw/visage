@@ -1,168 +1,63 @@
+import { getResponsiveValue } from '@byteclaw/visage-utils';
 import {
-  getResponsiveValue,
-  ScaleValue,
-  getScaleValue,
-} from '@byteclaw/visage-utils';
-import { Theme } from './types';
+  formatters as coreFormatters,
+  resolvers as coreResolvers,
+  stylers as coreStylers,
+  Theme,
+  ThemeFormatterMap,
+  ThemeResolverMap,
+  ThemeStylerMap,
+  ThemeSettings,
+  ThemeFormatterFunction,
+  ThemeResolverFunction,
+  ThemeFormatterAndResolverContext,
+  ThemeStylerSettings,
+} from './theme';
 
-interface FormatterFn {
-  (value: any, ctx: FormatterAndResolverContext): any;
-}
-
-interface ResolverFn {
-  (value: any, ctx: FormatterAndResolverContext, breakpoint: number): any;
-}
-
-interface FormatterAndResolverContext {
-  format(name: string, value: any): any;
-  resolve(name: string, value: any, breakpoint: number): any;
-  themeSettings: ThemeSettings;
-}
-
-interface StylerSettings<
-  TFormatterNames extends keyof any,
-  TResolverNames extends keyof any
-> {
-  format?: TFormatterNames | DefaultFormatters;
-  resolver?: TResolverNames;
-  outputProps?: string | string[]; // px = padding-left, padding-right
-  themeKey?: string;
-}
+type CoreFormattersName = keyof typeof coreFormatters;
+type CoreResolversName = keyof typeof coreResolvers;
+type CoreStylersName = keyof typeof coreStylers;
 
 interface ResolvedStylerSettings {
-  format: FormatterFn;
-  resolve: ResolverFn;
+  format: ThemeFormatterFunction;
+  resolve: ThemeResolverFunction;
   outputProps: string[];
   themeKey?: string;
 }
 
-export type FormatterMap<TFormatterNames extends keyof any> = {
-  [K in TFormatterNames]: FormatterFn;
+type ResolvedStylerMap<TStylersName extends keyof any> = {
+  [prop in TStylersName]: ResolvedStylerSettings;
 };
-
-export type ResolverMap<TResolverNames extends keyof any> = {
-  [K in TResolverNames]: ResolverFn;
-};
-
-export interface StylerMap<
-  TFormatterNames extends keyof any = any,
-  TResolverNames extends keyof any = any
-> {
-  [prop: string]: StylerSettings<TFormatterNames, TResolverNames>;
-}
-
-interface ResolvedStylerMap {
-  [prop: string]: ResolvedStylerSettings;
-}
-
-export interface ThemeSettings {
-  [key: string]:
-    | undefined
-    | string
-    | number
-    | ScaleValue<any>
-    | { [nested: string]: undefined | string | number | ScaleValue<any> };
-}
 
 export interface ThemeOptions<
-  TFormatterNames extends keyof any,
-  TResolverNames extends keyof any
+  TFormattersName extends keyof any,
+  TResolversName extends keyof any,
+  TStylersName extends keyof any
 > {
-  formatters?: FormatterMap<TFormatterNames>;
-  resolvers?: ResolverMap<TResolverNames>;
-  stylers?: StylerMap<TFormatterNames>;
+  formatters?: ThemeFormatterMap<TFormattersName> &
+    // these are optional so you can override defaults
+    { [K in CoreFormattersName]?: ThemeFormatterFunction };
+  resolvers?: ThemeResolverMap<TResolversName> &
+    // these are optional so you can override defaults
+    { [K in CoreResolversName]?: ThemeResolverFunction };
+  stylers?: ThemeStylerMap<TStylersName> &
+    // these are optional so you can override defaults
+    {
+      [K in CoreStylersName]?: ThemeStylerSettings<
+        TFormattersName | CoreFormattersName,
+        TResolversName | CoreResolversName
+      >;
+    };
   theme?: ThemeSettings;
 }
 
-function resolveOnTheme(
-  value: string | number | null | undefined,
-  themeKey: string,
-  themeSettings: ThemeSettings,
-): any {
-  const themeValue = themeSettings[themeKey];
-
-  if (value == null) {
-    return value;
-  }
-
-  switch (typeof themeValue) {
-    case 'undefined':
-      return value;
-    case 'object': {
-      if (themeValue !== null) {
-        const [propertyName, position] = value.toString().split('.');
-
-        // check if value is scale
-        if (themeValue.offset != null && themeValue.values != null) {
-          return (
-            getScaleValue(
-              themeValue as ScaleValue<any>,
-              Number(position || 0),
-            ) || value
-          );
-        }
-
-        // resolve on deep property, e.g. color pallete
-        return resolveOnTheme(value, propertyName, themeValue as ThemeSettings);
-      }
-    }
-    // eslint-disable-next-line no-fallthrough
-    default:
-      return themeValue;
-  }
-}
-
-function applyStyler(
-  propName: string,
-  value: string | number | null | undefined,
-  stylers: ResolvedStylerMap,
-  ctx: FormatterAndResolverContext,
-  breakpoint: number,
-): { properties: string[]; value: string | number | null | undefined } {
-  // if there is a styler for this prop, apply it, otherwise return a value under the same propName
-  const styler = stylers[propName];
-
-  if (styler) {
-    const style = styler.format(
-      styler.resolve(
-        styler.themeKey
-          ? resolveOnTheme(value, styler.themeKey, ctx.themeSettings)
-          : value,
-        ctx,
-        breakpoint,
-      ),
-      ctx,
-    );
-
-    return {
-      properties: styler.outputProps,
-      value: style,
-    };
-  }
-
-  return {
-    properties: [propName],
-    value,
-  };
-}
-
-type DefaultFormatters = 'px';
-const defaultFormatters: FormatterMap<DefaultFormatters> = {
-  px(value) {
-    if (typeof value !== 'number') {
-      return value;
-    }
-
-    return `${Math.round(value)}px`;
-  },
-};
-const defaultFormatter: FormatterFn = val => val;
-const defaultResolver: ResolverFn = val => val;
+const defaultFormatter: ThemeFormatterFunction = (_, val) => val;
+const defaultResolver: ThemeResolverFunction = (_, val) => val;
 
 function resolveFormatter(
-  formatters: FormatterMap<any>,
+  formatters: ThemeFormatterMap<any>,
   name: undefined | keyof any,
-): FormatterFn {
+): ThemeFormatterFunction {
   if (!name) {
     return defaultFormatter;
   }
@@ -177,9 +72,9 @@ function resolveFormatter(
 }
 
 function resolveResolver(
-  resolvers: ResolverMap<any>,
+  resolvers: ThemeResolverMap<any>,
   name: undefined | keyof any,
-): ResolverFn {
+): ThemeResolverFunction {
   if (!name) {
     return defaultResolver;
   }
@@ -194,43 +89,62 @@ function resolveResolver(
 }
 
 export function createTheme<
-  TFormatterNames extends keyof any = any,
-  TResolverNames extends keyof any = any
+  TFormattersName extends keyof any = any,
+  TResolversName extends keyof any = any,
+  TStylersName extends keyof any = any
 >({
-  formatters = {} as FormatterMap<any>,
-  resolvers = {} as ResolverMap<any>,
-  stylers = {} as StylerMap<any>,
+  formatters = {} as ThemeFormatterMap<TFormattersName>,
+  resolvers = {} as ThemeResolverMap<TResolversName>,
+  stylers = {} as ThemeStylerMap<TStylersName>,
   theme: themeSettings = {},
-}: ThemeOptions<TFormatterNames, TResolverNames>): Theme {
+}: ThemeOptions<TFormattersName, TResolversName, TStylersName>): Theme {
   const allFormatters = {
-    ...defaultFormatters,
+    ...coreFormatters,
     ...formatters,
   };
-  const resolvedStylers: ResolvedStylerMap = {};
+  const allResolvers = {
+    ...coreResolvers,
+    ...resolvers,
+  };
+  const allStylers: ThemeStylerMap<
+    CoreStylersName | TStylersName,
+    CoreFormattersName | TFormattersName,
+    CoreResolversName | TResolversName
+  > = {
+    ...coreStylers,
+    ...stylers,
+  };
+  const resolvedStylers: ResolvedStylerMap<
+    CoreStylersName | TStylersName
+  > = {} as any;
 
-  Object.keys(stylers).forEach(propName => {
-    const settings = stylers[propName];
+  (Object.keys(allStylers) as Array<keyof typeof allStylers>).forEach(
+    propName => {
+      const settings = allStylers[propName];
 
-    resolvedStylers[propName] = {
-      ...settings,
-      resolve: resolveResolver(resolvers, settings.resolver),
-      format: resolveFormatter(allFormatters, settings.format),
-      outputProps:
-        settings.outputProps && Array.isArray(settings.outputProps)
-          ? settings.outputProps
-          : ([settings.outputProps || propName] as string[]),
-    };
-  });
+      resolvedStylers[propName] = {
+        ...settings,
+        resolve: resolveResolver(allResolvers, settings.resolver),
+        format: resolveFormatter(allFormatters, settings.format),
+        outputProps:
+          settings.outputProps && Array.isArray(settings.outputProps)
+            ? settings.outputProps
+            : ([settings.outputProps || propName] as string[]),
+      };
+    },
+  );
 
-  const formatterAndResolverContext: FormatterAndResolverContext = {
-    format(name, value) {
-      return resolveFormatter(formatters, name)(
+  const formatterAndResolverContext: ThemeFormatterAndResolverContext = {
+    format(propName, formatterName, value) {
+      return resolveFormatter(formatters, formatterName)(
+        propName,
         value,
         formatterAndResolverContext,
       );
     },
-    resolve(name, value, breakpoint) {
-      return resolveResolver(resolvers, name)(
+    resolve(propName, resolverName, value, breakpoint) {
+      return resolveResolver(allResolvers, resolverName)(
+        propName,
         value,
         formatterAndResolverContext,
         breakpoint,
@@ -251,13 +165,21 @@ export function createTheme<
   ): { properties: string[]; value: any } {
     const value = getResponsiveValue(breakpoint, propValue, undefined);
 
-    return applyStyler(
+    const styler =
+      resolvedStylers[propName as keyof typeof resolvedStylers] ||
+      resolvedStylers.catchAll;
+
+    const styleValue = styler.format(
       propName,
-      value,
-      resolvedStylers,
+      styler.resolve(propName, value, formatterAndResolverContext, breakpoint),
       formatterAndResolverContext,
-      breakpoint,
     );
+
+    return {
+      properties:
+        styler === resolvedStylers.catchAll ? [propName] : styler.outputProps,
+      value: styleValue,
+    };
   }
 
   return {

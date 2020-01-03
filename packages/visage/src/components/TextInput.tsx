@@ -52,6 +52,7 @@ const TextInputControlBase = createComponent('div', {
 const TextInputControl = createComponent('input', {
   displayName: 'TextInputControl',
   defaultStyles: {
+    backgroundColor: 'transparent',
     border: 'none',
     color: 'currentColor',
     cursor: 'inherit',
@@ -63,7 +64,7 @@ const TextInputControl = createComponent('input', {
     lineHeight: 'inherit',
     outline: 'none',
     m: 0,
-    py: 0,
+    py: 1,
     px: 1,
     width: '100%',
     '&[data-prefix]': {
@@ -72,6 +73,10 @@ const TextInputControl = createComponent('input', {
     '&[data-suffix]': {
       pr: 0,
     },
+    '::placeholder': {
+      color: 'currentColor',
+      opacity: 0.3,
+    },
   },
 });
 
@@ -79,22 +84,23 @@ const InputBase = createComponent('div', {
   displayName: 'TextInputBase',
   defaultStyles: props => ({
     alignItems: 'center',
-    background: 'none',
-    borderColor: 'black',
+    backgroundColor: 'textInput',
+    borderColor: 'textInputBorder',
     borderStyle: 'solid',
     borderWidth: '1px',
+    borderRadius: 'controlBorderRadius',
     display: 'flex',
     fontSize: 0,
     lineHeight: 0,
     outline: '2px solid transparent',
     outlineOffset: '-2px',
-    py: 1,
+    py: 0,
     px: 0,
     position: 'relative',
     flexWrap: 'wrap',
     // data-focused is used by text input on base
     '&:focus, &[data-focused="true"]': {
-      outlineColor: 'blue',
+      outlineColor: 'darkAccent',
     },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),

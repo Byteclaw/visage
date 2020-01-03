@@ -13,7 +13,6 @@ module.exports = {
     title: 'Visage',
     url: 'https://visage.design',
   },
-  __experimentalThemes: [],
   plugins: [
     {
       resolve: `gatsby-plugin-alias-imports`,
@@ -34,20 +33,14 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'docs',
-        path: `${__dirname}/src/pages`,
+        path: `${__dirname}/src/docs`,
         ignore: ['**/public/**/*', '**/.cache/**/*'],
       },
     },
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        defaultLayouts: {
-          default: require.resolve('./src/components/PageLayout.tsx'),
-        },
-        gatsbyRemarkPlugins: [
-          { resolve: 'gatsby-remark-emoji' },
-          { resolve: 'gatsby-remark-slug' },
-        ],
+        gatsbyRemarkPlugins: [{ resolve: 'gatsby-remark-emoji' }],
         extensions: ['.md', '.mdx'],
       },
     },

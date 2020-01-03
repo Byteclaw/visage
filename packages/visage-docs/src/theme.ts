@@ -1,70 +1,77 @@
+import { ScaleThemeSettings, ratios, ColorPalette } from '@byteclaw/visage';
 import color from 'color';
-import { ScaleValue } from '@byteclaw/visage-utils';
-import { createScaleTheme, ratios } from '@byteclaw/visage';
+import { createContext } from 'react';
+import { generateColorScale, findColor } from './utils';
 
-function generateScale<TKey extends string = string>(
-  name: TKey,
-  forColor: string,
-  lightSteps: number = 0,
-  darkSteps: number = 0,
-): Record<TKey, ScaleValue<string>> {
-  const col = color(forColor);
-  const lghtns = col.lightness();
-  const colors: string[] = [];
+export const ThemeTogglerContext = createContext<{
+  colorPalette: ColorPalette;
+  isDark: boolean;
+  useDark(use: boolean): void;
+  setColorPalette(colors: ColorPalette): void;
+}>({} as any);
 
-  for (let i = lightSteps; i > 0; --i) {
-    colors.push(
-      col
-        .lightness(lghtns + (100 - lghtns) * ((1 / (lightSteps + 1)) * i))
-        .rgb()
-        .toString(),
-    );
-  }
+ThemeTogglerContext.displayName = 'ThemeToggler';
 
-  colors.push(col.hex().toString());
+const darkAccent = color([212, 62, 98]);
+const darkShades = color([36, 24, 40]);
+const lightAccent = color([211, 191, 156]);
+const lightShades = color([242, 246, 231]);
+const primary = color([226, 111, 74]);
+const danger = findColor('red', lightShades.toString());
+const info = findColor('blue', lightShades.toString());
+const success = findColor('green', lightShades.toString());
+const warning = findColor('orange', lightShades.toString());
 
-  for (let i = 1; i < darkSteps + 1; ++i) {
-    colors.push(
-      col
-        .lightness(lghtns - lghtns * ((1 / (lightSteps + 1)) * i))
-        .rgb()
-        .toString(),
-    );
-  }
+export const defaultColorTheme: ColorPalette = {
+  ...generateColorScale<'neutral' | 'neutralText'>('neutral', '#e3e8ee', 5, 5),
+  danger,
+  dangerText: color(danger).isDark() ? '#fff' : '#000',
+  darkAccent: darkAccent.toString(),
+  darkAccentText: darkAccent.isDark() ? '#fff' : '#000',
+  darkShades: darkShades.toString(),
+  darkShadesText: darkShades.isDark() ? '#fff' : '#000',
+  info,
+  infoText: color(info).isDark() ? '#fff' : '#000',
+  lightAccent: lightAccent.toString(),
+  lightAccentText: lightAccent.isDark() ? '#fff' : '#000',
+  lightShades: lightShades.toString(),
+  lightShadesText: lightShades.isDark() ? '#fff' : '#000',
+  primary: primary.toString(),
+  primaryText: primary.isDark() ? '#fff' : '#000',
+  success,
+  successText: color(success).isDark() ? '#fff' : '#000',
+  textInput: lightShades.lighten(0.3).toString(),
+  textInputBorder: lightShades.darken(0.3).toString(),
+  warning,
+  warningText: color(warning).isDark() ? '#fff' : '#000',
+};
 
+export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
   return {
-    [name]: {
-      values: colors,
-      offset: lightSteps,
-    },
-    [`${name}Text`]: {
-      values: colors.map(bgColor =>
-        color(bgColor).isDark() ? 'white' : 'black',
-      ),
-      offset: lightSteps,
-    },
-  } as Record<TKey, ScaleValue<string>>;
+    ...palette,
+    darkShades: palette.lightShades,
+    darkShadesText: palette.lightShadesText,
+    lightShades: palette.darkShades,
+    lightShadesText: palette.darkShadesText,
+    // if default colors are same, calculate these
+    textInput: color(palette.darkShades)
+      .lighten(0.3)
+      .toString(),
+    textInputBorder: color(palette.darkShades)
+      .darken(0.3)
+      .toString(),
+  };
 }
 
-export const theme = createScaleTheme({
-  fontSizes: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
+export const themeSettings: ScaleThemeSettings = {
+  controlBorderRadius: 6,
+  fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
   lineHeights: { values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56], offset: 2 },
   baselineGridSize: 8,
   fontScaleRatio: ratios.perfectFourth,
-  colors: {
-    body: 'white',
-    bodyText: 'black',
-    dangerBodyText: 'red',
-    ...generateScale<'danger' | 'dangerText'>('danger', 'red', 5, 5),
-    ...generateScale<'info' | 'infoText'>('info', '#0099ff', 5, 5),
-    ...generateScale<'neutral' | 'neutralText'>('neutral', '#ddd', 5, 5),
-    ...generateScale<'primary' | 'primaryText'>('primary', '#000', 6),
-    ...generateScale<'grey' | 'greyText'>('grey', '#999', 5, 5),
-    ...generateScale<'success' | 'successText'>('success', '#99cc33', 5, 5),
-    ...generateScale<'warning' | 'warningText'>('warning', '#ffcc00', 5, 5),
-  },
-  fontFamilies: {
+  colors: defaultColorTheme,
+  fontFamily: {
     body: 'Open Sans,sans-serif',
     heading: 'Nunito Sans,sans-serif',
   },
-});
+};

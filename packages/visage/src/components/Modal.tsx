@@ -21,7 +21,7 @@ import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
 const Backdrop = createComponent('div', {
-  displayName: 'Backdrop',
+  displayName: 'ModalBackdrop',
   defaultStyles: {
     position: 'fixed',
     top: 0,
@@ -146,7 +146,7 @@ export function Modal({
   return (
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
-        <Backdrop onClick={onClickAwayHandler} />
+        {backdrop && <Backdrop onClick={onClickAwayHandler} />}
         <BaseModal
           onClick={onClickAwayHandler}
           backdrop={backdrop}

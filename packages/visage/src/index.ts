@@ -13,6 +13,8 @@ export * from './components';
 export * from './core';
 export * from './createNPointTheme';
 export * from './createScaleTheme';
+export * from './emotionResponsiveStyleGenerator';
+export * from './emotionStyleGenerator';
 export * from './faces';
 export * from './hooks';
 export * from './types';

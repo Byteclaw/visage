@@ -44,7 +44,9 @@ describe('Chip', () => {
         display: inline-flex;
         padding: 8px;
         position: relative;
-        outline: 2px solid transparent;
+        outline-color: transparent;
+        outline-style: solid;
+        outline-width: 2px;
         outline-offset: -2px;
       }
 
@@ -54,7 +56,7 @@ describe('Chip', () => {
 
       .emotion-0:focus,
       .emotion-0[aria-selected="true"] {
-        outline-color: blue;
+        outline-color: darkAccent;
       }
 
       <div

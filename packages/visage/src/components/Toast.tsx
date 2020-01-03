@@ -140,8 +140,9 @@ export const Toast = createComponent(
 
     useEffect(() => {
       const dismiss = () => {
-        // eslint-disable-next-line no-unused-expressions
-        onDismissRef.current && onDismissRef.current();
+        if (onDismissRef.current) {
+          onDismissRef.current();
+        }
       };
       const time = Date.now();
       const onMouseOver = () => {

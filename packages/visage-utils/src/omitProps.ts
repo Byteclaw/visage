@@ -7,7 +7,7 @@ export function omitProps(
     defaultValue?: string | boolean;
   }[],
 ): { [key: string]: any } {
-  const clone = Object.assign({}, props);
+  const clone = { ...props };
   const settingsLength = settings.length;
 
   for (let i = 0; i < settingsLength; i++) {

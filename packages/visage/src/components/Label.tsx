@@ -2,7 +2,7 @@ import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { createComponent } from '../core';
 import { visuallyHiddenBooleanVariant, visuallyHiddenStyles } from './shared';
 
@@ -43,10 +43,10 @@ function Label({
     <LabelBase {...restProps}>
       {children}
       {required ? (
-        <Fragment>
+        <React.Fragment>
           <span aria-hidden>*</span>
           <RequirementDescription>{requiredTitle}</RequirementDescription>
-        </Fragment>
+        </React.Fragment>
       ) : null}
     </LabelBase>
   );

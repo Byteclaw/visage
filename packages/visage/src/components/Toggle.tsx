@@ -32,13 +32,14 @@ const ToggleContainer = createComponent('div', {
     display: 'inline-flex',
     height: '1.5em',
     minWidth: '2.75em',
-    backgroundColor: 'primary',
+    backgroundColor: 'transparent',
     fontSize: '16px',
     borderWidth: '2px',
     borderStyle: 'solid',
     borderColor: 'transparent',
     outline: 'none',
     userSelect: 'none',
+    my: 0.5,
   },
 });
 
@@ -69,7 +70,7 @@ const ToggleControl = createComponent('input', {
       mx: 1,
       fontSize: '0.75em',
       textAlign: 'center',
-      color: 'white',
+      color: 'lightAccentText',
       top: '50%',
       transform: 'translate(-50%,-50%)',
       whiteSpace: 'nowrap',
@@ -80,20 +81,21 @@ const ToggleControl = createComponent('input', {
     },
     '& + div': {
       cursor: 'pointer',
-      backgroundColor: 'neutral.1',
+      backgroundColor: 'neutral',
       transitionProperty: 'all',
       transitionDuration: '0.2s',
       transitionTimingFunction: 'ease-out',
     },
     '&:checked + div': {
-      backgroundColor: 'salmon',
+      backgroundColor: 'primary',
     },
     '&:focus + div, &:active:not([disabled]) + div': {
-      boxShadow: '0 0 0 2px blue',
+      boxShadow: '0 0 0 2px darkAccent',
     },
     '&[disabled] + div': {
-      backgroundColor: 'neutral.0',
+      backgroundColor: 'ligthAccent',
       cursor: 'not-allowed',
+      opacity: 0.3,
     },
   },
 });

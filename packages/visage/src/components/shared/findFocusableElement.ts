@@ -16,7 +16,7 @@ function findFocusableElement(
     currentItem = currentItem
       ? (currentItem[
           reverse ? 'previousElementSibling' : 'nextElementSibling'
-        ] as (HTMLElement | null))
+        ] as HTMLElement | null)
       : null;
     focusable = currentItem ? isFocusableElement(currentItem) : false;
   } while (!focusable && currentItem);

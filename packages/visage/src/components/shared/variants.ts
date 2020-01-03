@@ -27,18 +27,19 @@ export const disabledControlStyles: EmotionStyleSheet = {
   '&::after': {
     borderColor: 'neutral.1',
   },
+  opacity: 0.3,
 };
 
 export const invalidControlStyles: EmotionStyleSheet = {
-  borderColor: 'red',
+  borderColor: 'danger',
   borderWidth: '2px',
   // data-focused is used by text input on base
   '&:focus, &[data-focused="true"]': {
-    outlineColor: 'blue',
+    outlineColor: 'darkAccent',
   },
   // checkbox and radio
   '&::before': {
-    borderColor: 'red',
+    borderColor: 'danger',
     borderWidth: '2px',
   },
 };

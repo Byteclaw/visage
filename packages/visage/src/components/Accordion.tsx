@@ -3,7 +3,6 @@ import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, {
   Children,
   cloneElement,
-  Fragment,
   ReactElement,
   ReactNode,
   useState,
@@ -30,8 +29,8 @@ const AccordionTrigger = createComponent('div', {
     fontFamily: 'heading',
     fontWeight: 'bolder',
     lineHeight: 1,
-    outlineWidth: 1,
-    outlineColor: 'blue',
+    outlineWidth: 3,
+    outlineColor: 'darkAccent',
     m: 0,
     p: 0,
     py: 1,
@@ -87,7 +86,7 @@ export function AccordionItem({
   triggerProps,
 }: AccordionItemProps) {
   return (
-    <Fragment>
+    <React.Fragment>
       <AccordionTrigger
         {...regionProps}
         aria-controls={regionId}
@@ -108,7 +107,7 @@ export function AccordionItem({
       >
         {typeof children === 'function' ? children() : children}
       </AccordionRegion>
-    </Fragment>
+    </React.Fragment>
   );
 }
 

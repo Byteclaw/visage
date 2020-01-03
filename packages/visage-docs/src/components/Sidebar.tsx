@@ -26,11 +26,11 @@ function ListItemRouteLink({ to, ...restProps }: ListItemRouteLink) {
 
 export function Sidebar() {
   return (
-    <List role="navigation">
-      <ListItem>
+    <List styles={{ fontSize: -1 }} role="navigation">
+      <ListItem styles={{ fontWeight: 600 }}>
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
-      <ListItem>
+      <ListItem styles={{ fontWeight: 600 }}>
         <ListItemRouteLink to="/typography">Typography</ListItemRouteLink>
       </ListItem>
       <ListItem>
@@ -366,11 +366,11 @@ export function Sidebar() {
           </ListItem>
         </CollapsibleNavigationSection>
       </ListItem>
-      <ListItem>
+      <ListItem styles={{ fontWeight: 600 }}>
         <ListItemRouteLink to="/utilities">Utilities</ListItemRouteLink>
       </ListItem>
-      <Divider />
-      <ListItem>
+      <Divider styles={{ color: 'neutral' }} />
+      <ListItem styles={{ fontWeight: 600 }}>
         <ListItemLink href="https://github.com/byteclaw/visage">
           Github
         </ListItemLink>

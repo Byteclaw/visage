@@ -1,5 +1,5 @@
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
-import React, { Fragment, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { createComponent } from '../core';
 import { Heading } from './Heading';
 import { visuallyHiddenStyles } from './shared';
@@ -56,17 +56,15 @@ export function FieldSet({
 }: FieldSetProps) {
   return (
     <FieldSetBase {...baseProps} flat={flat}>
-      <Fragment>
-        <FieldSetLegend>{title}</FieldSetLegend>
-        <FieldSetHeading
-          level={5}
-          aria-hidden
-          role="presentation"
-          {...headingProps}
-        >
-          {title}
-        </FieldSetHeading>
-      </Fragment>
+      <FieldSetLegend>{title}</FieldSetLegend>
+      <FieldSetHeading
+        level={5}
+        aria-hidden
+        role="presentation"
+        {...headingProps}
+      >
+        {title}
+      </FieldSetHeading>
       {children}
     </FieldSetBase>
   );

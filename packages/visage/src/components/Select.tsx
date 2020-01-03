@@ -6,7 +6,6 @@ import {
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
-  Fragment,
   useRef,
   FocusEventHandler,
   ChangeEventHandler,
@@ -160,12 +159,11 @@ export function Select<TValue extends any = string>({
     },
     [enhanceReducer, readOnly],
   );
-  const enhancedOnStateChange: SelectorStateChangeListener<
-    TValue
-  > = useCallback(
+  const enhancedOnStateChange: SelectorStateChangeListener<TValue> = useCallback(
     (previousState, currentState, dispatch) => {
-      // eslint-disable-next-line no-unused-expressions
-      onStateChange && onStateChange(previousState, currentState, dispatch);
+      if (onStateChange) {
+        onStateChange(previousState, currentState, dispatch);
+      }
 
       // if input value has changed because of InputChanged action
       // load options debounced
@@ -207,8 +205,10 @@ export function Select<TValue extends any = string>({
   const onToggleClick = useCallback(() => {
     if (!readOnly) {
       dispatch({ type: 'MenuToggle' });
-      // eslint-disable-next-line no-unused-expressions
-      inputRef.current && inputRef.current.focus();
+
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
     }
   }, [readOnly]);
   const inputEventHandlers: InputEventHandlers = useMemo(
@@ -312,7 +312,7 @@ export function Select<TValue extends any = string>({
   );
 
   return (
-    <Fragment>
+    <React.Fragment>
       <TextInput
         {...restProps}
         aria-activedescendant={
@@ -377,7 +377,7 @@ export function Select<TValue extends any = string>({
             ))
           : null}
       </Menu>
-    </Fragment>
+    </React.Fragment>
   );
 }
 

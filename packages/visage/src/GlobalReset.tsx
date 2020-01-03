@@ -17,15 +17,17 @@ export function GlobalReset() {
         // padding: '0.05px', // prevent margin collapsing between parent and child
       },
       body: {
-        backgroundColor: theme.resolve('color', 'body', breakpoint).value,
-        color: theme.resolve('color', 'bodyText', breakpoint).value,
+        backgroundColor: theme.resolve('color', 'lightShades', breakpoint)
+          .value,
+        color: theme.resolve('color', 'lightShadesText', breakpoint).value,
         fontFamily: theme.resolve('fontFamily', 'body', breakpoint).value,
         margin: 0,
         width: '100%',
         maxWidth: 'none',
       },
       html: {
-        backgroundColor: theme.resolve('color', 'body', breakpoint).value,
+        backgroundColor: theme.resolve('color', 'lightShades', breakpoint)
+          .value,
         boxSizing: 'border-box',
         fontSize: theme.resolve('fontSize', 0, breakpoint).value,
         margin: 0,

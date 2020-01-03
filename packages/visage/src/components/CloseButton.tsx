@@ -8,6 +8,7 @@ const Button = createComponent('button', {
   defaultStyles: {
     borderStyle: 'none',
     borderWidth: 0,
+    borderRadius: 'controlBorderRadius',
     backgroundColor: 'transparent',
     color: 'currentColor',
     cursor: 'pointer',
@@ -18,13 +19,16 @@ const Button = createComponent('button', {
     ml: 0,
     p: 1,
     '&:focus': {
-      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
     '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.15)',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
     '&:active': {
-      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      backgroundColor: 'lightAccent',
+      color: 'lightAccentText',
     },
   },
 });
