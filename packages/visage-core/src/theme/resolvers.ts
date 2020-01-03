@@ -43,6 +43,30 @@ const color: ThemeResolverFunction = function color(
   return colors;
 };
 
+const fontFamily: ThemeResolverFunction = function fontFamily(
+  propName: string,
+  value: any,
+  { themeSettings },
+) {
+  if (value == null) {
+    return value;
+  }
+
+  const themeValue = themeSettings[propName];
+
+  if (
+    typeof themeValue !== 'object' ||
+    themeValue == null ||
+    isScaleValue(themeValue)
+  ) {
+    throw new Error('Theme.fontFamily is not an object');
+  }
+
+  const font = themeValue[value];
+
+  return typeof font === 'string' ? font : value;
+};
+
 /**
  * Resolves against theme's key
  */
@@ -86,7 +110,10 @@ const themeKey: ThemeResolverFunction = function themeKey(
   }
 };
 
-export const resolvers: ThemeResolverMap<'color' | 'themeKey'> = {
+export const resolvers: ThemeResolverMap<
+  'color' | 'fontFamily' | 'themeKey'
+> = {
   color,
+  fontFamily,
   themeKey,
 };
