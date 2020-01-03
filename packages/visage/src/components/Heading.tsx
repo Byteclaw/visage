@@ -7,60 +7,77 @@ import React, { forwardRef, createElement } from 'react';
 import { createComponent } from '../core';
 import { variant } from '../variants';
 import { SkeletonSentence } from './SkeletonSentence';
-import { StyleProps } from '../types';
+import { StyleProps, EmotionStyleSheet } from '../types';
 
-const headingVariants: { [key: string]: StyleProps } = {
-  1: {
-    fontSize: 4,
-    lineHeight: 4,
+/**
+ * Heading component's styles
+ */
+export const HeadingStyles: {
+  h1: EmotionStyleSheet;
+  h2: EmotionStyleSheet;
+  h3: EmotionStyleSheet;
+  h4: EmotionStyleSheet;
+  h5: EmotionStyleSheet;
+  h6: EmotionStyleSheet;
+} = {
+  h1: {
+    fontFamily: 'heading',
+    fontSize: 7,
+    fontWeight: 'normal',
+    lineHeight: 7,
     mt: 2,
     mb: 1,
+  },
+  h2: {
+    fontFamily: 'heading',
+    fontSize: 6,
+    lineHeight: 6,
+    mt: 1,
+    mb: 1,
     fontWeight: 'normal',
   },
-  2: {
+  h3: {
+    fontFamily: 'heading',
+    fontSize: 5,
+    lineHeight: 5,
+    mt: 1,
+    mb: 1,
+    fontWeight: 'normal',
+  },
+  h4: {
+    fontFamily: 'heading',
+    fontSize: 4,
+    lineHeight: 4,
+    mt: 1,
+    mb: 1,
+    fontWeight: 'normal',
+  },
+  h5: {
+    fontFamily: 'heading',
     fontSize: 3,
     lineHeight: 3,
+    fontWeight: 'normal',
     mt: 1,
     mb: 1,
-    fontWeight: 'normal',
   },
-  3: {
+  h6: {
+    fontFamily: 'heading',
     fontSize: 2,
+    fontStyle: 'italic',
+    fontWeight: 'normal',
     lineHeight: 2,
-    mt: 1,
     mb: 1,
-    fontWeight: 'normal',
-  },
-  4: {
-    fontSize: 1,
-    lineHeight: 1,
     mt: 1,
-    mb: 1,
-    fontWeight: 'normal',
   },
-  5: {
-    fontSize: 0,
-    lineHeight: 0,
-    fontWeight: 'normal',
-    mt: 1,
-    mb: 1,
-  },
-  6: {
-    fontSize: 0,
-    lineHeight: 0,
-    fontWeight: 'normal',
-    fontStyle: 'italic',
-    mt: 1,
-    mb: 1,
-  },
-  default: {
-    fontSize: 0,
-    lineHeight: 0,
-    fontWeight: 'normal',
-    fontStyle: 'italic',
-    mt: 1,
-    mb: 1,
-  },
+};
+
+const headingVariants: { [key: string]: EmotionStyleSheet } = {
+  1: HeadingStyles.h1,
+  2: HeadingStyles.h2,
+  3: HeadingStyles.h3,
+  4: HeadingStyles.h4,
+  5: HeadingStyles.h5,
+  6: HeadingStyles.h6,
 };
 
 const BaseHeading = createComponent('h1', {

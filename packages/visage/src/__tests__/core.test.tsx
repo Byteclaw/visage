@@ -1,28 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { createComponent } from '../core';
-import { createNPointTheme } from '../createNPointTheme';
 import { DesignSystem } from '../DesignSystem';
-
-const theme = createNPointTheme({
-  baseFontSize: 16,
-  baseLineHeightRatio: 1.6,
-  baselineGridSize: 8,
-  fontScaleRatio: 1.6,
-  fontFamiliy: {
-    body: 'body-font',
-    heading: 'heading-font',
-  },
-  colors: {
-    primaryText: 'white',
-    bodyText: 'black',
-    primary: {
-      values: ['light-blue', 'blue', 'dark-blue'],
-      offset: 0,
-    },
-    secondary: 'blue',
-  },
-});
+import { theme } from './TestDesignSystem';
 
 describe('core', () => {
   describe('extending', () => {

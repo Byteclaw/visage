@@ -3,9 +3,12 @@ import { createComponent } from '../core';
 import { EmotionStyleSheet } from '../types';
 import { skeletonAnimation } from './animations';
 
-const textStyles: EmotionStyleSheet = {
+/**
+ * Text component's stylesheet
+ */
+export const TextStyles: EmotionStyleSheet = {
   display: 'inline',
-  fontFamily: 'body',
+  fontFamily: 'inherit',
   p: 0,
   m: 0,
   mb: 0,
@@ -13,7 +16,47 @@ const textStyles: EmotionStyleSheet = {
 
 export const Text = createComponent('span', {
   displayName: 'Text',
-  defaultStyles: textStyles,
+  defaultStyles: TextStyles,
+});
+
+/**
+ * EmphasizedText component's styles
+ */
+export const EmphasizedTextStyles: EmotionStyleSheet = {
+  ...TextStyles,
+  fontStyle: 'italic',
+};
+
+export const EmphasizedText = createComponent('small', {
+  displayName: 'EmphasizedText',
+  defaultStyles: EmphasizedTextStyles,
+});
+
+/**
+ * SmallText component's styles
+ */
+export const SmallTextStyles: EmotionStyleSheet = {
+  ...TextStyles,
+  fontSize: -1,
+  lineHeight: -1,
+};
+
+export const SmallText = createComponent('small', {
+  displayName: 'SmallText',
+  defaultStyles: SmallTextStyles,
+});
+
+/**
+ * StrongText component's styles
+ */
+export const StrongTextStyles: EmotionStyleSheet = {
+  ...TextStyles,
+  fontWeight: 'bold',
+};
+
+export const StrongText = createComponent('strong', {
+  displayName: 'StrongText',
+  defaultStyles: StrongTextStyles,
 });
 
 interface TextSkeletonProps {
@@ -29,7 +72,7 @@ export const TextSkeleton = createComponent(
   {
     displayName: 'TextSkeleton',
     defaultStyles: {
-      ...textStyles,
+      ...TextStyles,
       backfaceVisibility: 'hidden',
       display: 'inline-block',
       willChange: 'opacity',
