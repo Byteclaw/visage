@@ -2,9 +2,18 @@
 title: Typography
 ---
 
-import { Heading, Paragraph, Text } from '@byteclaw/visage';
+import {
+  Heading,
+  Link,
+  Paragraph,
+  SmallText,
+  StrongText,
+  Text,
+} from '@byteclaw/visage';
 
 # Typography
+
+## Typographic components
 
 ```jsx live=true
 <Fragment>
@@ -14,7 +23,60 @@ import { Heading, Paragraph, Text } from '@byteclaw/visage';
   <Heading level={4}>Heading (h4)</Heading>
   <Heading level={5}>Heading (h5)</Heading>
   <Heading level={6}>Heading (h6)</Heading>
+  <Link href="">This is link (a)</Link>
   <Paragraph>This is paragraph (p)</Paragraph>
+  <EmphasizedText>This is emphasized text (em)</EmphasizedText>
+  <br />
+  <SmallText>This is small text (small)</SmallText>
+  <br />
   <Text>This is text (span)</Text>
+  <br />
+  <StrongText>This is bold text (strong)</StrongText>
+  <br />
+  <Cite>This is citation (cite)</Cite>
+  <Blockquote>This is block quote (blockquote)</Blockquote>
+  <Quote>This is quote (q)</Quote>
+  <br />
+  <Text>
+    Text with<Superscript>Superscript (sup)</Superscript>
+  </Text>
+  <br />
+  <Text>
+    Text with<Subscript>Subscript (sub)</Subscript>
+  </Text>
+</Fragment>
+```
+
+## Default HTML elements
+
+```jsx live=true
+<Fragment>
+  <h1>Heading (h1)</h1>
+  <h2>Heading (h2)</h2>
+  <h3>Heading (h3)</h3>
+  <h4>Heading (h4)</h4>
+  <h5>Heading (h5)</h5>
+  <h6>Heading (h6)</h6>
+  <a href="">This is link (a)</a>
+  <p>This is paragraph (p)</p>
+  <em>This is emphasized text (em)</em>
+  <br />
+  <small>This is small text (small)</small>
+  <br />
+  <span>This is text (span)</span>
+  <br />
+  <strong>This is bold text (strong)</strong>
+  <br />
+  <cite>This is citation (cite)</cite>
+  <blockquote>This is block quote (blockquote)</blockquote>
+  <q>This is quote (q)</q>
+  <br />
+  <span>
+    Text with<sup>Superscript (sup)</sup>
+  </span>
+  <br />
+  <span>
+    Text with<sub>Subscript (sub)</sub>
+  </span>
 </Fragment>
 ```

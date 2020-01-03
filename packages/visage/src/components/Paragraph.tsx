@@ -3,8 +3,12 @@ import { createComponent } from '../core';
 import { EmotionStyleSheet } from '../types';
 import { skeletonAnimation } from './animations';
 
-const paragraphStyles: EmotionStyleSheet = {
+/**
+ * Paragraph component's style sheet
+ */
+export const ParagraphStyles: EmotionStyleSheet = {
   display: 'block',
+  fontFamily: 'inherit',
   fontSize: 0,
   lineHeight: 0,
   p: 0,
@@ -14,7 +18,7 @@ const paragraphStyles: EmotionStyleSheet = {
 
 export const Paragraph = createComponent('p', {
   displayName: 'Paragraph',
-  defaultStyles: paragraphStyles,
+  defaultStyles: ParagraphStyles,
 });
 
 interface ParagraphSkeletonProps {
@@ -39,7 +43,7 @@ export const ParagraphSkeleton = createComponent(
   {
     displayName: 'ParagraphSkeleton',
     defaultStyles: {
-      ...paragraphStyles,
+      ...ParagraphStyles,
       backfaceVisibility: 'hidden',
       willChange: 'opacity',
       animation: `${skeletonAnimation} .8s linear infinite alternate`,

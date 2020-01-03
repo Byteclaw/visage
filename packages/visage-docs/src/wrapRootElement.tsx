@@ -1,6 +1,14 @@
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
-import { Divider, Heading, Link, Paragraph, Text } from '@byteclaw/visage';
+import {
+  Divider,
+  EmphasizedText,
+  Heading,
+  Link,
+  Paragraph,
+  StrongText,
+  Text,
+} from '@byteclaw/visage';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { CodeBlock, DesignSystem, Layout } from './components';
@@ -12,7 +20,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   inlineCode: (props: any) => (
     <Text styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 1 }} {...props} />
   ),
-  em: (props: any) => <Text as="em" {...props} />,
+  em: EmphasizedText,
   ...Array(6)
     .fill(null)
     .reduce(
@@ -34,7 +42,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   hr: Divider,
   p: Paragraph,
   pre: (props: any) => props.children,
-  strong: (props: any) => <Text as="strong" {...props} />,
+  strong: StrongText,
   wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
 };
 

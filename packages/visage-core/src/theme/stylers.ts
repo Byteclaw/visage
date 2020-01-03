@@ -24,7 +24,9 @@ const colorProps = [
 
 type ColorPropNames = typeof colorProps[number];
 
-export const stylers: ThemeStylerMap<ColorPropNames | 'catchAll'> = {
+export const stylers: ThemeStylerMap<
+  ColorPropNames | 'fontFamily' | 'catchAll'
+> = {
   ...colorProps.reduce(
     (colorStylers, propName) => ({
       ...colorStylers,
@@ -34,6 +36,9 @@ export const stylers: ThemeStylerMap<ColorPropNames | 'catchAll'> = {
     }),
     {} as ThemeStylerMap<ColorPropNames>,
   ),
+  fontFamily: {
+    resolver: 'fontFamily',
+  },
   catchAll: {
     resolver: 'themeKey',
   },
