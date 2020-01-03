@@ -142,6 +142,7 @@ export const Button = createComponent('button', {
     justifyContent: 'space-between',
     minHeight: '2rem',
     maxWidth: '20rem',
+    m: 0.5,
     outlineStyle: 'solid',
     outlineColor: 'transparent',
     outlineWidth: 1,
@@ -149,6 +150,9 @@ export const Button = createComponent('button', {
     px: 2,
     position: 'relative',
     textDecoration: 'none',
+    transitionProperty: 'all',
+    transitionDuration: '0.2s',
+    transitionTimingFunction: 'ease-out',
     verticalAlign: 'middle',
     '&:focus': {
       boxShadow: '0 0 0 3px darkAccent',

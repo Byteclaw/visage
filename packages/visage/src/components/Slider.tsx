@@ -1,3 +1,4 @@
+import { useDesignSystem } from '@byteclaw/visage-core';
 import React, { useCallback, useMemo } from 'react';
 import { getTrackBackground, Range } from 'react-range';
 import { Box } from './Box';
@@ -15,7 +16,7 @@ export interface SliderProps {
 
 export const Slider = ({
   allowedValues,
-  colors = ['#548BF4', '#ccc'],
+  colors = ['primary', '#ccc'],
   max,
   min,
   onChange,
@@ -23,15 +24,17 @@ export const Slider = ({
   values,
   ...restProps
 }: SliderProps) => {
+  const { breakpoint, theme } = useDesignSystem();
+
   const background = useMemo(
     () =>
       getTrackBackground({
         values,
-        colors,
+        colors: colors.map(c => theme.resolve('color', c, breakpoint).value),
         min,
         max,
       }),
-    [colors, values, min, max],
+    [breakpoint, colors, values, min, max, theme],
   );
 
   const handleChange = useCallback(
@@ -68,6 +71,7 @@ export const Slider = ({
               height: '0.5rem',
               width: '100%',
               alignSelf: 'center',
+              borderRadius: 'controlBorderRadius',
             }}
             style={{ background }}
           >
@@ -91,11 +95,11 @@ export const Slider = ({
         >
           <Box
             styles={{
+              borderRadius: 'controlBorderRadius',
+              backgroundColor: isDragged ? 'primary' : '#CCC',
               height: isDragged ? '2rem' : '1rem',
               width: '5px',
-            }}
-            style={{
-              backgroundColor: isDragged ? '#548BF4' : '#CCC',
+              transition: 'height 150ms ease-in',
             }}
           />
         </Flex>
