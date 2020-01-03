@@ -2,7 +2,7 @@ import React from 'react';
 import { EmotionStyleSheet } from './types';
 import { GlobalStyles } from './GlobalStyles';
 
-const globalStyles: EmotionStyleSheet = {
+const globalStyles: { [selector: string]: EmotionStyleSheet } = {
   '*': {
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
