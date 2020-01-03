@@ -146,7 +146,7 @@ export function Modal({
   return (
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
-        <Backdrop onClick={onClickAwayHandler} />
+        {backdrop && <Backdrop onClick={onClickAwayHandler} />}
         <BaseModal
           onClick={onClickAwayHandler}
           backdrop={backdrop}
