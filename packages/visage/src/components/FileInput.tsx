@@ -15,6 +15,7 @@ import {
   invalidControlStyles,
   invalidControlBooleanVariant,
   visuallyHiddenStyles,
+  createControlFocusShadow,
 } from './shared';
 
 const BaseFileInput = createComponent('input', {
@@ -22,7 +23,7 @@ const BaseFileInput = createComponent('input', {
   defaultStyles: {
     ...visuallyHiddenStyles,
     '&:focus + div': {
-      outlineColor: 'darkAccent',
+      boxShadow: createControlFocusShadow(),
     },
   },
 });
@@ -61,8 +62,7 @@ const FileInputControl = createComponent('div', {
     fontSize: 'inherit',
     lineHeight: 'inherit',
     overflow: 'hidden',
-    outline: '2px solid transparent',
-    outlineOffset: '-2px',
+    outline: 'none',
     m: 0,
     py: 1,
     px: 2,

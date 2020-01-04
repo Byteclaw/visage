@@ -1,26 +1,28 @@
-import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
   StyleProps,
 } from '@byteclaw/visage-core';
 import React, {
+  ChangeEvent,
   forwardRef,
+  KeyboardEvent,
+  MouseEvent,
   ReactElement,
   ReactNode,
   Ref,
+  useCallback,
   useState,
-  useMemo,
 } from 'react';
 import { createComponent } from '../core';
 import { StyleProps as StyleSheetProps } from '../types';
-import { Flex } from './Flex';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
   visuallyHiddenStyles,
+  createControlFocusShadow,
+  visuallyHiddenBooleanVariant,
 } from './shared';
-import { Box } from './Box';
 
 const ToggleContainer = createComponent('div', {
   displayName: 'ToggleContainer',
@@ -80,7 +82,6 @@ const ToggleControl = createComponent('input', {
       left: '-50%',
     },
     '& + div': {
-      cursor: 'pointer',
       backgroundColor: 'neutral',
       transitionProperty: 'all',
       transitionDuration: '0.2s',
@@ -89,13 +90,11 @@ const ToggleControl = createComponent('input', {
     '&:checked + div': {
       backgroundColor: 'primary',
     },
-    '&:focus + div, &:active:not([disabled]) + div': {
-      boxShadow: '0 0 0 2px darkAccent',
+    '&:focus + div': {
+      boxShadow: createControlFocusShadow(),
     },
-    '&[disabled] + div': {
-      backgroundColor: 'ligthAccent',
-      cursor: 'not-allowed',
-      opacity: 0.3,
+    '&[aria-invalid="true"] + div': {
+      borderColor: 'danger',
     },
   },
 });
@@ -116,16 +115,26 @@ const Toggler = createComponent('div', {
   },
 });
 
-const ToggleLabel = createComponent('label', {
-  displayName: 'ToggleLabel',
+const ToggleLabelText = createComponent('span', {
+  displayName: 'ToggleLabelText',
   defaultStyles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    cursor: 'pointer',
     position: 'relative',
     outline: 'none',
     userSelect: 'none',
     mx: 1,
+    ...(props.hidden ? visuallyHiddenStyles : {}),
+  }),
+  variants: [visuallyHiddenBooleanVariant],
+});
+
+const ToggleLabel = createComponent('label', {
+  displayName: 'ToggleLabel',
+  defaultStyles: props => ({
+    alignItems: 'center',
+    cursor: 'pointer',
+    display: 'flex',
     ...(props.disabled ? disabledControlStyles : {}),
   }),
   variants: [disabledControlBooleanVariant],
@@ -134,6 +143,7 @@ const ToggleLabel = createComponent('label', {
 interface ToggleProps
   extends ExtractVisageComponentProps<typeof ToggleControl> {
   hiddenLabel?: boolean;
+  invalid?: boolean;
   label: ReactNode;
   leftContent?: ReactNode;
   rightContent?: ReactNode;
@@ -147,12 +157,13 @@ export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
       disabled,
       checked,
       hiddenLabel = false,
+      invalid,
       label,
       leftContent,
       rightContent,
-      id: outerId,
+      id,
       name,
-      onChange,
+      onChange: outerOnChange,
       onBlur,
       onFocus,
       readOnly,
@@ -162,56 +173,57 @@ export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
     ref: Ref<HTMLInputElement>,
   ) {
     const [inputChecked, setInputChecked] = useState(checked);
-    const idTemplate = useUniqueId();
-    const id = useMemo(() => {
-      return outerId || `toggle-${idTemplate}-${name || ''}`;
-    }, [outerId, idTemplate]);
+    const onChange = useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        setInputChecked(e.target.checked);
+
+        if (outerOnChange) {
+          outerOnChange(e);
+        }
+      },
+      [outerOnChange],
+    );
+    const preventOnToggle = useCallback(
+      (e: KeyboardEvent | MouseEvent) => {
+        if (readOnly) {
+          if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
+            return;
+          }
+
+          e.preventDefault();
+        }
+      },
+      [readOnly],
+    );
 
     return (
-      <Flex>
-        <Box styles={{ display: 'flex', alignItems: 'center' }} as="label">
-          <ToggleControl
-            defaultChecked={defaultChecked}
-            checked={checked}
-            disabled={disabled}
-            id={id}
-            name={name}
-            onChange={e => {
-              setInputChecked(e.target.checked);
-              if (onChange) {
-                onChange(e);
-              }
-            }}
-            ref={ref}
-            readOnly={readOnly}
-            value={value}
-            tabIndex={0}
-            type="checkbox"
-            onKeyDown={e => {
-              if (readOnly && e.key === ' ') {
-                e.preventDefault();
-              }
-            }}
-            onClick={e => {
-              if (readOnly) {
-                e.preventDefault();
-              }
-            }}
-            onBlur={onBlur}
-            onFocus={onFocus}
+      <ToggleLabel disabled={disabled}>
+        <ToggleControl
+          aria-invalid={invalid}
+          defaultChecked={defaultChecked}
+          checked={checked}
+          disabled={disabled}
+          id={id}
+          name={name}
+          onChange={onChange}
+          ref={ref}
+          readOnly={readOnly}
+          value={value}
+          type="checkbox"
+          onKeyDown={preventOnToggle}
+          onClick={preventOnToggle}
+          onBlur={onBlur}
+          onFocus={onFocus}
+        />
+        <ToggleContainer styles={styles}>
+          <Toggler
+            data-label-content={inputChecked ? rightContent : leftContent}
           />
-          <ToggleContainer styles={styles}>
-            <Toggler
-              data-label-content={inputChecked ? rightContent : leftContent}
-            />
-          </ToggleContainer>
-          {label != null && (
-            <ToggleLabel disabled={disabled} htmlFor={id} hidden={hiddenLabel}>
-              {label}
-            </ToggleLabel>
-          )}
-        </Box>
-      </Flex>
+        </ToggleContainer>
+        <ToggleLabelText disabled={disabled} hidden={hiddenLabel}>
+          {label}
+        </ToggleLabelText>
+      </ToggleLabel>
     );
   },
 );

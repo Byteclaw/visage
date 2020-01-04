@@ -24,7 +24,10 @@ import { Checkbox } from '@byteclaw/visage';
 ### Hidden label
 
 ```jsx live=true
-<Checkbox hiddenLabel label="Hidden label" name="3" />
+<Fragment>
+  <Checkbox hiddenLabel label="Hidden label" name="3-1" />
+  <Checkbox hiddenLabel label="Hidden label" name="3-2" />
+</Fragment>
 ```
 
 ### Invalid
@@ -42,7 +45,10 @@ import { Checkbox } from '@byteclaw/visage';
 ### Disabled
 
 ```jsx live=true
-<Checkbox disabled label="Disabled checkbox" name="5" />
+<Fragment>
+  <Checkbox disabled label="Disabled checkbox" name="5" />
+  <Checkbox disabled checked label="Disabled checked checkbox" name="6" />
+</Fragment>
 ```
 
 ### Controlled

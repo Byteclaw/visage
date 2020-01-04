@@ -1,5 +1,10 @@
 import { createComponent } from '../core';
 import { EmotionStyleSheet } from '../types';
+import {
+  createControlActiveShadow,
+  createControlHoverShadow,
+  createControlFocusShadow,
+} from './shared';
 
 /**
  * Link component's style sheet
@@ -9,16 +14,15 @@ export const LinkStyles: EmotionStyleSheet = {
   fontSize: 'inherit',
   lineHeight: 'inherit',
   color: 'primary',
+  outline: 'none',
   '&:hover': {
-    color: 'primary.-1',
+    boxShadow: createControlHoverShadow(),
   },
   '&:focus': {
-    color: 'primary.-2',
-    outlineColor: 'primary.-2',
+    boxShadow: createControlFocusShadow(),
   },
   '&:active': {
-    color: 'primary.-3',
-    outlineColor: 'primary.-3',
+    boxShadow: createControlActiveShadow(),
   },
 };
 

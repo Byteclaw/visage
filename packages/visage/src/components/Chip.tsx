@@ -10,6 +10,7 @@ import React, {
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
 import { StyleProps } from '../types';
+import { createControlFocusShadow } from './shared';
 
 const ChipBase = createComponent('div', {
   displayName: 'Chip',
@@ -21,15 +22,12 @@ const ChipBase = createComponent('div', {
     display: 'inline-flex',
     p: 1,
     position: 'relative',
-    outlineColor: 'transparent',
-    outlineStyle: 'solid',
-    outlineWidth: '2px',
-    outlineOffset: '-2px',
+    outline: 'none',
     '&[data-clickable="true"]': {
       cursor: 'pointer',
     },
     '&:focus, &[aria-selected="true"]': {
-      outlineColor: 'darkAccent',
+      boxShadow: createControlFocusShadow(),
     },
   },
 });
