@@ -1,4 +1,5 @@
 import { depthFirstObjectMerge, omitProps } from '@byteclaw/visage-utils';
+import compare from 'fast-deep-equal';
 import React, { useMemo, useRef } from 'react';
 import { VisageContext } from './context';
 import { isVisageComponent } from './utils';
@@ -47,7 +48,7 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
       if (
         facesRef.current == null ||
         (facesRef.current !== options.faces &&
-          JSON.stringify(facesRef.current) !== JSON.stringify(options.faces))
+          compare(facesRef.current, options.faces) === false)
       ) {
         facesRef.current = options.faces;
         cacheRef.current = {};
@@ -100,23 +101,6 @@ type ExtractReturn<T extends (...args: any[]) => any> = T extends (
 ) => infer R
   ? R
   : never;
-
-function compare(previousArgs: any[], currentArgs: any[]): boolean {
-  if (previousArgs.length !== currentArgs.length) {
-    return false;
-  }
-
-  for (let i = 0; i < previousArgs.length; i++) {
-    const a = previousArgs[i];
-    const b = currentArgs[i];
-
-    if (a !== b) {
-      return JSON.stringify(a) === JSON.stringify(b);
-    }
-  }
-
-  return true;
-}
 
 /**
  * Uses memoizes call and returns the result
