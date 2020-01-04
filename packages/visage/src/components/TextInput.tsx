@@ -12,13 +12,32 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { StyleProps } from '../types';
+import { StyleProps, EmotionStyleSheet } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
   invalidControlStyles,
   invalidControlBooleanVariant,
 } from './shared';
+
+export const TextInputBaseStyles: EmotionStyleSheet = {
+  backgroundColor: 'textInput',
+  borderColor: 'textInputBorder',
+  borderStyle: 'solid',
+  borderWidth: '1px',
+  borderRadius: 'controlBorderRadius',
+  fontFamily: 'inherit',
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
+  outline: 'none',
+  m: 0,
+  p: 0,
+  position: 'relative',
+  // data-focused is used by text input on base
+  '&:focus, &[data-focused="true"]': {
+    boxShadow: '0 0 0 3px lightAccent',
+  },
+};
 
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
@@ -83,25 +102,10 @@ const TextInputControl = createComponent('input', {
 const InputBase = createComponent('div', {
   displayName: 'TextInputBase',
   defaultStyles: props => ({
+    ...TextInputBaseStyles,
     alignItems: 'center',
-    backgroundColor: 'textInput',
-    borderColor: 'textInputBorder',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderRadius: 'controlBorderRadius',
     display: 'flex',
-    fontSize: 0,
-    lineHeight: 0,
-    outline: '2px solid transparent',
-    outlineOffset: '-2px',
-    py: 0,
-    px: 0,
-    position: 'relative',
     flexWrap: 'wrap',
-    // data-focused is used by text input on base
-    '&:focus, &[data-focused="true"]': {
-      boxShadow: '0 0 0 3px darkAccent',
-    },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
   }),
