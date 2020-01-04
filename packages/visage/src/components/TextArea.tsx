@@ -18,33 +18,22 @@ import {
   invalidControlStyles,
   invalidControlBooleanVariant,
 } from './shared';
+import { TextInputBaseStyles } from './TextInput';
 
 const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
   defaultStyles: props => ({
-    borderColor: 'textInputBorder',
-    borderRadius: 'controlBorderRadius',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    backgroundColor: 'textInput',
-    color: 'currentColor',
-    fontFamily: 'inherit',
-    fontSize: 'inherit',
-    lineHeight: 'inherit',
-    outlineColor: 'transparent',
-    outlineStyle: 'solid',
-    outlineWidth: '2px',
-    outlineOffset: '-2px',
+    ...TextInputBaseStyles,
     m: 0,
     resize: 'none',
     p: 1,
     width: '100%',
-    // data-focused is used by text input on base
-    '&:focus, &[data-focused="true"]': {
-      outlineColor: 'darkAccent',
-    },
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
+    '::placeholder': {
+      color: 'currentColor',
+      opacity: 0.3,
+    },
   }),
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
@@ -54,23 +43,6 @@ const TextAreaBase = createComponent('div', {
   defaultStyles: {
     display: 'flex',
     position: 'relative',
-  },
-});
-
-const TextAreaShadow = createComponent('div', {
-  displayName: 'TextAreaShadow',
-  defaultStyles: {
-    backgroundColor: 'transparent',
-    color: 'transparent',
-    opacity: 0,
-    minHeight: 50,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    visibility: 'hidden',
-    width: '100%',
-    zIndex: -100,
   },
 });
 
@@ -98,8 +70,6 @@ export const TextArea: VisageComponent<
     const outerValueRef = useRef(value || defaultValue);
     const heightRef = useRef<number | undefined>(undefined);
     const [innerValue, setValue] = useState(value || defaultValue);
-    const [height, setHeight] = useState<number | undefined>(undefined);
-    const shadowRef = useRef<HTMLDivElement | null>(null);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
     const innerOnChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
       e => {
@@ -118,33 +88,33 @@ export const TextArea: VisageComponent<
     }
 
     useLayoutEffect(() => {
-      if (autoResize && shadowRef.current && textAreaRef.current) {
-        shadowRef.current.style.lineHeight =
-          textAreaRef.current.style.lineHeight;
-        shadowRef.current.style.fontSize = textAreaRef.current.style.fontSize;
-        const currentHeight = shadowRef.current.clientHeight;
+      if (autoResize && textAreaRef.current) {
+        const {
+          borderBottomWidth,
+          borderTopWidth,
+          lineHeight,
+        } = getComputedStyle(textAreaRef.current);
+        const currentHeight = textAreaRef.current.scrollHeight;
+        const lineHeightNum = parseInt(lineHeight, 10);
+        const borderBottomWidthNum = parseInt(borderBottomWidth, 10);
+        const borderTopWidthNum = parseInt(borderTopWidth, 10);
 
         if (heightRef.current !== currentHeight) {
-          heightRef.current = currentHeight + 20;
-          setHeight(currentHeight + 20);
+          // keep current height in ref but subtract borders
+          // because borders are added by browser to height
+          heightRef.current =
+            currentHeight +
+            lineHeightNum -
+            borderBottomWidthNum -
+            borderTopWidthNum;
+          textAreaRef.current.style.height = `${currentHeight +
+            lineHeightNum}px`;
         }
       }
     });
 
     return (
       <TextAreaBase {...baseProps}>
-        {autoResize ? (
-          <TextAreaShadow
-            aria-hidden
-            dangerouslySetInnerHTML={{
-              __html: `${(innerValue || '')
-                .toString()
-                .replace(/(?:\r\n|\r|\n)/g, '<br />')}<br />`,
-            }}
-            ref={shadowRef}
-            role="presentation"
-          />
-        ) : null}
         <TextAreaBaseControl
           ref={r => {
             textAreaRef.current = r;
@@ -161,7 +131,6 @@ export const TextArea: VisageComponent<
           {...restProps}
           onChange={innerOnChange}
           value={innerValue}
-          styles={{ ...((restProps as any).styles || {}), height }}
         />
       </TextAreaBase>
     );
