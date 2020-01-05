@@ -1,6 +1,25 @@
 import { booleanVariant } from '../../variants';
 import { EmotionStyleSheet } from '../../types';
 
+/**
+ * Control focus shadow that is used to compose actual focus shadow (needs a color at the end)
+ *
+ * The white color works as some sort of opacity
+ */
+export const controlFocusShadow =
+  '0 0 0 4px rgba(255, 255, 255, 0.4), 0 0 0 4px';
+export const controlHoverShadow = 'inset 0 0 200px rgba(68, 68, 68, 0.1)';
+export const controlActiveShadow =
+  'inset 0 0 200px rgba(68, 68, 68, 0.2), inset 0 0 2px rgba(0, 0, 0, 0.2)';
+
+export const createControlFocusShadow = (
+  color: string = 'lightAccent',
+): string => `${controlFocusShadow} ${color} , ${controlHoverShadow}`;
+export const createControlHoverShadow = (): string => controlHoverShadow;
+export const createControlActiveShadow = (
+  color: string = 'lightAccent',
+): string => `${controlFocusShadow} ${color} , ${controlActiveShadow}`;
+
 export const visuallyHiddenStyles: EmotionStyleSheet = {
   border: '0',
   clip: 'rect(0, 0, 0, 0)',
@@ -14,20 +33,11 @@ export const visuallyHiddenStyles: EmotionStyleSheet = {
 };
 
 export const disabledControlStyles: EmotionStyleSheet = {
-  color: 'neutral.1',
-  cursor: 'not-allowed',
-  outlineColor: 'neutral.1',
+  cursor: 'default',
+  pointerEvents: 'none',
   // applicable to textarea
   resize: 'none',
-  // checkbox, radio
-  '&::before': {
-    borderColor: 'neutral.1',
-  },
-  // checkbox, radio
-  '&::after': {
-    borderColor: 'neutral.1',
-  },
-  opacity: 0.3,
+  opacity: 0.5,
 };
 
 export const invalidControlStyles: EmotionStyleSheet = {

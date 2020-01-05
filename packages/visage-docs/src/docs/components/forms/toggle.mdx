@@ -12,11 +12,53 @@ import { Toggle } from '@byteclaw/visage';
 
 ## Examples
 
+### Default
+
 ```jsx live=true
 <Fragment>
-  <Toggle hiddenLabel label="Checkbox label" />
   <Toggle label="Toggle label" />
+</Fragment>
+```
+
+### Invalid
+
+```jsx live=true
+<Fragment>
+  <Toggle invalid label="Toggle label" />
+</Fragment>
+```
+
+### Disabled
+
+```jsx live=true
+<Fragment>
+  <Toggle disabled label="Disabled toggle"></Toggle>
+  <Toggle disabled checked label="Disabled checked toggle"></Toggle>
+</Fragment>
+```
+
+### Read only
+
+```jsx live=true
+<Fragment>
+  <Toggle readOnly label="Read only toggle"></Toggle>
+  <Toggle readOnly checked label="Read only toggle"></Toggle>
+</Fragment>
+```
+
+### Hidden label
+
+```jsx live=true
+<Fragment>
+  <Toggle hiddenLabel label="Toggle label" />
+  <Toggle checked hiddenLabel label="Toggle label" />
+</Fragment>
+```
+
+### With state content
+
+```jsx live=true
+<Fragment>
   <Toggle leftContent="off" rightContent="on" label="Toggle label" />
-  <Toggle label="Disabled toggle" disabled />
 </Fragment>
 ```
