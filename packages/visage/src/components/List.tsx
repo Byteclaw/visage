@@ -40,7 +40,6 @@ export const ListItemsContainer = createComponent('ul', {
     listStyle: 'none',
     flexGrow: 1,
     flexShrink: 1,
-    overflowY: 'auto',
     m: 0,
     p: 0,
     py: 1,

@@ -33,9 +33,6 @@ import { booleanVariant } from '../variants';
 const MenuBase = createComponent(List, {
   displayName: 'Menu',
   defaultStyles: props => ({
-    maxHeight: ['100vh', 'calc(100vh - 32px)'],
-    maxWidth: ['100vw', 'calc(100vw - 32px)'],
-    overflowY: 'scroll',
     backgroundColor: 'lightShades',
     ...(props.isFullscreen ? { width: '100vw', height: '100vh' } : {}),
   }),
@@ -191,7 +188,7 @@ export function Menu({
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={false}
-      backdrop={false}
+      backdrop
       fullscreen={isFullscreen}
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
