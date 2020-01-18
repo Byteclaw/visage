@@ -9,8 +9,8 @@ import { skeletonAnimation } from './animations';
 export const ParagraphStyles: EmotionStyleSheet = {
   display: 'block',
   fontFamily: 'inherit',
-  fontSize: 0,
-  lineHeight: 0,
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
   p: 0,
   mx: 0,
   my: 2,

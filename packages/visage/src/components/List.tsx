@@ -119,8 +119,8 @@ export const ListItemLink: typeof ListItemLinkBase = ({
 export const ListHeader = createComponent('h1', {
   displayName: 'ListHeader',
   defaultStyles: {
-    fontSize: 0,
-    lineHeight: 0,
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
     m: 0,
     p: 0,
     width: '100%',
