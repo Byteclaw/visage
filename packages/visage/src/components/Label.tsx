@@ -14,8 +14,8 @@ const LabelBase = createComponent('label', {
   displayName: 'Label',
   defaultStyles: props => ({
     display: 'block',
-    fontSize: 0,
-    lineHeight: 0,
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
     m: 0,
     mb: 1,
     p: 0,

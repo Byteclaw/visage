@@ -9,6 +9,8 @@ import { skeletonAnimation } from './animations';
 export const TextStyles: EmotionStyleSheet = {
   display: 'inline',
   fontFamily: 'inherit',
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
   p: 0,
   m: 0,
   mb: 0,
