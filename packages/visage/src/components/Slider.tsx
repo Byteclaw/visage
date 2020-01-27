@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { getTrackBackground, Range } from 'react-range';
 import { Box } from './Box';
 import { Flex } from './Flex';
+import { createControlActiveShadow, createControlFocusShadow } from './shared';
 
 export interface SliderProps {
   allowedValues?: number[];
@@ -79,30 +80,30 @@ export const Slider = ({
           </Box>
         </Flex>
       )}
-      renderThumb={({ props, isDragged }) => (
+      renderThumb={({ props }) => (
         <Flex
           {...props}
           styles={{
             ...props.style,
-            height: '3em',
-            width: '3em',
-            borderRadius: 'controlBorderRadius',
+            transition: 'box-shadow 150ms ease-in',
+            height: ['3rem', '3rem', '1.5rem'],
+            width: ['3rem', '3rem', '1.5rem'],
+            borderRadius: '50%',
             backgroundColor: '#FFF',
             justifyContent: 'center',
             alignItems: 'center',
             boxShadow: '0px 2px 6px #AAA',
+            '&:focus': {
+              outline: 'none',
+              boxShadow: `0px 2px 6px #AAA, ${createControlFocusShadow(
+                'primary',
+              )}`,
+            },
+            '&:focus:active': {
+              boxShadow: createControlActiveShadow('primary'),
+            },
           }}
-        >
-          <Box
-            styles={{
-              borderRadius: 'controlBorderRadius',
-              backgroundColor: isDragged ? 'primary' : '#CCC',
-              height: isDragged ? '2rem' : '1rem',
-              width: '5px',
-              transition: 'height 150ms ease-in',
-            }}
-          />
-        </Flex>
+        />
       )}
     />
   );
