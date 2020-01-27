@@ -65,7 +65,6 @@ export const Image: VisageComponent<ImageProps, StyleProps> = forwardRef(
         {...restProps}
         {...containerProps}
         styles={{
-          ...(containerProps ? containerProps.styles : {}),
           height,
           width,
           '&::after': {
@@ -74,6 +73,7 @@ export const Image: VisageComponent<ImageProps, StyleProps> = forwardRef(
                 ? `${100 / aspectRatio}%`
                 : '100%',
           },
+          ...(containerProps ? containerProps.styles : {}),
         }}
       >
         <Img alt={alt} ref={ref} src={src} {...imgProps} />
