@@ -42,7 +42,7 @@
     "body-scroll-lock": "^2.6.4",
     "emotion": "^10.0.14",
     "modular-scale": "5.1.0",
-    "react-range": "1.4.1"
+    "react-range": "1.5.1"
   },
   "peerDependencies": {
     "react": "^16.8.6",
