@@ -11,6 +11,7 @@ import React, {
   useMemo,
 } from 'react';
 import { createComponent } from '../core';
+import { EmotionStyleSheet } from '../types';
 import { variant } from '../variants';
 import { Box } from './Box';
 import { Flex } from './Flex';
@@ -39,6 +40,7 @@ const BaseDialog = createComponent('div', {
 });
 
 interface DialogProps {
+  baseStyles?: EmotionStyleSheet;
   children?: ReactNode;
   /** Close button label (default close dialog) */
   closeButtonLabel?: string;
@@ -58,6 +60,7 @@ interface DialogProps {
 }
 
 export function Dialog({
+  baseStyles,
   children,
   closeButtonLabel = 'Close dialog',
   label,
@@ -131,6 +134,7 @@ export function Dialog({
         ref={dialogRef}
         role={role}
         scroll={scroll}
+        styles={baseStyles}
       >
         <Flex>
           <Flex
