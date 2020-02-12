@@ -4,6 +4,7 @@ import React, {
   cloneElement,
   ReactElement,
   JSXElementConstructor,
+  isValidElement,
 } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../types';
@@ -35,12 +36,10 @@ export const SvgIcon: VisageComponent<
 > = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
   return (
     <SvgIconBase {...restProps}>
-      {typeof Icon === 'function' ? (
-        <Icon {...iconProps} />
-      ) : iconProps ? (
+      {isValidElement(Icon) ? (
         cloneElement(Icon, iconProps)
       ) : (
-        Icon
+        <Icon {...iconProps} />
       )}
     </SvgIconBase>
   );
