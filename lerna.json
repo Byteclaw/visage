@@ -3,9 +3,7 @@
   "packages": ["packages/*"],
   "command": {
     "version": {
-      "conventionalCommits": true,
-      "changelogPreset": "conventionalcommits",
-      "message": "chore(release): release %s"
+      "push": false
     },
     "publish": {
       "ignoreChanges": [
@@ -15,7 +13,10 @@
         "*.test.ts",
         "*.test.tsx",
         "packages/visage-docs/**"
-      ]
+      ],
+      "conventionalCommits": true,
+      "changelogPreset": "conventionalcommits",
+      "message": "chore(release): release %s"
     }
   },
   "version": "independent",
