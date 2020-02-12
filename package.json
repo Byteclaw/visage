@@ -10,6 +10,7 @@
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"packages/**/src/**/*.{ts,tsx}\"",
     "lint-staged": "lint-staged",
+    "lerna:publish": "lerna publish --conventional-commits",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --coverage"
@@ -25,6 +26,8 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/react-hooks": "^3.2.1",
     "@types/jest": "^24.0.15",
@@ -42,7 +45,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
-    "lerna": "^3.19.0",
+    "lerna": "^3.20.2",
     "lint-staged": "^9.5.0",
     "microbundle": "next",
     "prettier": "^1.19.1",
@@ -53,7 +56,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
