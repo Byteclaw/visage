@@ -10,7 +10,6 @@
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",
     "lint:fix": "eslint --fix \"packages/**/src/**/*.{ts,tsx}\"",
     "lint-staged": "lint-staged",
-    "lerna:publish": "lerna publish --conventional-commits",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --coverage"
@@ -35,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
     "all-contributors-cli": "^6.8.1",
+    "conventional-changelog-conventionalcommits": "^4.2.3",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-typescript": "^6.3.1",
     "eslint-config-prettier": "^6.7.0",

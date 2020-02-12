@@ -2,6 +2,11 @@
   "npmClient": "yarn",
   "packages": ["packages/*"],
   "command": {
+    "version": {
+      "conventionalCommits": true,
+      "changelogPreset": "conventionalcommits",
+      "message": "chore(release): release %s"
+    },
     "publish": {
       "ignoreChanges": [
         "README.md",
