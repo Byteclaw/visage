@@ -1,29 +1,26 @@
-import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
-import React, { ReactNode } from 'react';
+import {
+  ExtractVisageComponentProps,
+  markAsVisageComponent,
+} from '@byteclaw/visage-core';
+import React from 'react';
 import { Flex } from './Flex';
 import { ErrorIcon } from '../assets';
 import { SvgIcon } from './SvgIcon';
-import { StyleProps } from '../types';
 
-interface InlineErrorProps {
-  children: ReactNode;
-}
-
-export const InlineError: VisageComponent<InlineErrorProps, StyleProps> = ({
+export function InlineError({
   children,
+  styles,
   ...restProps
-}: InlineErrorProps) => {
+}: ExtractVisageComponentProps<typeof Flex>) {
   return (
     <Flex
+      styles={{ color: 'danger', fontSize: 0, lineHeight: 0, ...styles }}
       {...restProps}
-      styles={{ color: 'danger', fontSize: 0, lineHeight: 0 }}
     >
       <SvgIcon icon={ErrorIcon} styles={{ mr: 1 }} />
       {children}
     </Flex>
   );
-};
-
-InlineError.displayName = 'InlineError';
+}
 
 markAsVisageComponent(InlineError);
