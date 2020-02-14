@@ -2,9 +2,7 @@ import {
   ExtractVisageComponentProps,
   OmittableProps,
   markAsVisageComponent,
-  useDesignSystem,
 } from '@byteclaw/visage-core';
-import { getResponsiveValue } from '@byteclaw/visage-utils';
 import React, {
   Children,
   cloneElement,
@@ -16,7 +14,6 @@ import React, {
   KeyboardEventHandler,
   forwardRef,
   RefObject,
-  useMemo,
   Ref,
 } from 'react';
 import {
@@ -28,15 +25,12 @@ import {
 import { createComponent } from '../core';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
-import { booleanVariant } from '../variants';
 
 const MenuBase = createComponent(List, {
   displayName: 'Menu',
-  defaultStyles: props => ({
+  defaultStyles: {
     backgroundColor: 'lightShades',
-    ...(props.isFullscreen ? { width: '100vw', height: '100vh' } : {}),
-  }),
-  variants: [booleanVariant('isFullscreen', true)],
+  },
 });
 
 const MenuItemBase = createComponent(ListItem, {
@@ -59,7 +53,6 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
    * Use only if you are managing focus outside of this component
    */
   disableEvents?: boolean;
-  fullscreen?: boolean | boolean[];
   keepAnchorWidth?: boolean;
   onClose?: (e: KeyboardEvent | MouseEvent) => void;
   open: boolean;
@@ -78,7 +71,6 @@ export function Menu({
   anchorOrigin = defaultAnchorOrigin,
   children,
   disableEvents,
-  fullscreen = [true, false],
   keepAnchorWidth,
   onClose,
   open,
@@ -87,12 +79,6 @@ export function Menu({
   popoverProps,
   ...restProps
 }: MenuProps) {
-  const visage = useDesignSystem();
-  const isFullscreen = useMemo(
-    () => getResponsiveValue(visage.breakpoint, fullscreen),
-    [visage.breakpoint, fullscreen],
-  );
-
   const firstItemRef = useRef<HTMLElement | null>(null);
   const lastItemRef = useRef<HTMLElement | null>(null);
   const onKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
@@ -183,13 +169,11 @@ export function Menu({
 
   return (
     <Popover
-      allowScrolling={!isFullscreen}
       alwaysVisible
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={false}
       backdrop
-      fullscreen={isFullscreen}
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
       open={open}
@@ -201,12 +185,7 @@ export function Menu({
       }}
       {...popoverProps}
     >
-      <MenuBase
-        isFullscreen={isFullscreen}
-        role={role}
-        {...restProps}
-        tabIndex={-1}
-      >
+      <MenuBase role={role} {...restProps} tabIndex={-1}>
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
             ref: i === 0 ? firstItemRef : lastItemRef,
