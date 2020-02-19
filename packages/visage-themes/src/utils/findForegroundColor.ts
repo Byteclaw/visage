@@ -6,7 +6,13 @@ function isContrastOk(foreground: color, background: color): boolean {
   return contrast >= 4.5 && contrast <= 5.0;
 }
 
-export function findColor(source: string, background: string): string {
+/**
+ * Find a foreground color with good contrast
+ */
+export function findForegroundColor(
+  source: string,
+  background: string,
+): string {
   const sourceColor = color(source);
   const backgroundColor = color(background);
 
