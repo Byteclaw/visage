@@ -1,15 +1,18 @@
+import {
+  createNPointModularScaleTheme,
+  modularScaleFontRatios,
+} from '@byteclaw/visage-themes';
 import { cache } from 'emotion';
 import { createEmotionStyleGenerator } from '../emotionStyleGenerator';
-import { createNPointTheme, ratios } from '../createNPointTheme';
 
 const styleGenerator = createEmotionStyleGenerator();
 
 describe('emotion style generator', () => {
   it('works correctly', () => {
-    const theme = createNPointTheme({
+    const theme = createNPointModularScaleTheme({
       baseFontSize: 16,
       baseLineHeightRatio: 1.5,
-      baselineGridSize: 8,
+      baseGridSize: 8,
       colors: {
         primary: 'tomato',
         danger: 'red',
@@ -25,7 +28,7 @@ describe('emotion style generator', () => {
         body: 'Body font',
         heading: 'Heading font',
       },
-      fontScaleRatio: ratios.perfectFourth,
+      fontScaleRatio: modularScaleFontRatios.perfectFourth,
     });
 
     const styleSheet = {
