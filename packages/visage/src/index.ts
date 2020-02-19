@@ -12,8 +12,6 @@ export * from './ResponsiveDesignSystem';
 export * from './assets';
 export * from './components';
 export * from './core';
-export * from './createNPointTheme';
-export * from './createScaleTheme';
 export * from './emotionResponsiveStyleGenerator';
 export * from './emotionStyleGenerator';
 export * from './faces';

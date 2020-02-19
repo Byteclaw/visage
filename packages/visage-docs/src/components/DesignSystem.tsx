@@ -1,8 +1,5 @@
-import {
-  ResponsiveDesignSystem,
-  createScaleTheme,
-  ColorPalette,
-} from '@byteclaw/visage';
+import { ResponsiveDesignSystem, ColorPalette } from '@byteclaw/visage';
+import { createNPointFontScaleTheme } from '@byteclaw/visage-themes';
 import React, { useCallback, useMemo, useState, ReactNode } from 'react';
 import {
   defaultColorTheme,
@@ -20,7 +17,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
   const [colors, setColorPalette] = useState<ColorPalette>(defaultColorTheme);
   const [isDark, setDarkTheme] = useState(false);
   const theme = useMemo(() => {
-    return createScaleTheme({
+    return createNPointFontScaleTheme({
       ...themeSettings,
       colors,
     });

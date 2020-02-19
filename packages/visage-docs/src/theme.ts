@@ -1,4 +1,5 @@
-import { ScaleThemeSettings, ratios, ColorPalette } from '@byteclaw/visage';
+import { ColorPalette } from '@byteclaw/visage';
+import { NPointFontScaleThemeSettings } from '@byteclaw/visage-themes';
 import color from 'color';
 import { createContext } from 'react';
 import { generateColorScale, findColor } from './utils';
@@ -63,12 +64,13 @@ export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
   };
 }
 
-export const themeSettings: ScaleThemeSettings = {
-  controlBorderRadius: 6,
+export const themeSettings: NPointFontScaleThemeSettings = {
+  borderRadius: {
+    controlBorderRadius: 6,
+  },
   fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
   lineHeights: { values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56], offset: 2 },
-  baselineGridSize: 8,
-  fontScaleRatio: ratios.perfectFourth,
+  baseGridSize: 8,
   colors: defaultColorTheme,
   fontFamily: {
     body: 'Open Sans,sans-serif',

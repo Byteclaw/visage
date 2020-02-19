@@ -7,9 +7,9 @@ title: 'Visage'
 ## Installation
 
 ```sh transpile=false
-npm install @byteclaw/visage
+npm install @byteclaw/visage @byteclaw/visage-themes
 # or
-yarn add @byteclaw/visage
+yarn add @byteclaw/visage @byteclaw/visage-themes
 ```
 
 ## Usage
@@ -19,9 +19,10 @@ In order to use Visage in your application, make sure you wrap your application 
 ### Non Responsive
 
 ```jsx transpile=false
-import { createNPointTheme, DesignSystem, Text } from '@byteclaw/visage';
+import { DesignSystem, Text } from '@byteclaw/visage';
+import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
 
-const theme = createNPointTheme(/* see below on how to set up theme */);
+const theme = createNPointModularScaleTheme(/* see below on how to set up theme */);
 
 // responsive design system
 <DesignSystem theme={theme}>
@@ -32,13 +33,10 @@ const theme = createNPointTheme(/* see below on how to set up theme */);
 ### Responsive
 
 ```jsx transpile=false
-import {
-  createNPointTheme,
-  ResponsiveDesignSystem,
-  Text,
-} from '@byteclaw/visage';
+import { ResponsiveDesignSystem, Text } from '@byteclaw/visage';
+import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
 
-const theme = createNPointTheme(/* see below on how to set up theme */);
+const theme = createNPointModularScaleTheme(/* see below on how to set up theme */);
 
 // responsive design system
 <ResponsiveDesignSystem theme={theme}>
@@ -48,7 +46,7 @@ const theme = createNPointTheme(/* see below on how to set up theme */);
 
 ## N Point Theme
 
-`createNPointTheme` is [N pixel based grid system](https://spec.fm/specifics/8-pt-grid) with [Modular scale](https://www.modularscale.com/) used for typography.
+`createNPointModularScaleTheme` is [N pixel based grid system](https://spec.fm/specifics/8-pt-grid) with [Modular scale](https://www.modularscale.com/) used for typography.
 
 ### Grid
 
@@ -91,7 +89,7 @@ Scale is an object that have `{ values: string[], offset: number }`.
 Offset is used to calculate a shade of a color.
 
 ```jsx transpile=false
-createNPointTheme({
+createNPointModularScaleTheme({
   colors: {
     body: 'black', // string color
     neutral: { // scale color
@@ -135,7 +133,7 @@ createNPointTheme({
 #### Example
 
 ```jsx transpile=false
-createNPointTheme({
+createNPointModularScaleTheme({
   baseFontSize: 16,
   baseLineHeightRatio: 1.6,
   baselineGridSize: 8,
