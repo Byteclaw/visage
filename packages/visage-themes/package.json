@@ -35,6 +35,8 @@
     "@byteclaw/visage-core": "^0.4.0",
     "@byteclaw/visage-utils": "^0.2.0",
     "@types/modular-scale": "^5.1.1",
+    "@types/color": "^3.0.1",
+    "color": "^3.1.2",
     "modular-scale": "^5.1.0"
   },
   "peerDependencies": {

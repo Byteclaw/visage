@@ -2,9 +2,19 @@
 
 Collection of themes for [Visage Design System](https://visage.design) and utilities to create custom themes.
 
+## Themes
+
+- [`createDocsTheme`](#docs-theme) - creates a theme that is used in documentation
+- [`createNPointFontScaleTheme`](#n-point-and-font-scale-theme) - create base N-point theme with font scale typography
+- [`createNPointModularScaleTheme`](#n-point-and-modular-scale-theme) - create base N-point theme with modular scale typography
+
 ## Usage
 
 First decide what theme you want to use and then import it.
+
+### Docs theme
+
+Default theme used in Visage docs
 
 ### N-point and modular scale theme
 

@@ -1,12 +1,10 @@
 import { ResponsiveDesignSystem, ColorPalette } from '@byteclaw/visage';
-import { createNPointFontScaleTheme } from '@byteclaw/visage-themes';
-import React, { useCallback, useMemo, useState, ReactNode } from 'react';
 import {
-  defaultColorTheme,
-  ThemeTogglerContext,
-  themeSettings,
-  toggleColorPaletteMode,
-} from '../theme';
+  createDocsTheme,
+  docsThemeColorPalette,
+} from '@byteclaw/visage-themes';
+import React, { useCallback, useMemo, useState, ReactNode } from 'react';
+import { ThemeTogglerContext, toggleColorPaletteMode } from '../theme';
 import { visageDocsFaces } from '../visageDocsFaces';
 
 interface DesignSystemProps {
@@ -14,11 +12,12 @@ interface DesignSystemProps {
 }
 
 export function DesignSystem({ children }: DesignSystemProps) {
-  const [colors, setColorPalette] = useState<ColorPalette>(defaultColorTheme);
+  const [colors, setColorPalette] = useState<ColorPalette>(
+    docsThemeColorPalette,
+  );
   const [isDark, setDarkTheme] = useState(false);
   const theme = useMemo(() => {
-    return createNPointFontScaleTheme({
-      ...themeSettings,
+    return createDocsTheme({
       colors,
     });
   }, [colors]);

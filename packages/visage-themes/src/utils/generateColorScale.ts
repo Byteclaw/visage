@@ -1,5 +1,5 @@
-import color from 'color';
 import { ScaleValue } from '@byteclaw/visage-utils';
+import color from 'color';
 
 export function generateColorScale<TKey extends string = string>(
   name: TKey,
