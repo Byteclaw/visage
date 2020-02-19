@@ -95,6 +95,11 @@ const themeKey: ThemeResolverFunction = function themeKey(
         return themeValue;
       }
 
+      // return array theme values as is
+      if (Array.isArray(themeValue)) {
+        return themeValue;
+      }
+
       const [propertyName, scaleIndex] = parseScaleValuePath(value);
 
       if (isScaleValue(themeValue)) {
@@ -104,11 +109,12 @@ const themeKey: ThemeResolverFunction = function themeKey(
         return getScaleValue(themeValue, scaleIndex) || value;
       }
 
-      // nested object, resolve again
-      return themeKey(propertyName, scaleIndex, {
-        ...ctx,
-        themeSettings: themeValue as ThemeSettings,
-      });
+      return (
+        themeKey(propertyName, scaleIndex, {
+          ...ctx,
+          themeSettings: themeValue as ThemeSettings,
+        }) || value
+      );
     }
     default:
       return themeValue;
