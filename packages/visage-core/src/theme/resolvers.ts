@@ -27,6 +27,10 @@ const color: ThemeResolverFunction = function color(
       return getScaleValue(colors, shade) || value;
     }
 
+    if (Array.isArray(colors)) {
+      throw new Error('Theme property `colors` cannot contain an array');
+    }
+
     const colorToUse = colors[propertyName];
 
     if (colorToUse == null) {
@@ -57,7 +61,8 @@ const fontFamily: ThemeResolverFunction = function fontFamily(
   if (
     typeof themeValue !== 'object' ||
     themeValue == null ||
-    isScaleValue(themeValue)
+    isScaleValue(themeValue) ||
+    Array.isArray(themeValue)
   ) {
     throw new Error('Theme.fontFamily is not an object');
   }
