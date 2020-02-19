@@ -1,10 +1,14 @@
+import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
 import React, { ReactNode } from 'react';
-import { createNPointTheme, DesignSystem } from '../..';
+import { DesignSystem } from '../..';
 
-const theme = createNPointTheme({
+const theme = createNPointModularScaleTheme({
   baseFontSize: 16,
   baseLineHeightRatio: 1.6,
-  baselineGridSize: 8,
+  baseGridSize: 8,
+  borderRadius: {
+    controlBorderRadius: 4,
+  },
   fontScaleRatio: 1.6,
   fontFamily: {
     body: 'body-font',

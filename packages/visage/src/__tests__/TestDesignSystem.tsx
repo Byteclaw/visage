@@ -1,12 +1,12 @@
 import { DesignSystem, Theme } from '@byteclaw/visage-core';
+import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
 import React, { ReactNode } from 'react';
-import { createNPointTheme } from '../createNPointTheme';
 import { createEmotionStyleGenerator } from '../emotionStyleGenerator';
 
-export const theme = createNPointTheme({
+export const theme = createNPointModularScaleTheme({
   baseFontSize: 16,
   baseLineHeightRatio: 1.6,
-  baselineGridSize: 8,
+  baseGridSize: 8,
   fontScaleRatio: 1.6,
   fontFamily: {
     body: 'body-font',

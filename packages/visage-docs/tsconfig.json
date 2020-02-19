@@ -11,6 +11,7 @@
   "references": [
     { "path": "../visage" },
     { "path": "../visage-core" },
+    { "path": "../visage-themes" },
     { "path": "../visage-utils" }
   ]
 }

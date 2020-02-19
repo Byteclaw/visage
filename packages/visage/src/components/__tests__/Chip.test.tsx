@@ -38,6 +38,7 @@ describe('Chip', () => {
         border: 1px;
         border-color: light-blue;
         border-style: solid;
+        border-radius: 4px;
         display: -webkit-inline-box;
         display: -webkit-inline-flex;
         display: -ms-inline-flexbox;
