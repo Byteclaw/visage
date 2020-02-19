@@ -6,6 +6,7 @@
   "references": [
     { "path": "./packages/visage" },
     { "path": "./packages/visage-core" },
+    { "path": "./packages/visage-themes" },
     { "path": "./packages/visage-utils" }
   ]
 }

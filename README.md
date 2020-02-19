@@ -8,6 +8,14 @@
 ![@byteclaw/visage version](https://img.shields.io/npm/v/@byteclaw/visage.svg?style=flat-square&label=@byteclaw/visage)
 ![@byteclaw/visage-core version](https://img.shields.io/npm/v/@byteclaw/visage-core.svg?style=flat-square&label=@byteclaw/visage-core)
 ![@byteclaw/visage-utils version](https://img.shields.io/npm/v/@byteclaw/visage-utils.svg?style=flat-square&label=@byteclaw/visage-utils)
+![@byteclaw/visage-themes version](https://img.shields.io/npm/v/@byteclaw/visage-themes.svg?style=flat-square&label=@byteclaw/visage-themes)
+
+## Packages
+
+- [`@byteclaw/visage`](./src/visage) - Visage design system for React.
+- [`@byteclaw/visage-core`](./src/visage-core) - Visage design system core, useful to create own design systems.
+- [`@byteclaw/visage-themes`](./src/visage-themes) - Collection of themes and helpers to quickstart your project.
+- [`@byteclaw/visage-utils`](./src/visage-utils) - Utilities used in Visage.
 
 ## Contributors
 
