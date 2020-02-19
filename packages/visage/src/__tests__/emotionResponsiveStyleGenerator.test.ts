@@ -1,6 +1,9 @@
 import { cache } from 'emotion';
+import {
+  createNPointModularScaleTheme,
+  modularScaleFontRatios,
+} from '@byteclaw/visage-themes';
 import { createResponsiveEmotionStyleGenerator } from '../emotionResponsiveStyleGenerator';
-import { createNPointTheme, ratios } from '../createNPointTheme';
 
 const MOBILE_BP = `only screen`; // 40em
 const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
@@ -14,10 +17,10 @@ const styleGenerator = createResponsiveEmotionStyleGenerator(
 
 describe('emotion responsive style generator', () => {
   it('works correctly', () => {
-    const theme = createNPointTheme({
+    const theme = createNPointModularScaleTheme({
       baseFontSize: 16,
       baseLineHeightRatio: 1.5,
-      baselineGridSize: 8,
+      baseGridSize: 8,
       colors: {
         primary: 'tomato',
         danger: 'red',
@@ -33,7 +36,7 @@ describe('emotion responsive style generator', () => {
         body: 'Body font',
         heading: 'Heading font',
       },
-      fontScaleRatio: ratios.perfectFourth,
+      fontScaleRatio: modularScaleFontRatios.perfectFourth,
     });
 
     const styleSheet = {
