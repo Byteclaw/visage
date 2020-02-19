@@ -38,6 +38,12 @@ export interface ColorPalette {
   [extra: string]: undefined | string | ScaleValue<string>;
 }
 
+export interface FontPalette {
+  body: string;
+  heading: string;
+  [extra: string]: undefined | string;
+}
+
 export type EmotionStyleSheet = StyleSheet<StyleProps>;
 
 export interface StyleProps extends React.CSSProperties {
