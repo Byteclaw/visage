@@ -122,7 +122,9 @@ export interface ThemeSettings {
   [key: string]:
     | undefined
     | string
+    | string[]
     | number
+    | number[]
     | ScaleValue<any>
     | { [nested: string]: undefined | string | number | ScaleValue<any> };
 }
