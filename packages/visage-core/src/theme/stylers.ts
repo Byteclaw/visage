@@ -1,26 +1,7 @@
 import { formatters } from './formatters';
 import { resolvers } from './resolvers';
+import { colorProps } from './constants';
 import { ThemeStylerSettings, ThemeStylerMap } from './types';
-
-const colorProps = [
-  'backgroundColor',
-  'borderColor',
-  'borderBlockColor',
-  'borderBottomColor',
-  'borderLeftColor',
-  'borderRightColor',
-  'borderTopColor',
-  'borderBlockColor',
-  'borderBlockEndColor',
-  'borderBlockStartColor',
-  'borderInlineColor',
-  'borderInlineEndColor',
-  'borderInlineStartColor',
-  'color',
-  'fill',
-  'outlineColor',
-  'stroke',
-] as const;
 
 type ColorPropNames = typeof colorProps[number];
 

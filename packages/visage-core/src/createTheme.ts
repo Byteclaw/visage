@@ -96,7 +96,7 @@ export function createTheme<
   formatters = {} as ThemeFormatterMap<TFormattersName>,
   resolvers = {} as ThemeResolverMap<TResolversName>,
   stylers = {} as ThemeStylerMap<TStylersName>,
-  theme: themeSettings = {},
+  theme: themeSettings = { colors: {}, fontFamily: {} },
 }: ThemeOptions<TFormattersName, TResolversName, TStylersName>): Theme {
   const allFormatters = {
     ...coreFormatters,

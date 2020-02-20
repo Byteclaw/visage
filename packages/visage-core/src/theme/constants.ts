@@ -1,0 +1,20 @@
+/** Name of CSS properties that should use color resolver */
+export const colorProps = [
+  'backgroundColor',
+  'borderColor',
+  'borderBlockColor',
+  'borderBottomColor',
+  'borderLeftColor',
+  'borderRightColor',
+  'borderTopColor',
+  'borderBlockColor',
+  'borderBlockEndColor',
+  'borderBlockStartColor',
+  'borderInlineColor',
+  'borderInlineEndColor',
+  'borderInlineStartColor',
+  'color',
+  'fill',
+  'outlineColor',
+  'stroke',
+] as const;
