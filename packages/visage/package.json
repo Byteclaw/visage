@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage",
-  "version": "0.10.4",
+  "version": "0.11.0",
   "description": "Visage browser design system",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -32,7 +32,7 @@
   "dependencies": {
     "@byteclaw/use-event-emitter": "^1.0.0",
     "@byteclaw/use-unique-id": "^1.0.0",
-    "@byteclaw/visage-core": "^0.4.0",
+    "@byteclaw/visage-core": "^0.5.0",
     "@byteclaw/visage-utils": "^0.2.0",
     "@emotion/core": "^10.0.14",
     "@types/body-scroll-lock": "^2.6.1",
