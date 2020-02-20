@@ -9,7 +9,7 @@ import { parseScaleValuePath } from './utils';
 /**
  * Default resolver for colors
  */
-const color: ThemeResolverFunction = function color(
+const color: ThemeResolverFunction = function resolveColor(
   propName: string,
   value: any,
   { themeSettings },
@@ -18,58 +18,35 @@ const color: ThemeResolverFunction = function color(
   const [propertyName, shade] = parseScaleValuePath(value);
   const { colors } = themeSettings;
 
-  if (colors == null) {
+  if (colors == null || value == null) {
     return value;
   }
 
-  if (typeof colors === 'object') {
-    if (isScaleValue(colors)) {
-      return getScaleValue(colors, shade) || value;
-    }
+  const colorToUse = colors[propertyName];
 
-    if (Array.isArray(colors)) {
-      throw new Error('Theme property `colors` cannot contain an array');
-    }
-
-    const colorToUse = colors[propertyName];
-
-    if (colorToUse == null) {
-      return value;
-    }
-
-    return (
-      (isScaleValue(colorToUse)
-        ? getScaleValue(colorToUse, shade)
-        : colorToUse) || value
-    );
+  if (colorToUse == null) {
+    return value;
   }
 
-  return colors;
+  return (
+    (isScaleValue(colorToUse)
+      ? getScaleValue(colorToUse, shade)
+      : colorToUse) || value
+  );
 };
 
-const fontFamily: ThemeResolverFunction = function fontFamily(
+const fontFamily: ThemeResolverFunction = function resolveFontFamily(
   propName: string,
   value: any,
   { themeSettings },
 ) {
-  if (value == null) {
+  const { fontFamily: fonts } = themeSettings;
+
+  if (value == null || fonts == null) {
     return value;
   }
 
-  const themeValue = themeSettings[propName];
-
-  if (
-    typeof themeValue !== 'object' ||
-    themeValue == null ||
-    isScaleValue(themeValue) ||
-    Array.isArray(themeValue)
-  ) {
-    throw new Error('Theme.fontFamily is not an object');
-  }
-
-  const font = themeValue[value];
-
-  return typeof font === 'string' ? font : value;
+  return fonts[value] || value;
 };
 
 /**
@@ -109,12 +86,21 @@ const themeKey: ThemeResolverFunction = function themeKey(
         return getScaleValue(themeValue, scaleIndex) || value;
       }
 
-      return (
-        themeKey(propertyName, scaleIndex, {
-          ...ctx,
-          themeSettings: themeValue as ThemeSettings,
-        }) || value
-      );
+      const nestedValue = themeKey(propertyName, value, {
+        ...ctx,
+        themeSettings: themeValue as ThemeSettings,
+      });
+
+      // null turns off the value
+      if (nestedValue === null) {
+        return null;
+      }
+
+      if (nestedValue != null) {
+        return nestedValue;
+      }
+
+      return value;
     }
     default:
       return themeValue;

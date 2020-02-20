@@ -119,7 +119,9 @@ export type ThemeStylerMap<
  * Theme settings
  */
 export interface ThemeSettings {
-  [key: string]:
+  colors: { [name: string]: undefined | string | ScaleValue<string> };
+  fontFamily: { [name: string]: undefined | string };
+  [extra: string]:
     | undefined
     | string
     | string[]
