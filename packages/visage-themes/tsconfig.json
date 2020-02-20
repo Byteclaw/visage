@@ -8,5 +8,9 @@
   },
   "include": ["src"],
   "exclude": ["**/__tests__/**"],
-  "references": [{ "path": "../visage" }]
+  "references": [
+    { "path": "../visage" },
+    { "path": "../visage-core" },
+    { "path": "../visage-utils" }
+  ]
 }
