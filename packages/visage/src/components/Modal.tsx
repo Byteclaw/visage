@@ -47,7 +47,9 @@ const BaseModal = createComponent('div', {
     height: '100%',
     ...(props.scrollable ? { overflowY: 'scroll' } : {}),
     ...(props.fixed ? { position: 'fixed' } : {}),
-    ...(props.backdrop ? { backgroundColor: 'hsla(0,0%,9%,.5)' } : {}),
+    ...(props.backdrop && props.fixed
+      ? { backgroundColor: 'hsla(0,0%,9%,.5)' }
+      : {}),
   }),
   variants: [
     booleanVariant('fixed', true),
@@ -57,6 +59,10 @@ const BaseModal = createComponent('div', {
 });
 
 interface ModalProps {
+  /**
+   * Backdrop allows onClose to work with click away
+   * If modal is not fixed, then backdrop is not visible (overlay)
+   */
   backdrop?: boolean;
   contentRef?: MutableRefObject<HTMLElement | null>;
   fixed?: boolean;
