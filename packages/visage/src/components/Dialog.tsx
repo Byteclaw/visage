@@ -1,10 +1,7 @@
 import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
-  MouseEventHandler,
   ReactElement,
   ReactNode,
-  useCallback,
-  useEffect,
   useRef,
   MouseEvent,
   KeyboardEvent,
@@ -77,52 +74,11 @@ export function Dialog({
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const headingId = `dialog-${id}-heading`;
-  const onDocumentFocus: EventListener = useCallback(e => {
-    if (
-      dialogRef.current &&
-      dialogRef.current.contains(e.target as any) === false
-    ) {
-      e.preventDefault();
-
-      // return focus back to close button
-      if (closeButtonRef.current) {
-        closeButtonRef.current.focus();
-      }
-    }
-  }, []);
-
-  const onClickHandler: MouseEventHandler = useCallback(
-    e => {
-      if (onClose) {
-        e.preventDefault();
-        onClose(e);
-      }
-    },
-    [onClose],
-  );
-
-  // focus close button on mount
-  useEffect(() => {
-    if (closeButtonRef.current) {
-      closeButtonRef.current.focus();
-    }
-  }, []);
-
-  // focus trap
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('focus', onDocumentFocus, true);
-
-      return () => {
-        document.removeEventListener('focus', onDocumentFocus, true);
-      };
-    }
-  }, []);
 
   return (
     <Modal
       contentRef={dialogRef}
+      focusElementRef={closeButtonRef}
       open
       scrollable={scroll === 'body'}
       id={id}
@@ -171,7 +127,7 @@ export function Dialog({
               <CloseButton
                 aria-label={closeButtonLabel}
                 styles={{ fontSize: 1, mx: 2, my: 2 }}
-                onClick={onClickHandler}
+                onClick={onClose}
                 ref={closeButtonRef}
               />
             </Flex>
