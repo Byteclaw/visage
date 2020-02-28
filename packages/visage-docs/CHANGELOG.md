@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.12.0 (2020-02-28)
+
+* feat(visage): make Popover fullscreen prop responsive ([0d7f1f9](https://github.com/Byteclaw/visage/commit/0d7f1f9))
+
+
+
+
+
 ## 0.11.0 (2020-02-20)
 
 * feat(visage/themes): add docs theme creator ([163fc92](https://github.com/Byteclaw/visage/commit/163fc92))

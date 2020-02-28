@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.12.0 (2020-02-28)
+
+* chore(visage): regenerate faces type ([99b84f2](https://github.com/Byteclaw/visage/commit/99b84f2))
+* feat(visage): allow disabling global visual styles ([00e37e5](https://github.com/Byteclaw/visage/commit/00e37e5))
+* feat(visage): don't render visible backdrop for nonfixed modal ([fa1601a](https://github.com/Byteclaw/visage/commit/fa1601a))
+* feat(visage): make Popover fullscreen prop responsive ([0d7f1f9](https://github.com/Byteclaw/visage/commit/0d7f1f9))
+
+
+
+
+
 ## 0.11.0 (2020-02-20)
 
 * chore: remove circular dependency ([09b3639](https://github.com/Byteclaw/visage/commit/09b3639))
