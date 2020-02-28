@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.13.0 (2020-02-28)
+
+* feat(visage): make Modal a focus trap and add useFocusTrap hook ([2450a00](https://github.com/Byteclaw/visage/commit/2450a00))
+
+
+
+
+
 ## <small>0.12.1 (2020-02-28)</small>
 
 * fix(visage): fix closing Modal with escape key ([f7ec0b4](https://github.com/Byteclaw/visage/commit/f7ec0b4))
