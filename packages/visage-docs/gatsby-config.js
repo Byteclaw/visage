@@ -20,6 +20,7 @@ module.exports = {
         alias: {
           '@byteclaw/visage-core': resolve(__dirname, '../visage-core/src'),
           '@byteclaw/visage-utils': resolve(__dirname, '../visage-utils/src'),
+          '@byteclaw/visage-themes': resolve(__dirname, '../visage-themes/src'),
           '@byteclaw/visage': resolve(__dirname, '../visage/src'),
         },
         extensions: ['ts', 'tsx', 'js', 'jsx'],
