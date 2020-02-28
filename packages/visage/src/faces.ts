@@ -71,6 +71,8 @@ export interface VisageFaces {
   DescriptionListItemTerm?: EmotionStyleSheet;
   // Dialog.tsx
   Dialog?: EmotionStyleSheet;
+  // Dialog.tsx
+  DialogContent?: EmotionStyleSheet;
   // Divider.tsx
   Divider?: EmotionStyleSheet;
   // Divider.tsx
