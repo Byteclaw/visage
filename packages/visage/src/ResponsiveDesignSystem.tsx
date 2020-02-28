@@ -11,7 +11,8 @@ import {
 } from '@byteclaw/visage-core';
 import React, { ReactNode, useState } from 'react';
 import { useBreakpointDetection } from './hooks';
-import { GlobalReset } from './GlobalReset';
+import { globalComponentStyles, GlobalReset } from './GlobalReset';
+import { GlobalStyles } from './GlobalStyles';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
 import { createEmotionStyleGenerator } from './emotionStyleGenerator';
@@ -36,6 +37,10 @@ export interface ResponsiveDesignSystemProps {
    * Sets the default zIndex (default is 1)
    */
   defaultZIndex?: number;
+  /**
+   * Disables all styles that sets some visual properties and keeps just CSS reset for body and html
+   */
+  disableGlobalStyles?: boolean;
   faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
@@ -47,6 +52,7 @@ export function ResponsiveDesignSystem({
   breakpoints = defaultBreakpoints,
   children,
   defaultZIndex = 10,
+  disableGlobalStyles,
   faces,
   is = 0,
   styleGenerator = defaultStyleGenerator,
@@ -67,6 +73,9 @@ export function ResponsiveDesignSystem({
       <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
           <GlobalReset />
+          {disableGlobalStyles ? null : (
+            <GlobalStyles styles={globalComponentStyles} />
+          )}
           <EventEmitterContext.Provider value={toastEventEmitter}>
             <ToastManager />
             {children}
