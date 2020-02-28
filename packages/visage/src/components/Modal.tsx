@@ -1,13 +1,12 @@
 import { useUniqueId } from '@byteclaw/use-unique-id';
+import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import React, {
-  KeyboardEventHandler,
-  MouseEventHandler,
   ReactNode,
-  useCallback,
   useRef,
   MouseEvent,
   KeyboardEvent,
   MutableRefObject,
+  useEffect,
   useMemo,
 } from 'react';
 import {
@@ -58,6 +57,36 @@ const BaseModal = createComponent('div', {
   ],
 });
 
+function createCloseOnEscapeKeyDownHandler(
+  onClose?: (e: KeyboardEvent) => void,
+) {
+  return (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && onClose) {
+      onClose(e);
+    }
+  };
+}
+
+function createCloseOnClickAwayHandler(
+  contentRef: undefined | React.RefObject<HTMLElement | null>,
+  modalRef: React.RefObject<HTMLElement>,
+  backdropRef: React.RefObject<HTMLElement>,
+  onClose?: (e: MouseEvent) => void,
+) {
+  return (e: MouseEvent) => {
+    if (
+      onClose &&
+      ((contentRef &&
+        contentRef.current !== e.currentTarget &&
+        e.currentTarget === e.target) ||
+        (contentRef == null &&
+          (e.target === modalRef.current || e.target === backdropRef.current)))
+    ) {
+      onClose(e);
+    }
+  };
+}
+
 interface ModalProps {
   /**
    * Backdrop allows onClose to work with click away
@@ -106,33 +135,23 @@ export function Modal({
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const zIndex = useLayerManager();
-  const onClickAwayHandler: MouseEventHandler = useCallback(
-    e => {
-      if (
-        onClose &&
-        ((contentRef &&
-          contentRef.current !== e.currentTarget &&
-          e.currentTarget === e.target) ||
-          (contentRef == null &&
-            (e.target === modalRef.current ||
-              e.target === backdropRef.current)))
-      ) {
-        onClose(e);
-      }
-    },
+  const onClickAwayHandler = useStaticCallbackCreator(
+    createCloseOnClickAwayHandler,
+    [contentRef, modalRef, backdropRef, onClose],
+  );
+  const onEscKeyDownHandler = useStaticCallbackCreator(
+    createCloseOnEscapeKeyDownHandler,
     [onClose],
   );
 
-  const onEscKeyDownHandler: KeyboardEventHandler = useCallback(
-    e => {
-      if (e.key === 'Escape' && onClose) {
-        onClose(e);
-      }
-    },
-    [onClose],
-  );
+  useEffect(() => {
+    document.addEventListener('keydown', onEscKeyDownHandler as any);
 
-  React.useEffect(() => {
+    return () =>
+      document.removeEventListener('keydown', onEscKeyDownHandler as any);
+  }, [onEscKeyDownHandler]);
+
+  useEffect(() => {
     if (modalRef.current != null) {
       if (!unlockBodyScroll && open) {
         disableBodyScroll(modalRef.current as HTMLElement);
