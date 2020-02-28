@@ -17,7 +17,7 @@ import { Heading } from './Heading';
 import { Modal } from './Modal';
 import { Text } from './Text';
 
-const BaseDialog = createComponent('div', {
+const DialogBase = createComponent(Flex, {
   displayName: 'Dialog',
   defaultStyles: props => ({
     display: 'flex',
@@ -36,9 +36,25 @@ const BaseDialog = createComponent('div', {
   ],
 });
 
+const DialogContent = createComponent(Box, {
+  displayName: 'DialogContent',
+  defaultStyles: {
+    maxHeight: '100%',
+    maxWidth: '100%',
+    overflowY: 'scroll',
+  },
+});
+
 interface DialogProps {
+  /**
+   * Dialog's base styles
+   */
   baseStyles?: EmotionStyleSheet;
   children?: ReactNode;
+  /**
+   * Content wrapper's styles
+   */
+  contentStyles?: EmotionStyleSheet;
   /** Close button label (default close dialog) */
   closeButtonLabel?: string;
   label: string | ReactElement;
@@ -59,6 +75,7 @@ interface DialogProps {
 export function Dialog({
   baseStyles,
   children,
+  contentStyles,
   closeButtonLabel = 'Close dialog',
   label,
   id: outerId,
@@ -84,7 +101,7 @@ export function Dialog({
       id={id}
       onClose={onClose}
     >
-      <BaseDialog
+      <DialogBase
         aria-labelledby={headingId}
         aria-modal
         ref={dialogRef}
@@ -126,19 +143,15 @@ export function Dialog({
             >
               <CloseButton
                 aria-label={closeButtonLabel}
-                styles={{ fontSize: 1, mx: 2, my: 2 }}
                 onClick={onClose}
                 ref={closeButtonRef}
+                styles={{ fontSize: 1, mx: 2, my: 2 }}
               />
             </Flex>
           ) : null}
         </Flex>
-        <Box
-          styles={{ maxHeight: '100%', maxWidth: '100%', overflowY: 'scroll' }}
-        >
-          {children}
-        </Box>
-      </BaseDialog>
+        <DialogContent styles={contentStyles}>{children}</DialogContent>
+      </DialogBase>
     </Modal>
   );
 }
