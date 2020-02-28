@@ -18,6 +18,7 @@ import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
+import { useFocusTrap } from '../hooks';
 
 const Backdrop = createComponent('div', {
   displayName: 'ModalBackdrop',
@@ -93,6 +94,10 @@ interface ModalProps {
    * If modal is not fixed, then backdrop is not visible (overlay)
    */
   backdrop?: boolean;
+  /**
+   * Ref object to content, basically you want to render a div inside a Modal
+   * so contentRef should be a ref to the div
+   */
   contentRef?: MutableRefObject<HTMLElement | null>;
   fixed?: boolean;
   children?: ReactNode;
@@ -112,11 +117,20 @@ interface ModalProps {
    */
   open: boolean;
   /**
+   * This element will be focused on mount and will receive focus from focus trap
+   */
+  focusElementRef?: MutableRefObject<HTMLElement | null>;
+  /**
    * Should we allow to scroll document body?
    */
   unlockBodyScroll?: boolean;
 }
 
+/**
+ * Modal
+ *
+ * Works as a focus trap
+ */
 export function Modal({
   unlockBodyScroll = false,
   backdrop = true,
@@ -126,6 +140,7 @@ export function Modal({
   id: outerId,
   onClose,
   open = true,
+  focusElementRef,
   scrollable = false,
 }: ModalProps) {
   const idTemplate = useUniqueId();
@@ -143,6 +158,7 @@ export function Modal({
     createCloseOnEscapeKeyDownHandler,
     [onClose],
   );
+  const focusTrap = useFocusTrap(contentRef || modalRef, focusElementRef);
 
   useEffect(() => {
     document.addEventListener('keydown', onEscKeyDownHandler as any);
@@ -163,6 +179,25 @@ export function Modal({
       clearAllBodyScrollLocks();
     };
   }, [unlockBodyScroll, open, modalRef.current]);
+
+  // focus returnFocusToElement ref's element
+  useEffect(() => {
+    if (focusElementRef && focusElementRef.current) {
+      focusElementRef.current.focus();
+    }
+  }, [focusElementRef]);
+
+  // focus trap
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.addEventListener('focus', focusTrap, true);
+
+      return () => {
+        document.removeEventListener('focus', focusTrap, true);
+      };
+    }
+  }, [focusTrap]);
 
   if (typeof document === 'undefined' || !open) {
     return null;
