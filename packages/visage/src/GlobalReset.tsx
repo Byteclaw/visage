@@ -14,36 +14,17 @@ import {
 } from './components/Text';
 import { GlobalStyles } from './GlobalStyles';
 
-const globalStyles: { [selector: string]: EmotionStyleSheet } = {
-  '*': {
-    WebkitFontSmoothing: 'antialiased',
-    MozOsxFontSmoothing: 'grayscale',
-    textRendering: 'optimizeLegibility',
-  },
-  '*, *::before, *::after': {
-    boxSizing: 'inherit',
-    lineHeight: 0,
-    // padding: '0.05px', // prevent margin collapsing between parent and child
-  },
+export const globalComponentStyles: {
+  [selector: string]: EmotionStyleSheet;
+} = {
   body: {
     backgroundColor: 'lightShades',
-    margin: 0,
-    width: '100%',
-    maxWidth: 'none',
   },
   html: {
     backgroundColor: 'lightShades',
     color: 'lightShadesText',
-    boxSizing: 'border-box',
     fontFamily: 'body',
     fontSize: 0,
-    margin: 0,
-    width: '100%',
-    maxWidth: 'none',
-    // https://github.com/matejlatin/Gutenberg/blob/master/src/style/layout/_base.scss#L22
-    msTextSizeAdjust: '100%',
-    webkitTextSizeAdjust: '100%',
-    textSizeAdjust: '100%',
   },
   // typography (keep in sync with Visage counterparts)
   a: LinkStyles,
@@ -68,6 +49,34 @@ const globalStyles: { [selector: string]: EmotionStyleSheet } = {
   strong: StrongTextStyles,
   sup: SuperscriptStyles,
   sub: SubscriptStyles,
+};
+
+const globalStyles: { [selector: string]: EmotionStyleSheet } = {
+  '*': {
+    WebkitFontSmoothing: 'antialiased',
+    MozOsxFontSmoothing: 'grayscale',
+    textRendering: 'optimizeLegibility',
+  },
+  '*, *::before, *::after': {
+    boxSizing: 'inherit',
+    lineHeight: 0,
+    // padding: '0.05px', // prevent margin collapsing between parent and child
+  },
+  body: {
+    margin: 0,
+    width: '100%',
+    maxWidth: 'none',
+  },
+  html: {
+    boxSizing: 'border-box',
+    margin: 0,
+    width: '100%',
+    maxWidth: 'none',
+    // https://github.com/matejlatin/Gutenberg/blob/master/src/style/layout/_base.scss#L22
+    msTextSizeAdjust: '100%',
+    webkitTextSizeAdjust: '100%',
+    textSizeAdjust: '100%',
+  },
 };
 
 /**
