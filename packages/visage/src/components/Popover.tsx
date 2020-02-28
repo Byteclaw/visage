@@ -6,7 +6,11 @@ import React, {
   MouseEvent,
   useMemo,
 } from 'react';
-import { StyleProps as VisageStyleProps } from '@byteclaw/visage-core';
+import {
+  StyleProps as VisageStyleProps,
+  useDesignSystem,
+} from '@byteclaw/visage-core';
+import { getResponsiveValue } from '@byteclaw/visage-utils';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import {
@@ -54,7 +58,11 @@ interface PopoverProps extends VisageStyleProps<StyleProps> {
   autoFocus?: boolean;
   backdrop?: boolean;
   children: ReactNode;
-  fullscreen?: boolean;
+  /**
+   * Should the popover be rendered as fullscreen?
+   * This prop is responsive
+   */
+  fullscreen?: boolean | boolean[];
   id?: string;
   keepAnchorWidth?: boolean;
   marginThreshold?: number;
@@ -97,10 +105,18 @@ export function Popover({
   placement = 'bottom',
   ...restProps
 }: PopoverProps) {
+  const { breakpoint } = useDesignSystem();
   const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `popover-${idTemplate}`;
   }, [idTemplate, outerId]);
+  const isFullscreen = useMemo(() => {
+    if (!fullscreen) {
+      return false;
+    }
+
+    return getResponsiveValue(breakpoint, fullscreen);
+  }, [fullscreen, breakpoint]);
 
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
@@ -199,7 +215,7 @@ export function Popover({
         };
       }
 
-      if (fullscreen) {
+      if (isFullscreen) {
         return {
           left: `${containerWindow.scrollX}px`,
           top: `${containerWindow.scrollY}px`,
@@ -293,7 +309,7 @@ export function Popover({
       alwaysVisible,
       anchor,
       anchorReference,
-      fullscreen,
+      isFullscreen,
       getAnchorOffset,
       getTransformOrigin,
       marginThreshold,
@@ -305,7 +321,7 @@ export function Popover({
     (element: HTMLElement) => {
       const positioning = getPositioningStyle(element);
 
-      if (keepAnchorWidth && positioning.width) {
+      if ((isFullscreen || keepAnchorWidth) && positioning.width) {
         // eslint-disable-next-line no-param-reassign
         element.style.width = positioning.width;
       }
@@ -333,7 +349,7 @@ export function Popover({
       // eslint-disable-next-line no-param-reassign
       element.style.visibility = 'visible';
     },
-    [getPositioningStyle, keepAnchorWidth],
+    [getPositioningStyle, keepAnchorWidth, isFullscreen],
   );
 
   const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 25, []);

@@ -9,3 +9,41 @@ title: 'Popover component'
 ```js transpile=false
 import { Popover } from '@byteclaw/visage';
 ```
+
+## Examples
+
+```jsx live=true
+<WithState defaultValue={null}>
+  {(anchorRef, setAnchorRef) => {
+    return (
+      <Fragment>
+        <Button onClick={e => setAnchorRef(e.currentTarget)} type="button">
+          Show popover
+        </Button>
+        <Popover
+          allowScrolling={false}
+          alwaysVisible
+          anchor={anchorRef}
+          keepAnchorWidth
+          fullscreen={[true, false]}
+          open={anchorRef != null}
+          onClose={e => {
+            setAnchorRef(null);
+          }}
+        >
+          <Flex
+            styles={{
+              alignItems: 'center',
+              backgroundColor: '#fff',
+              height: 500,
+              width: '100%',
+            }}
+          >
+            Content
+          </Flex>
+        </Popover>
+      </Fragment>
+    );
+  }}
+</WithState>
+```
