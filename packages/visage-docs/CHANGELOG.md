@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.12.1 (2020-02-28)</small>
+
+* docs: fix visage-themes reference ([8f58612](https://github.com/Byteclaw/visage/commit/8f58612))
+
+
+
+
+
 ## 0.12.0 (2020-02-28)
 
 * feat(visage): make Popover fullscreen prop responsive ([0d7f1f9](https://github.com/Byteclaw/visage/commit/0d7f1f9))

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.12.1 (2020-02-28)</small>
+
+* fix(visage): fix closing Modal with escape key ([f7ec0b4](https://github.com/Byteclaw/visage/commit/f7ec0b4))
+* chore(visage): fix type errors ([58e8964](https://github.com/Byteclaw/visage/commit/58e8964))
+
+
+
+
+
 ## 0.12.0 (2020-02-28)
 
 * chore(visage): regenerate faces type ([99b84f2](https://github.com/Byteclaw/visage/commit/99b84f2))
