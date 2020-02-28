@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.14.0 (2020-02-28)
+
+* feat(visage): allow styling Dialog's content wrapper ([4d182ec](https://github.com/Byteclaw/visage/commit/4d182ec))
+
+
+
+
+
 ## 0.13.0 (2020-02-28)
 
 * feat(visage): make Modal a focus trap and add useFocusTrap hook ([2450a00](https://github.com/Byteclaw/visage/commit/2450a00))
