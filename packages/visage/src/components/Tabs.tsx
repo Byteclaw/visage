@@ -120,7 +120,7 @@ export function Tabs({
   const id = useMemo(() => {
     return outerId || idTemplate;
   }, [outerId, idTemplate]);
-  const childrenArray = Children.toArray(children);
+  const childrenArray = Children.toArray(children) as ReactElement<TabProps>[];
   const tabsLabel = childrenArray.map(c => c.props.label);
 
   const selectedRef = useRef(selected);

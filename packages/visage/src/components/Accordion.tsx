@@ -120,7 +120,9 @@ export function Accordion({ children, id }: AccordionProps) {
   const accordionNumId = useUniqueId();
   const accordionId = id || `accordion-${accordionNumId}`;
   const [openItem, setOpenItem] = useState(() => {
-    const idx = Children.toArray(children).findIndex(item => item.props.open);
+    const idx = (Children.toArray(children) as ReactElement<
+      AccordionItemProps
+    >[]).findIndex(item => item.props.open);
 
     return idx === -1 ? 0 : 1;
   });
