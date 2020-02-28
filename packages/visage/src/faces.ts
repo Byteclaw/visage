@@ -7,6 +7,8 @@ export interface VisageFaces {
   Banner?: EmotionStyleSheet;
   // Banner.tsx
   BannerRibbon?: EmotionStyleSheet;
+  // Quotes.ts
+  Blockquote?: EmotionStyleSheet;
   // Box.ts
   Box?: EmotionStyleSheet;
   // Box.ts
@@ -26,11 +28,15 @@ export interface VisageFaces {
   // Checkbox.tsx
   CheckboxLabelText?: EmotionStyleSheet;
   // Checkbox.tsx
-  CheckboxWrapper?: EmotionStyleSheet;
+  CheckboxToggler?: EmotionStyleSheet;
   // Chip.tsx
   Chip?: EmotionStyleSheet;
+  // Quotes.ts
+  Cite?: EmotionStyleSheet;
   // CloseButton.tsx
   CloseButton?: EmotionStyleSheet;
+  // Code.ts
+  Code?: EmotionStyleSheet;
   // Layout.ts
   Column?: EmotionStyleSheet;
   // Layout.ts
@@ -75,6 +81,8 @@ export interface VisageFaces {
   Drawer?: EmotionStyleSheet;
   // Drawer.tsx
   DrawerBackdrop?: EmotionStyleSheet;
+  // Text.tsx
+  EmphasizedText?: EmotionStyleSheet;
   // FieldSet.tsx
   FieldSet?: EmotionStyleSheet;
   // FieldSet.tsx
@@ -139,10 +147,14 @@ export interface VisageFaces {
   ParagraphSkeleton?: EmotionStyleSheet;
   // Popover.tsx
   Popover?: EmotionStyleSheet;
+  // Code.ts
+  PreformattedCode?: EmotionStyleSheet;
   // ProgressBar.tsx
   ProgressBar?: EmotionStyleSheet;
   // ProgressBar.tsx
   ProgressBarProgress?: EmotionStyleSheet;
+  // Quotes.ts
+  Quote?: EmotionStyleSheet;
   // Radio.tsx
   RadioControl?: EmotionStyleSheet;
   // Radio.tsx
@@ -150,11 +162,19 @@ export interface VisageFaces {
   // Radio.tsx
   RadioLabelText?: EmotionStyleSheet;
   // Radio.tsx
-  RadioWrapper?: EmotionStyleSheet;
+  RadioToggler?: EmotionStyleSheet;
   // Layout.ts
   Row?: EmotionStyleSheet;
+  // Text.tsx
+  SmallText?: EmotionStyleSheet;
   // Spinner.tsx
   SpinnerSvgBase?: EmotionStyleSheet;
+  // Text.tsx
+  StrongText?: EmotionStyleSheet;
+  // Scripts.ts
+  Subscript?: EmotionStyleSheet;
+  // Scripts.ts
+  Superscript?: EmotionStyleSheet;
   // Svg.ts
   Svg?: EmotionStyleSheet;
   // SvgIcon.tsx
@@ -169,8 +189,6 @@ export interface VisageFaces {
   TextArea?: EmotionStyleSheet;
   // TextArea.tsx
   TextAreaBase?: EmotionStyleSheet;
-  // TextArea.tsx
-  TextAreaShadow?: EmotionStyleSheet;
   // TextInput.tsx
   TextInputBase?: EmotionStyleSheet;
   // TextInput.tsx
@@ -189,6 +207,8 @@ export interface VisageFaces {
   ToggleControl?: EmotionStyleSheet;
   // Toggle.tsx
   ToggleLabel?: EmotionStyleSheet;
+  // Toggle.tsx
+  ToggleLabelText?: EmotionStyleSheet;
   // Toggle.tsx
   Toggler?: EmotionStyleSheet;
   [componentName: string]: EmotionStyleSheet | undefined;

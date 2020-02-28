@@ -17,7 +17,7 @@ export const SuperscriptStyles: EmotionStyleSheet = {
 };
 
 export const Superscript = createComponent('sup', {
-  displayName: 'Subscript',
+  displayName: 'Superscript',
   defaultStyles: SuperscriptStyles,
 });
 
