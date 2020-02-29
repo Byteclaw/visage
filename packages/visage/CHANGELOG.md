@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.15.1 (2020-02-29)</small>
+
+* fix(visage): use default colors for Banner bg and font color ([6e24af3](https://github.com/Byteclaw/visage/commit/6e24af3))
+
+
+
+
+
 ## 0.15.0 (2020-02-29)
 
 * fix(visage): fix Accordion focus/active styles ([f09b61b](https://github.com/Byteclaw/visage/commit/f09b61b))
