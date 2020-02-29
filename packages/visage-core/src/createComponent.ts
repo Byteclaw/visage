@@ -3,10 +3,12 @@ import { useVisage } from './hooks';
 import { displayName, markAsVisageComponent } from './utils';
 import { StyleProps, ComponentConstraint, VisageComponent } from './types';
 
+const DEFAULT_PROPS = {};
+
 export function createComponent(
   defaultAs: ComponentConstraint,
   {
-    defaultProps,
+    defaultProps = DEFAULT_PROPS,
     defaultStyles,
     displayName: name,
     variants,
@@ -24,13 +26,17 @@ export function createComponent(
 ): VisageComponent<{}, any> {
   const componentName = displayName(name || defaultAs);
   const componentRenderer = (
-    { as = defaultAs, ...restProps }: StyleProps & { as: any },
+    {
+      as = defaultAs,
+      ...restProps
+    }: StyleProps & { as: any; [key: string]: any },
     ref: any,
   ) => {
     const props = useVisage(
       {
         ...defaultProps,
         ...restProps,
+        children: restProps.children || defaultProps.children,
       },
       {
         as,

@@ -1,6 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { createComponent, DesignSystem } from './designSystem';
+import { createComponent, render } from './designSystem';
 
 describe('integration', () => {
   describe('basic usage', () => {
@@ -8,9 +7,7 @@ describe('integration', () => {
       const Link = createComponent('a');
 
       const { asFragment } = render(
-        <DesignSystem>
-          <Link href="a" styles={{ background: '#ccc' }} />
-        </DesignSystem>,
+        <Link href="a" styles={{ background: '#ccc' }} />,
       );
 
       expect(asFragment()).toMatchInlineSnapshot(`
@@ -30,11 +27,7 @@ describe('integration', () => {
         },
       });
 
-      const { asFragment } = render(
-        <DesignSystem>
-          <Link href="a" />
-        </DesignSystem>,
-      );
+      const { asFragment } = render(<Link href="a" />);
 
       expect(asFragment()).toMatchInlineSnapshot(`
                                                 <DocumentFragment>
@@ -55,11 +48,7 @@ describe('integration', () => {
         },
       });
 
-      const { asFragment } = render(
-        <DesignSystem>
-          <Link href="a" />
-        </DesignSystem>,
-      );
+      const { asFragment } = render(<Link href="a" />);
 
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
@@ -79,11 +68,7 @@ describe('integration', () => {
         defaultProps: { href: '/test', id: 'id' },
       });
 
-      const { asFragment } = render(
-        <DesignSystem>
-          <Link href="a" />
-        </DesignSystem>,
-      );
+      const { asFragment } = render(<Link href="a" />);
 
       expect(asFragment()).toMatchInlineSnapshot(`
                 <DocumentFragment>
@@ -117,12 +102,8 @@ describe('integration', () => {
       },
     });
 
-    it('extends default props', () => {
-      const { asFragment } = render(
-        <DesignSystem>
-          <A href="a" styles={{ color: '#eee' }} />
-        </DesignSystem>,
-      );
+    it('extends default styles', () => {
+      const { asFragment } = render(<A href="a" styles={{ color: '#eee' }} />);
 
       expect(asFragment()).toMatchInlineSnapshot(`
                                                 <DocumentFragment>
@@ -134,12 +115,8 @@ describe('integration', () => {
                                     `);
     });
 
-    it('extends props of overriden component', () => {
-      const { asFragment } = render(
-        <DesignSystem>
-          <A as={B} href="a" />
-        </DesignSystem>,
-      );
+    it('extends styles of overriden component', () => {
+      const { asFragment } = render(<A as={B} href="a" />);
 
       expect(asFragment()).toMatchInlineSnapshot(`
                                                 <DocumentFragment>
@@ -152,11 +129,7 @@ describe('integration', () => {
     });
 
     it('extends visage component', () => {
-      const { asFragment } = render(
-        <DesignSystem>
-          <C />
-        </DesignSystem>,
-      );
+      const { asFragment } = render(<C />);
 
       expect(asFragment()).toMatchInlineSnapshot(`
                         <DocumentFragment>
@@ -165,6 +138,86 @@ describe('integration', () => {
                           />
                         </DocumentFragment>
                   `);
+    });
+
+    it('extends default props of visage component', () => {
+      const RedButton = createComponent('button', {
+        defaultProps: {
+          children: <span>trolo</span>,
+          type: 'button',
+        },
+        defaultStyles: {
+          color: 'red',
+        },
+      });
+      const BlueButton = createComponent(RedButton, {
+        defaultProps: {
+          disabled: true,
+        },
+        defaultStyles: {
+          color: 'blue',
+        },
+      });
+
+      const blueButtonResult = render(<BlueButton />);
+
+      expect(blueButtonResult.asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <button
+            disabled=""
+            style="color: blue;"
+            type="button"
+          >
+            <span>
+              trolo
+            </span>
+          </button>
+        </DocumentFragment>
+      `);
+
+      const BlueButtonWithCustomChildren = createComponent(BlueButton, {
+        defaultProps: {
+          children: <span>not trololo</span>,
+        },
+      });
+
+      const blueButtonWithCustomChildrenResult = render(
+        <BlueButtonWithCustomChildren />,
+      );
+
+      expect(blueButtonWithCustomChildrenResult.asFragment())
+        .toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <button
+            disabled=""
+            style="color: blue;"
+            type="button"
+          >
+            <span>
+              not trololo
+            </span>
+          </button>
+        </DocumentFragment>
+      `);
+
+      blueButtonWithCustomChildrenResult.rerender(
+        <BlueButtonWithCustomChildren>
+          Custom children
+        </BlueButtonWithCustomChildren>,
+      );
+
+      expect(blueButtonWithCustomChildrenResult.asFragment())
+        .toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <button
+            disabled=""
+            style="color: blue;"
+            type="button"
+          >
+            Custom children
+          </button>
+        </DocumentFragment>
+      `);
     });
   });
 });

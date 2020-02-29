@@ -13,6 +13,7 @@ module.exports = {
     '^@byteclaw/(visage-[a-z-A-Z-_]+)$': '<rootDir>/../$1/src',
   },
   rootDir: __dirname,
+  setupFilesAfterEnv: ['<rootDir>/../../jest/setupTests.ts'],
   snapshotSerializers: ['jest-emotion'],
   testMatch: [
     '**/src/**/__tests__/**/*.test.ts',
