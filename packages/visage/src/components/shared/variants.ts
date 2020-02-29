@@ -14,7 +14,11 @@ export const controlActiveShadow =
 
 export const createControlFocusShadow = (
   color: string = 'lightAccent',
-): string => `${controlFocusShadow} ${color} , ${controlHoverShadow}`;
+  withHoverShadow: boolean = true,
+): string =>
+  withHoverShadow
+    ? `${controlFocusShadow} ${color}, ${controlHoverShadow}`
+    : `${controlFocusShadow} ${color}`;
 export const createControlHoverShadow = (): string => controlHoverShadow;
 export const createControlActiveShadow = (
   color: string = 'lightAccent',
