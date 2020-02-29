@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.5.1 (2020-02-29)</small>
+
+* fix(visage/core): use children from default props on extend ([a0af78f](https://github.com/Byteclaw/visage/commit/a0af78f))
+
+
+
+
+
 ## 0.5.0 (2020-02-20)
 
 * feat(visage/core): add sizeUnit formatter ([20b20ec](https://github.com/Byteclaw/visage/commit/20b20ec))

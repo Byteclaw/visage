@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.14.1 (2020-02-29)</small>
+
+* fix(visage/core): use children from default props on extend ([a0af78f](https://github.com/Byteclaw/visage/commit/a0af78f))
+* refactor(visage): use render helper in tests ([88b0249](https://github.com/Byteclaw/visage/commit/88b0249))
+
+
+
+
+
 ## 0.14.0 (2020-02-28)
 
 * feat(visage): allow styling Dialog's content wrapper ([4d182ec](https://github.com/Byteclaw/visage/commit/4d182ec))

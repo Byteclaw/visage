@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.1.5 (2020-02-29)</small>
+
+**Note:** Version bump only for package @byteclaw/visage-themes
+
+
+
+
+
 ## <small>0.1.4 (2020-02-28)</small>
 
 **Note:** Version bump only for package @byteclaw/visage-themes
