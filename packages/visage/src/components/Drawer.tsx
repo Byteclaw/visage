@@ -119,7 +119,7 @@ export function Drawer({
   styles,
 }: DrawerProps) {
   const id = useUniqueId();
-  const zIndex = useLayerManager();
+  const { zIndex } = useLayerManager();
   const onEscKeyUp = useCallback(
     (e: KeyboardEvent) => {
       if (open && onClose && e.keyCode === 27) {

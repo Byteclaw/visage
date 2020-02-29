@@ -37,7 +37,7 @@ export interface DesignSystemProps {
 
 const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   children,
-  defaultZIndex = 1,
+  defaultZIndex = 100,
   disableGlobalStyles,
   faces,
   is = 0,
