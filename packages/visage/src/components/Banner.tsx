@@ -32,42 +32,42 @@ const statusIcons = {
 const variantStyles: { [key: string]: EmotionStyleSheet } = {
   critical: {
     borderColor: 'danger.1',
-    backgroundColor: 'danger.-5',
-    color: 'dangerText.-5',
+    backgroundColor: 'danger',
+    color: 'dangerText',
     '&:focus': {
       boxShadow: createControlFocusShadow('danger'),
     },
   },
   info: {
     borderColor: 'info.1',
-    backgroundColor: 'info.-5',
-    color: 'infoText.-5',
+    backgroundColor: 'info',
+    color: 'infoText',
     '&:focus': {
       boxShadow: createControlFocusShadow('info'),
     },
   },
   success: {
     borderColor: 'success.1',
-    backgroundColor: 'success.-5',
-    color: 'successText.-5',
+    backgroundColor: 'success',
+    color: 'successText',
     '&:focus': {
       boxShadow: createControlFocusShadow('success'),
     },
   },
   warning: {
     borderColor: 'warning.1',
-    backgroundColor: 'warning.-5',
-    color: 'warningText.-5',
+    backgroundColor: 'warning',
+    color: 'warningText',
     '&:focus': {
       boxShadow: createControlFocusShadow('warning'),
     },
   },
   default: {
     borderColor: 'neutral.1',
-    backgroundColor: 'neutral.-5',
-    color: 'neutralText.-5',
+    backgroundColor: 'neutral',
+    color: 'neutralText',
     '&:focus': {
-      boxShadow: createControlFocusShadow(),
+      boxShadow: createControlFocusShadow('neutral'),
     },
   },
 };
@@ -105,19 +105,19 @@ const BannerBase = createComponent(Flex, {
 
 const ribbonVariantStyles: { [key: string]: EmotionStyleSheet } = {
   critical: {
-    color: 'danger.2',
+    color: 'danger.3',
   },
   info: {
-    color: 'info.2',
+    color: 'info.3',
   },
   success: {
-    color: 'success.2',
+    color: 'success.3',
   },
   warning: {
-    color: 'warning.2',
+    color: 'warning.3',
   },
   default: {
-    color: 'neutral.2',
+    color: 'neutral.3',
   },
 };
 
