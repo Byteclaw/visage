@@ -1,3 +1,4 @@
+import { render as baseRender } from '@testing-library/react';
 import React, { CSSProperties, ReactNode } from 'react';
 import {
   createComponent as baseCreateComponent,
@@ -31,3 +32,29 @@ export function DesignSystem({
     </BaseDesignSystem>
   );
 }
+
+function Container({
+  wrapper: Wrapper,
+  children,
+}: {
+  wrapper?: React.ComponentType;
+  children: React.ReactNode;
+}) {
+  return (
+    <DesignSystem>
+      {Wrapper ? <Wrapper>{children}</Wrapper> : children}
+    </DesignSystem>
+  );
+}
+
+export const render: typeof baseRender = (
+  ui,
+  { wrapper, ...restConfig } = { wrapper: undefined },
+) => {
+  return baseRender(ui, {
+    ...restConfig,
+    wrapper: ({ children }) => (
+      <Container wrapper={wrapper}>{children}</Container>
+    ),
+  });
+};
