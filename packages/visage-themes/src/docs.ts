@@ -1,40 +1,32 @@
 import { ColorPalette, Theme } from '@byteclaw/visage';
 import color from 'color';
 import { createNPointFontScaleTheme } from './nPointFontScale';
-import { findForegroundColor, generateColorScale } from './utils';
+import { generateColorScale } from './utils';
 
-const darkAccent = color([212, 62, 98]);
-const darkShades = color([36, 24, 40]);
-const lightAccent = color([211, 191, 156]);
-const lightShades = color([242, 246, 231]);
-const primary = color([226, 111, 74]);
-const danger = findForegroundColor('red', lightShades.toString());
-const info = findForegroundColor('blue', lightShades.toString());
-const success = findForegroundColor('green', lightShades.toString());
-const warning = findForegroundColor('orange', lightShades.toString());
+const darkAccent = color('#112d4e');
+const darkShades = color('#1b262c');
+const lightAccent = color('#dbe2ef');
+const lightShades = color('#f9f7f7');
+const primary = color('#3f72af');
 
 export const docsThemeColorPalette: ColorPalette = {
   ...generateColorScale<'neutral' | 'neutralText'>('neutral', '#e3e8ee', 5, 5),
-  danger,
-  dangerText: color(danger).isDark() ? '#fff' : '#000',
   darkAccent: darkAccent.toString(),
   darkAccentText: darkAccent.isDark() ? '#fff' : '#000',
   darkShades: darkShades.toString(),
   darkShadesText: darkShades.isDark() ? '#fff' : '#000',
-  info,
-  infoText: color(info).isDark() ? '#fff' : '#000',
   lightAccent: lightAccent.toString(),
   lightAccentText: lightAccent.isDark() ? '#fff' : '#000',
   lightShades: lightShades.toString(),
   lightShadesText: lightShades.isDark() ? '#fff' : '#000',
   primary: primary.toString(),
   primaryText: primary.isDark() ? '#fff' : '#000',
-  success,
-  successText: color(success).isDark() ? '#fff' : '#000',
+  ...generateColorScale<'success' | 'successText'>('success', '#27ae60', 5, 5),
+  ...generateColorScale<'danger' | 'dangerText'>('danger', '#c0392b', 5, 5),
+  ...generateColorScale<'info' | 'infoText'>('info', '#2980b9', 5, 5),
+  ...generateColorScale<'warning' | 'warningText'>('warning', '#f1c40f', 5, 5),
   textInput: lightShades.lighten(0.3).toString(),
   textInputBorder: lightShades.darken(0.3).toString(),
-  warning,
-  warningText: color(warning).isDark() ? '#fff' : '#000',
 };
 
 export interface DocsThemeSettings {
