@@ -4,6 +4,13 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import React, { ReactNode, MouseEvent } from 'react';
+import {
+  DangerIcon,
+  InfoIcon,
+  NeutralMessageIcon,
+  SuccessIcon,
+  WarningIcon,
+} from '../assets';
 import { createComponent } from '../core';
 import { booleanVariant, variant } from '../variants';
 import { StyleProps, EmotionStyleSheet } from '../types';
@@ -12,13 +19,7 @@ import { CloseButton } from './CloseButton';
 import { Flex } from './Flex';
 import { Heading } from './Heading';
 import { SvgIcon } from './SvgIcon';
-import {
-  DangerIcon,
-  InfoIcon,
-  NeutralMessageIcon,
-  SuccessIcon,
-  WarningIcon,
-} from '../assets';
+import { createControlFocusShadow } from './shared';
 
 const statusIcons = {
   default: NeutralMessageIcon,
@@ -34,7 +35,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'danger.-5',
     color: 'dangerText.-5',
     '&:focus': {
-      borderColor: 'danger.2',
+      boxShadow: createControlFocusShadow('danger'),
     },
   },
   info: {
@@ -42,7 +43,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'info.-5',
     color: 'infoText.-5',
     '&:focus': {
-      borderColor: 'info.2',
+      boxShadow: createControlFocusShadow('info'),
     },
   },
   success: {
@@ -50,7 +51,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'success.-5',
     color: 'successText.-5',
     '&:focus': {
-      borderColor: 'success.2',
+      boxShadow: createControlFocusShadow('success'),
     },
   },
   warning: {
@@ -58,7 +59,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'warning.-5',
     color: 'warningText.-5',
     '&:focus': {
-      borderColor: 'warning.2',
+      boxShadow: createControlFocusShadow('warning'),
     },
   },
   default: {
@@ -66,7 +67,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'neutral.-5',
     color: 'neutralText.-5',
     '&:focus': {
-      borderColor: 'neutral.2',
+      boxShadow: createControlFocusShadow(),
     },
   },
 };
