@@ -12,7 +12,11 @@ import React, {
   KeyboardEvent,
 } from 'react';
 import { createComponent } from '../core';
-import { getNextIndexFromCycle } from './shared';
+import {
+  getNextIndexFromCycle,
+  createControlActiveShadow,
+  createControlFocusShadow,
+} from './shared';
 import { booleanVariant } from '../variants';
 
 const AccordionTrigger = createComponent('div', {
@@ -29,12 +33,17 @@ const AccordionTrigger = createComponent('div', {
     fontFamily: 'heading',
     fontWeight: 'bolder',
     lineHeight: 1,
-    outlineWidth: 3,
-    outlineColor: 'darkAccent',
+    outline: 'none',
     m: 0,
     p: 0,
     py: 1,
     width: '100%',
+    '&:focus': {
+      boxShadow: createControlFocusShadow(),
+    },
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow(),
+    },
   },
   defaultProps: { role: 'button' },
 });
