@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.12.5 (2020-02-29)</small>
+
+* docs: add missing key to selects in dialog ([51a139b](https://github.com/Byteclaw/visage/commit/51a139b))
+
+
+
+
+
 ## <small>0.12.4 (2020-02-29)</small>
 
 **Note:** Version bump only for package @byteclaw/visage-docs

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.15.0 (2020-02-29)
+
+* fix(visage): fix Accordion focus/active styles ([f09b61b](https://github.com/Byteclaw/visage/commit/f09b61b))
+* fix(visage): make Banner focus styles consistent ([81f1fc0](https://github.com/Byteclaw/visage/commit/81f1fc0))
+* fix(visage): remove focus/hover background from Link ([c3aac4c](https://github.com/Byteclaw/visage/commit/c3aac4c))
+* feat(visage): use better logic to handle zIndex increments ([3b98d48](https://github.com/Byteclaw/visage/commit/3b98d48))
+* test(visage): add Box test ([d6ff087](https://github.com/Byteclaw/visage/commit/d6ff087))
+
+
+
+
+
 ## <small>0.14.1 (2020-02-29)</small>
 
 * fix(visage/core): use children from default props on extend ([a0af78f](https://github.com/Byteclaw/visage/commit/a0af78f))
