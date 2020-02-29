@@ -69,6 +69,10 @@
     "*.{ts,tsx}": [
       "eslint --fix",
       "git add"
+    ],
+    "*.mdx": [
+      "prettier --write",
+      "git add"
     ]
   },
   "workspaces": {
