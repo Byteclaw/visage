@@ -34,11 +34,10 @@ import { Dialog } from '@byteclaw/visage';
       >
         {Array(50)
           .fill(null)
-          .map(() => (
-            <form action="">
+          .map((_, i) => (
+            <form key={i} action="">
               <label htmlFor="searchable">Searchable select value</label>
               <Select
-                id="searchable"
                 onChange={value => console.log(value)}
                 options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
                 placeholder="Select a value"
