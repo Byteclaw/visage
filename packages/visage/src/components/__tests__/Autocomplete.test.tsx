@@ -1,7 +1,7 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { TestDesignSystem } from './DesignSystem';
 import { AutocompleteInput } from '../AutocompleteInput';
+import { render } from './render';
 
 describe('Autocomplete', () => {
   describe('readOnly', () => {
@@ -10,15 +10,13 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-            readOnly
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+          readOnly
+        />,
       );
 
       // now open focus using click
@@ -34,15 +32,13 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-            readOnly
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+          readOnly
+        />,
       );
 
       // now focus select
@@ -66,14 +62,12 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            id="root"
-            onInputValueChange={onChange}
-            options={onLoadOptions}
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          id="root"
+          onInputValueChange={onChange}
+          options={onLoadOptions}
+        />,
       );
 
       // now open focus using click
@@ -121,14 +115,12 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            id="root"
-            onInputValueChange={onChange}
-            options={onLoadOptions}
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          id="root"
+          onInputValueChange={onChange}
+          options={onLoadOptions}
+        />,
       );
 
       // now focus select
@@ -218,15 +210,13 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId, rerender } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            id="root"
-            onInputValueChange={onChange}
-            options={onLoadOptions}
-            value="b"
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          id="root"
+          onInputValueChange={onChange}
+          options={onLoadOptions}
+          value="b"
+        />,
       );
 
       // now focus select
@@ -271,15 +261,13 @@ describe('Autocomplete', () => {
       expect(onChange).toHaveBeenCalledTimes(2);
 
       rerender(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="select"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-            value="c"
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="select"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+          value="c"
+        />,
       );
 
       expect(getByTestId('select').getAttribute('value')).toBe('c');
@@ -294,15 +282,13 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            expandOnClick
-            id="root"
-            onInputValueChange={onChange}
-            options={onLoadOptions}
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          expandOnClick
+          id="root"
+          onInputValueChange={onChange}
+          options={onLoadOptions}
+        />,
       );
 
       // now open focus using click
@@ -327,16 +313,14 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            expandOnClick
-            id="root"
-            onInputValueChange={onChange}
-            options={onLoadOptions}
-            readOnly
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          expandOnClick
+          id="root"
+          onInputValueChange={onChange}
+          options={onLoadOptions}
+          readOnly
+        />,
       );
 
       // now open focus using click
@@ -353,16 +337,14 @@ describe('Autocomplete', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <AutocompleteInput
-            data-testid="input"
-            expandOnClick
-            disabled
-            id="root"
-            onInputValueChange={onChange}
-            options={onLoadOptions}
-          />
-        </TestDesignSystem>,
+        <AutocompleteInput
+          data-testid="input"
+          expandOnClick
+          disabled
+          id="root"
+          onInputValueChange={onChange}
+          options={onLoadOptions}
+        />,
       );
 
       // now open focus using click

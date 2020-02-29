@@ -1,15 +1,10 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import { Heading } from '../Heading';
-import { TestDesignSystem } from './DesignSystem';
+import { render } from './render';
 
 describe('Heading', () => {
   it('renders as h1 by default', () => {
-    const { asFragment } = render(
-      <TestDesignSystem>
-        <Heading>H1</Heading>
-      </TestDesignSystem>,
-    );
+    const { asFragment } = render(<Heading>H1</Heading>);
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -54,11 +49,7 @@ describe('Heading', () => {
   });
 
   it('determines host component based on level', () => {
-    const { asFragment } = render(
-      <TestDesignSystem>
-        <Heading level={3}>H3</Heading>
-      </TestDesignSystem>,
-    );
+    const { asFragment } = render(<Heading level={3}>H3</Heading>);
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>

@@ -1,15 +1,11 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import React from 'react';
 import { Chip } from '../Chip';
-import { TestDesignSystem } from './DesignSystem';
+import { render } from './render';
 
 describe('Chip', () => {
   it('is non interactive if no handler is passed', () => {
-    const { asFragment } = render(
-      <TestDesignSystem>
-        <Chip>Non interactive Chip</Chip>
-      </TestDesignSystem>,
-    );
+    const { asFragment } = render(<Chip>Non interactive Chip</Chip>);
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -70,11 +66,9 @@ describe('Chip', () => {
   it('is deletable if onDelete handler is passed', () => {
     const onDelete = jest.fn();
     const { getByTestId } = render(
-      <TestDesignSystem>
-        <Chip data-testid="chip" onDelete={onDelete}>
-          Deletable chip
-        </Chip>
-      </TestDesignSystem>,
+      <Chip data-testid="chip" onDelete={onDelete}>
+        Deletable chip
+      </Chip>,
     );
 
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('false');
@@ -88,11 +82,9 @@ describe('Chip', () => {
   it('is interactive if onClick handler is passed', () => {
     const onClick = jest.fn();
     const { getByTestId } = render(
-      <TestDesignSystem>
-        <Chip data-testid="chip" onClick={onClick}>
-          Clickable chip
-        </Chip>
-      </TestDesignSystem>,
+      <Chip data-testid="chip" onClick={onClick}>
+        Clickable chip
+      </Chip>,
     );
 
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('true');
@@ -109,11 +101,9 @@ describe('Chip', () => {
     const onClick = jest.fn();
     const onDelete = jest.fn();
     const { getByTestId } = render(
-      <TestDesignSystem>
-        <Chip data-testid="chip" onClick={onClick} onDelete={onDelete}>
-          Clickable and deletable chip
-        </Chip>
-      </TestDesignSystem>,
+      <Chip data-testid="chip" onClick={onClick} onDelete={onDelete}>
+        Clickable and deletable chip
+      </Chip>,
     );
 
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('true');

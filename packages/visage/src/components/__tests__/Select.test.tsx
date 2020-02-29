@@ -1,7 +1,7 @@
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { TestDesignSystem } from './DesignSystem';
 import { Select } from '../Select';
+import { render } from './render';
 
 describe('Select', () => {
   describe('readOnly', () => {
@@ -10,14 +10,12 @@ describe('Select', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <Select
-            data-testid="select"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-          />
-        </TestDesignSystem>,
+        <Select
+          data-testid="select"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+        />,
       );
 
       // now open focus using click
@@ -56,14 +54,12 @@ describe('Select', () => {
       const onChange = jest.fn();
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <Select
-            data-testid="select"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-          />
-        </TestDesignSystem>,
+        <Select
+          data-testid="select"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+        />,
       );
 
       // now focus select
@@ -205,14 +201,12 @@ describe('Select', () => {
       const onLoadOptions = jest.fn().mockResolvedValue(['a', 'b', 'c']);
 
       const { getByTestId } = render(
-        <TestDesignSystem>
-          <Select
-            data-testid="select"
-            id="root"
-            options={onLoadOptions}
-            searchable
-          />
-        </TestDesignSystem>,
+        <Select
+          data-testid="select"
+          id="root"
+          options={onLoadOptions}
+          searchable
+        />,
       );
 
       // focus element
@@ -264,15 +258,13 @@ describe('Select', () => {
       const onChange = jest.fn();
 
       const { getByTestId, rerender } = render(
-        <TestDesignSystem>
-          <Select
-            data-testid="select"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-            value="b"
-          />
-        </TestDesignSystem>,
+        <Select
+          data-testid="select"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+          value="b"
+        />,
       );
 
       // now focus select
@@ -313,15 +305,13 @@ describe('Select', () => {
       expect(onChange).toHaveBeenCalledTimes(1);
 
       rerender(
-        <TestDesignSystem>
-          <Select
-            data-testid="select"
-            id="root"
-            onChange={onChange}
-            options={onLoadOptions}
-            value="c"
-          />
-        </TestDesignSystem>,
+        <Select
+          data-testid="select"
+          id="root"
+          onChange={onChange}
+          options={onLoadOptions}
+          value="c"
+        />,
       );
 
       expect(getByTestId('select').getAttribute('value')).toBe('c');

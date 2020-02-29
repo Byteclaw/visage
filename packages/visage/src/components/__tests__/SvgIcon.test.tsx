@@ -1,16 +1,11 @@
-import { render } from '@testing-library/react';
 import React from 'react';
 import { CloseIcon } from '../../assets/CloseIcon';
 import { SvgIcon } from '../SvgIcon';
-import { TestDesignSystem } from './DesignSystem';
+import { render } from './render';
 
 describe('SvgIcon', () => {
   it('works correctly with host component', () => {
-    const { asFragment } = render(
-      <TestDesignSystem>
-        <SvgIcon icon={CloseIcon} />
-      </TestDesignSystem>,
-    );
+    const { asFragment } = render(<SvgIcon icon={CloseIcon} />);
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -80,11 +75,7 @@ describe('SvgIcon', () => {
   });
 
   it('works correctly with element', () => {
-    const { asFragment } = render(
-      <TestDesignSystem>
-        <SvgIcon icon={<CloseIcon />} />
-      </TestDesignSystem>,
-    );
+    const { asFragment } = render(<SvgIcon icon={<CloseIcon />} />);
 
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
@@ -155,9 +146,7 @@ describe('SvgIcon', () => {
 
   it('works correctly with custom styles', () => {
     const { asFragment } = render(
-      <TestDesignSystem>
-        <SvgIcon icon={<CloseIcon />} styles={{ iconSize: 2 }} />
-      </TestDesignSystem>,
+      <SvgIcon icon={<CloseIcon />} styles={{ iconSize: 2 }} />,
     );
 
     expect(asFragment()).toMatchInlineSnapshot(`
