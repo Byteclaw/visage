@@ -30,11 +30,70 @@ export function Sidebar() {
       <ListItem styles={{ fontWeight: 600 }}>
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
+      <ListItem>
+        <CollapsibleNavigationSection path="/styles/*" title="Styles">
+          <ListItem>
+            <ListItemRouteLink to="/styles">Introduction</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/styles/emotion-style-generator">
+              Emotion style generator
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/styles/emotion-responsive-style-generator">
+              Emotion responsive style generator
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/styles/custom-style-generators">
+              Custom style generators
+            </ListItemRouteLink>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
+      <ListItem>
+        <CollapsibleNavigationSection path="/themes/*" title="Themes">
+          <ListItem>
+            <ListItemRouteLink to="/themes">Introduction</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/themes/n-point-font-scale">
+              N-Point Font Scale
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/themes/n-point-modular-font-scale">
+              N-Point Modular Font Scale
+            </ListItemRouteLink>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
       <ListItem styles={{ fontWeight: 600 }}>
         <ListItemRouteLink to="/typography">Typography</ListItemRouteLink>
       </ListItem>
       <ListItem>
         <CollapsibleNavigationSection path="/components/*" title="Components">
+          <ListItem>
+            <ListItemRouteLink to="/components/design-system">
+              DesignSystem
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/components/responsive-design-system">
+              ResponsiveDesignSystem
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/components/layer-manager">
+              LayerManager
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/components/toast-manager">
+              ToastManager
+            </ListItemRouteLink>
+          </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
               path="/components/actions/*"
@@ -363,6 +422,15 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
+      <ListItem>
+        <CollapsibleNavigationSection path="/hooks/*" title="Hooks">
+          <ListItem>
+            <ListItemRouteLink to="/hooks/use-layer-manager">
+              useLayerManager
+            </ListItemRouteLink>
           </ListItem>
         </CollapsibleNavigationSection>
       </ListItem>

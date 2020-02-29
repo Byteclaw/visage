@@ -1,48 +1,48 @@
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
-import {
-  Divider,
-  EmphasizedText,
-  Heading,
-  Link,
-  Paragraph,
-  StrongText,
-  Text,
-} from '@byteclaw/visage';
+import * as visage from '@byteclaw/visage';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { CodeBlock, DesignSystem, Layout } from './components';
 import { slugify } from './utils';
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
-  a: Link,
+  ...visage,
+  a: visage.Link,
   code: CodeBlock,
   inlineCode: (props: any) => (
-    <Text styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 1 }} {...props} />
+    <visage.Text
+      styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 1 }}
+      {...props}
+    />
   ),
-  em: EmphasizedText,
+  em: visage.EmphasizedText,
   ...Array(6)
     .fill(null)
     .reduce(
       (acc, _, index) => ({
         ...acc,
         [`h${index + 1}`]: ({ children, ...restProps }: any) => (
-          <Heading id={slugify(children)} {...restProps} level={index + 1}>
-            <Link
+          <visage.Heading
+            id={slugify(children)}
+            {...restProps}
+            level={index + 1}
+          >
+            <visage.Link
               href={`#${slugify(children)}`}
               styles={{ color: 'inherit', textDecoration: 'none' }}
             >
               {children}
-            </Link>
-          </Heading>
+            </visage.Link>
+          </visage.Heading>
         ),
       }),
       {},
     ),
-  hr: Divider,
-  p: Paragraph,
+  hr: visage.Divider,
+  p: visage.Paragraph,
   pre: (props: any) => props.children,
-  strong: StrongText,
+  strong: visage.StrongText,
   wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
 };
 

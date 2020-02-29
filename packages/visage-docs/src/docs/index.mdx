@@ -4,6 +4,10 @@ title: 'Visage'
 
 # Visage
 
+Visage is a design system for [React](https://reactjs.org/) applications. It's goal is to provide you components for rapid UI development.
+
+Under the hood Visage uses [Emotion](http://emotion.sh) CSS-in-JS library.
+
 ## Installation
 
 ```sh transpile=false
@@ -14,15 +18,19 @@ yarn add @byteclaw/visage @byteclaw/visage-themes
 
 ## Usage
 
-In order to use Visage in your application, make sure you wrap your application to `<DesignSystem />` or `<ResponsiveDesignSystem />` and provide `theme`.
+Each React application that wants to use Visage as it's design system needs to wrap application in `DesignSystem` component.
 
-### Non Responsive
+If your application requires to be responsive then you need to use `ResponsiveDesignSystem` otherwise you are good to go with `DesignSystem`.
+
+### Non Responsive Applications
+
+In order to start with Non Responsive Application you need to import [DesignSystem](./components/design-system) component. This component doesn't use any breakpoint detection.
 
 ```jsx transpile=false
 import { DesignSystem, Text } from '@byteclaw/visage';
-import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
+import { createDocsTheme } from '@byteclaw/visage-themes';
 
-const theme = createNPointModularScaleTheme(/* see below on how to set up theme */);
+const theme = createDocsTheme();
 
 // responsive design system
 <DesignSystem theme={theme}>
@@ -30,19 +38,30 @@ const theme = createNPointModularScaleTheme(/* see below on how to set up theme 
 </DesignSystem>;
 ```
 
-### Responsive
+<Banner>
+  Non Responsive Applications can be easily turned to Responsive by replacing
+  `DesignSystem` with `ResponsiveDesignSystem`.
+</Banner>
+
+### Responsive Applications
+
+As was already said above, in order to use Visage for responsive application you need to import [ResponsiveDesign](./components/responsive-design-system) component. Under the hood the component by default uses [window.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API to match breakpoints and set up a current device breakpoint.
 
 ```jsx transpile=false
 import { ResponsiveDesignSystem, Text } from '@byteclaw/visage';
-import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
+import { createDocsTheme } from '@byteclaw/visage-themes';
 
-const theme = createNPointModularScaleTheme(/* see below on how to set up theme */);
+const theme = createDocsTheme();
 
 // responsive design system
 <ResponsiveDesignSystem theme={theme}>
   <Text>Hello world!</Text>
 </ResponsiveDesignSystem>;
 ```
+
+<Banner>
+  If don't want to use <Link href="https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia" target="noopener noreferrer">window.matchMedia API</Link>, you can set up Visage to generate media queries. Only problem with that approach is that <Link href="/components/responsive-utils/is-breakpoint">IsBreakpoint</Link> component won't work.
+</Banner>
 
 ## N Point Theme
 
