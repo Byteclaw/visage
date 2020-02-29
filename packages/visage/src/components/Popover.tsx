@@ -120,7 +120,7 @@ export function Popover({
 
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const handleResizeRef = React.useRef(() => {});
-  const zIndex = useLayerManager();
+  const { zIndex } = useLayerManager();
 
   const getAnchorOffset = React.useCallback(
     (

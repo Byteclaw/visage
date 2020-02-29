@@ -149,7 +149,7 @@ export function Modal({
   }, [outerId, idTemplate]);
   const modalRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
-  const zIndex = useLayerManager();
+  const { zIndex } = useLayerManager();
   const onClickAwayHandler = useStaticCallbackCreator(
     createCloseOnClickAwayHandler,
     [contentRef, modalRef, backdropRef, onClose],
