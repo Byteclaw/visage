@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.12.7 (2020-03-01)</small>
+
+* docs: add basic styles guide ([e8d7e4c](https://github.com/Byteclaw/visage/commit/e8d7e4c))
+* docs: add new sections and change structure of navigation ([9137316](https://github.com/Byteclaw/visage/commit/9137316))
+
+
+
+
+
 ## <small>0.12.6 (2020-02-29)</small>
 
 **Note:** Version bump only for package @byteclaw/visage-docs

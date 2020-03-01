@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.16.0 (2020-03-01)
+
+* feat(visage): allow custom toggler in Checkbox/Radio ([19f6194](https://github.com/Byteclaw/visage/commit/19f6194))
+
+
+
+
+
 ## <small>0.15.1 (2020-02-29)</small>
 
 * fix(visage): use default colors for Banner bg and font color ([6e24af3](https://github.com/Byteclaw/visage/commit/6e24af3))
