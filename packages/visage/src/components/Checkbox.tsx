@@ -1,15 +1,9 @@
+import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import React, {
-  ReactNode,
-  KeyboardEvent,
-  forwardRef,
-  Ref,
-  MouseEvent,
-  useCallback,
-} from 'react';
+import React, { ReactNode, forwardRef, Ref } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../types';
 import {
@@ -21,6 +15,7 @@ import {
 } from './shared';
 import { Flex } from './Flex';
 import { Svg } from './Svg';
+import { preventDefaultOnReadOnlyControlHandlerCreator } from './events';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
@@ -112,63 +107,83 @@ const CheckboxToggler = createComponent(Flex, {
 });
 
 interface CheckboxProps
-  extends ExtractVisageComponentProps<typeof CheckboxControl> {
+  extends Omit<ExtractVisageComponentProps<typeof CheckboxControl>, 'styles'> {
+  /**
+   * Hides label visually
+   */
   hiddenLabel?: boolean;
+  /**
+   * Sets the checkbox aria-invalid to true and applies visual style
+   */
   invalid?: boolean;
+  /**
+   * Label is required to be WAI-ARIA compliant
+   */
   label: ReactNode;
+  /**
+   * Passes props to the label
+   */
+  labelProps?: ExtractVisageComponentProps<typeof CheckboxLabel>;
+  /**
+   * Passes props to the label text
+   */
+  labelTextProps?: ExtractVisageComponentProps<typeof CheckboxLabelText>;
+  /**
+   * Toggler is the visual component that renders checkbox toggler
+   * It doesn't accept any props and must return a div as root element
+   * because checkbox applies styles using CSS selectors
+   *
+   * On Focus it applies boxShadow for focus styling to a div
+   * On Invalid it applies borderColor to a div
+   * On Checked
+   *  - it applies backgroundColor, color and borderColor
+   *  - it applies to svg element which is a direct ancestor of div a visibility visible
+   * On Not Checked
+   *  - it applies backgroundColor to a div
+   *  - it applies to svg element which is a direct ancestor of div a visiblity hidden
+   */
+  toggler?: React.ComponentType<{}>;
 }
 
 export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
   function Checkbox(
     {
-      defaultChecked,
       disabled,
-      checked,
       hiddenLabel = false,
-      id,
       invalid,
       label,
-      name,
-      onChange,
+      labelProps,
+      labelTextProps,
+      onClick,
+      onKeyDown,
       readOnly,
-      styles,
-      value,
+      toggler: Toggler = CheckboxToggler,
+      ...rest
     }: CheckboxProps,
     ref: Ref<HTMLInputElement>,
   ) {
-    const preventOnToggle = useCallback(
-      (e: KeyboardEvent | MouseEvent) => {
-        if (readOnly) {
-          if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
-            return;
-          }
-
-          e.preventDefault();
-        }
-      },
-      [readOnly],
+    const preventOnToggle = useStaticCallbackCreator(
+      preventDefaultOnReadOnlyControlHandlerCreator,
+      [readOnly, onClick, onKeyDown],
     );
 
     return (
-      <CheckboxLabel disabled={disabled} styles={styles}>
+      <CheckboxLabel {...labelProps} disabled={disabled}>
         <CheckboxControl
+          {...rest}
           aria-invalid={invalid}
-          defaultChecked={defaultChecked}
-          checked={checked}
           disabled={disabled}
-          id={id}
-          name={name}
           onKeyDown={preventOnToggle}
           onClick={preventOnToggle}
-          onChange={onChange}
           ref={ref}
           readOnly={readOnly}
           type="checkbox"
-          value={value}
         />
-        <CheckboxToggler />
+        <Toggler />
         &#8203; {/* fixes height if label is hidden */}
-        <CheckboxLabelText hidden={hiddenLabel}>{label}</CheckboxLabelText>
+        <CheckboxLabelText {...labelTextProps} hidden={hiddenLabel}>
+          {label}
+        </CheckboxLabelText>
       </CheckboxLabel>
     );
   },

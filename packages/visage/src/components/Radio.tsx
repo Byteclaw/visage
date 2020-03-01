@@ -1,17 +1,9 @@
+import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import {
+  ExtractVisageComponentProps,
   VisageComponent,
-  StyleProps as VisageStyleProps,
 } from '@byteclaw/visage-core';
-import React, {
-  ChangeEventHandler,
-  KeyboardEvent,
-  MouseEvent,
-  ReactElement,
-  ReactNode,
-  forwardRef,
-  Ref,
-  useCallback,
-} from 'react';
+import React, { ReactNode, forwardRef, Ref } from 'react';
 import { createComponent } from '../core';
 import { StyleProps } from '../types';
 import {
@@ -23,6 +15,7 @@ import {
 } from './shared';
 import { Flex } from './Flex';
 import { Svg } from './Svg';
+import { preventDefaultOnReadOnlyControlHandlerCreator } from './events';
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
@@ -34,9 +27,11 @@ const RadioControl = createComponent('input', {
     '& + div': {
       backgroundColor: 'textInput',
     },
+    // set up color so svg has correct color
     '&:checked + div': {
       backgroundColor: 'primary',
       borderColor: 'primary',
+      color: 'primaryText',
     },
     // because we want to see that input is invalid even if it's checked
     '&[aria-invalid="true"] + div': {
@@ -109,74 +104,83 @@ const RadioToggler = createComponent(Flex, {
   },
 });
 
-interface RadioProps extends VisageStyleProps<StyleProps> {
-  checked?: boolean;
-  defaultChecked?: boolean;
-  disabled?: boolean;
+interface RadioProps
+  extends Omit<ExtractVisageComponentProps<typeof RadioControl>, 'styles'> {
+  /**
+   * Hides label visually
+   */
   hiddenLabel?: boolean;
   /**
-   * Id is required for a group
+   * Sets the checkbox aria-invalid to true and applies visual style
    */
-  id?: string;
   invalid?: boolean;
+  /**
+   * Label is required to be WAI-ARIA compliant
+   */
   label: ReactNode;
-  name: string;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  readOnly?: boolean;
-  value?: any;
-  wrapper?: ReactElement;
+  /**
+   * Passes props to the label
+   */
+  labelProps?: ExtractVisageComponentProps<typeof RadioLabel>;
+  /**
+   * Passes props to the label text
+   */
+  labelTextProps?: ExtractVisageComponentProps<typeof RadioLabelText>;
+  /**
+   * Toggler is the visual component that renders radio toggler
+   * It doesn't accept any props and must return a div as root element
+   * because radio applies styles using CSS selectors
+   *
+   * On Focus it applies boxShadow for focus styling to a div
+   * On Invalid it applies borderColor to a div
+   * On Checked
+   *  - it applies backgroundColor, color and borderColor
+   *  - it applies to svg element which is a direct ancestor of div a visibility and fill
+   * On Not Checked
+   *  - it applies backgroundColor to a div
+   *  - it applies to svg element which is a direct ancestor of div a visiblity hidden
+   */
+  toggler?: React.ComponentType<{}>;
 }
 
 export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
   function Radio(
     {
-      checked,
-      defaultChecked,
       disabled,
       hiddenLabel = false,
-      id,
       invalid,
       label,
-      name,
-      onChange,
+      labelProps,
+      labelTextProps,
+      onClick,
+      onKeyDown,
       readOnly,
-      styles,
-      value,
+      ...rest
     }: RadioProps,
     ref: Ref<HTMLInputElement>,
   ) {
-    const preventOnToggle = useCallback(
-      (e: KeyboardEvent | MouseEvent) => {
-        if (readOnly) {
-          if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
-            return;
-          }
-
-          e.preventDefault();
-        }
-      },
-      [readOnly],
+    const preventOnToggle = useStaticCallbackCreator(
+      preventDefaultOnReadOnlyControlHandlerCreator,
+      [readOnly, onClick, onKeyDown],
     );
 
     return (
-      <RadioLabel disabled={disabled} styles={styles}>
+      <RadioLabel {...labelProps} disabled={disabled}>
         <RadioControl
+          {...rest}
           aria-invalid={invalid}
-          defaultChecked={defaultChecked}
-          checked={checked}
           disabled={disabled}
-          id={id}
-          name={name}
-          onChange={onChange}
           onClick={preventOnToggle}
           onKeyDown={preventOnToggle}
+          readOnly={readOnly}
           ref={ref}
           type="radio"
-          value={value}
         />
         <RadioToggler />
         &#8203; {/* fixes height if label is hidden */}
-        <RadioLabelText hidden={hiddenLabel}>{label}</RadioLabelText>
+        <RadioLabelText {...labelTextProps} hidden={hiddenLabel}>
+          {label}
+        </RadioLabelText>
       </RadioLabel>
     );
   },
