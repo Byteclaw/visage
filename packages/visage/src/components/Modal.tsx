@@ -83,6 +83,7 @@ function createCloseOnClickAwayHandler(
         (contentRef == null &&
           (e.target === modalRef.current || e.target === backdropRef.current)))
     ) {
+      e.stopPropagation();
       onClose(e);
     }
   };
@@ -206,7 +207,9 @@ export function Modal({
   return (
     <Portal containerId={`modal-portal-${id}`}>
       <LayerManager>
-        {backdrop && <Backdrop onClick={onClickAwayHandler} />}
+        {backdrop && (
+          <Backdrop onClick={onClickAwayHandler} styles={{ zIndex }} />
+        )}
         <BaseModal
           onClick={onClickAwayHandler}
           backdrop={backdrop}
