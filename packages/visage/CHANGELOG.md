@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.16.1 (2020-03-02)</small>
+
+* fix(visage): use correct zIndex on Modal backdrop ([5a1fa10](https://github.com/Byteclaw/visage/commit/5a1fa10))
+
+
+
+
+
 ## 0.16.0 (2020-03-01)
 
 * feat(visage): allow custom toggler in Checkbox/Radio ([19f6194](https://github.com/Byteclaw/visage/commit/19f6194))
