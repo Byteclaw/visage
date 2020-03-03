@@ -25,8 +25,7 @@ export const CloseButton = createComponent('button', {
     fontSize: 0,
     lineHeight: '1em',
     outline: 'none',
-    my: 0,
-    ml: 0,
+    m: 0,
     p: 1,
     '&:focus': {
       backgroundColor: 'lightAccent',
