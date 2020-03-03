@@ -1,17 +1,25 @@
-import { ThemeResolverFunction } from '@byteclaw/visage-core';
+import { ThemeResolverFunction, resolvers } from '@byteclaw/visage-core';
 
 /**
- * Resolves colors in box shadow property
+ * Resolves box shadow agains theme and then tries to resolve colors against theme
  */
-export const boxShadowColor: ThemeResolverFunction = function boxShadowColor(
+export const boxShadow: ThemeResolverFunction = function resolveBoxShadow(
   propName,
   value: string,
-  { resolve },
+  ctx,
   breakpoint,
 ) {
-  return value.replace(/([a-zA-Z0-9.\-_]+)/g, part => {
-    return resolve(propName, 'color', part, breakpoint);
-  });
+  // first try to resolvea against theme
+  // and then apply colors
+  const themeKeyValue = resolvers.themeKey(propName, value, ctx, breakpoint);
+
+  if (typeof themeKeyValue === 'string') {
+    return themeKeyValue.replace(/([a-zA-Z0-9.\-_]+)/g, part => {
+      return ctx.resolve(propName, 'color', part, breakpoint);
+    });
+  }
+
+  return themeKeyValue;
 };
 
 /**

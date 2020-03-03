@@ -1,8 +1,12 @@
 import { ThemeStylerMap } from '@byteclaw/visage-core';
 
-export const stylers: ThemeStylerMap = {
+export const stylers: ThemeStylerMap<
+  any,
+  'sizeUnit',
+  'boxShadow' | 'gridSize'
+> = {
   boxShadow: {
-    resolver: 'boxShadowColor',
+    resolver: 'boxShadow',
   },
   m: { format: 'sizeUnit', resolver: 'gridSize', outputProps: ['margin'] },
   margin: { format: 'sizeUnit', resolver: 'gridSize' },
