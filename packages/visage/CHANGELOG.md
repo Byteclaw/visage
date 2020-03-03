@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.16.2 (2020-03-03)</small>
+
+* test(visage): add test for extending, closes #293 ([ac58944](https://github.com/Byteclaw/visage/commit/ac58944)), closes [#293](https://github.com/Byteclaw/visage/issues/293)
+
+
+
+
+
 ## <small>0.16.1 (2020-03-02)</small>
 
 * fix(visage): use correct zIndex on Modal backdrop ([5a1fa10](https://github.com/Byteclaw/visage/commit/5a1fa10))
