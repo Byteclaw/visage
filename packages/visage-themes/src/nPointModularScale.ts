@@ -5,7 +5,7 @@ import ModularScale, {
   modularScale as ModularScaleType,
   ratios as modularScaleFontRatios,
 } from 'modular-scale';
-import { boxShadowColor, gridSize } from './resolvers';
+import { boxShadow, gridSize } from './resolvers';
 import { stylers } from './stylers';
 
 export { modularScaleFontRatios };
@@ -75,10 +75,10 @@ export function createNPointModularScaleTheme(
 
   return createTheme<
     any,
-    'boxShadowColor' | 'gridSize' | 'modularLineHeight' | 'modularSize'
+    'boxShadow' | 'gridSize' | 'modularLineHeight' | 'modularSize'
   >({
     resolvers: {
-      boxShadowColor,
+      boxShadow,
       gridSize,
       /**
        * Resolver responsible for calculating line height sizes based on

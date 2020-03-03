@@ -5,7 +5,7 @@ import {
   getScaleValue,
   ScaleValue,
 } from '@byteclaw/visage-utils';
-import { boxShadowColor, gridSize } from './resolvers';
+import { boxShadow, gridSize } from './resolvers';
 import { stylers } from './stylers';
 
 export interface NPointFontScaleThemeSettings extends ThemeSettings {
@@ -31,10 +31,10 @@ export function createNPointFontScaleTheme(
 ): Theme {
   return createTheme<
     any,
-    'boxShadowColor' | 'gridSize' | 'scaleLineHeight' | 'scaleSize'
+    'boxShadow' | 'gridSize' | 'scaleLineHeight' | 'scaleSize'
   >({
     resolvers: {
-      boxShadowColor,
+      boxShadow,
       gridSize,
       scaleSize(propName, value, _, breakpoint) {
         const numericValue = Number(value);
