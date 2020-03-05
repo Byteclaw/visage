@@ -76,8 +76,8 @@ describe('Heading', () => {
         />
         .emotion-0 {
         font-family: heading-font;
-        font-size: 168px;
-        line-height: 168px;
+        font-size: 105px;
+        line-height: 120px;
         margin-top: 8px;
         margin-bottom: 8px;
         font-weight: normal;
