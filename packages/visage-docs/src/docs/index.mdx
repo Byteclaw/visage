@@ -4,11 +4,13 @@ title: 'Visage'
 
 # Visage
 
-Visage is a design system for [React](https://reactjs.org/) applications. It's goal is to provide you components for rapid UI development.
-
+Visage is a design system based set of UI components for [React](https://reactjs.org/) applications. It's goal is to provide you building blocks 
+for rapid UI development and bridge the gap between designer and developer, by establishing a common language.
 Under the hood Visage uses [Emotion](http://emotion.sh) CSS-in-JS library.
 
 ## Installation
+
+Install using NPM or Yarn. You'll need the main `visage` package and also `visage-themes` to initialize the default settings.
 
 ```sh transpile=false
 npm install @byteclaw/visage @byteclaw/visage-themes
@@ -19,12 +21,12 @@ yarn add @byteclaw/visage @byteclaw/visage-themes
 ## Usage
 
 Each React application that wants to use Visage as it's design system needs to wrap application in `DesignSystem` component.
-
-If your application requires to be responsive then you need to use `ResponsiveDesignSystem` otherwise you are good to go with `DesignSystem`.
+If your application requires to be responsive then you need to use `ResponsiveDesignSystem` component instead.
 
 ### Non Responsive Applications
 
-In order to start with Non Responsive Application you need to import [DesignSystem](./components/design-system) component. This component doesn't use any breakpoint detection.
+In order to start with Non Responsive Application you need to import [DesignSystem](./components/design-system) component and pass it a theme instance.
+You can start with a simple default theme and gradually create your own settings. This component doesn't provide any breakpoint detection.
 
 ```jsx transpile=false
 import { DesignSystem, Text } from '@byteclaw/visage';
@@ -45,7 +47,8 @@ const theme = createDocsTheme();
 
 ### Responsive Applications
 
-As was already said above, in order to use Visage for responsive application you need to import [ResponsiveDesign](./components/responsive-design-system) component. Under the hood the component by default uses [window.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API to match breakpoints and set up a current device breakpoint.
+As was already mentioned, in order to use Visage for responsive application you need to import [ResponsiveDesignSystem](./components/responsive-design-system) component. Under the hood, by default, this component uses [window.matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API to match breakpoints and set up a current device breakpoint.
+You don't need to worry about that, to start implementing responsive styles and behaviour.
 
 ```jsx transpile=false
 import { ResponsiveDesignSystem, Text } from '@byteclaw/visage';
@@ -70,12 +73,12 @@ const theme = createDocsTheme();
 ### Grid
 
 The grid is defined by [N pixel based grid system](https://spec.fm/specifics/8-pt-grid).
-
 The size of the grid is specified by `baselineGridSize: number`. This value is then used to calculate spacings.
 
 ### Typography
 
-Typography is using [Modular scale](https://www.modularscale.com/).
+Typography uses the [Modular scale](https://www.modularscale.com/), which works by modulating given base by a certain chosen ratio.
+In our case it means setting up base as `baseFontSize` and then choosing `baseLineHeightRatio` and `fontScaleRatio`.
 
 To set up the typography use:
 
@@ -99,13 +102,18 @@ To set up the typography use:
 
 ### Color palette
 
-In theme every color in a palette accepts `string` or `scale`.
+Color palette is defined as object of named colors, which can be defined as one of two types,`string` or `Scale`.
+In case of a string, it first gets resolved against the theme, and if not found, it is applied as-is in the CSS. 
 
 #### Scale
 
-Scale is an object that have `{ values: string[], offset: number }`.
+Scale: `{ values: string[], offset: number }` type is an object with `offset` and `values` properties, 
+which is used to define an indexed array of values.
+The offset property can hold a numerical information about a count of values that precede the zero index value.
+This allows you to have a base shade for certain color and use, for example `myColor.-1`, to get a slightly 
+lighter shade or `myColor.1` to get darker one.
 
-Offset is used to calculate a shade of a color.
+Offset is thus a helper used to calculate a shade of given color.
 
 ```jsx transpile=false
 createNPointModularScaleTheme({

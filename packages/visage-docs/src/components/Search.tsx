@@ -47,7 +47,7 @@ const SearchInput = connectAutoComplete(({ refine, hits: searchHits }: any) => {
         </a>
       }
       baseProps={{
-        styles: { mr: 'auto', mb: 0, minWidth: ['100%', '100%', '30em'] },
+        styles: { mr: 'auto', mb: 0, minWidth: ['50%', '50%', '30em'] },
       }}
       type="search"
     />
