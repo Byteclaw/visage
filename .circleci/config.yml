@@ -25,6 +25,12 @@ jobs:
       - run:
           name: Test
           command: yarn test:ci
+      - run:
+          name: Compile packages
+          command: yarn compile
+      - run:
+          name: Check bundle size
+          command: yarn bundlesize
 workflows:
   version: 2
   build-test-and-deploy:
