@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "path": "./packages/visage/dist/index.esm.js"
+    },
+    {
+      "path": "./packages/visage/dist/index.js"
+    },
+    {
+      "path": "./packages/visage-core/dist/index.esm.js"
+    },
+    {
+      "path": "./packages/visage-core/dist/index.js"
+    },
+    {
+      "path": "./packages/visage-themes/dist/index.esm.js"
+    },
+    {
+      "path": "./packages/visage-themes/dist/index.js"
+    },
+    {
+      "path": "./packages/visage-utils/dist/index.esm.js"
+    },
+    {
+      "path": "./packages/visage-utils/dist/index.js"
+    }
+  ]
+}
