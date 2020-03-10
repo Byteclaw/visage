@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.16.3 (2020-03-10)</small>
+
+* fix(visage): remove line-height from global reset ([8d9c457](https://github.com/Byteclaw/visage/commit/8d9c457))
+
+
+
+
+
 ## <small>0.16.2 (2020-03-03)</small>
 
 * test(visage): add test for extending, closes #293 ([ac58944](https://github.com/Byteclaw/visage/commit/ac58944)), closes [#293](https://github.com/Byteclaw/visage/issues/293)

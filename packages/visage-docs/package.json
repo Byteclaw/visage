@@ -1,12 +1,12 @@
 {
   "name": "@byteclaw/visage-docs",
-  "version": "0.12.9",
+  "version": "0.12.10",
   "private": true,
   "license": "MIT",
   "main": "src/index.ts",
   "dependencies": {
-    "@byteclaw/visage": "^0.16.2",
-    "@byteclaw/visage-themes": "^0.3.0",
+    "@byteclaw/visage": "^0.16.3",
+    "@byteclaw/visage-themes": "^0.3.1",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
     "@mdx-js/mdx": "^1.5.2",

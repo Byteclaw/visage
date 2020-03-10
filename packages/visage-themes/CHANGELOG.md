@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.3.1 (2020-03-10)</small>
+
+**Note:** Version bump only for package @byteclaw/visage-themes
+
+
+
+
+
 ## 0.3.0 (2020-03-03)
 
 * feat(visage/themes): resolve boxShadow against theme and colors ([de60002](https://github.com/Byteclaw/visage/commit/de60002))
