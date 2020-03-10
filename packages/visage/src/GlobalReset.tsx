@@ -59,8 +59,6 @@ const globalStyles: { [selector: string]: EmotionStyleSheet } = {
   },
   '*, *::before, *::after': {
     boxSizing: 'inherit',
-    lineHeight: 0,
-    // padding: '0.05px', // prevent margin collapsing between parent and child
   },
   body: {
     margin: 0,
