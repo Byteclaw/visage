@@ -13,7 +13,7 @@ import {
 } from '../assets';
 import { createComponent } from '../core';
 import { booleanVariant, variant } from '../variants';
-import { StyleProps, EmotionStyleSheet } from '../types';
+import { EmotionStyleSheet } from '../types';
 import { Box } from './Box';
 import { CloseButton } from './CloseButton';
 import { Flex } from './Flex';
@@ -141,16 +141,15 @@ const BannerRibbon = createComponent('div', {
   ],
 });
 
-export const Banner: VisageComponent<
-  ExtractVisageComponentProps<typeof BannerBase> & {
-    children: ReactNode;
-    dismissLabel?: string;
-    icon?: ReactNode;
-    onDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
-    title?: ReactNode;
-  },
-  StyleProps
-> = ({
+export const Banner: VisageComponent<ExtractVisageComponentProps<
+  typeof BannerBase
+> & {
+  children: ReactNode;
+  dismissLabel?: string;
+  icon?: ReactNode;
+  onDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
+  title?: ReactNode;
+}> = ({
   children,
   dismissLabel = 'Dismiss notification',
   icon,

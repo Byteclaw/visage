@@ -1,33 +1,26 @@
 import React from 'react';
 import { VisageContext } from './context';
-import { useDesignSystem } from './hooks';
-import { Theme } from './theme';
-import { StyleGenerator, StyleSheet } from './types';
+import { StyleGenerator, Theme } from './types';
+import { useDesignSystem } from './useDesignSystem';
 
-interface DesignSystemProps<
-  TTheme extends Theme,
-  TFaces extends { [componentName: string]: StyleSheet<any> | undefined }
-> {
+interface DesignSystemProps<TTheme extends Theme<any>> {
   children?: React.ReactNode;
-  faces?: TFaces;
   is?: number;
   styleGenerator: StyleGenerator;
   theme: TTheme;
 }
 
-export function DesignSystem<
-  TTheme extends Theme,
-  TFaces extends { [componentName: string]: StyleSheet<any> | undefined } = {
-    [componentName: string]: StyleSheet<any> | undefined;
-  }
->({
+export function DesignSystem<TTheme extends Theme>({
   children,
-  faces,
   is = 0,
   styleGenerator,
   theme,
-}: DesignSystemProps<TTheme, TFaces>) {
-  const visage = useDesignSystem({ faces, is, styleGenerator, theme });
+}: DesignSystemProps<TTheme>) {
+  const visage = useDesignSystem({
+    is,
+    styleGenerator,
+    theme,
+  });
 
   return (
     <VisageContext.Provider value={visage}>{children}</VisageContext.Provider>

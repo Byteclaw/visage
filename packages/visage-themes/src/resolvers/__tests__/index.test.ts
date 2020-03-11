@@ -31,28 +31,33 @@ describe('resolvers', () => {
         stylers,
       });
 
-      expect(theme.resolve('boxShadow', 'd', 0)).toEqual({
-        properties: ['boxShadow'],
-        value: 'd',
-      });
+      expect(
+        theme.resolve('boxShadow', 'd', { breakpoint: 0, ...theme }),
+      ).toEqual('d');
     });
 
     it('passes through if there is no value in theme', () => {
-      expect(themeWithShadow.resolve('boxShadow', 'c', 0)).toEqual({
-        properties: ['boxShadow'],
-        value: 'c',
-      });
+      expect(
+        themeWithShadow.resolve('boxShadow', 'c', {
+          breakpoint: 0,
+          ...themeWithShadow,
+        }),
+      ).toEqual('c');
     });
 
     it('resolves against theme and resolves colors too', () => {
-      expect(themeWithShadow.resolve('boxShadow', 'a', 0)).toEqual({
-        properties: ['boxShadow'],
-        value: 'a shadow',
-      });
-      expect(themeWithShadow.resolve('boxShadow', 'b', 0)).toEqual({
-        properties: ['boxShadow'],
-        value: 'b shadow #ccc',
-      });
+      expect(
+        themeWithShadow.resolve('boxShadow', 'a', {
+          breakpoint: 0,
+          ...themeWithShadow,
+        }),
+      ).toEqual('a shadow');
+      expect(
+        themeWithShadow.resolve('boxShadow', 'b', {
+          breakpoint: 0,
+          ...themeWithShadow,
+        }),
+      ).toEqual('b shadow #ccc');
     });
   });
 });

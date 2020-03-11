@@ -23,7 +23,6 @@ import {
 } from './shared';
 import { Modal } from './Modal';
 import { useDebouncedCallback } from '../hooks';
-import { StyleProps } from '../types';
 import { useLayerManager } from './LayerManager';
 
 function getAnchorNode(
@@ -48,7 +47,7 @@ export const BasePopover = createComponent('div', {
   variants: [booleanVariant('open', true)],
 });
 
-interface PopoverProps extends VisageStyleProps<StyleProps> {
+interface PopoverProps extends VisageStyleProps {
   allowScrolling?: boolean;
   alwaysVisible?: boolean;
   anchor?: null | HTMLElement | RefObject<HTMLElement>;

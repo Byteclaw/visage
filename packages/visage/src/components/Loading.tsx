@@ -7,7 +7,7 @@ import { keyframes } from '@emotion/core';
 import React from 'react';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
-import { StyleProps, EmotionStyleSheet } from '../types';
+import { EmotionStyleSheet } from '../types';
 
 const indeterminateAnimation = keyframes({
   '0%': {
@@ -72,16 +72,13 @@ const ProgressBarProgress = createComponent('div', {
   variants: [booleanVariant('indeterminate', true)],
 });
 
-export const Loading: VisageComponent<
-  {
-    baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
-    indeterminate?: boolean;
-    progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
-    value?: number;
-    valueText?: string;
-  },
-  StyleProps
-> = function Loading({
+export const Loading: VisageComponent<{
+  baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
+  indeterminate?: boolean;
+  progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
+  value?: number;
+  valueText?: string;
+}> = function Loading({
   baseProps,
   indeterminate,
   progressProps,

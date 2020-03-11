@@ -2,14 +2,15 @@ module.exports = {
   displayName: '@byteclaw/visage',
   collectCoverageFrom: [
     'src/**/*.ts',
+    'src/**/*.tsx',
     '!**/dist/**',
-    '!**/*.flow.js',
     '!**/node_modules/**',
-    '!**/flow-typed/**',
+    '!**/__benchmarks__/**',
     '!**/__tests__/**',
     '!**/__fixtures__/**',
   ],
   moduleNameMapper: {
+    '^@byteclaw/visage$': '<rootDir>/src',
     '^@byteclaw/(visage-[a-z-A-Z-_]+)$': '<rootDir>/../$1/src',
   },
   rootDir: __dirname,

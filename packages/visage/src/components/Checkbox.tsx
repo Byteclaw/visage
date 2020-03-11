@@ -5,7 +5,6 @@ import {
 } from '@byteclaw/visage-core';
 import React, { ReactNode, forwardRef, Ref } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../types';
 import {
   visuallyHiddenStyles,
   visuallyHiddenBooleanVariant,
@@ -107,7 +106,7 @@ const CheckboxToggler = createComponent(Flex, {
 });
 
 interface CheckboxProps
-  extends Omit<ExtractVisageComponentProps<typeof CheckboxControl>, 'styles'> {
+  extends ExtractVisageComponentProps<typeof CheckboxControl> {
   /**
    * Hides label visually
    */
@@ -128,6 +127,7 @@ interface CheckboxProps
    * Passes props to the label text
    */
   labelTextProps?: ExtractVisageComponentProps<typeof CheckboxLabelText>;
+  ref?: React.RefObject<HTMLInputElement>;
   /**
    * Toggler is the visual component that renders checkbox toggler
    * It doesn't accept any props and must return a div as root element
@@ -145,7 +145,7 @@ interface CheckboxProps
   toggler?: React.ComponentType<{}>;
 }
 
-export const Checkbox: VisageComponent<CheckboxProps, StyleProps> = forwardRef(
+export const Checkbox: VisageComponent<CheckboxProps> = forwardRef(
   function Checkbox(
     {
       disabled,

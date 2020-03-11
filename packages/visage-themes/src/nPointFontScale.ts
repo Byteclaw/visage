@@ -1,5 +1,11 @@
-import { ColorPalette, FontPalette, Theme } from '@byteclaw/visage';
-import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
+import {
+  createTheme,
+  ColorPalette,
+  FontPalette,
+  VisageFaces,
+  Theme,
+} from '@byteclaw/visage';
+import { StyleSheetThemeSettings } from '@byteclaw/visage-core';
 import {
   getResponsiveValue,
   getScaleValue,
@@ -8,7 +14,8 @@ import {
 import { boxShadow, gridSize } from './resolvers';
 import { stylers } from './stylers';
 
-export interface NPointFontScaleThemeSettings extends ThemeSettings {
+export interface NPointFontScaleThemeSettings
+  extends StyleSheetThemeSettings<any, VisageFaces> {
   fontSize: ScaleValue<number | number[]>;
   lineHeights: ScaleValue<number | number[]>;
   baseGridSize: number;
@@ -31,40 +38,41 @@ export function createNPointFontScaleTheme(
 ): Theme {
   return createTheme<
     any,
-    'boxShadow' | 'gridSize' | 'scaleLineHeight' | 'scaleSize'
+    'boxShadow' | 'gridSize' | 'scaleLineHeight' | 'scaleSize',
+    any,
+    VisageFaces
   >({
     resolvers: {
       boxShadow,
       gridSize,
-      scaleSize(propName, value, _, breakpoint) {
+      scaleSize(propName, value, ctx) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
-          if (Array.isArray(settings.fontSize.values[numericValue])) {
-            return getResponsiveValue(
-              breakpoint,
-              getScaleValue(settings.fontSize, numericValue),
-            );
-          }
+          const val = getScaleValue(settings.fontSize, numericValue);
 
-          return getScaleValue(settings.fontSize, numericValue);
+          return Array.isArray(val)
+            ? getResponsiveValue(
+                ctx.breakpoint,
+                getScaleValue(settings.fontSize, numericValue),
+              )
+            : val;
         }
 
         return value;
       },
-      scaleLineHeight(propName, value, _, breakpoint) {
+      scaleLineHeight(propName, value, ctx) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
-          if (Array.isArray(settings.lineHeights.values[numericValue])) {
-            return getResponsiveValue(
-              breakpoint,
-              getScaleValue(settings.lineHeights, numericValue),
-              numericValue,
-            );
-          }
+          const val = getScaleValue(settings.lineHeights, numericValue);
 
-          return getScaleValue(settings.lineHeights, numericValue);
+          return Array.isArray(val)
+            ? getResponsiveValue(
+                ctx.breakpoint,
+                getScaleValue(settings.lineHeights, numericValue),
+              )
+            : val;
         }
 
         return value;

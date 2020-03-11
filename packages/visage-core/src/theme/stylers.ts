@@ -2,11 +2,12 @@ import { formatters } from './formatters';
 import { resolvers } from './resolvers';
 import { colorProps } from './constants';
 import { ThemeStylerSettings, ThemeStylerMap } from './types';
+import { catchAllStyler, extendsStyler, faceStyler } from '../styleSheet';
 
 type ColorPropNames = typeof colorProps[number];
 
 export const stylers: ThemeStylerMap<
-  ColorPropNames | 'fontFamily' | 'catchAll'
+  ColorPropNames | 'catchAll' | 'extends' | 'face'
 > = {
   ...colorProps.reduce(
     (colorStylers, propName) => ({
@@ -17,10 +18,7 @@ export const stylers: ThemeStylerMap<
     }),
     {} as ThemeStylerMap<ColorPropNames>,
   ),
-  fontFamily: {
-    resolver: 'fontFamily',
-  },
-  catchAll: {
-    resolver: 'themeKey',
-  },
+  catchAll: catchAllStyler,
+  extends: extendsStyler,
+  face: faceStyler,
 };

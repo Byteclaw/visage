@@ -12,7 +12,7 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { StyleProps, EmotionStyleSheet } from '../types';
+import { EmotionStyleSheet } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
@@ -131,7 +131,7 @@ interface Props extends BaseProps {
   suffixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
 }
 
-export const TextInput: VisageComponent<Props, StyleProps> = forwardRef(
+export const TextInput: VisageComponent<Props> = forwardRef(
   (
     {
       baseProps,

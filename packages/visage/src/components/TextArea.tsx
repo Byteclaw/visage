@@ -11,7 +11,6 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { StyleProps } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
@@ -51,11 +50,10 @@ interface TextAreaControlProps {
   baseProps?: ExtractVisageComponentProps<typeof TextAreaBase>;
 }
 
-export const TextArea: VisageComponent<
-  ExtractVisageComponentProps<typeof TextAreaBaseControl> &
-    TextAreaControlProps,
-  StyleProps
-> = forwardRef(
+export const TextArea: VisageComponent<ExtractVisageComponentProps<
+  typeof TextAreaBaseControl
+> &
+  TextAreaControlProps> = forwardRef(
   (
     {
       autoResize,

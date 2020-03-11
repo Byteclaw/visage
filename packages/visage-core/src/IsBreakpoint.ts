@@ -1,5 +1,5 @@
 import React from 'react';
-import { useBreakpoint } from './hooks';
+import { useBreakpoint } from './useBreakpointManager';
 
 interface IsBreakpointProps {
   children?: React.ReactNode | (() => React.ReactNode);

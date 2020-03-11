@@ -1,66 +1,350 @@
-import React, { ComponentProps } from 'react';
-import { Theme } from './theme';
+import React, { ComponentProps, JSXElementConstructor } from 'react';
+import {
+  ResolvedStyleSheet,
+  StyleSheet,
+  StylerSheetResolveContext,
+  StylerFunction,
+  StyleValueFormatter,
+  StyleValueResolver,
+  StyleSheetThemeSettings,
+} from './styleSheet';
+
+declare global {
+  /**
+   * This hould be augmented in libraries that consume the core so you can
+   * easily add autocomplete and typecheck for styles properties
+   */
+  export interface VisageStylingProperties {}
+
+  /**
+   * This should be augmented in libraries that consume the core so you can
+   * easily add autocomplete and typecheck for your properties
+   */
+  export interface VisageStyleSheet {}
+}
+
+type HTMLELProps<
+  TElement extends keyof JSX.IntrinsicElements,
+  TComponentProps extends {}
+> = { as: TElement } & JSX.IntrinsicElements[TElement] &
+  TComponentProps &
+  StyleProps &
+  React.RefAttributes<any>;
+
+export interface VisageComponent<TComponentProps extends {}> {
+  displayName?: string;
+
+  // as component
+  <P>(
+    props: { as: React.ComponentType<P> } & P &
+      TComponentProps &
+      StyleProps &
+      React.RefAttributes<any>,
+  ): React.ReactElement | null;
+
+  // HTML
+  (props: HTMLELProps<'a', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'abbr', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'address', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'area', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'article', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'aside', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'audio', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'b', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'base', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'bdi', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'bdo', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'big', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'blockquote', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'body', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'br', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'button', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'canvas', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'caption', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'cite', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'code', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'col', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'colgroup', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'data', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'datalist', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'dd', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'del', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'details', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'dfn', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'dialog', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'div', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'dl', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'dt', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'em', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'embed', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'fieldset', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'figcaption', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'figure', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'footer', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'form', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'h1', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'h2', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'h3', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'h4', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'h5', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'h6', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'head', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'header', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'hgroup', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'hr', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'html', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'i', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'iframe', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'img', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'input', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'ins', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'kbd', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'keygen', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'label', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'legend', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'li', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'link', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'main', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'map', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'mark', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'menu', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'menuitem', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'meta', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'meter', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'nav', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'noindex', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'noscript', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'object', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'ol', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'optgroup', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'option', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'output', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'p', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'param', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'picture', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'pre', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'progress', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'q', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'rp', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'rt', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'ruby', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'s', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'samp', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'script', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'section', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'select', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'small', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'source', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'span', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'strong', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'style', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'sub', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'summary', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'sup', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'table', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'template', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'tbody', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'td', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'textarea', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'tfoot', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'th', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'thead', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'time', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'title', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'tr', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'track', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'u', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'ul', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'var', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'video', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'wbr', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'webview', TComponentProps>): React.ReactElement | null;
+
+  // SVG
+  (props: HTMLELProps<'svg', TComponentProps>): React.ReactElement | null;
+
+  (props: HTMLELProps<'animate', TComponentProps>): React.ReactElement | null; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+  (
+    props: HTMLELProps<'animateMotion', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'animateTransform', TComponentProps>,
+  ): React.ReactElement | null; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
+  (props: HTMLELProps<'circle', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'clipPath', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'defs', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'desc', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'ellipse', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'feBlend', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feColorMatrix', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feComponentTransfer', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feComposite', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feConvolveMatrix', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feDiffuseLighting', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feDisplacementMap', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feDistantLight', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feDropShadow', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'feFlood', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'feFuncA', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'feFuncB', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'feFuncG', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'feFuncR', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feGaussianBlur', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'feImage', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'feMerge', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feMergeNode', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feMorphology', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'feOffset', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'fePointLight', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feSpecularLighting', TComponentProps>,
+  ): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feSpotLight', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'feTile', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'feTurbulence', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'filter', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'foreignObject', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'g', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'image', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'line', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'linearGradient', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'marker', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'mask', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'metadata', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'mpath', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'path', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'pattern', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'polygon', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'polyline', TComponentProps>): React.ReactElement | null;
+  (
+    props: HTMLELProps<'radialGradient', TComponentProps>,
+  ): React.ReactElement | null;
+  (props: HTMLELProps<'rect', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'stop', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'switch', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'symbol', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'text', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'textPath', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'tspan', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'use', TComponentProps>): React.ReactElement | null;
+  (props: HTMLELProps<'view', TComponentProps>): React.ReactElement | null;
+
+  // without as
+  (props: TComponentProps & StyleProps): React.ReactElement | null;
+}
+
+export type ExtractArgs<T extends (...args: any[]) => any> = T extends (
+  ...args: infer A
+) => any
+  ? A
+  : never;
+
+export type ExtractReturn<T extends (...args: any[]) => any> = T extends (
+  ...args: any[]
+) => infer R
+  ? R
+  : never;
+
+export type ExtractThemeSettingsFromTheme<
+  TTheme extends any
+> = TTheme extends Theme<infer A> ? A : {};
+
+export interface Theme<
+  TThemeSettings extends StyleSheetThemeSettings = StyleSheetThemeSettings
+> {
+  readonly formatters: {
+    [name: string]: StyleValueFormatter;
+  };
+  readonly resolvers: {
+    color: StyleValueResolver;
+    themeKey: StyleValueResolver;
+    [name: string]: StyleValueResolver;
+  };
+  readonly stylers: {
+    catchAll: StylerFunction;
+    extends: StylerFunction;
+    face: StylerFunction;
+    [name: string]: StylerFunction;
+  };
+  readonly format: StyleValueFormatter;
+  /**
+   * Resolves a style prop name to a final output that will be processed by style applier
+   */
+  readonly resolve: StyleValueResolver;
+  readonly style: StylerFunction;
+  theme: TThemeSettings;
+}
 
 export interface Visage<TTheme extends Theme> {
   /**
    * Current responsive breakpoint
    */
   breakpoint: number;
+  ctx: StylerSheetResolveContext<ExtractThemeSettingsFromTheme<TTheme>>;
   /**
-   * Returns a face by component name
-   */
-  face(componentName: string): StyleSheet<any>;
-  /**
-   * Generates a style representation for a style sheet
+   * Generates a style representation for style sheets
+   *
+   * Styles sheets are merged from left to right
+   * meaning that subsequent style sheet is merged to
+   * previous one
    *
    * For example:
    * In case of css it returns className prop
    * In case of react-nativr it should return styles prop
    */
-  generate(styleSheet: StyleSheet<any>): { [prop: string]: any };
+  generate(
+    ...styleSheets: StyleSheet<VisageStylingProperties>[]
+  ): { [prop: string]: any };
   /**
-   * Resolves style prop value to final value
+   * Resolves style sheets
    *
-   * For example fontSize 0 is resolved to some value by stylers defined in theme
+   * This operation is almost the same as generate except it returns resolved stylesheet
+   * and not style props
    */
-  resolveStyle(
-    prop: string,
-    value:
-      | string
-      | number
-      | null
-      | undefined
-      | (string | number | null | undefined)[],
-  ): string | number | null | undefined;
+  resolveStyleSheets(
+    ...styleSheets: StyleSheet<VisageStylingProperties>[]
+  ): ResolvedStyleSheet;
   /**
    * Current theme
    */
-  theme: TTheme;
+  theme: ExtractThemeSettingsFromTheme<TTheme>;
 }
-
-export interface ValidStyleSheet {
-  [key: string]: any;
-}
-
-type MakeResponsiveStyleSheet<TStyleSheet extends ValidStyleSheet> = {
-  [K in keyof TStyleSheet]:
-    | TStyleSheet[K]
-    | null
-    | undefined
-    | (string | number | null | undefined | TStyleSheet[K])[];
-};
-
-export type StyleSheet<
-  TStyleSheet extends ValidStyleSheet
-> = MakeResponsiveStyleSheet<TStyleSheet> & {
-  [pseudo: string]:
-    | string
-    | number
-    | null
-    | undefined
-    | (string | number | null | undefined)[]
-    | MakeResponsiveStyleSheet<TStyleSheet>;
-};
 
 /**
  * These are the props that are being passed down the tree if you wrap one Visage component
@@ -68,9 +352,12 @@ export type StyleSheet<
  *
  * For example createComponent(anotherVisageComponent) or `<VisageComponent as={AnotherVisageComponent} />`
  */
-export interface StyleProps<TStyleSheet extends ValidStyleSheet = {}> {
-  styles?: StyleSheet<TStyleSheet>;
-  parentStyles?: StyleSheet<TStyleSheet>;
+export interface StyleProps {
+  styles?: VisageStyleSheet;
+  /**
+   * Parent styles are array of all stylesheets that should be applied from parents
+   */
+  parentStyles?: VisageStyleSheet[];
 }
 
 /**
@@ -78,22 +365,11 @@ export interface StyleProps<TStyleSheet extends ValidStyleSheet = {}> {
  * For example to css style sheet and returns a className prop
  * Or in case of react-native StyleSheet object and returns it in styles prop
  */
-export interface StyleGenerator<TTheme extends Theme = Theme> {
-  (styleSheet: StyleSheet<any>, breakpoint: number, theme: TTheme): {
+export interface StyleGenerator {
+  (styleSheets: StyleSheet<any>[], ctx: StylerSheetResolveContext<any>): {
     /** Output prop name that references generated style e.g. className, styles, etc */
     [prop: string]: any;
   };
-}
-
-export interface ResolvedStyleSheet {
-  [propOrPseudo: string]:
-    | string
-    | null
-    | undefined
-    | number
-    | {
-        [prop: string]: string | null | undefined | number;
-      };
 }
 
 export type ComponentConstraint =
@@ -102,97 +378,18 @@ export type ComponentConstraint =
 
 export type ExtractVisageComponentProps<
   T extends ComponentConstraint
-> = T extends VisageComponent<infer P, infer S>
-  ? P & StyleProps<S>
-  : ComponentProps<T>;
+> = T extends VisageComponent<infer P> ? P & StyleProps : ComponentProps<T>;
 
 export type OmittableProps<T extends {}> = {
   [K in keyof T]?: undefined | T[K];
 };
 
-export interface VisageComponent<
-  TComponentProps,
-  TStyleSheet extends ValidStyleSheet
-> {
-  displayName?: string;
-  <
-    C extends ComponentConstraint,
-    P = C extends ComponentConstraint ? ExtractVisageComponentProps<C> : {}
-  >(
-    props: { as?: C } & StyleProps<TStyleSheet> & TComponentProps & P,
-  ): React.ReactElement | null;
+export interface StyleFunction<TProps extends {}> {
+  (props: TProps): VisageStyleSheet;
 }
 
-export interface StyleFunction<
-  TProps extends {},
-  TStyleSheet extends ValidStyleSheet
-> {
-  (
-    props: TProps,
-    styleOverrides?: StyleSheet<TStyleSheet>,
-    parentStyles?: StyleSheet<TStyleSheet>,
-  ): StyleSheet<TStyleSheet>;
-}
-
-type TEmptyObjectType = {};
-
-type UnionToIntersection<U> = (U extends any
+export type UnionToIntersection<U> = (U extends any
 ? (k: U) => void
 : never) extends (k: infer I) => void
   ? I
-  : TEmptyObjectType;
-
-export interface ComponentFactory<TStyleSheet extends ValidStyleSheet> {
-  <
-    TDefaultComponent extends ComponentConstraint,
-    TVariantsProps extends any[] | undefined = undefined,
-    TProps extends {} = ExtractVisageComponentProps<TDefaultComponent> &
-      (TVariantsProps extends Array<infer P>
-        ? UnionToIntersection<P>
-        : TEmptyObjectType),
-    TDefaultProps extends {} = Partial<TProps>
-  >(
-    as: TDefaultComponent,
-    options?: {
-      displayName?: string;
-      defaultProps?: TDefaultProps;
-      defaultStyles?:
-        | StyleSheet<TStyleSheet>
-        | StyleFunction<TProps, TStyleSheet>;
-      variants?: TVariantsProps;
-    },
-  ): VisageComponent<TProps, TStyleSheet>;
-}
-
-export interface UseDesignSystemHookOptions<TTheme extends Theme = Theme> {
-  is?: number;
-  faces?: { [componenName: string]: undefined | StyleSheet<any> };
-  styleGenerator: StyleGenerator<TTheme>;
-  theme: TTheme;
-}
-
-export interface UseDesignSystemHook<TTheme extends Theme = Theme> {
-  (options?: UseDesignSystemHookOptions<TTheme>): Visage<TTheme>;
-}
-
-export interface UseVisageHookOptions<TStyleSheet extends ValidStyleSheet> {
-  as: any;
-  componentName: string;
-  defaultStyles?: StyleSheet<TStyleSheet> | StyleFunction<any, TStyleSheet>;
-  variants?: {
-    prop: string;
-    name: string;
-    stripProp: boolean;
-    defaultValue: string | boolean;
-  }[];
-}
-
-export interface UseVisageHook<
-  TStyleSheet extends ValidStyleSheet,
-  TOutputProps extends { [prop: string]: any } = { [prop: string]: any }
-> {
-  (
-    props: StyleProps<TStyleSheet>,
-    options: UseVisageHookOptions<TStyleSheet>,
-  ): TOutputProps;
-}
+  : {};

@@ -27,7 +27,7 @@ interface FormFieldComponent {
   <TControl extends ComponentType<any>>(
     p: { control: TControl } & ComponentProps<TControl> & FormFieldProps,
   ): ReactElement;
-  <TControl extends VisageComponent<any, any>>(
+  <TControl extends VisageComponent<any>>(
     p: { control: TControl } & ExtractVisageComponentProps<TControl> &
       FormFieldProps,
   ): ReactElement;

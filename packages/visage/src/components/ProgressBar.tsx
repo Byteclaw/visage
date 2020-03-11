@@ -5,7 +5,6 @@ import {
 } from '@byteclaw/visage-core';
 import React from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../types';
 import { visuallyHiddenStyles } from './shared';
 
 const HiddenProgressBar = createComponent('progress', {
@@ -51,15 +50,12 @@ const ProgressBarProgress = createComponent('div', {
   },
 });
 
-export const ProgressBar: VisageComponent<
-  {
-    baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
-    progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
-    value: number;
-    valueText?: string;
-  },
-  StyleProps
-> = function ProgressBar({
+export const ProgressBar: VisageComponent<{
+  baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
+  progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
+  value: number;
+  valueText?: string;
+}> = function ProgressBar({
   baseProps,
   progressProps,
   value,

@@ -25,17 +25,17 @@ export const Slider = ({
   values,
   ...restProps
 }: SliderProps) => {
-  const { breakpoint, theme } = useDesignSystem();
+  const ctx = useDesignSystem();
 
   const background = useMemo(
     () =>
       getTrackBackground({
         values,
-        colors: colors.map(c => theme.resolve('color', c, breakpoint).value),
+        colors: colors.map(c => ctx.theme.resolve('color', c, ctx)),
         min,
         max,
       }),
-    [breakpoint, colors, values, min, max, theme],
+    [ctx, colors, values, min, max],
   );
 
   const handleChange = useCallback(

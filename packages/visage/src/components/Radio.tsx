@@ -5,7 +5,6 @@ import {
 } from '@byteclaw/visage-core';
 import React, { ReactNode, forwardRef, Ref } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
@@ -126,6 +125,7 @@ interface RadioProps
    * Passes props to the label text
    */
   labelTextProps?: ExtractVisageComponentProps<typeof RadioLabelText>;
+  ref?: React.RefObject<HTMLInputElement>;
   /**
    * Toggler is the visual component that renders radio toggler
    * It doesn't accept any props and must return a div as root element
@@ -143,45 +143,43 @@ interface RadioProps
   toggler?: React.ComponentType<{}>;
 }
 
-export const Radio: VisageComponent<RadioProps, StyleProps> = forwardRef(
-  function Radio(
-    {
-      disabled,
-      hiddenLabel = false,
-      invalid,
-      label,
-      labelProps,
-      labelTextProps,
-      onClick,
-      onKeyDown,
-      readOnly,
-      ...rest
-    }: RadioProps,
-    ref: Ref<HTMLInputElement>,
-  ) {
-    const preventOnToggle = useStaticCallbackCreator(
-      preventDefaultOnReadOnlyControlHandlerCreator,
-      [readOnly, onClick, onKeyDown],
-    );
+export const Radio: VisageComponent<RadioProps> = forwardRef(function Radio(
+  {
+    disabled,
+    hiddenLabel = false,
+    invalid,
+    label,
+    labelProps,
+    labelTextProps,
+    onClick,
+    onKeyDown,
+    readOnly,
+    ...rest
+  }: RadioProps,
+  ref: Ref<HTMLInputElement>,
+) {
+  const preventOnToggle = useStaticCallbackCreator(
+    preventDefaultOnReadOnlyControlHandlerCreator,
+    [readOnly, onClick, onKeyDown],
+  );
 
-    return (
-      <RadioLabel {...labelProps} disabled={disabled}>
-        <RadioControl
-          {...rest}
-          aria-invalid={invalid}
-          disabled={disabled}
-          onClick={preventOnToggle}
-          onKeyDown={preventOnToggle}
-          readOnly={readOnly}
-          ref={ref}
-          type="radio"
-        />
-        <RadioToggler />
-        &#8203; {/* fixes height if label is hidden */}
-        <RadioLabelText {...labelTextProps} hidden={hiddenLabel}>
-          {label}
-        </RadioLabelText>
-      </RadioLabel>
-    );
-  },
-);
+  return (
+    <RadioLabel {...labelProps} disabled={disabled}>
+      <RadioControl
+        {...rest}
+        aria-invalid={invalid}
+        disabled={disabled}
+        onClick={preventOnToggle}
+        onKeyDown={preventOnToggle}
+        readOnly={readOnly}
+        ref={ref}
+        type="radio"
+      />
+      <RadioToggler />
+      &#8203; {/* fixes height if label is hidden */}
+      <RadioLabelText {...labelTextProps} hidden={hiddenLabel}>
+        {label}
+      </RadioLabelText>
+    </RadioLabel>
+  );
+});

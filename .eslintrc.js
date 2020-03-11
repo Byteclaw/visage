@@ -20,9 +20,11 @@ module.exports = {
     'prettier/prettier': 'error',
     'react/no-multi-comp': 'off',
     'react/prop-types': 'off',
+    'no-await-in-loop': 'warn',
     'no-continue': 'off',
     'no-nested-ternary': 'off',
     'no-plusplus': 'off',
+    'no-restricted-syntax': 'off',
     'react/jsx-fragments': ['error', 'element'],
     'react/jsx-props-no-spreading': 'off'
   },
