@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.16.4 (2020-03-11)</small>
+
+* fix(visage): compute Popover positioning in IE 11 ([b019ae5](https://github.com/Byteclaw/visage/commit/b019ae5))
+
+
+
+
+
 ## <small>0.16.3 (2020-03-10)</small>
 
 * fix(visage): remove line-height from global reset ([8d9c457](https://github.com/Byteclaw/visage/commit/8d9c457))

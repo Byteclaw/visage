@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.12.11 (2020-03-11)</small>
+
+* docs: build for ie11 compatibility ([b8a72ca](https://github.com/Byteclaw/visage/commit/b8a72ca))
+
+
+
+
+
 ## <small>0.12.10 (2020-03-10)</small>
 
 **Note:** Version bump only for package @byteclaw/visage-docs
