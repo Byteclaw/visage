@@ -6,7 +6,6 @@ import {
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
-import { StyleProps } from '../types';
 
 const CardBase = createComponent('div', {
   displayName: 'Card',
@@ -70,10 +69,8 @@ interface CardProps {
   touchable?: ReactElement;
 }
 
-export const Card: VisageComponent<
-  CardProps & ExtractVisageComponentProps<typeof CardBase>,
-  StyleProps
-> = forwardRef(
+export const Card: VisageComponent<CardProps &
+  ExtractVisageComponentProps<typeof CardBase>> = forwardRef(
   (
     {
       children,

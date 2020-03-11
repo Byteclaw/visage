@@ -7,7 +7,6 @@ import React, { forwardRef } from 'react';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import { Text } from './Text';
-import { StyleProps } from '../types';
 
 const DividerLine = createComponent('div', {
   displayName: 'DividerLine',
@@ -51,7 +50,7 @@ interface DividerProps extends ExtractVisageComponentProps<typeof DividerBase> {
   vertical?: boolean;
 }
 
-export const Divider: VisageComponent<DividerProps, StyleProps> = forwardRef(
+export const Divider: VisageComponent<DividerProps> = forwardRef(
   (
     { label, labelProps, lineProps, vertical, ...restProps }: DividerProps,
     ref,

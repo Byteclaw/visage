@@ -1,5 +1,11 @@
-import { ColorPalette, FontPalette, Theme } from '@byteclaw/visage';
-import { createTheme, ThemeSettings } from '@byteclaw/visage-core';
+import {
+  ColorPalette,
+  createTheme,
+  FontPalette,
+  Theme,
+  VisageFaces,
+} from '@byteclaw/visage';
+import { StyleSheetThemeSettings } from '@byteclaw/visage-core';
 import { getResponsiveValue } from '@byteclaw/visage-utils';
 import ModularScale, {
   modularScale as ModularScaleType,
@@ -10,7 +16,8 @@ import { stylers } from './stylers';
 
 export { modularScaleFontRatios };
 
-export interface NPointModularScaleThemeSettings extends ThemeSettings {
+export interface NPointModularScaleThemeSettings
+  extends StyleSheetThemeSettings<any, VisageFaces> {
   /**
    * Base font size, can be responsive
    */
@@ -84,22 +91,17 @@ export function createNPointModularScaleTheme(
        * Resolver responsible for calculating line height sizes based on
        * modular scale and base line height
        */
-      modularLineHeight(propName, value, { resolve }, breakpoint) {
+      modularLineHeight(propName, value, ctx) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
           const { alignedBaseLineHeight } = getResponsiveValue(
-            breakpoint,
+            ctx.breakpoint,
             modularScaleSettings as any,
           );
-          const modularSize = resolve(
-            propName,
-            'modularSize',
-            value,
-            breakpoint,
-          );
+          const modularSize = ctx.resolve('modularSize', value, ctx);
           const lineHeightCoefficient = Math.ceil(
-            modularSize / alignedBaseLineHeight,
+            (modularSize as number) / alignedBaseLineHeight,
           );
           const alignedLineHeight =
             lineHeightCoefficient * alignedBaseLineHeight;
@@ -112,12 +114,12 @@ export function createNPointModularScaleTheme(
       /**
        * Resolver responsible for calculating sizes based on modular scale
        */
-      modularSize(propName, value, _, breakpoint) {
+      modularSize(propName, value, ctx) {
         const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
           const { modularScale } = getResponsiveValue(
-            breakpoint,
+            ctx.breakpoint,
             modularScaleSettings as any,
           );
 

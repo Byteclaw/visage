@@ -7,7 +7,7 @@ import React, { forwardRef, createElement } from 'react';
 import { createComponent } from '../core';
 import { variant } from '../variants';
 import { SkeletonSentence } from './SkeletonSentence';
-import { StyleProps, EmotionStyleSheet } from '../types';
+import { EmotionStyleSheet } from '../types';
 
 /**
  * Heading component's styles
@@ -108,9 +108,11 @@ markAsVisageComponent(Heading);
 
 const defaultMask = [6];
 
-export const HeadingSkeleton: VisageComponent<
-  ExtractVisageComponentProps<typeof Heading> & { mask?: number[] },
-  StyleProps
-> = function HeadingSkeleton({ mask = defaultMask, ...restProps }: any) {
+export const HeadingSkeleton: VisageComponent<ExtractVisageComponentProps<
+  typeof Heading
+> & { mask?: number[] }> = function HeadingSkeleton({
+  mask = defaultMask,
+  ...restProps
+}: any) {
   return <Heading as={SkeletonSentence} mask={mask} {...restProps} />;
 };

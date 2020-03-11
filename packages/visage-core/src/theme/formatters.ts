@@ -1,9 +1,10 @@
-import { ThemeFormatterFunction, ThemeFormatterMap } from './types';
+import { ThemeFormatterMap } from './types';
+import { StyleValueFormatter } from '../styleSheet';
 
 /**
  * Pixel formatter, exports number as px (number is rounded)
  */
-const px: ThemeFormatterFunction = function px(propName: string, value: any) {
+const px: StyleValueFormatter = function px(propName, value) {
   if (typeof value !== 'number') {
     return value;
   }
@@ -14,10 +15,7 @@ const px: ThemeFormatterFunction = function px(propName: string, value: any) {
 /**
  * Size unit formatter, exports number as px (if integer) or as % if floating
  */
-const sizeUnit: ThemeFormatterFunction = function sizeUnit(
-  propName: string,
-  value: any,
-) {
+const sizeUnit: StyleValueFormatter = function sizeUnit(propName, value) {
   if (typeof value !== 'number') {
     return value;
   }

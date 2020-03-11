@@ -1,4 +1,4 @@
-import { render as baseRender } from '@testing-library/react';
+import { RenderOptions, render as baseRender } from '@testing-library/react';
 import React, { CSSProperties, ReactNode } from 'react';
 import {
   createComponent as baseCreateComponent,
@@ -6,6 +6,8 @@ import {
   ComponentFactory,
   DesignSystem as BaseDesignSystem,
 } from '..';
+import { resolveStyleSheets } from '../styleSheet';
+import { StyleGenerator, Theme } from '../types';
 
 export interface StylingProps {
   styles?: CSSProperties;
@@ -13,21 +15,31 @@ export interface StylingProps {
 
 export const createComponent: ComponentFactory<CSSProperties> = baseCreateComponent;
 
-const theme = createTheme({});
+const theme = createTheme({
+  theme: {} as any,
+});
 
-function generateStyle(styleSheet) {
-  return { style: styleSheet };
-}
+const generateStyle: StyleGenerator = (styleSheets, ctx) => {
+  return {
+    style: resolveStyleSheets(styleSheets, ctx),
+  };
+};
 
 export function DesignSystem({
   is = 0,
   children,
+  theme: themeOverride = theme,
 }: {
   is?: number;
   children: ReactNode;
+  theme?: Theme;
 }) {
   return (
-    <BaseDesignSystem is={is} styleGenerator={generateStyle} theme={theme}>
+    <BaseDesignSystem
+      is={is}
+      styleGenerator={generateStyle}
+      theme={themeOverride}
+    >
       {children}
     </BaseDesignSystem>
   );
@@ -47,14 +59,16 @@ function Container({
   );
 }
 
-export const render: typeof baseRender = (
-  ui,
-  { wrapper, ...restConfig } = { wrapper: undefined },
-) => {
+export function render(
+  ui: React.ReactElement,
+  { wrapper, ...restConfig }: Omit<RenderOptions, 'queries'> = {
+    wrapper: undefined,
+  },
+) {
   return baseRender(ui, {
     ...restConfig,
     wrapper: ({ children }) => (
       <Container wrapper={wrapper}>{children}</Container>
     ),
   });
-};
+}

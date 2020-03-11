@@ -1,4 +1,4 @@
-import { resolveStyleSheet, StyleGenerator } from '@byteclaw/visage-core';
+import { resolveStyleSheets, StyleGenerator } from '@byteclaw/visage-core';
 import { css } from 'emotion';
 
 /**
@@ -8,9 +8,9 @@ import { css } from 'emotion';
  * breakpoint argument.
  */
 export function createEmotionStyleGenerator(): StyleGenerator {
-  return (styleSheet, breakpoint, theme) => {
+  return (styleSheets, ctx) => {
     // iterate through style sheet and map pseudos properly
-    const resolvedStyleSheet = resolveStyleSheet(styleSheet, breakpoint, theme);
+    const resolvedStyleSheet = resolveStyleSheets(styleSheets, ctx);
 
     return {
       className: css(resolvedStyleSheet),

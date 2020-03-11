@@ -2,9 +2,9 @@ import React from 'react';
 import { createComponent, render } from './designSystem';
 
 describe('integration', () => {
-  describe('basic usage', () => {
+  describe.each([createComponent])('basic usage', create => {
     it('works correctly without default styles', () => {
-      const Link = createComponent('a');
+      const Link = create('a');
 
       const { asFragment } = render(
         <Link href="a" styles={{ background: '#ccc' }} />,
@@ -21,7 +21,7 @@ describe('integration', () => {
     });
 
     it('works correctly with default styles', () => {
-      const Link = createComponent('a', {
+      const Link = create('a', {
         defaultStyles: {
           background: '#ccc',
         },
@@ -40,7 +40,7 @@ describe('integration', () => {
     });
 
     it('works correctly with default styles as a function', () => {
-      const Link = createComponent('a', {
+      const Link = create('a', {
         defaultStyles() {
           return {
             color: 'tomato',
@@ -61,7 +61,7 @@ describe('integration', () => {
     });
 
     it('works correctly with default props', () => {
-      const Link = createComponent('a', {
+      const Link = create('a', {
         defaultStyles: {
           background: '#ccc',
         },

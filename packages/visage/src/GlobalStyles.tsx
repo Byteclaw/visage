@@ -1,9 +1,4 @@
-import {
-  resolveStyleSheet,
-  useDesignSystem,
-  useMemoizedCall,
-  Theme,
-} from '@byteclaw/visage-core';
+import { useDesignSystem, useMemoizedCall, Theme } from '@byteclaw/visage-core';
 import { Global } from '@emotion/core';
 import React from 'react';
 import { EmotionStyleSheet } from './types';
@@ -16,13 +11,8 @@ interface GlobalStylesProps {
  * Allows to apply visage style sheet to global styles
  */
 export function GlobalStyles({ styles = {} }: GlobalStylesProps) {
-  const { breakpoint, theme } = useDesignSystem<Theme>();
-  const styleSheet = useMemoizedCall(
-    resolveStyleSheet,
-    styles,
-    breakpoint,
-    theme,
-  );
+  const ctx = useDesignSystem<Theme>();
+  const globalStyles = useMemoizedCall(ctx.resolveStyleSheets, styles);
 
-  return <Global styles={styleSheet} />;
+  return <Global styles={globalStyles} />;
 }

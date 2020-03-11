@@ -8,14 +8,14 @@ jobs:
       - checkout
       - setup_remote_docker
       - restore_cache:
-          key: yarndeps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install dependencies
-          command: yarn install --cache-folder ~/.yarn-cache
+          command: yarn install --frozen-lockfile
       - save_cache:
-          key: yarndeps-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.yarn-cache
+            - ~/.cache/yarn
       - run:
           name: Lint
           command: yarn lint

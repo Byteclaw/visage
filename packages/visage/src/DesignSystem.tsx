@@ -14,7 +14,6 @@ import { globalComponentStyles, GlobalReset } from './GlobalReset';
 import { GlobalStyles } from './GlobalStyles';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
-import { VisageFaces } from './faces';
 
 const defaultStyleGenerator = createEmotionStyleGenerator();
 
@@ -28,18 +27,16 @@ export interface DesignSystemProps {
    * Disables all styles that sets some visual properties and keeps just CSS reset for body and html
    */
   disableGlobalStyles?: boolean;
-  faces?: VisageFaces;
   /** Default breakpoint */
   is?: number;
   styleGenerator?: StyleGenerator;
   theme: Theme;
 }
 
-const DesignSystem: FunctionComponent<DesignSystemProps> = ({
+export const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   children,
   defaultZIndex = 100,
   disableGlobalStyles,
-  faces,
   is = 0,
   styleGenerator = defaultStyleGenerator,
   theme,
@@ -48,12 +45,7 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   const toastEventEmitter = useEventEmitterInstance();
 
   return (
-    <BaseDesignSystem
-      is={is}
-      faces={faces}
-      styleGenerator={styleGenerator}
-      theme={theme}
-    >
+    <BaseDesignSystem is={is} styleGenerator={styleGenerator} theme={theme}>
       <UniqueIdContextProvider id={idContextValue}>
         <LayerManager increaseBy={defaultZIndex}>
           <GlobalReset />
@@ -69,5 +61,3 @@ const DesignSystem: FunctionComponent<DesignSystemProps> = ({
     </BaseDesignSystem>
   );
 };
-
-export { DesignSystem };

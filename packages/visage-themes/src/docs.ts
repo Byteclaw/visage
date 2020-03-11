@@ -1,4 +1,9 @@
-import { ColorPalette, Theme } from '@byteclaw/visage';
+import {
+  ColorPalette,
+  EmotionStyleSheet,
+  Theme,
+  VisageFaces,
+} from '@byteclaw/visage';
 import color from 'color';
 import { createNPointFontScaleTheme } from './nPointFontScale';
 import { generateColorScale } from './utils';
@@ -31,15 +36,21 @@ export const docsThemeColorPalette: ColorPalette = {
 
 export interface DocsThemeSettings {
   colors?: ColorPalette;
+  faces?: VisageFaces;
+  mixins?: { [key: string]: EmotionStyleSheet };
 }
 
 export function createDocsTheme({
   colors = docsThemeColorPalette,
+  faces = {},
+  mixins = {},
 }: DocsThemeSettings = {}): Theme {
   return createNPointFontScaleTheme({
     borderRadius: {
       controlBorderRadius: 6,
     },
+    mixins,
+    faces,
     fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
     lineHeights: {
       values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56],

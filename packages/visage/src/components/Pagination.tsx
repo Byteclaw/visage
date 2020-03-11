@@ -1,66 +1,45 @@
-import React, { forwardRef } from 'react';
-import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
+import React from 'react';
 import { PreviousPageIcon, NextPageIcon } from '../assets';
+import { createComponent } from '../core';
 import { Button } from './Button';
 import { Flex } from './Flex';
 import { SvgIcon } from './SvgIcon';
 
-interface PaginationProps extends ExtractVisageComponentProps<typeof Flex> {
-  ariaLabel?: string;
-}
+export const NextPageButton = createComponent(Button, {
+  displayName: 'NextPageButton',
+  defaultProps: {
+    children: (
+      <SvgIcon
+        aria-hidden
+        icon={NextPageIcon}
+        styles={{ width: '1em', height: '1em' }}
+      />
+    ),
+    type: 'button',
+  },
+});
 
-export const NextPageButton: typeof Button = forwardRef(
-  (
-    {
-      children = (
-        <SvgIcon
-          aria-hidden
-          icon={NextPageIcon}
-          styles={{ width: '1em', height: '1em' }}
-        />
-      ),
-      ...props
-    }: ExtractVisageComponentProps<typeof Button>,
-    ref: any,
-  ) => (
-    <Button type="button" ref={ref} {...props}>
-      {children}
-    </Button>
-  ),
-) as any;
+export const PreviousPageButton = createComponent(Button, {
+  displayName: 'PreviousPageButton',
+  defaultProps: {
+    children: (
+      <SvgIcon
+        aria-hidden
+        icon={PreviousPageIcon}
+        styles={{ width: '1em', height: '1em' }}
+      />
+    ),
+    type: 'button',
+  },
+});
 
-export const PreviousPageButton: typeof Button = forwardRef(
-  (
-    {
-      children = (
-        <SvgIcon
-          aria-hidden
-          icon={PreviousPageIcon}
-          styles={{ width: '1em', height: '1em' }}
-        />
-      ),
-      ...props
-    }: ExtractVisageComponentProps<typeof Button>,
-    ref: any,
-  ) => (
-    <Button type="button" ref={ref} {...props}>
-      {children}
-    </Button>
-  ),
-) as any;
-
-export const Pagination: typeof Flex = ({
-  ariaLabel = 'pagination',
-  children,
-  styles,
-  ...props
-}: PaginationProps) => (
-  <Flex
-    aria-label={ariaLabel}
-    as="nav"
-    styles={{ justifyContent: 'flex-start', ...styles }}
-    {...props}
-  >
-    {children}
-  </Flex>
-);
+export const Pagination = createComponent(Flex, {
+  displayName: 'Pagination',
+  defaultProps: {
+    ariaLabel: 'pagination',
+    as: 'nav',
+  },
+  defaultStyles: {
+    justifyContent: 'flex-start',
+  },
+});

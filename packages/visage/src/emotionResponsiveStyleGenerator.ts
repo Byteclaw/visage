@@ -1,5 +1,5 @@
 import {
-  resolveStyleSheet,
+  resolveStyleSheets,
   StyleGenerator,
   ResolvedStyleSheet,
 } from '@byteclaw/visage-core';
@@ -16,16 +16,15 @@ export function createResponsiveEmotionStyleGenerator(
    */
   mediaQueries: string[],
 ): StyleGenerator {
-  return (styleSheet, _, theme) => {
+  return (styleSheets, ctx) => {
     const sheet: { [mediaQuery: string]: ResolvedStyleSheet } = {};
 
     // iterate through media queries and resolve style for them
     mediaQueries.forEach((mediaQuery, breakpoint) => {
-      sheet[`@media ${mediaQuery}`] = resolveStyleSheet(
-        styleSheet,
+      sheet[`@media ${mediaQuery}`] = resolveStyleSheets(styleSheets, {
+        ...ctx,
         breakpoint,
-        theme,
-      );
+      });
     });
 
     return {

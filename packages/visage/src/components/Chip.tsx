@@ -9,7 +9,6 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
-import { StyleProps } from '../types';
 import { createSurfaceFocusShadow } from './shared';
 
 const ChipBase = createComponent('div', {
@@ -51,7 +50,7 @@ interface ChipProps {
   renderDeleter?: (props: { onClick: MouseEventHandler<any> }) => ReactElement;
 }
 
-export const Chip: VisageComponent<ChipProps, StyleProps> = function Chip({
+export const Chip: VisageComponent<ChipProps> = function Chip({
   children,
   onClick,
   onDelete,

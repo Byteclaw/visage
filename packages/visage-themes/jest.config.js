@@ -2,10 +2,10 @@ module.exports = {
   displayName: '@byteclaw/visage-themes',
   collectCoverageFrom: [
     'src/**/*.ts',
+    'src/**/*.tsx',
     '!**/dist/**',
-    '!**/*.flow.js',
     '!**/node_modules/**',
-    '!**/flow-typed/**',
+    '!**/__benchmarks__/**',
     '!**/__tests__/**',
     '!**/__fixtures__/**',
   ],

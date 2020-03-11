@@ -36,29 +36,29 @@ describe('NPoint font scale theme', () => {
       body: 'bodyFont',
       heading: 'headingFont',
     },
-    fontScaleRatio: 1.5,
   });
+
+  const ctx = {
+    breakpoint: 0,
+    ...theme,
+  };
 
   describe('resolvers', () => {
     describe('boxShadow', () => {
       it('translates colors from palette to their values', () => {
         expect(
-          theme.resolve('boxShadow', '0 0 0 danger, 0 1 0 info', 0),
-        ).toEqual({
-          properties: ['boxShadow'],
-          value: '0 0 0 red, 0 1 0 blue',
-        });
+          theme.style('boxShadow', '0 0 0 danger, 0 1 0 info', ctx).styles
+            .boxShadow,
+        ).toEqual('0 0 0 red, 0 1 0 blue');
       });
     });
 
     describe('borderRadius', () => {
       it('works with names', () => {
-        expect(theme.resolve('borderRadius', 'controlBorderRadius', 0)).toEqual(
-          {
-            properties: ['borderRadius'],
-            value: 4,
-          },
-        );
+        expect(
+          theme.style('borderRadius', 'controlBorderRadius', ctx).styles
+            .borderRadius,
+        ).toEqual(4);
       });
     });
   });

@@ -5,7 +5,6 @@ import {
 } from '@byteclaw/visage-core';
 import React, { forwardRef } from 'react';
 import { createComponent } from '../core';
-import { StyleProps } from '../types';
 
 const ImageContainer = createComponent('div', {
   displayName: 'ImageContainer',
@@ -46,7 +45,7 @@ interface ImageProps {
   width?: number;
 }
 
-export const Image: VisageComponent<ImageProps, StyleProps> = forwardRef(
+export const Image: VisageComponent<ImageProps> = forwardRef(
   (
     {
       alt,

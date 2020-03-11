@@ -46,9 +46,9 @@ describe('emotion responsive style generator', () => {
       margin: [2, 3, 4],
     };
 
-    const mobile = styleGenerator(styleSheet, 0, theme);
-    const tablet = styleGenerator(styleSheet, 1, theme);
-    const desktop = styleGenerator(styleSheet, 2, theme);
+    const mobile = styleGenerator([styleSheet], { breakpoint: 0, ...theme });
+    const tablet = styleGenerator([styleSheet], { breakpoint: 1, ...theme });
+    const desktop = styleGenerator([styleSheet], { breakpoint: 2, ...theme });
 
     expect(mobile).toMatchObject({
       className: expect.any(String),

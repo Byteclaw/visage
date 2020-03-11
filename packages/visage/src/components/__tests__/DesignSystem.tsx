@@ -14,6 +14,8 @@ const theme = createNPointModularScaleTheme({
     body: 'body-font',
     heading: 'heading-font',
   },
+  faces: {},
+  mixins: {},
   colors: {
     primaryText: 'white',
     bodyText: 'black',

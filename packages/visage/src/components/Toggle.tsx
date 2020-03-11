@@ -15,7 +15,6 @@ import React, {
   useState,
 } from 'react';
 import { createComponent } from '../core';
-import { StyleProps as StyleSheetProps } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
@@ -146,84 +145,81 @@ interface ToggleProps
   invalid?: boolean;
   label: ReactNode;
   leftContent?: ReactNode;
+  ref?: React.RefObject<HTMLInputElement>;
   rightContent?: ReactNode;
   wrapper?: ReactElement;
 }
 
-export const Toggle: VisageComponent<ToggleProps, StyleSheetProps> = forwardRef(
-  function Toggle(
-    {
-      defaultChecked,
-      disabled,
-      checked,
-      hiddenLabel = false,
-      invalid,
-      label,
-      leftContent,
-      rightContent,
-      id,
-      name,
-      onChange: outerOnChange,
-      onBlur,
-      onFocus,
-      readOnly,
-      styles,
-      value,
-    }: ToggleProps & StyleProps<StyleSheetProps>,
-    ref: Ref<HTMLInputElement>,
-  ) {
-    const [inputChecked, setInputChecked] = useState(checked);
-    const onChange = useCallback(
-      (e: ChangeEvent<HTMLInputElement>) => {
-        setInputChecked(e.target.checked);
+export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
+  {
+    defaultChecked,
+    disabled,
+    checked,
+    hiddenLabel = false,
+    invalid,
+    label,
+    leftContent,
+    rightContent,
+    id,
+    name,
+    onChange: outerOnChange,
+    onBlur,
+    onFocus,
+    readOnly,
+    styles,
+    value,
+  }: ToggleProps & StyleProps,
+  ref: Ref<HTMLInputElement>,
+) {
+  const [inputChecked, setInputChecked] = useState(checked);
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setInputChecked(e.target.checked);
 
-        if (outerOnChange) {
-          outerOnChange(e);
+      if (outerOnChange) {
+        outerOnChange(e);
+      }
+    },
+    [outerOnChange],
+  );
+  const preventOnToggle = useCallback(
+    (e: KeyboardEvent | MouseEvent) => {
+      if (readOnly) {
+        if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
+          return;
         }
-      },
-      [outerOnChange],
-    );
-    const preventOnToggle = useCallback(
-      (e: KeyboardEvent | MouseEvent) => {
-        if (readOnly) {
-          if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
-            return;
-          }
 
-          e.preventDefault();
-        }
-      },
-      [readOnly],
-    );
+        e.preventDefault();
+      }
+    },
+    [readOnly],
+  );
 
-    return (
-      <ToggleLabel disabled={disabled}>
-        <ToggleControl
-          aria-invalid={invalid}
-          defaultChecked={defaultChecked}
-          checked={checked}
-          disabled={disabled}
-          id={id}
-          name={name}
-          onChange={onChange}
-          ref={ref}
-          readOnly={readOnly}
-          value={value}
-          type="checkbox"
-          onKeyDown={preventOnToggle}
-          onClick={preventOnToggle}
-          onBlur={onBlur}
-          onFocus={onFocus}
+  return (
+    <ToggleLabel disabled={disabled}>
+      <ToggleControl
+        aria-invalid={invalid}
+        defaultChecked={defaultChecked}
+        checked={checked}
+        disabled={disabled}
+        id={id}
+        name={name}
+        onChange={onChange}
+        ref={ref}
+        readOnly={readOnly}
+        value={value}
+        type="checkbox"
+        onKeyDown={preventOnToggle}
+        onClick={preventOnToggle}
+        onBlur={onBlur}
+        onFocus={onFocus}
+      />
+      <ToggleContainer styles={styles}>
+        <Toggler
+          data-label-content={inputChecked ? rightContent : leftContent}
         />
-        <ToggleContainer styles={styles}>
-          <Toggler
-            data-label-content={inputChecked ? rightContent : leftContent}
-          />
-        </ToggleContainer>
-        <ToggleLabelText disabled={disabled} hidden={hiddenLabel}>
-          {label}
-        </ToggleLabelText>
-      </ToggleLabel>
-    );
-  },
-);
+      </ToggleContainer>
+      <ToggleLabelText hidden={hiddenLabel}>{label}</ToggleLabelText>
+    </ToggleLabel>
+  );
+});
