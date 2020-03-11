@@ -25,6 +25,7 @@ export const globalComponentStyles: {
     color: 'lightShadesText',
     fontFamily: 'body',
     fontSize: 0,
+    lineHeight: 0,
   },
   // typography (keep in sync with Visage counterparts)
   a: LinkStyles,

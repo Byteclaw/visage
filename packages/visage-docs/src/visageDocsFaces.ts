@@ -12,5 +12,7 @@ export const visageDocsFaces = {
   Paragraph: {
     mt: 0,
     mb: 2,
+    fontSize: 0,
+    lineHeight: 0,
   },
 };
