@@ -12,7 +12,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   code: CodeBlock,
   inlineCode: (props: any) => (
     <visage.Text
-      styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 1 }}
+      styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 0.5 }}
       {...props}
     />
   ),

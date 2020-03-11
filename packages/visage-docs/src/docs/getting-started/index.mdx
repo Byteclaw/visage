@@ -1,0 +1,34 @@
+---
+title: 'Installation'
+---
+
+# Installation
+
+**Visage is a set of public NPM packages.**
+
+## NPM
+
+Install using NPM or Yarn. You'll need the main `visage` package and also `visage-themes` to initialize the default settings.
+
+```sh transpile=false
+npm install @byteclaw/visage @byteclaw/visage-themes
+# or
+yarn add @byteclaw/visage @byteclaw/visage-themes
+```
+
+## Quick start
+
+Each React application that wants to use Visage needs to wrap application in `DesignSystem` component.
+If you want a responsive application, you will need to use `ResponsiveDesignSystem` component instead.
+
+
+```jsx transpile=false
+import { DesignSystem, Text } from '@byteclaw/visage';
+import { createDocsTheme } from '@byteclaw/visage-themes';
+
+const theme = createDocsTheme();
+
+<DesignSystem theme={theme}>
+  <YourApp />
+</DesignSystem>;
+```

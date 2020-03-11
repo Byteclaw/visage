@@ -1,0 +1,24 @@
+---
+title: 'Theming'
+---
+
+# Theming
+
+**Theme is the single most important API exposed to you for keeping Visage components in line with rules of your design.**
+
+By default, Visage uses a font-based `scale` theme. It means that the typography and other settings are defined as a scale, indexed from 0. The scale 
+is just an object with array of values and optional offset.
+
+
+```js transpile=false
+{
+    values: [10, 12, 16, 20, 28, 38], 
+    offset: 1,
+}
+```
+
+In case of `fontSize`, the values could be just pixel sizes. The `offset: 1` defines that the base font (in other words the 0 index) is moved
+by 1 to the right. So in this example, `12` would be the base font size.
+
+Each theme setting is either a scale object or simple scalar value (like string or number). All the scale values can be replaced by a simple value.
+But scales give you much more power in defining styles on your components.

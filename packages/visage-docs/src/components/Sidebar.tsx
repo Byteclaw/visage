@@ -31,6 +31,62 @@ export function Sidebar() {
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
       <ListItem>
+        <CollapsibleNavigationSection
+          path="/getting-started/*"
+          title="Getting started"
+        >
+          <ListItem>
+            <ListItemRouteLink to="/getting-started">
+              Installation
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/getting-started/usage">
+              Usage
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/getting-started/extending">
+              Extending
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/getting-started/theming">
+              Theming
+            </ListItemRouteLink>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
+      <ListItem>
+        <CollapsibleNavigationSection path="/system/*" title="System">
+          <ListItem>
+            <ListItemRouteLink to="/system">Basics</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/responsive-styles">
+              Responsive styles
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/as-prop">As prop</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/spacing">Spacing</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/typography">
+              Typography
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/layout">Layout</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/colors">Colors</ListItemRouteLink>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
+      <ListItem>
         <CollapsibleNavigationSection path="/styles/*" title="Styles">
           <ListItem>
             <ListItemRouteLink to="/styles">Introduction</ListItemRouteLink>
@@ -57,20 +113,7 @@ export function Sidebar() {
           <ListItem>
             <ListItemRouteLink to="/themes">Introduction</ListItemRouteLink>
           </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/themes/n-point-font-scale">
-              N-Point Font Scale
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/themes/n-point-modular-font-scale">
-              N-Point Modular Font Scale
-            </ListItemRouteLink>
-          </ListItem>
         </CollapsibleNavigationSection>
-      </ListItem>
-      <ListItem styles={{ fontWeight: 600 }}>
-        <ListItemRouteLink to="/typography">Typography</ListItemRouteLink>
       </ListItem>
       <ListItem>
         <CollapsibleNavigationSection path="/components/*" title="Components">
