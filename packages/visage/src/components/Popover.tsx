@@ -85,6 +85,19 @@ const defaultOrigin: TransformOriginSettings = {
   vertical: 'top',
 };
 
+/**
+ * IE 11 compatibility
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
+ */
+function getWindowScrollY() {
+  return window.scrollY != null ? window.scrollY : window.pageYOffset;
+}
+
+function getWindowScrollX() {
+  return window.scrollX != null ? window.scrollX : window.pageXOffset;
+}
+
 export function Popover({
   allowScrolling = false,
   alwaysVisible = false,
@@ -148,7 +161,7 @@ export function Popover({
       return {
         top:
           anchorRect.top +
-          window.scrollY +
+          getWindowScrollY() +
           getOffsetTop(anchorRect, anchorVertical),
         left:
           anchorRect.left + getOffsetLeft(anchorRect, anchorOrigin.horizontal),
@@ -194,7 +207,6 @@ export function Popover({
       }
 
       const resolvedAnchor = getAnchorNode(anchor);
-      const containerWindow = window;
 
       const contentAnchorOffset = 0;
       const elemRect = {
@@ -217,8 +229,8 @@ export function Popover({
 
       if (isFullscreen) {
         return {
-          left: `${containerWindow.scrollX}px`,
-          top: `${containerWindow.scrollY}px`,
+          left: `${getWindowScrollX()}px`,
+          top: `${getWindowScrollY()}px`,
           transformOrigin: getTransformOriginValue(elemTransformOrigin),
           height: '100vh',
           width: '100vw',
@@ -231,37 +243,35 @@ export function Popover({
       let left = anchorOffset.left - elemTransformOrigin.horizontal;
       let height;
       const width = anchorOffset.width ? `${anchorOffset.width}px` : undefined;
+      const scrollY = getWindowScrollY();
+      const scrollX = getWindowScrollX();
 
       // if placement is custom or Popover content is to be always completely in the viewport
       if (
         placement === 'top' ||
         placement === 'top-left' ||
         placement === 'top-right' ||
-        (alwaysVisible &&
-          top - containerWindow.scrollY + elemRect.height >
-            containerWindow.innerHeight)
+        (alwaysVisible && top - scrollY + elemRect.height > window.innerHeight)
       ) {
         // look in which half of the screen (upper/lower) the anchor is
         if (
           anchorOffset.top -
             resolvedAnchor!.getBoundingClientRect().height / 2 -
-            containerWindow.scrollY -
+            scrollY -
             marginThreshold <
-          containerWindow.innerHeight / 2
+          window.innerHeight / 2
         ) {
           // upper half of the screen - just cut the height at the end
           height =
-            containerWindow.innerHeight -
-            (anchorOffset.top -
-              containerWindow.scrollY -
-              elemTransformOrigin.vertical) -
+            window.innerHeight -
+            (anchorOffset.top - scrollY - elemTransformOrigin.vertical) -
             marginThreshold;
         } else {
           // lower part - it means we will open it bottom-top
           if (
             anchorOffset.top -
               elemTransformOrigin.vertical -
-              containerWindow.scrollY -
+              scrollY -
               marginThreshold <
             elemRect.height
           ) {
@@ -269,7 +279,7 @@ export function Popover({
             height =
               anchorOffset.top -
               resolvedAnchor!.getBoundingClientRect().height -
-              containerWindow.scrollY -
+              scrollY -
               elemTransformOrigin.vertical -
               marginThreshold;
           }
@@ -288,8 +298,7 @@ export function Popover({
         placement === 'bottom-right' ||
         (alwaysVisible &&
           keepAnchorWidth === false &&
-          left - containerWindow.scrollX + elemRect.width >
-            containerWindow.innerWidth)
+          left - scrollX + elemRect.width > window.innerWidth)
       ) {
         left =
           anchorOffset.left -
