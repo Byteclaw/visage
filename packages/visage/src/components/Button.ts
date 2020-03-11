@@ -103,7 +103,6 @@ export const Button = createComponent('button', {
     fontFamily: 'body',
     fontWeight: 'normal',
     minHeight: '2rem',
-    m: 0.5,
     outline: 'none',
     py: 1,
     px: 2,
