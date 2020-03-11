@@ -4,6 +4,27 @@ const path = require('path');
 const GITHUB_USERNAME = 'byteclaw';
 const GITHUB_PROJECT = 'visage';
 
+exports.onCreateWebpackConfig = function onCreateWebpackConfig({
+  actions,
+  loaders,
+}) {
+  actions.setWebpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          include: [
+            /regexpu-core/,
+            // unicode----ecmascript packages
+            /-ecmascript/,
+          ],
+          use: [loaders.js()],
+        },
+      ],
+    },
+  });
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const componentPageLayout = path.resolve(
