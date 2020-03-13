@@ -10,7 +10,7 @@ import React, {
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
 import { StyleProps } from '../types';
-import { createControlFocusShadow } from './shared';
+import { createSurfaceFocusShadow } from './shared';
 
 const ChipBase = createComponent('div', {
   displayName: 'Chip',
@@ -27,7 +27,7 @@ const ChipBase = createComponent('div', {
       cursor: 'pointer',
     },
     '&:focus, &[aria-selected="true"]': {
-      boxShadow: createControlFocusShadow(),
+      boxShadow: createSurfaceFocusShadow(),
     },
   },
 });

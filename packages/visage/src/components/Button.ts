@@ -2,9 +2,9 @@ import { createComponent } from '../core';
 import { booleanVariant, variant } from '../variants';
 import {
   disabledControlStyles,
-  createControlFocusShadow,
   createControlActiveShadow,
   createControlHoverShadow,
+  createSurfaceFocusShadow,
 } from './shared';
 import { EmotionStyleSheet } from '../types';
 
@@ -13,7 +13,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'danger',
     color: 'dangerText',
     '&:focus': {
-      boxShadow: createControlFocusShadow('danger'),
+      boxShadow: createSurfaceFocusShadow('danger'),
     },
     // because we need to compose box shadow
     '&:focus:active': {
@@ -25,7 +25,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'primary',
     color: 'primaryText',
     '&:focus': {
-      boxShadow: createControlFocusShadow('primary'),
+      boxShadow: createSurfaceFocusShadow('primary'),
     },
     // because we need to compose box shadow
     '&:focus:active': {
@@ -43,13 +43,17 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
     borderColor: 'danger',
     borderStyle: 'solid',
     borderWidth: 2,
-    color: 'lightShadesText',
+    color: 'danger',
     '&:focus': {
-      boxShadow: createControlFocusShadow('danger'),
+      boxShadow: createSurfaceFocusShadow('danger'),
     },
     // because we need to compose box shadow
     '&:focus:active': {
       boxShadow: createControlActiveShadow('danger'),
+    },
+    '&:hover': {
+      backgroundColor: 'danger',
+      color: 'lightShades',
     },
   },
   primary: {
@@ -57,13 +61,17 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
     borderColor: 'primary',
     borderStyle: 'solid',
     borderWidth: 2,
-    color: 'lightShadesText',
+    color: 'primary',
     '&:focus': {
-      boxShadow: createControlFocusShadow('primary'),
+      boxShadow: createSurfaceFocusShadow('primary'),
     },
     // because we need to compose box shadow
     '&:focus:active': {
       boxShadow: createControlActiveShadow('primary'),
+    },
+    '&:hover': {
+      backgroundColor: 'primary',
+      color: 'lightShades',
     },
   },
   default: {
@@ -80,8 +88,11 @@ const monochromeButtonVariants: EmotionStyleSheet = {
   borderColor: 'currentColor',
   borderStyle: 'solid',
   borderWidth: 2,
+  '&:hover': {
+    opacity: 0.5,
+  },
   '&:focus': {
-    boxShadow: createControlFocusShadow('currentColor'),
+    boxShadow: createSurfaceFocusShadow('currentColor'),
   },
   // because we need to compose box shadow
   '&:focus:active': {
@@ -101,7 +112,7 @@ export const Button = createComponent('button', {
     flexShrink: 0,
     fontSize: 0,
     fontFamily: 'body',
-    fontWeight: 'normal',
+    fontWeight: 600,
     minHeight: '2rem',
     outline: 'none',
     py: 1,
@@ -117,7 +128,7 @@ export const Button = createComponent('button', {
     },
     '&:focus': {
       zIndex: 1, // for button group
-      boxShadow: createControlFocusShadow(),
+      boxShadow: createSurfaceFocusShadow(),
     },
     // because we need to compose box shadow
     '&:active:focus': {

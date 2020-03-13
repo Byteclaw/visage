@@ -12,13 +12,18 @@ export const controlHoverShadow = 'inset 0 0 200px rgba(68, 68, 68, 0.1)';
 export const controlActiveShadow =
   'inset 0 0 200px rgba(68, 68, 68, 0.2), inset 0 0 2px rgba(0, 0, 0, 0.2)';
 
-export const createControlFocusShadow = (
+export const createSurfaceFocusShadow = (
   color: string = 'lightAccent',
   withHoverShadow: boolean = true,
 ): string =>
   withHoverShadow
     ? `${controlFocusShadow} ${color}, ${controlHoverShadow}`
     : `${controlFocusShadow} ${color}`;
+
+export const createControlFocusShadow = (
+  color: string = 'lightAccent',
+): string => `${controlFocusShadow} ${color}`;
+
 export const createControlHoverShadow = (): string => controlHoverShadow;
 export const createControlActiveShadow = (
   color: string = 'lightAccent',

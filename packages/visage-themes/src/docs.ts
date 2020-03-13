@@ -6,8 +6,8 @@ import { generateColorScale } from './utils';
 const darkAccent = color('#112d4e');
 const darkShades = color('#1b262c');
 const lightAccent = color('#dbe2ef');
-const lightShades = color('#f9f7f7');
-const primary = color('#3f72af');
+const lightShades = color('#fff');
+const primary = color('#1FA7EC');
 
 export const docsThemeColorPalette: ColorPalette = {
   ...generateColorScale<'neutral' | 'neutralText'>('neutral', '#e3e8ee', 5, 5),
@@ -20,7 +20,7 @@ export const docsThemeColorPalette: ColorPalette = {
   lightShades: lightShades.toString(),
   lightShadesText: lightShades.isDark() ? '#fff' : '#000',
   primary: primary.toString(),
-  primaryText: primary.isDark() ? '#fff' : '#000',
+  primaryText: '#fff',
   ...generateColorScale<'success' | 'successText'>('success', '#27ae60', 5, 5),
   ...generateColorScale<'danger' | 'dangerText'>('danger', '#c0392b', 5, 5),
   ...generateColorScale<'info' | 'infoText'>('info', '#2980b9', 5, 5),
