@@ -119,7 +119,7 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px lightAccent,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px lightAccent;
       }
 
       .emotion-0 + div {

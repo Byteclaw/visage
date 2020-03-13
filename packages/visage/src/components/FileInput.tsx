@@ -15,7 +15,7 @@ import {
   invalidControlStyles,
   invalidControlBooleanVariant,
   visuallyHiddenStyles,
-  createControlFocusShadow,
+  createSurfaceFocusShadow,
 } from './shared';
 
 const BaseFileInput = createComponent('input', {
@@ -23,7 +23,7 @@ const BaseFileInput = createComponent('input', {
   defaultStyles: {
     ...visuallyHiddenStyles,
     '&:focus + div': {
-      boxShadow: createControlFocusShadow(),
+      boxShadow: createSurfaceFocusShadow(),
     },
   },
 });

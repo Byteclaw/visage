@@ -2,6 +2,7 @@ export const visageDocsFaces = {
   Heading: {
     mt: 5,
     mb: 2,
+    fontWeight: 800,
     '&[data-level="1"]': {},
     '&[data-level="2"]': {},
     '&[data-level="3"]': {},

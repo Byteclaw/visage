@@ -81,6 +81,7 @@ const BannerBase = createComponent(Flex, {
     outline: 'none',
     p: 2,
     my: 1,
+    transition: 'box-shadow 150ms ease-out',
     ...(props.flat
       ? {
           off: {
