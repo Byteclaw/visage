@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.17.0 (2020-03-17)
+
+* feat: new stylesheet pipeline with pre and post stylers ([716b94a](https://github.com/Byteclaw/visage/commit/716b94a))
+* feat(controls): fix controls palette ([03bad91](https://github.com/Byteclaw/visage/commit/03bad91))
+* feat(docs): better doc pages, change Heading ([7dbb27c](https://github.com/Byteclaw/visage/commit/7dbb27c))
+* fix(tests): update Heading snapshot ([1c3d2b0](https://github.com/Byteclaw/visage/commit/1c3d2b0))
+* fix(visage): fix default line height global reset ([39d4316](https://github.com/Byteclaw/visage/commit/39d4316))
+* feat(visage/docs): add system section and new quickstart ([723b387](https://github.com/Byteclaw/visage/commit/723b387))
+* Merge pull request #300 from Byteclaw/feature/add-better-docs ([762b7eb](https://github.com/Byteclaw/visage/commit/762b7eb)), closes [#300](https://github.com/Byteclaw/visage/issues/300)
+
+
+
+
+
 ## <small>0.16.4 (2020-03-11)</small>
 
 * fix(visage): compute Popover positioning in IE 11 ([b019ae5](https://github.com/Byteclaw/visage/commit/b019ae5))
