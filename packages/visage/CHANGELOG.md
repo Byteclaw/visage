@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.18.0 (2020-03-19)
+
+* feat(visage): add default box-shadow to Drawer component ([523996c](https://github.com/Byteclaw/visage/commit/523996c))
+* feat(visage): add size variants to Button component ([f79763d](https://github.com/Byteclaw/visage/commit/f79763d))
+* feat(visage): hoist and simplify box-shadow style on Menu ([70fed12](https://github.com/Byteclaw/visage/commit/70fed12))
+
+
+
+
+
 ## <small>0.17.1 (2020-03-19)</small>
 
 * fix(visage): use resolver from context to get Slider colors ([9a90d40](https://github.com/Byteclaw/visage/commit/9a90d40))

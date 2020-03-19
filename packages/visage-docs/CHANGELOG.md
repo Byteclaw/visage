@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.13.2 (2020-03-19)</small>
+
+* docs(visage/docs): add size variant examples ([48b1f60](https://github.com/Byteclaw/visage/commit/48b1f60))
+
+
+
+
+
 ## <small>0.13.1 (2020-03-19)</small>
 
 **Note:** Version bump only for package @byteclaw/visage-docs
