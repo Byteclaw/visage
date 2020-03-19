@@ -40,6 +40,8 @@ const BaseDrawer = createComponent('div', {
       ? { position: 'relative' }
       : {
           position: 'fixed',
+          boxShadow:
+            '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
           ...(props.side
             ? {
                 ...(props.side === 'bottom'
