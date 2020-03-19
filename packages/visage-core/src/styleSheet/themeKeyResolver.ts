@@ -11,7 +11,7 @@ export const themeKeyResolver: StyleValueResolver = (propName, value, ctx) => {
   }
 
   const { theme } = ctx;
-  const themeValue = theme[propName];
+  const themeValue = theme[propName as keyof typeof theme];
 
   switch (typeof themeValue) {
     case 'undefined':
@@ -38,6 +38,8 @@ export const themeKeyResolver: StyleValueResolver = (propName, value, ctx) => {
 
       const nestedValue = themeKeyResolver(propertyName, value, {
         ...ctx,
+        // pass the theme value down because we are resolving nested value
+        // for examle borderRadius.controlBorderRadus
         theme: themeValue,
       });
 

@@ -133,6 +133,7 @@ export interface StyleSheetThemeSettings<
   mixins?: {
     [mixin: string]: StyleSheet<TStyleSheet>;
   };
+  // any extra values
   [extra: string]: any;
 }
 
@@ -161,6 +162,4 @@ export interface StylerSheetResolveContext<
   resolve: StyleValueResolver;
   style: StylerFunction;
   theme: TThemeSettings;
-  /** Extra props that can be accessed in stylers */
-  [extra: string]: any;
 }

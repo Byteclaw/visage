@@ -31,7 +31,9 @@ export const Slider = ({
     () =>
       getTrackBackground({
         values,
-        colors: colors.map(c => ctx.theme.resolve('color', c, ctx)),
+        colors: colors.map(c =>
+          ctx.ctx.resolve('color', c, ctx.ctx),
+        ) as string[],
         min,
         max,
       }),
