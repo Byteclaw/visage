@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.17.1 (2020-03-19)</small>
+
+* fix(visage): use resolver from context to get Slider colors ([9a90d40](https://github.com/Byteclaw/visage/commit/9a90d40))
+
+
+
+
+
 ## 0.17.0 (2020-03-17)
 
 * feat: new stylesheet pipeline with pre and post stylers ([716b94a](https://github.com/Byteclaw/visage/commit/716b94a))
