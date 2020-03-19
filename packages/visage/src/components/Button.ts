@@ -1,5 +1,9 @@
 import { createComponent } from '../core';
-import { booleanVariant, variant } from '../variants';
+import {
+  booleanVariant,
+  variant,
+  variantStyles as createVariantStyles,
+} from '../variants';
 import {
   disabledControlStyles,
   createControlActiveShadow,
@@ -37,6 +41,26 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     color: 'lightAccentText',
   },
 };
+
+const sizeVariantStyles: { [key: string]: EmotionStyleSheet } = {
+  small: {
+    fontSize: -1,
+    py: 0,
+    px: 1,
+  },
+  medium: {
+    fontSize: 0,
+    py: 1,
+    px: 2,
+  },
+  large: {
+    fontSize: 1,
+    py: 1.5,
+    px: 2.5,
+  },
+  default: {},
+};
+
 const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   danger: {
     backgroundColor: 'transparent',
@@ -113,11 +137,14 @@ export const Button = createComponent('button', {
     fontSize: 0,
     fontFamily: 'body',
     fontWeight: 600,
+    justifyContent: 'center',
     minHeight: '2rem',
+    minWidth: '4rem',
     outline: 'none',
     py: 1,
     px: 2,
     position: 'relative',
+    textAlign: 'center',
     textDecoration: 'none',
     transitionProperty: 'all',
     transitionDuration: '0.2s',
@@ -142,11 +169,13 @@ export const Button = createComponent('button', {
         : outlinedVariantStyles[props.variant || 'default'] ||
           outlinedVariantStyles.default
       : variantStyles[props.variant || 'default'] || variantStyles.default),
+    ...createVariantStyles('size', sizeVariantStyles),
     '&[disabled]': disabledControlStyles,
   }),
   variants: [
     booleanVariant('outlined', true),
     booleanVariant('monochrome', true),
     variant('variant', true, ['danger', 'primary'] as const),
+    variant('size', true, ['small', 'medium', 'large'] as const),
   ],
 });
