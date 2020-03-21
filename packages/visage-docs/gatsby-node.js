@@ -1,8 +1,21 @@
+require('ts-node').register({
+  compilerOptions: {
+    jsx: 'react',
+    lib: ['es2018', 'dom'],
+    target: 'esnext',
+    moduleResolution: 'node',
+    module: 'commonjs',
+  },
+});
+
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const path = require('path');
+const { createProgram } = require('./src/extractTypeInformations');
 
 const GITHUB_USERNAME = 'byteclaw';
 const GITHUB_PROJECT = 'visage';
+
+const componentInformationMap = createProgram();
 
 exports.onCreateWebpackConfig = function onCreateWebpackConfig({
   actions,
@@ -60,6 +73,7 @@ exports.createPages = async ({ graphql, actions }) => {
       path: post.node.fields.componentPathName,
       component: componentPageLayout,
       context: {
+        componentInformationMap,
         componentPathName: post.node.fields.componentPathName,
       },
     });
