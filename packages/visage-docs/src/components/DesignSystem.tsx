@@ -19,6 +19,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
   const theme = useMemo(() => {
     return createDocsTheme({
       colors,
+      faces: visageDocsFaces,
     });
   }, [colors]);
 
@@ -28,7 +29,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
   }, [colors, isDark]);
 
   return (
-    <ResponsiveDesignSystem faces={visageDocsFaces} theme={theme}>
+    <ResponsiveDesignSystem theme={theme}>
       <ThemeTogglerContext.Provider
         value={{
           colorPalette: colors,
