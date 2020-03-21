@@ -2,7 +2,11 @@ import { Box, Link } from '@byteclaw/visage';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { graphql } from 'gatsby';
 import React from 'react';
-import { SEO } from '../components/SEO';
+import {
+  ComponentsInformationMap,
+  ComponentInformationMap,
+  SEO,
+} from '../components';
 
 interface ComponentPageLayoutProps {
   data: {
@@ -29,6 +33,7 @@ interface ComponentPageLayoutProps {
     };
   };
   pageContext: {
+    componentInformationMap: ComponentsInformationMap;
     componentPathName: string;
   };
   path: string;
@@ -61,17 +66,21 @@ export const pageQuery = graphql`
   }
 `;
 
-export function ComponentPageLayout({ data, path }: ComponentPageLayoutProps) {
+export function ComponentPageLayout({
+  data,
+  path,
+  pageContext,
+}: ComponentPageLayoutProps) {
   const { body, fields, frontmatter } = data.mdx;
 
   return (
-    <React.Fragment>
+    <ComponentInformationMap information={pageContext.componentInformationMap}>
       <SEO {...frontmatter} pathname={path} />
       <MDXRenderer>{body}</MDXRenderer>
       <Box>
         <Link href={fields.githubEditLink}>Edit on GitHub</Link>
       </Box>
-    </React.Fragment>
+    </ComponentInformationMap>
   );
 }
 
