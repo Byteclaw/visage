@@ -1,0 +1,4 @@
+{
+  "presets": ["gatsby"],
+  "plugins": ["../babel-plugin-visage"]
+}
