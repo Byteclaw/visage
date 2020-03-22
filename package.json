@@ -4,7 +4,7 @@
     "bundlewatch": "bundlewatch",
     "benchmark": "ts-node --project scripts/tsconfig.json scripts/benchmark.ts",
     "build": "tsc -b .",
-    "build:docs": "lerna run build --scope @byteclaw/visage-docs",
+    "build:docs": "lerna run build --scope @byteclaw/babel-plugin-visage --scope @byteclaw/visage-docs",
     "build:watch": "tsc -b . --watch",
     "compile": "lerna run build --ignore @byteclaw/visage-docs",
     "contributors:add": "all-contributors add",
