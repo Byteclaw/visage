@@ -1,0 +1,41 @@
+{
+  "name": "@byteclaw/babel-plugin-visage",
+  "version": "0.0.0",
+  "description": "A recommended babel preprocessing plugin for @byteclaw/visage design system. Hoists styles props from React JSX components.",
+  "source": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "keywords": [
+    "react",
+    "css",
+    "css-in-js",
+    "design system",
+    "visage"
+  ],
+  "files": [
+    "!src/**/__tests_/**/*",
+    "src",
+    "dist"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Byteclaw/visage/issues"
+  },
+  "homepage": "https://github.com/Byteclaw/visage/packages/babel-plugin-visage/README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Byteclaw/visage.git"
+  },
+  "dependencies": {
+    "@babel/plugin-syntax-jsx": "^7.8.3"
+  },
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf dist && microbundle --jsx React.createElement",
+    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement"
+  }
+}
