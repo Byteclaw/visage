@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "bundlesize": "bundlesize",
+    "bundlewatch": "bundlewatch",
     "benchmark": "ts-node --project scripts/tsconfig.json scripts/benchmark.ts",
     "build": "tsc -b .",
     "build:docs": "lerna run build --scope @byteclaw/visage-docs",
@@ -38,7 +38,7 @@
     "@typescript-eslint/parser": "^2.12.0",
     "all-contributors-cli": "^6.8.1",
     "benny": "^3.6.14",
-    "bundlesize": "^0.18.0",
+    "bundlewatch": "^0.2.6",
     "conventional-changelog-conventionalcommits": "^4.2.3",
     "globby": "^11.0.0",
     "eslint": "^6.7.2",
@@ -60,6 +60,42 @@
     "rimraf": "^3.0.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.3"
+  },
+  "bundlewatch": {
+    "files": [
+      {
+        "path": "./packages/visage/dist/index.esm.js",
+        "maxSize": "100 kB"
+      },
+      {
+        "path": "./packages/visage/dist/index.js",
+        "maxSize": "100 kB"
+      },
+      {
+        "path": "./packages/visage-core/dist/index.esm.js",
+        "maxSize": "5 kB"
+      },
+      {
+        "path": "./packages/visage-core/dist/index.js",
+        "maxSize": "5 kB"
+      },
+      {
+        "path": "./packages/visage-themes/dist/index.esm.js",
+        "maxSize": "10 kB"
+      },
+      {
+        "path": "./packages/visage-themes/dist/index.js",
+        "maxSize": "10 kB"
+      },
+      {
+        "path": "./packages/visage-utils/dist/index.esm.js",
+        "maxSize": "5 kB"
+      },
+      {
+        "path": "./packages/visage-utils/dist/index.js",
+        "maxSize": "5 kB"
+      }
+    ]
   },
   "husky": {
     "hooks": {
