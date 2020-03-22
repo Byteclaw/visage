@@ -4,6 +4,7 @@
   },
   "files": [],
   "references": [
+    { "path": "./packages/babel-plugin-visage" },
     { "path": "./packages/visage" },
     { "path": "./packages/visage-core" },
     { "path": "./packages/visage-themes" },
