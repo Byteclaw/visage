@@ -1,14 +1,33 @@
 export const visageDocsFaces = {
-  Heading: {
+  h1: {
     mt: 5,
     mb: 2,
     fontWeight: 800,
-    '&[data-level="1"]': {},
-    '&[data-level="2"]': {},
-    '&[data-level="3"]': {},
-    '&[data-level="4"]': {},
-    '&[data-level="5"]': {},
-    '&[data-level="6"]': {},
+  },
+  h2: {
+    mt: 5,
+    mb: 2,
+    fontWeight: 800,
+  },
+  h3: {
+    mt: 5,
+    mb: 2,
+    fontWeight: 800,
+  },
+  h4: {
+    mt: 5,
+    mb: 2,
+    fontWeight: 800,
+  },
+  h5: {
+    mt: 5,
+    mb: 2,
+    fontWeight: 800,
+  },
+  h6: {
+    mt: 5,
+    mb: 2,
+    fontWeight: 800,
   },
   Paragraph: {
     mt: 0,

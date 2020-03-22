@@ -107,8 +107,6 @@ export interface VisageFaces {
   Group?: EmotionStyleSheet;
   // Header.ts
   Header?: EmotionStyleSheet;
-  // Heading.tsx
-  Heading?: EmotionStyleSheet;
   // Image.tsx
   ImageContainer?: EmotionStyleSheet;
   // Image.tsx
@@ -141,8 +139,12 @@ export interface VisageFaces {
   Modal?: EmotionStyleSheet;
   // Modal.tsx
   ModalBackdrop?: EmotionStyleSheet;
+  // Pagination.tsx
+  NextPageButton?: EmotionStyleSheet;
   // Overlay.tsx
   OverlayDiv?: EmotionStyleSheet;
+  // Pagination.tsx
+  Pagination?: EmotionStyleSheet;
   // Paragraph.tsx
   Paragraph?: EmotionStyleSheet;
   // Paragraph.tsx
@@ -151,6 +153,8 @@ export interface VisageFaces {
   Popover?: EmotionStyleSheet;
   // Code.ts
   PreformattedCode?: EmotionStyleSheet;
+  // Pagination.tsx
+  PreviousPageButton?: EmotionStyleSheet;
   // ProgressBar.tsx
   ProgressBar?: EmotionStyleSheet;
   // ProgressBar.tsx
@@ -213,5 +217,17 @@ export interface VisageFaces {
   ToggleLabelText?: EmotionStyleSheet;
   // Toggle.tsx
   Toggler?: EmotionStyleSheet;
+  // Heading.tsx
+  h1?: EmotionStyleSheet;
+  // Heading.tsx
+  h2?: EmotionStyleSheet;
+  // Heading.tsx
+  h3?: EmotionStyleSheet;
+  // Heading.tsx
+  h4?: EmotionStyleSheet;
+  // Heading.tsx
+  h5?: EmotionStyleSheet;
+  // Heading.tsx
+  h6?: EmotionStyleSheet;
   [componentName: string]: EmotionStyleSheet | undefined;
 }

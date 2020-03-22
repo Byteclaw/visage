@@ -28,28 +28,94 @@ export const globalComponentStyles: {
     lineHeight: 0,
   },
   // typography (keep in sync with Visage counterparts)
-  a: LinkStyles,
-  blockquote: BlockquoteStyles,
-  cite: CiteStyles,
-  code: CodeStyles,
-  i: EmphasizedTextStyles,
-  em: EmphasizedTextStyles,
-  h1: HeadingStyles.h1,
-  h2: HeadingStyles.h2,
-  h3: HeadingStyles.h3,
-  h4: HeadingStyles.h4,
-  h5: HeadingStyles.h5,
-  h6: HeadingStyles.h6,
-  kbd: CodeStyles,
-  p: ParagraphStyles,
-  pre: PreformattedCodeStyles,
-  samp: CodeStyles,
-  small: SmallTextStyles,
-  span: TextStyles,
-  b: StrongTextStyles,
-  strong: StrongTextStyles,
-  sup: SuperscriptStyles,
-  sub: SubscriptStyles,
+  a: {
+    ...LinkStyles,
+    face: 'Link',
+  },
+  blockquote: {
+    ...BlockquoteStyles,
+    face: 'Blockquote',
+  },
+  cite: {
+    ...CiteStyles,
+    face: 'Cite',
+  },
+  code: {
+    ...CodeStyles,
+    face: 'Code',
+  },
+  i: {
+    ...EmphasizedTextStyles,
+    face: 'EmphasizedText',
+  },
+  em: {
+    ...EmphasizedTextStyles,
+    face: 'EmphasizedText',
+  },
+  h1: {
+    ...HeadingStyles.h1,
+    face: 'h1',
+  },
+  h2: {
+    ...HeadingStyles.h2,
+    face: 'h2',
+  },
+  h3: {
+    ...HeadingStyles.h3,
+    face: 'h3',
+  },
+  h4: {
+    ...HeadingStyles.h4,
+    face: 'h4',
+  },
+  h5: {
+    ...HeadingStyles.h5,
+    face: 'h5',
+  },
+  h6: {
+    ...HeadingStyles.h6,
+    face: 'h6',
+  },
+  kbd: {
+    ...CodeStyles,
+    face: 'Code',
+  },
+  p: {
+    ...ParagraphStyles,
+    face: 'Paragraph',
+  },
+  pre: {
+    ...PreformattedCodeStyles,
+    face: 'PreformattedCode',
+  },
+  samp: {
+    ...CodeStyles,
+    face: 'Code',
+  },
+  small: {
+    ...SmallTextStyles,
+    face: 'SmallText',
+  },
+  span: {
+    ...TextStyles,
+    face: 'Text',
+  },
+  b: {
+    ...StrongTextStyles,
+    face: 'StrongText',
+  },
+  strong: {
+    ...StrongTextStyles,
+    face: 'StrongText',
+  },
+  sup: {
+    ...SuperscriptStyles,
+    face: 'Superscript',
+  },
+  sub: {
+    ...SubscriptStyles,
+    face: 'Subscript',
+  },
 };
 
 const globalStyles: { [selector: string]: EmotionStyleSheet } = {
@@ -65,6 +131,7 @@ const globalStyles: { [selector: string]: EmotionStyleSheet } = {
     margin: 0,
     width: '100%',
     maxWidth: 'none',
+    face: 'body',
   },
   html: {
     boxSizing: 'border-box',
@@ -75,6 +142,7 @@ const globalStyles: { [selector: string]: EmotionStyleSheet } = {
     msTextSizeAdjust: '100%',
     webkitTextSizeAdjust: '100%',
     textSizeAdjust: '100%',
+    face: 'html',
   },
 };
 

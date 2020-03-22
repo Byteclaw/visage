@@ -1,11 +1,6 @@
-import {
-  ExtractVisageComponentProps,
-  markAsVisageComponent,
-  VisageComponent,
-} from '@byteclaw/visage-core';
+import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import React, { forwardRef, createElement } from 'react';
 import { createComponent } from '../core';
-import { variant } from '../variants';
 import { SkeletonSentence } from './SkeletonSentence';
 import { EmotionStyleSheet } from '../types';
 
@@ -71,36 +66,74 @@ export const HeadingStyles: {
   },
 };
 
-const headingVariants: { [key: string]: EmotionStyleSheet } = {
-  1: HeadingStyles.h1,
-  2: HeadingStyles.h2,
-  3: HeadingStyles.h3,
-  4: HeadingStyles.h4,
-  5: HeadingStyles.h5,
-  6: HeadingStyles.h6,
-};
-
-const BaseHeading = createComponent('h1', {
-  displayName: 'Heading',
-  defaultStyles(props) {
-    const variantStyles = headingVariants[props.level || '1'];
-
-    return {
-      fontFamily: 'heading',
-      ...variantStyles,
-    };
-  },
-  variants: [variant('level', true, [1, 2, 3, 4, 5, 6] as const, 1)],
+const h1 = createComponent('h1', {
+  displayName: 'h1',
+  styles: HeadingStyles.h1,
 });
 
-export const Heading: typeof BaseHeading = forwardRef(
-  ({ level, ...restProps }: any, ref: any) =>
-    createElement(BaseHeading, {
-      as: `h${level || '1'}`,
-      ref,
-      level,
-      ...restProps,
-    }),
+const h2 = createComponent('h2', {
+  displayName: 'h2',
+  styles: HeadingStyles.h2,
+});
+
+const h3 = createComponent('h3', {
+  displayName: 'h3',
+  styles: HeadingStyles.h3,
+});
+
+const h4 = createComponent('h4', {
+  displayName: 'h4',
+  styles: HeadingStyles.h4,
+});
+
+const h5 = createComponent('h5', {
+  displayName: 'h5',
+  styles: HeadingStyles.h5,
+});
+
+const h6 = createComponent('h6', {
+  displayName: 'h6',
+  styles: HeadingStyles.h6,
+});
+
+interface HeadingProps {
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+}
+
+export const Heading: VisageComponent<JSX.IntrinsicElements['h1'] &
+  HeadingProps> = React.memo(
+  forwardRef(
+    (
+      { level = 1, ...restProps }: JSX.IntrinsicElements['h1'] & HeadingProps,
+      ref: any,
+    ) => {
+      let as = h1;
+
+      switch (level) {
+        case 2:
+          as = h2;
+          break;
+        case 3:
+          as = h3;
+          break;
+        case 4:
+          as = h4;
+          break;
+        case 5:
+          as = h5;
+          break;
+        case 6:
+          as = h6;
+      }
+
+      return createElement(as, {
+        ref,
+        // @ts-ignore
+        'data-level': level,
+        ...restProps,
+      });
+    },
+  ),
 ) as any;
 
 Heading.displayName = 'Heading';
@@ -108,9 +141,8 @@ markAsVisageComponent(Heading);
 
 const defaultMask = [6];
 
-export const HeadingSkeleton: VisageComponent<ExtractVisageComponentProps<
-  typeof Heading
-> & { mask?: number[] }> = function HeadingSkeleton({
+export const HeadingSkeleton: VisageComponent<JSX.IntrinsicElements['h1'] &
+  HeadingProps & { mask?: number[] }> = function HeadingSkeleton({
   mask = defaultMask,
   ...restProps
 }: any) {
