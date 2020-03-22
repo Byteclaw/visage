@@ -2,7 +2,6 @@ import React from 'react';
 import { PreviousPageIcon, NextPageIcon } from '../assets';
 import { createComponent } from '../core';
 import { Button } from './Button';
-import { Flex } from './Flex';
 import { SvgIcon } from './SvgIcon';
 
 export const NextPageButton = createComponent(Button, {
@@ -33,13 +32,13 @@ export const PreviousPageButton = createComponent(Button, {
   },
 });
 
-export const Pagination = createComponent(Flex, {
+export const Pagination = createComponent('nav', {
   displayName: 'Pagination',
   defaultProps: {
-    ariaLabel: 'pagination',
-    as: 'nav',
+    'aria-label': 'pagination',
   },
   defaultStyles: {
+    display: 'flex',
     justifyContent: 'flex-start',
   },
 });
