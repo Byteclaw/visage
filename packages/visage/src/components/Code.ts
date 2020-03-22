@@ -12,7 +12,7 @@ export const CodeStyles: EmotionStyleSheet = {
 
 export const Code = createComponent('code', {
   displayName: 'Code',
-  defaultStyles: CodeStyles,
+  styles: CodeStyles,
 });
 
 /**
@@ -25,5 +25,5 @@ export const PreformattedCodeStyles: EmotionStyleSheet = {
 
 export const PreformattedCode = createComponent('pre', {
   displayName: 'PreformattedCode',
-  defaultStyles: PreformattedCodeStyles,
+  styles: PreformattedCodeStyles,
 });

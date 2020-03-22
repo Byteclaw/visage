@@ -3,9 +3,26 @@ import {
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import React from 'react';
-import { Flex } from './Flex';
 import { ErrorIcon } from '../assets';
+import { createComponent } from '../core';
+import { Flex } from './Flex';
 import { SvgIcon } from './SvgIcon';
+
+const InlineErrorWrapper = createComponent(Flex, {
+  displayName: 'InlineError',
+  styles: {
+    color: 'danger',
+    fontSize: 0,
+    lineHeight: 0,
+  },
+});
+
+const InlineErrorIcon = createComponent(SvgIcon, {
+  displayName: 'InlineErrorIcon',
+  styles: {
+    mr: 1,
+  },
+});
 
 export function InlineError({
   children,
@@ -13,13 +30,10 @@ export function InlineError({
   ...restProps
 }: ExtractVisageComponentProps<typeof Flex>) {
   return (
-    <Flex
-      styles={{ color: 'danger', fontSize: 0, lineHeight: 0, ...styles }}
-      {...restProps}
-    >
-      <SvgIcon icon={ErrorIcon} styles={{ mr: 1 }} />
+    <InlineErrorWrapper {...restProps}>
+      <InlineErrorIcon icon={ErrorIcon} />
       {children}
-    </Flex>
+    </InlineErrorWrapper>
   );
 }
 

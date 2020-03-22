@@ -13,7 +13,7 @@ import { createComponent } from '../core';
 
 const SvgIconBase = createComponent('div', {
   displayName: 'SvgIconBase',
-  defaultStyles: {
+  styles: {
     alignItems: 'center',
     display: 'inline-flex',
     fontSize: 'inherit',

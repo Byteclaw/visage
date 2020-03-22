@@ -8,7 +8,7 @@ import { Divider } from './Divider';
 
 export const DescriptionListBase = createComponent('dl', {
   displayName: 'DescriptionList',
-  defaultStyles: {
+  styles: {
     display: ['block', 'flex'],
     flexWrap: 'wrap',
     alignItems: 'flex-start',
@@ -19,7 +19,7 @@ export const DescriptionListBase = createComponent('dl', {
 
 export const Description = createComponent('dd', {
   displayName: 'DescriptionListItemDescription',
-  defaultStyles: {
+  styles: {
     display: 'block',
     flexGrow: 1,
     flexShrink: 1,
@@ -32,7 +32,7 @@ export const Description = createComponent('dd', {
 
 export const Term = createComponent('dt', {
   displayName: 'DescriptionListItemTerm',
-  defaultStyles: {
+  styles: {
     display: 'block',
     fontWeight: 'bolder',
     flexGrow: 0,

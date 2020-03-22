@@ -8,7 +8,7 @@ import { createComponent } from '../core';
 
 const ImageContainer = createComponent('div', {
   displayName: 'ImageContainer',
-  defaultStyles: {
+  styles: {
     position: 'relative',
     minWidth: '4rem',
     maxWidth: '100%',
@@ -23,7 +23,7 @@ const ImageContainer = createComponent('div', {
 
 const Img = createComponent('img', {
   displayName: 'Img',
-  defaultStyles: {
+  styles: {
     margin: 'auto',
     position: 'absolute',
     top: 0,

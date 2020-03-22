@@ -33,7 +33,7 @@ function getAnchorNode(
 
 export const BasePopover = createComponent('div', {
   displayName: 'Popover',
-  defaultStyles: {
+  styles: {
     position: 'absolute',
     overflowY: 'auto',
     overflowX: 'hidden',

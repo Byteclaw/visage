@@ -9,7 +9,7 @@ import { booleanVariant } from '../variants';
 
 const CardBase = createComponent('div', {
   displayName: 'Card',
-  defaultStyles: props => ({
+  styles: props => ({
     boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
     p: 1,
     position: 'relative',
@@ -32,7 +32,7 @@ const CardBase = createComponent('div', {
 
 const CardTouchable = createComponent('div', {
   displayName: 'CardTouchable',
-  defaultStyles: {
+  styles: {
     bottom: 0,
     left: 0,
     opacity: 0,
@@ -53,7 +53,7 @@ const CardTouchable = createComponent('div', {
 
 const CardContent = createComponent('div', {
   displayName: 'CardContent',
-  defaultStyles: {
+  styles: {
     '& a, & button, & input, & select, & [role="button"], & [role="checkbox"], & [role="radio"], & [role="combobox"], & [role="listbox"], & [role="search"], & [role="switch"], & [role="textbox"]': {
       position: 'relative',
       zIndex: 0,

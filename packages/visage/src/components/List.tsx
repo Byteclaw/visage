@@ -25,7 +25,7 @@ ListDepthContext.displayName = 'ListDepthContext';
 
 export const ListContainer = createComponent('section', {
   displayName: 'ListContainer',
-  defaultStyles: {
+  styles: {
     display: 'flex',
     flexDirection: 'column',
     m: 0,
@@ -35,7 +35,7 @@ export const ListContainer = createComponent('section', {
 });
 export const ListItemsContainer = createComponent('ul', {
   displayName: 'ListItemsContainer',
-  defaultStyles: props => ({
+  styles: props => ({
     display: 'block',
     listStyle: 'none',
     flexGrow: 1,
@@ -53,7 +53,7 @@ export const ListItemsContainer = createComponent('ul', {
 
 export const BaseListItem = createComponent('li', {
   displayName: 'ListItem',
-  defaultStyles: props => ({
+  styles: props => ({
     display: 'flex',
     border: 0,
     height: 'auto',
@@ -79,7 +79,7 @@ export const BaseListItem = createComponent('li', {
 
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
-  defaultStyles: props => ({
+  styles: props => ({
     color: 'lightShadesText',
     cursor: 'pointer',
     display: 'flex',
@@ -118,7 +118,7 @@ export const ListItemLink: typeof ListItemLinkBase = ({
 
 export const ListHeader = createComponent('h1', {
   displayName: 'ListHeader',
-  defaultStyles: {
+  styles: {
     fontSize: 'inherit',
     lineHeight: 'inherit',
     m: 0,

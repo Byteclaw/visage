@@ -1,9 +1,50 @@
 import { useDesignSystem } from '@byteclaw/visage-core';
 import React, { useCallback, useMemo } from 'react';
 import { getTrackBackground, Range } from 'react-range';
+import { IProps } from 'react-range/lib/types';
+import { createComponent } from '../core';
 import { Box } from './Box';
 import { Flex } from './Flex';
 import { createControlActiveShadow, createControlFocusShadow } from './shared';
+
+const Thumb = createComponent(Flex, {
+  displayName: 'SliderThumb',
+  styles: {
+    transition: 'box-shadow 150ms ease-in',
+    height: ['3rem', '3rem', '1.5rem'],
+    width: ['3rem', '3rem', '1.5rem'],
+    borderRadius: '50%',
+    backgroundColor: '#FFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: '0px 2px 6px #AAA',
+    '&:focus': {
+      outline: 'none',
+      boxShadow: `0px 2px 6px #AAA, ${createControlFocusShadow('primary')}`,
+    },
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('primary'),
+    },
+  },
+});
+
+const Track = createComponent(Flex, {
+  displayName: 'SliderTrack',
+  styles: {
+    height: '2.5rem',
+    width: '100%',
+  },
+});
+
+const TrackProgress = createComponent(Box, {
+  displayName: 'SliderTrackProgress',
+  styles: {
+    height: '0.5rem',
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 'controlBorderRadius',
+  },
+});
 
 export interface SliderProps {
   allowedValues?: number[];
@@ -49,6 +90,26 @@ export const Slider = ({
     },
     [onChange],
   );
+  const renderTrack: IProps['renderTrack'] = useCallback(
+    ({ props, children }) => {
+      return (
+        <Track
+          onMouseDown={props.onMouseDown}
+          onTouchStart={props.onTouchStart}
+          style={props.style}
+        >
+          <TrackProgress ref={props.ref} style={{ background }}>
+            {children}
+          </TrackProgress>
+        </Track>
+      );
+    },
+    [background],
+  );
+  const renderThumb: IProps['renderThumb'] = useCallback(
+    ({ props }) => <Thumb {...props} />,
+    [],
+  );
 
   return (
     <Range
@@ -58,55 +119,8 @@ export const Slider = ({
       max={max}
       onChange={handleChange}
       {...restProps}
-      renderTrack={({ props, children }) => (
-        <Flex
-          onMouseDown={props.onMouseDown}
-          onTouchStart={props.onTouchStart}
-          styles={{
-            ...props.style,
-            height: '2.5rem',
-            width: '100%',
-          }}
-        >
-          <Box
-            ref={props.ref}
-            styles={{
-              height: '0.5rem',
-              width: '100%',
-              alignSelf: 'center',
-              borderRadius: 'controlBorderRadius',
-            }}
-            style={{ background }}
-          >
-            {children}
-          </Box>
-        </Flex>
-      )}
-      renderThumb={({ props }) => (
-        <Flex
-          {...props}
-          styles={{
-            ...props.style,
-            transition: 'box-shadow 150ms ease-in',
-            height: ['3rem', '3rem', '1.5rem'],
-            width: ['3rem', '3rem', '1.5rem'],
-            borderRadius: '50%',
-            backgroundColor: '#FFF',
-            justifyContent: 'center',
-            alignItems: 'center',
-            boxShadow: '0px 2px 6px #AAA',
-            '&:focus': {
-              outline: 'none',
-              boxShadow: `0px 2px 6px #AAA, ${createControlFocusShadow(
-                'primary',
-              )}`,
-            },
-            '&:focus:active': {
-              boxShadow: createControlActiveShadow('primary'),
-            },
-          }}
-        />
-      )}
+      renderTrack={renderTrack}
+      renderThumb={renderThumb}
     />
   );
 };

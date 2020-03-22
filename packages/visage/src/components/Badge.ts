@@ -33,7 +33,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
 
 export const Badge = createComponent('span', {
   displayName: 'Badge',
-  defaultStyles: props => ({
+  styles: props => ({
     borderColor: 'white',
     borderRadius: 6,
     borderStyle: 'solid',

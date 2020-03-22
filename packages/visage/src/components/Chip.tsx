@@ -13,7 +13,7 @@ import { createSurfaceFocusShadow } from './shared';
 
 const ChipBase = createComponent('div', {
   displayName: 'Chip',
-  defaultStyles: {
+  styles: {
     border: 1,
     borderColor: 'primary',
     borderStyle: 'solid',
@@ -31,9 +31,17 @@ const ChipBase = createComponent('div', {
   },
 });
 
+const ChipDeleteButton = createComponent(CloseButton, {
+  displayName: 'ChipDeleteButton',
+  styles: {
+    ml: 1,
+    p: 0.5,
+  },
+});
+
 const defaultChipDeleteRenderer = (props: {
   onClick: MouseEventHandler<any>;
-}) => <CloseButton styles={{ ml: 1, p: 0.5 }} {...props} />;
+}) => <ChipDeleteButton {...props} />;
 
 interface ChipProps {
   children: ReactNode;
@@ -50,66 +58,74 @@ interface ChipProps {
   renderDeleter?: (props: { onClick: MouseEventHandler<any> }) => ReactElement;
 }
 
-export const Chip: VisageComponent<ChipProps> = function Chip({
-  children,
-  onClick,
-  onDelete,
-  renderDeleter = defaultChipDeleteRenderer,
-  ...restProps
-}: ChipProps) {
-  const onChipClick = useCallback(
-    (e: MouseEvent<any>) => {
-      if (onClick) {
-        onClick(e);
-      }
-    },
-    [onClick],
-  );
-  const onDeleteClick = useCallback(
-    (e: MouseEvent<any>) => {
-      // stop propagation of event to ChipBase, because we don't want to invoke onclick
-      e.stopPropagation();
-
-      if (onDelete) {
-        onDelete(e);
-      }
-    },
-    [onDelete],
-  );
-  const onDeleteKeyDown = useCallback(
-    (e: KeyboardEvent<any>) => {
-      switch (e.key) {
-        case 'Backspace':
-        case 'Delete':
-          if (onDelete) {
-            e.preventDefault();
-            onDelete(e);
-          }
-          break;
-        case 'Enter':
-        case ' ':
+export const Chip: VisageComponent<ChipProps> = React.memo(
+  React.forwardRef(
+    (
+      {
+        children,
+        onClick,
+        onDelete,
+        renderDeleter = defaultChipDeleteRenderer,
+        ...restProps
+      }: ChipProps,
+      ref: any,
+    ) => {
+      const onChipClick = useCallback(
+        (e: MouseEvent<any>) => {
           if (onClick) {
-            e.preventDefault();
             onClick(e);
           }
-      }
-    },
-    [onDelete],
-  );
+        },
+        [onClick],
+      );
+      const onDeleteClick = useCallback(
+        (e: MouseEvent<any>) => {
+          // stop propagation of event to ChipBase, because we don't want to invoke onclick
+          e.stopPropagation();
 
-  return (
-    <ChipBase
-      role={onClick ? 'button' : undefined}
-      data-clickable={onClick != null}
-      onClick={onChipClick}
-      onKeyDown={onDeleteKeyDown}
-      tabIndex={onClick ? 0 : undefined}
-      {...restProps}
-    >
-      {children}
-      {onDelete ? renderDeleter({ onClick: onDeleteClick }) : null}
-    </ChipBase>
-  );
-};
+          if (onDelete) {
+            onDelete(e);
+          }
+        },
+        [onDelete],
+      );
+      const onDeleteKeyDown = useCallback(
+        (e: KeyboardEvent<any>) => {
+          switch (e.key) {
+            case 'Backspace':
+            case 'Delete':
+              if (onDelete) {
+                e.preventDefault();
+                onDelete(e);
+              }
+              break;
+            case 'Enter':
+            case ' ':
+              if (onClick) {
+                e.preventDefault();
+                onClick(e);
+              }
+          }
+        },
+        [onDelete],
+      );
+
+      return (
+        <ChipBase
+          role={onClick ? 'button' : undefined}
+          data-clickable={onClick != null}
+          onClick={onChipClick}
+          onKeyDown={onDeleteKeyDown}
+          tabIndex={onClick ? 0 : undefined}
+          {...restProps}
+          ref={ref}
+        >
+          {children}
+          {onDelete ? renderDeleter({ onClick: onDeleteClick }) : null}
+        </ChipBase>
+      );
+    },
+  ),
+);
 
 markAsVisageComponent(Chip);

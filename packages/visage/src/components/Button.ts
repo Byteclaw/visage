@@ -126,7 +126,7 @@ const monochromeButtonVariants: EmotionStyleSheet = {
 
 export const Button = createComponent('button', {
   displayName: 'Button',
-  defaultStyles: props => ({
+  styles: props => ({
     alignItems: 'center',
     borderRadius: 'controlBorderRadius',
     border: 'none',

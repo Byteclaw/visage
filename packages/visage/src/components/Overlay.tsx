@@ -4,8 +4,8 @@ import { createComponent } from '../core';
 import { Portal } from './Portal';
 
 const OverlayDiv = createComponent('div', {
-  displayName: 'OverlayDiv',
-  defaultStyles: {
+  displayName: 'Overlay',
+  styles: {
     background: 'rgba(0, 0, 0, 0.8)',
     height: '100vh',
     left: 0,

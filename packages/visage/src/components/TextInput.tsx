@@ -41,7 +41,7 @@ export const TextInputBaseStyles: EmotionStyleSheet = {
 
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
-  defaultStyles: {
+  styles: {
     color: 'currentColor',
     display: 'flex',
     flexBasis: 'auto',
@@ -58,7 +58,7 @@ const InputExtraElement = createComponent('div', {
 
 const TextInputControlBase = createComponent('div', {
   displayName: 'TextInputControlBase',
-  defaultStyles: {
+  styles: {
     display: 'flex',
     flexGrow: 1,
     flexShrink: 1,
@@ -70,7 +70,7 @@ const TextInputControlBase = createComponent('div', {
 
 const TextInputControl = createComponent('input', {
   displayName: 'TextInputControl',
-  defaultStyles: {
+  styles: {
     backgroundColor: 'transparent',
     border: 'none',
     color: 'currentColor',
@@ -101,7 +101,7 @@ const TextInputControl = createComponent('input', {
 
 const InputBase = createComponent('div', {
   displayName: 'TextInputBase',
-  defaultStyles: props => ({
+  styles: props => ({
     ...TextInputBaseStyles,
     alignItems: 'center',
     display: 'flex',

@@ -9,18 +9,28 @@ import React, {
   ReactElement,
   useMemo,
 } from 'react';
+import { createComponent } from '../core';
 import { Box } from './Box';
 import { Label } from './Label';
 import { InlineError } from './InlineError';
 import { TextInput } from './TextInput';
 
+const FormFieldWrapper = createComponent(Box, {
+  displayName: 'FormFieldWrapper',
+  styles: {
+    my: 1,
+  },
+});
+
 interface FormFieldProps {
   error?: string | boolean;
+  errorProps?: ExtractVisageComponentProps<typeof InlineError>;
   hiddenLabel?: boolean;
   id?: string;
   label?: string;
   name?: string;
   required?: boolean;
+  wrapperProps?: ExtractVisageComponentProps<typeof FormFieldWrapper>;
 }
 
 interface FormFieldComponent {
@@ -43,19 +53,22 @@ interface FormFieldComponent {
 export const FormField: FormFieldComponent = function FormField({
   control: Control = TextInput,
   error,
+  errorProps,
   hiddenLabel,
   id: outerId,
   label,
   name,
   required,
+  wrapperProps,
   ...restProps
 }: FormFieldProps & { control?: any }) {
   const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `field-${idTemplate}-${name || ''}`;
   }, [outerId, idTemplate]);
+
   return (
-    <Box styles={{ my: 1 }}>
+    <FormFieldWrapper {...wrapperProps}>
       {label ? (
         <Label htmlFor={id} required={required} hidden={hiddenLabel}>
           {label}
@@ -69,8 +82,8 @@ export const FormField: FormFieldComponent = function FormField({
         required={required}
       />
       {typeof error === 'string' && error ? (
-        <InlineError>{error}</InlineError>
+        <InlineError {...errorProps}>{error}</InlineError>
       ) : null}
-    </Box>
+    </FormFieldWrapper>
   );
 };

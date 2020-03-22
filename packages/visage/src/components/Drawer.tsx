@@ -14,7 +14,7 @@ import { Portal } from './Portal';
 
 const Backdrop = createComponent('div', {
   displayName: 'DrawerBackdrop',
-  defaultStyles: {
+  styles: {
     backgroundColor: 'hsla(0,0%,9%,.5)',
     position: 'fixed',
     top: 0,
@@ -33,7 +33,7 @@ export enum DrawerPosition {
 
 const BaseDrawer = createComponent('div', {
   displayName: 'Drawer',
-  defaultStyles: props => ({
+  styles: props => ({
     backgroundColor: 'lightShades',
     overflowY: 'scroll',
     ...(props.relative

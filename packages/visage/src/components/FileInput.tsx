@@ -20,7 +20,7 @@ import {
 
 const BaseFileInput = createComponent('input', {
   displayName: 'FileInputControl',
-  defaultStyles: {
+  styles: {
     ...visuallyHiddenStyles,
     '&:focus + div': {
       boxShadow: createSurfaceFocusShadow(),
@@ -30,7 +30,7 @@ const BaseFileInput = createComponent('input', {
 
 const FileInputBox = createComponent('div', {
   displayName: 'FileInputBox',
-  defaultStyles: {
+  styles: {
     border: 'none',
     fontSize: 0,
     lineHeight: 0,
@@ -42,7 +42,7 @@ const FileInputBox = createComponent('div', {
 
 const FileInputControl = createComponent('div', {
   displayName: 'FileInputControlBase',
-  defaultStyles: props => ({
+  styles: props => ({
     '&::before': {
       // respect line height
       content: '"\\200b"',

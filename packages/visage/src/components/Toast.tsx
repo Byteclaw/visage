@@ -80,7 +80,7 @@ export const ToastManager = createComponent(
   },
   {
     displayName: 'ToastManager',
-    defaultStyles: {
+    styles: {
       justifyContent: 'center',
       display: 'flex',
       position: 'fixed',
@@ -185,7 +185,7 @@ export const Toast = createComponent(
   },
   {
     displayName: 'Toast',
-    defaultStyles: props => ({
+    styles: props => ({
       alignItems: 'center',
       boxShadow:
         '0px 3px 5px -1px rgba(0,0,0,0.2), 0px 6px 10px 0px rgba(0,0,0,0.14), 0px 1px 15px 0px rgba(0,0,0,0.12)',

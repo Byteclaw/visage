@@ -18,7 +18,7 @@ export const TextStyles: EmotionStyleSheet = {
 
 export const Text = createComponent('span', {
   displayName: 'Text',
-  defaultStyles: TextStyles,
+  styles: TextStyles,
 });
 
 /**
@@ -31,7 +31,7 @@ export const EmphasizedTextStyles: EmotionStyleSheet = {
 
 export const EmphasizedText = createComponent('small', {
   displayName: 'EmphasizedText',
-  defaultStyles: EmphasizedTextStyles,
+  styles: EmphasizedTextStyles,
 });
 
 /**
@@ -45,7 +45,7 @@ export const SmallTextStyles: EmotionStyleSheet = {
 
 export const SmallText = createComponent('small', {
   displayName: 'SmallText',
-  defaultStyles: SmallTextStyles,
+  styles: SmallTextStyles,
 });
 
 /**
@@ -58,7 +58,7 @@ export const StrongTextStyles: EmotionStyleSheet = {
 
 export const StrongText = createComponent('strong', {
   displayName: 'StrongText',
-  defaultStyles: StrongTextStyles,
+  styles: StrongTextStyles,
 });
 
 interface TextSkeletonProps {
@@ -73,7 +73,7 @@ export const TextSkeleton = createComponent(
   },
   {
     displayName: 'TextSkeleton',
-    defaultStyles: {
+    styles: {
       ...TextStyles,
       backfaceVisibility: 'hidden',
       display: 'inline-block',

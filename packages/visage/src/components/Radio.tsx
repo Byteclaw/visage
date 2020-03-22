@@ -18,7 +18,7 @@ import { preventDefaultOnReadOnlyControlHandlerCreator } from './events';
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
-  defaultStyles: {
+  styles: {
     ...visuallyHiddenStyles,
     '&:focus + div': {
       boxShadow: createControlFocusShadow(),
@@ -48,7 +48,7 @@ const RadioControl = createComponent('input', {
 
 const RadioLabel = createComponent('label', {
   displayName: 'RadioLabel',
-  defaultStyles: props => ({
+  styles: props => ({
     alignItems: 'flex-start',
     cursor: 'pointer',
     display: 'flex',
@@ -67,7 +67,7 @@ const RadioLabel = createComponent('label', {
 
 const RadioLabelText = createComponent('span', {
   displayName: 'RadioLabelText',
-  defaultStyles: props => ({
+  styles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
     ...(props.hidden ? visuallyHiddenStyles : {}),
@@ -91,7 +91,7 @@ const RadioToggler = createComponent(Flex, {
       </Svg>
     ),
   },
-  defaultStyles: {
+  styles: {
     background: 'rgba(255,255,255,0.3)',
     alignSelf: 'center',
     transition: 'all 150ms',

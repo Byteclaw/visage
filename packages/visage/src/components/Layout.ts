@@ -2,7 +2,7 @@ import { createComponent } from '../core';
 
 export const Container = createComponent('div', {
   displayName: 'Container',
-  defaultStyles: {
+  styles: {
     display: 'flex',
     m: '0px',
     p: '0px',
@@ -12,7 +12,7 @@ export const Container = createComponent('div', {
 
 export const Column = createComponent('div', {
   displayName: 'Column',
-  defaultStyles: {
+  styles: {
     display: 'flex',
     flexGrow: 1,
     flexShrink: 1,
@@ -24,7 +24,7 @@ export const Column = createComponent('div', {
 
 export const Row = createComponent('div', {
   displayName: 'Row',
-  defaultStyles: {
+  styles: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',

@@ -1,4 +1,4 @@
-import { createElement } from 'react';
+import React from 'react';
 import { createComponent } from '../core';
 import { skeletonAnimation } from './animations';
 
@@ -12,17 +12,16 @@ export const BoxSkeleton = createComponent(
     ...restProps
   }: JSX.IntrinsicElements['div'] & { aspectRatio?: number }) => {
     const height = 100 / aspectRatio;
-    return createElement(
-      'div',
-      restProps,
-      createElement('div', {
-        style: { paddingBottom: `${height}%` },
-      }),
+
+    return (
+      <div {...restProps}>
+        <div style={{ paddingBottom: `${height}%` }} />
+      </div>
     );
   },
   {
     displayName: 'BoxSkeleton',
-    defaultStyles: {
+    styles: {
       backgroundColor: 'currentColor',
       display: 'block',
       willChange: 'opacity',

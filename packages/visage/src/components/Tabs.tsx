@@ -18,9 +18,17 @@ import { createComponent } from '../core';
 import { Box } from './Box';
 import { Flex } from './Flex';
 
+const TabsWrapper = createComponent(Flex, {
+  displayName: 'Tabs',
+  styles: {
+    flexDirection: 'column',
+    width: '100%',
+  },
+});
+
 const TabList = createComponent('div', {
   displayName: 'TabList',
-  defaultStyles: {
+  styles: {
     boxShadow: 'none',
     display: 'flex',
     m: 0,
@@ -30,7 +38,7 @@ const TabList = createComponent('div', {
 
 const TabNavigatonButton = createComponent('button', {
   displayName: 'TabNavigatonButton',
-  defaultStyles: {
+  styles: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderStyle: 'solid',
@@ -245,10 +253,7 @@ export function Tabs({
   }
 
   return (
-    <Flex
-      {...restProps}
-      styles={{ flexDirection: 'column', width: '100%', ...restProps.styles }}
-    >
+    <TabsWrapper {...restProps}>
       <TabList role="tablist" {...tabListProps}>
         {tabsLabel.map((tabLabel, i) => {
           const isSelected = selectedTab === i;
@@ -284,6 +289,6 @@ export function Tabs({
           tabIndex: 0,
         }),
       )}
-    </Flex>
+    </TabsWrapper>
   );
 }
