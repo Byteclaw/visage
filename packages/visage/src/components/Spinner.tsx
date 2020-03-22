@@ -23,7 +23,7 @@ const circleDashAnimation = keyframes({
 
 const SpinnerSvgBase = createComponent('div', {
   displayName: 'SpinnerSvgBase',
-  defaultStyles: {
+  styles: {
     alignItems: 'center',
     display: 'inline-flex',
     fontSize: 'inherit',

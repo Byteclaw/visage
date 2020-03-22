@@ -7,12 +7,12 @@ import { booleanVariant } from '../variants';
 
 const FieldSetLegend = createComponent('legend', {
   displayName: 'FieldSetLegend',
-  defaultStyles: visuallyHiddenStyles,
+  styles: visuallyHiddenStyles,
 });
 
 const FieldSetHeading = createComponent(Heading, {
   displayName: 'FieldSetHeading',
-  defaultStyles: {
+  styles: {
     fontSize: 1,
     lineHeight: 1,
     fontWeight: 500,
@@ -23,7 +23,7 @@ const FieldSetHeading = createComponent(Heading, {
 
 const FieldSetBase = createComponent('fieldset', {
   displayName: 'FieldSet',
-  defaultStyles: props => ({
+  styles: props => ({
     borderColor: 'neutral',
     borderWidth: 1,
     my: 1,

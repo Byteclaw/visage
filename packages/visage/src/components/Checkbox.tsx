@@ -18,7 +18,7 @@ import { preventDefaultOnReadOnlyControlHandlerCreator } from './events';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
-  defaultStyles: {
+  styles: {
     ...visuallyHiddenStyles,
     // + div means that we target CheckboxToggler
     '&:focus + div': {
@@ -48,7 +48,7 @@ const CheckboxControl = createComponent('input', {
 
 const CheckboxLabel = createComponent('label', {
   displayName: 'CheckboxLabel',
-  defaultStyles: props => ({
+  styles: props => ({
     alignItems: 'flex-start',
     cursor: 'pointer',
     display: 'flex',
@@ -67,7 +67,7 @@ const CheckboxLabel = createComponent('label', {
 
 const CheckboxLabelText = createComponent('span', {
   displayName: 'CheckboxLabelText',
-  defaultStyles: props => ({
+  styles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
     ...(props.hidden ? visuallyHiddenStyles : {}),
@@ -94,7 +94,7 @@ const CheckboxToggler = createComponent(Flex, {
       </Svg>
     ),
   },
-  defaultStyles: {
+  styles: {
     alignSelf: 'center',
     transition: 'all 150ms',
     borderColor: 'lightAccent',

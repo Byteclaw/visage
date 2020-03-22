@@ -28,14 +28,14 @@ import { Popover } from './Popover';
 
 const MenuBase = createComponent(List, {
   displayName: 'Menu',
-  defaultStyles: {
+  styles: {
     backgroundColor: 'lightShades',
   },
 });
 
 const MenuItemBase = createComponent(ListItem, {
   displayName: 'MenuItem',
-  defaultStyles: {
+  styles: {
     '&:hover, &:focus, &[aria-selected="true"]': {
       outline: 'none',
       backgroundColor: 'primary.1',

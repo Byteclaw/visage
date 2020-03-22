@@ -13,7 +13,7 @@ const HiddenProgressBar = createComponent('progress', {
 
 const ProgressBarBase = createComponent('div', {
   displayName: 'ProgressBar',
-  defaultStyles: {
+  styles: {
     fontSize: 'inherit',
     lineHeight: 'inherit',
     overflow: 'hidden',
@@ -32,7 +32,7 @@ const ProgressBarBase = createComponent('div', {
 
 const ProgressBarProgress = createComponent('div', {
   displayName: 'ProgressBarProgress',
-  defaultStyles: {
+  styles: {
     '&::before': {
       backgroundColor: 'currentColor',
       content: '"\\200b"',

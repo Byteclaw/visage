@@ -39,7 +39,7 @@ const indeterminateStyles: { on: EmotionStyleSheet; off: EmotionStyleSheet } = {
 
 const ProgressBarBase = createComponent('div', {
   displayName: 'LoadingProgressBar',
-  defaultStyles: props => ({
+  styles: props => ({
     height: 4,
     overflow: 'hidden',
     position: 'relative',
@@ -60,7 +60,7 @@ const ProgressBarBase = createComponent('div', {
 
 const ProgressBarProgress = createComponent('div', {
   displayName: 'LoadingProgressBarProgress',
-  defaultStyles: props => ({
+  styles: props => ({
     backgroundColor: 'currentColor',
     height: '100%',
     left: 0,

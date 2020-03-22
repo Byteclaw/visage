@@ -12,7 +12,7 @@ const RequirementDescription = createComponent('span', {
 
 const LabelBase = createComponent('label', {
   displayName: 'Label',
-  defaultStyles: props => ({
+  styles: props => ({
     display: 'block',
     fontSize: 'inherit',
     lineHeight: 'inherit',

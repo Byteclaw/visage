@@ -37,7 +37,7 @@ export const Pagination = createComponent('nav', {
   defaultProps: {
     'aria-label': 'pagination',
   },
-  defaultStyles: {
+  styles: {
     display: 'flex',
     justifyContent: 'flex-start',
   },

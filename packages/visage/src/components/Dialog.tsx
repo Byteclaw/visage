@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 import { EmotionStyleSheet } from '../types';
-import { variant } from '../variants';
+import { booleanVariant, variant } from '../variants';
 import { Box } from './Box';
 import { Flex } from './Flex';
 import { CloseButton } from './CloseButton';
@@ -19,7 +19,7 @@ import { Text } from './Text';
 
 const DialogBase = createComponent(Flex, {
   displayName: 'Dialog',
-  defaultStyles: props => ({
+  styles: props => ({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'lightShades',
@@ -36,13 +36,62 @@ const DialogBase = createComponent(Flex, {
   ],
 });
 
+const DialogCloseButton = createComponent(CloseButton, {
+  displayName: 'DialogCloseButton',
+  styles: {
+    fontSize: 1,
+    mx: 2,
+    my: 2,
+  },
+});
+
+const DialogCloseButtonWrapper = createComponent(Flex, {
+  displayName: 'DialogCloseButtonWrapper',
+  styles: {
+    alignItems: 'flex-start',
+    position: 'absolute',
+    right: 0,
+    top: 0,
+  },
+});
+
 const DialogContent = createComponent(Box, {
   displayName: 'DialogContent',
-  defaultStyles: {
+  styles: {
     maxHeight: '100%',
     maxWidth: '100%',
     overflowY: 'scroll',
   },
+});
+
+const DialogHeading = createComponent(Heading, {
+  displayName: 'DialogHeading',
+  defaultProps: {
+    level: 3,
+  },
+  styles: {
+    mt: 2,
+  },
+});
+
+const DialogSubHeading = createComponent(Text, {
+  displayName: 'DialogSubHeading',
+  styles: {
+    mt: 2,
+    mb: -2,
+    color: 'neutral.2',
+    fontSize: -1,
+  },
+});
+
+const DialogHeadingWrapper = createComponent(Flex, {
+  displayName: 'DialogHeadingWrapper',
+  styles: props => ({
+    width: '100%',
+    flexDirection: 'column',
+    marginRight: props.closable ? 6 : null,
+  }),
+  variants: [booleanVariant('closable', true)],
 });
 
 interface DialogProps {
@@ -110,44 +159,20 @@ export function Dialog({
         styles={baseStyles}
       >
         <Flex>
-          <Flex
-            styles={{
-              width: '100%',
-              flexDirection: 'column',
-              marginRight: onClose ? 6 : null,
-            }}
-          >
-            {secondaryLabel != null && (
-              <Text
-                styles={{ mt: 2, mb: -1, color: 'neutral.2', fontSize: -1 }}
-              >
-                {secondaryLabel}
-              </Text>
-            )}
-            <Heading
-              styles={{ mt: secondaryLabel == null ? 1.5 : 1 }}
-              id={headingId}
-              level={3}
-            >
-              {label}
-            </Heading>
-          </Flex>
+          <DialogHeadingWrapper closable={!!onClose}>
+            {secondaryLabel != null ? (
+              <DialogSubHeading>{secondaryLabel}</DialogSubHeading>
+            ) : null}
+            <DialogHeading id={headingId}>{label}</DialogHeading>
+          </DialogHeadingWrapper>
           {onClose ? (
-            <Flex
-              styles={{
-                alignItems: 'flex-start',
-                position: 'absolute',
-                right: 0,
-                top: 0,
-              }}
-            >
-              <CloseButton
+            <DialogCloseButtonWrapper>
+              <DialogCloseButton
                 aria-label={closeButtonLabel}
                 onClick={onClose}
                 ref={closeButtonRef}
-                styles={{ fontSize: 1, mx: 2, my: 2 }}
               />
-            </Flex>
+            </DialogCloseButtonWrapper>
           ) : null}
         </Flex>
         <DialogContent styles={contentStyles}>{children}</DialogContent>

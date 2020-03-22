@@ -10,7 +10,7 @@ import { Text } from './Text';
 
 const DividerLine = createComponent('div', {
   displayName: 'DividerLine',
-  defaultStyles: props => ({
+  styles: props => ({
     borderWidth: 0,
     display: 'block',
     borderColor: 'currentColor',
@@ -26,7 +26,7 @@ const DividerLine = createComponent('div', {
 
 const DividerBase = createComponent('div', {
   displayName: 'Divider',
-  defaultStyles: props => ({
+  styles: props => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
@@ -39,7 +39,7 @@ const DividerBase = createComponent('div', {
 
 const DividerLabel = createComponent(Text, {
   displayName: 'DividerLabel',
-  defaultStyles: props => (props.vertical ? { py: 1 } : { px: 1 }),
+  styles: props => (props.vertical ? { py: 1 } : { px: 1 }),
   variants: [booleanVariant('vertical', true)],
 });
 
@@ -50,41 +50,43 @@ interface DividerProps extends ExtractVisageComponentProps<typeof DividerBase> {
   vertical?: boolean;
 }
 
-export const Divider: VisageComponent<DividerProps> = forwardRef(
-  (
-    { label, labelProps, lineProps, vertical, ...restProps }: DividerProps,
-    ref,
-  ) => {
-    // if label is provided, split horizontal line to 2 elements
-    if (!label) {
+export const Divider: VisageComponent<DividerProps> = React.memo(
+  forwardRef(
+    (
+      { label, labelProps, lineProps, vertical, ...restProps }: DividerProps,
+      ref,
+    ) => {
+      // if label is provided, split horizontal line to 2 elements
+      if (!label) {
+        return (
+          <DividerBase
+            {...restProps}
+            ref={ref as any}
+            role="separator"
+            vertical={vertical}
+          >
+            <DividerLine {...lineProps} vertical={vertical} />
+          </DividerBase>
+        );
+      }
+
       return (
         <DividerBase
           {...restProps}
-          ref={ref as any}
+          aria-label={label}
           role="separator"
+          ref={ref as any}
           vertical={vertical}
         >
           <DividerLine {...lineProps} vertical={vertical} />
+          <DividerLabel {...labelProps} role="presentation" vertical={vertical}>
+            {label}
+          </DividerLabel>
+          <DividerLine {...lineProps} vertical={vertical} />
         </DividerBase>
       );
-    }
-
-    return (
-      <DividerBase
-        {...restProps}
-        aria-label={label}
-        role="separator"
-        ref={ref as any}
-        vertical={vertical}
-      >
-        <DividerLine {...lineProps} vertical={vertical} />
-        <DividerLabel {...labelProps} role="presentation" vertical={vertical}>
-          {label}
-        </DividerLabel>
-        <DividerLine {...lineProps} vertical={vertical} />
-      </DividerBase>
-    );
-  },
+    },
+  ),
 ) as any;
 
 markAsVisageComponent(Divider);

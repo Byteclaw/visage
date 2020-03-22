@@ -25,7 +25,7 @@ import {
 
 const ToggleContainer = createComponent('div', {
   displayName: 'ToggleContainer',
-  defaultStyles: {
+  styles: {
     overflowX: 'hidden',
     overflowY: 'visible',
     borderRadius: 999,
@@ -46,7 +46,7 @@ const ToggleContainer = createComponent('div', {
 
 const ToggleControl = createComponent('input', {
   displayName: 'ToggleControl',
-  defaultStyles: {
+  styles: {
     ...visuallyHiddenStyles,
     '&:checked + div > div': {
       transform: 'translateX(calc(100% - 1.25em - 0px))',
@@ -100,7 +100,7 @@ const ToggleControl = createComponent('input', {
 
 const Toggler = createComponent('div', {
   displayName: 'Toggler',
-  defaultStyles: {
+  styles: {
     fontSize: 'inherit',
     display: 'inline-block',
     top: 0,
@@ -116,7 +116,7 @@ const Toggler = createComponent('div', {
 
 const ToggleLabelText = createComponent('span', {
   displayName: 'ToggleLabelText',
-  defaultStyles: props => ({
+  styles: props => ({
     fontSize: 'inherit',
     lineHeight: 'inherit',
     position: 'relative',
@@ -130,7 +130,7 @@ const ToggleLabelText = createComponent('span', {
 
 const ToggleLabel = createComponent('label', {
   displayName: 'ToggleLabel',
-  defaultStyles: props => ({
+  styles: props => ({
     alignItems: 'center',
     cursor: 'pointer',
     display: 'flex',

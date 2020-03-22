@@ -22,7 +22,7 @@ import { useFocusTrap } from '../hooks';
 
 const Backdrop = createComponent('div', {
   displayName: 'ModalBackdrop',
-  defaultStyles: {
+  styles: {
     position: 'fixed',
     top: 0,
     left: 0,
@@ -34,7 +34,7 @@ const Backdrop = createComponent('div', {
 
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
-  defaultStyles: props => ({
+  styles: props => ({
     alignItems: 'flex-start',
     display: 'flex',
     justifyContent: 'center',

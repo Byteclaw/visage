@@ -74,7 +74,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
 
 const BannerBase = createComponent(Flex, {
   displayName: 'Banner',
-  defaultStyles: props => ({
+  styles: props => ({
     borderColor: 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -124,7 +124,7 @@ const ribbonVariantStyles: { [key: string]: EmotionStyleSheet } = {
 
 const BannerRibbon = createComponent('div', {
   displayName: 'BannerRibbon',
-  defaultStyles: props => ({
+  styles: props => ({
     fontSize: 1,
     mr: 2,
     ...(ribbonVariantStyles[props.status || 'default'] ||
@@ -141,15 +141,48 @@ const BannerRibbon = createComponent('div', {
   ],
 });
 
-export const Banner: VisageComponent<ExtractVisageComponentProps<
-  typeof BannerBase
-> & {
+const BannerContent = createComponent(Box, {
+  displayName: 'BannerContent',
+  styles: {
+    width: '100%',
+  },
+});
+
+const BannerHeading = createComponent(Heading, {
+  displayName: 'BannerHeading',
+  defaultProps: {
+    // @ts-ignore
+    as: 'h5',
+    level: 5,
+  },
+  styles: {
+    fontSize: 1,
+    fontWeight: 500,
+    lineHeight: 1,
+    mt: 0,
+    mb: 1,
+    pt: 0,
+  },
+});
+
+const BannerCloseButtonWrapper = createComponent(Box, {
+  displayName: 'BannerCloseButtonWrapper',
+  styles: {
+    mr: -1,
+    mt: -1,
+  },
+});
+
+interface BannerProps
+  extends Omit<ExtractVisageComponentProps<typeof BannerBase>, 'title'> {
   children: ReactNode;
   dismissLabel?: string;
   icon?: ReactNode;
   onDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
   title?: ReactNode;
-}> = ({
+}
+
+export const Banner: VisageComponent<BannerProps> = ({
   children,
   dismissLabel = 'Dismiss notification',
   icon,
@@ -157,7 +190,7 @@ export const Banner: VisageComponent<ExtractVisageComponentProps<
   onDismiss,
   title,
   ...restProps
-}: any) => {
+}: BannerProps) => {
   return (
     <BannerBase
       aria-live="polite"
@@ -179,29 +212,14 @@ export const Banner: VisageComponent<ExtractVisageComponentProps<
           />
         )}
       </BannerRibbon>
-      <Box styles={{ width: '100%' }}>
-        {title != null ? (
-          <Heading
-            as="h5"
-            level={5}
-            styles={{
-              fontSize: 1,
-              fontWeight: 500,
-              lineHeight: 1,
-              mt: 0,
-              mb: 1,
-              pt: 0,
-            }}
-          >
-            {title}
-          </Heading>
-        ) : null}
+      <BannerContent>
+        {title != null ? <BannerHeading>{title}</BannerHeading> : null}
         {children}
-      </Box>
+      </BannerContent>
       {onDismiss ? (
-        <Box styles={{ mr: -1, mt: -1 }}>
+        <BannerCloseButtonWrapper>
           <CloseButton aria-label={dismissLabel} onClick={onDismiss} />
-        </Box>
+        </BannerCloseButtonWrapper>
       ) : null}
     </BannerBase>
   );

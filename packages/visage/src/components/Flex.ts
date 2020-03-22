@@ -2,7 +2,7 @@ import { createComponent } from '../core';
 
 export const Flex = createComponent('div', {
   displayName: 'Flex',
-  defaultStyles: {
+  styles: {
     display: 'flex',
   },
 });

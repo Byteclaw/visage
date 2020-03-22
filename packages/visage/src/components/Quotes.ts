@@ -11,7 +11,7 @@ export const BlockquoteStyles: EmotionStyleSheet = {
 
 export const Blockquote = createComponent('blockquote', {
   displayName: 'Blockquote',
-  defaultStyles: BlockquoteStyles,
+  styles: BlockquoteStyles,
 });
 
 /**
@@ -23,7 +23,7 @@ export const CiteStyles: EmotionStyleSheet = {
 
 export const Cite = createComponent('cite', {
   displayName: 'Cite',
-  defaultStyles: CiteStyles,
+  styles: CiteStyles,
 });
 
 /**
@@ -35,5 +35,5 @@ export const QuoteStyles: EmotionStyleSheet = {
 
 export const Quote = createComponent('q', {
   displayName: 'Quote',
-  defaultStyles: QuoteStyles,
+  styles: QuoteStyles,
 });

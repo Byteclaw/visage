@@ -16,7 +16,6 @@ export * from './Divider';
 export * from './Drawer';
 export * from './FieldSet';
 export * from './FileInput';
-export * from './Fixed';
 export * from './Flex';
 export * from './FormField';
 export * from './Grid';

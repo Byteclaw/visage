@@ -14,5 +14,5 @@ export const LinkStyles: EmotionStyleSheet = {
 
 export const Link = createComponent('a', {
   displayName: 'Link',
-  defaultStyles: LinkStyles,
+  styles: LinkStyles,
 });

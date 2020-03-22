@@ -3,7 +3,7 @@ import { booleanVariant } from '../variants';
 
 export const DataTable = createComponent('table', {
   displayName: 'DataTable',
-  defaultStyles: {
+  styles: {
     borderSpacing: 0,
     width: '100%',
     '& th, td': {
@@ -18,7 +18,7 @@ export const DataTableHeader = createComponent('thead', {
 
 export const DataTableHeaderColumn = createComponent('th', {
   displayName: 'DataTableHeaderColumn',
-  defaultStyles: props => ({
+  styles: props => ({
     borderColor: 'neutral',
     borderStyle: 'solid',
     borderWidth: 0,
@@ -58,7 +58,7 @@ export const DataTableBody = createComponent('tbody', {
 
 export const DataTableRow = createComponent('tr', {
   displayName: 'DataTableRow',
-  defaultStyles: {
+  styles: {
     '&:hover td': {
       backgroundColor: 'neutral',
     },
@@ -67,7 +67,7 @@ export const DataTableRow = createComponent('tr', {
 
 export const DataTableColumn = createComponent('td', {
   displayName: 'DataTableColumn',
-  defaultStyles: props => ({
+  styles: props => ({
     p: 1,
     textAlign: 'left',
     ...(props.numeric ? { textAlign: 'right' } : {}),

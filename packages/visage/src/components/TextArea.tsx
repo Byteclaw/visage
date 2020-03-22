@@ -21,7 +21,7 @@ import { TextInputBaseStyles } from './TextInput';
 
 const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
-  defaultStyles: props => ({
+  styles: props => ({
     ...TextInputBaseStyles,
     m: 0,
     resize: 'none',
@@ -39,7 +39,7 @@ const TextAreaBaseControl = createComponent('textarea', {
 
 const TextAreaBase = createComponent('div', {
   displayName: 'TextAreaBase',
-  defaultStyles: {
+  styles: {
     display: 'flex',
     position: 'relative',
   },

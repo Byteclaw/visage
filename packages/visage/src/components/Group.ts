@@ -2,7 +2,7 @@ import { createComponent } from '../core';
 
 export const Group = createComponent('div', {
   displayName: 'Group',
-  defaultStyles: {
+  styles: {
     display: 'inline-flex',
     flexDirection: 'row',
     verticalAlign: 'middle',

@@ -18,7 +18,7 @@ export const ParagraphStyles: EmotionStyleSheet = {
 
 export const Paragraph = createComponent('p', {
   displayName: 'Paragraph',
-  defaultStyles: ParagraphStyles,
+  styles: ParagraphStyles,
 });
 
 interface ParagraphSkeletonProps {
@@ -42,7 +42,7 @@ export const ParagraphSkeleton = createComponent(
   },
   {
     displayName: 'ParagraphSkeleton',
-    defaultStyles: {
+    styles: {
       ...ParagraphStyles,
       backfaceVisibility: 'hidden',
       willChange: 'opacity',

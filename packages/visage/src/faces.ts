@@ -6,12 +6,18 @@ export interface VisageFaces {
   // Banner.tsx
   Banner?: EmotionStyleSheet;
   // Banner.tsx
+  BannerCloseButtonWrapper?: EmotionStyleSheet;
+  // Banner.tsx
+  BannerContent?: EmotionStyleSheet;
+  // Banner.tsx
+  BannerHeading?: EmotionStyleSheet;
+  // Banner.tsx
   BannerRibbon?: EmotionStyleSheet;
   // Quotes.ts
   Blockquote?: EmotionStyleSheet;
-  // Box.ts
+  // Box.tsx
   Box?: EmotionStyleSheet;
-  // Box.ts
+  // Box.tsx
   BoxSkeleton?: EmotionStyleSheet;
   // Button.ts
   Button?: EmotionStyleSheet;
@@ -31,6 +37,8 @@ export interface VisageFaces {
   CheckboxToggler?: EmotionStyleSheet;
   // Chip.tsx
   Chip?: EmotionStyleSheet;
+  // Chip.tsx
+  ChipDeleteButton?: EmotionStyleSheet;
   // Quotes.ts
   Cite?: EmotionStyleSheet;
   // CloseButton.tsx
@@ -72,7 +80,17 @@ export interface VisageFaces {
   // Dialog.tsx
   Dialog?: EmotionStyleSheet;
   // Dialog.tsx
+  DialogCloseButton?: EmotionStyleSheet;
+  // Dialog.tsx
+  DialogCloseButtonWrapper?: EmotionStyleSheet;
+  // Dialog.tsx
   DialogContent?: EmotionStyleSheet;
+  // Dialog.tsx
+  DialogHeading?: EmotionStyleSheet;
+  // Dialog.tsx
+  DialogHeadingWrapper?: EmotionStyleSheet;
+  // Dialog.tsx
+  DialogSubHeading?: EmotionStyleSheet;
   // Divider.tsx
   Divider?: EmotionStyleSheet;
   // Divider.tsx
@@ -97,10 +115,10 @@ export interface VisageFaces {
   FileInputControl?: EmotionStyleSheet;
   // FileInput.tsx
   FileInputControlBase?: EmotionStyleSheet;
-  // Fixed.ts
-  Fixed?: EmotionStyleSheet;
   // Flex.ts
   Flex?: EmotionStyleSheet;
+  // FormField.tsx
+  FormFieldWrapper?: EmotionStyleSheet;
   // Grid.ts
   Grid?: EmotionStyleSheet;
   // Group.ts
@@ -111,6 +129,10 @@ export interface VisageFaces {
   ImageContainer?: EmotionStyleSheet;
   // Image.tsx
   Img?: EmotionStyleSheet;
+  // InlineError.tsx
+  InlineError?: EmotionStyleSheet;
+  // InlineError.tsx
+  InlineErrorIcon?: EmotionStyleSheet;
   // TextInput.tsx
   InputExtraElement?: EmotionStyleSheet;
   // Label.tsx
@@ -142,7 +164,7 @@ export interface VisageFaces {
   // Pagination.tsx
   NextPageButton?: EmotionStyleSheet;
   // Overlay.tsx
-  OverlayDiv?: EmotionStyleSheet;
+  Overlay?: EmotionStyleSheet;
   // Pagination.tsx
   Pagination?: EmotionStyleSheet;
   // Paragraph.tsx
@@ -171,6 +193,12 @@ export interface VisageFaces {
   RadioToggler?: EmotionStyleSheet;
   // Layout.ts
   Row?: EmotionStyleSheet;
+  // Slider.tsx
+  SliderThumb?: EmotionStyleSheet;
+  // Slider.tsx
+  SliderTrack?: EmotionStyleSheet;
+  // Slider.tsx
+  SliderTrackProgress?: EmotionStyleSheet;
   // Text.tsx
   SmallText?: EmotionStyleSheet;
   // Spinner.tsx
@@ -189,6 +217,8 @@ export interface VisageFaces {
   TabList?: EmotionStyleSheet;
   // Tabs.tsx
   TabNavigatonButton?: EmotionStyleSheet;
+  // Tabs.tsx
+  Tabs?: EmotionStyleSheet;
   // Text.tsx
   Text?: EmotionStyleSheet;
   // TextArea.tsx
