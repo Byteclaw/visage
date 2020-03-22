@@ -1,9 +1,8 @@
 import { RenderOptions, render as baseRender } from '@testing-library/react';
 import React, { CSSProperties, ReactNode } from 'react';
 import {
-  createComponent as baseCreateComponent,
+  createComponent,
   createTheme,
-  ComponentFactory,
   DesignSystem as BaseDesignSystem,
 } from '..';
 import { resolveStyleSheets } from '../styleSheet';
@@ -13,7 +12,7 @@ export interface StylingProps {
   styles?: CSSProperties;
 }
 
-export const createComponent: ComponentFactory<CSSProperties> = baseCreateComponent;
+export { createComponent };
 
 const theme = createTheme({
   theme: {} as any,
