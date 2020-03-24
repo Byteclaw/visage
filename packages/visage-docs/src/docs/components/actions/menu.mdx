@@ -85,10 +85,10 @@ Make sure you handle `Escape` key press.
         aria-haspopup="menu"
         aria-expanded={anchorEl != null}
         onClick={e => {
-          setAnchorEl(e.currentTarget);
+          setAnchorEl(anchorEl ? null : e.currentTarget);
         }}
       >
-        Pop me
+        {anchorEl ? 'Close' : 'Pop up'}
       </Button>
       <Menu
         disableEvents

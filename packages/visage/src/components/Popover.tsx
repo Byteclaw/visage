@@ -1,10 +1,10 @@
-import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
   ReactNode,
   RefObject,
-  KeyboardEvent,
-  MouseEvent,
+  useCallback,
+  useEffect,
   useMemo,
+  useRef,
 } from 'react';
 import {
   StyleProps as VisageStyleProps,
@@ -22,7 +22,11 @@ import {
   TransformVerticalPosition,
 } from './shared';
 import { Modal } from './Modal';
-import { useDebouncedCallback } from '../hooks';
+import {
+  useAutofocusOnMount,
+  useDebouncedCallback,
+  useUniqueId,
+} from '../hooks';
 import { useLayerManager } from './LayerManager';
 
 function getAnchorNode(
@@ -54,6 +58,8 @@ interface PopoverProps extends VisageStyleProps {
   anchorOrigin?: TransformOriginSettings;
   anchorPosition?: { top: number; left: number };
   anchorReference?: 'anchor' | 'anchorPosition' | 'none';
+  disableOnEscapeClose?: boolean;
+  disableOnClickAwayClose?: boolean;
   autoFocus?: boolean;
   backdrop?: boolean;
   children: ReactNode;
@@ -65,7 +71,7 @@ interface PopoverProps extends VisageStyleProps {
   id?: string;
   keepAnchorWidth?: boolean;
   marginThreshold?: number;
-  onClose?: (e: KeyboardEvent | MouseEvent) => void;
+  onClose?: () => void;
   open: boolean;
   placement?:
     | 'top'
@@ -100,6 +106,9 @@ function getWindowScrollX() {
 export function Popover({
   allowScrolling = false,
   alwaysVisible = false,
+  /**
+   * Should the content be automatically focused? Default is true
+   */
   autoFocus = true,
   children,
   anchor,
@@ -107,6 +116,8 @@ export function Popover({
   anchorPosition,
   anchorReference = 'anchor',
   backdrop = true,
+  disableOnClickAwayClose,
+  disableOnEscapeClose,
   fullscreen = false,
   id: outerId,
   keepAnchorWidth = false,
@@ -118,10 +129,7 @@ export function Popover({
   ...restProps
 }: PopoverProps) {
   const { breakpoint } = useDesignSystem();
-  const idTemplate = useUniqueId();
-  const id = useMemo(() => {
-    return outerId || `popover-${idTemplate}`;
-  }, [idTemplate, outerId]);
+  const id = useUniqueId(outerId, 'popover');
   const isFullscreen = useMemo(() => {
     if (!fullscreen) {
       return false;
@@ -130,11 +138,11 @@ export function Popover({
     return getResponsiveValue(breakpoint, fullscreen);
   }, [fullscreen, breakpoint]);
 
-  const contentRef = React.useRef<HTMLDivElement | null>(null);
-  const handleResizeRef = React.useRef(() => {});
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const handleResizeRef = useRef(() => {});
   const { zIndex } = useLayerManager();
 
-  const getAnchorOffset = React.useCallback(
+  const getAnchorOffset = useCallback(
     (
       contentAnchorOffset: number,
     ): {
@@ -176,7 +184,7 @@ export function Popover({
     ],
   );
 
-  const getTransformOrigin = React.useCallback(
+  const getTransformOrigin = useCallback(
     (
       elemRect: ElementRect,
       contentAnchorOffset: number = 0,
@@ -191,7 +199,7 @@ export function Popover({
     [transformOrigin.horizontal, transformOrigin.vertical],
   );
 
-  const getPositioningStyle = React.useCallback(
+  const getPositioningStyle = useCallback(
     (
       element: HTMLElement,
     ): {
@@ -325,7 +333,7 @@ export function Popover({
     ],
   );
 
-  const setPositioningStyles = React.useCallback(
+  const setPositioningStyles = useCallback(
     (element: HTMLElement) => {
       const positioning = getPositioningStyle(element);
 
@@ -362,7 +370,7 @@ export function Popover({
 
   const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 25, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open && contentRef.current) {
       const el = contentRef.current;
 
@@ -377,16 +385,13 @@ export function Popover({
     };
   }, [open, contentRef.current, children, setPositioningStyles]);
 
-  // focus popover content on mount
-  React.useEffect(() => {
-    if (contentRef.current && open && autoFocus) {
-      contentRef.current.focus();
-    }
-  }, [open, contentRef.current, autoFocus]);
+  useAutofocusOnMount(autoFocus && open ? contentRef : undefined);
 
   return (
     <Modal
-      backdrop={open && backdrop}
+      backdrop={backdrop}
+      disableOnEscapeClose={disableOnEscapeClose}
+      disableOnClickAwayClose={disableOnClickAwayClose}
       unlockBodyScroll={allowScrolling}
       fixed={false}
       id={id}
