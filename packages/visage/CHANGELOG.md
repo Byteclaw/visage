@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.19.0 (2020-03-24)
+
+* refactor: hoist styles ([faa38a5](https://github.com/Byteclaw/visage/commit/faa38a5))
+* refactor: remove createComponent type factory ([6a40539](https://github.com/Byteclaw/visage/commit/6a40539))
+* feat(visage): allow to extend global styles by faces ([b118a6a](https://github.com/Byteclaw/visage/commit/b118a6a))
+* fix(visage): make Pagination use nav ([5941125](https://github.com/Byteclaw/visage/commit/5941125))
+
+
+
+
+
 ## 0.18.0 (2020-03-19)
 
 * feat(visage): add default box-shadow to Drawer component ([523996c](https://github.com/Byteclaw/visage/commit/523996c))

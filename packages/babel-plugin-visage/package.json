@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/babel-plugin-visage",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A recommended babel preprocessing plugin for @byteclaw/visage design system. Hoists styles props from React JSX components.",
   "source": "src/index.ts",
   "types": "dist/index.d.ts",
@@ -30,7 +30,6 @@
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.8.3"
   },
-  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },

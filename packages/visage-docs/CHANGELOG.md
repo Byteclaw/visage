@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 0.14.0 (2020-03-24)
+
+* feat(visage): allow to extend global styles by faces ([b118a6a](https://github.com/Byteclaw/visage/commit/b118a6a))
+* docs: compile babel plugin before docs start ([f6cf1c8](https://github.com/Byteclaw/visage/commit/f6cf1c8))
+* docs: use visage babel plugin ([afeb020](https://github.com/Byteclaw/visage/commit/afeb020))
+* docs(visage): move faces to the theme ([52e0d2a](https://github.com/Byteclaw/visage/commit/52e0d2a))
+
+
+
+
+
 ## <small>0.13.2 (2020-03-19)</small>
 
 * docs(visage/docs): add size variant examples ([48b1f60](https://github.com/Byteclaw/visage/commit/48b1f60))

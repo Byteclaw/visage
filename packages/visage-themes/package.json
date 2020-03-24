@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage-themes",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Collection of themes for Visage Design System",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -32,7 +32,7 @@
     "dist"
   ],
   "dependencies": {
-    "@byteclaw/visage-core": "^0.6.1",
+    "@byteclaw/visage-core": "^0.6.2",
     "@byteclaw/visage-utils": "^0.3.0",
     "@types/color": "^3.0.1",
     "@types/modular-scale": "^5.1.1",
@@ -43,7 +43,7 @@
     "@byteclaw/visage": "^0.10.4"
   },
   "devDependencies": {
-    "@byteclaw/visage": "^0.18.0"
+    "@byteclaw/visage": "^0.19.0"
   },
   "scripts": {
     "build": "rimraf dist && microbundle --jsx React.createElement",

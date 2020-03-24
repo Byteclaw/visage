@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## <small>0.6.2 (2020-03-24)</small>
+
+* test(visage/core): remove component factory ([b22a706](https://github.com/Byteclaw/visage/commit/b22a706))
+* refactor: remove createComponent type factory ([6a40539](https://github.com/Byteclaw/visage/commit/6a40539))
+
+
+
+
+
 ## <small>0.6.1 (2020-03-19)</small>
 
 * fix(visage): use resolver from context to get Slider colors ([9a90d40](https://github.com/Byteclaw/visage/commit/9a90d40))
