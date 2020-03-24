@@ -6,8 +6,6 @@ import {
 import React, {
   Children,
   cloneElement,
-  MouseEvent,
-  KeyboardEvent,
   useCallback,
   useEffect,
   useRef,
@@ -54,7 +52,7 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
    */
   disableEvents?: boolean;
   keepAnchorWidth?: boolean;
-  onClose?: (e: KeyboardEvent | MouseEvent) => void;
+  onClose?: () => void;
   open: boolean;
   popoverProps?: OmittableProps<ExtractVisageComponentProps<typeof Popover>>;
 }
@@ -140,13 +138,6 @@ export function Menu({
               focusableElement.focus();
             }
           }
-
-          return;
-        }
-        case 'Escape': {
-          if (onClose) {
-            onClose(e);
-          }
         }
       }
     },
@@ -177,6 +168,8 @@ export function Menu({
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={false}
+      disableOnClickAwayClose={disableEvents}
+      disableOnEscapeClose={disableEvents}
       backdrop
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}

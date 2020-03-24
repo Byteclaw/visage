@@ -1,14 +1,7 @@
-import { useUniqueId } from '@byteclaw/use-unique-id';
-import React, {
-  ReactElement,
-  ReactNode,
-  useRef,
-  MouseEvent,
-  KeyboardEvent,
-  useMemo,
-} from 'react';
+import React, { ReactElement, ReactNode, useRef } from 'react';
 import { createComponent } from '../core';
 import { EmotionStyleSheet } from '../types';
+import { useUniqueId } from '../hooks';
 import { booleanVariant, variant } from '../variants';
 import { Box } from './Box';
 import { Flex } from './Flex';
@@ -20,6 +13,7 @@ import { Text } from './Text';
 const DialogBase = createComponent(Flex, {
   displayName: 'Dialog',
   styles: props => ({
+    boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'lightShades',
@@ -111,7 +105,7 @@ interface DialogProps {
    * Unique id of the dialog
    */
   id?: string;
-  onClose?: (e: KeyboardEvent | MouseEvent) => void;
+  onClose?: () => void;
   /**
    * Accessibility role, use alert dialog if you need user's interaction
    * Default is dialog (you don't need users immediate action)
@@ -133,10 +127,7 @@ export function Dialog({
   scroll = 'content',
   secondaryLabel,
 }: DialogProps) {
-  const idTemplate = useUniqueId();
-  const id = useMemo(() => {
-    return outerId || `dialog-${idTemplate}`;
-  }, [outerId, idTemplate]);
+  const id = useUniqueId(outerId, 'dialog');
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const headingId = `dialog-${id}-heading`;

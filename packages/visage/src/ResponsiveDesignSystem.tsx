@@ -10,6 +10,7 @@ import {
   StyleGenerator,
 } from '@byteclaw/visage-core';
 import React, { ReactNode, useState } from 'react';
+import { CloseListenerManager } from './CloseListenerManager';
 import { useBreakpointDetection } from './hooks';
 import { globalComponentStyles, GlobalReset } from './GlobalReset';
 import { GlobalStyles } from './GlobalStyles';
@@ -66,18 +67,20 @@ export function ResponsiveDesignSystem({
       styleGenerator={styleGenerator}
       theme={theme}
     >
-      <UniqueIdContextProvider id={idContextValue}>
-        <LayerManager increaseBy={defaultZIndex}>
-          <GlobalReset />
-          {disableGlobalStyles ? null : (
-            <GlobalStyles styles={globalComponentStyles} />
-          )}
-          <EventEmitterContext.Provider value={toastEventEmitter}>
-            <ToastManager />
-            {children}
-          </EventEmitterContext.Provider>
-        </LayerManager>
-      </UniqueIdContextProvider>
+      <CloseListenerManager>
+        <UniqueIdContextProvider id={idContextValue}>
+          <LayerManager increaseBy={defaultZIndex}>
+            <GlobalReset />
+            {disableGlobalStyles ? null : (
+              <GlobalStyles styles={globalComponentStyles} />
+            )}
+            <EventEmitterContext.Provider value={toastEventEmitter}>
+              <ToastManager />
+              {children}
+            </EventEmitterContext.Provider>
+          </LayerManager>
+        </UniqueIdContextProvider>
+      </CloseListenerManager>
     </BaseDesignSystem>
   );
 }

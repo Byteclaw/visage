@@ -9,6 +9,7 @@ import {
   StyleGenerator,
 } from '@byteclaw/visage-core';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
+import { CloseListenerManager } from './CloseListenerManager';
 import { createEmotionStyleGenerator } from './emotionStyleGenerator';
 import { globalComponentStyles, GlobalReset } from './GlobalReset';
 import { GlobalStyles } from './GlobalStyles';
@@ -46,18 +47,20 @@ export const DesignSystem: FunctionComponent<DesignSystemProps> = ({
 
   return (
     <BaseDesignSystem is={is} styleGenerator={styleGenerator} theme={theme}>
-      <UniqueIdContextProvider id={idContextValue}>
-        <LayerManager increaseBy={defaultZIndex}>
-          <GlobalReset />
-          {disableGlobalStyles ? null : (
-            <GlobalStyles styles={globalComponentStyles} />
-          )}
-          <EventEmitterContext.Provider value={toastEventEmitter}>
-            <ToastManager />
-            {children}
-          </EventEmitterContext.Provider>
-        </LayerManager>
-      </UniqueIdContextProvider>
+      <CloseListenerManager>
+        <UniqueIdContextProvider id={idContextValue}>
+          <LayerManager increaseBy={defaultZIndex}>
+            <GlobalReset />
+            {disableGlobalStyles ? null : (
+              <GlobalStyles styles={globalComponentStyles} />
+            )}
+            <EventEmitterContext.Provider value={toastEventEmitter}>
+              <ToastManager />
+              {children}
+            </EventEmitterContext.Provider>
+          </LayerManager>
+        </UniqueIdContextProvider>
+      </CloseListenerManager>
     </BaseDesignSystem>
   );
 };

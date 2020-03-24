@@ -1,36 +1,26 @@
-import { useUniqueId } from '@byteclaw/use-unique-id';
-import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import React, {
   ReactNode,
   useRef,
-  MouseEvent,
-  KeyboardEvent,
   MutableRefObject,
+  useContext,
   useEffect,
-  useMemo,
+  RefObject,
 } from 'react';
-import {
-  clearAllBodyScrollLocks,
-  disableBodyScroll,
-  enableBodyScroll,
-} from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
-import { useFocusTrap } from '../hooks';
-
-const Backdrop = createComponent('div', {
-  displayName: 'ModalBackdrop',
-  styles: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    height: '100vh',
-    width: '100vw',
-    zIndex: 0,
-  },
-});
+import {
+  useAutofocusOnMount,
+  useFocusTrap,
+  useStaticEffect,
+  useUniqueId,
+} from '../hooks';
+import {
+  CloseListenerManagerContext,
+  CloseListenerManagerContextAPI,
+} from '../CloseListenerManager';
 
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
@@ -58,41 +48,39 @@ const BaseModal = createComponent('div', {
   ],
 });
 
-function createCloseOnEscapeKeyDownHandler(
-  onClose?: (e: KeyboardEvent) => void,
+function bindOnCloseListeners(
+  open: boolean,
+  closeListenerManagerContext: CloseListenerManagerContextAPI,
+  modalRef: RefObject<HTMLElement>,
+  isFullscreen: boolean,
+  onClose: undefined | (() => void),
+  disableOnEscapeClose: boolean = false,
+  disableOnClickAwayClose: boolean = false,
 ) {
-  return (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && onClose) {
-      onClose(e);
-    }
-  };
-}
+  if (!onClose || !open) {
+    return;
+  }
 
-function createCloseOnClickAwayHandler(
-  contentRef: undefined | React.RefObject<HTMLElement | null>,
-  modalRef: React.RefObject<HTMLElement>,
-  backdropRef: React.RefObject<HTMLElement>,
-  onClose?: (e: MouseEvent) => void,
-) {
-  return (e: MouseEvent) => {
-    if (
-      onClose &&
-      ((contentRef &&
-        contentRef.current !== e.currentTarget &&
-        e.currentTarget === e.target) ||
-        (contentRef == null &&
-          (e.target === modalRef.current || e.target === backdropRef.current)))
-    ) {
-      e.stopPropagation();
-      onClose(e);
-    }
+  const unregisterClickAway = disableOnClickAwayClose
+    ? () => {}
+    : closeListenerManagerContext.registerClickAwayListener(
+        modalRef,
+        onClose,
+        isFullscreen,
+      );
+  const unregisterEscapeKeyDown = disableOnEscapeClose
+    ? () => {}
+    : closeListenerManagerContext.registerEscapeKeyDownListener(onClose);
+
+  return () => {
+    unregisterClickAway();
+    unregisterEscapeKeyDown();
   };
 }
 
 interface ModalProps {
   /**
-   * Backdrop allows onClose to work with click away
-   * If modal is not fixed, then backdrop is not visible (overlay)
+   * Backdrop enables visible background overlay
    */
   backdrop?: boolean;
   /**
@@ -100,16 +88,21 @@ interface ModalProps {
    * so contentRef should be a ref to the div
    */
   contentRef?: MutableRefObject<HTMLElement | null>;
-  fixed?: boolean;
+  disableOnClickAwayClose?: boolean;
+  disableOnEscapeClose?: boolean;
   children?: ReactNode;
+  /**
+   * Render modal content as position: fixed
+   */
+  fixed?: boolean;
   /** Close button label (default close modal) */
   /**
    * Unique id of the modal
    */
   id?: string;
-  onClose?: (e: KeyboardEvent | MouseEvent) => void;
+  onClose?: () => void;
   /**
-   * Is scrolling for really big modal enabled?
+   * When content overflows screen height should we scroll the modal content?
    */
   scrollable?: boolean;
   /**
@@ -133,6 +126,8 @@ interface ModalProps {
  * Works as a focus trap
  */
 export function Modal({
+  disableOnClickAwayClose,
+  disableOnEscapeClose,
   unlockBodyScroll = false,
   backdrop = true,
   contentRef,
@@ -144,77 +139,48 @@ export function Modal({
   focusElementRef,
   scrollable = false,
 }: ModalProps) {
-  const idTemplate = useUniqueId();
-  const id = useMemo(() => {
-    return outerId || `modal-${idTemplate}`;
-  }, [outerId, idTemplate]);
+  const id = useUniqueId(outerId, 'modal-portal');
   const modalRef = useRef<HTMLDivElement>(null);
-  const backdropRef = useRef<HTMLDivElement>(null);
+  const closeListenerManagerContext = useContext(CloseListenerManagerContext);
   const { zIndex } = useLayerManager();
-  const onClickAwayHandler = useStaticCallbackCreator(
-    createCloseOnClickAwayHandler,
-    [contentRef, modalRef, backdropRef, onClose],
+
+  useFocusTrap(contentRef || modalRef, focusElementRef);
+  useAutofocusOnMount(focusElementRef);
+  useStaticEffect(
+    bindOnCloseListeners,
+    open,
+    closeListenerManagerContext,
+    contentRef || modalRef,
+    backdrop,
+    onClose,
+    disableOnClickAwayClose,
+    disableOnEscapeClose,
   );
-  const onEscKeyDownHandler = useStaticCallbackCreator(
-    createCloseOnEscapeKeyDownHandler,
-    [onClose],
-  );
-  const focusTrap = useFocusTrap(contentRef || modalRef, focusElementRef);
 
   useEffect(() => {
-    document.addEventListener('keydown', onEscKeyDownHandler as any);
+    const { current } = modalRef;
 
-    return () =>
-      document.removeEventListener('keydown', onEscKeyDownHandler as any);
-  }, [onEscKeyDownHandler]);
-
-  useEffect(() => {
-    if (modalRef.current != null) {
-      if (!unlockBodyScroll && open) {
-        disableBodyScroll(modalRef.current as HTMLElement);
-      } else {
-        enableBodyScroll(modalRef.current as HTMLElement);
-      }
+    if (!current || !open || unlockBodyScroll) {
+      return;
     }
+
+    disableBodyScroll(current);
+
     return () => {
-      clearAllBodyScrollLocks();
+      enableBodyScroll(current);
     };
   }, [unlockBodyScroll, open, modalRef.current]);
-
-  // focus returnFocusToElement ref's element
-  useEffect(() => {
-    if (focusElementRef && focusElementRef.current) {
-      focusElementRef.current.focus();
-    }
-  }, [focusElementRef]);
-
-  // focus trap
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('focus', focusTrap, true);
-
-      return () => {
-        document.removeEventListener('focus', focusTrap, true);
-      };
-    }
-  }, [focusTrap]);
 
   if (typeof document === 'undefined' || !open) {
     return null;
   }
 
   return (
-    <Portal containerId={`modal-portal-${id}`}>
+    <Portal containerId={id}>
       <LayerManager>
-        {backdrop && (
-          <Backdrop onClick={onClickAwayHandler} styles={{ zIndex }} />
-        )}
         <BaseModal
-          onClick={onClickAwayHandler}
           backdrop={backdrop}
           fixed={fixed}
-          onKeyDown={onEscKeyDownHandler}
           ref={modalRef}
           scrollable={scrollable}
           styles={{ zIndex: zIndex + 1 }}
