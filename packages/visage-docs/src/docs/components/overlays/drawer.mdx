@@ -37,8 +37,8 @@ Default drawer is rendered with `position: fixed`.
       >
         {Array(20)
           .fill(null)
-          .map(() => (
-            <ParagraphSkeleton />
+          .map((_, i) => (
+            <ParagraphSkeleton key={i} />
           ))}
       </Drawer>
     );
