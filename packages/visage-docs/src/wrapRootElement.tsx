@@ -3,7 +3,9 @@ import { MDXProvider } from '@mdx-js/react';
 import * as visage from '@byteclaw/visage';
 import React from 'react';
 import Helmet from 'react-helmet';
+// @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+// @ts-ignore
 import { ReactComponent } from './assets/link.svg';
 import { CodeBlock, DesignSystem, Layout } from './components';
 import { slugify } from './utils';
