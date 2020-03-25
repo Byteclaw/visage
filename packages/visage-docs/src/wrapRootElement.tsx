@@ -57,7 +57,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
                   <visage.SvgIcon
                     icon={ReactComponent}
                     styles={{
-                      fontSize: 3,
+                      fontSize: '70%',
                       lineHeight: 'inherit',
                       verticalAlign: 'top',
                     }}
