@@ -3,6 +3,8 @@ import { MDXProvider } from '@mdx-js/react';
 import * as visage from '@byteclaw/visage';
 import React from 'react';
 import Helmet from 'react-helmet';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { ReactComponent } from './assets/link.svg';
 import { CodeBlock, DesignSystem, Layout } from './components';
 import { slugify } from './utils';
 
@@ -22,20 +24,47 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
     .reduce(
       (acc, _, index) => ({
         ...acc,
-        [`h${index + 1}`]: ({ children, ...restProps }: any) => (
-          <visage.Heading
-            id={slugify(children)}
-            {...restProps}
-            level={index + 1}
-          >
-            <visage.Link
-              href={`#${slugify(children)}`}
-              styles={{ color: 'inherit', textDecoration: 'none' }}
+        [`h${index + 1}`]: ({ children, ...restProps }: any) => {
+          const slug = slugify(children);
+
+          return (
+            <CopyToClipboard
+              text={`${window.location.href
+                .replace(window.location.search, '')
+                .replace(window.location.hash, '')}#${slug}`}
             >
-              {children}
-            </visage.Link>
-          </visage.Heading>
-        ),
+              <visage.Heading
+                id={slug}
+                {...restProps}
+                level={index + 1}
+                styles={{
+                  cursor: 'pointer',
+                  '&:hover a': { display: 'inline' },
+                }}
+              >
+                {children}
+                <visage.Link
+                  href={`#${slug}`}
+                  styles={{
+                    color: 'inherit',
+                    ml: 2,
+                    display: 'none',
+                    textDecoration: 'none',
+                  }}
+                >
+                  <visage.SvgIcon
+                    icon={ReactComponent}
+                    styles={{
+                      fontSize: 3,
+                      lineHeight: 'inherit',
+                      verticalAlign: 'top',
+                    }}
+                  />
+                </visage.Link>
+              </visage.Heading>
+            </CopyToClipboard>
+          );
+        },
       }),
       {},
     ),
