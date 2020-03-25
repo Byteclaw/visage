@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key */
-import { useUniqueId } from '@byteclaw/use-unique-id';
 import {
   ExtractVisageComponentProps,
   OmittableProps,
@@ -8,7 +7,6 @@ import {
 import React, {
   ChangeEventHandler,
   useCallback,
-  useMemo,
   useRef,
   FocusEventHandler,
   MouseEventHandler,
@@ -22,7 +20,7 @@ import {
   useSelector,
   SelectorAction,
 } from './hooks/useSelector';
-import { useDebouncedCallback } from '../hooks';
+import { useDebouncedCallback, useHandlerRef, useUniqueId } from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
 
@@ -54,18 +52,6 @@ interface AutocompleteInputProps<TValue extends any>
   selectOnBlur?: boolean;
 }
 
-interface InputEventHandlers {
-  onBlur: FocusEventHandler<HTMLInputElement>;
-  onChange: ChangeEventHandler<HTMLInputElement>;
-  onClick: MouseEventHandler<HTMLInputElement>;
-  onKeyDown: KeyboardEventHandler<HTMLInputElement>;
-}
-
-interface OptionEventHandlers {
-  onClick: MouseEventHandler<HTMLElement>;
-  onMouseDown: MouseEventHandler<HTMLElement>;
-}
-
 export function AutocompleteInput<TValue extends any = string>({
   debounceDelay = 500,
   defaultValue,
@@ -84,10 +70,7 @@ export function AutocompleteInput<TValue extends any = string>({
   valueToString,
   ...restProps
 }: AutocompleteInputProps<TValue>) {
-  const idTemplate = useUniqueId();
-  const id = useMemo(() => {
-    return outerId || `autocomplete-${idTemplate}`;
-  }, [outerId, idTemplate]);
+  const id = useUniqueId(outerId, 'autocomplete');
 
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
@@ -137,7 +120,7 @@ export function AutocompleteInput<TValue extends any = string>({
     debouncedLoadOptions,
     cancelDebouncedLoadOptions,
   ] = useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
-  const enhancedReducer: SelectorReducerEnhancer<TValue> = useCallback(
+  const enhancedReducer: SelectorReducerEnhancer<TValue> = useHandlerRef(
     (currentState, nextState) => {
       // allow only to set value from outside if read only
       if (readOnly && nextState.invokedBy.type !== 'SetValue') {
@@ -154,9 +137,8 @@ export function AutocompleteInput<TValue extends any = string>({
         ? enhanceReducer(currentState, nextState)
         : nextState;
     },
-    [enhanceReducer, readOnly],
   );
-  const enhancedOnStateChange: SelectorStateChangeListener<TValue> = useCallback(
+  const enhancedOnStateChange: SelectorStateChangeListener<TValue> = useHandlerRef(
     (previousState, currentState, dispatch) => {
       if (onStateChange) {
         onStateChange(previousState, currentState, dispatch);
@@ -185,7 +167,6 @@ export function AutocompleteInput<TValue extends any = string>({
         }
       }
     },
-    [onStateChange, selectOnBlur],
   );
   const [state, dispatch] = useSelector({
     defaultValue,
@@ -198,100 +179,96 @@ export function AutocompleteInput<TValue extends any = string>({
     valueToString,
   });
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
-  const inputEventHandlers: InputEventHandlers = useMemo(
-    () => ({
-      onBlur() {
-        if (selectOnBlur) {
-          dispatch({ type: 'SetCurrentFocusedOption' });
-        }
+  const onInputBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(() => {
+    if (selectOnBlur) {
+      dispatch({ type: 'SetCurrentFocusedOption' });
+    }
 
-        dispatch({ type: 'MenuClose' });
-      },
-      onChange(e) {
-        dispatch({ type: 'InputChange', value: e.currentTarget.value });
-      },
-      onClick() {
-        if (expandOnClick && !state.isOpen) {
-          dispatch({ type: 'MenuOpen' });
-        }
-      },
-      onKeyDown(e) {
-        const key = normalizeKeyboardEventKey(e);
+    dispatch({ type: 'MenuClose' });
+  });
+  const onInputChange: ChangeEventHandler<HTMLInputElement> = useHandlerRef(
+    e => {
+      dispatch({ type: 'InputChange', value: e.currentTarget.value });
+    },
+  );
+  const onInputClick: MouseEventHandler<HTMLInputElement> = useHandlerRef(
+    () => {
+      if (expandOnClick && !state.isOpen) {
+        dispatch({ type: 'MenuOpen' });
+      }
+    },
+  );
+  const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
+    e => {
+      const key = normalizeKeyboardEventKey(e);
 
-        switch (key) {
-          case 'ArrowUp': {
-            e.preventDefault();
-            lastArrowPressed.current = key;
+      switch (key) {
+        case 'ArrowUp': {
+          e.preventDefault();
+          lastArrowPressed.current = key;
 
-            if (state.isOpen) {
-              dispatch({ type: 'SetOptionFocusByOffset', offset: -1 });
-            } else {
-              dispatch({ type: 'MenuOpen' });
-              dispatch({ type: 'SetOptionFocusToLastOption' });
-            }
-            break;
-          }
-          case 'ArrowDown': {
-            e.preventDefault();
-            lastArrowPressed.current = key;
-
-            if (state.isOpen) {
-              dispatch({ type: 'SetOptionFocusByOffset', offset: 1 });
-            } else {
-              dispatch({ type: 'MenuOpen' });
-              dispatch({ type: 'SetOptionFocusToFirstOption' });
-            }
-            break;
-          }
-          case 'End': {
-            e.preventDefault();
+          if (state.isOpen) {
+            dispatch({ type: 'SetOptionFocusByOffset', offset: -1 });
+          } else {
+            dispatch({ type: 'MenuOpen' });
             dispatch({ type: 'SetOptionFocusToLastOption' });
-            break;
           }
-          case 'Enter': {
-            e.preventDefault();
-            dispatch({ type: 'SetCurrentFocusedOption' });
-            break;
-          }
-          case 'Escape': {
-            e.preventDefault();
-
-            // close menu if open, or reset the input
-            if (state.isOpen) {
-              dispatch({ type: 'MenuClose' });
-            } else {
-              dispatch({ type: 'Reset' });
-            }
-
-            break;
-          }
-          case 'Home': {
-            e.preventDefault();
-            dispatch({ type: 'SetOptionFocusToFirstOption' });
-            break;
-          }
+          break;
         }
-      },
-    }),
-    [state.isOpen, expandOnClick, selectOnBlur],
-  );
-  const optionEventHandlers: OptionEventHandlers = useMemo(
-    () => ({
-      onClick(e) {
-        e.preventDefault();
+        case 'ArrowDown': {
+          e.preventDefault();
+          lastArrowPressed.current = key;
 
-        dispatch({
-          type: 'SetValueByIndex',
-          index: Number(e.currentTarget.dataset.optionIndex),
-        });
-      },
-      onMouseDown(e) {
-        // prevent changing body activeElement and blur on input
-        e.preventDefault();
-      },
-    }),
-    [],
+          if (state.isOpen) {
+            dispatch({ type: 'SetOptionFocusByOffset', offset: 1 });
+          } else {
+            dispatch({ type: 'MenuOpen' });
+            dispatch({ type: 'SetOptionFocusToFirstOption' });
+          }
+          break;
+        }
+        case 'End': {
+          e.preventDefault();
+          dispatch({ type: 'SetOptionFocusToLastOption' });
+          break;
+        }
+        case 'Enter': {
+          e.preventDefault();
+          dispatch({ type: 'SetCurrentFocusedOption' });
+          break;
+        }
+        case 'Escape': {
+          e.preventDefault();
+
+          // close menu if open, or reset the input
+          if (state.isOpen) {
+            dispatch({ type: 'MenuClose' });
+          } else {
+            dispatch({ type: 'Reset' });
+          }
+
+          break;
+        }
+        case 'Home': {
+          e.preventDefault();
+          dispatch({ type: 'SetOptionFocusToFirstOption' });
+          break;
+        }
+      }
+    },
   );
+  const onOptionClick: MouseEventHandler<HTMLElement> = useHandlerRef(e => {
+    e.preventDefault();
+
+    dispatch({
+      type: 'SetValueByIndex',
+      index: Number(e.currentTarget.dataset.optionIndex),
+    });
+  });
+  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useHandlerRef(e => {
+    // prevent changing body activeElement and blur on input
+    e.preventDefault();
+  });
 
   return (
     <React.Fragment>
@@ -312,7 +289,10 @@ export function AutocompleteInput<TValue extends any = string>({
           ref: inputContainerRef,
         }}
         id={id}
-        {...inputEventHandlers}
+        onBlur={onInputBlur}
+        onChange={onInputChange}
+        onClick={onInputClick}
+        onKeyDown={onInputKeyDown}
         readOnly={readOnly}
         value={state.inputValue}
       />
@@ -334,7 +314,8 @@ export function AutocompleteInput<TValue extends any = string>({
                 key={optionId(id, index)}
                 id={optionId(id, index)}
                 role="option"
-                {...optionEventHandlers}
+                onClick={onOptionClick}
+                onMouseDown={onOptionMouseDown}
               >
                 {state.optionToString(option)}
               </MenuItem>
