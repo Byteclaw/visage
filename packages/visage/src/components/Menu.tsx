@@ -21,6 +21,7 @@ import {
   TransformOriginSettings,
 } from './shared';
 import { createComponent } from '../core';
+import { useHandlerRef } from '../hooks';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
 
@@ -51,6 +52,7 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
   /**
    * Use only if you are managing focus outside of this component
    */
+  disableAutoFocusItem?: boolean;
   disableEvents?: boolean;
   keepAnchorWidth?: boolean;
   onClose?: () => void;
@@ -74,6 +76,7 @@ export function Menu({
   anchorOrigin = defaultAnchorOrigin,
   baseRef,
   children,
+  disableAutoFocusItem,
   disableEvents,
   keepAnchorWidth,
   onClose,
@@ -91,13 +94,13 @@ export function Menu({
         outerOnKeyDown(e);
       }
 
-      // if menu is managed from outside, ignore events
       if (disableEvents) {
         return;
       }
 
       switch (e.key) {
         case 'ArrowUp': {
+          e.preventDefault();
           // find previous focusable element, if none is found, find the last one
           const previousFocusableElement = findPreviousFocusableElement(
             e.currentTarget as HTMLElement,
@@ -121,6 +124,7 @@ export function Menu({
           return;
         }
         case 'ArrowDown': {
+          e.preventDefault();
           // find next focusable element, if none is found, find the first one
           const nextFocusableElement = findNextFocusableElement(
             e.currentTarget as HTMLElement,
@@ -143,13 +147,56 @@ export function Menu({
         }
       }
     },
-    [disableEvents, outerOnKeyDown, onClose],
+    [disableEvents, outerOnKeyDown],
+  );
+
+  const onKeyDownPopover: KeyboardEventHandler<HTMLElement> = useHandlerRef(
+    e => {
+      if (e.currentTarget !== e.target || disableEvents) {
+        return;
+      }
+
+      if (outerOnKeyDown) {
+        outerOnKeyDown(e);
+      }
+
+      switch (e.key) {
+        case 'ArrowUp': {
+          e.preventDefault();
+
+          if (lastItemRef.current) {
+            const lastFocusable = isFocusableElement(lastItemRef.current)
+              ? lastItemRef.current
+              : findNextFocusableElement(lastItemRef.current);
+
+            if (lastFocusable) {
+              lastFocusable.focus();
+            }
+          }
+
+          return;
+        }
+        case 'ArrowDown': {
+          e.preventDefault();
+
+          if (firstItemRef.current) {
+            const firstFocusable = isFocusableElement(firstItemRef.current)
+              ? firstItemRef.current
+              : findNextFocusableElement(firstItemRef.current);
+
+            if (firstFocusable) {
+              firstFocusable.focus();
+            }
+          }
+        }
+      }
+    },
   );
 
   // manage autofocus of first item
   // if not managed from outside
   useEffect(() => {
-    if (!open || disableEvents) {
+    if (!open || disableAutoFocusItem || disableEvents) {
       return;
     }
 
@@ -162,16 +209,17 @@ export function Menu({
         firstFocusable.focus();
       }
     }
-  }, [open, disableEvents]);
+  }, [open, disableAutoFocusItem, disableEvents]);
 
   return (
     <Popover
       alwaysVisible
       anchor={anchor}
       anchorOrigin={anchorOrigin}
-      autoFocus={false}
-      disableOnClickAwayClose={disableEvents}
-      disableOnEscapeClose={disableEvents}
+      autoFocus={!disableEvents && disableAutoFocusItem}
+      onKeyDown={
+        !disableEvents && disableAutoFocusItem ? onKeyDownPopover : undefined
+      }
       backdrop
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}

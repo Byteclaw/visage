@@ -7,8 +7,8 @@ import React, {
   useRef,
 } from 'react';
 import {
-  StyleProps as VisageStyleProps,
   useDesignSystem,
+  ExtractVisageComponentProps,
 } from '@byteclaw/visage-core';
 import { getResponsiveValue } from '@byteclaw/visage-utils';
 import { createComponent } from '../core';
@@ -51,7 +51,7 @@ export const BasePopover = createComponent('div', {
   variants: [booleanVariant('open', true)],
 });
 
-interface PopoverProps extends VisageStyleProps {
+interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
   allowScrolling?: boolean;
   alwaysVisible?: boolean;
   anchor?: null | HTMLElement | RefObject<HTMLElement>;
