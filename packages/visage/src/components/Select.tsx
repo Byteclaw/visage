@@ -20,13 +20,17 @@ import {
   SelectorReducerEnhancer,
 } from './hooks/useSelector';
 import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
-import { useDebouncedCallback, useHandlerRef, useUniqueId } from '../hooks';
+import { scrollAriaSelectedElementToView } from './effects';
+import {
+  useDebouncedCallback,
+  useHandlerRef,
+  useStaticEffect,
+  useUniqueId,
+} from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { SvgIcon } from './SvgIcon';
 import { TextInput } from './TextInput';
 import { normalizeKeyboardEventKey } from './shared';
-
-const listboxId = (id: string): string => `${id}-listbox`;
 
 const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
@@ -70,9 +74,11 @@ export function Select<TValue extends any = string>({
   ...restProps
 }: SelectProps<TValue>) {
   const id = useUniqueId(outerId, 'select');
+  const listboxId = useUniqueId(null, 'listbox');
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
   const lastArrowPressed = useRef<string | null>(null);
+  const menuBaseRef = useRef<HTMLDivElement>(null);
   const loadOptions = useHandlerRef(
     (inputValue: string, dispatch: Dispatch<SelectorAction<TValue>>) => {
       if (!options) {
@@ -283,6 +289,12 @@ export function Select<TValue extends any = string>({
     // prevent changing body activeElement and blur on input
     e.preventDefault();
   });
+  // scroll focused item into view
+  useStaticEffect(
+    scrollAriaSelectedElementToView,
+    menuBaseRef,
+    state.focusedIndex,
+  );
 
   return (
     <React.Fragment>
@@ -292,13 +304,13 @@ export function Select<TValue extends any = string>({
           state.isOpen ? optionId(id, state.focusedIndex) : undefined
         }
         aria-autocomplete="list"
-        aria-controls={listboxId(id)}
+        aria-controls={listboxId}
         autoComplete="off"
         baseProps={{
           ...restProps.baseProps,
           'aria-busy': state.isBusy,
           'aria-expanded': state.isOpen,
-          'aria-owns': listboxId(id),
+          'aria-owns': listboxId,
           ref: inputContainerRef,
           role: 'combobox',
         }}
@@ -330,9 +342,10 @@ export function Select<TValue extends any = string>({
       />
       <Menu
         anchor={inputContainerRef}
+        baseRef={menuBaseRef}
         disableEvents
         keepAnchorWidth
-        id={listboxId(id)}
+        id={listboxId}
         open={state.isOpen}
         role="listbox"
         tabIndex={-1}

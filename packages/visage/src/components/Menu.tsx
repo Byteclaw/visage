@@ -47,6 +47,7 @@ const MenuItemBase = createComponent(ListItem, {
 interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
   anchor?: null | HTMLElement | RefObject<HTMLElement>;
   anchorOrigin?: TransformOriginSettings;
+  baseRef?: RefObject<HTMLDivElement>;
   /**
    * Use only if you are managing focus outside of this component
    */
@@ -71,6 +72,7 @@ const popoverStyles = {
 export function Menu({
   anchor,
   anchorOrigin = defaultAnchorOrigin,
+  baseRef,
   children,
   disableEvents,
   keepAnchorWidth,
@@ -177,7 +179,7 @@ export function Menu({
       styles={popoverStyles}
       {...popoverProps}
     >
-      <MenuBase role={role} {...restProps} tabIndex={-1}>
+      <MenuBase ref={baseRef} role={role} {...restProps} tabIndex={-1}>
         {Children.map(children, (menuItem, i) => {
           return cloneElement(menuItem as any, {
             ref: i === 0 ? firstItemRef : lastItemRef,
