@@ -1,6 +1,7 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
+  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
   createContext,
@@ -132,7 +133,7 @@ type ListItemProps = ExtractVisageComponentProps<typeof BaseListItem>;
 export const ListItem: typeof BaseListItem = forwardRef(
   (
     { button = false, gutters, children, ...rest }: ListItemProps,
-    ref: Ref<HTMLLIElement>,
+    ref: Ref<any>,
   ) => {
     return (
       <BaseListItem
@@ -159,32 +160,38 @@ export interface ListProps
 const defaultContainer = <ListContainer />;
 const defaultItemsContainer = <ListItemsContainer />;
 
-export function List({
-  children,
-  container = defaultContainer,
-  heading,
-  itemsContainer = defaultItemsContainer,
-  tabIndex = -1,
-  ...restProps
-}: ListProps) {
-  const depth = useContext(ListDepthContext);
-  const listItems = cloneElement(itemsContainer, {
-    children,
-  });
+export const List: VisageComponent<ListProps> = forwardRef(
+  (
+    {
+      children,
+      container = defaultContainer,
+      heading,
+      itemsContainer = defaultItemsContainer,
+      tabIndex = -1,
+      ...restProps
+    }: ListProps,
+    ref: Ref<any>,
+  ) => {
+    const depth = useContext(ListDepthContext);
+    const listItems = cloneElement(itemsContainer, {
+      children,
+    });
 
-  return cloneElement(container, {
-    children: (
-      <React.Fragment>
-        {heading}
-        <ListDepthContext.Provider value={depth + 1}>
-          {listItems}
-        </ListDepthContext.Provider>
-      </React.Fragment>
-    ),
-    tabIndex,
-    ...restProps,
-  });
-}
+    return cloneElement(container, {
+      children: (
+        <React.Fragment>
+          {heading}
+          <ListDepthContext.Provider value={depth + 1}>
+            {listItems}
+          </ListDepthContext.Provider>
+        </React.Fragment>
+      ),
+      tabIndex,
+      ref,
+      ...restProps,
+    });
+  },
+) as any;
 
 markAsVisageComponent(List);
 

@@ -20,7 +20,13 @@ import {
   useSelector,
   SelectorAction,
 } from './hooks/useSelector';
-import { useDebouncedCallback, useHandlerRef, useUniqueId } from '../hooks';
+import {
+  useDebouncedCallback,
+  useHandlerRef,
+  useStaticEffect,
+  useUniqueId,
+} from '../hooks';
+import { scrollAriaSelectedElementToView } from './effects';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
 
@@ -33,8 +39,6 @@ interface BaseTextInputProps
     RawTextInputProps,
     Exclude<keyof RawTextInputProps, 'defaultValue' | 'onChange' | 'value'>
   > {}
-
-const listboxId = (id: string): string => `${id}-listbox`;
 
 const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
@@ -71,10 +75,12 @@ export function AutocompleteInput<TValue extends any = string>({
   ...restProps
 }: AutocompleteInputProps<TValue>) {
   const id = useUniqueId(outerId, 'autocomplete');
+  const listboxId = useUniqueId(null, 'listbox');
 
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
   const lastArrowPressed = useRef<string | null>(null);
+  const menuBaseRef = useRef<HTMLDivElement>(null);
   const loadOptions = useCallback(
     (inputValue: string, dispatch: Dispatch<SelectorAction<TValue>>) => {
       if (!options) {
@@ -269,6 +275,12 @@ export function AutocompleteInput<TValue extends any = string>({
     // prevent changing body activeElement and blur on input
     e.preventDefault();
   });
+  // scroll focused item into view
+  useStaticEffect(
+    scrollAriaSelectedElementToView,
+    menuBaseRef,
+    state.focusedIndex,
+  );
 
   return (
     <React.Fragment>
@@ -278,13 +290,13 @@ export function AutocompleteInput<TValue extends any = string>({
           state.isOpen ? optionId(id, state.focusedIndex) : undefined
         }
         aria-autocomplete="list"
-        aria-controls={listboxId(id)}
+        aria-controls={listboxId}
         autoComplete="off"
         baseProps={{
           ...restProps.baseProps,
           'aria-busy': state.isBusy,
           'aria-expanded': state.isOpen,
-          'aria-owns': listboxId(id),
+          'aria-owns': listboxId,
           role: 'combobox',
           ref: inputContainerRef,
         }}
@@ -298,8 +310,9 @@ export function AutocompleteInput<TValue extends any = string>({
       />
       <Menu
         anchor={inputContainerRef}
+        baseRef={menuBaseRef}
         disableEvents
-        id={listboxId(id)}
+        id={listboxId}
         keepAnchorWidth
         open={state.isOpen}
         role="listbox"

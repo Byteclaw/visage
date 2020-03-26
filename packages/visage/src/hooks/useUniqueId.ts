@@ -9,10 +9,7 @@ export function useUniqueId(
   prefix: string,
 ): string {
   const generatedId = baseUseUniqueId();
-  const idRef = useRef<string | number>(generatedId);
-
-  // if id is provided do not use generated id
-  idRef.current = id || `${prefix}-${generatedId}`;
+  const idRef = useRef<string | number>(id || `${prefix}-${generatedId}`);
 
   return idRef.current.toString();
 }
