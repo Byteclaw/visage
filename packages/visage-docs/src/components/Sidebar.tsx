@@ -58,64 +58,6 @@ export function Sidebar() {
         </CollapsibleNavigationSection>
       </ListItem>
       <ListItem>
-        <CollapsibleNavigationSection path="/system/*" title="System">
-          <ListItem>
-            <ListItemRouteLink to="/system">Basics</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/responsive-styles">
-              Responsive styles
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/as-prop">As prop</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/spacing">Spacing</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/typography">
-              Typography
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/layout">Layout</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/colors">Colors</ListItemRouteLink>
-          </ListItem>
-        </CollapsibleNavigationSection>
-      </ListItem>
-      <ListItem>
-        <CollapsibleNavigationSection path="/styles/*" title="Styles">
-          <ListItem>
-            <ListItemRouteLink to="/styles">Introduction</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/styles/emotion-style-generator">
-              Emotion style generator
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/styles/emotion-responsive-style-generator">
-              Emotion responsive style generator
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/styles/custom-style-generators">
-              Custom style generators
-            </ListItemRouteLink>
-          </ListItem>
-        </CollapsibleNavigationSection>
-      </ListItem>
-      <ListItem>
-        <CollapsibleNavigationSection path="/themes/*" title="Themes">
-          <ListItem>
-            <ListItemRouteLink to="/themes">Introduction</ListItemRouteLink>
-          </ListItem>
-        </CollapsibleNavigationSection>
-      </ListItem>
-      <ListItem>
         <CollapsibleNavigationSection path="/components/*" title="Components">
           <ListItem>
             <ListItemRouteLink to="/components/design-system">
@@ -469,11 +411,72 @@ export function Sidebar() {
         </CollapsibleNavigationSection>
       </ListItem>
       <ListItem>
-        <CollapsibleNavigationSection path="/hooks/*" title="Hooks">
+        <CollapsibleNavigationSection path="/styles/*" title="Styles">
           <ListItem>
-            <ListItemRouteLink to="/hooks/use-layer-manager">
-              useLayerManager
+            <ListItemRouteLink to="/styles">Basics</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/styles/advanced">
+              Advanced
             </ListItemRouteLink>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
+      <ListItem>
+        <CollapsibleNavigationSection
+          path="/customization/*"
+          title="Customization"
+        >
+          <ListItem>
+            <ListItemRouteLink to="/customization">Theming</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/customization/components">
+              Components
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/customization/themes">
+              Default themes
+            </ListItemRouteLink>
+          </ListItem>
+        </CollapsibleNavigationSection>
+      </ListItem>
+      <ListItem>
+        <CollapsibleNavigationSection path="/system/*" title="System">
+          <ListItem>
+            <ListItemRouteLink to="/system">Basics</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/responsive-styles">
+              Responsive styles
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/as-prop">As prop</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/spacing">Spacing</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/typography">
+              Typography
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/layout">Layout</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/colors">Colors</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection path="/system/hooks/*" title="Hooks">
+              <ListItem>
+                <ListItemRouteLink to="/system/hooks/use-layer-manager">
+                  useLayerManager
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
           </ListItem>
         </CollapsibleNavigationSection>
       </ListItem>

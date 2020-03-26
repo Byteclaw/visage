@@ -22,7 +22,7 @@ const Scope = {
 };
 
 const EditorError = createComponent(LiveError, {
-  defaultStyles: {
+  styles: {
     backgroundColor: 'red',
     color: 'white',
     m: 0,

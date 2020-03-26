@@ -1,0 +1,40 @@
+---
+title: 'Advanced styling'
+---
+
+# Advanced styling
+
+#### Turn off CSS property
+
+If you pass `null` as a value of CSS property then it's ignored and doesn't produce any style.
+
+```js transpile=false
+{
+  color: 'red',
+  fontSize: null, // font size is ignored
+}
+```
+
+#### Turn off css property for given device
+
+If you pass `null` as a value of responsive CSS property then it's ignored and doesn't produce any style.
+
+```js transpile=false
+{
+  color: 'red',
+  fontSize: ['12px', null, '16px'], // font size is ignored on tablet
+}
+```
+
+#### Inherit value from previous breakpoint
+
+If you want to avoid repetition in responsive CSS properties and take the value from previous breakpoint, use `undefined` in place of a value.
+
+```js transpile=false
+{
+  color: 'red',
+  fontSize: ['12px', undefined, '16px'], // is the same as ['12px', '12px', '16px']
+}
+```
+
+⚠️ Don't use `undefined` as first value in an array because it'll turn off the property for mobile.
