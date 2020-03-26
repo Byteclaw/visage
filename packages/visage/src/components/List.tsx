@@ -157,14 +157,12 @@ export interface ListProps
   itemsContainer?: ReactElement;
 }
 
-const defaultContainer = <ListContainer />;
 const defaultItemsContainer = <ListItemsContainer />;
 
 export const List: VisageComponent<ListProps> = forwardRef(
   (
     {
       children,
-      container = defaultContainer,
       heading,
       itemsContainer = defaultItemsContainer,
       tabIndex = -1,
@@ -175,21 +173,19 @@ export const List: VisageComponent<ListProps> = forwardRef(
     const depth = useContext(ListDepthContext);
     const listItems = cloneElement(itemsContainer, {
       children,
-    });
-
-    return cloneElement(container, {
-      children: (
-        <React.Fragment>
-          {heading}
-          <ListDepthContext.Provider value={depth + 1}>
-            {listItems}
-          </ListDepthContext.Provider>
-        </React.Fragment>
-      ),
-      tabIndex,
       ref,
+      tabIndex,
       ...restProps,
     });
+
+    return (
+      <React.Fragment>
+        {heading}
+        <ListDepthContext.Provider value={depth + 1}>
+          {listItems}
+        </ListDepthContext.Provider>
+      </React.Fragment>
+    );
   },
 ) as any;
 
