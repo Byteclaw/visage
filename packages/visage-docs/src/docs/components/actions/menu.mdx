@@ -73,8 +73,7 @@ import { Menu, MenuItem } from '@byteclaw/visage';
 
 ### Disabled events
 
-`disableEvents` props turns of key down handling on menu items and it is your responsibility to handle focus.
-Make sure you handle `Escape` key press.
+`disableAutoFocusItem` props turns of auto-focusing the first item in the menu list.
 
 ```jsx live
 <WithState>
@@ -91,7 +90,7 @@ Make sure you handle `Escape` key press.
         {anchorEl ? 'Close' : 'Pop up'}
       </Button>
       <Menu
-        disableEvents
+        disableAutoFocusItem
         anchor={anchorEl}
         id="buttons-menu"
         onClose={() => setAnchorEl(null)}

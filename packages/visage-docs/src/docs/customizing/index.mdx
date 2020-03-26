@@ -1,0 +1,323 @@
+---
+title: 'Themes'
+---
+
+# Themes
+
+## N Point Theme
+
+`createNPointModularScaleTheme` is [N pixel based grid system](https://spec.fm/specifics/8-pt-grid) with [Modular scale](https://www.modularscale.com/) used for typography.
+
+### Grid
+
+The grid is defined by [N pixel based grid system](https://spec.fm/specifics/8-pt-grid).
+The size of the grid is specified by `baselineGridSize: number`. This value is then used to calculate spacings.
+
+### Typography
+
+Typography uses the [Modular scale](https://www.modularscale.com/), which works by modulating given base by a certain chosen ratio.
+In our case it means setting up base as `baseFontSize` and then choosing `baseLineHeightRatio` and `fontScaleRatio`.
+
+To set up the typography use:
+
+```ts transpile=false
+{
+  /**
+   * Base font size can be specified as responsive if you use ScaleValue
+   */
+  baseFontSize: number | ScaleValue<number>;
+  baseLineHeightRatio: number;
+  fontScaleRatio: number;
+  fontFamilies: {
+    body: string;
+    heading: string;
+    [custom: string]: string;
+  }
+}
+```
+
+**Make sure you set up the custom font families in your document, visage is not responsible for importing custom fonts.**
+
+### Color palette
+
+Color palette is defined as object of named colors, which can be defined as one of two types,`string` or `Scale`.
+In case of a string, it first gets resolved against the theme, and if not found, it is applied as-is in the CSS.
+
+#### Scale
+
+Scale: `{ values: string[], offset: number }` type is an object with `offset` and `values` properties,
+which is used to define an indexed array of values.
+The offset property can hold a numerical information about a count of values that precede the zero index value.
+This allows you to have a base shade for certain color and use, for example `myColor.-1`, to get a slightly
+lighter shade or `myColor.1` to get darker one.
+
+Offset is thus a helper used to calculate a shade of given color.
+
+```jsx transpile=false
+createNPointModularScaleTheme({
+  colors: {
+    body: 'black', // string color
+    neutral: { // scale color
+      values: [
+        'rgb(249, 249, 249)', // neutral.-5
+        'rgb(244, 244, 244)',
+        'rgb(238, 238, 238)',
+        'rgb(232, 232, 232)', // neutral.-2
+        'rgb(227, 227, 227)', // neutral.-1
+        '#DDDDDD',
+        'rgb(184, 184, 184)', // neutral.1
+        'rgb(147, 147, 147)', // neutral.2
+        'rgb(111, 111, 111)',
+        'rgb(74, 74, 74)',
+        'rgb(37, 37, 37)', // neutral.5
+      ],
+      offset: 5,
+    },
+  }
+});
+
+// neutral shade is a shade of the color at index defined by offset in the scale.
+<Box styles={{ color: 'neutral' }}></Box>
+// is same as
+<Box styles={{ color: 'neutral.0' }}></Box>
+// is same as
+<Box styles={{ color: '#DDDDDD' }}></Box>
+
+// to get lighter shade use negative step
+<Box styles={{ color: 'neutral.-1' }}></Box>
+// is same as
+<Box styles={{ color: 'rgb(227, 227, 227)' }}></Box>
+
+// to get darker shade use positive step
+<Box styles={{ color: 'neutral.1' }}></Box>
+// is same as
+<Box styles={{ color: 'rgb(184, 184, 184)' }}></Box>
+
+```
+
+#### Example
+
+```jsx transpile=false
+createNPointModularScaleTheme({
+  baseFontSize: 16,
+  baseLineHeightRatio: 1.6,
+  baselineGridSize: 8,
+  fontScaleRatio: 1.333,
+  colors: {
+    bodyText: 'black',
+    dangerBodyText: 'red',
+    danger: {
+      values: [
+        'rgb(255, 213, 213)',
+        'rgb(255, 170, 170)',
+        'rgb(255, 128, 128)',
+        'rgb(255, 85, 85)',
+        'rgb(255, 43, 43)',
+        '#FF0000',
+        'rgb(213, 0, 0)',
+        'rgb(170, 0, 0)',
+        'rgb(128, 0, 0)',
+        'rgb(85, 0, 0)',
+        'rgb(43, 0, 0)',
+      ],
+      offset: 5,
+    },
+    dangerText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    info: {
+      values: [
+        'rgb(213, 238, 255)',
+        'rgb(170, 221, 255)',
+        'rgb(128, 204, 255)',
+        'rgb(85, 187, 255)',
+        'rgb(43, 170, 255)',
+        '#0099FF',
+        'rgb(0, 128, 213)',
+        'rgb(0, 102, 170)',
+        'rgb(0, 77, 128)',
+        'rgb(0, 51, 85)',
+        'rgb(0, 26, 43)',
+      ],
+      offset: 5,
+    },
+    infoText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    neutral: {
+      values: [
+        'rgb(249, 249, 249)',
+        'rgb(244, 244, 244)',
+        'rgb(238, 238, 238)',
+        'rgb(232, 232, 232)',
+        'rgb(227, 227, 227)',
+        '#DDDDDD',
+        'rgb(184, 184, 184)',
+        'rgb(147, 147, 147)',
+        'rgb(111, 111, 111)',
+        'rgb(74, 74, 74)',
+        'rgb(37, 37, 37)',
+      ],
+      offset: 5,
+    },
+    neutralText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    primary: {
+      values: [
+        'rgb(219, 219, 219)',
+        'rgb(182, 182, 182)',
+        'rgb(146, 146, 146)',
+        'rgb(109, 109, 109)',
+        'rgb(73, 73, 73)',
+        'rgb(36, 36, 36)',
+        '#000000',
+      ],
+      offset: 6,
+    },
+    primaryText: {
+      values: ['black', 'black', 'black', 'white', 'white', 'white', 'white'],
+      offset: 6,
+    },
+    grey: {
+      values: [
+        'rgb(238, 238, 238)',
+        'rgb(221, 221, 221)',
+        'rgb(204, 204, 204)',
+        'rgb(187, 187, 187)',
+        'rgb(170, 170, 170)',
+        '#999999',
+        'rgb(128, 128, 128)',
+        'rgb(102, 102, 102)',
+        'rgb(77, 77, 77)',
+        'rgb(51, 51, 51)',
+        'rgb(26, 26, 26)',
+      ],
+      offset: 5,
+    },
+    greyText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    success: {
+      values: [
+        'rgb(238, 247, 221)',
+        'rgb(221, 238, 187)',
+        'rgb(204, 230, 153)',
+        'rgb(187, 221, 119)',
+        'rgb(170, 213, 85)',
+        '#99CC33',
+        'rgb(128, 170, 43)',
+        'rgb(102, 136, 34)',
+        'rgb(77, 102, 26)',
+        'rgb(51, 68, 17)',
+        'rgb(26, 34, 9)',
+      ],
+      offset: 5,
+    },
+    successText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+    warning: {
+      values: [
+        'rgb(255, 247, 213)',
+        'rgb(255, 238, 170)',
+        'rgb(255, 230, 128)',
+        'rgb(255, 221, 85)',
+        'rgb(255, 213, 43)',
+        '#FFCC00',
+        'rgb(213, 170, 0)',
+        'rgb(170, 136, 0)',
+        'rgb(128, 102, 0)',
+        'rgb(85, 68, 0)',
+        'rgb(43, 34, 0)',
+      ],
+      offset: 5,
+    },
+    warningText: {
+      values: [
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'black',
+        'white',
+        'white',
+        'white',
+      ],
+      offset: 5,
+    },
+  },
+  fontFamilies: {
+    body: 'Lato,serif',
+    heading: 'Raleway,sans-serif',
+  },
+});
+```
