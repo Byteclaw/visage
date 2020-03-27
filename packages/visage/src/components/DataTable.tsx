@@ -19,11 +19,11 @@ export const DataTableHeader = createComponent('thead', {
 export const DataTableHeaderColumn = createComponent('th', {
   displayName: 'DataTableHeaderColumn',
   styles: props => ({
-    borderColor: 'neutral',
+    borderColor: 'neutral.1',
     borderStyle: 'solid',
     borderWidth: 0,
-    fontWeight: 400,
-    p: 1,
+    fontWeight: 600,
+    p: 2,
     textAlign: 'left',
     ...(props.numeric ? { textAlign: 'right' } : {}),
     ...(props.total
@@ -60,7 +60,8 @@ export const DataTableRow = createComponent('tr', {
   displayName: 'DataTableRow',
   styles: {
     '&:hover td': {
-      backgroundColor: 'neutral',
+      color: 'lightAccentText',
+      backgroundColor: 'lightAccent',
     },
   },
 });
@@ -68,7 +69,7 @@ export const DataTableRow = createComponent('tr', {
 export const DataTableColumn = createComponent('td', {
   displayName: 'DataTableColumn',
   styles: props => ({
-    p: 1,
+    p: 2,
     textAlign: 'left',
     ...(props.numeric ? { textAlign: 'right' } : {}),
     ...(props.total ? { backgroundColor: 'neutral', fontWeight: 600 } : {}),
