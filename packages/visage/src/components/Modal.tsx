@@ -14,7 +14,7 @@ import { Portal } from './Portal';
 import {
   useAutofocusOnMount,
   useFocusTrap,
-  useStaticEffect,
+  useStaticOnRenderEffect,
   useUniqueId,
 } from '../hooks';
 import {
@@ -146,7 +146,7 @@ export function Modal({
 
   useFocusTrap(contentRef || modalRef, focusElementRef);
   useAutofocusOnMount(focusElementRef);
-  useStaticEffect(
+  useStaticOnRenderEffect(
     bindOnCloseListeners,
     open,
     closeListenerManagerContext,
