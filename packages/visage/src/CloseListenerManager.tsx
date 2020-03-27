@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { useStaticEffect } from './hooks';
 
-type OnCloseHandler = () => any;
+type OnCloseHandler = (e: Event) => any | Promise<any>;
 
 interface ClickAwayHandler {
   ref: RefObject<HTMLElement>;
@@ -64,7 +64,7 @@ function onEscapeKeyDownHandlerCreator(
       // the component will unregister it's listener on unmount
       // we don't propagate close any further because using escape you want to close only
       // the top most element (for example Menu in Drawer)
-      escapeStack.current[escapeStack.current.length - 1]();
+      escapeStack.current[escapeStack.current.length - 1](e);
     }
   };
 }
@@ -72,7 +72,7 @@ function onEscapeKeyDownHandlerCreator(
 function onClickAwayHandlerCreator(
   clickAwayStack: MutableRefObject<ClickAwayHandler[]>,
 ) {
-  return (e: MouseEvent) => {
+  return async (e: MouseEvent) => {
     // go from last added and close it if target is not a part of element
     // repeat until we reach full screen listener
     if (!clickAwayStack.current || clickAwayStack.current.length === 0) {
@@ -84,10 +84,12 @@ function onClickAwayHandlerCreator(
 
       if (ref.current) {
         if (!ref.current.contains(e.target as any)) {
-          onClose();
+          await onClose(e);
 
+          // if user prevented default or the element is fullscreen (backdrop is used?)
+          // do not go any further
           // do not go any further if given element is fullscreen
-          if (isFullscreen) {
+          if (e.defaultPrevented || isFullscreen) {
             break;
           }
         } else {
@@ -164,7 +166,7 @@ function createRegisterClickAwayListener(
 }
 
 interface Props {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export function CloseListenerManager({ children }: Props) {
