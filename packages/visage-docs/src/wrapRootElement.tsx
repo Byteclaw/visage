@@ -10,6 +10,16 @@ import { ReactComponent } from './assets/link.svg';
 import { CodeBlock, DesignSystem, Layout } from './components';
 import { slugify } from './utils';
 
+function createHeadingUrl(slug: string): string {
+  if (typeof window === 'undefined') {
+    return `#${slug}`;
+  }
+
+  return `${window.location.href
+    .replace(window.location.search, '')
+    .replace(window.location.hash, '')}#${slug}`;
+}
+
 const mdxComponents: { [key: string]: React.ReactNode } = {
   ...visage,
   a: visage.Link,
@@ -30,11 +40,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
           const slug = slugify(children);
 
           return (
-            <CopyToClipboard
-              text={`${window.location.href
-                .replace(window.location.search, '')
-                .replace(window.location.hash, '')}#${slug}`}
-            >
+            <CopyToClipboard text={createHeadingUrl(slug)}>
               <visage.Heading
                 id={slug}
                 {...restProps}
