@@ -6,8 +6,10 @@ function focusElementOnMount(
     | null
     | undefined
     | React.RefObject<HTMLElement | null | undefined>,
+  /** Should we focus element? */
+  focus: boolean,
 ) {
-  if (elementToFocusRef && elementToFocusRef.current) {
+  if (focus && elementToFocusRef && elementToFocusRef.current) {
     elementToFocusRef.current.focus();
   }
 }
@@ -15,6 +17,10 @@ function focusElementOnMount(
 /**
  * Autofocuses element on mount
  */
-export function useAutofocusOnMount(ref?: null | RefObject<HTMLElement>) {
-  useStaticEffect(focusElementOnMount, ref);
+export function useAutofocusOnMount(
+  ref?: null | RefObject<HTMLElement>,
+  /** Should we focus element? */
+  focus: boolean = true,
+) {
+  useStaticEffect(focusElementOnMount, ref, focus);
 }

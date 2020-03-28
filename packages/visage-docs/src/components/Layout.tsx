@@ -27,6 +27,7 @@ export function Layout({ children }: Props) {
   return (
     <React.Fragment>
       <Drawer
+        backdrop={false}
         styles={{
           width: '16rem',
           flexShrink: 0,

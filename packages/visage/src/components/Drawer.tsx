@@ -1,14 +1,20 @@
-import { useUniqueId } from '@byteclaw/use-unique-id';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
-import React, {
-  KeyboardEvent,
-  MouseEvent,
-  ReactNode,
-  useCallback,
-  useEffect,
-} from 'react';
+import React, { ReactElement, ReactNode, RefObject, useRef } from 'react';
+import {
+  CloseListenerManagerContextAPI,
+  OnCloseHandler,
+  useCloseListenerManager,
+} from '../CloseListenerManager';
 import { createComponent } from '../core';
-import { booleanVariant, variant } from '../variants';
+import {
+  useFocusTrap,
+  useStaticOnRenderEffect,
+  useStaticEffect,
+  useUniqueId,
+  useAutofocusOnMount,
+} from '../hooks';
+import { booleanVariant, numberProp, variant } from '../variants';
+import { disableBodyScroll } from './effects';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 
@@ -40,135 +46,152 @@ const BaseDrawer = createComponent('div', {
       ? { position: 'relative' }
       : {
           position: 'fixed',
+          zIndex: props.zIndex,
           boxShadow:
             '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
-          ...(props.side
-            ? {
-                ...(props.side === 'bottom'
-                  ? {
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: ['90vh', '75vh', '50vh'],
-                      ...(!props.open ? { transform: 'translateY(100%)' } : {}),
-                    }
-                  : {}),
-                ...(props.side === 'left'
-                  ? {
-                      bottom: 0,
-                      left: 0,
-                      top: 0,
-                      width: ['90vw', '75vw', '50vw'],
-                      ...(!props.open
-                        ? { transform: 'translateX(-100%)' }
-                        : {}),
-                    }
-                  : {}),
-                ...(props.side === 'right'
-                  ? {
-                      bottom: 0,
-                      right: 0,
-                      top: 0,
-                      width: ['90vw', '75vw', '50vw'],
-                      ...(!props.open ? { transform: 'translateX(100%)' } : {}),
-                    }
-                  : {}),
-                ...(props.side === 'top'
-                  ? {
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      height: ['90vh', '75vh', '50vh'],
-                      ...(!props.open
-                        ? { transform: 'translateY(-100%)' }
-                        : {}),
-                    }
-                  : {}),
-              }
-            : {}),
+          bottom: props.side !== 'top' ? 0 : null,
+          top: props.side !== 'bottom' ? 0 : null,
+          left: props.side !== 'right' ? 0 : null,
+          right: props.side !== 'left' ? 0 : null,
+          height:
+            props.side !== 'left' && props.side !== 'right'
+              ? ['90vh', '75vh', '50vh']
+              : null,
+          width:
+            props.side !== 'top' && props.side !== 'bottom'
+              ? ['90vw', '75vw', '50vw']
+              : null,
         }),
   }),
   variants: [
     variant('side', true, ['bottom', 'left', 'right', 'top']),
-    booleanVariant('open', true),
     booleanVariant('relative', true),
+    numberProp('zIndex', true),
   ],
 });
 
-interface DrawerProps {
-  /** Enables to completely disable backdrop even if Drawer is closable, default is true */
+function bindOnCloseListeners(
+  closeListenerManager: CloseListenerManagerContextAPI,
+  baseRef: RefObject<HTMLElement>,
+  open: boolean,
+  relative: boolean,
+  isFullscreen: boolean,
+  onClose?: OnCloseHandler,
+) {
+  // if drawer is relative we can't close it
+  if (relative || !open || !onClose) {
+    return;
+  }
+
+  // if drawer is open, register close listeners
+  const unregisterClickAway = closeListenerManager.registerClickAwayListener(
+    baseRef,
+    onClose,
+    isFullscreen,
+  );
+  const unregisterEscapeKeyDown = closeListenerManager.registerEscapeKeyDownListener(
+    onClose,
+  );
+
+  return () => {
+    unregisterClickAway();
+    unregisterEscapeKeyDown();
+  };
+}
+
+interface DrawerProps extends ExtractVisageComponentProps<typeof BaseDrawer> {
+  /**
+   * Enables to completely disable backdrop even if Drawer is closable, default is true
+   *
+   * Backdrop prevents bubbling onClose event to underlying layers, if you don't use a backdrop
+   * but you don't want to close drawer on click away, you need to call event.preventDefault()
+   * in onClose handler
+   */
   backdrop?: boolean;
   children?: ReactNode;
+  /**
+   * Auto focus element if Drawer is open
+   *
+   * If backdrop is enabled also focus trap will use this element to focus if Drawer loses focus
+   */
+  focusElementRef?: RefObject<HTMLElement>;
+  /** Render Drawer in Portal, default is true */
   inPortal?: boolean;
-  onClose?: (e?: KeyboardEvent | MouseEvent) => void;
+  onClose?: OnCloseHandler;
   open?: boolean;
   /**
    * Use relative position instead of fixed
    */
   relative?: boolean;
   side?: DrawerPosition;
-  styles?: ExtractVisageComponentProps<typeof BaseDrawer>['styles'];
 }
 
 export function Drawer({
   backdrop = true,
   children,
+  focusElementRef,
+  id: outerId,
   inPortal = false,
   onClose,
   open = false,
   relative = false,
   side = DrawerPosition.left,
-  styles,
+  ...restProps
 }: DrawerProps) {
-  const id = useUniqueId();
+  const id = useUniqueId(outerId, 'drawer');
+  const baseRef = useRef<HTMLDivElement>(null);
   const { zIndex } = useLayerManager();
-  const onEscKeyUp = useCallback(
-    (e: KeyboardEvent) => {
-      if (open && onClose && e.keyCode === 27) {
-        onClose(e);
-      }
-    },
-    [onClose, open],
+  const closeListenerManager = useCloseListenerManager();
+
+  useStaticOnRenderEffect(
+    bindOnCloseListeners,
+    closeListenerManager,
+    baseRef,
+    open,
+    relative,
+    // if there is a backdrop, the drawer is fullscreen
+    // meaning we don't want to bubble onClose when we close outside of drawer
+    backdrop,
+    onClose,
   );
 
-  useEffect(() => {
-    if (onClose != null && typeof document !== 'undefined') {
-      document.addEventListener('keyup', onEscKeyUp as any);
-    }
-
-    return () => {
-      if (typeof document !== 'undefined') {
-        document.removeEventListener('keyup', onEscKeyUp as any);
-      }
-    };
-  }, [onEscKeyUp]);
+  useAutofocusOnMount(focusElementRef, open);
+  useFocusTrap(baseRef, backdrop && open ? focusElementRef : undefined);
+  useStaticEffect(disableBodyScroll, baseRef, !relative && backdrop && open);
 
   if (relative) {
     return (
-      <BaseDrawer relative={relative} styles={styles}>
+      <BaseDrawer relative={relative} {...restProps}>
         {children}
       </BaseDrawer>
     );
   }
 
-  const drawer = (
-    <LayerManager>
-      {onClose && backdrop ? (
-        <Backdrop onClick={onClose} styles={{ zIndex }} />
-      ) : null}
-      <BaseDrawer open={open} side={side} styles={{ zIndex, ...styles }}>
+  if (!open) {
+    return null;
+  }
+
+  let drawer: ReactElement | null = (
+    <React.Fragment>
+      {backdrop ? <Backdrop styles={{ zIndex }} /> : null}
+      <BaseDrawer
+        id={outerId}
+        ref={baseRef}
+        side={side}
+        zIndex={zIndex + 1}
+        {...restProps}
+      >
         {children}
       </BaseDrawer>
-    </LayerManager>
+    </React.Fragment>
   );
 
   if (inPortal) {
-    if (typeof document === 'undefined' || !open) {
-      return null;
-    }
-
-    return <Portal containerId={`drawer-root-${id}`}>{drawer}</Portal>;
+    drawer =
+      typeof document === 'undefined' ? null : (
+        <Portal containerId={id}>{drawer}</Portal>
+      );
   }
 
-  return open ? drawer : null;
+  return <LayerManager>{drawer}</LayerManager>;
 }

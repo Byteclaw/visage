@@ -3,10 +3,8 @@ import React, {
   useRef,
   MutableRefObject,
   useContext,
-  useEffect,
   RefObject,
 } from 'react';
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
@@ -15,12 +13,14 @@ import {
   useAutofocusOnMount,
   useFocusTrap,
   useStaticOnRenderEffect,
+  useStaticEffect,
   useUniqueId,
 } from '../hooks';
 import {
   CloseListenerManagerContext,
   CloseListenerManagerContextAPI,
 } from '../CloseListenerManager';
+import { disableBodyScroll } from './effects';
 
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
@@ -156,20 +156,7 @@ export function Modal({
     disableOnClickAwayClose,
     disableOnEscapeClose,
   );
-
-  useEffect(() => {
-    const { current } = modalRef;
-
-    if (!current || !open || unlockBodyScroll) {
-      return;
-    }
-
-    disableBodyScroll(current);
-
-    return () => {
-      enableBodyScroll(current);
-    };
-  }, [unlockBodyScroll, open, modalRef.current]);
+  useStaticEffect(disableBodyScroll, modalRef, !unlockBodyScroll && open);
 
   if (typeof document === 'undefined' || !open) {
     return null;
