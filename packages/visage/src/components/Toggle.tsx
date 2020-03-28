@@ -26,8 +26,7 @@ import {
 const ToggleContainer = createComponent('div', {
   displayName: 'ToggleContainer',
   styles: {
-    overflowX: 'hidden',
-    overflowY: 'visible',
+    overflow: 'hidden',
     borderRadius: 999,
     width: 'auto',
     display: 'inline-flex',
