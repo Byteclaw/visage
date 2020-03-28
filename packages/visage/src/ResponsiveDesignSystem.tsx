@@ -20,9 +20,10 @@ import { createEmotionStyleGenerator } from './emotionStyleGenerator';
 
 const defaultStyleGenerator = createEmotionStyleGenerator();
 
-const MOBILE_BP = `only screen`; // 40em
-const TABLET_BP = `screen and (min-width: ${641 / 16}em)`; // 40.0625em
-const DESKTOP_BP = `screen and (min-width: ${1025 / 16}em)`; // 64.036em
+// https://zellwk.com/blog/media-query-units/
+const MOBILE_BP = `(max-width: ${767 / 16}em)`;
+const TABLET_BP = `(min-width: ${768 / 16}em) and (max-width: ${1024 / 16}em)`;
+const DESKTOP_BP = `(min-width: ${1025 / 16}em)`;
 
 const defaultBreakpoints = [MOBILE_BP, TABLET_BP, DESKTOP_BP];
 
