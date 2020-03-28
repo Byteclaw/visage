@@ -15,6 +15,7 @@ import React, {
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
+import { createDocsTheme } from '@byteclaw/visage-themes';
 import * as Utilities from '@byteclaw/visage-utils';
 import { ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
@@ -35,6 +36,7 @@ const Scope = {
   useCallback,
   WithRef,
   WithState,
+  theme: createDocsTheme(),
 };
 
 const EditorError = createComponent(LiveError, {
