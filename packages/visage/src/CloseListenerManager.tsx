@@ -5,11 +5,14 @@ import React, {
   ReactNode,
   RefObject,
   createContext,
+  useContext,
   useRef,
 } from 'react';
 import { useStaticEffect } from './hooks';
 
-type OnCloseHandler = (e: Event) => any | Promise<any>;
+export type OnCloseHandler = (
+  e: KeyboardEvent | MouseEvent,
+) => any | Promise<any>;
 
 interface ClickAwayHandler {
   ref: RefObject<HTMLElement>;
@@ -50,6 +53,13 @@ export const CloseListenerManagerContext = createContext<
     return () => {};
   },
 });
+
+/**
+ * Connects to CloseListenerManager
+ */
+export function useCloseListenerManager(): CloseListenerManagerContextAPI {
+  return useContext(CloseListenerManagerContext);
+}
 
 function onEscapeKeyDownHandlerCreator(
   escapeStack: MutableRefObject<OnCloseHandler[]>,

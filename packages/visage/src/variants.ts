@@ -5,6 +5,7 @@ import { EmotionStyleSheet } from './types';
  */
 export function booleanVariant<TName extends string>(
   name: TName,
+  /** Strip the prop from HTML element? */
   stripProp: boolean,
 ): {
   [K in TName]?: boolean;
@@ -18,10 +19,30 @@ export function booleanVariant<TName extends string>(
 }
 
 /**
+ * Creates a number prop for component
+ */
+export function numberProp<TName extends string>(
+  name: TName,
+  /** Strip the prop from HTML element? */
+  stripProp: boolean,
+  defaultValue?: number,
+): {
+  [K in TName]?: number;
+} {
+  return {
+    prop: name,
+    name: name.toLowerCase(),
+    stripProp,
+    defaultValue,
+  } as any;
+}
+
+/**
  * Creates variant settings for component
  */
 export function variant<TName extends string, TVariants extends readonly any[]>(
   name: TName,
+  /** Strip the prop from HTML element? */
   stripProp: boolean,
   // eslint-disable-next-line
   variants: TVariants,

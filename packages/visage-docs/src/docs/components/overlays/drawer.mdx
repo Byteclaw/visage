@@ -14,36 +14,35 @@ import { Drawer } from '@byteclaw/visage';
 
 ### Default
 
-Default drawer is rendered with `position: fixed`.
+Default drawer is rendered in place with `position: fixed` and locks body scroll.
 
 ```jsx live=true
-<WithState defaultValue={false}>
-  {(show, setShow) => {
-    if (!show) {
-      return (
-        <Button onClick={() => setShow(true)} type="button">
-          Show drawer
-        </Button>
-      );
-    }
+function DefaultDrawer() {
+  const [show, setShow] = useState(false);
 
-    return (
-      <Drawer
-        onClose={e => {
-          console.log(e);
-          setShow(false);
-        }}
-        open={show}
-      >
-        {Array(20)
-          .fill(null)
-          .map((_, i) => (
-            <ParagraphSkeleton key={i} />
-          ))}
-      </Drawer>
-    );
-  }}
-</WithState>
+  return (
+    <>
+      <Button onClick={() => setShow(true)} type="button">
+        Show drawer
+      </Button>
+      {show ? (
+        <Drawer
+          onClose={e => {
+            console.log(e);
+            setShow(false);
+          }}
+          open={show}
+        >
+          {Array(20)
+            .fill(null)
+            .map((_, i) => (
+              <ParagraphSkeleton key={i} />
+            ))}
+        </Drawer>
+      ) : null}
+    </>
+  );
+}
 ```
 
 ### Custom render side
@@ -51,30 +50,30 @@ Default drawer is rendered with `position: fixed`.
 To control a side where `Drawer` is rendered, use `side` prop. Possible values are `bottm, left, right, top`
 
 ```jsx live=true
-<WithState defaultValue={false}>
-  {(show, setShow) => {
-    if (!show) {
-      return (
-        <Button onClick={() => setShow(true)} type="button">
-          Show drawer
-        </Button>
-      );
-    }
+function CustomRenderSide() {
+  const [show, setShow] = useState(false);
 
-    return (
-      <Drawer
-        onClose={e => {
-          console.log(e);
-          setShow(false);
-        }}
-        open={show}
-        side={DrawerPosition.bottom}
-      >
-        Drawer content
-      </Drawer>
-    );
-  }}
-</WithState>
+  return (
+    <>
+      <Button onClick={() => setShow(true)} type="button">
+        Show drawer
+      </Button>
+      {show ? (
+        <Drawer
+          inPortal
+          onClose={e => {
+            console.log(e);
+            setShow(false);
+          }}
+          open={show}
+          side={DrawerPosition.bottom}
+        >
+          Drawer content
+        </Drawer>
+      ) : null}
+    </>
+  );
+}
 ```
 
 ### Render to Portal
@@ -82,30 +81,29 @@ To control a side where `Drawer` is rendered, use `side` prop. Possible values a
 If you want to render `Drawer` in `Portal`, use `inPortal` prop.
 
 ```jsx live=true
-<WithState defaultValue={false}>
-  {(show, setShow) => {
-    if (!show) {
-      return (
-        <Button onClick={() => setShow(true)} type="button">
-          Show drawer
-        </Button>
-      );
-    }
+function RenderToPortal() {
+  const [show, setShow] = useState(false);
 
-    return (
-      <Drawer
-        inPortal
-        onClose={e => {
-          console.log(e);
-          setShow(false);
-        }}
-        open={show}
-      >
-        Drawer content
-      </Drawer>
-    );
-  }}
-</WithState>
+  return (
+    <>
+      <Button onClick={() => setShow(true)} type="button">
+        Show drawer
+      </Button>
+      {show ? (
+        <Drawer
+          inPortal
+          onClose={e => {
+            console.log(e);
+            setShow(false);
+          }}
+          open={show}
+        >
+          Drawer content
+        </Drawer>
+      ) : null}
+    </>
+  );
+}
 ```
 
 ### Relative
@@ -116,32 +114,97 @@ If you want to render `Drawer` in `Portal`, use `inPortal` prop.
 
 ### Disable backdrop
 
-`Drawer's` backdrop can be disabled using `backdrop={false}`. `Drawer` without `Backdrop` can be closed only by `Escape` or by setting `open` prop to `false`.
+`Drawer` backdrop can be disabled using `backdrop={false}` and it also doesn't lock the body scroll.
 
 ```jsx live=true
-<WithState defaultValue={false}>
-  {(show, setShow) => {
-    if (!show) {
-      return (
-        <Button onClick={() => setShow(true)} type="button">
-          Show drawer
-        </Button>
-      );
-    }
+function DisableBackdrop() {
+  const [show, setShow] = useState(false);
 
-    return (
-      <Drawer
-        backdrop={false}
-        inPortal
-        onClose={e => {
-          console.log(e);
-          setShow(false);
-        }}
-        open={show}
-      >
-        Drawer content
-      </Drawer>
-    );
-  }}
-</WithState>
+  return (
+    <>
+      <Button onClick={() => setShow(true)} type="button">
+        Show drawer
+      </Button>
+      {show ? (
+        <Drawer
+          backdrop={false}
+          inPortal
+          onClose={e => {
+            console.log(e);
+            setShow(false);
+          }}
+          open={show}
+        >
+          Drawer content
+        </Drawer>
+      ) : null}
+    </>
+  );
+}
+```
+
+### Disable backdrop and click away
+
+```jsx live=true
+function DisableBackdropAndClickAway() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setShow(true)} type="button">
+        Show drawer
+      </Button>
+      {show ? (
+        <Drawer
+          backdrop={false}
+          inPortal
+          onClose={e => {
+            console.log(e);
+
+            if (!(e instanceof MouseEvent)) {
+              setShow(false);
+            }
+          }}
+          open={show}
+        >
+          Drawer content
+        </Drawer>
+      ) : null}
+    </>
+  );
+}
+```
+
+### Automatically focus element in Drawer on open
+
+By providing `focusElementRef` prop you tell `Drawer` to automaticaly focus this element when Drawer is open.
+This also tells the focus trap to focus this element if Drawer loses focus.
+
+```jsx live=true
+function AutomaticallyFocusElementInDrawer() {
+  const [show, setShow] = useState(false);
+  const buttonRef = useRef(null);
+
+  return (
+    <>
+      <Button onClick={() => setShow(true)} type="button">
+        Show drawer
+      </Button>
+      {show ? (
+        <Drawer
+          inPortal
+          onClose={() => setShow(false)}
+          open={show}
+          focusElementRef={buttonRef}
+        >
+          <Button ref={buttonRef} type="button">
+            1
+          </Button>
+          <Button type="button">2</Button>
+          <Button type="button">3</Button>
+        </Drawer>
+      ) : null}
+    </>
+  );
+}
 ```

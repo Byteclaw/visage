@@ -2,7 +2,16 @@
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
-import React, { Fragment, useContext, useState } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
@@ -17,6 +26,13 @@ const Scope = {
   ...Core,
   ...DSScope,
   ...Utilities,
+  useState,
+  useContext,
+  useReducer,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
   WithRef,
   WithState,
 };
@@ -34,6 +50,7 @@ interface CodeBlockProps {
   className: string;
   children: string;
   live?: boolean;
+  noInline?: boolean;
   expanded?: boolean;
   stringify?: boolean;
   transpile?: boolean | 'false' | 'true';
@@ -44,6 +61,7 @@ export function CodeBlock({
   className: baseClassName,
   live,
   expanded,
+  noInline,
   stringify,
   transpile = true,
 }: CodeBlockProps) {
@@ -60,6 +78,7 @@ export function CodeBlock({
           disabled={!live}
           language={language}
           transformCode={stringify ? code => `'' + ${code}` : undefined}
+          noInline={noInline}
           scope={Scope}
           theme={duotoneLight}
         >
