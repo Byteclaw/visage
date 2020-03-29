@@ -1,6 +1,6 @@
-import { useDesignSystem, useMemoizedCall, Theme } from '@byteclaw/visage-core';
+import { useDesignSystem, Theme } from '@byteclaw/visage-core';
 import { Global } from '@emotion/core';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { EmotionStyleSheet } from './types';
 
 interface GlobalStylesProps {
@@ -12,7 +12,10 @@ interface GlobalStylesProps {
  */
 export function GlobalStyles({ styles = {} }: GlobalStylesProps) {
   const ctx = useDesignSystem<Theme>();
-  const globalStyles = useMemoizedCall(ctx.resolveStyleSheets, styles);
+  const globalStyles = useMemo(() => ctx.resolveStyleSheets([styles]), [
+    ctx.resolveStyleSheets,
+    styles,
+  ]);
 
   return <Global styles={globalStyles} />;
 }

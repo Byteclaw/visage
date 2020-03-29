@@ -1,21 +1,17 @@
-import { omitProps } from '@byteclaw/visage-utils';
+import isEqual from 'fast-deep-equal-ts/react';
+import { useRef } from 'react';
 import { isVisageComponent } from './utils';
 import { StyleSheet } from './styleSheet';
 import { StyleProps, StyleFunction } from './types';
-import { useStyleSheets } from './useStyleSheets';
 import { useDesignSystem } from './useDesignSystem';
-import { useMemoizedCallback } from './useMemoizedCallback';
+
+const DEFAULT_PARENT_STYLES: StyleSheet<VisageStylingProperties>[] = [];
 
 export interface UseVisageHookOptions {
-  as: any;
   componentName: string;
-  defaultStyles?: StyleSheet<VisageStylingProperties> | StyleFunction<any>;
-  variants?: {
-    prop: string;
-    name: string;
-    stripProp: boolean;
-    defaultValue: string | boolean;
-  }[];
+  defaultStyles: StyleSheet<VisageStylingProperties> | StyleFunction<any>;
+  faceStyleSheet: { face: string };
+  omitProps(props: { [key: string]: any }): { [key: string]: any };
 }
 
 /**
@@ -24,37 +20,81 @@ export interface UseVisageHookOptions {
  * Using this hook you can implement your own custom component that uses visage
  */
 export function useVisage<TOutputProps extends { [prop: string]: any }>(
-  { parentStyles, styles, ...restProps }: StyleProps & { [key: string]: any },
+  as: any,
+  {
+    parentStyles = DEFAULT_PARENT_STYLES,
+    styles,
+    ...restProps
+  }: StyleProps & { [key: string]: any },
   options: UseVisageHookOptions,
 ): TOutputProps {
   const visage = useDesignSystem();
-  const generateStyles = useMemoizedCallback(visage.generate);
-  const styleSheets = useStyleSheets(
-    options.componentName,
-    options.defaultStyles,
-    parentStyles as any,
-    styles as any,
-    restProps,
+  const propsRef = useRef<{ [key: string]: any }>();
+  const styleSheetRef = useRef<StyleSheet<VisageStylingProperties>>();
+
+  // now resolve style sheet and store it under styles
+  if (typeof options.defaultStyles === 'function') {
+    if (!isEqual(propsRef.current, restProps)) {
+      styleSheetRef.current = options.defaultStyles(restProps);
+      propsRef.current = restProps;
+    }
+  } else if (styleSheetRef.current !== options.defaultStyles) {
+    styleSheetRef.current = options.defaultStyles;
+  }
+
+  let localStyles:
+    | StyleSheet<VisageStylingProperties>[]
+    | undefined = visage.styleSheetCache.get(
+    options.faceStyleSheet,
+    parentStyles,
+    styleSheetRef.current!,
   );
+
+  if (!localStyles) {
+    localStyles = visage.styleSheetCache.set(
+      options.faceStyleSheet,
+      parentStyles,
+      styleSheetRef.current!,
+    );
+  }
 
   const passProps: StyleProps & {
     [key: string]: any;
-  } =
-    options.variants && options.variants.length > 0
-      ? omitProps(restProps, options.variants)
-      : restProps;
+  } = options.omitProps(restProps);
 
   // strip styles, parentStyles from props
   // if component is visage component, pass parentStyles and styles
   // otherwise generate styles
-  if (!isVisageComponent(options.as)) {
-    const styleProps = generateStyles(...styleSheets);
+  if (!isVisageComponent(as)) {
+    let finalStyleSheets: StyleSheet<VisageStylingProperties>[] = localStyles;
+
+    if (styles) {
+      const cachedStyles = visage.styleSheetCache.getByOverride(
+        options.faceStyleSheet,
+        parentStyles,
+        styles,
+        styleSheetRef.current!,
+      );
+
+      if (!cachedStyles) {
+        finalStyleSheets = visage.styleSheetCache.setByOverride(
+          options.faceStyleSheet,
+          parentStyles,
+          styles,
+          styleSheetRef.current!,
+        );
+      } else {
+        finalStyleSheets = cachedStyles;
+      }
+    }
+
+    const styleProps = visage.generate(finalStyleSheets);
 
     return { ...passProps, ...styleProps } as any;
   }
 
   return {
     ...passProps,
-    parentStyles: styleSheets,
+    parentStyles: localStyles,
   } as any;
 }

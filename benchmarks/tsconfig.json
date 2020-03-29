@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "esModuleInterop": true,
+    "incremental": true,
+    "lib": ["ESNext", "dom"],
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "rootDir": ".",
+    "strict": true,
+    "target": "es2018"
+  },
+  "include": [".", "./benchmarks"],
+  "exclude": ["node_modules"],
+  "references": [
+    { "path": "../packages/visage" },
+    { "path": "../packages/visage-core" },
+    { "path": "../packages/visage-utils" },
+    { "path": "../packages/visage-theme" }
+  ]
+}

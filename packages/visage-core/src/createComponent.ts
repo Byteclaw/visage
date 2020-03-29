@@ -1,3 +1,4 @@
+import { omitProps, OmitPropsSetting } from '@byteclaw/visage-utils';
 import React from 'react';
 import { displayName, markAsVisageComponent } from './utils';
 import {
@@ -9,9 +10,10 @@ import {
   ExtractVisageComponentProps,
 } from './types';
 import { StyleSheet } from './styleSheet';
-import { useVisage } from './useVisage';
+import { useVisage, UseVisageHookOptions } from './useVisage';
 
 const DEFAULT_PROPS = {};
+const DEFAULT_STYLE_SHEET = {};
 
 export function createComponent<
   TDefaultComponent extends ComponentConstraint,
@@ -73,6 +75,16 @@ export function createComponent<
     UnionToIntersection<TVariants[number]>
 > {
   const componentName = displayName(name || defaultAs);
+  const faceStyleSheet = { face: componentName };
+  const componentOptions: UseVisageHookOptions = {
+    componentName,
+    defaultStyles: styles || defaultStyles || DEFAULT_STYLE_SHEET,
+    faceStyleSheet,
+    omitProps:
+      variants && variants.length > 0
+        ? props => omitProps(props, (variants as any) as OmitPropsSetting[])
+        : props => props,
+  };
   const RawComponent = (
     {
       as = defaultAs,
@@ -81,22 +93,13 @@ export function createComponent<
     ref: any,
   ) => {
     const props = useVisage(
+      as,
       {
         ...defaultProps,
         ...restProps,
         children: restProps.children || (defaultProps as any).children,
       },
-      {
-        as,
-        componentName,
-        defaultStyles: styles || defaultStyles,
-        variants: (variants as any) as {
-          prop: string;
-          name: string;
-          stripProp: boolean;
-          defaultValue: string | boolean;
-        }[],
-      },
+      componentOptions,
     );
 
     return React.createElement(as, {
