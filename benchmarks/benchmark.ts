@@ -5,7 +5,7 @@ import { Options } from 'benny/lib/internal/common-types';
 
 const defaultOptions: Options = {
   // warm up the code
-  initCount: 10,
+  // initCount: 10,
 };
 
 const originalAdd = benny.add;
@@ -21,7 +21,7 @@ function customAdd(
 // @ts-ignore
 benny.add = customAdd;
 
-const cwd = process.cwd();
+const cwd = __dirname;
 
 async function run() {
   const files = await globby(

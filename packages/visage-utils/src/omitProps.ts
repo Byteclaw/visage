@@ -1,11 +1,23 @@
+/**
+ * This is a prop setting for omitProps helper
+ */
+export interface OmitPropsSetting {
+  /** Name of prop on input object */
+  prop: string;
+  /** Name that will be used for prop on output prefixed by data- for example name -> data-name */
+  name: string;
+  /** Should we strip the prop from the input object? */
+  stripProp?: boolean;
+  /** Default value for output prop */
+  defaultValue?: any;
+}
+
+/**
+ * Omits props from an object based on settings
+ */
 export function omitProps(
   props: { [key: string]: any },
-  settings: {
-    prop: string;
-    name: string;
-    stripProp?: boolean;
-    defaultValue?: string | boolean;
-  }[],
+  settings: OmitPropsSetting[],
 ): { [key: string]: any } {
   const clone = { ...props };
   const settingsLength = settings.length;

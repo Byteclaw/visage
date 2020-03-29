@@ -1,23 +1,79 @@
-import { useRef, useMemo, useContext } from 'react';
+import { useMemo, useContext } from 'react';
+import { createCache } from './cache';
 import { VisageContext } from './context';
 import {
   ExtractThemeSettingsFromTheme,
   Visage,
   Theme,
   StyleGenerator,
+  ExtractArgs,
+  ExtractReturn,
 } from './types';
 import { resolveStyleSheets, StylerSheetResolveContext } from './styleSheet';
+
+function useStaticMemo<TFunction extends (...args: any[]) => any>(
+  fn: TFunction,
+  deps: ExtractArgs<TFunction>,
+): ExtractReturn<TFunction> {
+  return useMemo(() => fn(...deps), deps);
+}
+
+function createDesignSystem<TTheme extends Theme = Theme>(
+  breakpoint: number = 0,
+  theme: any,
+  styleGenerator: any,
+): Visage<TTheme> {
+  // reset cache everytime the design system is recreated
+  const generationCache = new WeakMap();
+  const resolutionCache = new WeakMap();
+  const styleSheetCache = createCache();
+
+  const resolveCtx: StylerSheetResolveContext<ExtractThemeSettingsFromTheme<
+    TTheme
+  >> = {
+    breakpoint,
+    format: theme.format,
+    resolve: theme.resolve,
+    style: theme.style,
+    formatters: theme.formatters,
+    resolvers: theme.resolvers,
+    stylers: theme.stylers,
+    theme: theme.theme as any,
+  };
+
+  return {
+    breakpoint,
+    styleSheetCache,
+    ctx: resolveCtx,
+    generate(styleSheets) {
+      let result = generationCache.get(styleSheets);
+
+      if (!result) {
+        result = styleGenerator(styleSheets, resolveCtx);
+        generationCache.set(styleSheets, result);
+      }
+
+      return result;
+    },
+    resolveStyleSheets(styleSheets) {
+      let result = resolutionCache.get(styleSheets);
+
+      if (!result) {
+        result = resolveStyleSheets(styleSheets, resolveCtx);
+        resolutionCache.set(styleSheets, result);
+      }
+
+      return result;
+    },
+    theme: resolveCtx.theme,
+  };
+}
 
 export interface UseDesignSystemHookOptions<TTheme extends Theme = Theme> {
   is?: number;
   styleGenerator: StyleGenerator;
   theme: TTheme;
 }
-
-interface Refs {
-  theme: Theme | undefined;
-}
-
 /**
  * Use design system works as root hook that can be used to create own DesignSystem
  *
@@ -29,9 +85,6 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
   // if options are provided, we want to create new Visage instance
   // otherwise we want to connect to parent
   const ctx: Visage<TTheme> | undefined = useContext(VisageContext);
-  const refs = useRef<Refs>({
-    theme: undefined,
-  });
 
   if (!ctx) {
     if (!options) {
@@ -43,38 +96,11 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
 
   // if we pass options, we want to create new design system root
   if (options) {
-    return useMemo(() => {
-      const breakpoint = options.is || 0;
-
-      if (refs.current.theme !== options.theme) {
-        refs.current.theme = options.theme;
-      }
-
-      const resolveCtx: StylerSheetResolveContext<ExtractThemeSettingsFromTheme<
-        TTheme
-      >> = {
-        breakpoint,
-        format: options.theme.format,
-        resolve: options.theme.resolve,
-        style: options.theme.style,
-        formatters: options.theme.formatters,
-        resolvers: options.theme.resolvers,
-        stylers: options.theme.stylers,
-        theme: options.theme.theme as any,
-      };
-
-      return {
-        breakpoint,
-        ctx: resolveCtx,
-        generate(...styleSheets) {
-          return options.styleGenerator(styleSheets, resolveCtx);
-        },
-        resolveStyleSheets(...styleSheets) {
-          return resolveStyleSheets(styleSheets, resolveCtx);
-        },
-        theme: resolveCtx.theme,
-      };
-    }, [options.is, options.theme, options.styleGenerator]);
+    return useStaticMemo(createDesignSystem, [
+      options.is,
+      options.theme,
+      options.styleGenerator,
+    ]);
   }
 
   // ctx is defined because there is a check above

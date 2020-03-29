@@ -1,4 +1,5 @@
-import React, { ComponentProps, JSXElementConstructor } from 'react';
+import React, { ComponentProps } from 'react';
+import { StyleSheetCache } from './cache';
 import {
   ResolvedStyleSheet,
   StyleSheet,
@@ -329,7 +330,7 @@ export interface Visage<TTheme extends Theme> {
    * In case of react-nativr it should return styles prop
    */
   generate(
-    ...styleSheets: StyleSheet<VisageStylingProperties>[]
+    styleSheets: StyleSheet<VisageStylingProperties>[],
   ): { [prop: string]: any };
   /**
    * Resolves style sheets
@@ -338,8 +339,14 @@ export interface Visage<TTheme extends Theme> {
    * and not style props
    */
   resolveStyleSheets(
-    ...styleSheets: StyleSheet<VisageStylingProperties>[]
+    styleSheets: StyleSheet<VisageStylingProperties>[],
   ): ResolvedStyleSheet;
+  /**
+   * Current style sheet cache
+   *
+   * Cache is nested because stylesheets are dependent on different style sheets
+   */
+  styleSheetCache: StyleSheetCache;
   /**
    * Current theme
    */
@@ -353,11 +360,11 @@ export interface Visage<TTheme extends Theme> {
  * For example createComponent(anotherVisageComponent) or `<VisageComponent as={AnotherVisageComponent} />`
  */
 export interface StyleProps {
-  styles?: VisageStyleSheet;
+  styles?: StyleSheet<VisageStylingProperties>;
   /**
    * Parent styles are array of all stylesheets that should be applied from parents
    */
-  parentStyles?: VisageStyleSheet[];
+  parentStyles?: StyleSheet<VisageStylingProperties>[];
 }
 
 /**
@@ -385,7 +392,7 @@ export type OmittableProps<T extends {}> = {
 };
 
 export interface StyleFunction<TProps extends {}> {
-  (props: TProps): VisageStyleSheet;
+  (props: TProps): StyleSheet<VisageStylingProperties>;
 }
 
 export type UnionToIntersection<U> = (U extends any
