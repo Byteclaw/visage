@@ -25,7 +25,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
 
   const togglePaletteMode = useCallback(() => {
     setDarkTheme(!isDark);
-    setColorPalette(toggleColorPaletteMode(colors));
+    setColorPalette(toggleColorPaletteMode(colors, !isDark));
   }, [colors, isDark]);
 
   return (
