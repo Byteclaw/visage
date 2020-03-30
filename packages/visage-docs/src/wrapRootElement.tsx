@@ -46,7 +46,6 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
                 {...restProps}
                 level={index + 1}
                 styles={{
-                  cursor: 'pointer',
                   '&:hover a': { display: 'inline' },
                 }}
               >
