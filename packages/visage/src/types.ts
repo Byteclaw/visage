@@ -8,6 +8,8 @@ export interface ColorPalette {
   /** Used as background color for dark on light design or text color of inverted design */
   lightShades: string | ScaleValue<string>;
   lightShadesText: string | ScaleValue<string>;
+  lightShadeOverlay: string | ScaleValue<string>;
+  lightShadeOverlayText: string | ScaleValue<string>;
   primary: string | ScaleValue<string>;
   primaryText: string | ScaleValue<string>;
   /** Alternative accent color */
@@ -16,6 +18,8 @@ export interface ColorPalette {
   /** Used as text color for dark on light design or background color of inverted design */
   darkShades: string | ScaleValue<string>;
   darkShadesText: string | ScaleValue<string>;
+  darkShadeOverlay: string | ScaleValue<string>;
+  darkShadeOverlayText: string | ScaleValue<string>;
   /** Uses as background for danger elements or as invalid color */
   danger: string | ScaleValue<string>;
   dangerText: string | ScaleValue<string>;

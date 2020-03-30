@@ -16,6 +16,18 @@ const primary = color('#1FA7EC');
 
 export const docsThemeColorPalette: ColorPalette = {
   ...generateColorScale<'neutral' | 'neutralText'>('neutral', '#e3e8ee', 5, 5),
+  ...generateColorScale<'darkShadeOverlay' | 'darkShadeOverlayText'>(
+    'darkShadeOverlay',
+    'rgba(255, 255, 255, .15)',
+    5,
+    5,
+  ),
+  ...generateColorScale<'lightShadeOverlay' | 'lightShadeOverlayText'>(
+    'lightShadeOverlay',
+    'rgba(0, 0, 0, .15)',
+    5,
+    5,
+  ),
   darkAccent: darkAccent.toString(),
   darkAccentText: darkAccent.isDark() ? '#fff' : '#000',
   darkShades: darkShades.toString(),
