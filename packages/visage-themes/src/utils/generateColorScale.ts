@@ -20,7 +20,7 @@ export function generateColorScale<TKey extends string = string>(
     );
   }
 
-  colors.push(col.hex().toString());
+  colors.push(col.rgb().toString());
 
   for (let i = 1; i < darkSteps + 1; ++i) {
     colors.push(
