@@ -19,7 +19,7 @@ export const DataTableHeader = createComponent('thead', {
 export const DataTableHeaderColumn = createComponent('th', {
   displayName: 'DataTableHeaderColumn',
   styles: props => ({
-    borderColor: 'neutral.1',
+    borderColor: 'lightShadeOverlay',
     borderStyle: 'solid',
     borderWidth: 0,
     fontWeight: 600,
@@ -30,8 +30,8 @@ export const DataTableHeaderColumn = createComponent('th', {
       ? { backgroundColor: 'neutral', color: 'neutralText', fontWeight: 600 }
       : {}),
     ...(props.inFooter
-      ? { borderTopWidth: '.1rem' }
-      : { borderBottomWidth: '.1rem' }),
+      ? { borderTopWidth: '1px' }
+      : { borderBottomWidth: '1px' }),
   }),
   variants: [
     booleanVariant('numeric', true),
