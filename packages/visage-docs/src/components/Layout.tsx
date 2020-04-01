@@ -37,9 +37,9 @@ export function Layout({ children }: Props) {
         open
         side={DrawerPosition.left}
       >
-        <Flex styles={{ alignItems: 'center', py: 2, px: 1 }}>
+        <Flex styles={{ alignItems: 'center', py: 2, px: 2 }}>
           <SvgIcon icon={LogoSvg} styles={{ iconSize: 2, mr: 0 }} />{' '}
-          <Text styles={{ fontSize: 2, lineHeight: 2, fontWeight: 'bold' }}>
+          <Text styles={{ fontSize: 1, lineHeight: 1, fontWeight: 'bold' }}>
             Visage
             <Text as="span" styles={{ fontSize: -2, fontWeight: 400 }}>
               &nbsp; v{visageVersion}

@@ -10,6 +10,10 @@ export const LinkStyles: EmotionStyleSheet = {
   lineHeight: 'inherit',
   color: 'primary',
   outline: 'none',
+  textDecoration: 'none',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
 };
 
 export const Link = createComponent('a', {

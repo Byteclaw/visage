@@ -98,6 +98,7 @@ const ListItemLinkBase = createComponent('a', {
     '&:hover': {
       backgroundColor: 'lightAccent',
       color: 'lightAccentText',
+      textDecoration: 'none',
     },
     '&:focus': {
       backgroundColor: 'lightAccent',
@@ -114,7 +115,12 @@ export const ListItemLink: typeof ListItemLinkBase = ({
 }: any) => {
   const depth = useContext(ListDepthContext);
 
-  return <ListItemLinkBase {...props} styles={{ pl: 2 * depth, ...styles }} />;
+  return (
+    <ListItemLinkBase
+      {...props}
+      styles={{ pl: (depth > 1 ? 2 : 3) * depth, ...styles }}
+    />
+  );
 };
 
 export const ListHeader = createComponent('h1', {
