@@ -1,10 +1,4 @@
-import {
-  CollapseUpIcon,
-  CollapsibleList,
-  ExpandDownIcon,
-  ListItemLink,
-  SvgIcon,
-} from '@byteclaw/visage';
+import { CollapsibleList, ListItemLink } from '@byteclaw/visage';
 import { Match } from '@reach/router';
 import React, { ReactNode } from 'react';
 
@@ -31,15 +25,11 @@ export function CollapsibleNavigationSection({
               tabIndex={0}
               styles={{
                 justifyContent: 'space-between',
-                fontWeight: 600,
+                fontWeight: 700,
+                fontSize: 0,
               }}
             >
               {title}
-              {!collapsed ? (
-                <SvgIcon aria-hidden icon={CollapseUpIcon} />
-              ) : (
-                <SvgIcon aria-hidden icon={ExpandDownIcon} />
-              )}
             </ListItemLink>
           )}
         >

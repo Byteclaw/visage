@@ -1,4 +1,4 @@
-import { Divider, List, ListItem, ListItemLink } from '@byteclaw/visage';
+import { List, ListItem, ListItemLink } from '@byteclaw/visage';
 import { Link, Match } from '@reach/router';
 import React, { ReactNode } from 'react';
 import { CollapsibleNavigationSection } from './CollapsibleNavigationSection';
@@ -26,8 +26,8 @@ function ListItemRouteLink({ to, ...restProps }: ListItemRouteLink) {
 
 export function Sidebar() {
   return (
-    <List styles={{ fontSize: -1 }} role="navigation">
-      <ListItem styles={{ fontWeight: 600 }}>
+    <List styles={{ fontSize: 0, fontFamily: 'heading' }} role="navigation">
+      <ListItem styles={{ fontWeight: 700, fontSize: 0 }}>
         <ListItemRouteLink to="/">Introduction</ListItemRouteLink>
       </ListItem>
       <ListItem>
@@ -60,40 +60,42 @@ export function Sidebar() {
       <ListItem>
         <CollapsibleNavigationSection path="/components/*" title="Components">
           <ListItem>
-            <ListItemRouteLink to="/components/design-system">
-              DesignSystem
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/responsive-design-system">
-              ResponsiveDesignSystem
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/layer-manager">
-              LayerManager
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/toast-manager">
-              ToastManager
-            </ListItemRouteLink>
+            <CollapsibleNavigationSection
+              path="/components/layout/*"
+              title="Layout"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/accordion">
+                  Accordion
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/box">
+                  Box
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/box-skeleton">
+                  BoxSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/card">
+                  Card
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/layout/flex">
+                  Flex
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
               path="/components/actions/*"
               title="Actions"
             >
-              <ListItem>
-                <ListItemRouteLink to="/components/actions/close-button">
-                  CloseButton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/actions/button">
-                  Button
-                </ListItemRouteLink>
-              </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/actions/menu">
                   Menu
@@ -114,6 +116,46 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/description-list">
                   DescriptionList
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/divider">
+                  Divider
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/heading">
+                  Heading
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/heading-skeleton">
+                  HeadingSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/paragraph">
+                  Paragraph
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/paragraph-skeleton">
+                  ParagraphSkeleton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/skeleton-sentence">
+                  SkeletonSentence
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/text">
+                  Text
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/text-skeleton">
+                  TextSkeleton
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
@@ -152,76 +194,86 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
-              path="/components/forms/*"
-              title="Forms"
+              path="/components/inputs/*"
+              title="Inputs"
             >
               <ListItem>
-                <ListItemRouteLink to="/components/forms/autocomplete-input">
+                <ListItemRouteLink to="/components/inputs/autocomplete-input">
                   AutocompleteInput
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/checkbox">
+                <ListItemRouteLink to="/components/inputs/button">
+                  Button
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/inputs/close-button">
+                  CloseButton
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/inputs/checkbox">
                   Checkbox
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/chip">
+                <ListItemRouteLink to="/components/inputs/chip">
                   Chip
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/field-set">
+                <ListItemRouteLink to="/components/inputs/field-set">
                   FieldSet
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/file-input">
+                <ListItemRouteLink to="/components/inputs/file-input">
                   FileInput
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/form-field">
+                <ListItemRouteLink to="/components/inputs/form-field">
                   FormField
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/inline-error">
+                <ListItemRouteLink to="/components/inputs/inline-error">
                   InlineError
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/label">
+                <ListItemRouteLink to="/components/inputs/label">
                   Label
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/radio">
+                <ListItemRouteLink to="/components/inputs/radio">
                   Radio
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/select">
+                <ListItemRouteLink to="/components/inputs/select">
                   Select
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/slider">
+                <ListItemRouteLink to="/components/inputs/slider">
                   Slider
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/textarea">
+                <ListItemRouteLink to="/components/inputs/textarea">
                   TextArea
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/text-input">
+                <ListItemRouteLink to="/components/inputs/text-input">
                   TextInput
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/forms/toggle">
+                <ListItemRouteLink to="/components/inputs/toggle">
                   Toggle
                 </ListItemRouteLink>
               </ListItem>
@@ -245,40 +297,6 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/images-icons/svg-icon">
                   SvgIcon
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
-          </ListItem>
-          <ListItem>
-            <CollapsibleNavigationSection
-              path="/components/layout/*"
-              title="Layout"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/layout/box">
-                  Box
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/layout/box-skeleton">
-                  BoxSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/layout/flex">
-                  Flex
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
-          </ListItem>
-          <ListItem>
-            <CollapsibleNavigationSection
-              path="/components/misc/*"
-              title="Misc"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/misc/divider">
-                  Divider
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
@@ -350,63 +368,24 @@ export function Sidebar() {
             </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
-            <CollapsibleNavigationSection
-              path="/components/structure/*"
-              title="Structure"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/structure/accordion">
-                  Accordion
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/structure/card">
-                  Card
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
+            <ListItemRouteLink to="/components/design-system">
+              DesignSystem
+            </ListItemRouteLink>
           </ListItem>
           <ListItem>
-            <CollapsibleNavigationSection
-              path="/components/typography/*"
-              title="Typography"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/heading">
-                  Heading
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/heading-skeleton">
-                  HeadingSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/paragraph">
-                  Paragraph
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/paragraph-skeleton">
-                  ParagraphSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/skeleton-sentence">
-                  SkeletonSentence
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/text">
-                  Text
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/typography/text-skeleton">
-                  TextSkeleton
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
+            <ListItemRouteLink to="/components/responsive-design-system">
+              ResponsiveDesignSystem
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/components/layer-manager">
+              LayerManager
+            </ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/components/toast-manager">
+              ToastManager
+            </ListItemRouteLink>
           </ListItem>
         </CollapsibleNavigationSection>
       </ListItem>
@@ -480,11 +459,10 @@ export function Sidebar() {
           </ListItem>
         </CollapsibleNavigationSection>
       </ListItem>
-      <ListItem styles={{ fontWeight: 600 }}>
+      <ListItem styles={{ fontWeight: 700, fontSize: 0 }}>
         <ListItemRouteLink to="/utilities">Utilities</ListItemRouteLink>
       </ListItem>
-      <Divider styles={{ color: 'neutral' }} />
-      <ListItem styles={{ fontWeight: 600 }}>
+      <ListItem styles={{ fontWeight: 700, fontSize: 0 }}>
         <ListItemLink href="https://github.com/byteclaw/visage">
           Github
         </ListItemLink>
