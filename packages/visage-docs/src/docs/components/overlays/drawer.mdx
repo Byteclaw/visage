@@ -21,7 +21,7 @@ function DefaultDrawer() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <LayerManager>
       <Button onClick={() => setShow(true)} type="button">
         Show drawer
       </Button>
@@ -40,7 +40,7 @@ function DefaultDrawer() {
             ))}
         </Drawer>
       ) : null}
-    </>
+    </LayerManager>
   );
 }
 ```
@@ -54,7 +54,7 @@ function CustomRenderSide() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <LayerManager>
       <Button onClick={() => setShow(true)} type="button">
         Show drawer
       </Button>
@@ -71,7 +71,7 @@ function CustomRenderSide() {
           Drawer content
         </Drawer>
       ) : null}
-    </>
+    </LayerManager>
   );
 }
 ```
@@ -85,7 +85,7 @@ function RenderToPortal() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <LayerManager>
       <Button onClick={() => setShow(true)} type="button">
         Show drawer
       </Button>
@@ -101,7 +101,7 @@ function RenderToPortal() {
           Drawer content
         </Drawer>
       ) : null}
-    </>
+    </LayerManager>
   );
 }
 ```
@@ -121,7 +121,7 @@ function DisableBackdrop() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <LayerManager>
       <Button onClick={() => setShow(true)} type="button">
         Show drawer
       </Button>
@@ -138,7 +138,7 @@ function DisableBackdrop() {
           Drawer content
         </Drawer>
       ) : null}
-    </>
+    </LayerManager>
   );
 }
 ```
@@ -150,7 +150,7 @@ function DisableBackdropAndClickAway() {
   const [show, setShow] = useState(false);
 
   return (
-    <>
+    <LayerManager>
       <Button onClick={() => setShow(true)} type="button">
         Show drawer
       </Button>
@@ -170,7 +170,7 @@ function DisableBackdropAndClickAway() {
           Drawer content
         </Drawer>
       ) : null}
-    </>
+    </LayerManager>
   );
 }
 ```
@@ -186,7 +186,7 @@ function AutomaticallyFocusElementInDrawer() {
   const buttonRef = useRef(null);
 
   return (
-    <>
+    <LayerManager>
       <Button onClick={() => setShow(true)} type="button">
         Show drawer
       </Button>
@@ -204,7 +204,7 @@ function AutomaticallyFocusElementInDrawer() {
           <Button type="button">3</Button>
         </Drawer>
       ) : null}
-    </>
+    </LayerManager>
   );
 }
 ```
