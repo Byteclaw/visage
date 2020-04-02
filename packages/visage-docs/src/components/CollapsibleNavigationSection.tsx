@@ -6,10 +6,12 @@ interface CollapsibleNavigationSectionProps {
   children: ReactNode;
   path: string;
   title: string;
+  openOnInit?: boolean;
 }
 
 export function CollapsibleNavigationSection({
   children,
+  openOnInit = false,
   path,
   title,
 }: CollapsibleNavigationSectionProps) {
@@ -17,7 +19,7 @@ export function CollapsibleNavigationSection({
     <Match path={path}>
       {({ match }) => (
         <CollapsibleList
-          collapsed={match == null}
+          collapsed={match == null && !openOnInit}
           renderToggler={(collapsed, onClick, onKeyDown) => (
             <ListItemLink
               onClick={onClick}

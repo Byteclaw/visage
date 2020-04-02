@@ -61,6 +61,7 @@ export function Sidebar() {
         <CollapsibleNavigationSection path="/components/*" title="Components">
           <ListItem>
             <CollapsibleNavigationSection
+              openOnInit
               path="/components/layout/*"
               title="Layout"
             >
@@ -93,21 +94,15 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
-              path="/components/actions/*"
-              title="Actions"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/actions/menu">
-                  Menu
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
-          </ListItem>
-          <ListItem>
-            <CollapsibleNavigationSection
+              openOnInit
               path="/components/data-and-information/*"
               title="Data and Information"
             >
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/badge">
+                  Badge
+                </ListItemRouteLink>
+              </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/data-table">
                   DataTable
@@ -134,6 +129,16 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/image">
+                  Image
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/list">
+                  List
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/paragraph">
                   Paragraph
                 </ListItemRouteLink>
@@ -146,6 +151,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/skeleton-sentence">
                   SkeletonSentence
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/svg-icon">
+                  SvgIcon
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -162,38 +172,7 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
-              path="/components/feedback/*"
-              title="Feedback"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/feedback/banner">
-                  Banner
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/feedback/loading">
-                  Loading
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/feedback/progress-bar">
-                  ProgressBar
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/feedback/spinner">
-                  Spinner
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/feedback/toast">
-                  Toast
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
-          </ListItem>
-          <ListItem>
-            <CollapsibleNavigationSection
+              openOnInit
               path="/components/inputs/*"
               title="Inputs"
             >
@@ -281,28 +260,7 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
-              path="/components/images-icons/*"
-              title="Images and icons"
-            >
-              <ListItem>
-                <ListItemRouteLink to="/components/images-icons/badge">
-                  Badge
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/images-icons/image">
-                  Image
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/images-icons/svg-icon">
-                  SvgIcon
-                </ListItemRouteLink>
-              </ListItem>
-            </CollapsibleNavigationSection>
-          </ListItem>
-          <ListItem>
-            <CollapsibleNavigationSection
+              openOnInit
               path="/components/navigation/*"
               title="Navigation"
             >
@@ -312,8 +270,8 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/navigation/list">
-                  List
+                <ListItemRouteLink to="/components/navigation/menu">
+                  Menu
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -330,6 +288,40 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
+              openOnInit
+              path="/components/feedback/*"
+              title="Feedback"
+            >
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/banner">
+                  Banner
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/loading">
+                  Loading
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/progress-bar">
+                  ProgressBar
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/spinner">
+                  Spinner
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/toast">
+                  Toast
+                </ListItemRouteLink>
+              </ListItem>
+            </CollapsibleNavigationSection>
+          </ListItem>
+          <ListItem>
+            <CollapsibleNavigationSection
+              openOnInit
               path="/components/overlays/*"
               title="Overlays"
             >
@@ -357,35 +349,36 @@ export function Sidebar() {
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection
-              path="/components/responsive-utils/*"
-              title="Responsive utilities"
+              openOnInit
+              path="/components/core/*"
+              title="Core"
             >
               <ListItem>
-                <ListItemRouteLink to="/components/responsive-utils/is-breakpoint">
+                <ListItemRouteLink to="/components/core/is-breakpoint">
                   IsBreakpoint
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/core/design-system">
+                  DesignSystem
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/core/responsive-design-system">
+                  ResponsiveDesignSystem
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/core/layer-manager">
+                  LayerManager
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/core/toast-manager">
+                  ToastManager
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleNavigationSection>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/design-system">
-              DesignSystem
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/responsive-design-system">
-              ResponsiveDesignSystem
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/layer-manager">
-              LayerManager
-            </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/components/toast-manager">
-              ToastManager
-            </ListItemRouteLink>
           </ListItem>
         </CollapsibleNavigationSection>
       </ListItem>
@@ -415,7 +408,7 @@ export function Sidebar() {
             </ListItemRouteLink>
           </ListItem>
           <ListItem>
-            <ListItemRouteLink to="/customization/themes">
+            <ListItemRouteLink to="/customization/default-themes">
               Default themes
             </ListItemRouteLink>
           </ListItem>
