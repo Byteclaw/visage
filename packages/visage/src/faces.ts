@@ -86,6 +86,8 @@ export interface VisageFaces {
   // Dialog.tsx
   DialogContent?: EmotionStyleSheet;
   // Dialog.tsx
+  DialogHeader?: EmotionStyleSheet;
+  // Dialog.tsx
   DialogHeading?: EmotionStyleSheet;
   // Dialog.tsx
   DialogHeadingWrapper?: EmotionStyleSheet;
@@ -159,12 +161,8 @@ export interface VisageFaces {
   MenuItem?: EmotionStyleSheet;
   // Modal.tsx
   Modal?: EmotionStyleSheet;
-  // Modal.tsx
-  ModalBackdrop?: EmotionStyleSheet;
   // Pagination.tsx
   NextPageButton?: EmotionStyleSheet;
-  // Overlay.tsx
-  Overlay?: EmotionStyleSheet;
   // Pagination.tsx
   Pagination?: EmotionStyleSheet;
   // Paragraph.tsx
