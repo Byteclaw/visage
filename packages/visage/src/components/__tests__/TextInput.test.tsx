@@ -82,6 +82,9 @@ describe('TextInput', () => {
       }
 
       .emotion-0 {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
         background-color: transparent;
         border: none;
         color: currentColor;
