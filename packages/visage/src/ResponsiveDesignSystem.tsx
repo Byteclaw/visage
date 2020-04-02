@@ -10,7 +10,7 @@ import {
   StyleGenerator,
 } from '@byteclaw/visage-core';
 import React, { ReactNode, useState } from 'react';
-import { CloseListenerManager } from './CloseListenerManager';
+import { CloseListenerManager } from './components';
 import { useBreakpointDetection } from './hooks';
 import { globalComponentStyles, GlobalReset } from './GlobalReset';
 import { GlobalStyles } from './GlobalStyles';

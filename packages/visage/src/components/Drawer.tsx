@@ -4,7 +4,7 @@ import {
   CloseListenerManagerContextAPI,
   OnCloseHandler,
   useCloseListenerManager,
-} from '../CloseListenerManager';
+} from './CloseListenerManager';
 import { createComponent } from '../core';
 import {
   useFocusTrap,
@@ -89,13 +89,13 @@ function bindOnCloseListeners(
     onClose,
     isFullscreen,
   );
-  const unregisterEscapeKeyDown = closeListenerManager.registerEscapeKeyDownListener(
+  const unregisterEscapeKeyUp = closeListenerManager.registerEscapeKeyUpListener(
     onClose,
   );
 
   return () => {
     unregisterClickAway();
-    unregisterEscapeKeyDown();
+    unregisterEscapeKeyUp();
   };
 }
 
