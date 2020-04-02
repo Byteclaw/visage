@@ -17,7 +17,7 @@ describe('core', () => {
       expect(displayName(Anonymous)).toBe('Anonymous');
       expect(displayName(Named)).toBe('Named');
       expect(displayName(() => <div />)).toBe('Unknown');
-      expect(displayName(class extends React.Component {})).toBe('Component');
+      expect(displayName(class extends React.Component {})).toBe('Unknown');
       expect(displayName(class Trolo extends React.Component {})).toBe('Trolo');
       expect(displayName(createComponent('a'))).toBe('VisageComponent(a)');
       expect(displayName(createComponent(Anonymous))).toBe(
@@ -28,7 +28,7 @@ describe('core', () => {
       );
       expect(
         displayName(createComponent(class extends React.Component {})),
-      ).toBe('VisageComponent(Component)');
+      ).toBe('VisageComponent(Unknown)');
       expect(
         displayName(createComponent(class Trolo extends React.Component {})),
       ).toBe('VisageComponent(Trolo)');
