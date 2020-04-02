@@ -88,6 +88,13 @@ const DialogHeadingWrapper = createComponent(Flex, {
   variants: [booleanVariant('closable', true)],
 });
 
+const DialogHeader = createComponent(Flex, {
+  displayName: 'DialogHeader',
+  styles: {
+    flexShrink: 0,
+  },
+});
+
 interface DialogProps {
   /**
    * Dialog's base styles
@@ -149,7 +156,7 @@ export function Dialog({
         scroll={scroll}
         styles={baseStyles}
       >
-        <Flex>
+        <DialogHeader>
           <DialogHeadingWrapper closable={!!onClose}>
             {secondaryLabel != null ? (
               <DialogSubHeading>{secondaryLabel}</DialogSubHeading>
@@ -165,7 +172,7 @@ export function Dialog({
               />
             </DialogCloseButtonWrapper>
           ) : null}
-        </Flex>
+        </DialogHeader>
         <DialogContent styles={contentStyles}>{children}</DialogContent>
       </DialogBase>
     </Modal>
