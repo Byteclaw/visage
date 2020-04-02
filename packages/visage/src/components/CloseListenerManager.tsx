@@ -8,7 +8,7 @@ import React, {
   useContext,
   useRef,
 } from 'react';
-import { useStaticEffect } from './hooks';
+import { useStaticEffect } from '../hooks';
 
 export type OnCloseHandler = (
   e: KeyboardEvent | MouseEvent,
@@ -24,7 +24,7 @@ export interface CloseListenerManagerContextAPI {
   /**
    * Returns a function that must be called to deregister the listener if component is unmounted
    */
-  registerEscapeKeyDownListener(listener: OnCloseHandler): () => void;
+  registerEscapeKeyUpListener(listener: OnCloseHandler): () => void;
   /**
    * Register click away listener that will propagate close on non full screen listeners
    *
@@ -49,7 +49,7 @@ export const CloseListenerManagerContext = createContext<
   registerClickAwayListener() {
     return () => {};
   },
-  registerEscapeKeyDownListener() {
+  registerEscapeKeyUpListener() {
     return () => {};
   },
 });
@@ -61,7 +61,7 @@ export function useCloseListenerManager(): CloseListenerManagerContextAPI {
   return useContext(CloseListenerManagerContext);
 }
 
-function onEscapeKeyDownHandlerCreator(
+function onEscapeKeyUpHandlerCreator(
   escapeStack: MutableRefObject<OnCloseHandler[]>,
 ) {
   return (e: KeyboardEvent) => {
@@ -114,19 +114,19 @@ function onClickAwayHandlerCreator(
 }
 
 function bindEventListeners(
-  escapeKeyDownListener: (e: KeyboardEvent) => any,
+  escapeKeyUpListener: (e: KeyboardEvent) => any,
   clickAwayListener: (e: MouseEvent) => any,
 ) {
   if (typeof document === 'undefined') {
     return;
   }
 
-  document.addEventListener('keydown', escapeKeyDownListener);
+  document.addEventListener('keyup', escapeKeyUpListener, true);
   document.addEventListener('click', clickAwayListener, true);
 
   return () => {
     document.removeEventListener('click', clickAwayListener, true);
-    document.removeEventListener('keydown', escapeKeyDownListener);
+    document.removeEventListener('keyup', escapeKeyUpListener, true);
   };
 }
 
@@ -182,7 +182,7 @@ interface Props {
 export function CloseListenerManager({ children }: Props) {
   const escapeStack = useRef<OnCloseHandler[]>([]);
   const clickAwayStack = useRef<ClickAwayHandler[]>([]);
-  const registerEscapeKeyDownListener = useStaticCallbackCreator(
+  const registerEscapeKeyUpListener = useStaticCallbackCreator(
     createRegisterEscapeListener,
     [escapeStack],
   );
@@ -191,20 +191,19 @@ export function CloseListenerManager({ children }: Props) {
     [clickAwayStack],
   );
   const context = useRef<CloseListenerManagerContextAPI | undefined>();
-  const onEscapeKeyDown = useStaticCallbackCreator(
-    onEscapeKeyDownHandlerCreator,
-    [escapeStack],
-  );
+  const onEscapeKeyUp = useStaticCallbackCreator(onEscapeKeyUpHandlerCreator, [
+    escapeStack,
+  ]);
   const onClickAway = useStaticCallbackCreator(onClickAwayHandlerCreator, [
     clickAwayStack,
   ]);
 
-  useStaticEffect(bindEventListeners, onEscapeKeyDown, onClickAway);
+  useStaticEffect(bindEventListeners, onEscapeKeyUp, onClickAway);
 
   if (context.current == null) {
     context.current = {
       registerClickAwayListener,
-      registerEscapeKeyDownListener,
+      registerEscapeKeyUpListener,
     };
   }
 

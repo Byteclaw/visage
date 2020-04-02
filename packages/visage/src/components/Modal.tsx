@@ -19,7 +19,7 @@ import {
 import {
   CloseListenerManagerContext,
   CloseListenerManagerContextAPI,
-} from '../CloseListenerManager';
+} from './CloseListenerManager';
 import { disableBodyScroll } from './effects';
 
 const BaseModal = createComponent('div', {
@@ -68,13 +68,13 @@ function bindOnCloseListeners(
         onClose,
         isFullscreen,
       );
-  const unregisterEscapeKeyDown = disableOnEscapeClose
+  const unregisterEscapeKeyUp = disableOnEscapeClose
     ? () => {}
-    : closeListenerManagerContext.registerEscapeKeyDownListener(onClose);
+    : closeListenerManagerContext.registerEscapeKeyUpListener(onClose);
 
   return () => {
     unregisterClickAway();
-    unregisterEscapeKeyDown();
+    unregisterEscapeKeyUp();
   };
 }
 

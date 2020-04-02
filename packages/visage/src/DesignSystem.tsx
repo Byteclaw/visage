@@ -9,7 +9,7 @@ import {
   StyleGenerator,
 } from '@byteclaw/visage-core';
 import React, { FunctionComponent, ReactNode, useState } from 'react';
-import { CloseListenerManager } from './CloseListenerManager';
+import { CloseListenerManager } from './components';
 import { createEmotionStyleGenerator } from './emotionStyleGenerator';
 import { globalComponentStyles, GlobalReset } from './GlobalReset';
 import { GlobalStyles } from './GlobalStyles';
