@@ -71,6 +71,7 @@ const TextInputControlBase = createComponent('div', {
 const TextInputControl = createComponent('input', {
   displayName: 'TextInputControl',
   styles: {
+    appearance: 'none',
     backgroundColor: 'transparent',
     border: 'none',
     color: 'currentColor',
