@@ -15,8 +15,10 @@ Toast will pause expiration on mouse over/focus.
 ### Default
 
 ```jsx live=true
-<WithState>
-  {(show, setShow) => (
+function Example() {
+  const [show, setShow] = useState(false);
+
+  return (
     <Fragment>
       <Button disabled={show} onClick={() => setShow(true)} type="button">
         Show toast
@@ -25,8 +27,8 @@ Toast will pause expiration on mouse over/focus.
         <Toast onDismiss={() => setShow(false)}>Default toast</Toast>
       ) : null}
     </Fragment>
-  )}
-</WithState>
+  );
+}
 ```
 
 ### Custom duration
@@ -34,8 +36,10 @@ Toast will pause expiration on mouse over/focus.
 Duration can be specified in `milliseconds`.
 
 ```jsx live=true
-<WithState>
-  {(show, setShow) => (
+function Example() {
+  const [show, setShow] = useState(false);
+
+  return (
     <Fragment>
       <Button disabled={show} onClick={() => setShow(true)} type="button">
         Show toast
@@ -46,15 +50,17 @@ Duration can be specified in `milliseconds`.
         </Toast>
       ) : null}
     </Fragment>
-  )}
-</WithState>
+  );
+}
 ```
 
 ### Variants
 
 ```jsx live=true
-<WithState defaultValue={[]}>
-  {(show, setShow) => (
+function Example() {
+  const [show, setShow] = useState([]);
+
+  return (
     <Fragment>
       {['default', 'danger', 'info', 'primary', 'success', 'warning'].map(
         variant => (
@@ -86,15 +92,17 @@ Duration can be specified in `milliseconds`.
         },
       )}
     </Fragment>
-  )}
-</WithState>
+  );
+}
 ```
 
 ### Longer width
 
 ```jsx live=true
-<WithState>
-  {(show, setShow) => (
+function Example() {
+  const [show, setShow] = useState(false);
+
+  return (
     <Fragment>
       <Button disabled={show} onClick={() => setShow(true)} type="button">
         Show toast
@@ -108,6 +116,10 @@ Duration can be specified in `milliseconds`.
         </Toast>
       ) : null}
     </Fragment>
-  )}
-</WithState>
+  );
+}
 ```
+
+## Prop Types
+
+<PropTypes component="Toast" />

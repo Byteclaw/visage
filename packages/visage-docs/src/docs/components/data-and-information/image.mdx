@@ -19,12 +19,10 @@ import { Image } from '@byteclaw/visage';
 ### Without aspect ratio specified (default size)
 
 ```jsx live=true
-<Fragment>
-  <Box styles={{ width: 300 }}>
-    <Image src="https://via.placeholder.com/150" />
-    <Image src="https://via.placeholder.com/150x85" />
-  </Box>
-</Fragment>
+<Box styles={{ width: 300 }}>
+  <Image src="https://via.placeholder.com/150" />
+  <Image src="https://via.placeholder.com/150x85" />
+</Box>
 ```
 
 ### Without aspect ratio specified, with specified sizes
@@ -41,12 +39,14 @@ import { Image } from '@byteclaw/visage';
 To specify aspect ratio use `aspectRatio` property e.g. `aspectRatio={16/9}`.
 
 ```jsx live=true
-<Fragment>
-  <Box styles={{ width: 150 }}>
-    <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150" />
-    <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150x85" />
-    <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150" />
-    <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150x85" />
-  </Box>
-</Fragment>
+<Box styles={{ width: 150 }}>
+  <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150" />
+  <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150x85" />
+  <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150" />
+  <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150x85" />
+</Box>
 ```
+
+## Prop Types
+
+<PropTypes component="Image" />

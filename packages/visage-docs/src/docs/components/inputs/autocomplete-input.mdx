@@ -15,26 +15,32 @@ import { AutocompleteInput } from '@byteclaw/visage';
 ### Default
 
 ```jsx live=true
-<AutocompleteInput
-  id="autocomplete-field"
-  onChange={value => console.log(value)}
-  options={filter => {
-    return new Promise(resolve => {
-      const options = Array(100)
-        .fill(null)
-        .map((_, i) => i);
+function Example() {
+  const options = useRef(
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
 
-      if (filter) {
-        const regex = new RegExp(filter, 'i');
+  return (
+    <AutocompleteInput
+      id="autocomplete-field"
+      onChange={value => console.log(value)}
+      options={filter => {
+        return new Promise(resolve => {
+          if (filter) {
+            const regex = new RegExp(filter, 'i');
 
-        return resolve(options.filter(o => regex.test(o)));
-      }
+            return resolve(options.current.filter(o => regex.test(o)));
+          }
 
-      return resolve(options);
-    });
-  }}
-  placeholder="Enter a value"
-/>
+          return resolve(options.current);
+        });
+      }}
+      placeholder="Enter a value"
+    />
+  );
+}
 ```
 
 ### Invalid
@@ -96,18 +102,24 @@ import { AutocompleteInput } from '@byteclaw/visage';
 ### Static options
 
 ```jsx live=true
-<WithState
-  defaultValue={Array(100)
-    .fill(null)
-    .map((_, i) => i)}
->
-  {options => (
+function Example() {
+  const options = useRef(
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
     <AutocompleteInput
       id="autocomplete-field"
       onChange={value => console.log(value)}
-      options={options}
+      options={options.current}
       placeholder="Enter a value"
     />
-  )}
-</WithState>
+  );
+}
 ```
+
+## Prop Types
+
+<PropTypes component="AutocompleteInput" />

@@ -13,8 +13,10 @@ import { Slider } from '@byteclaw/visage';
 ### Controlled
 
 ```jsx live=true
-<WithState defaultValue={[10]}>
-  {(value, setValue) => (
+function Example() {
+  const [value, setValue] = useState([10]);
+
+  return (
     <Slider
       min={0}
       max={20}
@@ -22,15 +24,17 @@ import { Slider } from '@byteclaw/visage';
       onChange={values => setValue(values)}
       values={value}
     />
-  )}
-</WithState>
+  );
+}
 ```
 
 ### Controlled with allowed steps
 
 ```jsx live=true
-<WithState defaultValue={[10]}>
-  {(value, setValue) => (
+function Example() {
+  const [value, setValue] = useState([10]);
+
+  return (
     <Slider
       allowedValues={[0, 5, 10]}
       min={0}
@@ -39,6 +43,10 @@ import { Slider } from '@byteclaw/visage';
       onChange={values => setValue(values)}
       values={value}
     />
-  )}
-</WithState>
+  );
+}
 ```
+
+## Prop Types
+
+<PropTypes component="Slider" />

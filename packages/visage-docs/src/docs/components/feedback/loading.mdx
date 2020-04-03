@@ -17,21 +17,21 @@ import { Loading } from '@byteclaw/visage';
 Default `Loading` respects `value` property which must be in range 0 to 100.
 
 ```jsx live=true
-<WithState defaultValue={0}>
-  {(value, setValue) => {
-    React.useLayoutEffect(() => {
-      window.setTimeout(() => {
-        if (value < 100) {
-          setValue(value + 5);
-        } else {
-          setValue(0);
-        }
-      }, 1000);
-    }, [value]);
+function DefaultExample() {
+  const [value, setValue] = useState(0);
 
-    return <Loading value={value} valueText="Copying files..." />;
-  }}
-</WithState>
+  useLayoutEffect(() => {
+    window.setTimeout(() => {
+      if (value < 100) {
+        setValue(value + 5);
+      } else {
+        setValue(0);
+      }
+    }, 1000);
+  }, [value]);
+
+  return <Loading value={value} valueText="Copying files..." />;
+}
 ```
 
 ### Indeterminate
@@ -47,3 +47,7 @@ Indeterminate `Loading` can be specified using `indeterminate` prop. In this cas
 ```jsx live=true
 <Loading value={60} styles={{ color: 'blue', height: 10 }} />
 ```
+
+## Prop Types
+
+<PropTypes component="Loading" />

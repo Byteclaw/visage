@@ -15,54 +15,33 @@ import { TextArea } from '@byteclaw/visage';
 ### Default
 
 ```jsx live=true
-<Fragment>
-  <TextArea placeholder="Placeholder"></TextArea>
-</Fragment>
+<TextArea placeholder="Placeholder" />
 ```
 
 ### ReadOnly
 
 ```jsx live=true
-<Fragment>
-  <TextArea readOnly></TextArea>
-</Fragment>
+<TextArea readOnly />
 ```
 
 ### Invalid
 
 ```jsx live=true
-<Fragment>
-  <TextArea invalid></TextArea>
-</Fragment>
+<TextArea invalid />
 ```
 
 ### Disabled
 
 ```jsx live=true
-<Fragment>
-  <TextArea disabled></TextArea>
-</Fragment>
-```
-
-### Support for refs
-
-```jsx live=true
-<WithRef>
-  {ref => (
-    <Fragment>
-      <TextArea ref={ref} />
-      <Button onClick={() => ref.current.focus()} type="button">
-        Focus textarea
-      </Button>
-    </Fragment>
-  )}
-</WithRef>
+<TextArea disabled />
 ```
 
 ### Auto resizing
 
 ```jsx live=true
-<Fragment>
-  <TextArea autoResize></TextArea>
-</Fragment>
+<TextArea autoResize />
 ```
+
+## Prop Types
+
+<PropTypes component="TextArea" />

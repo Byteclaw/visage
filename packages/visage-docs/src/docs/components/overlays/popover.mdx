@@ -13,37 +13,40 @@ import { Popover } from '@byteclaw/visage';
 ## Examples
 
 ```jsx live=true
-<WithState defaultValue={null}>
-  {(anchorRef, setAnchorRef) => {
-    return (
-      <Fragment>
-        <Button onClick={e => setAnchorRef(e.currentTarget)} type="button">
-          Show popover
-        </Button>
-        <Popover
-          allowScrolling={false}
-          alwaysVisible
-          anchor={anchorRef}
-          keepAnchorWidth
-          fullscreen={[true, false]}
-          open={anchorRef != null}
-          onClose={e => {
-            setAnchorRef(null);
+function Example() {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Fragment>
+      <Button onClick={() => setOpen(true)} ref={anchorRef} type="button">
+        Show popover
+      </Button>
+      <Popover
+        allowScrolling={false}
+        alwaysVisible
+        anchor={anchorRef}
+        keepAnchorWidth
+        fullscreen={[true, false]}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <Flex
+          styles={{
+            alignItems: 'center',
+            backgroundColor: 'darkShadeOverlay',
+            height: 500,
+            width: '100%',
           }}
         >
-          <Flex
-            styles={{
-              alignItems: 'center',
-              backgroundColor: '#fff',
-              height: 500,
-              width: '100%',
-            }}
-          >
-            Content
-          </Flex>
-        </Popover>
-      </Fragment>
-    );
-  }}
-</WithState>
+          Content
+        </Flex>
+      </Popover>
+    </Fragment>
+  );
+}
 ```
+
+## Prop Types
+
+<PropTypes component="Popover" />
