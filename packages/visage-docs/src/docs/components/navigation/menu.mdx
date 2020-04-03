@@ -15,24 +15,26 @@ import { Menu, MenuItem } from '@byteclaw/visage';
 ### Default
 
 ```jsx live
-<WithState>
-  {(anchorEl, setAnchorEl) => (
+function Example() {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
     <Fragment>
       <Button
         aria-controls="buttons-menu"
         aria-haspopup="menu"
-        aria-expanded={anchorEl != null}
-        onClick={e => {
-          setAnchorEl(e.currentTarget);
-        }}
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
+        ref={anchorRef}
       >
         Pop me
       </Button>
       <Menu
-        anchor={anchorEl}
+        anchor={anchorRef}
         id="buttons-menu"
-        onClose={() => setAnchorEl(null)}
-        open={anchorEl != null}
+        onClose={() => setOpen(false)}
+        open={open}
       >
         <MenuItem>One</MenuItem>
         <MenuItem>Two</MenuItem>
@@ -67,8 +69,8 @@ import { Menu, MenuItem } from '@byteclaw/visage';
         <MenuItem>Button Three</MenuItem>
       </Menu>
     </Fragment>
-  )}
-</WithState>
+  );
+}
 ```
 
 ### Disabled events
@@ -76,25 +78,27 @@ import { Menu, MenuItem } from '@byteclaw/visage';
 `disableAutoFocusItem` props turns of auto-focusing the first item in the menu list.
 
 ```jsx live
-<WithState>
-  {(anchorEl, setAnchorEl) => (
+function Example() {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
     <Fragment>
       <Button
         aria-controls="buttons-menu"
         aria-haspopup="menu"
-        aria-expanded={anchorEl != null}
-        onClick={e => {
-          setAnchorEl(anchorEl ? null : e.currentTarget);
-        }}
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
+        ref={anchorRef}
       >
-        {anchorEl ? 'Close' : 'Pop up'}
+        {open ? 'Close' : 'Pop up'}
       </Button>
       <Menu
         disableAutoFocusItem
-        anchor={anchorEl}
+        anchor={anchorRef}
         id="buttons-menu"
-        onClose={() => setAnchorEl(null)}
-        open={anchorEl != null}
+        onClose={() => setOpen(false)}
+        open={open}
       >
         <MenuItem>One</MenuItem>
         <MenuItem>Two</MenuItem>
@@ -105,8 +109,8 @@ import { Menu, MenuItem } from '@byteclaw/visage';
         <MenuItem>Button Three</MenuItem>
       </Menu>
     </Fragment>
-  )}
-</WithState>
+  );
+}
 ```
 
 ## Prop Types

@@ -25,23 +25,27 @@ Default `ProgressBar` uses current font color as bar's color.
 Progress bar uses current line height and font size to specify it's size.
 
 ```jsx live=true
-<WithState defaultValue={0}>
-  {(value, setValue) => {
-    React.useLayoutEffect(() => {
-      window.setTimeout(() => {
-        if (value < 100) {
-          setValue(value + 5);
-        } else {
-          setValue(0);
-        }
-      }, 1000);
-    }, [value]);
+function Example() {
+  const [value, setValue] = useState(0);
 
-    return (
-      <Box styles={{ color: 'warning', fontSize: -2 }}>
-        <ProgressBar value={value} valueText="Copying files..."></ProgressBar>
-      </Box>
-    );
-  }}
-</WithState>
+  useLayoutEffect(() => {
+    window.setTimeout(() => {
+      if (value < 100) {
+        setValue(value + 5);
+      } else {
+        setValue(0);
+      }
+    }, 1000);
+  }, [value]);
+
+  return (
+    <Box styles={{ color: 'warning', fontSize: -2 }}>
+      <ProgressBar value={value} valueText="Copying files..."></ProgressBar>
+    </Box>
+  );
+}
 ```
+
+## Prop Types
+
+<PropTypes component="ProgressBar" />

@@ -54,14 +54,20 @@ import { Checkbox } from '@byteclaw/visage';
 ### Controlled
 
 ```jsx live=true
-<WithState>
-  {(value, setValue) => (
+function Example() {
+  const [value, setValue] = useState();
+
+  return (
     <Checkbox
       checked={!!value}
       onChange={e => setValue(e.currentTarget.checked)}
       label="Controlled checkbox"
       name="6"
     />
-  )}
-</WithState>
+  );
+}
 ```
+
+## Prop Types
+
+<PropTypes component="Checkbox" />

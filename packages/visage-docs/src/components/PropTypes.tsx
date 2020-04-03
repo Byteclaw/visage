@@ -1,8 +1,41 @@
-import React, { useContext, useMemo } from 'react';
+import {
+  Code,
+  DataTable,
+  DataTableBody,
+  DataTableColumn,
+  DataTableHeader,
+  DataTableHeaderColumn,
+  DataTableHeaderRow,
+  DataTableRow,
+  PreformattedCode,
+  Toggle,
+} from '@byteclaw/visage';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
+import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
+import React, { useContext, useMemo, useState } from 'react';
+import { ThemeTogglerContext } from '../theme';
 import {
   ComponentProperty,
   ComponentInformationMapContext,
 } from './ComponentInformationMap';
+
+function sortProps(a: ComponentProperty, b: ComponentProperty): number {
+  if (a.isOptional && !b.isOptional) {
+    return 1;
+  }
+  if (!a.isOptional && b.isOptional) {
+    return -1;
+  }
+  if (a.name > b.name) {
+    return 1;
+  }
+  if (a.name < b.name) {
+    return -1;
+  }
+
+  return 0;
+}
 
 interface PropTypesProps {
   component: string;
@@ -12,40 +45,132 @@ export function PropTypes({ component }: PropTypesProps) {
   const { [component]: information } = useContext(
     ComponentInformationMapContext,
   );
-  const properties: ComponentProperty[] = useMemo(() => {
-    const directProps: ComponentProperty[] = [];
-    const styleProps: ComponentProperty[] = [];
-    const inheritedProps: ComponentProperty[] = [];
+  const { isDark } = useContext(ThemeTogglerContext);
+  const properties: {
+    direct: ComponentProperty[];
+    inherited: ComponentProperty[];
+  } = useMemo(() => {
+    const direct: ComponentProperty[] = [];
+    const inherited: ComponentProperty[] = [];
 
     if (!information) {
-      return [];
+      return { direct: [], inherited: [] };
     }
 
     information.properties.forEach(property => {
       if (!property.parent || property.parent === '__type') {
-        directProps.push(property);
+        direct.push(property);
       } else if (property.parent === 'StyleProps') {
-        styleProps.push(property);
+        direct.push(property);
       } else {
-        inheritedProps.push(property);
+        inherited.push(property);
       }
     });
 
-    return [...directProps, ...styleProps, ...inheritedProps];
+    return {
+      direct: direct.sort(sortProps),
+      inherited: inherited.sort(sortProps),
+    };
   }, [information]);
+  const [showAllProps, setShowAllProps] = useState(false);
 
   return (
-    <table>
-      <tbody>
-        {properties.map(property => (
-          <tr key={property.name}>
-            <td>{property.name}</td>
-            <td>{property.isOptional ? 'optional' : 'required'}</td>
-            <td>{property.type}</td>
-            <td>{property.documentation}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <React.Fragment>
+      <Toggle
+        checked={showAllProps}
+        onChange={e => setShowAllProps(e.currentTarget.checked)}
+        label="Show all props"
+      />
+      <DataTable styles={{ border: 'none', fontSize: -1 }}>
+        <DataTableHeader>
+          <DataTableHeaderRow>
+            <DataTableHeaderColumn>Prop</DataTableHeaderColumn>
+            <DataTableHeaderColumn>Required</DataTableHeaderColumn>
+            <DataTableHeaderColumn>Type</DataTableHeaderColumn>
+            <DataTableHeaderColumn>Description</DataTableHeaderColumn>
+          </DataTableHeaderRow>
+        </DataTableHeader>
+        <DataTableBody>
+          {properties.direct.map(property => (
+            <DataTableRow key={property.name}>
+              <DataTableColumn>
+                <Code>{property.name}</Code>
+              </DataTableColumn>
+              <DataTableColumn>
+                {property.isOptional ? 'yes' : 'no'}
+              </DataTableColumn>
+              <DataTableColumn>
+                <Highlight
+                  {...defaultProps}
+                  code={property.type}
+                  language="typescript"
+                  theme={isDark ? duotoneDark : duotoneLight}
+                >
+                  {({ tokens, getLineProps, getTokenProps }) => (
+                    <PreformattedCode
+                      styles={{
+                        whiteSpace: 'normal',
+                        maxWidth: 200,
+                        m: 0,
+                        p: 0,
+                      }}
+                    >
+                      {tokens.map((line, i) => (
+                        <span {...getLineProps({ line, key: i })}>
+                          {line.map((token, key) => (
+                            <span {...getTokenProps({ token, key })} />
+                          ))}
+                        </span>
+                      ))}
+                    </PreformattedCode>
+                  )}
+                </Highlight>
+              </DataTableColumn>
+              <DataTableColumn>{property.documentation}</DataTableColumn>
+            </DataTableRow>
+          ))}
+          {showAllProps
+            ? properties.inherited.map(property => (
+                <DataTableRow key={property.name}>
+                  <DataTableColumn>
+                    <Code>{property.name}</Code>
+                  </DataTableColumn>
+                  <DataTableColumn>
+                    {property.isOptional ? 'yes' : 'no'}
+                  </DataTableColumn>
+                  <DataTableColumn>
+                    <Highlight
+                      {...defaultProps}
+                      code={property.type}
+                      language="typescript"
+                      theme={isDark ? duotoneDark : duotoneLight}
+                    >
+                      {({ tokens, getLineProps, getTokenProps }) => (
+                        <PreformattedCode
+                          styles={{
+                            whiteSpace: 'normal',
+                            maxWidth: 200,
+                            m: 0,
+                            p: 0,
+                          }}
+                        >
+                          {tokens.map((line, i) => (
+                            <span {...getLineProps({ line, key: i })}>
+                              {line.map((token, key) => (
+                                <span {...getTokenProps({ token, key })} />
+                              ))}
+                            </span>
+                          ))}
+                        </PreformattedCode>
+                      )}
+                    </Highlight>
+                  </DataTableColumn>
+                  <DataTableColumn>{property.documentation}</DataTableColumn>
+                </DataTableRow>
+              ))
+            : null}
+        </DataTableBody>
+      </DataTable>
+    </React.Fragment>
   );
 }
