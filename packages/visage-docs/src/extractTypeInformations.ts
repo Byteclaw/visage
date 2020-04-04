@@ -38,7 +38,7 @@ interface VisitedProperty {
   type: string;
 }
 
-interface VisitorContext {
+export interface VisitorContext {
   [key: string]: {
     properties: VisitedProperty[];
   };
@@ -162,16 +162,63 @@ function visit(node: ts.Node, checker: ts.TypeChecker, ctx: VisitorContext) {
   }
 }
 
+function printDiagnostics(program: ts.Program) {
+  const configFileDiagnostics = program.getConfigFileParsingDiagnostics();
+  const optionsDiagnostics = program.getOptionsDiagnostics();
+  const globalDiagnostics = program.getGlobalDiagnostics();
+  const semanticDiagnostics = program.getSemanticDiagnostics();
+  const syntacticDiagnostics = program.getSyntacticDiagnostics();
+  const declarationDiagnostics = program.getDeclarationDiagnostics();
+
+  if (configFileDiagnostics.length > 0) {
+    console.log(configFileDiagnostics);
+  }
+
+  if (optionsDiagnostics.length > 0) {
+    console.log(optionsDiagnostics);
+  }
+
+  if (globalDiagnostics.length > 0) {
+    console.log(globalDiagnostics);
+  }
+
+  if (semanticDiagnostics.length > 0) {
+    console.log(semanticDiagnostics);
+  }
+
+  if (syntacticDiagnostics.length > 0) {
+    console.log(syntacticDiagnostics);
+  }
+
+  if (declarationDiagnostics.length > 0) {
+    console.log(declarationDiagnostics);
+  }
+}
+
+export function extractFromFile(fileName: string): VisitorContext {
+  const program = ts.createProgram(options);
+  const checker = program.getTypeChecker();
+
+  printDiagnostics(program);
+
+  // construct a map of components to properties
+  const ctx: VisitorContext = {};
+  const sourceFile = program.getSourceFile(fileName);
+
+  if (!sourceFile) {
+    throw new Error(`File ${fileName} not found`);
+  }
+
+  ts.forEachChild(sourceFile, child => visit(child, checker, ctx));
+
+  return ctx;
+}
+
 export function createProgram(): VisitorContext {
   const program = ts.createProgram(options);
   const checker = program.getTypeChecker();
 
-  console.log(program.getConfigFileParsingDiagnostics());
-  console.log(program.getOptionsDiagnostics());
-  console.log(program.getGlobalDiagnostics());
-  console.log(program.getSemanticDiagnostics());
-  console.log(program.getSyntacticDiagnostics());
-  console.log(program.getDeclarationDiagnostics());
+  printDiagnostics(program);
 
   // construct a map of components to properties
   const ctx: VisitorContext = {};
