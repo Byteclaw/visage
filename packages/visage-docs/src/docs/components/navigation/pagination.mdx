@@ -1,6 +1,7 @@
 ---
 title: 'Pagination component'
-components: ['Pagination', 'NextPageButton', 'PreviousPageButton']
+components:
+  ['Pagination', 'PaginationNextPageButton', 'PaginationPreviousPageButton']
 ---
 
 # Pagination
@@ -21,8 +22,8 @@ import {
 
 ```jsx live=true
 <Pagination>
-  <PreviousPageButton />
-  <NextPageButton />
+  <PaginationPreviousPageButton />
+  <PaginationNextPageButton />
 </Pagination>
 ```
 
@@ -30,8 +31,8 @@ import {
 
 ```jsx live=true
 <Pagination>
-  <PreviousPageButton disabled />
-  <NextPageButton disabled />
+  <PaginationPreviousPageButton disabled />
+  <PaginationNextPageButton disabled />
 </Pagination>
 ```
 
@@ -41,14 +42,14 @@ import {
 
 <PropTypes component="Pagination" />
 
-## NextPageButton
+## PaginationNextPageButton
 
 ### Prop Types
 
-<PropTypes component="NextPageButton" />
+<PropTypes component="PaginationNextPageButton" />
 
-## PreviousPageButton
+## PaginationPreviousPageButton
 
 ### Prop Types
 
-<PropTypes component="PreviousPageButton" />
+<PropTypes component="PaginationPreviousPageButton" />
