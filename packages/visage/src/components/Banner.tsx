@@ -3,7 +3,7 @@ import {
   markAsVisageComponent,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import React, { ReactNode, MouseEvent } from 'react';
+import React, { forwardRef, ReactNode, MouseEvent, Ref } from 'react';
 import {
   DangerIcon,
   InfoIcon,
@@ -173,8 +173,10 @@ const BannerCloseButtonWrapper = createComponent(Box, {
   },
 });
 
-interface BannerProps
-  extends Omit<ExtractVisageComponentProps<typeof BannerBase>, 'title'> {
+interface BannerBaseProps
+  extends Omit<ExtractVisageComponentProps<typeof BannerBase>, 'title'> {}
+
+interface BannerProps {
   children: ReactNode;
   dismissLabel?: string;
   icon?: ReactNode;
@@ -182,47 +184,56 @@ interface BannerProps
   title?: ReactNode;
 }
 
-export const Banner: VisageComponent<BannerProps> = ({
-  children,
-  dismissLabel = 'Dismiss notification',
-  icon,
-  status = 'default',
-  onDismiss,
-  title,
-  ...restProps
-}: BannerProps) => {
-  return (
-    <BannerBase
-      aria-live="polite"
-      role={status === 'critical' || status === 'warning' ? 'alert' : 'status'}
-      tabIndex={0}
-      status={status}
-      {...restProps}
-    >
-      <BannerRibbon aria-hidden status={status}>
-        {icon != null ? (
-          icon
-        ) : (
-          <SvgIcon
-            aria-hidden
-            icon={
-              statusIcons[(status as any) as keyof typeof statusIcons] ||
-              statusIcons.default
-            }
-          />
-        )}
-      </BannerRibbon>
-      <BannerContent>
-        {title != null ? <BannerHeading>{title}</BannerHeading> : null}
-        {children}
-      </BannerContent>
-      {onDismiss ? (
-        <BannerCloseButtonWrapper>
-          <CloseButton aria-label={dismissLabel} onClick={onDismiss} />
-        </BannerCloseButtonWrapper>
-      ) : null}
-    </BannerBase>
-  );
-};
-
-markAsVisageComponent(Banner);
+export const Banner: VisageComponent<BannerProps &
+  BannerBaseProps> = markAsVisageComponent(
+  forwardRef(
+    (
+      {
+        children,
+        dismissLabel = 'Dismiss notification',
+        icon,
+        status = 'default',
+        onDismiss,
+        title,
+        ...restProps
+      }: BannerProps & BannerBaseProps,
+      ref: Ref<any>,
+    ) => {
+      return (
+        <BannerBase
+          aria-live="polite"
+          role={
+            status === 'critical' || status === 'warning' ? 'alert' : 'status'
+          }
+          tabIndex={0}
+          status={status}
+          ref={ref}
+          {...restProps}
+        >
+          <BannerRibbon aria-hidden status={status}>
+            {icon != null ? (
+              icon
+            ) : (
+              <SvgIcon
+                aria-hidden
+                icon={
+                  statusIcons[(status as any) as keyof typeof statusIcons] ||
+                  statusIcons.default
+                }
+              />
+            )}
+          </BannerRibbon>
+          <BannerContent>
+            {title != null ? <BannerHeading>{title}</BannerHeading> : null}
+            {children}
+          </BannerContent>
+          {onDismiss ? (
+            <BannerCloseButtonWrapper>
+              <CloseButton aria-label={dismissLabel} onClick={onDismiss} />
+            </BannerCloseButtonWrapper>
+          ) : null}
+        </BannerBase>
+      );
+    },
+  ),
+) as any;

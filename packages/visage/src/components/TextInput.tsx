@@ -12,7 +12,6 @@ import {
   VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { EmotionStyleSheet } from '../types';
 import {
   disabledControlStyles,
   disabledControlBooleanVariant,
@@ -20,7 +19,7 @@ import {
   invalidControlBooleanVariant,
 } from './shared';
 
-export const TextInputBaseStyles: EmotionStyleSheet = {
+export const TextInputBaseStyles: VisageStyleSheet = {
   backgroundColor: 'textInput',
   borderColor: 'textInputBorder',
   borderStyle: 'solid',
@@ -113,13 +112,7 @@ const InputBase = createComponent('div', {
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 
-// we need to override prefix so we can then override it again with correct type
-interface BaseProps
-  extends ExtractVisageComponentProps<typeof TextInputControl> {
-  prefix?: any;
-}
-
-interface Props extends BaseProps {
+interface TextInputProps {
   baseProps?: ExtractVisageComponentProps<typeof InputBase>;
   invalid?: boolean;
   prefix?: ReactElement;
@@ -132,7 +125,8 @@ interface Props extends BaseProps {
   suffixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
 }
 
-export const TextInput: VisageComponent<Props> = forwardRef(
+export const TextInput: VisageComponent<TextInputProps &
+  JSX.IntrinsicElements['input']> = forwardRef(
   (
     {
       baseProps,
@@ -147,7 +141,7 @@ export const TextInput: VisageComponent<Props> = forwardRef(
       suffixExtra,
       suffixProps,
       ...restProps
-    }: Props,
+    }: TextInputProps & JSX.IntrinsicElements['input'],
     ref: Ref<HTMLInputElement>,
   ) => {
     const [focused, setFocused] = useState(false);

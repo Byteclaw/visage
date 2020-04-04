@@ -4,8 +4,8 @@ import { createComponent } from '../core';
 import { Button } from './Button';
 import { SvgIcon } from './SvgIcon';
 
-export const NextPageButton = createComponent(Button, {
-  displayName: 'NextPageButton',
+export const PaginationNextPageButton = createComponent(Button, {
+  displayName: 'PaginationNextPageButton',
   defaultProps: {
     children: (
       <SvgIcon
@@ -18,8 +18,8 @@ export const NextPageButton = createComponent(Button, {
   },
 });
 
-export const PreviousPageButton = createComponent(Button, {
-  displayName: 'PreviousPageButton',
+export const PaginationPreviousPageButton = createComponent(Button, {
+  displayName: 'PaginationPreviousPageButton',
   defaultProps: {
     children: (
       <SvgIcon

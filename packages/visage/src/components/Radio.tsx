@@ -103,8 +103,7 @@ const RadioToggler = createComponent(Flex, {
   },
 });
 
-interface RadioProps
-  extends Omit<ExtractVisageComponentProps<typeof RadioControl>, 'styles'> {
+interface RadioProps extends ExtractVisageComponentProps<typeof RadioControl> {
   /**
    * Hides label visually
    */

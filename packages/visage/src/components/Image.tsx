@@ -3,7 +3,7 @@ import {
   markAsVisageComponent,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, Ref } from 'react';
 import { createComponent } from '../core';
 
 const ImageContainer = createComponent('div', {
@@ -56,8 +56,8 @@ export const Image: VisageComponent<ImageProps> = forwardRef(
       src,
       width,
       ...restProps
-    }: any,
-    ref: any,
+    }: ImageProps,
+    ref: Ref<any>,
   ) => {
     return (
       <ImageContainer

@@ -1,8 +1,9 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
+  VisageComponent,
 } from '@byteclaw/visage-core';
-import React from 'react';
+import React, { forwardRef, Ref } from 'react';
 import { ErrorIcon } from '../assets';
 import { createComponent } from '../core';
 import { Flex } from './Flex';
@@ -24,17 +25,13 @@ const InlineErrorIcon = createComponent(SvgIcon, {
   },
 });
 
-export function InlineError({
-  children,
-  styles,
-  ...restProps
-}: ExtractVisageComponentProps<typeof Flex>) {
-  return (
-    <InlineErrorWrapper {...restProps}>
+type FlexProps = ExtractVisageComponentProps<typeof Flex>;
+
+export const InlineError: VisageComponent<FlexProps> = markAsVisageComponent(
+  forwardRef(({ children, ...restProps }: FlexProps, ref: Ref<any>) => (
+    <InlineErrorWrapper ref={ref} {...restProps}>
       <InlineErrorIcon icon={ErrorIcon} />
       {children}
     </InlineErrorWrapper>
-  );
-}
-
-markAsVisageComponent(InlineError);
+  )),
+) as any;

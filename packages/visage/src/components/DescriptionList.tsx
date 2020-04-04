@@ -6,7 +6,7 @@ import React, { ReactNode, Children, Fragment } from 'react';
 import { createComponent } from '../core';
 import { Divider } from './Divider';
 
-export const DescriptionListBase = createComponent('dl', {
+const DescriptionListBase = createComponent('dl', {
   displayName: 'DescriptionList',
   styles: {
     display: ['block', 'flex'],
@@ -17,7 +17,7 @@ export const DescriptionListBase = createComponent('dl', {
   },
 });
 
-export const Description = createComponent('dd', {
+export const DescriptionListItemDescription = createComponent('dd', {
   displayName: 'DescriptionListItemDescription',
   styles: {
     display: 'block',
@@ -30,7 +30,7 @@ export const Description = createComponent('dd', {
   },
 });
 
-export const Term = createComponent('dt', {
+export const DescriptionListItemTerm = createComponent('dt', {
   displayName: 'DescriptionListItemTerm',
   styles: {
     display: 'block',
@@ -65,8 +65,10 @@ export function DescriptionListItem({
   return (
     <React.Fragment>
       {prefix}
-      <Term>{term}</Term>
-      <Description>{description}</Description>
+      <DescriptionListItemTerm>{term}</DescriptionListItemTerm>
+      <DescriptionListItemDescription>
+        {description}
+      </DescriptionListItemDescription>
       {suffix}
     </React.Fragment>
   );

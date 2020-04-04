@@ -34,19 +34,15 @@ import { normalizeKeyboardEventKey } from './shared';
 
 type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
 
-interface BaseTextInputProps
-  extends Pick<
-    RawTextInputProps,
-    Exclude<keyof RawTextInputProps, 'defaultValue' | 'onChange' | 'value'>
-  > {}
+interface TextInputProps
+  extends Omit<RawTextInputProps, 'defaultValue' | 'onChange' | 'value'> {}
 
 const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
 };
 
 interface AutocompleteInputProps<TValue extends any>
-  extends BaseTextInputProps,
-    SelectorOptions<TValue> {
+  extends SelectorOptions<TValue> {
   debounceDelay?: number;
   expandOnClick?: boolean;
   id?: string;
@@ -73,7 +69,7 @@ export function AutocompleteInput<TValue extends any = string>({
   value,
   valueToString,
   ...restProps
-}: AutocompleteInputProps<TValue>) {
+}: AutocompleteInputProps<TValue> & TextInputProps) {
   const id = useUniqueId(outerId, 'autocomplete');
   const listboxId = useUniqueId(null, 'listbox');
 
