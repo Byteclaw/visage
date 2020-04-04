@@ -1,5 +1,5 @@
 import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
-import React, { forwardRef, createElement } from 'react';
+import React, { forwardRef, createElement, memo } from 'react';
 import { createComponent } from '../core';
 import { SkeletonSentence } from './SkeletonSentence';
 import { EmotionStyleSheet } from '../types';
@@ -101,50 +101,72 @@ interface HeadingProps {
 }
 
 export const Heading: VisageComponent<JSX.IntrinsicElements['h1'] &
-  HeadingProps> = React.memo(
-  forwardRef(
-    (
-      { level = 1, ...restProps }: JSX.IntrinsicElements['h1'] & HeadingProps,
-      ref: any,
-    ) => {
-      let as = h1;
+  HeadingProps> = markAsVisageComponent(
+  memo(
+    forwardRef(
+      (
+        { level = 1, ...restProps }: JSX.IntrinsicElements['h1'] & HeadingProps,
+        ref: any,
+      ) => {
+        let as = h1;
 
-      switch (level) {
-        case 2:
-          as = h2;
-          break;
-        case 3:
-          as = h3;
-          break;
-        case 4:
-          as = h4;
-          break;
-        case 5:
-          as = h5;
-          break;
-        case 6:
-          as = h6;
-      }
+        switch (level) {
+          case 2:
+            as = h2;
+            break;
+          case 3:
+            as = h3;
+            break;
+          case 4:
+            as = h4;
+            break;
+          case 5:
+            as = h5;
+            break;
+          case 6:
+            as = h6;
+        }
 
-      return createElement(as, {
-        ref,
-        // @ts-ignore
-        'data-level': level,
-        ...restProps,
-      });
-    },
+        return createElement(as, {
+          ref,
+          // @ts-ignore
+          'data-level': level,
+          ...restProps,
+        });
+      },
+    ),
   ),
 ) as any;
 
 Heading.displayName = 'Heading';
-markAsVisageComponent(Heading);
 
 const defaultMask = [6];
 
+interface HeadingSkeletonProps {
+  /**
+   * Defines a mask for words. For example [6, 3] means 2 words with length 6 and 3 characters. Default value is [6]
+   */
+  mask?: number[];
+}
+
 export const HeadingSkeleton: VisageComponent<JSX.IntrinsicElements['h1'] &
-  HeadingProps & { mask?: number[] }> = function HeadingSkeleton({
-  mask = defaultMask,
-  ...restProps
-}: any) {
-  return <Heading as={SkeletonSentence} mask={mask} {...restProps} />;
-};
+  HeadingProps &
+  HeadingSkeletonProps> = markAsVisageComponent(
+  memo(
+    forwardRef(
+      (
+        {
+          mask = defaultMask,
+          ...restProps
+        }: JSX.IntrinsicElements['h1'] & HeadingProps & HeadingSkeletonProps,
+        ref: any,
+      ) => {
+        return (
+          <Heading as={SkeletonSentence} mask={mask} ref={ref} {...restProps} />
+        );
+      },
+    ),
+  ),
+) as any;
+
+HeadingSkeleton.displayName = 'HeadingSkeleton';

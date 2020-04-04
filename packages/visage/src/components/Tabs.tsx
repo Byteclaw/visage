@@ -69,15 +69,15 @@ const TabNavigatonButton = createComponent('button', {
   },
 });
 
-type FlexAllProps = ExtractVisageComponentProps<typeof Flex>;
-type TabListAllProps = ExtractVisageComponentProps<typeof TabList>;
-type BoxAllProps = ExtractVisageComponentProps<typeof Box>;
-type BoxProps = Pick<
-  BoxAllProps,
-  Exclude<keyof BoxAllProps, 'children' | 'onKeyDown' | 'onClick'>
->;
+interface FlexProps extends ExtractVisageComponentProps<typeof Flex> {}
+interface TabListProps extends ExtractVisageComponentProps<typeof TabList> {}
+interface BoxProps
+  extends Omit<
+    ExtractVisageComponentProps<typeof Box>,
+    'children' | 'onKeyDown' | 'onClick'
+  > {}
 
-interface TabProps extends BoxProps {
+interface TabProps {
   children?: ReactNode | (() => ReactNode);
   disabled?: boolean;
   label: string | ReactElement;
@@ -89,13 +89,11 @@ interface TabProps extends BoxProps {
 export function Tab({
   children,
   selected,
-  // strip
   label,
   onClick,
   onKeyDown,
-  // end strip
   ...restProps
-}: TabProps) {
+}: TabProps & BoxProps) {
   return (
     <Box {...restProps}>
       {typeof children === 'function'
@@ -107,14 +105,14 @@ export function Tab({
   );
 }
 
-interface TabsProps extends FlexAllProps {
-  children: ReactElement<TabProps>[];
+interface TabsProps {
+  children: ReactElement<TabProps & BoxProps>[];
   /**
    * Unique id used to generate references between tabs (accessibility)
    */
   id?: string;
   selected?: number;
-  tabListProps?: TabListAllProps;
+  tabListProps?: TabListProps;
 }
 
 export function Tabs({
@@ -123,12 +121,14 @@ export function Tabs({
   selected = 0,
   tabListProps,
   ...restProps
-}: TabsProps) {
+}: TabsProps & FlexProps) {
   const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || idTemplate;
   }, [outerId, idTemplate]);
-  const childrenArray = Children.toArray(children) as ReactElement<TabProps>[];
+  const childrenArray = Children.toArray(children) as ReactElement<
+    TabProps & BoxProps
+  >[];
   const tabsLabel = childrenArray.map(c => c.props.label);
 
   const selectedRef = useRef(selected);

@@ -45,7 +45,7 @@ const TextAreaBase = createComponent('div', {
   },
 });
 
-interface TextAreaControlProps {
+interface TextAreaProps {
   autoResize?: boolean;
   baseProps?: ExtractVisageComponentProps<typeof TextAreaBase>;
 }
@@ -53,7 +53,7 @@ interface TextAreaControlProps {
 export const TextArea: VisageComponent<ExtractVisageComponentProps<
   typeof TextAreaBaseControl
 > &
-  TextAreaControlProps> = forwardRef(
+  TextAreaProps> = forwardRef(
   (
     {
       autoResize,
@@ -62,7 +62,7 @@ export const TextArea: VisageComponent<ExtractVisageComponentProps<
       onChange,
       value,
       ...restProps
-    }: TextAreaControlProps & JSX.IntrinsicElements['textarea'],
+    }: TextAreaProps & JSX.IntrinsicElements['textarea'],
     ref: any,
   ) => {
     const outerValueRef = useRef(value || defaultValue);

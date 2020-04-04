@@ -1,4 +1,3 @@
-import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import { keyframes } from '@emotion/core';
 import React from 'react';
 import { createComponent } from '../core';
@@ -21,8 +20,12 @@ const circleDashAnimation = keyframes({
   },
 });
 
-const SpinnerSvgBase = createComponent('div', {
+export const Spinner = createComponent('div', {
   displayName: 'SpinnerSvgBase',
+  defaultProps: {
+    children: <SpinnerIcon />,
+    role: 'status',
+  },
   styles: {
     alignItems: 'center',
     display: 'inline-flex',
@@ -45,13 +48,3 @@ const SpinnerSvgBase = createComponent('div', {
     },
   },
 });
-
-export const Spinner: VisageComponent<{}> = function Spinner(props: any) {
-  return (
-    <SpinnerSvgBase role="status" {...props}>
-      <SpinnerIcon />
-    </SpinnerSvgBase>
-  );
-};
-
-markAsVisageComponent(Spinner);

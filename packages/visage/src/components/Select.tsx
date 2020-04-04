@@ -38,15 +38,11 @@ const optionId = (id: string, index: number): string | undefined => {
 
 type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
 
-interface BaseTextInputProps
-  extends Pick<
-    RawTextInputProps,
-    Exclude<keyof RawTextInputProps, 'defaultValue' | 'onChange' | 'value'>
-  > {}
+interface TextInputProps
+  extends Omit<RawTextInputProps, 'defaultValue' | 'onChange' | 'value'> {}
 
 interface SelectProps<TValue extends any = string>
-  extends BaseTextInputProps,
-    SelectorOptions<TValue> {
+  extends SelectorOptions<TValue> {
   debounceDelay?: number;
   id?: string;
   menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
@@ -72,7 +68,7 @@ export function Select<TValue extends any = string>({
   value,
   valueToString,
   ...restProps
-}: SelectProps<TValue>) {
+}: SelectProps<TValue> & TextInputProps) {
   const id = useUniqueId(outerId, 'select');
   const listboxId = useUniqueId(null, 'listbox');
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
