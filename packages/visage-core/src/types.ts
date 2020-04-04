@@ -385,7 +385,9 @@ export type ComponentConstraint =
 
 export type ExtractVisageComponentProps<
   T extends ComponentConstraint
-> = T extends VisageComponent<infer P> ? P & StyleProps : ComponentProps<T>;
+> = T extends VisageComponent<infer P>
+  ? P & StyleProps
+  : ComponentProps<T> & StyleProps;
 
 export type OmittableProps<T extends {}> = {
   [K in keyof T]?: undefined | T[K];
