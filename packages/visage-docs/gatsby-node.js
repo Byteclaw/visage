@@ -53,6 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
               componentPathName
             }
             frontmatter {
+              components
               title
             }
           }
@@ -69,11 +70,25 @@ exports.createPages = async ({ graphql, actions }) => {
   const posts = result.data.allMdx.edges;
 
   posts.forEach(post => {
+    // filter out prop types by components from frontmatter
+    // so we don't have big page context
+    const reducedComponentInformationMap = Array.isArray(
+      post.node.frontmatter.components,
+    )
+      ? post.node.frontmatter.components.reduce(
+          (map, component) => ({
+            [component]: componentInformationMap[component],
+            ...map,
+          }),
+          {},
+        )
+      : {};
+
     createPage({
       path: post.node.fields.componentPathName,
       component: componentPageLayout,
       context: {
-        componentInformationMap,
+        componentInformationMap: reducedComponentInformationMap,
         componentPathName: post.node.fields.componentPathName,
       },
     });

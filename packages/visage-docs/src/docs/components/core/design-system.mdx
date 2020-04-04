@@ -1,5 +1,6 @@
 ---
 title: 'DesignSystem component'
+components: ['DesignSystem']
 ---
 
 # DesignSystem
@@ -22,59 +23,6 @@ import { DesignSystem } from '@byteclaw/visage';
 <ResponsiveDesignSystem>
 ```
 
-## Props
+## Prop Types
 
-### Required
-
-#### theme
-
-- **Theme**
-
-Sets up the theme used by DesignSystem.
-
-### Optional
-
-#### defaultZIndex
-
-- **number**
-- **default: 100**
-
-Tells the DesignSystem to use given zIndex as default starting point. The value is passed to [LayerManager](/components/layer-manager) component which is responsible for handling zIndexes in your application.
-
-#### disableGlobalStyles
-
-- **boolean**
-- **default: false**
-
-DesignSystem will not apply default styles for HTML elements except box-sizing reset. This prop is useful if you want to migrate your application to Visage but you don't want to apply it's typography and other styles to HTML elements.
-
-#### faces
-
-- **object**
-
-Faces are a way to apply styles to Visage components by their names. This prop can be used to override/extend styles of components.
-
-```js transpile=false
-<DesignSystem
-  faces={{
-    Button: {
-      outline: 'blue',
-    },
-  }}
-/>
-```
-
-#### is
-
-- **number**
-- **default: 0**
-
-Tells the DesignSystem what is the current breakpoint. With this prop you can make your DesignSystem responsive (this is used by [ResponsiveDesignSystem component](/components/responsive-design-system) under the hood).
-
-#### styleGenerator
-
-- **optional**
-- **StyleGeneratorFunction**
-- **default: EmotionStyleGenerator**
-
-The function responsible for generating styles. By default Visage uses Emotion style generator function. Another available function is Emotion responsive style generator function.
+<PropTypes component="DesignSystem" />

@@ -8,12 +8,13 @@ import {
   DataTableHeaderRow,
   DataTableRow,
   PreformattedCode,
-  Toggle,
+  Tab,
+  Tabs,
 } from '@byteclaw/visage';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { ThemeTogglerContext } from '../theme';
 import {
   ComponentProperty,
@@ -37,6 +38,28 @@ function sortProps(a: ComponentProperty, b: ComponentProperty): number {
   return 0;
 }
 
+function sortGroups(component: string) {
+  return (a: string, b: string) => {
+    if (a.startsWith(component) && !b.startsWith(component)) {
+      return -1;
+    }
+
+    if (!a.startsWith(component) && b.startsWith(component)) {
+      return 1;
+    }
+
+    if (a > b) {
+      return 1;
+    }
+
+    if (a < b) {
+      return -1;
+    }
+
+    return 0;
+  };
+}
+
 interface PropTypesProps {
   component: string;
 }
@@ -46,97 +69,77 @@ export function PropTypes({ component }: PropTypesProps) {
     ComponentInformationMapContext,
   );
   const { isDark } = useContext(ThemeTogglerContext);
-  const properties: {
-    direct: ComponentProperty[];
-    inherited: ComponentProperty[];
-  } = useMemo(() => {
-    const direct: ComponentProperty[] = [];
-    const inherited: ComponentProperty[] = [];
+  const groups: {
+    source: string;
+    props: ComponentProperty[];
+  }[] = useMemo(() => {
+    const foundGroups: { [source: string]: ComponentProperty[] } = {};
 
     if (!information) {
-      return { direct: [], inherited: [] };
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn(
+          `Information for ${component} is missing. Make sure you added a component name to frontmatter.components array`,
+        );
+      }
+      return [];
     }
 
+    const componentPropInterfaceName = `${component}Props`;
+
     information.properties.forEach(property => {
-      if (!property.parent || property.parent === '__type') {
-        direct.push(property);
+      // ignore emotion's css property
+      if (property.name === 'css') {
+        return;
+      }
+
+      if (
+        !property.parent ||
+        property.parent === '__type' ||
+        property.parent === componentPropInterfaceName
+      ) {
+        foundGroups[component] = [...(foundGroups[component] || []), property];
       } else if (property.parent === 'StyleProps') {
-        direct.push(property);
+        // ignore parentStyles because they are used internally
+        if (property.name === 'parentStyles') {
+          return;
+        }
+
+        foundGroups[component] = [...(foundGroups[component] || []), property];
       } else {
-        inherited.push(property);
+        const group = property.parent || 'Inherited';
+        foundGroups[group] = [...(foundGroups[group] || []), property];
       }
     });
 
-    return {
-      direct: direct.sort(sortProps),
-      inherited: inherited.sort(sortProps),
-    };
+    return Object.keys(foundGroups)
+      .sort(sortGroups(component))
+      .map(source => ({
+        source,
+        props: foundGroups[source].sort(sortProps),
+      })) as { source: string; props: ComponentProperty[] }[];
   }, [information]);
-  const [showAllProps, setShowAllProps] = useState(false);
 
   return (
-    <React.Fragment>
-      <Toggle
-        checked={showAllProps}
-        onChange={e => setShowAllProps(e.currentTarget.checked)}
-        label="Show all props"
-      />
-      <DataTable styles={{ border: 'none', fontSize: -1 }}>
-        <DataTableHeader>
-          <DataTableHeaderRow>
-            <DataTableHeaderColumn>Prop</DataTableHeaderColumn>
-            <DataTableHeaderColumn>Required</DataTableHeaderColumn>
-            <DataTableHeaderColumn>Type</DataTableHeaderColumn>
-            <DataTableHeaderColumn>Description</DataTableHeaderColumn>
-          </DataTableHeaderRow>
-        </DataTableHeader>
-        <DataTableBody>
-          {properties.direct.map(property => (
-            <DataTableRow key={property.name}>
-              <DataTableColumn>
-                <Code>{property.name}</Code>
-              </DataTableColumn>
-              <DataTableColumn>
-                {property.isOptional ? 'yes' : 'no'}
-              </DataTableColumn>
-              <DataTableColumn>
-                <Highlight
-                  {...defaultProps}
-                  code={property.type}
-                  language="typescript"
-                  theme={isDark ? duotoneDark : duotoneLight}
-                >
-                  {({ tokens, getLineProps, getTokenProps }) => (
-                    <PreformattedCode
-                      styles={{
-                        whiteSpace: 'normal',
-                        maxWidth: 200,
-                        m: 0,
-                        p: 0,
-                      }}
-                    >
-                      {tokens.map((line, i) => (
-                        <span {...getLineProps({ line, key: i })}>
-                          {line.map((token, key) => (
-                            <span {...getTokenProps({ token, key })} />
-                          ))}
-                        </span>
-                      ))}
-                    </PreformattedCode>
-                  )}
-                </Highlight>
-              </DataTableColumn>
-              <DataTableColumn>{property.documentation}</DataTableColumn>
-            </DataTableRow>
-          ))}
-          {showAllProps
-            ? properties.inherited.map(property => (
+    <Tabs>
+      {groups.map(group => (
+        <Tab key={group.source} label={group.source}>
+          <DataTable styles={{ border: 'none', fontSize: -1 }}>
+            <DataTableHeader>
+              <DataTableHeaderRow>
+                <DataTableHeaderColumn>Prop</DataTableHeaderColumn>
+                <DataTableHeaderColumn>Required</DataTableHeaderColumn>
+                <DataTableHeaderColumn>Type</DataTableHeaderColumn>
+                <DataTableHeaderColumn>Description</DataTableHeaderColumn>
+              </DataTableHeaderRow>
+            </DataTableHeader>
+            <DataTableBody>
+              {group.props.map(property => (
                 <DataTableRow key={property.name}>
                   <DataTableColumn>
                     <Code>{property.name}</Code>
                   </DataTableColumn>
                   <DataTableColumn>
-                    {property.isOptional ? 'yes' : 'no'}
+                    {property.isOptional ? 'no' : 'yes'}
                   </DataTableColumn>
                   <DataTableColumn>
                     <Highlight
@@ -167,10 +170,11 @@ export function PropTypes({ component }: PropTypesProps) {
                   </DataTableColumn>
                   <DataTableColumn>{property.documentation}</DataTableColumn>
                 </DataTableRow>
-              ))
-            : null}
-        </DataTableBody>
-      </DataTable>
-    </React.Fragment>
+              ))}
+            </DataTableBody>
+          </DataTable>
+        </Tab>
+      ))}
+    </Tabs>
   );
 }
