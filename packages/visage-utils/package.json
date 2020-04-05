@@ -1,11 +1,11 @@
 {
   "name": "@byteclaw/visage-utils",
   "version": "0.3.0",
-  "description": "Visage utilities",
+  "description": "Collection of utilities used by Visage Design System.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
   },
-  "homepage": "https://github.com/Byteclaw/visage/packages/visage-core/README.md",
+  "homepage": "https://github.com/Byteclaw/visage/packages/visage-utils/README.md",
   "repository": {
     "type": "git",
     "url": "https://github.com/Byteclaw/visage.git"
@@ -20,20 +20,22 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "jsnext:main": "dist/index.esm.js",
-  "source": "src/index.ts",
+  "module": "dist/byteclaw.visage.utils.esm.js",
+  "unpkg": "dist/byteclaw.visage.utils.umd.production.min.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "!src/**/__tests__/**/*"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle --jsx React.createElement",
-    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",
+    "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.utils --entry src/index.ts",
+    "build": "tsdx build --format cjs,esm,umd --name byteclaw.visage.utils --entry src/index.ts",
+    "prepublishOnly": "tsdx build --format cjs,esm,umd  --name byteclaw.visage.utils --entry src/index.ts",
     "test:types": "tsc -p . --noEmit"
   }
 }

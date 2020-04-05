@@ -6,7 +6,7 @@
     "build": "tsc -b .",
     "build:docs": "lerna run build --scope @byteclaw/babel-plugin-visage --scope @byteclaw/visage-docs",
     "build:watch": "tsc -b . --watch",
-    "compile": "lerna run build --ignore @byteclaw/visage-docs",
+    "compile": "lerna run bundle --ignore @byteclaw/visage-docs",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "lint": "eslint \"packages/**/src/**/*.{ts,tsx}\"",
@@ -53,46 +53,45 @@
     "jest": "^25.1.0",
     "lerna": "^3.20.2",
     "lint-staged": "^9.5.0",
-    "microbundle": "^0.12.0-next.8",
     "prettier": "^1.19.1",
     "react-is": "^16.12.0",
     "react-test-renderer": "^16.12.0",
-    "rimraf": "^3.0.0",
     "ts-node": "^8.6.2",
+    "tsdx": "^0.13.1",
     "typescript": "^3.7.3"
   },
   "bundlewatch": {
     "files": [
       {
-        "path": "./packages/visage/dist/index.esm.js",
+        "path": "./packages/visage/dist/byteclaw.visage.esm.js",
         "maxSize": "100 kB"
       },
       {
-        "path": "./packages/visage/dist/index.js",
+        "path": "./packages/visage/dist/byteclaw.visage.cjs.production.min.js",
         "maxSize": "100 kB"
       },
       {
-        "path": "./packages/visage-core/dist/index.esm.js",
-        "maxSize": "5 kB"
-      },
-      {
-        "path": "./packages/visage-core/dist/index.js",
-        "maxSize": "5 kB"
-      },
-      {
-        "path": "./packages/visage-themes/dist/index.esm.js",
+        "path": "./packages/visage-core/dist/byteclaw.visage.core.esm.js",
         "maxSize": "10 kB"
       },
       {
-        "path": "./packages/visage-themes/dist/index.js",
+        "path": "./packages/visage-core/dist/byteclaw.visage.core.cjs.production.min.js",
         "maxSize": "10 kB"
       },
       {
-        "path": "./packages/visage-utils/dist/index.esm.js",
+        "path": "./packages/visage-themes/dist/byteclaw.visage.themes.esm.js",
+        "maxSize": "10 kB"
+      },
+      {
+        "path": "./packages/visage-themes/dist/byteclaw.visage.themes.cjs.production.min.js",
+        "maxSize": "10 kB"
+      },
+      {
+        "path": "./packages/visage-utils/dist/byteclaw.visage.utils.esm.js",
         "maxSize": "5 kB"
       },
       {
-        "path": "./packages/visage-utils/dist/index.js",
+        "path": "./packages/visage-utils/dist/byteclaw.visage.utils.cjs.production.min.js",
         "maxSize": "5 kB"
       }
     ]

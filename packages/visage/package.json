@@ -1,7 +1,7 @@
 {
   "name": "@byteclaw/visage",
   "version": "0.19.0",
-  "description": "Visage browser design system",
+  "description": "Design system based set of UI components for React applications.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
   },
@@ -14,17 +14,20 @@
     "visage",
     "design system",
     "react",
-    "css-in-js"
+    "css-in-js",
+    "ui library",
+    "ui"
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "jsnext:main": "dist/index.esm.js",
-  "source": "src/index.ts",
+  "module": "dist/byteclaw.visage.esm.js",
+  "unpkg": "dist/byteclaw.visage.umd.production.min.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "!src/**/__tests__/**/*"
   ],
   "publishConfig": {
     "access": "public"
@@ -52,8 +55,9 @@
     "ts-node": "8.3.0"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle --jsx React.createElement",
-    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",
+    "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage --entry src/index.ts",
+    "build": "tsdx build --format cjs,esm,umd  --name byteclaw.visage --entry src/index.ts",
+    "prepublishOnly": "tsdx build --format cjs,esm,umd  --name byteclaw.visage --entry src/index.ts",
     "generate:faces": "ts-node -P tools/tsconfig.json tools/generateFaces.ts",
     "test:types": "tsc -p . --noEmit"
   }
