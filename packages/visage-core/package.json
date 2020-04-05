@@ -1,7 +1,7 @@
 {
   "name": "@byteclaw/visage-core",
   "version": "0.6.2",
-  "description": "Visage core",
+  "description": "CSS-in-js agnostic framework for design system development used by Visage Design System.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
   },
@@ -19,9 +19,8 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "jsnext:main": "dist/index.esm.js",
-  "source": "src/index.ts",
+  "module": "dist/byteclaw.visage.core.esm.js",
+  "unpkg": "dist/byteclaw.visage.core.umd.production.min.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
@@ -29,7 +28,8 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "!src/**/__tests__/**/*"
   ],
   "dependencies": {
     "@byteclaw/visage-utils": "^0.3.0",
@@ -43,8 +43,9 @@
     "html-tags": "^3.0.0"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle --jsx React.createElement",
-    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",
+    "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.core --entry src/index.ts",
+    "build": "tsdx build --format cjs,esm,umd --name byteclaw.visage.core --entry src/index.ts",
+    "prepublishOnly": "tsdx build --format cjs,esm,umd  --name byteclaw.visage.core --entry src/index.ts",
     "test:types": "tsc -p . --noEmit"
   }
 }

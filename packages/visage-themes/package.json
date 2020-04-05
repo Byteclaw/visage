@@ -1,7 +1,7 @@
 {
   "name": "@byteclaw/visage-themes",
   "version": "0.4.3",
-  "description": "Collection of themes for Visage Design System",
+  "description": "Collection of themes for Visage Design System.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
   },
@@ -20,16 +20,17 @@
   ],
   "license": "MIT",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "jsnext:main": "dist/index.esm.js",
-  "source": "src/index.ts",
+  "module": "dist/byteclaw.visage.themes.esm.js",
+  "unpkg": "dist/byteclaw.visage.themes.umd.production.min.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "dist"
+    "dist",
+    "src",
+    "!src/**/__tests__/**/*"
   ],
   "dependencies": {
     "@byteclaw/visage-core": "^0.6.2",
@@ -46,8 +47,9 @@
     "@byteclaw/visage": "^0.19.0"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle --jsx React.createElement",
-    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement",
+    "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.themes --entry src/index.ts",
+    "build": "tsdx build --format cjs,esm,umd --name byteclaw.visage.themes --entry src/index.ts",
+    "prepublishOnly": "tsdx build --format cjs,esm,umd  --name byteclaw.visage.themes --entry src/index.ts",
     "test:types": "tsc -p . --noEmit"
   }
 }
