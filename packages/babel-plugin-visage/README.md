@@ -1,8 +1,18 @@
 # babel-plugin-visage
 
 ![@byteclaw/babel-plugin-visage version](https://img.shields.io/npm/v/@byteclaw/babel-plugin-visage.svg?style=flat-square&label=@byteclaw/babel-plugin-visage)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Babel plugin that improves Visage performance by hoisting `styles` prop to a root scope of a Component's file.
+
+- [babel-plugin-visage](#babel-plugin-visage)
+  - [Example](#example)
+    - [In](#in)
+    - [Out](#out)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Via `.babelrc` (Recommended)](#via-babelrc-recommended)
+  - [License](#license)
 
 ## Example
 
@@ -61,3 +71,7 @@ npm install --save-dev babel-plugin-visage
   "plugins": ["@byteclaw/visage"]
 }
 ```
+
+## License
+
+MIT
