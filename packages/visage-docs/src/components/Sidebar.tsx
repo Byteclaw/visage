@@ -420,26 +420,20 @@ export function Sidebar() {
             <ListItemRouteLink to="/system">Basics</ListItemRouteLink>
           </ListItem>
           <ListItem>
-            <ListItemRouteLink to="/system/responsive-styles">
-              Responsive styles
+            <ListItemRouteLink to="/system/colors">Colors</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/scales">Scales</ListItemRouteLink>
+          </ListItem>
+          <ListItem>
+            <ListItemRouteLink to="/system/spacings">
+              Spacings
             </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/as-prop">As prop</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/spacing">Spacing</ListItemRouteLink>
           </ListItem>
           <ListItem>
             <ListItemRouteLink to="/system/typography">
               Typography
             </ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/layout">Layout</ListItemRouteLink>
-          </ListItem>
-          <ListItem>
-            <ListItemRouteLink to="/system/colors">Colors</ListItemRouteLink>
           </ListItem>
           <ListItem>
             <CollapsibleNavigationSection path="/system/hooks/*" title="Hooks">
