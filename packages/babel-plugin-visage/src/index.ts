@@ -28,6 +28,28 @@ function isSimpleStyleSheetObjectExpression(
   return true;
 }
 
+function isStylesObjectProperty(
+  path: babel.NodePath<babel.types.ObjectProperty>,
+): boolean {
+  const { node } = path;
+
+  if (babel.types.isIdentifier(node.key)) {
+    return node.key.name === 'styles';
+  }
+
+  if (babel.types.isTemplateLiteral(node.key)) {
+    // try to evaluate
+    const keyExpr = path.get('key') as babel.NodePath<
+      babel.types.TemplateLiteral
+    >;
+    const result = keyExpr.evaluate();
+
+    return result.confident && result.value === 'styles';
+  }
+
+  return false;
+}
+
 export default function hostVisageStylesPlugin({
   types,
   template,
@@ -39,6 +61,30 @@ export default function hostVisageStylesPlugin({
     // eslint-disable-next-line global-require
     // inherits: require('@babel/plugin-syntax-jsx'),
     visitor: {
+      ObjectProperty(path) {
+        // is a part of jsx spread attribute?
+        if (!path.findParent(p => types.isJSXSpreadAttribute(p))) {
+          return;
+        }
+
+        if (!isStylesObjectProperty(path)) {
+          return;
+        }
+
+        const valuePath = path.get('value') as babel.NodePath<
+          babel.types.ObjectExpression
+        >;
+
+        if (isSimpleStyleSheetObjectExpression(valuePath)) {
+          // replace with freeze
+          valuePath.replaceWith(
+            freezeStyleSheet({ STYLE_SHEET: valuePath.node }) as any,
+          );
+
+          // @ts-ignore hoist doesn't need a scope argument
+          valuePath.hoist();
+        }
+      },
       // process only jsx styles attribute
       JSXAttribute(path) {
         const { node } = path;

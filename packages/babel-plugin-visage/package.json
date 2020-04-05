@@ -34,7 +34,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rimraf dist && microbundle --jsx React.createElement",
-    "prepublishOnly": "rimraf dist && microbundle --jsx React.createElement"
+    "build": "rimraf dist && microbundle --external @babel/core",
+    "prepublishOnly": "rimraf dist && microbundle --external @babel/core"
   }
 }

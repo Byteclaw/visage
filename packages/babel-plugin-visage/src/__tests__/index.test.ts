@@ -63,20 +63,20 @@ export function Test() {
   `);
 
   expect(code).toMatchInlineSnapshot(`
-"import React from 'react';
+    "import React from 'react';
 
-var _ref = Object.freeze({
-  test: true,
-  responsive: [1, 2, 3],
-  '&:test': {
-    arr: [true, false, \`test\`]
-  }
-});
+    var _ref = Object.freeze({
+      test: true,
+      responsive: [1, 2, 3],
+      '&:test': {
+        arr: [true, false, \`test\`]
+      }
+    });
 
-export function Test() {
-  return <Component styles={_ref} />;
-}"
-`);
+    export function Test() {
+      return <Component styles={_ref} />;
+    }"
+  `);
 });
 
 it('hoists styles with an interpolation', () => {
@@ -91,18 +91,110 @@ export function Test() {
   `);
 
   expect(code).toMatchInlineSnapshot(`
-"import React from 'react';
-const str = 'abwab';
+    "import React from 'react';
+    const str = 'abwab';
 
-var _ref = Object.freeze({
-  test: true,
-  color: \`\${str}\`
+    var _ref = Object.freeze({
+      test: true,
+      color: \`\${str}\`
+    });
+
+    export function Test() {
+      return <Component styles={_ref} />;
+    }"
+  `);
 });
 
+it('hoists static styles from object spread', () => {
+  const code = transform(`
+import React from 'react';
+
 export function Test() {
-  return <Component styles={_ref} />;
-}"
-`);
+  return (
+    <>
+      <Component {...{}} {...{ styles: { test: true } }} />
+      <Component {...{ styles: { test: true } }} />
+      <Component {...{ styles: { test: true } }} />
+    </>
+  );
+}
+  `);
+
+  expect(code).toMatchInlineSnapshot(`
+    "import React from 'react';
+
+    var _ref = Object.freeze({
+      test: true
+    });
+
+    var _ref2 = Object.freeze({
+      test: true
+    });
+
+    var _ref3 = Object.freeze({
+      test: true
+    });
+
+    export function Test() {
+      return <>
+          <Component {...{}} {...{
+          styles: _ref
+        }} />
+          <Component {...{
+          styles: _ref2
+        }} />
+          <Component {...{
+          styles: _ref3
+        }} />
+        </>;
+    }"
+  `);
+});
+
+it('hoists static styles from object spread with computed key', () => {
+  const code = transform(`
+import React from 'react';
+
+export function Test() {
+  return (
+    <>
+      <Component {...{}} {...{ [\`styles\`]: { test: true } }} />
+      <Component {...{ styles: { test: true } }} />
+      <Component {...{ styles: { test: true } }} />
+    </>
+  );
+}
+  `);
+
+  expect(code).toMatchInlineSnapshot(`
+    "import React from 'react';
+
+    var _ref = Object.freeze({
+      test: true
+    });
+
+    var _ref2 = Object.freeze({
+      test: true
+    });
+
+    var _ref3 = Object.freeze({
+      test: true
+    });
+
+    export function Test() {
+      return <>
+          <Component {...{}} {...{
+          [\`styles\`]: _ref
+        }} />
+          <Component {...{
+          styles: _ref2
+        }} />
+          <Component {...{
+          styles: _ref3
+        }} />
+        </>;
+    }"
+  `);
 });
 
 it('does not hoist styles with a spread', () => {
@@ -119,15 +211,15 @@ export function Test() {
   `);
 
   expect(code).toMatchInlineSnapshot(`
-"import React from 'react';
-const defaultStyles = {
-  test: true
-};
-export function Test() {
-  return <Component styles={{
-    test: true,
-    ...defaultStyles
-  }} />;
-}"
-`);
+    "import React from 'react';
+    const defaultStyles = {
+      test: true
+    };
+    export function Test() {
+      return <Component styles={{
+        test: true,
+        ...defaultStyles
+      }} />;
+    }"
+  `);
 });
