@@ -1,4 +1,4 @@
-import { createProgram } from '../extractTypeInformations';
+import { createProgram, VisitorContext } from '../extractTypeInformations';
 
 const components = [
   'Accordion',
@@ -84,7 +84,11 @@ const components = [
 jest.setTimeout(10 * 60 * 1000);
 
 describe('extracting type information', () => {
-  const ctx = createProgram();
+  let ctx: VisitorContext = {};
+
+  beforeAll(() => {
+    ctx = createProgram();
+  });
 
   it.each(components)('extracts informtion from %s component', component => {
     expect(ctx[component]).toMatchSnapshot();
