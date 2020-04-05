@@ -1,12 +1,29 @@
 # `@byteclaw/visage-themes`
 
+![@byteclaw/visage-themes version](https://img.shields.io/npm/v/@byteclaw/visage-themes.svg?style=flat-square&label=@byteclaw/visage-themes)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
 Collection of themes for [Visage Design System](https://visage.design) and utilities to create custom themes.
+
+- [`@byteclaw/visage-themes`](#byteclawvisage-themes)
+  - [Themes](#themes)
+  - [Usage](#usage)
+    - [Docs theme](#docs-theme)
+    - [N-point and modular scale theme](#n-point-and-modular-scale-theme)
+      - [Settings](#settings)
+    - [N-point and font scale theme](#n-point-and-font-scale-theme)
+      - [Settings](#settings-1)
 
 ## Themes
 
-- [`createDocsTheme`](#docs-theme) - creates a theme that is used in documentation
-- [`createNPointFontScaleTheme`](#n-point-and-font-scale-theme) - create base N-point theme with font scale typography
-- [`createNPointModularScaleTheme`](#n-point-and-modular-scale-theme) - create base N-point theme with modular scale typography
+- [`@byteclaw/visage-themes`](#byteclawvisage-themes)
+  - [Themes](#themes)
+  - [Usage](#usage)
+    - [Docs theme](#docs-theme)
+    - [N-point and modular scale theme](#n-point-and-modular-scale-theme)
+      - [Settings](#settings)
+    - [N-point and font scale theme](#n-point-and-font-scale-theme)
+      - [Settings](#settings-1)
 
 ## Usage
 
