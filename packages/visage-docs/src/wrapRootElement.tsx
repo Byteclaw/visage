@@ -7,7 +7,14 @@ import Helmet from 'react-helmet';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 // @ts-ignore
 import { ReactComponent } from './assets/link.svg';
-import { CodeBlock, DesignSystem, Layout, PropTypes } from './components';
+import {
+  CodeBlock,
+  DesignSystem,
+  Layout,
+  Paginator,
+  PaginatorButton,
+  PropTypes,
+} from './components';
 import { slugify } from './utils';
 
 function createHeadingUrl(slug: string): string {
@@ -82,6 +89,8 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   strong: visage.StrongText,
   wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
   PropTypes,
+  Paginator,
+  PaginatorButton,
 };
 
 interface RootProps {

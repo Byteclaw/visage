@@ -3,3 +3,31 @@ title: 'System Basics'
 ---
 
 # System Basics
+
+The responsibility of a Design System is to establish a common language and constraints that are used to describe parts of a design so it's clear for anyone what a designer is talking about and how to achieve that in a development.
+
+Image a scenario where a designer introduces you a new component.
+
+> Designer: Here is a new secondary button. It uses background color `#000` and font color `#fff`, font family is `Roboto` with font size `14px` and line height `16px` and the margin right is `16px` and padding is `16px` as well.
+
+> Developer: Ok, I will add it.
+
+After few development iterations.
+
+> Designer: We need to change secondary button. Change font family to `Open Sans` and line height to `18px`.
+
+> Developer: OK, but now we have 3 font families in our app and the line heights are somehow incosistent. One button is using `18px` and the other uses `16px`.
+
+> Designer: Oh I'm sorry I forgot to tell you, that we need to change line height for font size `14px` to `18px` everywhere in our application.
+
+> Developer: OK, I will try to do something about it.
+
+This is a scenario you don't want to have an experience with. It slows down the development and makes people nervous. It's not a developers work to specify palettes, font scales, etc.
+
+To fix that we need to use a common language and set constraints for developers and designers so every change in a design is systematic and can be easily communicated. This needs to be done for [Colors](/system/colors), [Spacings](/system/spacings), [Typography](/system/typography).
+
+<Paginator>
+  <PaginatorButton direction="next" to="/system/colors">
+    Colors
+  </PaginatorButton>
+</Paginator>

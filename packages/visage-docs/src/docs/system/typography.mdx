@@ -13,16 +13,34 @@ import {
 
 # Typography
 
+The communication about typography can be really hard. There are fonts, font sizes, line heights. How can we easily communicate that? How can we keep it consistent?
+
+We can specify a palette of font families. For example you can use one font family for non-heading elements as `body` and different font family for headings as `heading` font family.
+
+> Designer: Secondary button uses `body` font family.
+
+> Developer: OK, thanks.
+
+Now we just need to somehow keep the font sizes and line heights consistent. A designer can specify font sizes as a [scale](/system/scales) (for example `12, 14, 16, 20px`) with a [scale](/system/scales) of corrensponding line heights (for example `16, 28, 20, 24px`).
+
+> Designer: Secondary button has font size 2 and line height 2.
+
+> Developer: OK, thanks.
+
+The designer just said that Secondary button uses font size of `14px` and line height of `18px` but the developer doesn't care about that because it's specified in a system.
+
+Or the designer can leverage some existing typographic system for example [Modular Scale](https://www.modularscale.com). For this purpose Visage has it's own theme `createNPointModularScaleTheme` from `@byteclaw/visage-themes` package.
+
 ## Typographic components
 
 ```jsx live=true
 <Fragment>
-  <Heading styles={{ my: 0 }}>Heading (h1)</Heading>
-  <Heading styles={{ my: 0 }} level={2}>Heading (h2)</Heading>
-  <Heading styles={{ my: 0 }} level={3}>Heading (h3)</Heading>
-  <Heading styles={{ my: 0 }} level={4}>Heading (h4)</Heading>
-  <Heading styles={{ my: 0 }} level={5}>Heading (h5)</Heading>
-  <Heading styles={{ my: 0 }} level={6}>Heading (h6)</Heading>
+  <Heading>Heading (h1)</Heading>
+  <Heading level={2}>Heading (h2)</Heading>
+  <Heading level={3}>Heading (h3)</Heading>
+  <Heading level={4}>Heading (h4)</Heading>
+  <Heading level={5}>Heading (h5)</Heading>
+  <Heading level={6}>Heading (h6)</Heading>
   <Link href="">This is link (a)</Link>
   <Paragraph>This is paragraph (p)</Paragraph>
   <EmphasizedText>This is emphasized text (em)</EmphasizedText>
@@ -80,3 +98,9 @@ import {
   </span>
 </Fragment>
 ```
+
+<Paginator>
+  <PaginatorButton direction="prev" to="/system/spacings">
+    Spacings
+  </PaginatorButton>
+</Paginator>

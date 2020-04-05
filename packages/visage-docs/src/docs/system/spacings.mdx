@@ -1,0 +1,32 @@
+---
+title: 'Spacings'
+---
+
+# Spacings
+
+Spacings (`margin`, `padding`) can be described in absolute or relative units. But that way a whole design can easily end up in a mess where every design element uses different spacings.
+
+This can be fixed by some sort of a spacing "palette" where you have a name for any spacing used in the application. Eventually even this can become a mess where every spacing is random. Then if some spacing is changed it can cause the application design look really weird.
+
+Better solution would be to use some base spacing that is systematically used in the whole application. For example we can use N-point spacing system where the base spacing is `8px` and we use just multiplies of this number in whole design. This way if we change the base, the design with change systematically in a consistent way.
+
+> Designer: Above mentioned secondary button has margin right of 1 unit and padding of 2 units.
+
+> Developer: OK, thanks.
+
+## N-point grid system
+
+Visage offers a `createNPointFontScale` and `createNPointModularScale` themes from `@byteclaw/visage-themes` package. Bot themes use N-point grid system where the spacing are computed as multiplies of `baseGridSize`.
+
+A theme created by one of the above mentioned ways is using N-point grid system under the hood for all `margin` and `padding` properties. So the designer can just say that the base spacing is `8px` and then communicate in multiplies.
+
+For example if designer says that the right margin should be 2 units, the developer can specify `margin-right: 2` or `mr: 2`.
+
+<Paginator>
+  <PaginatorButton direction="prev" to="/system/scales">
+    Scales
+  </PaginatorButton>
+  <PaginatorButton direction="next" to="/system/typography">
+    Typography
+  </PaginatorButton>
+</Paginator>

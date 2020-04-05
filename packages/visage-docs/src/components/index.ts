@@ -7,6 +7,7 @@ export * from './Examples';
 export * from './GeneratePaletteButton';
 export * from './GridDebugTogglerButton';
 export * from './Layout';
+export * from './Pagination';
 export * from './PropTypes';
 export * from './Search';
 export * from './SEO';
