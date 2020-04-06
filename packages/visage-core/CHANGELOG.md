@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.0 (2020-04-06)
+
+* build: replace microbundle with tsdx ([7df078d](https://github.com/Byteclaw/visage/commit/7df078d))
+* docs: update README in packages ([6e1001f](https://github.com/Byteclaw/visage/commit/6e1001f))
+* test: add extract information test ([bfed844](https://github.com/Byteclaw/visage/commit/bfed844))
+* feat(visage/core): add style cache ([1f1364c](https://github.com/Byteclaw/visage/commit/1f1364c))
+* test(visage/core): fix detected component name ([547db6d](https://github.com/Byteclaw/visage/commit/547db6d))
+
+
+
+
+
 ## <small>0.6.2 (2020-03-24)</small>
 
 * test(visage/core): remove component factory ([b22a706](https://github.com/Byteclaw/visage/commit/b22a706))

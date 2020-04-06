@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.0 (2020-04-06)
+
+* build: replace microbundle with tsdx ([7df078d](https://github.com/Byteclaw/visage/commit/7df078d))
+* docs: update README in packages ([6e1001f](https://github.com/Byteclaw/visage/commit/6e1001f))
+* docs(routes): restructured sidebar routes ([4c51d2a](https://github.com/Byteclaw/visage/commit/4c51d2a))
+* chore(visage): change type composition in components ([787290f](https://github.com/Byteclaw/visage/commit/787290f))
+* feat(visage): add overlay color shades to the theme ([4f57db9](https://github.com/Byteclaw/visage/commit/4f57db9))
+* feat(visage): add stacked close listener manager ([076a925](https://github.com/Byteclaw/visage/commit/076a925))
+* feat(visage): change hover effect colors on DataTable ([5a06976](https://github.com/Byteclaw/visage/commit/5a06976))
+* feat(visage): fix menu scrolling and popover events ([cefc0b4](https://github.com/Byteclaw/visage/commit/cefc0b4))
+* feat(visage): lock body scroll and add focus trap to Drawer ([1c11acd](https://github.com/Byteclaw/visage/commit/1c11acd))
+* feat(visage): remove unnecessary section element from List ([008642d](https://github.com/Byteclaw/visage/commit/008642d))
+* feat(visage): style DataTable with overlay shades ([c7fc3a7](https://github.com/Byteclaw/visage/commit/c7fc3a7))
+* feat(visage): use key up event for Escape detection ([948e468](https://github.com/Byteclaw/visage/commit/948e468))
+* fix(visage): do not allow to shrink Dialog header ([59e7ffe](https://github.com/Byteclaw/visage/commit/59e7ffe))
+* fix(visage): register close listeners on render and not on mount ([964d35c](https://github.com/Byteclaw/visage/commit/964d35c))
+* fix(visage): remove scrollbar from Toggle in IE11 ([12f53c0](https://github.com/Byteclaw/visage/commit/12f53c0))
+* fix(visage): scroll selected Autocomplete/Select option into view ([837d242](https://github.com/Byteclaw/visage/commit/837d242))
+* fix(visage): use exclusive media query breakpoints ([b9e50b3](https://github.com/Byteclaw/visage/commit/b9e50b3))
+* fix(visage): use no appearance on TextInput ([27e1a41](https://github.com/Byteclaw/visage/commit/27e1a41))
+* feat(visage/core): add style cache ([1f1364c](https://github.com/Byteclaw/visage/commit/1f1364c))
+* perf(visage): use handler refs in AutocompleteInput/Select ([623c2ef](https://github.com/Byteclaw/visage/commit/623c2ef))
+
+
+
+
+
 ## 0.19.0 (2020-03-24)
 
 * refactor: hoist styles ([faa38a5](https://github.com/Byteclaw/visage/commit/faa38a5))
