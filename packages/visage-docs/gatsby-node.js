@@ -33,6 +33,10 @@ exports.onCreateWebpackConfig = function onCreateWebpackConfig({
           ],
           use: [loaders.js()],
         },
+        {
+          test: /react-refresh-webpack-plugin/,
+          use: [loaders.js()],
+        },
       ],
     },
   });
