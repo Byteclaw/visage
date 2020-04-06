@@ -9,6 +9,7 @@ import React, {
   useRef,
 } from 'react';
 import { useStaticEffect } from '../hooks';
+import { normalizeKeyboardEventKey } from './shared';
 
 export type OnCloseHandler = (
   e: KeyboardEvent | MouseEvent,
@@ -66,7 +67,7 @@ function onEscapeKeyUpHandlerCreator(
 ) {
   return (e: KeyboardEvent) => {
     if (
-      e.key === 'Escape' &&
+      normalizeKeyboardEventKey(e) === 'Escape' &&
       escapeStack.current &&
       escapeStack.current.length > 0
     ) {
