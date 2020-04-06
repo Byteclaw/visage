@@ -8,20 +8,18 @@ import React, {
   cloneElement,
   useCallback,
   useEffect,
-  useRef,
   KeyboardEventHandler,
   forwardRef,
   RefObject,
   Ref,
 } from 'react';
 import {
-  findNextFocusableElement,
-  findPreviousFocusableElement,
-  isFocusableElement,
+  findNextMatchingSiblingElement,
+  findPreviousMatchingSiblingElement,
   TransformOriginSettings,
 } from './shared';
 import { createComponent } from '../core';
-import { useHandlerRef } from '../hooks';
+import { useCombinedRef } from '../hooks';
 import { List, ListItem } from './List';
 import { Popover } from './Popover';
 
@@ -71,6 +69,9 @@ const popoverStyles = {
   boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
 };
 
+const isMenuItemElement = (el: HTMLElement) =>
+  el.getAttribute('role') === 'menuitem';
+
 export function Menu({
   anchor,
   anchorOrigin = defaultAnchorOrigin,
@@ -86,8 +87,7 @@ export function Menu({
   popoverProps,
   ...restProps
 }: MenuProps) {
-  const firstItemRef = useRef<HTMLElement | null>(null);
-  const lastItemRef = useRef<HTMLElement | null>(null);
+  const menuRef = useCombinedRef(baseRef);
   const onKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
     e => {
       if (outerOnKeyDown) {
@@ -100,49 +100,45 @@ export function Menu({
 
       switch (e.key) {
         case 'ArrowUp': {
+          // prevent so Popover onKeyDown is not called
+          e.stopPropagation();
           e.preventDefault();
           // find previous focusable element, if none is found, find the last one
-          const previousFocusableElement = findPreviousFocusableElement(
+          const previousFocusableElement = findPreviousMatchingSiblingElement(
             e.currentTarget as HTMLElement,
+            isMenuItemElement,
           );
 
           if (previousFocusableElement) {
             previousFocusableElement.focus();
             return;
           }
-
-          if (lastItemRef.current) {
-            const focusableElement = isFocusableElement(lastItemRef.current)
-              ? lastItemRef.current
-              : findNextFocusableElement(lastItemRef.current);
-
-            if (focusableElement && focusableElement !== e.currentTarget) {
-              focusableElement.focus();
-            }
+          if (menuRef.current) {
+            // focus last
+            menuRef.current
+              .querySelector<HTMLElement>('[role="menuitem"]:last-of-type')
+              ?.focus();
           }
 
           return;
         }
         case 'ArrowDown': {
+          // prevent so Popover onKeyDown is not called
+          e.stopPropagation();
           e.preventDefault();
           // find next focusable element, if none is found, find the first one
-          const nextFocusableElement = findNextFocusableElement(
+          const nextFocusableElement = findNextMatchingSiblingElement(
             e.currentTarget as HTMLElement,
+            isMenuItemElement,
           );
 
           if (nextFocusableElement) {
             nextFocusableElement.focus();
-            return;
-          }
-
-          if (firstItemRef.current) {
-            const focusableElement = isFocusableElement(firstItemRef.current)
-              ? firstItemRef.current
-              : findNextFocusableElement(firstItemRef.current);
-
-            if (focusableElement && focusableElement !== e.currentTarget) {
-              focusableElement.focus();
-            }
+          } else if (menuRef.current) {
+            // focus first
+            menuRef.current
+              .querySelector<HTMLElement>('[role="menuitem"]:first-of-type')
+              ?.focus();
           }
         }
       }
@@ -150,28 +146,21 @@ export function Menu({
     [disableEvents, outerOnKeyDown],
   );
 
-  const onKeyDownPopover: KeyboardEventHandler<HTMLElement> = useHandlerRef(
+  const onPopoverKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
     e => {
-      if (e.currentTarget !== e.target || disableEvents) {
+      if (disableEvents) {
         return;
-      }
-
-      if (outerOnKeyDown) {
-        outerOnKeyDown(e);
       }
 
       switch (e.key) {
         case 'ArrowUp': {
           e.preventDefault();
 
-          if (lastItemRef.current) {
-            const lastFocusable = isFocusableElement(lastItemRef.current)
-              ? lastItemRef.current
-              : findNextFocusableElement(lastItemRef.current);
-
-            if (lastFocusable) {
-              lastFocusable.focus();
-            }
+          // focus last menu item
+          if (menuRef.current) {
+            menuRef.current
+              .querySelector<HTMLElement>('[role="menuitem"]:last-of-type')
+              ?.focus();
           }
 
           return;
@@ -179,18 +168,16 @@ export function Menu({
         case 'ArrowDown': {
           e.preventDefault();
 
-          if (firstItemRef.current) {
-            const firstFocusable = isFocusableElement(firstItemRef.current)
-              ? firstItemRef.current
-              : findNextFocusableElement(firstItemRef.current);
-
-            if (firstFocusable) {
-              firstFocusable.focus();
-            }
+          // focus first menu item
+          if (menuRef.current) {
+            menuRef.current
+              .querySelector<HTMLElement>('[role="menuitem"]:first-of-type')
+              ?.focus();
           }
         }
       }
     },
+    [disableEvents],
   );
 
   // manage autofocus of first item
@@ -200,13 +187,13 @@ export function Menu({
       return;
     }
 
-    if (firstItemRef.current) {
-      const firstFocusable = isFocusableElement(firstItemRef.current)
-        ? firstItemRef.current
-        : findNextFocusableElement(firstItemRef.current);
+    if (menuRef.current) {
+      const firstMenuItem = menuRef.current.querySelector<HTMLElement>(
+        '[role="menuitem"]:first-of-type',
+      );
 
-      if (firstFocusable) {
-        firstFocusable.focus();
+      if (firstMenuItem) {
+        firstMenuItem.focus();
       }
     }
   }, [open, disableAutoFocusItem, disableEvents]);
@@ -217,21 +204,17 @@ export function Menu({
       anchor={anchor}
       anchorOrigin={anchorOrigin}
       autoFocus={!disableEvents && disableAutoFocusItem}
-      onKeyDown={
-        !disableEvents && disableAutoFocusItem ? onKeyDownPopover : undefined
-      }
       backdrop
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
+      onKeyDown={onPopoverKeyDown}
       open={open}
       styles={popoverStyles}
       {...popoverProps}
     >
-      <MenuBase ref={baseRef} role={role} {...restProps} tabIndex={-1}>
-        {Children.map(children, (menuItem, i) => {
+      <MenuBase ref={menuRef} role={role} {...restProps} tabIndex={-1}>
+        {Children.map(children, menuItem => {
           return cloneElement(menuItem as any, {
-            ref: i === 0 ? firstItemRef : lastItemRef,
-            role: !open ? 'none' : (menuItem as any).props.role,
             onKeyDown,
           });
         })}
@@ -245,13 +228,9 @@ export const MenuItem: typeof MenuItemBase = forwardRef(
     { children, role = 'menuitem', ...restProps }: MenuItemProps,
     ref: Ref<HTMLLIElement>,
   ) => {
+    // https://www.w3.org/TR/wai-aria-practices-1.1/#wai-aria-roles-states-and-properties-13
     return (
-      <MenuItemBase
-        tabIndex={role === 'menuitem' ? 0 : -1}
-        role={role}
-        ref={ref}
-        {...restProps}
-      >
+      <MenuItemBase tabIndex={-1} role={role} ref={ref} {...restProps}>
         {children}
       </MenuItemBase>
     );
