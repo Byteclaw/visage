@@ -22,8 +22,10 @@ export function CollapsibleNavigationSection({
           collapsed={match == null && !openOnInit}
           renderToggler={(collapsed, onClick, onKeyDown) => (
             <ListItemLink
+              as="div" // firefox fix because it ignores anchors with role button
               onClick={onClick}
               onKeyDown={onKeyDown}
+              role="button"
               tabIndex={0}
               styles={{
                 justifyContent: 'space-between',
