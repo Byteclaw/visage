@@ -36,13 +36,20 @@ function reducer(
     const matches = previousState.matches.slice();
     matches[action.index] = action.matches;
 
+    const greatestBreakpoint = matches.lastIndexOf(true);
+
     return {
       matches,
-      viewport: matches.lastIndexOf(true),
+      // if there is no breakpoint matched at the moment, use the old one
+      // this is an edge case if you use exclusive media queries where only one is matched at the time
+      // in that case it can happen that first is a breakpoint unset and then is set for new one
+      // this breaks the application so we use previous viewport to be sure
+      viewport:
+        greatestBreakpoint === -1 ? previousState.viewport : greatestBreakpoint,
     };
   }
 
-  throw new Error('Unknown action');
+  return previousState;
 }
 
 export function useBreakpointManager(
