@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.1 (2020-04-06)
+
+* docs: fix ie 11 compatibility in dev mode ([5ff86ed](https://github.com/Byteclaw/visage/commit/5ff86ed))
+
+
+
+
+
 ## 1.0.0-alpha.0 (2020-04-06)
 
 * test: add extract information test ([bfed844](https://github.com/Byteclaw/visage/commit/bfed844))

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.1 (2020-04-06)
+
+**Note:** Version bump only for package @byteclaw/visage-themes
+
+
+
+
+
 ## 1.0.0-alpha.0 (2020-04-06)
 
 * build: replace microbundle with tsdx ([7df078d](https://github.com/Byteclaw/visage/commit/7df078d))
