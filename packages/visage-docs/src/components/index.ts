@@ -3,7 +3,6 @@ export * from './CollapsibleNavigationSection';
 export * from './ComponentInformationMap';
 export * from './CustomizeThemeButton';
 export * from './DesignSystem';
-export * from './Examples';
 export * from './GeneratePaletteButton';
 export * from './GridDebugTogglerButton';
 export * from './Layout';
