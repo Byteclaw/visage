@@ -137,13 +137,9 @@ export const ListHeader = createComponent('h1', {
 type ListItemProps = ExtractVisageComponentProps<typeof BaseListItem>;
 
 export const ListItem: typeof BaseListItem = forwardRef(
-  (
-    { button = false, gutters, children, ...rest }: ListItemProps,
-    ref: Ref<any>,
-  ) => {
+  ({ gutters, children, ...rest }: ListItemProps, ref: Ref<any>) => {
     return (
       <BaseListItem
-        role={button === true ? 'button' : undefined}
         gutters={gutters != null ? gutters : typeof children === 'string'}
         ref={ref}
         {...rest}
@@ -171,7 +167,6 @@ export const List: VisageComponent<ListProps> = forwardRef(
       children,
       heading,
       itemsContainer = defaultItemsContainer,
-      tabIndex = -1,
       ...restProps
     }: ListProps,
     ref: Ref<any>,
@@ -180,7 +175,6 @@ export const List: VisageComponent<ListProps> = forwardRef(
     const listItems = cloneElement(itemsContainer, {
       children,
       ref,
-      tabIndex,
       ...restProps,
     });
 
@@ -240,7 +234,8 @@ export function CollapsibleList({
   const onToggle = useCallback(() => setCollapsed(!collapsed), [collapsed]);
   const onKeyDown: KeyboardEventHandler<HTMLLabelElement> = useCallback(
     e => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
         setCollapsed(!collapsed);
       }
     },
