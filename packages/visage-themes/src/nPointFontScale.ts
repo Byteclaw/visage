@@ -16,8 +16,8 @@ import { stylers } from './stylers';
 
 export interface NPointFontScaleThemeSettings
   extends StyleSheetThemeSettings<any, VisageFaces> {
-  fontSize: ScaleValue<number | number[]>;
-  lineHeights: ScaleValue<number | number[]>;
+  fontSize: ScaleValue<string | number | (number | string)[]>;
+  lineHeights: ScaleValue<string | number | (string | number)[]>;
   baseGridSize: number;
   borderRadius:
     | number
@@ -62,7 +62,15 @@ export function createNPointFontScaleTheme(
         return value;
       },
       scaleLineHeight(propName, value, ctx) {
-        const numericValue = Number(value);
+        if (value == null) {
+          return value;
+        }
+
+        let numericValue = Number(value);
+
+        if (Number.isNaN(numericValue)) {
+          numericValue = parseFloat(value.toString());
+        }
 
         if (!Number.isNaN(numericValue)) {
           const val = getScaleValue(settings.lineHeights, numericValue);
