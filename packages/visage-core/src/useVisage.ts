@@ -96,5 +96,6 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
   return {
     ...passProps,
     parentStyles: localStyles,
+    styles, // move to child component
   } as any;
 }
