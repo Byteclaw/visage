@@ -42,9 +42,10 @@ const TabNavigatonButton = createComponent('button', {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
     borderStyle: 'solid',
+    borderWidth: 0,
     borderBottomWidth: 2,
     fontFamily: 'body',
-    color: 'lightShadesText',
+    color: 'shadesText',
     cursor: 'pointer',
     fontSize: 1,
     lineHeight: 1,
@@ -60,7 +61,7 @@ const TabNavigatonButton = createComponent('button', {
       fontWeight: 'bold',
     },
     '&:focus': {
-      borderBottomColor: 'darkAccent',
+      borderBottomColor: 'shadesText',
     },
     '&[disabled]': {
       cursor: 'not-allowed',

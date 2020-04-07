@@ -37,8 +37,8 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     },
   },
   default: {
-    backgroundColor: 'lightAccent',
-    color: 'lightAccentText',
+    backgroundColor: 'accent',
+    color: 'accentText',
   },
 };
 
@@ -77,7 +77,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
     },
     '&:hover': {
       backgroundColor: 'danger',
-      color: 'lightShades',
+      color: 'shades',
     },
   },
   primary: {
@@ -95,15 +95,15 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
     },
     '&:hover': {
       backgroundColor: 'primary',
-      color: 'lightShades',
+      color: 'shades',
     },
   },
   default: {
     backgroundColor: 'transparent',
-    borderColor: 'lightAccent',
+    borderColor: 'accent',
     borderStyle: 'solid',
     borderWidth: 2,
-    color: 'lightShadesText',
+    color: 'shadesText',
   },
 };
 const monochromeButtonVariants: EmotionStyleSheet = {

@@ -14,30 +14,31 @@ export const DataTable = createComponent('table', {
 
 export const DataTableHeader = createComponent('thead', {
   displayName: 'DataTableHeader',
+  styles: {
+    '& th': {
+      borderBottomStyle: 'solid',
+      borderBottomColor: 'shadesOverlay',
+      borderBottomWidth: '1px',
+    },
+  },
 });
+
+const totalStyles: VisageStyleSheet = {
+  backgroundColor: 'shadesOverlay',
+  color: 'shadesOverlayText',
+  fontWeight: 600,
+};
 
 export const DataTableHeaderColumn = createComponent('th', {
   displayName: 'DataTableHeaderColumn',
   styles: props => ({
-    borderColor: 'lightShadeOverlay',
-    borderStyle: 'solid',
-    borderWidth: 0,
     fontWeight: 600,
     p: 2,
     textAlign: 'left',
     ...(props.numeric ? { textAlign: 'right' } : {}),
-    ...(props.total
-      ? { backgroundColor: 'neutral', color: 'neutralText', fontWeight: 600 }
-      : {}),
-    ...(props.inFooter
-      ? { borderTopWidth: '1px' }
-      : { borderBottomWidth: '1px' }),
+    ...(props.total ? totalStyles : {}),
   }),
-  variants: [
-    booleanVariant('numeric', true),
-    booleanVariant('inFooter', true),
-    booleanVariant('total', true),
-  ],
+  variants: [booleanVariant('numeric', true), booleanVariant('total', true)],
 });
 
 export const DataTableHeaderRow = createComponent('tr', {
@@ -60,8 +61,8 @@ export const DataTableRow = createComponent('tr', {
   displayName: 'DataTableRow',
   styles: {
     '&:hover td': {
-      color: 'lightAccentText',
-      backgroundColor: 'lightAccent',
+      color: 'shadesOverlayText',
+      backgroundColor: 'shadesOverlay',
     },
   },
 });
@@ -72,7 +73,7 @@ export const DataTableColumn = createComponent('td', {
     p: 2,
     textAlign: 'left',
     ...(props.numeric ? { textAlign: 'right' } : {}),
-    ...(props.total ? { backgroundColor: 'neutral', fontWeight: 600 } : {}),
+    ...(props.total ? totalStyles : {}),
   }),
   variants: [booleanVariant('numeric', true), booleanVariant('total', true)],
 });

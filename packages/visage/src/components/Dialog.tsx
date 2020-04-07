@@ -16,7 +16,7 @@ const DialogBase = createComponent(Flex, {
     boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'lightShades',
+    backgroundColor: 'shades',
     borderRadius: 'controlBorderRadius',
     position: 'relative',
     ...(props.scroll === 'content' ? { maxHeight: ['100%', '90%'] } : {}),

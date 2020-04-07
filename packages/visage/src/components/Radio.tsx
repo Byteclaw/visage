@@ -98,7 +98,7 @@ const RadioToggler = createComponent(Flex, {
     borderRadius: 999,
     borderStyle: 'solid',
     borderWidth: '2px',
-    borderColor: 'lightAccent',
+    borderColor: 'accent',
     mr: 1,
   },
 });

@@ -14,12 +14,14 @@ ThemeTogglerContext.displayName = 'ThemeToggler';
 export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
   return {
     ...palette,
-    darkShades: palette.lightShades,
-    darkShadesText: palette.lightShadesText,
-    lightShades: palette.darkShades,
-    lightShadesText: palette.darkShadesText,
-    darkShadeOverlay: palette.lightShadeOverlay,
-    lightShadeOverlay: palette.darkShadeOverlay,
+    darkShades: palette.shades,
+    darkShadesText: palette.shadesText,
+    shades: palette.darkShades,
+    shadesText: palette.darkShadesText,
+    darkShadesOverlay: palette.shadesOverlay,
+    darkShadesOverlayText: palette.shadesOverlayText,
+    shadesOverlay: palette.darkShadesOverlay,
+    shadesOverlayText: palette.darkShadesOverlayText,
     // if default colors are same, calculate these
     textInput: color(palette.darkShades)
       .lighten(0.3)

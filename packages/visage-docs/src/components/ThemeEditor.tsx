@@ -97,7 +97,7 @@ const ColorBoxButton = createComponent(Box, {
   defaultProps: {
     role: 'button',
   },
-  defaultStyles: {
+  styles: {
     borderRadius: 4,
     borderColor: 'rgba(0,0,0,0.5)',
     borderStyle: 'solid',
@@ -205,10 +205,12 @@ function ColorWithText({ colorDispatch, palette, title }: ColorWithTextProps) {
 
 const colorNamesWithText: (keyof ColorPalette)[] = [
   'primary',
-  'lightAccent',
-  'lightShades',
+  'accent',
+  'shades',
+  'shadesOverlay',
   'darkAccent',
   'darkShades',
+  'darkShadesOverlay',
   'danger',
   'info',
   'neutral',

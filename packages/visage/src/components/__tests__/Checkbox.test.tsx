@@ -119,7 +119,7 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px lightAccent;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px accent;
       }
 
       .emotion-0 + div {
@@ -154,7 +154,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: lightAccent;
+        border-color: accent;
         border-radius: 3px;
         border-style: solid;
         border-width: 2px;

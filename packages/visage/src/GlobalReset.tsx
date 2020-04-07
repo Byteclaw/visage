@@ -18,11 +18,11 @@ export const globalComponentStyles: {
   [selector: string]: EmotionStyleSheet;
 } = {
   body: {
-    backgroundColor: 'lightShades',
+    backgroundColor: 'shades',
   },
   html: {
-    backgroundColor: 'lightShades',
-    color: 'lightShadesText',
+    backgroundColor: 'shades',
+    color: 'shadesText',
     fontFamily: 'body',
     fontSize: 0,
     lineHeight: 0,

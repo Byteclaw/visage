@@ -31819,13 +31819,6 @@ A hint could be a sample value or a brief description of the expected format.",
     Object {
       "documentation": "",
       "isOptional": true,
-      "name": "inFooter",
-      "parent": undefined,
-      "type": "any",
-    },
-    Object {
-      "documentation": "",
-      "isOptional": true,
       "name": "total",
       "parent": undefined,
       "type": "any",

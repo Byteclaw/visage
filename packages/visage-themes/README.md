@@ -52,19 +52,13 @@ const theme = createNPointModularScaleTheme({
   fontScaleRatio: modularScaleFontRatios.perfectFourth,
   colors: {
     /** Accent color to bring attention to design elements */
-    lightAccent: '#ccc';
-    lightAccentText: 'black';
+    accent: '#ccc';
+    accentText: 'black';
     /** Used as background color for dark on light design or text color of inverted design */
-    lightShades: 'white';
-    lightShadesText: 'black';
+    shades: 'white';
+    shadesText: 'black';
     primary: 'black';
     primaryText: 'white';
-    /** Alternative accent color */
-    darkAccent: 'orange';
-    darkAccentText: 'white';
-    /** Used as text color for dark on light design or background color of inverted design */
-    darkShades: 'black';
-    darkShadesText: 'white';
     /** Uses as background for danger elements or as invalid color */
     danger: 'red';
     dangerText: 'white';
@@ -134,19 +128,13 @@ const theme = createNPointFontScaleTheme({
   },
   colors: {
     /** Accent color to bring attention to design elements */
-    lightAccent: '#ccc';
-    lightAccentText: 'black';
+    accent: '#ccc';
+    accentText: 'black';
     /** Used as background color for dark on light design or text color of inverted design */
-    lightShades: 'white';
-    lightShadesText: 'black';
+    shades: 'white';
+    shadesText: 'black';
     primary: 'black';
     primaryText: 'white';
-    /** Alternative accent color */
-    darkAccent: 'orange';
-    darkAccentText: 'white';
-    /** Used as text color for dark on light design or background color of inverted design */
-    darkShades: 'black';
-    darkShadesText: 'white';
     /** Uses as background for danger elements or as invalid color */
     danger: 'red';
     dangerText: 'white';

@@ -49,8 +49,7 @@ const FileInputControl = createComponent('div', {
     },
     // synthetic focus on drop
     '&[data-draggedover="true"]': {
-      // cursor: 'copy',
-      outlineColor: 'darkAccent',
+      boxShadow: createSurfaceFocusShadow(),
     },
     backgroundColor: 'textInput',
     borderColor: 'textInputBorder',

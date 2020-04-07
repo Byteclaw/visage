@@ -70,7 +70,7 @@ const ToggleControl = createComponent('input', {
       mx: 1,
       fontSize: '0.75em',
       textAlign: 'center',
-      color: 'lightAccentText',
+      color: 'accentText',
       top: '50%',
       transform: 'translate(-50%,-50%)',
       whiteSpace: 'nowrap',

@@ -97,7 +97,7 @@ const CheckboxToggler = createComponent(Flex, {
   styles: {
     alignSelf: 'center',
     transition: 'all 150ms',
-    borderColor: 'lightAccent',
+    borderColor: 'accent',
     borderRadius: '3px',
     borderStyle: 'solid',
     borderWidth: '2px',
