@@ -13,7 +13,7 @@ const DividerLine = createComponent('div', {
   styles: props => ({
     borderWidth: 0,
     display: 'block',
-    borderColor: 'currentColor',
+    borderColor: 'shadesOverlay',
     borderStyle: 'solid',
     mx: 0,
     my: 0,

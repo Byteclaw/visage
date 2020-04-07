@@ -13,21 +13,19 @@ export const controlActiveShadow =
   'inset 0 0 200px rgba(68, 68, 68, 0.2), inset 0 0 2px rgba(0, 0, 0, 0.2)';
 
 export const createSurfaceFocusShadow = (
-  color: string = 'lightAccent',
+  color: string = 'accent',
   withHoverShadow: boolean = true,
 ): string =>
   withHoverShadow
     ? `${controlFocusShadow} ${color}, ${controlHoverShadow}`
     : `${controlFocusShadow} ${color}`;
 
-export const createControlFocusShadow = (
-  color: string = 'lightAccent',
-): string => `${controlFocusShadow} ${color}`;
+export const createControlFocusShadow = (color: string = 'accent'): string =>
+  `${controlFocusShadow} ${color}`;
 
 export const createControlHoverShadow = (): string => controlHoverShadow;
-export const createControlActiveShadow = (
-  color: string = 'lightAccent',
-): string => `${controlFocusShadow} ${color} , ${controlActiveShadow}`;
+export const createControlActiveShadow = (color: string = 'accent'): string =>
+  `${controlFocusShadow} ${color} , ${controlActiveShadow}`;
 
 export const visuallyHiddenStyles: EmotionStyleSheet = {
   border: '0',
@@ -54,7 +52,7 @@ export const invalidControlStyles: EmotionStyleSheet = {
   borderWidth: '2px',
   // data-focused is used by text input on base
   '&:focus, &[data-focused="true"]': {
-    boxShadow: '0 0 0 3px darkAccent',
+    boxShadow: '0 0 0 3px accent',
   },
   // checkbox and radio
   '&::before': {

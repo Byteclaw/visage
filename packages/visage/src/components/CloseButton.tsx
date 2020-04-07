@@ -28,16 +28,16 @@ export const CloseButton = createComponent('button', {
     m: 0,
     p: 1,
     '&:focus': {
-      backgroundColor: 'lightAccent',
-      color: 'lightAccentText',
+      backgroundColor: 'accent',
+      color: 'accentText',
     },
     '&:hover': {
-      backgroundColor: 'lightAccent',
-      color: 'lightAccentText',
+      backgroundColor: 'accent',
+      color: 'accentText',
     },
     '&:active': {
-      backgroundColor: 'lightAccent',
-      color: 'lightAccentText',
+      backgroundColor: 'accent',
+      color: 'accentText',
     },
   },
 });

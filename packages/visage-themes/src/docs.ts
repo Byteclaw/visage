@@ -8,42 +8,37 @@ import color from 'color';
 import { createNPointFontScaleTheme } from './nPointFontScale';
 import { generateColorScale } from './utils';
 
-const darkAccent = color('#112d4e');
 const darkShades = color('#1b262c');
-const lightAccent = color('#dbe2ef');
-const lightShades = color('#fff');
+const accent = color('#dbe2ef');
+const shades = color('#fff');
 const primary = color('#1FA7EC');
+const lightShadesOverlay = generateColorScale<
+  'shadesOverlay' | 'shadesOverlayText'
+>('shadesOverlay', 'rgba(0, 0, 0, .15)', 5, 5);
+const darkShadesOverlay = generateColorScale<
+  'darkShadesOverlay' | 'darkShadesOverlayText'
+>('darkShadesOverlay', 'rgba(255, 255, 255, .15)', 5, 5);
 
 export const docsThemeColorPalette: ColorPalette = {
   ...generateColorScale<'neutral' | 'neutralText'>('neutral', '#e3e8ee', 5, 5),
-  ...generateColorScale<'darkShadeOverlay' | 'darkShadeOverlayText'>(
-    'darkShadeOverlay',
-    'rgba(255, 255, 255, .15)',
-    5,
-    5,
-  ),
-  ...generateColorScale<'lightShadeOverlay' | 'lightShadeOverlayText'>(
-    'lightShadeOverlay',
-    'rgba(0, 0, 0, .15)',
-    5,
-    5,
-  ),
-  darkAccent: darkAccent.toString(),
-  darkAccentText: darkAccent.isDark() ? '#fff' : '#000',
   darkShades: darkShades.toString(),
   darkShadesText: darkShades.isDark() ? '#fff' : '#000',
-  lightAccent: lightAccent.toString(),
-  lightAccentText: lightAccent.isDark() ? '#fff' : '#000',
-  lightShades: lightShades.toString(),
-  lightShadesText: lightShades.isDark() ? '#fff' : '#000',
+  darkShadesOverlay: darkShadesOverlay.darkShadesOverlay,
+  darkShadesOverlayText: '#fff',
+  accent: accent.toString(),
+  accentText: accent.isDark() ? '#fff' : '#000',
+  shades: shades.toString(),
+  shadesText: shades.isDark() ? '#fff' : '#000',
+  shadesOverlay: lightShadesOverlay.shadesOverlay,
+  shadesOverlayText: '#000',
   primary: primary.toString(),
   primaryText: '#fff',
   ...generateColorScale<'success' | 'successText'>('success', '#27ae60', 5, 5),
   ...generateColorScale<'danger' | 'dangerText'>('danger', '#c0392b', 5, 5),
   ...generateColorScale<'info' | 'infoText'>('info', '#2980b9', 5, 5),
   ...generateColorScale<'warning' | 'warningText'>('warning', '#f1c40f', 5, 5),
-  textInput: lightShades.lighten(0.3).toString(),
-  textInputBorder: lightShades.darken(0.3).toString(),
+  textInput: shades.lighten(0.3).toString(),
+  textInputBorder: shades.darken(0.3).toString(),
 };
 
 export interface DocsThemeSettings {

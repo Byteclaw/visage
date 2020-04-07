@@ -3,23 +3,15 @@ import { ScaleValue } from '@byteclaw/visage-utils';
 
 export interface ColorPalette {
   /** Accent color to bring attention to design elements */
-  lightAccent: string | ScaleValue<string>;
-  lightAccentText: string | ScaleValue<string>;
+  accent: string | ScaleValue<string>;
+  accentText: string | ScaleValue<string>;
   /** Used as background color for dark on light design or text color of inverted design */
-  lightShades: string | ScaleValue<string>;
-  lightShadesText: string | ScaleValue<string>;
-  lightShadeOverlay: string | ScaleValue<string>;
-  lightShadeOverlayText: string | ScaleValue<string>;
+  shades: string | ScaleValue<string>;
+  shadesText: string | ScaleValue<string>;
+  shadesOverlay: string | ScaleValue<string>;
+  shadesOverlayText: string | ScaleValue<string>;
   primary: string | ScaleValue<string>;
   primaryText: string | ScaleValue<string>;
-  /** Alternative accent color */
-  darkAccent: string | ScaleValue<string>;
-  darkAccentText: string | ScaleValue<string>;
-  /** Used as text color for dark on light design or background color of inverted design */
-  darkShades: string | ScaleValue<string>;
-  darkShadesText: string | ScaleValue<string>;
-  darkShadeOverlay: string | ScaleValue<string>;
-  darkShadeOverlayText: string | ScaleValue<string>;
   /** Uses as background for danger elements or as invalid color */
   danger: string | ScaleValue<string>;
   dangerText: string | ScaleValue<string>;

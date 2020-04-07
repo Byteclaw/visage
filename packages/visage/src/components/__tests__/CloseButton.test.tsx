@@ -45,18 +45,18 @@ describe('CloseButton', () => {
       }
 
       .emotion-1:focus {
-        background-color: lightAccent;
-        color: lightAccentText;
+        background-color: accent;
+        color: accentText;
       }
 
       .emotion-1:hover {
-        background-color: lightAccent;
-        color: lightAccentText;
+        background-color: accent;
+        color: accentText;
       }
 
       .emotion-1:active {
-        background-color: lightAccent;
-        color: lightAccentText;
+        background-color: accent;
+        color: accentText;
       }
 
       .emotion-0 {
@@ -185,18 +185,18 @@ describe('CloseButton', () => {
       }
 
       .emotion-1:focus {
-        background-color: lightAccent;
-        color: lightAccentText;
+        background-color: accent;
+        color: accentText;
       }
 
       .emotion-1:hover {
-        background-color: lightAccent;
-        color: lightAccentText;
+        background-color: accent;
+        color: accentText;
       }
 
       .emotion-1:active {
-        background-color: lightAccent;
-        color: lightAccentText;
+        background-color: accent;
+        color: accentText;
       }
 
       <button

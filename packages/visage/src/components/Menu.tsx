@@ -26,7 +26,7 @@ import { Popover } from './Popover';
 const MenuBase = createComponent(List, {
   displayName: 'Menu',
   styles: {
-    backgroundColor: 'lightShades',
+    backgroundColor: 'shades',
   },
 });
 

@@ -119,7 +119,7 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px lightAccent;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px accent;
       }
 
       .emotion-0 + div {
@@ -159,7 +159,7 @@ describe('Radio', () => {
         border-radius: 999px;
         border-style: solid;
         border-width: 2px;
-        border-color: lightAccent;
+        border-color: accent;
         margin-right: 8px;
       }
 

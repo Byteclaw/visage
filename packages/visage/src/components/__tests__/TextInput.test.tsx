@@ -57,7 +57,7 @@ describe('TextInput', () => {
 
       .emotion-2:focus,
       .emotion-2[data-focused="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px lightAccent;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px accent;
       }
 
       .emotion-1 {

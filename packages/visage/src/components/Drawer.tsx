@@ -40,7 +40,7 @@ export enum DrawerPosition {
 const BaseDrawer = createComponent('div', {
   displayName: 'Drawer',
   styles: props => ({
-    backgroundColor: 'lightShades',
+    backgroundColor: 'shades',
     overflowY: 'scroll',
     ...(props.relative
       ? { position: 'relative' }

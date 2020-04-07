@@ -63,8 +63,8 @@ export const BaseListItem = createComponent('li', {
     width: 'auto',
     '&[role="button"]:hover, &[role="button"]:focus': {
       outline: 'none',
-      backgroundColor: 'lightAccent',
-      color: 'lightAccentText',
+      backgroundColor: 'accent',
+      color: 'accentText',
       cursor: 'pointer',
       userSelect: 'none',
     },
@@ -81,7 +81,7 @@ export const BaseListItem = createComponent('li', {
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
   styles: props => ({
-    color: 'lightShadesText',
+    color: 'shadesText',
     cursor: 'pointer',
     display: 'flex',
     fontSize: 'inherit',
@@ -96,13 +96,13 @@ const ListItemLinkBase = createComponent('a', {
       userSelect: 'none',
     },
     '&:hover': {
-      backgroundColor: 'lightAccent',
-      color: 'lightAccentText',
+      backgroundColor: 'accent',
+      color: 'accentText',
       textDecoration: 'none',
     },
     '&:focus': {
-      backgroundColor: 'lightAccent',
-      color: 'lightAccentText',
+      backgroundColor: 'accent',
+      color: 'accentText',
     },
     ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
   }),
