@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.2 (2020-04-08)
+
+* fix(visage/core): apply styles override in overridden component ([2c9d416](https://github.com/Byteclaw/visage/commit/2c9d416))
+
+
+
+
+
 ## 1.0.0-alpha.1 (2020-04-06)
 
 * fix(visage/core): use previous breakpoint if no breakpoints are matched ([fc465af](https://github.com/Byteclaw/visage/commit/fc465af))

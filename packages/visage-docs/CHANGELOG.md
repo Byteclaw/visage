@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.3 (2020-04-08)
+
+* refactor: remove darkShades, darkAccent colors ([1d359e7](https://github.com/Byteclaw/visage/commit/1d359e7))
+* docs: add basic system documentation ([8ba2b44](https://github.com/Byteclaw/visage/commit/8ba2b44))
+* docs: add performance optimizations ([62f0b46](https://github.com/Byteclaw/visage/commit/62f0b46))
+* docs: fix focusing collapisble items in Firefox ([86b2ab5](https://github.com/Byteclaw/visage/commit/86b2ab5))
+* chore(visage): remove button prop from ListItem ([faa1792](https://github.com/Byteclaw/visage/commit/faa1792))
+
+
+
+
+
 ## 1.0.0-alpha.2 (2020-04-06)
 
 **Note:** Version bump only for package @byteclaw/visage-docs

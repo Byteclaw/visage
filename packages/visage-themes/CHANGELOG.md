@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.3 (2020-04-08)
+
+* fix(visage/themes): allow font size/line height to be string ([cdc30b6](https://github.com/Byteclaw/visage/commit/cdc30b6))
+* refactor: remove darkShades, darkAccent colors ([1d359e7](https://github.com/Byteclaw/visage/commit/1d359e7))
+
+
+
+
+
 ## 1.0.0-alpha.2 (2020-04-06)
 
 **Note:** Version bump only for package @byteclaw/visage-themes
