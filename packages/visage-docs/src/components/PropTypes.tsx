@@ -100,7 +100,10 @@ export function PropTypes({ component }: PropTypesProps) {
         foundGroups[component] = [...(foundGroups[component] || []), property];
       } else if (property.parent === 'StyleProps') {
         // ignore parentStyles because they are used internally
-        if (property.name === 'parentStyles') {
+        if (
+          property.name === 'parentStyles' ||
+          property.name === '$$variants'
+        ) {
           return;
         }
 
