@@ -39,11 +39,36 @@ To make chip deletable, pass `onDelete` handler.
   <Chip onDelete={() => window.alert('Deleted')}>
     Deletable non interactive chip
   </Chip>
+  <Chip onDelete={() => window.alert('Deleted')}>
+    Deletable non interactive chip
+  </Chip>
   <Chip
     onClick={() => window.alert('Clicked')}
     onDelete={() => window.alert('Deleted')}
   >
     Deletable and clickable chip
+  </Chip>
+</Fragment>
+```
+
+### Small
+
+Small `Chip` useful to tag things in headers.
+
+```jsx live=true
+<Fragment>
+  <Chip small>Small</Chip>
+  <Chip small variant="info">
+    Info
+  </Chip>
+  <Chip small variant="success">
+    Success
+  </Chip>
+  <Chip small variant="warning">
+    Warning
+  </Chip>
+  <Chip small variant="danger">
+    Danger
   </Chip>
 </Fragment>
 ```
