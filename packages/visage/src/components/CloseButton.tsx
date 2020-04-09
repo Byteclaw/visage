@@ -23,7 +23,7 @@ export const CloseButton = createComponent('button', {
     color: 'currentColor',
     cursor: 'pointer',
     fontSize: 0,
-    lineHeight: '1em',
+    lineHeight: '1rem',
     outline: 'none',
     m: 0,
     p: 1,

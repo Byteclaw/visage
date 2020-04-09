@@ -10,16 +10,39 @@ import React, {
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
 import { createSurfaceFocusShadow } from './shared';
+import { EmotionStyleSheet } from '../types';
+import { booleanVariant, variant } from '../variants';
+
+const variantStyles: { [key: string]: EmotionStyleSheet } = {
+  danger: {
+    backgroundColor: 'danger',
+    color: 'dangerText',
+  },
+  info: {
+    backgroundColor: 'info',
+    color: 'infoText',
+  },
+  success: {
+    backgroundColor: 'success',
+    color: 'successText',
+  },
+  warning: {
+    backgroundColor: 'warning',
+    color: 'warningText',
+  },
+  default: {
+    backgroundColor: 'neutral',
+    color: 'neutralText',
+  },
+};
 
 const ChipBase = createComponent('div', {
   displayName: 'Chip',
-  styles: {
-    border: 1,
-    borderColor: 'primary',
-    borderStyle: 'solid',
-    borderRadius: 'controlBorderRadius',
+  styles: props => ({
+    borderRadius: '16px',
     display: 'inline-flex',
-    p: 1,
+    fontFamily: 'heading',
+    fontSize: -1,
     position: 'relative',
     outline: 'none',
     '&[data-clickable="true"]': {
@@ -28,13 +51,45 @@ const ChipBase = createComponent('div', {
     '&:focus, &[aria-selected="true"]': {
       boxShadow: createSurfaceFocusShadow(),
     },
-  },
+    transition: 'all 150ms',
+    ...(variantStyles[props.variant || 'default'] || variantStyles.default),
+  }),
+  variants: [
+    variant('variant', true, [
+      'danger',
+      'info',
+      'success',
+      'warning',
+      'default',
+    ] as const),
+  ],
+});
+
+const ChipLabel = createComponent('span', {
+  displayName: 'ChipLabel',
+  styles: props => ({
+    alignSelf: 'center',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    px: 1.5,
+    py: 0.5,
+    lineHeight: '1.2rem',
+    ...(props.small
+      ? {
+          px: 1,
+        }
+      : {}),
+  }),
+  variants: [booleanVariant('small', false)],
 });
 
 const ChipDeleteButton = createComponent(CloseButton, {
   displayName: 'ChipDeleteButton',
   styles: {
-    ml: 1,
+    mr: 1,
+    ml: -0.5,
+    my: 0.5,
     p: 0.5,
   },
 });
@@ -56,6 +111,7 @@ interface ChipProps {
    */
   onDelete?: (e: KeyboardEvent<any> | MouseEvent<any>) => void;
   renderDeleter?: (props: { onClick: MouseEventHandler<any> }) => ReactElement;
+  small?: boolean;
 }
 
 export const Chip: VisageComponent<ChipProps> = React.memo(
@@ -66,6 +122,7 @@ export const Chip: VisageComponent<ChipProps> = React.memo(
         onClick,
         onDelete,
         renderDeleter = defaultChipDeleteRenderer,
+        small,
         ...restProps
       }: ChipProps,
       ref: any,
@@ -120,7 +177,7 @@ export const Chip: VisageComponent<ChipProps> = React.memo(
           {...restProps}
           ref={ref}
         >
-          {children}
+          <ChipLabel small={small}>{children}</ChipLabel>
           {onDelete ? renderDeleter({ onClick: onDeleteClick }) : null}
         </ChipBase>
       );
