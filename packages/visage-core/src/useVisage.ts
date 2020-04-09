@@ -1,17 +1,21 @@
 import isEqual from 'fast-deep-equal-ts/react';
 import { useRef } from 'react';
+import { OmitPropsSetting, omitProps } from '@byteclaw/visage-utils';
 import { isVisageComponent } from './utils';
 import { StyleSheet } from './styleSheet';
 import { StyleProps, StyleFunction } from './types';
 import { useDesignSystem } from './useDesignSystem';
+import { useVariantSettings } from './useVariantSettings';
 
 const DEFAULT_PARENT_STYLES: StyleSheet<VisageStylingProperties>[] = [];
+const DEFAULT_VARIANT_PROCESSORS: OmitPropsSetting[] = [];
 
 export interface UseVisageHookOptions {
   componentName: string;
   defaultStyles: StyleSheet<VisageStylingProperties> | StyleFunction<any>;
   faceStyleSheet: { face: string };
-  omitProps(props: { [key: string]: any }): { [key: string]: any };
+  variants: OmitPropsSetting[];
+  // omitProps: OmitPropsSetting;
 }
 
 /**
@@ -24,6 +28,7 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
   {
     parentStyles = DEFAULT_PARENT_STYLES,
     styles,
+    $$variants = DEFAULT_VARIANT_PROCESSORS,
     ...restProps
   }: StyleProps & { [key: string]: any },
   options: UseVisageHookOptions,
@@ -31,6 +36,7 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
   const visage = useDesignSystem();
   const propsRef = useRef<{ [key: string]: any }>();
   const styleSheetRef = useRef<StyleSheet<VisageStylingProperties>>();
+  const variantSettings = useVariantSettings(options.variants, $$variants);
 
   // now resolve style sheet and store it under styles
   if (typeof options.defaultStyles === 'function') {
@@ -57,10 +63,6 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
       styleSheetRef.current!,
     );
   }
-
-  const passProps: StyleProps & {
-    [key: string]: any;
-  } = options.omitProps(restProps);
 
   // strip styles, parentStyles from props
   // if component is visage component, pass parentStyles and styles
@@ -89,13 +91,17 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
     }
 
     const styleProps = visage.generate(finalStyleSheets);
+    // process props using variant processors
+    // this will strip props according to processor settings
+    const passProps = omitProps(restProps, variantSettings);
 
     return { ...passProps, ...styleProps } as any;
   }
 
   return {
-    ...passProps,
+    ...restProps,
     parentStyles: localStyles,
     styles, // move to child component
+    $$variants: variantSettings, // send all variants to extended component
   } as any;
 }

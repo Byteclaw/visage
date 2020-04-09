@@ -1,4 +1,4 @@
-import { useMemo, useContext } from 'react';
+import { useContext } from 'react';
 import { createCache } from './cache';
 import { VisageContext } from './context';
 import {
@@ -6,17 +6,9 @@ import {
   Visage,
   Theme,
   StyleGenerator,
-  ExtractArgs,
-  ExtractReturn,
 } from './types';
 import { resolveStyleSheets, StylerSheetResolveContext } from './styleSheet';
-
-function useStaticMemo<TFunction extends (...args: any[]) => any>(
-  fn: TFunction,
-  deps: ExtractArgs<TFunction>,
-): ExtractReturn<TFunction> {
-  return useMemo(() => fn(...deps), deps);
-}
+import { useStaticMemo } from './useStaticMemo';
 
 function createDesignSystem<TTheme extends Theme = Theme>(
   breakpoint: number = 0,
