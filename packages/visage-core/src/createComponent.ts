@@ -1,4 +1,4 @@
-import { omitProps, OmitPropsSetting } from '@byteclaw/visage-utils';
+import { OmitPropsSetting } from '@byteclaw/visage-utils';
 import React from 'react';
 import { displayName, markAsVisageComponent } from './utils';
 import {
@@ -80,10 +80,7 @@ export function createComponent<
     componentName,
     defaultStyles: styles || defaultStyles || DEFAULT_STYLE_SHEET,
     faceStyleSheet,
-    omitProps:
-      variants && variants.length > 0
-        ? props => omitProps(props, (variants as any) as OmitPropsSetting[])
-        : props => props,
+    variants: (variants as undefined | OmitPropsSetting[]) || [],
   };
   const RawComponent = (
     {

@@ -1,4 +1,5 @@
 import React, { ComponentProps } from 'react';
+import { OmitPropsSetting } from '@byteclaw/visage-utils/src';
 import { StyleSheetCache } from './cache';
 import {
   ResolvedStyleSheet,
@@ -352,7 +353,6 @@ export interface Visage<TTheme extends Theme> {
    */
   theme: ExtractThemeSettingsFromTheme<TTheme>;
 }
-
 /**
  * These are the props that are being passed down the tree if you wrap one Visage component
  * with another Visage component
@@ -360,11 +360,18 @@ export interface Visage<TTheme extends Theme> {
  * For example createComponent(anotherVisageComponent) or `<VisageComponent as={AnotherVisageComponent} />`
  */
 export interface StyleProps {
+  /**
+   * Style overrides
+   */
   styles?: StyleSheet<VisageStylingProperties>;
   /**
    * Parent styles are array of all stylesheets that should be applied from parents
    */
   parentStyles?: StyleSheet<VisageStylingProperties>[];
+  /**
+   * All variant processing functions
+   */
+  $$variants?: OmitPropsSetting[];
 }
 
 /**

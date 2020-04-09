@@ -1,3 +1,4 @@
+import { OmitPropsSetting } from '@byteclaw/visage-utils';
 import React from 'react';
 import { createComponent, render } from './designSystem';
 
@@ -301,6 +302,199 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             style="color: blue; margin: 1px; background: black;"
+          />
+        </DocumentFragment>
+      `);
+    });
+  });
+
+  describe('variants', () => {
+    const variantSettings: OmitPropsSetting = {
+      name: 'variant',
+      prop: 'variant',
+      defaultValue: 'default',
+      stripProp: true,
+    };
+    const A = createComponent('a', {
+      styles: ({ variant }) => ({
+        background: '#ccc',
+        color: 'red',
+        ...(variant !== 'primary'
+          ? {}
+          : {
+              fontWeight: 'bold',
+              textDecoration: 'underline',
+            }),
+      }),
+      // there is any because variant we need just simple object to define props
+      // in typescript, but that's just syntactic sugar for typescript, underneath
+      // real settings are used
+      variants: [variantSettings as any],
+    });
+
+    it('allows to define variants on a component', () => {
+      const { asFragment, rerender } = render(<A />);
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="default"
+            style="background: rgb(204, 204, 204); color: red;"
+          />
+        </DocumentFragment>
+      `);
+
+      rerender(<A variant="primary" />);
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="primary"
+            style="background: rgb(204, 204, 204); color: red; font-weight: bold; text-decoration: underline;"
+          />
+        </DocumentFragment>
+      `);
+    });
+
+    it('allows to extend variants on a component using composition', () => {
+      const B = createComponent(A, {
+        styles: ({ variant }) =>
+          variant === 'primary'
+            ? {
+                fontWeight: 'normal',
+                alignSelf: 'center',
+              }
+            : {},
+      });
+
+      const { asFragment, rerender } = render(<B />);
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="default"
+            style="background: rgb(204, 204, 204); color: red;"
+          />
+        </DocumentFragment>
+      `);
+
+      rerender(<B variant="primary" />);
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="primary"
+            style="background: rgb(204, 204, 204); color: red; font-weight: normal; text-decoration: underline; align-self: center;"
+          />
+        </DocumentFragment>
+      `);
+    });
+
+    it('allows to extend variants on a component using style overrides', () => {
+      const { asFragment, rerender } = render(
+        <A styles={{ textDecoration: 'underline' }} />,
+      );
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="default"
+            style="background: rgb(204, 204, 204); color: red; text-decoration: underline;"
+          />
+        </DocumentFragment>
+      `);
+
+      rerender(<A variant="primary" />);
+
+      // variants should be applied with overriden styles from styles prop
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="primary"
+            style="background: rgb(204, 204, 204); color: red; text-decoration: underline; font-weight: bold;"
+          />
+        </DocumentFragment>
+      `);
+    });
+
+    it('allows to extend variants on a component using as prop', () => {
+      const B = createComponent('span', {
+        styles: ({ variant }) =>
+          variant === 'primary'
+            ? {
+                fontWeight: 'normal',
+                alignSelf: 'center',
+              }
+            : {},
+        // now redefine variant and see if underlying variant from A is picked up too
+        variants: [variantSettings as any],
+      });
+
+      const { asFragment, rerender } = render(<A as={B} />);
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span
+            data-variant="default"
+            style="background: rgb(204, 204, 204); color: red;"
+          />
+        </DocumentFragment>
+      `);
+
+      rerender(<A as={B} variant="primary" />);
+
+      // variants from A should be applied as well
+      // but A is merged to B because we want to B to look as A but behave as B
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <span
+            data-variant="primary"
+            style="background: rgb(204, 204, 204); color: red; font-weight: bold; align-self: center; text-decoration: underline;"
+          />
+        </DocumentFragment>
+      `);
+    });
+
+    it('allows to redefine variants using composition', () => {
+      const redefinedVariantSettings: OmitPropsSetting = {
+        name: 'variant',
+        prop: 'variant',
+        defaultValue: 'default',
+        stripProp: false, // keep variant prop on element
+      };
+      const B = createComponent(A, {
+        styles: ({ variant }) =>
+          variant === 'primary'
+            ? {
+                fontWeight: 'normal',
+                alignSelf: 'center',
+              }
+            : {},
+        // now redefine variant and see if underlying variant from A is picked up too
+        variants: [redefinedVariantSettings as any],
+      });
+
+      const { asFragment, rerender } = render(<B />);
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="default"
+            style="background: rgb(204, 204, 204); color: red;"
+          />
+        </DocumentFragment>
+      `);
+
+      rerender(<B variant="primary" />);
+
+      // primary styles from A should be applied too
+      // but B is merged to A because we want A to look like B
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            data-variant="primary"
+            style="background: rgb(204, 204, 204); color: red; font-weight: normal; text-decoration: underline; align-self: center;"
+            variant="primary"
           />
         </DocumentFragment>
       `);
