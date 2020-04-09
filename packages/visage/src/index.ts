@@ -1,6 +1,8 @@
 export {
   ExtractVisageComponentProps,
   IsBreakpoint,
+  isVisageComponent,
+  markAsVisageComponent,
   useDesignSystem,
   Theme,
 } from '@byteclaw/visage-core';
