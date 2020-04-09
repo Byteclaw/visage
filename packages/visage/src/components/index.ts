@@ -52,3 +52,10 @@ export * from './TextArea';
 export * from './TextInput';
 export * from './Toast';
 export * from './Toggle';
+
+export {
+  createControlActiveShadow,
+  createControlFocusShadow,
+  createControlHoverShadow,
+  createSurfaceFocusShadow,
+} from './shared';
