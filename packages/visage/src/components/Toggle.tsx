@@ -6,8 +6,6 @@ import {
 import React, {
   ChangeEvent,
   forwardRef,
-  KeyboardEvent,
-  MouseEvent,
   ReactElement,
   ReactNode,
   Ref,
@@ -94,11 +92,14 @@ const ToggleControl = createComponent('input', {
     '&[aria-invalid="true"] + div': {
       borderColor: 'danger',
     },
+    '&[aria-invalid="true"]:focus + div': {
+      boxShadow: createControlFocusShadow('danger'),
+    },
   },
 });
 
 const Toggler = createComponent('div', {
-  displayName: 'Toggler',
+  displayName: 'ToggleToggler',
   styles: {
     fontSize: 'inherit',
     display: 'inline-block',
@@ -143,6 +144,14 @@ interface ToggleProps
   hiddenLabel?: boolean;
   invalid?: boolean;
   label: ReactNode;
+  /**
+   * Passes props to the label
+   */
+  labelProps?: ExtractVisageComponentProps<typeof ToggleLabel>;
+  /**
+   * Passes props to the label text
+   */
+  labelTextProps?: ExtractVisageComponentProps<typeof ToggleLabelText>;
   leftContent?: ReactNode;
   ref?: React.RefObject<HTMLInputElement>;
   rightContent?: ReactNode;
@@ -157,16 +166,15 @@ export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
     hiddenLabel = false,
     invalid,
     label,
+    labelProps,
+    labelTextProps,
     leftContent,
     rightContent,
-    id,
-    name,
     onChange: outerOnChange,
-    onBlur,
-    onFocus,
     readOnly,
     styles,
     value,
+    ...rest
   }: ToggleProps & StyleProps,
   ref: Ref<HTMLInputElement>,
 ) {
@@ -181,44 +189,29 @@ export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
     },
     [outerOnChange],
   );
-  const preventOnToggle = useCallback(
-    (e: KeyboardEvent | MouseEvent) => {
-      if (readOnly) {
-        if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
-          return;
-        }
-
-        e.preventDefault();
-      }
-    },
-    [readOnly],
-  );
 
   return (
-    <ToggleLabel disabled={disabled}>
+    <ToggleLabel {...labelProps} disabled={disabled}>
       <ToggleControl
+        {...rest}
         aria-invalid={invalid}
         defaultChecked={defaultChecked}
         checked={checked}
         disabled={disabled}
-        id={id}
-        name={name}
         onChange={onChange}
         ref={ref}
         readOnly={readOnly}
         value={value}
         type="checkbox"
-        onKeyDown={preventOnToggle}
-        onClick={preventOnToggle}
-        onBlur={onBlur}
-        onFocus={onFocus}
       />
       <ToggleContainer styles={styles}>
         <Toggler
           data-label-content={inputChecked ? rightContent : leftContent}
         />
       </ToggleContainer>
-      <ToggleLabelText hidden={hiddenLabel}>{label}</ToggleLabelText>
+      <ToggleLabelText {...labelTextProps} hidden={hiddenLabel}>
+        {label}
+      </ToggleLabelText>
     </ToggleLabel>
   );
 });

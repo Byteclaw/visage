@@ -36,6 +36,9 @@ const RadioControl = createComponent('input', {
     '&[aria-invalid="true"] + div': {
       borderColor: 'danger',
     },
+    '&[aria-invalid="true"]:focus + div': {
+      boxShadow: createControlFocusShadow('danger'),
+    },
     '& + div > svg': {
       visibility: 'hidden',
     },

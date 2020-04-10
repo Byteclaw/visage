@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 import { fireEvent } from '@testing-library/react';
 import React from 'react';
-import { render } from './render';
+import { render, createTestTheme } from './render';
 import { Radio } from '../Radio';
 
 describe('Radio', () => {
@@ -76,6 +76,8 @@ describe('Radio', () => {
     fireEvent.click(getByTestId('radio'));
     fireEvent.keyDown(getByTestId('radio'), { key: ' ' });
 
+    expect(getByTestId('radio')).not.toHaveAttribute('checked');
+
     expect(handler).toHaveBeenCalledTimes(2);
   });
 
@@ -134,6 +136,10 @@ describe('Radio', () => {
 
       .emotion-0[aria-invalid="true"] + div {
         border-color: red;
+      }
+
+      .emotion-0[aria-invalid="true"]:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
       }
 
       .emotion-0 + div > svg {
@@ -227,6 +233,661 @@ describe('Radio', () => {
             data-hidden="false"
           >
             Required label
+          </span>
+        </label>
+      </DocumentFragment>
+    `);
+  });
+
+  it('is extendable by RadioLabel face', () => {
+    const { asFragment } = render(<Radio label="test" />, {
+      ds: {
+        theme: createTestTheme({ RadioLabel: { borderRadius: 10 } }),
+      },
+    });
+
+    // emotion 4 should have border-radius: 10px;
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
+        .emotion-0 {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      .emotion-0:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+      }
+
+      .emotion-0 + div {
+        background-color: white;
+      }
+
+      .emotion-0:checked + div {
+        background-color: light-blue;
+        border-color: light-blue;
+        color: white;
+      }
+
+      .emotion-0[aria-invalid="true"] + div {
+        border-color: red;
+      }
+
+      .emotion-0[aria-invalid="true"]:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+      }
+
+      .emotion-0 + div > svg {
+        visibility: hidden;
+      }
+
+      .emotion-0:checked + div > svg {
+        visibility: visible;
+        fill: white;
+      }
+
+      .emotion-2 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        background: rgba(255,255,255,0.3);
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        -webkit-transition: all 150ms;
+        transition: all 150ms;
+        border-radius: 999px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: blue;
+        margin-right: 8px;
+      }
+
+      .emotion-1 {
+        width: 1em;
+        height: 1em;
+      }
+
+      .emotion-3 {
+        font-size: inherit;
+        line-height: inherit;
+      }
+
+      .emotion-4 {
+        -webkit-align-items: flex-start;
+        -webkit-box-align: flex-start;
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0px;
+        outline: none;
+        padding: 0px;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border-radius: 10px;
+      }
+
+      <label
+          class="emotion-4"
+          data-disabled="false"
+        >
+          <input
+            class="emotion-0"
+            type="radio"
+          />
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          >
+            <svg
+              class="emotion-1"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="6"
+              />
+            </svg>
+          </div>
+          ​ 
+          <span
+            class="emotion-3"
+            data-hidden="false"
+          >
+            test
+          </span>
+        </label>
+      </DocumentFragment>
+    `);
+  });
+
+  it('is extendable by RadioLabelText face', () => {
+    const { asFragment } = render(<Radio label="test" />, {
+      ds: {
+        theme: createTestTheme({ RadioLabelText: { borderRadius: 10 } }),
+      },
+    });
+
+    // emotion 3 should have border-radius: 10px;
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
+        .emotion-0 {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      .emotion-0:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+      }
+
+      .emotion-0 + div {
+        background-color: white;
+      }
+
+      .emotion-0:checked + div {
+        background-color: light-blue;
+        border-color: light-blue;
+        color: white;
+      }
+
+      .emotion-0[aria-invalid="true"] + div {
+        border-color: red;
+      }
+
+      .emotion-0[aria-invalid="true"]:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+      }
+
+      .emotion-0 + div > svg {
+        visibility: hidden;
+      }
+
+      .emotion-0:checked + div > svg {
+        visibility: visible;
+        fill: white;
+      }
+
+      .emotion-2 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        background: rgba(255,255,255,0.3);
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        -webkit-transition: all 150ms;
+        transition: all 150ms;
+        border-radius: 999px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: blue;
+        margin-right: 8px;
+      }
+
+      .emotion-1 {
+        width: 1em;
+        height: 1em;
+      }
+
+      .emotion-4 {
+        -webkit-align-items: flex-start;
+        -webkit-box-align: flex-start;
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0px;
+        outline: none;
+        padding: 0px;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .emotion-3 {
+        font-size: inherit;
+        line-height: inherit;
+        border-radius: 10px;
+      }
+
+      <label
+          class="emotion-4"
+          data-disabled="false"
+        >
+          <input
+            class="emotion-0"
+            type="radio"
+          />
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          >
+            <svg
+              class="emotion-1"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="6"
+              />
+            </svg>
+          </div>
+          ​ 
+          <span
+            class="emotion-3"
+            data-hidden="false"
+          >
+            test
+          </span>
+        </label>
+      </DocumentFragment>
+    `);
+  });
+
+  it('is extendable by RadioControl face', () => {
+    const { asFragment } = render(<Radio label="test" />, {
+      ds: {
+        theme: createTestTheme({ RadioControl: { borderRadius: 10 } }),
+      },
+    });
+
+    // emotion 0 should have border-radius: 10px;
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
+        .emotion-2 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        background: rgba(255,255,255,0.3);
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        -webkit-transition: all 150ms;
+        transition: all 150ms;
+        border-radius: 999px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: blue;
+        margin-right: 8px;
+      }
+
+      .emotion-1 {
+        width: 1em;
+        height: 1em;
+      }
+
+      .emotion-3 {
+        font-size: inherit;
+        line-height: inherit;
+      }
+
+      .emotion-4 {
+        -webkit-align-items: flex-start;
+        -webkit-box-align: flex-start;
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0px;
+        outline: none;
+        padding: 0px;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .emotion-0 {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+        border-radius: 10px;
+      }
+
+      .emotion-0:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+      }
+
+      .emotion-0 + div {
+        background-color: white;
+      }
+
+      .emotion-0:checked + div {
+        background-color: light-blue;
+        border-color: light-blue;
+        color: white;
+      }
+
+      .emotion-0[aria-invalid="true"] + div {
+        border-color: red;
+      }
+
+      .emotion-0[aria-invalid="true"]:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+      }
+
+      .emotion-0 + div > svg {
+        visibility: hidden;
+      }
+
+      .emotion-0:checked + div > svg {
+        visibility: visible;
+        fill: white;
+      }
+
+      <label
+          class="emotion-4"
+          data-disabled="false"
+        >
+          <input
+            class="emotion-0"
+            type="radio"
+          />
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          >
+            <svg
+              class="emotion-1"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="6"
+              />
+            </svg>
+          </div>
+          ​ 
+          <span
+            class="emotion-3"
+            data-hidden="false"
+          >
+            test
+          </span>
+        </label>
+      </DocumentFragment>
+    `);
+  });
+
+  it('is extendable by RadioToggler face', () => {
+    const { asFragment } = render(<Radio label="test" />, {
+      ds: {
+        theme: createTestTheme({ RadioToggler: { borderRadius: 10 } }),
+      },
+    });
+
+    // emotion 2 should have border-radius: 10px;
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        .emotion-0 {
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+      }
+
+      <div
+          aria-live="polite"
+          class="emotion-0"
+          data-toastmanager="true"
+        />
+        .emotion-0 {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      .emotion-0:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+      }
+
+      .emotion-0 + div {
+        background-color: white;
+      }
+
+      .emotion-0:checked + div {
+        background-color: light-blue;
+        border-color: light-blue;
+        color: white;
+      }
+
+      .emotion-0[aria-invalid="true"] + div {
+        border-color: red;
+      }
+
+      .emotion-0[aria-invalid="true"]:focus + div {
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+      }
+
+      .emotion-0 + div > svg {
+        visibility: hidden;
+      }
+
+      .emotion-0:checked + div > svg {
+        visibility: visible;
+        fill: white;
+      }
+
+      .emotion-1 {
+        width: 1em;
+        height: 1em;
+      }
+
+      .emotion-3 {
+        font-size: inherit;
+        line-height: inherit;
+      }
+
+      .emotion-4 {
+        -webkit-align-items: flex-start;
+        -webkit-box-align: flex-start;
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        line-height: inherit;
+        margin: 0px;
+        outline: none;
+        padding: 0px;
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .emotion-2 {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        background: rgba(255,255,255,0.3);
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        -webkit-transition: all 150ms;
+        transition: all 150ms;
+        border-radius: 10px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: blue;
+        margin-right: 8px;
+      }
+
+      <label
+          class="emotion-4"
+          data-disabled="false"
+        >
+          <input
+            class="emotion-0"
+            type="radio"
+          />
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          >
+            <svg
+              class="emotion-1"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="6"
+              />
+            </svg>
+          </div>
+          ​ 
+          <span
+            class="emotion-3"
+            data-hidden="false"
+          >
+            test
           </span>
         </label>
       </DocumentFragment>

@@ -13,6 +13,7 @@ import {
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import {
+  createControlFocusShadow,
   disabledControlStyles,
   disabledControlBooleanVariant,
   invalidControlStyles,
@@ -34,7 +35,7 @@ export const TextInputBaseStyles: VisageStyleSheet = {
   position: 'relative',
   // data-focused is used by text input on base
   '&:focus, &[data-focused="true"]': {
-    boxShadow: '0 0 0 4px rgba(255, 255, 255, 0.4), 0 0 0 4px accent',
+    boxShadow: createControlFocusShadow('accent'),
   },
 };
 
