@@ -41359,7 +41359,7 @@ Object {
     Object {
       "documentation": "",
       "isOptional": true,
-      "name": "boxProps",
+      "name": "baseProps",
       "parent": "FileInputProps",
       "type": "(ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps) | undefined",
     },
@@ -95711,6 +95711,20 @@ Object {
       "name": "label",
       "parent": "ToggleProps",
       "type": "ReactNode",
+    },
+    Object {
+      "documentation": "Passes props to the label",
+      "isOptional": true,
+      "name": "labelProps",
+      "parent": "ToggleProps",
+      "type": "(ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps & { ...; }) | undefined",
+    },
+    Object {
+      "documentation": "Passes props to the label text",
+      "isOptional": true,
+      "name": "labelTextProps",
+      "parent": "ToggleProps",
+      "type": "(ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & StyleProps & { ...; }) | undefined",
     },
     Object {
       "documentation": "",
