@@ -43,7 +43,14 @@ import { Select } from '@byteclaw/visage';
   <Select
     id="searchable"
     onChange={value => console.log(value)}
-    options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
+    options={val =>
+      Promise.resolve(
+        Array(20)
+          .fill(null)
+          .map((v, i) => 'a'.repeat(i + 1))
+          .filter(v => v.startsWith(val)),
+      )
+    }
     placeholder="Select a value"
     searchable
   />
