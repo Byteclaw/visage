@@ -119,11 +119,11 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px accent;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
       }
 
       .emotion-0 + div {
-        background-color: textInput;
+        background-color: white;
       }
 
       .emotion-0:checked + div {
@@ -133,7 +133,7 @@ describe('Checkbox', () => {
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: danger;
+        border-color: red;
       }
 
       .emotion-0 + div > svg {
@@ -154,7 +154,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: accent;
+        border-color: blue;
         border-radius: 3px;
         border-style: solid;
         border-width: 2px;
@@ -164,7 +164,7 @@ describe('Checkbox', () => {
       .emotion-1 {
         width: 1em;
         height: 1em;
-        stroke: textInput;
+        stroke: white;
         stroke-width: 2px;
         fill: none;
       }

@@ -1,29 +1,36 @@
-import { render as baseRender } from '@testing-library/react';
+import { render as baseRender, RenderOptions } from '@testing-library/react';
 import React from 'react';
-import { TestDesignSystem } from './DesignSystem';
+import {
+  createTestTheme,
+  TestDesignSystem,
+} from '../../__tests__/TestDesignSystem';
 
-function Container({
-  wrapper: Wrapper,
-  children,
-}: {
+export { createTestTheme };
+
+interface ContainerProps {
+  children?: React.ReactNode;
+  ds?: React.ComponentProps<typeof TestDesignSystem>;
   wrapper?: React.ComponentType;
-  children: React.ReactNode;
-}) {
+}
+
+function Container({ wrapper: Wrapper, ds, children }: ContainerProps) {
   return (
-    <TestDesignSystem>
+    <TestDesignSystem {...ds}>
       {Wrapper ? <Wrapper>{children}</Wrapper> : children}
     </TestDesignSystem>
   );
 }
 
-export const render: typeof baseRender = (
-  ui,
-  { wrapper, ...restConfig } = { wrapper: undefined },
-) => {
+export function render(
+  ui: React.ReactElement,
+  { ds, wrapper, ...restConfig }: RenderOptions & ContainerProps = {},
+) {
   return baseRender(ui, {
     ...restConfig,
     wrapper: ({ children }) => (
-      <Container wrapper={wrapper}>{children}</Container>
+      <Container wrapper={wrapper} ds={ds}>
+        {children}
+      </Container>
     ),
   });
-};
+}
