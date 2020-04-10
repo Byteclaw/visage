@@ -18,7 +18,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
     backgroundColor: 'danger',
     color: 'dangerText',
   },
-  info: {
+  primary: {
     backgroundColor: 'info',
     color: 'infoText',
   },
@@ -33,6 +33,44 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
   default: {
     backgroundColor: 'neutral',
     color: 'neutralText',
+  },
+};
+
+const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
+  success: {
+    backgroundColor: 'transparent',
+    borderColor: 'success',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    color: 'success',
+  },
+  danger: {
+    backgroundColor: 'transparent',
+    borderColor: 'danger',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    color: 'danger',
+  },
+  warning: {
+    backgroundColor: 'transparent',
+    borderColor: 'warning',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    color: 'warning',
+  },
+  primary: {
+    backgroundColor: 'transparent',
+    borderColor: 'primary',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    color: 'primary',
+  },
+  default: {
+    backgroundColor: 'transparent',
+    borderColor: 'lightAccent',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    color: 'lightShadesText',
   },
 };
 
@@ -52,12 +90,16 @@ const ChipBase = createComponent('div', {
       boxShadow: createSurfaceFocusShadow(),
     },
     transition: 'all 150ms',
-    ...(variantStyles[props.variant || 'default'] || variantStyles.default),
+    ...(props.outlined
+      ? outlinedVariantStyles[props.variant || 'default'] ||
+        outlinedVariantStyles.default
+      : variantStyles[props.variant || 'default'] || variantStyles.default),
   }),
   variants: [
+    booleanVariant('outlined', true),
     variant('variant', true, [
       'danger',
-      'info',
+      'primary',
       'success',
       'warning',
       'default',

@@ -30,6 +30,7 @@ export * from './Layout';
 export * from './Link';
 export * from './List';
 export * from './Loading';
+export * from './Message';
 export * from './Menu';
 export * from './Modal';
 export * from './Pagination';
