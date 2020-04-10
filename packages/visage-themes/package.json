@@ -41,7 +41,7 @@
     "modular-scale": "^5.1.0"
   },
   "peerDependencies": {
-    "@byteclaw/visage": "^0.10.4"
+    "@byteclaw/visage": "^1.0.0-alpha.3"
   },
   "devDependencies": {
     "@byteclaw/visage": "^1.0.0-alpha.3"
