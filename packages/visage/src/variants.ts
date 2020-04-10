@@ -70,14 +70,15 @@ export function booleanVariantStyles(
     off?: VisageStyleSheet | undefined;
   },
 ): { [key: string]: VisageStyleSheet | undefined } {
+  const attrName = name.toLowerCase();
   const styleSheet: { [key: string]: VisageStyleSheet } = {};
 
   if (styles.on) {
-    styleSheet[`&[data-${name}="true"]`] = styles.on;
+    styleSheet[`&[data-${attrName}="true"]`] = styles.on;
   }
 
   if (styles.off) {
-    styleSheet[`&[data-${name}="false"]`] = styles.off;
+    styleSheet[`&[data-${attrName}="false"]`] = styles.off;
   }
 
   return styleSheet;
@@ -93,10 +94,12 @@ export function variantStyles(
     default?: VisageStyleSheet;
   },
 ): { [key: string]: VisageStyleSheet | undefined } {
+  const attrName = name.toLowerCase();
+
   return Object.keys(styles).reduce(
     (styleSheet, key) => ({
       ...styleSheet,
-      [`&[data-${name}="${key}"]`]: styles[key],
+      [`&[data-${attrName}="${key}"]`]: styles[key],
     }),
     {},
   );
