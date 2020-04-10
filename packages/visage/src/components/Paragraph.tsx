@@ -1,12 +1,11 @@
 import React from 'react';
 import { createComponent } from '../core';
-import { EmotionStyleSheet } from '../types';
 import { skeletonAnimation } from './animations';
 
 /**
  * Paragraph component's style sheet
  */
-export const ParagraphStyles: EmotionStyleSheet = {
+export const ParagraphStyles: VisageStyleSheet = {
   display: 'block',
   fontFamily: 'inherit',
   fontSize: 'inherit',

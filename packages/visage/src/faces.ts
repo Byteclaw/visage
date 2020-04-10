@@ -1,261 +1,259 @@
-import { EmotionStyleSheet } from './types';
-
 export interface VisageFaces {
   // Badge.ts
-  Badge?: EmotionStyleSheet;
+  Badge?: VisageStyleSheet;
   // Banner.tsx
-  Banner?: EmotionStyleSheet;
+  Banner?: VisageStyleSheet;
   // Banner.tsx
-  BannerCloseButtonWrapper?: EmotionStyleSheet;
+  BannerCloseButtonWrapper?: VisageStyleSheet;
   // Banner.tsx
-  BannerContent?: EmotionStyleSheet;
+  BannerContent?: VisageStyleSheet;
   // Banner.tsx
-  BannerHeading?: EmotionStyleSheet;
+  BannerHeading?: VisageStyleSheet;
   // Banner.tsx
-  BannerRibbon?: EmotionStyleSheet;
+  BannerRibbon?: VisageStyleSheet;
   // Quotes.ts
-  Blockquote?: EmotionStyleSheet;
+  Blockquote?: VisageStyleSheet;
   // Box.tsx
-  Box?: EmotionStyleSheet;
+  Box?: VisageStyleSheet;
   // Box.tsx
-  BoxSkeleton?: EmotionStyleSheet;
+  BoxSkeleton?: VisageStyleSheet;
   // Button.ts
-  Button?: EmotionStyleSheet;
+  Button?: VisageStyleSheet;
   // Card.tsx
-  Card?: EmotionStyleSheet;
+  Card?: VisageStyleSheet;
   // Card.tsx
-  CardContent?: EmotionStyleSheet;
+  CardContent?: VisageStyleSheet;
   // Card.tsx
-  CardTouchable?: EmotionStyleSheet;
+  CardTouchable?: VisageStyleSheet;
   // Checkbox.tsx
-  CheckboxControl?: EmotionStyleSheet;
+  CheckboxControl?: VisageStyleSheet;
   // Checkbox.tsx
-  CheckboxLabel?: EmotionStyleSheet;
+  CheckboxLabel?: VisageStyleSheet;
   // Checkbox.tsx
-  CheckboxLabelText?: EmotionStyleSheet;
+  CheckboxLabelText?: VisageStyleSheet;
   // Checkbox.tsx
-  CheckboxToggler?: EmotionStyleSheet;
+  CheckboxToggler?: VisageStyleSheet;
   // Chip.tsx
-  Chip?: EmotionStyleSheet;
+  Chip?: VisageStyleSheet;
   // Chip.tsx
-  ChipDeleteButton?: EmotionStyleSheet;
+  ChipDeleteButton?: VisageStyleSheet;
   // Quotes.ts
-  Cite?: EmotionStyleSheet;
+  Cite?: VisageStyleSheet;
   // CloseButton.tsx
-  CloseButton?: EmotionStyleSheet;
+  CloseButton?: VisageStyleSheet;
   // Code.ts
-  Code?: EmotionStyleSheet;
+  Code?: VisageStyleSheet;
   // Layout.ts
-  Column?: EmotionStyleSheet;
+  Column?: VisageStyleSheet;
   // Layout.ts
-  Container?: EmotionStyleSheet;
+  Container?: VisageStyleSheet;
   // DataTable.tsx
-  DataTable?: EmotionStyleSheet;
+  DataTable?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableBody?: EmotionStyleSheet;
+  DataTableBody?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableColumn?: EmotionStyleSheet;
+  DataTableColumn?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableColumnSkeleton?: EmotionStyleSheet;
+  DataTableColumnSkeleton?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableFooter?: EmotionStyleSheet;
+  DataTableFooter?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableFooterRow?: EmotionStyleSheet;
+  DataTableFooterRow?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableHeader?: EmotionStyleSheet;
+  DataTableHeader?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableHeaderColumn?: EmotionStyleSheet;
+  DataTableHeaderColumn?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableHeaderRow?: EmotionStyleSheet;
+  DataTableHeaderRow?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableNumericColumnSkeleton?: EmotionStyleSheet;
+  DataTableNumericColumnSkeleton?: VisageStyleSheet;
   // DataTable.tsx
-  DataTableRow?: EmotionStyleSheet;
+  DataTableRow?: VisageStyleSheet;
   // DescriptionList.tsx
-  DescriptionList?: EmotionStyleSheet;
+  DescriptionList?: VisageStyleSheet;
   // DescriptionList.tsx
-  DescriptionListItemDescription?: EmotionStyleSheet;
+  DescriptionListItemDescription?: VisageStyleSheet;
   // DescriptionList.tsx
-  DescriptionListItemTerm?: EmotionStyleSheet;
+  DescriptionListItemTerm?: VisageStyleSheet;
   // Dialog.tsx
-  Dialog?: EmotionStyleSheet;
+  Dialog?: VisageStyleSheet;
   // Dialog.tsx
-  DialogCloseButton?: EmotionStyleSheet;
+  DialogCloseButton?: VisageStyleSheet;
   // Dialog.tsx
-  DialogCloseButtonWrapper?: EmotionStyleSheet;
+  DialogCloseButtonWrapper?: VisageStyleSheet;
   // Dialog.tsx
-  DialogContent?: EmotionStyleSheet;
+  DialogContent?: VisageStyleSheet;
   // Dialog.tsx
-  DialogHeader?: EmotionStyleSheet;
+  DialogHeader?: VisageStyleSheet;
   // Dialog.tsx
-  DialogHeading?: EmotionStyleSheet;
+  DialogHeading?: VisageStyleSheet;
   // Dialog.tsx
-  DialogHeadingWrapper?: EmotionStyleSheet;
+  DialogHeadingWrapper?: VisageStyleSheet;
   // Dialog.tsx
-  DialogSubHeading?: EmotionStyleSheet;
+  DialogSubHeading?: VisageStyleSheet;
   // Divider.tsx
-  Divider?: EmotionStyleSheet;
+  Divider?: VisageStyleSheet;
   // Divider.tsx
-  DividerLabel?: EmotionStyleSheet;
+  DividerLabel?: VisageStyleSheet;
   // Divider.tsx
-  DividerLine?: EmotionStyleSheet;
+  DividerLine?: VisageStyleSheet;
   // Drawer.tsx
-  Drawer?: EmotionStyleSheet;
+  Drawer?: VisageStyleSheet;
   // Drawer.tsx
-  DrawerBackdrop?: EmotionStyleSheet;
+  DrawerBackdrop?: VisageStyleSheet;
   // Text.tsx
-  EmphasizedText?: EmotionStyleSheet;
+  EmphasizedText?: VisageStyleSheet;
   // FieldSet.tsx
-  FieldSet?: EmotionStyleSheet;
+  FieldSet?: VisageStyleSheet;
   // FieldSet.tsx
-  FieldSetHeading?: EmotionStyleSheet;
+  FieldSetHeading?: VisageStyleSheet;
   // FieldSet.tsx
-  FieldSetLegend?: EmotionStyleSheet;
+  FieldSetLegend?: VisageStyleSheet;
   // FileInput.tsx
-  FileInputBox?: EmotionStyleSheet;
+  FileInputBox?: VisageStyleSheet;
   // FileInput.tsx
-  FileInputControl?: EmotionStyleSheet;
+  FileInputControl?: VisageStyleSheet;
   // FileInput.tsx
-  FileInputControlBase?: EmotionStyleSheet;
+  FileInputControlBase?: VisageStyleSheet;
   // Flex.ts
-  Flex?: EmotionStyleSheet;
+  Flex?: VisageStyleSheet;
   // FormField.tsx
-  FormFieldWrapper?: EmotionStyleSheet;
+  FormFieldWrapper?: VisageStyleSheet;
   // Grid.ts
-  Grid?: EmotionStyleSheet;
+  Grid?: VisageStyleSheet;
   // Group.ts
-  Group?: EmotionStyleSheet;
+  Group?: VisageStyleSheet;
   // Header.ts
-  Header?: EmotionStyleSheet;
+  Header?: VisageStyleSheet;
   // Image.tsx
-  ImageContainer?: EmotionStyleSheet;
+  ImageContainer?: VisageStyleSheet;
   // Image.tsx
-  Img?: EmotionStyleSheet;
+  Img?: VisageStyleSheet;
   // InlineError.tsx
-  InlineError?: EmotionStyleSheet;
+  InlineError?: VisageStyleSheet;
   // InlineError.tsx
-  InlineErrorIcon?: EmotionStyleSheet;
+  InlineErrorIcon?: VisageStyleSheet;
   // TextInput.tsx
-  InputExtraElement?: EmotionStyleSheet;
+  InputExtraElement?: VisageStyleSheet;
   // Label.tsx
-  Label?: EmotionStyleSheet;
+  Label?: VisageStyleSheet;
   // Link.ts
-  Link?: EmotionStyleSheet;
+  Link?: VisageStyleSheet;
   // List.tsx
-  ListContainer?: EmotionStyleSheet;
+  ListContainer?: VisageStyleSheet;
   // List.tsx
-  ListHeader?: EmotionStyleSheet;
+  ListHeader?: VisageStyleSheet;
   // List.tsx
-  ListItem?: EmotionStyleSheet;
+  ListItem?: VisageStyleSheet;
   // List.tsx
-  ListItemLink?: EmotionStyleSheet;
+  ListItemLink?: VisageStyleSheet;
   // List.tsx
-  ListItemsContainer?: EmotionStyleSheet;
+  ListItemsContainer?: VisageStyleSheet;
   // Loading.tsx
-  LoadingProgressBar?: EmotionStyleSheet;
+  LoadingProgressBar?: VisageStyleSheet;
   // Loading.tsx
-  LoadingProgressBarProgress?: EmotionStyleSheet;
+  LoadingProgressBarProgress?: VisageStyleSheet;
   // Menu.tsx
-  Menu?: EmotionStyleSheet;
+  Menu?: VisageStyleSheet;
   // Menu.tsx
-  MenuItem?: EmotionStyleSheet;
+  MenuItem?: VisageStyleSheet;
   // Modal.tsx
-  Modal?: EmotionStyleSheet;
+  Modal?: VisageStyleSheet;
   // Pagination.tsx
-  NextPageButton?: EmotionStyleSheet;
+  Pagination?: VisageStyleSheet;
   // Pagination.tsx
-  Pagination?: EmotionStyleSheet;
+  PaginationNextPageButton?: VisageStyleSheet;
+  // Pagination.tsx
+  PaginationPreviousPageButton?: VisageStyleSheet;
   // Paragraph.tsx
-  Paragraph?: EmotionStyleSheet;
+  Paragraph?: VisageStyleSheet;
   // Paragraph.tsx
-  ParagraphSkeleton?: EmotionStyleSheet;
+  ParagraphSkeleton?: VisageStyleSheet;
   // Popover.tsx
-  Popover?: EmotionStyleSheet;
+  Popover?: VisageStyleSheet;
   // Code.ts
-  PreformattedCode?: EmotionStyleSheet;
-  // Pagination.tsx
-  PreviousPageButton?: EmotionStyleSheet;
+  PreformattedCode?: VisageStyleSheet;
   // ProgressBar.tsx
-  ProgressBar?: EmotionStyleSheet;
+  ProgressBar?: VisageStyleSheet;
   // ProgressBar.tsx
-  ProgressBarProgress?: EmotionStyleSheet;
+  ProgressBarProgress?: VisageStyleSheet;
   // Quotes.ts
-  Quote?: EmotionStyleSheet;
+  Quote?: VisageStyleSheet;
   // Radio.tsx
-  RadioControl?: EmotionStyleSheet;
+  RadioControl?: VisageStyleSheet;
   // Radio.tsx
-  RadioLabel?: EmotionStyleSheet;
+  RadioLabel?: VisageStyleSheet;
   // Radio.tsx
-  RadioLabelText?: EmotionStyleSheet;
+  RadioLabelText?: VisageStyleSheet;
   // Radio.tsx
-  RadioToggler?: EmotionStyleSheet;
+  RadioToggler?: VisageStyleSheet;
   // Layout.ts
-  Row?: EmotionStyleSheet;
+  Row?: VisageStyleSheet;
   // Slider.tsx
-  SliderThumb?: EmotionStyleSheet;
+  SliderThumb?: VisageStyleSheet;
   // Slider.tsx
-  SliderTrack?: EmotionStyleSheet;
+  SliderTrack?: VisageStyleSheet;
   // Slider.tsx
-  SliderTrackProgress?: EmotionStyleSheet;
+  SliderTrackProgress?: VisageStyleSheet;
   // Text.tsx
-  SmallText?: EmotionStyleSheet;
+  SmallText?: VisageStyleSheet;
   // Spinner.tsx
-  SpinnerSvgBase?: EmotionStyleSheet;
+  SpinnerSvgBase?: VisageStyleSheet;
   // Text.tsx
-  StrongText?: EmotionStyleSheet;
+  StrongText?: VisageStyleSheet;
   // Scripts.ts
-  Subscript?: EmotionStyleSheet;
+  Subscript?: VisageStyleSheet;
   // Scripts.ts
-  Superscript?: EmotionStyleSheet;
+  Superscript?: VisageStyleSheet;
   // Svg.ts
-  Svg?: EmotionStyleSheet;
+  Svg?: VisageStyleSheet;
   // SvgIcon.tsx
-  SvgIconBase?: EmotionStyleSheet;
+  SvgIconBase?: VisageStyleSheet;
   // Tabs.tsx
-  TabList?: EmotionStyleSheet;
+  TabList?: VisageStyleSheet;
   // Tabs.tsx
-  TabNavigatonButton?: EmotionStyleSheet;
+  TabNavigatonButton?: VisageStyleSheet;
   // Tabs.tsx
-  Tabs?: EmotionStyleSheet;
+  Tabs?: VisageStyleSheet;
   // Text.tsx
-  Text?: EmotionStyleSheet;
+  Text?: VisageStyleSheet;
   // TextArea.tsx
-  TextArea?: EmotionStyleSheet;
+  TextArea?: VisageStyleSheet;
   // TextArea.tsx
-  TextAreaBase?: EmotionStyleSheet;
+  TextAreaBase?: VisageStyleSheet;
   // TextInput.tsx
-  TextInputBase?: EmotionStyleSheet;
+  TextInputBase?: VisageStyleSheet;
   // TextInput.tsx
-  TextInputControl?: EmotionStyleSheet;
+  TextInputControl?: VisageStyleSheet;
   // TextInput.tsx
-  TextInputControlBase?: EmotionStyleSheet;
+  TextInputControlBase?: VisageStyleSheet;
   // Text.tsx
-  TextSkeleton?: EmotionStyleSheet;
+  TextSkeleton?: VisageStyleSheet;
   // Toast.tsx
-  Toast?: EmotionStyleSheet;
+  Toast?: VisageStyleSheet;
   // Toast.tsx
-  ToastManager?: EmotionStyleSheet;
+  ToastManager?: VisageStyleSheet;
   // Toggle.tsx
-  ToggleContainer?: EmotionStyleSheet;
+  ToggleContainer?: VisageStyleSheet;
   // Toggle.tsx
-  ToggleControl?: EmotionStyleSheet;
+  ToggleControl?: VisageStyleSheet;
   // Toggle.tsx
-  ToggleLabel?: EmotionStyleSheet;
+  ToggleLabel?: VisageStyleSheet;
   // Toggle.tsx
-  ToggleLabelText?: EmotionStyleSheet;
+  ToggleLabelText?: VisageStyleSheet;
   // Toggle.tsx
-  Toggler?: EmotionStyleSheet;
+  Toggler?: VisageStyleSheet;
   // Heading.tsx
-  h1?: EmotionStyleSheet;
+  h1?: VisageStyleSheet;
   // Heading.tsx
-  h2?: EmotionStyleSheet;
+  h2?: VisageStyleSheet;
   // Heading.tsx
-  h3?: EmotionStyleSheet;
+  h3?: VisageStyleSheet;
   // Heading.tsx
-  h4?: EmotionStyleSheet;
+  h4?: VisageStyleSheet;
   // Heading.tsx
-  h5?: EmotionStyleSheet;
+  h5?: VisageStyleSheet;
   // Heading.tsx
-  h6?: EmotionStyleSheet;
-  [componentName: string]: EmotionStyleSheet | undefined;
+  h6?: VisageStyleSheet;
+  [componentName: string]: VisageStyleSheet | undefined;
 }

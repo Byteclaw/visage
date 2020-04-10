@@ -1,10 +1,9 @@
 import { createComponent } from '@byteclaw/visage-core';
-import { EmotionStyleSheet } from '../types';
 
 /**
  * Code component's styles
  */
-export const CodeStyles: EmotionStyleSheet = {
+export const CodeStyles: VisageStyleSheet = {
   fontSize: 'inherit',
   fontFamily: 'monospace',
   lineHeight: 'inherit',
@@ -18,7 +17,7 @@ export const Code = createComponent('code', {
 /**
  * PreformattedCode component's styles
  */
-export const PreformattedCodeStyles: EmotionStyleSheet = {
+export const PreformattedCodeStyles: VisageStyleSheet = {
   ...CodeStyles,
   overflow: 'auto',
 };

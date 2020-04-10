@@ -9,7 +9,6 @@ import React, {
 import { createComponent } from '../core';
 import { variant } from '../variants';
 import { CloseButton } from './CloseButton';
-import { EmotionStyleSheet } from '../types';
 
 type ToastEventEmitterEvents = 'MOUNT' | 'UNMOUNT';
 
@@ -93,7 +92,7 @@ export const ToastManager = createComponent(
 );
 
 const toastVariants: {
-  [key: string]: EmotionStyleSheet;
+  [key: string]: VisageStyleSheet;
 } = {
   danger: {
     backgroundColor: 'danger',

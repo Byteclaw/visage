@@ -21,13 +21,13 @@ import {
 
 export interface CreateThemeFactory<
   TStyleSheet extends ValidStyleSheet,
-  TDefaultFaces extends StyleSheetFaces<TStyleSheet>
+  TDefaultFaces extends StyleSheetFaces
 > {
   <
     TFormattersName extends keyof any = any,
     TResolversName extends keyof any = any,
     TStylersName extends keyof any = any,
-    TFaces extends StyleSheetFaces<TStyleSheet> = TDefaultFaces
+    TFaces extends StyleSheetFaces = TDefaultFaces
   >(
     options: ThemeOptions<
       TFormattersName,
@@ -53,7 +53,7 @@ export interface ThemeOptions<
   TFormattersName extends keyof any,
   TResolversName extends keyof any,
   TStylersName extends keyof any,
-  TFaces extends StyleSheetFaces<any> = StyleSheetFaces<any>
+  TFaces extends StyleSheetFaces = StyleSheetFaces
 > {
   formatters?: ThemeFormatterMap<TFormattersName> &
     // these are optional so you can override defaults
@@ -69,7 +69,7 @@ export interface ThemeOptions<
         TResolversName | CoreResolversName
       >;
     };
-  theme: StyleSheetThemeSettings<any, TFaces>;
+  theme: StyleSheetThemeSettings<TFaces>;
 }
 
 function check(
@@ -86,7 +86,7 @@ export function createTheme<
   TFormattersName extends keyof any = any,
   TResolversName extends keyof any = any,
   TStylersName extends keyof any = any,
-  TFaces extends StyleSheetFaces<any> = StyleSheetFaces<any>
+  TFaces extends StyleSheetFaces = StyleSheetFaces
 >({
   formatters = {} as ThemeFormatterMap<TFormattersName>,
   resolvers = {} as ThemeResolverMap<TResolversName>,

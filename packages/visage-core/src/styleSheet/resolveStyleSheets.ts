@@ -10,7 +10,7 @@ import {
  * Resolves style sheets and merges them using depth first algorithm from right to left
  */
 export function resolveStyleSheets(
-  styleSheets: StyleSheet<any>[],
+  styleSheets: StyleSheet[],
   ctx: StylerSheetResolveContext,
 ): ResolvedStyleSheet {
   return depthFirstObjectMerge(

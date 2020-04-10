@@ -330,18 +330,14 @@ export interface Visage<TTheme extends Theme> {
    * In case of css it returns className prop
    * In case of react-nativr it should return styles prop
    */
-  generate(
-    styleSheets: StyleSheet<VisageStylingProperties>[],
-  ): { [prop: string]: any };
+  generate(styleSheets: StyleSheet[]): { [prop: string]: any };
   /**
    * Resolves style sheets
    *
    * This operation is almost the same as generate except it returns resolved stylesheet
    * and not style props
    */
-  resolveStyleSheets(
-    styleSheets: StyleSheet<VisageStylingProperties>[],
-  ): ResolvedStyleSheet;
+  resolveStyleSheets(styleSheets: StyleSheet[]): ResolvedStyleSheet;
   /**
    * Current style sheet cache
    *
@@ -363,11 +359,11 @@ export interface StyleProps {
   /**
    * Style overrides
    */
-  styles?: StyleSheet<VisageStylingProperties>;
+  styles?: StyleSheet;
   /**
    * Parent styles are array of all stylesheets that should be applied from parents
    */
-  parentStyles?: StyleSheet<VisageStylingProperties>[];
+  parentStyles?: StyleSheet[];
   /**
    * All variant processing functions
    */
@@ -380,7 +376,7 @@ export interface StyleProps {
  * Or in case of react-native StyleSheet object and returns it in styles prop
  */
 export interface StyleGenerator {
-  (styleSheets: StyleSheet<any>[], ctx: StylerSheetResolveContext<any>): {
+  (styleSheets: StyleSheet[], ctx: StylerSheetResolveContext<any>): {
     /** Output prop name that references generated style e.g. className, styles, etc */
     [prop: string]: any;
   };
@@ -401,7 +397,7 @@ export type OmittableProps<T extends {}> = {
 };
 
 export interface StyleFunction<TProps extends {}> {
-  (props: TProps): StyleSheet<VisageStylingProperties>;
+  (props: TProps): StyleSheet;
 }
 
 export type UnionToIntersection<U> = (U extends any

@@ -1,4 +1,3 @@
-import { StyleSheet } from '@byteclaw/visage-core';
 import { ScaleValue } from '@byteclaw/visage-utils';
 
 export interface ColorPalette {
@@ -38,5 +37,3 @@ export interface FontPalette {
   heading: string;
   [extra: string]: undefined | string;
 }
-
-export type EmotionStyleSheet = StyleSheet<VisageStylingProperties>;

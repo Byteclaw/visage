@@ -1,5 +1,3 @@
-import { EmotionStyleSheet } from './types';
-
 /**
  * Creates boolean variant settings for component
  */
@@ -68,11 +66,11 @@ export function variant<TName extends string, TVariants extends readonly any[]>(
 export function booleanVariantStyles(
   name: string,
   styles: {
-    on?: EmotionStyleSheet | undefined;
-    off?: EmotionStyleSheet | undefined;
+    on?: VisageStyleSheet | undefined;
+    off?: VisageStyleSheet | undefined;
   },
-): { [key: string]: EmotionStyleSheet | undefined } {
-  const styleSheet: { [key: string]: EmotionStyleSheet } = {};
+): { [key: string]: VisageStyleSheet | undefined } {
+  const styleSheet: { [key: string]: VisageStyleSheet } = {};
 
   if (styles.on) {
     styleSheet[`&[data-${name}="true"]`] = styles.on;
@@ -91,10 +89,10 @@ export function booleanVariantStyles(
 export function variantStyles(
   name: string,
   styles: {
-    [key: string]: EmotionStyleSheet | undefined;
-    default?: EmotionStyleSheet;
+    [key: string]: VisageStyleSheet | undefined;
+    default?: VisageStyleSheet;
   },
-): { [key: string]: EmotionStyleSheet | undefined } {
+): { [key: string]: VisageStyleSheet | undefined } {
   return Object.keys(styles).reduce(
     (styleSheet, key) => ({
       ...styleSheet,

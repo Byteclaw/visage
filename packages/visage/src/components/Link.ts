@@ -1,10 +1,9 @@
 import { createComponent } from '../core';
-import { EmotionStyleSheet } from '../types';
 
 /**
  * Link component's style sheet
  */
-export const LinkStyles: EmotionStyleSheet = {
+export const LinkStyles: VisageStyleSheet = {
   fontFamily: 'inherit',
   fontSize: 'inherit',
   lineHeight: 'inherit',

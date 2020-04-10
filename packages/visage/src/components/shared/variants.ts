@@ -1,5 +1,4 @@
 import { booleanVariant } from '../../variants';
-import { EmotionStyleSheet } from '../../types';
 
 /**
  * Control focus shadow that is used to compose actual focus shadow (needs a color at the end)
@@ -27,7 +26,7 @@ export const createControlHoverShadow = (): string => controlHoverShadow;
 export const createControlActiveShadow = (color: string = 'accent'): string =>
   `${controlFocusShadow} ${color} , ${controlActiveShadow}`;
 
-export const visuallyHiddenStyles: EmotionStyleSheet = {
+export const visuallyHiddenStyles: VisageStyleSheet = {
   border: '0',
   clip: 'rect(0, 0, 0, 0)',
   height: '1px',
@@ -39,7 +38,7 @@ export const visuallyHiddenStyles: EmotionStyleSheet = {
   width: '1px',
 };
 
-export const disabledControlStyles: EmotionStyleSheet = {
+export const disabledControlStyles: VisageStyleSheet = {
   cursor: 'default',
   pointerEvents: 'none',
   // applicable to textarea
@@ -47,7 +46,7 @@ export const disabledControlStyles: EmotionStyleSheet = {
   opacity: 0.5,
 };
 
-export const invalidControlStyles: EmotionStyleSheet = {
+export const invalidControlStyles: VisageStyleSheet = {
   borderColor: 'danger',
   borderWidth: '2px',
   // data-focused is used by text input on base

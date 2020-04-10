@@ -1,10 +1,9 @@
 import { useDesignSystem, Theme } from '@byteclaw/visage-core';
 import { Global } from '@emotion/core';
 import React, { useMemo } from 'react';
-import { EmotionStyleSheet } from './types';
 
 interface GlobalStylesProps {
-  styles?: { [selector: string]: EmotionStyleSheet };
+  styles?: { [selector: string]: VisageStyleSheet };
 }
 
 /**

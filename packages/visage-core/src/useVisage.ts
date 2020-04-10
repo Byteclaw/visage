@@ -7,15 +7,14 @@ import { StyleProps, StyleFunction } from './types';
 import { useDesignSystem } from './useDesignSystem';
 import { useVariantSettings } from './useVariantSettings';
 
-const DEFAULT_PARENT_STYLES: StyleSheet<VisageStylingProperties>[] = [];
+const DEFAULT_PARENT_STYLES: StyleSheet[] = [];
 const DEFAULT_VARIANT_PROCESSORS: OmitPropsSetting[] = [];
 
 export interface UseVisageHookOptions {
   componentName: string;
-  defaultStyles: StyleSheet<VisageStylingProperties> | StyleFunction<any>;
+  defaultStyles: StyleSheet | StyleFunction<any>;
   faceStyleSheet: { face: string };
   variants: OmitPropsSetting[];
-  // omitProps: OmitPropsSetting;
 }
 
 /**
@@ -35,8 +34,8 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
 ): TOutputProps {
   const visage = useDesignSystem();
   const propsRef = useRef<{ [key: string]: any }>();
-  const styleSheetRef = useRef<StyleSheet<VisageStylingProperties>>();
   const variantSettings = useVariantSettings(options.variants, $$variants);
+  const styleSheetRef = useRef<StyleSheet>();
 
   // now resolve style sheet and store it under styles
   if (typeof options.defaultStyles === 'function') {
@@ -48,9 +47,7 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
     styleSheetRef.current = options.defaultStyles;
   }
 
-  let localStyles:
-    | StyleSheet<VisageStylingProperties>[]
-    | undefined = visage.styleSheetCache.get(
+  let localStyles: StyleSheet[] | undefined = visage.styleSheetCache.get(
     options.faceStyleSheet,
     parentStyles,
     styleSheetRef.current!,
@@ -68,7 +65,7 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
   // if component is visage component, pass parentStyles and styles
   // otherwise generate styles
   if (!isVisageComponent(as)) {
-    let finalStyleSheets: StyleSheet<VisageStylingProperties>[] = localStyles;
+    let finalStyleSheets: StyleSheet[] = localStyles;
 
     if (styles) {
       const cachedStyles = visage.styleSheetCache.getByOverride(

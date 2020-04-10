@@ -10,9 +10,8 @@ import {
   createControlHoverShadow,
   createSurfaceFocusShadow,
 } from './shared';
-import { EmotionStyleSheet } from '../types';
 
-const variantStyles: { [key: string]: EmotionStyleSheet } = {
+const variantStyles: { [key: string]: VisageStyleSheet } = {
   danger: {
     backgroundColor: 'danger',
     color: 'dangerText',
@@ -42,7 +41,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
   },
 };
 
-const sizeVariantStyles: { [key: string]: EmotionStyleSheet } = {
+const sizeVariantStyles: { [key: string]: VisageStyleSheet } = {
   small: {
     fontSize: -1,
     py: 0,
@@ -61,7 +60,7 @@ const sizeVariantStyles: { [key: string]: EmotionStyleSheet } = {
   default: {},
 };
 
-const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
+const outlinedVariantStyles: { [key: string]: VisageStyleSheet } = {
   danger: {
     backgroundColor: 'transparent',
     borderColor: 'danger',
@@ -106,7 +105,7 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
     color: 'shadesText',
   },
 };
-const monochromeButtonVariants: EmotionStyleSheet = {
+const monochromeButtonVariants: VisageStyleSheet = {
   backgroundColor: 'transparent',
   color: 'currentColor',
   borderColor: 'currentColor',

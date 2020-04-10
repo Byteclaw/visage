@@ -13,7 +13,7 @@ import {
  * Resolves style sheet
  */
 export function resolveStyleSheet(
-  styleSheet: StyleSheet<any>,
+  styleSheet: StyleSheet,
   ctx: StylerSheetResolveContext,
 ): ResolvedStyleSheet {
   const keys = Object.keys(styleSheet);

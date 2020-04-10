@@ -1,9 +1,4 @@
-import {
-  ColorPalette,
-  EmotionStyleSheet,
-  Theme,
-  VisageFaces,
-} from '@byteclaw/visage';
+import { ColorPalette, Theme, VisageFaces } from '@byteclaw/visage';
 import color from 'color';
 import { createNPointFontScaleTheme } from './nPointFontScale';
 import { generateColorScale } from './utils';
@@ -44,7 +39,7 @@ export const docsThemeColorPalette: ColorPalette = {
 export interface DocsThemeSettings {
   colors?: ColorPalette;
   faces?: VisageFaces;
-  mixins?: { [key: string]: EmotionStyleSheet };
+  mixins?: { [key: string]: VisageStyleSheet };
 }
 
 export function createDocsTheme({

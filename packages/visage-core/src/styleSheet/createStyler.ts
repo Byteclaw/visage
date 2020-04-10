@@ -8,23 +8,24 @@ import {
 } from './types';
 
 export type RawStylerFunction<
-  TResult extends StyleSheet<any> | ResolvedStyleSheet
+  TResult extends StyleSheet | ResolvedStyleSheet
 > = (
   propName: string,
   value: StyleSheetScalarValue,
   ctx: StylerSheetResolveContext,
 ) => TResult;
 
-export function createStyler<
-  TResult extends StyleSheet<any> | ResolvedStyleSheet
->(type: StylerResultType, styler: RawStylerFunction<TResult>): StylerFunction {
+export function createStyler<TResult extends StyleSheet | ResolvedStyleSheet>(
+  type: StylerResultType,
+  styler: RawStylerFunction<TResult>,
+): StylerFunction {
   return (...args) => ({
     type,
     styles: styler(...args) as any,
   });
 }
 
-export function inPlaceStyler(styler: RawStylerFunction<StyleSheet<any>>) {
+export function inPlaceStyler(styler: RawStylerFunction<StyleSheet>) {
   return createStyler(StylerResultType.inPlace, styler);
 }
 
@@ -34,7 +35,7 @@ export function inPlaceFinalStyler(
   return createStyler(StylerResultType.inPlaceFinal, styler);
 }
 
-export function preStyler(styler: RawStylerFunction<StyleSheet<any>>) {
+export function preStyler(styler: RawStylerFunction<StyleSheet>) {
   return createStyler(StylerResultType.pre, styler);
 }
 
@@ -42,7 +43,7 @@ export function preFinalStyler(styler: RawStylerFunction<ResolvedStyleSheet>) {
   return createStyler(StylerResultType.preFinal, styler);
 }
 
-export function postStyler(styler: RawStylerFunction<StyleSheet<any>>) {
+export function postStyler(styler: RawStylerFunction<StyleSheet>) {
   return createStyler(StylerResultType.post, styler);
 }
 

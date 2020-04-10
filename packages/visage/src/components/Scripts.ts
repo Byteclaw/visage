@@ -1,7 +1,6 @@
 import { createComponent } from '@byteclaw/visage-core';
-import { EmotionStyleSheet } from '../types';
 
-const ScriptsStyles: EmotionStyleSheet = {
+const ScriptsStyles: VisageStyleSheet = {
   fontSize: '75%',
   lineHeight: '0px',
   position: 'relative',
@@ -11,7 +10,7 @@ const ScriptsStyles: EmotionStyleSheet = {
 /**
  * Superscript component's style sheet
  */
-export const SuperscriptStyles: EmotionStyleSheet = {
+export const SuperscriptStyles: VisageStyleSheet = {
   ...ScriptsStyles,
   top: '-0.5em',
 };
@@ -24,7 +23,7 @@ export const Superscript = createComponent('sup', {
 /**
  * Subscript component's style sheet
  */
-export const SubscriptStyles: EmotionStyleSheet = {
+export const SubscriptStyles: VisageStyleSheet = {
   ...ScriptsStyles,
   bottom: '-0.25em',
 };

@@ -13,7 +13,6 @@ import {
 } from '../assets';
 import { createComponent } from '../core';
 import { booleanVariant, variant } from '../variants';
-import { EmotionStyleSheet } from '../types';
 import { Box } from './Box';
 import { CloseButton } from './CloseButton';
 import { Flex } from './Flex';
@@ -29,7 +28,7 @@ const statusIcons = {
   warning: WarningIcon,
 };
 
-const variantStyles: { [key: string]: EmotionStyleSheet } = {
+const variantStyles: { [key: string]: VisageStyleSheet } = {
   critical: {
     borderColor: 'danger.1',
     backgroundColor: 'danger',
@@ -104,7 +103,7 @@ const BannerBase = createComponent(Flex, {
   ],
 });
 
-const ribbonVariantStyles: { [key: string]: EmotionStyleSheet } = {
+const ribbonVariantStyles: { [key: string]: VisageStyleSheet } = {
   critical: {
     color: 'danger.3',
   },

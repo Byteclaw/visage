@@ -44,7 +44,7 @@ export function createComponent<
      * This is alias for styles in options, if you specify both, only styles option is accepted
      */
     defaultStyles?:
-      | StyleSheet<VisageStylingProperties>
+      | StyleSheet
       | StyleFunction<
           ExtractVisageComponentProps<TDefaultComponent> &
             UnionToIntersection<TVariants[number]>
@@ -58,7 +58,7 @@ export function createComponent<
      * styles invalidation
      */
     styles?:
-      | StyleSheet<VisageStylingProperties>
+      | StyleSheet
       | StyleFunction<
           ExtractVisageComponentProps<TDefaultComponent> &
             UnionToIntersection<TVariants[number]>
