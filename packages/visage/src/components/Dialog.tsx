@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode, useRef } from 'react';
 import { createComponent } from '../core';
-import { EmotionStyleSheet } from '../types';
 import { useUniqueId } from '../hooks';
 import { booleanVariant, variant } from '../variants';
 import { Box } from './Box';
@@ -99,12 +98,12 @@ interface DialogProps {
   /**
    * Dialog's base styles
    */
-  baseStyles?: EmotionStyleSheet;
+  baseStyles?: VisageStyleSheet;
   children?: ReactNode;
   /**
    * Content wrapper's styles
    */
-  contentStyles?: EmotionStyleSheet;
+  contentStyles?: VisageStyleSheet;
   /** Close button label (default close dialog) */
   closeButtonLabel?: string;
   label: string | ReactElement;

@@ -15,7 +15,7 @@ import { boxShadow, gridSize } from './resolvers';
 import { stylers } from './stylers';
 
 export interface NPointFontScaleThemeSettings
-  extends StyleSheetThemeSettings<any, VisageFaces> {
+  extends StyleSheetThemeSettings<VisageFaces> {
   fontSize: ScaleValue<string | number | (number | string)[]>;
   lineHeights: ScaleValue<string | number | (string | number)[]>;
   baseGridSize: number;

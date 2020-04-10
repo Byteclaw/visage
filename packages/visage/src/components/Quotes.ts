@@ -1,10 +1,9 @@
 import { createComponent } from '@byteclaw/visage-core';
-import { EmotionStyleSheet } from '../types';
 
 /**
  * Blockquote component's style sheet
  */
-export const BlockquoteStyles: EmotionStyleSheet = {
+export const BlockquoteStyles: VisageStyleSheet = {
   fontStyle: 'italic',
   pl: 2,
 };
@@ -17,7 +16,7 @@ export const Blockquote = createComponent('blockquote', {
 /**
  * Cite component's style sheet
  */
-export const CiteStyles: EmotionStyleSheet = {
+export const CiteStyles: VisageStyleSheet = {
   fontStyle: 'italic',
 };
 
@@ -29,7 +28,7 @@ export const Cite = createComponent('cite', {
 /**
  * Quote component's style sheet
  */
-export const QuoteStyles: EmotionStyleSheet = {
+export const QuoteStyles: VisageStyleSheet = {
   fontStyle: 'italic',
 };
 

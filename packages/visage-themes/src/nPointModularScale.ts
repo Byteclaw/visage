@@ -17,7 +17,7 @@ import { stylers } from './stylers';
 export { modularScaleFontRatios };
 
 export interface NPointModularScaleThemeSettings
-  extends StyleSheetThemeSettings<any, VisageFaces> {
+  extends StyleSheetThemeSettings<VisageFaces> {
   /**
    * Base font size, can be responsive
    */

@@ -3,51 +3,39 @@ import { StyleSheet } from './styleSheet';
 
 export interface StyleSheetCache {
   get(
-    faceStyleSheet: StyleSheet<VisageStylingProperties>,
-    parentStyleSheets: StyleSheet<VisageStylingProperties>[],
-    localStyleSheet: StyleSheet<VisageStylingProperties>,
-  ): StyleSheet<VisageStylingProperties>[] | undefined;
+    faceStyleSheet: StyleSheet,
+    parentStyleSheets: StyleSheet[],
+    localStyleSheet: StyleSheet,
+  ): StyleSheet[] | undefined;
   getByOverride(
-    faceStyleSheet: StyleSheet<VisageStylingProperties>,
-    parentStyleSheets: StyleSheet<VisageStylingProperties>[],
-    styleOverrideStyleSheet: StyleSheet<VisageStylingProperties>,
-    localStyleSheet: StyleSheet<VisageStylingProperties>,
-  ): StyleSheet<VisageStylingProperties>[] | undefined;
+    faceStyleSheet: StyleSheet,
+    parentStyleSheets: StyleSheet[],
+    styleOverrideStyleSheet: StyleSheet,
+    localStyleSheet: StyleSheet,
+  ): StyleSheet[] | undefined;
   set(
-    faceStyleSheet: StyleSheet<VisageStylingProperties>,
-    parentStyleSheets: StyleSheet<VisageStylingProperties>[],
-    localStyleSheet: StyleSheet<VisageStylingProperties>,
-  ): StyleSheet<VisageStylingProperties>[];
+    faceStyleSheet: StyleSheet,
+    parentStyleSheets: StyleSheet[],
+    localStyleSheet: StyleSheet,
+  ): StyleSheet[];
   setByOverride(
-    faceStyleSheet: StyleSheet<VisageStylingProperties>,
-    parentStyleSheets: StyleSheet<VisageStylingProperties>[],
-    styleOverrideStyleSheet: StyleSheet<VisageStylingProperties>,
-    localStyleSheet: StyleSheet<VisageStylingProperties>,
-  ): StyleSheet<VisageStylingProperties>[];
+    faceStyleSheet: StyleSheet,
+    parentStyleSheets: StyleSheet[],
+    styleOverrideStyleSheet: StyleSheet,
+    localStyleSheet: StyleSheet,
+  ): StyleSheet[];
 }
 
 export function createCache(): StyleSheetCache {
   const cache = new WeakMap<
-    StyleSheet<VisageStylingProperties>,
-    WeakMap<
-      StyleSheet<VisageStylingProperties>[],
-      WeakMap<
-        StyleSheet<VisageStylingProperties>,
-        StyleSheet<VisageStylingProperties>[]
-      >
-    >
+    StyleSheet,
+    WeakMap<StyleSheet[], WeakMap<StyleSheet, StyleSheet[]>>
   >();
   const overrideCache = new WeakMap<
-    StyleSheet<VisageStylingProperties>,
+    StyleSheet,
     WeakMap<
-      StyleSheet<VisageStylingProperties>[],
-      WeakMap<
-        StyleSheet<VisageStylingProperties>,
-        WeakMap<
-          StyleSheet<VisageStylingProperties>,
-          StyleSheet<VisageStylingProperties>[]
-        >
-      >
+      StyleSheet[],
+      WeakMap<StyleSheet, WeakMap<StyleSheet, StyleSheet[]>>
     >
   >();
 

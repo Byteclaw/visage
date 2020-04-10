@@ -7,7 +7,6 @@ import { keyframes } from '@emotion/core';
 import React from 'react';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
-import { EmotionStyleSheet } from '../types';
 
 const indeterminateAnimation = keyframes({
   '0%': {
@@ -24,7 +23,7 @@ const indeterminateAnimation = keyframes({
   },
 });
 
-const indeterminateStyles: { on: EmotionStyleSheet; off: EmotionStyleSheet } = {
+const indeterminateStyles: { on: VisageStyleSheet; off: VisageStyleSheet } = {
   on: {
     animation: `${indeterminateAnimation} 2.1s ease-in-out infinite`,
     width: '35%',

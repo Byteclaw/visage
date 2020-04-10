@@ -1,12 +1,11 @@
 import React from 'react';
 import { createComponent } from '../core';
-import { EmotionStyleSheet } from '../types';
 import { skeletonAnimation } from './animations';
 
 /**
  * Text component's stylesheet
  */
-export const TextStyles: EmotionStyleSheet = {
+export const TextStyles: VisageStyleSheet = {
   display: 'inline',
   fontFamily: 'inherit',
   fontSize: 'inherit',
@@ -24,7 +23,7 @@ export const Text = createComponent('span', {
 /**
  * EmphasizedText component's styles
  */
-export const EmphasizedTextStyles: EmotionStyleSheet = {
+export const EmphasizedTextStyles: VisageStyleSheet = {
   ...TextStyles,
   fontStyle: 'italic',
 };
@@ -37,7 +36,7 @@ export const EmphasizedText = createComponent('small', {
 /**
  * SmallText component's styles
  */
-export const SmallTextStyles: EmotionStyleSheet = {
+export const SmallTextStyles: VisageStyleSheet = {
   ...TextStyles,
   fontSize: -1,
   lineHeight: -1,
@@ -51,7 +50,7 @@ export const SmallText = createComponent('small', {
 /**
  * StrongText component's styles
  */
-export const StrongTextStyles: EmotionStyleSheet = {
+export const StrongTextStyles: VisageStyleSheet = {
   ...TextStyles,
   fontWeight: 'bold',
 };

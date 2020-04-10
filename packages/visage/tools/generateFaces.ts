@@ -29,18 +29,14 @@ files.forEach(file => {
 
 const componentNames = Object.keys(components).sort();
 
-const typeFile: string[] = [
-  `import { EmotionStyleSheet } from './types';`,
-  '',
-  'export interface VisageFaces {',
-];
+const typeFile: string[] = ['export interface VisageFaces {'];
 
 componentNames.forEach(c => {
-  typeFile.push(`  // ${components[c]}`, `  ${c}?: EmotionStyleSheet;`);
+  typeFile.push(`  // ${components[c]}`, `  ${c}?: VisageStyleSheet;`);
 });
 
 typeFile.push(
-  '  [componentName: string]: EmotionStyleSheet | undefined;',
+  '  [componentName: string]: VisageStyleSheet | undefined;',
   '}\n',
 );
 

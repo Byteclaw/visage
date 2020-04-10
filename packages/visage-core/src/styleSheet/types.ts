@@ -10,22 +10,23 @@ export interface ValidStyleSheet {
   [key: string]: any;
 }
 
-type MakeResponsiveStyleSheet<TStyleSheet extends ValidStyleSheet> = {
-  [K in keyof TStyleSheet]:
-    | TStyleSheet[K]
-    | null
-    | undefined
-    | (StyleSheetScalarValue | TStyleSheet[K])[];
-};
-
-export type StyleSheet<
-  TStyleSheet extends ValidStyleSheet
-> = MakeResponsiveStyleSheet<TStyleSheet> & {
-  [pseudo: string]:
+interface SubStyleSheet {
+  [selector: string]:
     | StyleSheetScalarValue
     | StyleSheetScalarValue[]
-    | MakeResponsiveStyleSheet<TStyleSheet>;
-};
+    | ResponsiveStyleSheet;
+}
+
+type ResponsiveStyleSheet = {
+  [K in keyof VisageStylingProperties]:
+    | VisageStylingProperties[K]
+    | null
+    | undefined
+    | (StyleSheetScalarValue | VisageStylingProperties[K])[];
+} &
+  SubStyleSheet;
+
+export type StyleSheet = ResponsiveStyleSheet;
 
 /**
  * Resolved StyleSheet that will be used to generate styles
@@ -72,10 +73,10 @@ export enum StylerResultType {
 export type StylerResult =
   | {
       type: StylerResultType.inPlace;
-      styles: StyleSheet<any>;
+      styles: StyleSheet;
     }
-  | { type: StylerResultType.post; styles: StyleSheet<any> }
-  | { type: StylerResultType.pre; styles: StyleSheet<any> }
+  | { type: StylerResultType.post; styles: StyleSheet }
+  | { type: StylerResultType.pre; styles: StyleSheet }
   | { type: StylerResultType.inPlaceFinal; styles: ResolvedStyleSheet }
   | { type: StylerResultType.preFinal; styles: ResolvedStyleSheet }
   | { type: StylerResultType.postFinal; styles: ResolvedStyleSheet };
@@ -92,10 +93,8 @@ export type StyleValueResolver = (
   ctx: StylerSheetResolveContext,
 ) => StyleSheetScalarValue;
 
-export interface StyleSheetFaces<
-  TStyleSheet extends ValidStyleSheet = ValidStyleSheet
-> {
-  [componentName: string]: StyleSheet<TStyleSheet> | undefined;
+export interface StyleSheetFaces {
+  [componentName: string]: StyleSheet | undefined;
 }
 
 export type StylerFunction = (
@@ -116,7 +115,6 @@ export type StylerFunction = (
 ) => StylerResult;
 
 export interface StyleSheetThemeSettings<
-  TStyleSheet extends ValidStyleSheet = ValidStyleSheet,
   TFaces extends StyleSheetFaces = StyleSheetFaces
 > {
   colors: {
@@ -131,7 +129,7 @@ export interface StyleSheetThemeSettings<
    * Mixins are used as bases for extending shared styles using extends styler
    */
   mixins?: {
-    [mixin: string]: StyleSheet<TStyleSheet>;
+    [mixin: string]: StyleSheet;
   };
   // any extra values
   [extra: string]: any;

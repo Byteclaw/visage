@@ -41,6 +41,5 @@ declare global {
     pt?: string | number;
   }
 
-  export interface VisageStyleSheet
-    extends StyleSheet<VisageStylingProperties> {}
+  export interface VisageStyleSheet extends StyleSheet {}
 }

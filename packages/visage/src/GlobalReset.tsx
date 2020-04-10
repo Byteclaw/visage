@@ -1,5 +1,4 @@
 import React from 'react';
-import { EmotionStyleSheet } from './types';
 import { CodeStyles, PreformattedCodeStyles } from './components/Code';
 import { HeadingStyles } from './components/Heading';
 import { LinkStyles } from './components/Link';
@@ -14,9 +13,7 @@ import {
 } from './components/Text';
 import { GlobalStyles } from './GlobalStyles';
 
-export const globalComponentStyles: {
-  [selector: string]: EmotionStyleSheet;
-} = {
+export const globalComponentStyles: { [selector: string]: VisageStyleSheet } = {
   body: {
     backgroundColor: 'shades',
   },
@@ -118,7 +115,7 @@ export const globalComponentStyles: {
   },
 };
 
-const globalStyles: { [selector: string]: EmotionStyleSheet } = {
+const globalStyles: { [selector: string]: VisageStyleSheet } = {
   '*': {
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',

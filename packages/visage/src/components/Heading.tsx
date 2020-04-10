@@ -2,18 +2,17 @@ import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
 import React, { forwardRef, createElement, memo } from 'react';
 import { createComponent } from '../core';
 import { SkeletonSentence } from './SkeletonSentence';
-import { EmotionStyleSheet } from '../types';
 
 /**
  * Heading component's styles
  */
 export const HeadingStyles: {
-  h1: EmotionStyleSheet;
-  h2: EmotionStyleSheet;
-  h3: EmotionStyleSheet;
-  h4: EmotionStyleSheet;
-  h5: EmotionStyleSheet;
-  h6: EmotionStyleSheet;
+  h1: VisageStyleSheet;
+  h2: VisageStyleSheet;
+  h3: VisageStyleSheet;
+  h4: VisageStyleSheet;
+  h5: VisageStyleSheet;
+  h6: VisageStyleSheet;
 } = {
   h1: {
     fontFamily: 'heading',
