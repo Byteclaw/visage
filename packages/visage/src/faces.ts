@@ -110,7 +110,7 @@ export interface VisageFaces {
   // FieldSet.tsx
   FieldSetLegend?: VisageStyleSheet;
   // FileInput.tsx
-  FileInputBox?: VisageStyleSheet;
+  FileInputBase?: VisageStyleSheet;
   // FileInput.tsx
   FileInputControl?: VisageStyleSheet;
   // FileInput.tsx
@@ -242,7 +242,7 @@ export interface VisageFaces {
   // Toggle.tsx
   ToggleLabelText?: VisageStyleSheet;
   // Toggle.tsx
-  Toggler?: VisageStyleSheet;
+  ToggleToggler?: VisageStyleSheet;
   // Heading.tsx
   h1?: VisageStyleSheet;
   // Heading.tsx

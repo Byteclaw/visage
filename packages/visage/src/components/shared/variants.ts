@@ -51,7 +51,7 @@ export const invalidControlStyles: VisageStyleSheet = {
   borderWidth: '2px',
   // data-focused is used by text input on base
   '&:focus, &[data-focused="true"]': {
-    boxShadow: '0 0 0 3px accent',
+    boxShadow: createControlFocusShadow('danger'),
   },
   // checkbox and radio
   '&::before': {

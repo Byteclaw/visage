@@ -25,11 +25,14 @@ const BaseFileInput = createComponent('input', {
     '&:focus + div': {
       boxShadow: createSurfaceFocusShadow(),
     },
+    '&[aria-invalid="true"]:focus + div': {
+      boxShadow: createSurfaceFocusShadow('danger'),
+    },
   },
 });
 
-const FileInputBox = createComponent('div', {
-  displayName: 'FileInputBox',
+const FileInputBase = createComponent('div', {
+  displayName: 'FileInputBase',
   styles: {
     border: 'none',
     fontSize: 0,
@@ -96,7 +99,7 @@ interface BaseFileInputProps
 
 interface FileInputProps extends BaseFileInputProps {
   invalid?: boolean;
-  boxProps?: ExtractVisageComponentProps<typeof FileInputBox>;
+  baseProps?: ExtractVisageComponentProps<typeof FileInputBase>;
   controlProps?: ExtractVisageComponentProps<typeof FileInputControl>;
   label?: string | ((files: File[], placeholder: string) => string);
   onChange?: (files: File[]) => void;
@@ -104,7 +107,7 @@ interface FileInputProps extends BaseFileInputProps {
 
 export function FileInput({
   accept,
-  boxProps,
+  baseProps,
   controlProps,
   disabled,
   invalid,
@@ -199,7 +202,7 @@ export function FileInput({
     typeof label === 'function' ? label(files, placeholder) : label;
 
   return (
-    <FileInputBox {...boxProps}>
+    <FileInputBase {...baseProps}>
       <BaseFileInput
         {...restProps}
         accept={accept}
@@ -228,6 +231,6 @@ export function FileInput({
       >
         {files.length === 0 ? placeholder : generatedLabel}
       </FileInputControl>
-    </FileInputBox>
+    </FileInputBase>
   );
 }
