@@ -1,0 +1,58 @@
+---
+title: 'Message component'
+components: ['Message']
+---
+
+# Message
+
+## Import
+
+```js transpile=false
+import { Message } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live=true
+<Message>Hello world!</Message>
+```
+
+### Dismissable
+
+To make message dismissable, pass `onDelete` handler. You can also specify a custom dismiss button.
+
+```jsx live=true
+<Fragment>
+  <Message onDelete={() => window.alert('Deleted')}>
+    Dismissable message
+  </Message>
+  <Message
+    variant="success"
+    renderDeleter={props => (
+      <Button variant="primary" {...props}>
+        Dismiss
+      </Button>
+    )}
+    onDelete={() => window.alert('Deleted')}
+  >
+    Dismissable message
+  </Message>
+</Fragment>
+```
+
+### Vartiants
+
+```jsx live=true
+<Fragment>
+  <Message variant="danger">Danger</Message>
+  <Message variant="info">Info</Message>
+  <Message variant="success">Success</Message>
+  <Message variant="warning">Warning</Message>
+</Fragment>
+```
+
+## Prop Types
+
+<PropTypes component="Message" />
