@@ -130,10 +130,12 @@ export function Select<TValue extends any = string>({
         nextState.isOpen = false;
       }
 
-      // if the action is MenuClose, reset input value if value is empty
+      // if the action is MenuClose, reset input value if value is empty and reset options too
       if (nextState.invokedBy.type === 'MenuClose' && nextState.value == null) {
         // eslint-disable-next-line no-param-reassign
         nextState.inputValue = '';
+        // eslint-disable-next-line no-param-reassign
+        nextState.options = [];
       }
 
       return enhanceReducer
