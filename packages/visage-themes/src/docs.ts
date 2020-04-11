@@ -7,25 +7,15 @@ const darkShades = color('#1b262c');
 const accent = color('#dbe2ef');
 const shades = color('#fff');
 const primary = color('#1FA7EC');
-const lightShadesOverlay = generateColorScale<
-  'shadesOverlay' | 'shadesOverlayText'
->('shadesOverlay', 'rgba(0, 0, 0, .15)', 5, 5);
-const darkShadesOverlay = generateColorScale<
-  'darkShadesOverlay' | 'darkShadesOverlayText'
->('darkShadesOverlay', 'rgba(255, 255, 255, .15)', 5, 5);
 
 export const docsThemeColorPalette: ColorPalette = {
   ...generateColorScale<'neutral' | 'neutralText'>('neutral', '#e3e8ee', 5, 5),
   darkShades: darkShades.toString(),
   darkShadesText: darkShades.isDark() ? '#fff' : '#000',
-  darkShadesOverlay: darkShadesOverlay.darkShadesOverlay,
-  darkShadesOverlayText: '#fff',
   accent: accent.toString(),
   accentText: accent.isDark() ? '#fff' : '#000',
   shades: shades.toString(),
   shadesText: shades.isDark() ? '#fff' : '#000',
-  shadesOverlay: lightShadesOverlay.shadesOverlay,
-  shadesOverlayText: '#000',
   primary: primary.toString(),
   primaryText: '#fff',
   ...generateColorScale<'success' | 'successText'>('success', '#27ae60', 5, 5),

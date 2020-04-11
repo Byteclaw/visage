@@ -27,8 +27,6 @@ export function createTestTheme(faces?: VisageFaces) {
       },
       shades: '#ccc',
       shadesText: '#fff',
-      shadesOverlay: '#ddd',
-      shadesOverlayText: '#000',
       secondary: 'blue',
       accent: 'blue',
       accentText: 'white',

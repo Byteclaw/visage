@@ -1,0 +1,830 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTable is extendable by DataTable face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  border-spacing: 0;
+  width: 100%;
+  color: rgb(0,0,0);
+}
+
+.emotion-0 th,
+.emotion-0 td {
+  vertical-align: top;
+}
+
+<table
+    class="emotion-0"
+  />
+</DocumentFragment>
+`;
+
+exports[`DataTable renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  border-spacing: 0;
+  width: 100%;
+}
+
+.emotion-0 th,
+.emotion-0 td {
+  vertical-align: top;
+}
+
+<table
+    class="emotion-0"
+  />
+</DocumentFragment>
+`;
+
+exports[`DataTableBody is extendable by DataTableBody face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+<table>
+    <tbody
+      class="emotion-0"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableBody renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  <table>
+    <tbody
+      class="emotion-0"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableColumn is extendable by DataTableColumn face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  padding: 16px;
+  text-align: left;
+  color: rgb(0,0,0);
+}
+
+<table>
+    <tbody>
+      <tr>
+        <td
+          class="emotion-0"
+          data-numeric="false"
+          data-total="false"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableColumn renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  padding: 16px;
+  text-align: left;
+}
+
+<table>
+    <tbody>
+      <tr>
+        <td
+          class="emotion-0"
+          data-numeric="false"
+          data-total="false"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableColumnSkeleton is extendable by DataTableColumnSkeleton face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+<table>
+    <tbody>
+      <tr>
+        <td
+          class="emotion-0"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableColumnSkeleton renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  <table>
+    <tbody>
+      <tr>
+        <td
+          class="emotion-0"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableFooter is extendable by DataTableFooter face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+<table>
+    <tfoot
+      class="emotion-0"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableFooter renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  <table>
+    <tfoot
+      class="emotion-0"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableFooterRow is extendable by DataTableFooterRow face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+<table>
+    <tfoot>
+      <tr
+        class="emotion-0"
+      />
+    </tfoot>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableFooterRow renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  <table>
+    <tfoot>
+      <tr
+        class="emotion-0"
+      />
+    </tfoot>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableHeader is extendable by DataTableHeader face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+.emotion-0 th {
+  border-bottom-style: solid;
+  border-bottom-color: rgb(184,184,184);
+  border-bottom-width: 1px;
+}
+
+<table>
+    <thead
+      class="emotion-0"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableHeader renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 th {
+  border-bottom-style: solid;
+  border-bottom-color: rgb(184,184,184);
+  border-bottom-width: 1px;
+}
+
+<table>
+    <thead
+      class="emotion-0"
+    />
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableHeaderColumn is extendable by DataTableHeaderColumn face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  font-weight: 600;
+  padding: 16px;
+  text-align: left;
+  color: rgb(0,0,0);
+}
+
+<table>
+    <thead>
+      <tr>
+        <th
+          class="emotion-0"
+          data-numeric="false"
+          data-total="false"
+        />
+      </tr>
+    </thead>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableHeaderColumn renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  font-weight: 600;
+  padding: 16px;
+  text-align: left;
+}
+
+<table>
+    <thead>
+      <tr>
+        <th
+          class="emotion-0"
+          data-numeric="false"
+          data-total="false"
+        />
+      </tr>
+    </thead>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableHeaderRow is extendable by DataTableHeaderRow face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+<table>
+    <thead>
+      <tr
+        class="emotion-0"
+      />
+    </thead>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableHeaderRow renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  <table>
+    <thead>
+      <tr
+        class="emotion-0"
+      />
+    </thead>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableNumericColumnSkeleton is extendable by DataTableNumericColumnSkeleton face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+<table>
+    <tbody>
+      <tr>
+        <td
+          class="emotion-0"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableNumericColumnSkeleton renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  <table>
+    <tbody>
+      <tr>
+        <td
+          class="emotion-0"
+        />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableRow is extendable by DataTableRow face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  color: rgb(0,0,0);
+}
+
+.emotion-0:hover td {
+  color: rgb(255,255,255);
+  background-color: rgb(184,184,184);
+}
+
+<table>
+    <tbody>
+      <tr
+        class="emotion-0"
+      />
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
+
+exports[`DataTableRow renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0:hover td {
+  color: rgb(255,255,255);
+  background-color: rgb(184,184,184);
+}
+
+<table>
+    <tbody>
+      <tr
+        class="emotion-0"
+      />
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

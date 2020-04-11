@@ -42,7 +42,7 @@ export const TextInputBaseStyles: VisageStyleSheet = {
 const InputExtraElement = createComponent('div', {
   displayName: 'InputExtraElement',
   styles: {
-    color: 'currentColor',
+    color: 'shadesText',
     display: 'flex',
     flexBasis: 'auto',
     flexGrow: 0,
@@ -74,7 +74,7 @@ const TextInputControl = createComponent('input', {
     appearance: 'none',
     backgroundColor: 'transparent',
     border: 'none',
-    color: 'currentColor',
+    color: 'shadesText',
     cursor: 'inherit',
     flexGrow: 1,
     flexShrink: 1,
@@ -94,8 +94,7 @@ const TextInputControl = createComponent('input', {
       pr: 0,
     },
     '::placeholder': {
-      color: 'currentColor',
-      opacity: 0.3,
+      color: 'color(shadesText alpha(0.3))',
     },
   },
 });
