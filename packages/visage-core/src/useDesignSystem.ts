@@ -1,3 +1,4 @@
+import { LRUCache } from '@byteclaw/visage-utils';
 import { useContext } from 'react';
 import { createCache } from './cache';
 import { VisageContext } from './context';
@@ -18,6 +19,7 @@ function createDesignSystem<TTheme extends Theme = Theme>(
   // reset cache everytime the design system is recreated
   const generationCache = new WeakMap();
   const resolutionCache = new WeakMap();
+  const stylerCache = new LRUCache(1000);
   const styleSheetCache = createCache();
 
   const resolveCtx: StylerSheetResolveContext<ExtractThemeSettingsFromTheme<
@@ -30,6 +32,7 @@ function createDesignSystem<TTheme extends Theme = Theme>(
     formatters: theme.formatters,
     resolvers: theme.resolvers,
     stylers: theme.stylers,
+    stylerCache,
     theme: theme.theme as any,
   };
 

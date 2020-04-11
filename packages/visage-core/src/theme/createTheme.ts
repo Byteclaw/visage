@@ -157,11 +157,21 @@ export function createTheme<
       )(resolverName, propValue, ctx);
     },
     style(resolverName, propValue, ctx) {
-      return (resolvedStylers[resolverName] ?? resolvedStylers.catchAll)(
+      const cacheKey = `${resolverName}::${propValue}`;
+
+      if (ctx.stylerCache.has(cacheKey)) {
+        return ctx.stylerCache.get(cacheKey)!;
+      }
+
+      const res = (resolvedStylers[resolverName] ?? resolvedStylers.catchAll)(
         resolverName,
         propValue,
         ctx,
       );
+
+      ctx.stylerCache.set(cacheKey, res);
+
+      return res;
     },
     theme,
   };

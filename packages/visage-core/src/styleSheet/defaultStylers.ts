@@ -1,8 +1,7 @@
 import { inPlaceFinalStyler, postStyler, preStyler } from './createStyler';
-import { themeKeyResolver } from './themeKeyResolver';
 
 export const catchAllStyler = inPlaceFinalStyler((propName, value, ctx) => {
-  const resolver = ctx.resolvers[propName] ?? themeKeyResolver;
+  const resolver = ctx.resolvers[propName] ?? ctx.resolvers.themeKey;
   const resolvedValue = resolver(propName, value, ctx);
 
   if (typeof resolvedValue === 'object' && resolvedValue !== null) {
