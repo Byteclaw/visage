@@ -57,7 +57,7 @@ describe('resolvers', () => {
           breakpoint: 0,
           ...themeWithShadow,
         }),
-      ).toEqual('b shadow #ccc');
+      ).toEqual('b shadow rgb(204, 204, 204)');
     });
   });
 });

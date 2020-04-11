@@ -54,13 +54,13 @@ describe('emotion style generator', () => {
     expect(tablet.className).not.toEqual(desktop.className);
 
     expect(cache.registered[mobile.className]).toMatchInlineSnapshot(
-      `"color:tomato;font-family:Body font;font-size:21px;margin:16px;"`,
+      `"color:rgb(255, 99, 71);font-family:Body font;font-size:21px;margin:16px;"`,
     );
     expect(cache.registered[tablet.className]).toMatchInlineSnapshot(
-      `"color:tomato;font-family:Body font;font-size:28px;margin:24px;"`,
+      `"color:rgb(255, 99, 71);font-family:Body font;font-size:28px;margin:24px;"`,
     );
     expect(cache.registered[desktop.className]).toMatchInlineSnapshot(
-      `"color:tomato;font-family:Body font;font-size:38px;margin:32px;"`,
+      `"color:rgb(255, 99, 71);font-family:Body font;font-size:38px;margin:32px;"`,
     );
   });
 });

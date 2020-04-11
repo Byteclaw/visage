@@ -53,14 +53,14 @@ describe('core', () => {
             data-toastmanager="true"
           />
           .emotion-0 {
-          color: pink;
+          color: rgb(255,192,203);
           margin: 8px;
           padding: 8px;
         }
 
         .emotion-0[role="listbox-option"]:hover,
         .emotion-0[role="listbox-option"]:focus {
-          color: blue;
+          color: rgb(0,0,255);
         }
 
         <span

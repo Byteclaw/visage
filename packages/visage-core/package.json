@@ -33,18 +33,23 @@
   ],
   "dependencies": {
     "@byteclaw/visage-utils": "^1.0.0-alpha.0",
+    "@types/color": "^3.0.1",
     "@types/react": "^16.8.23",
+    "color": "^3.1.2",
     "fast-deep-equal-ts": "^3.1.1"
   },
   "peerDependencies": {
     "react": "^16.8.6"
   },
   "devDependencies": {
-    "html-tags": "^3.0.0"
+    "@types/pegjs": "^0.10.1",
+    "pegjs": "^0.10.0",
+    "ts-pegjs": "^0.2.6"
   },
   "scripts": {
     "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.core --entry src/index.ts",
     "build": "tsdx build --format cjs,esm,umd --name byteclaw.visage.core --entry src/index.ts",
+    "compile:parser": "pegjs --plugin ts-pegjs --optimize size -o src/colorModParser.ts color-mod-grammar.pegjs && eslint --fix src/colorModParser.ts",
     "prepublishOnly": "tsdx build --format cjs,esm,umd  --name byteclaw.visage.core --entry src/index.ts",
     "test:types": "tsc -p . --noEmit"
   }

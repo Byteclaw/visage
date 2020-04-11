@@ -45,7 +45,7 @@ describe('NPoint font scale theme', () => {
         expect(
           theme.style('boxShadow', '0 0 0 danger, 0 1 0 info', ctx).styles
             .boxShadow,
-        ).toEqual('0 0 0 red, 0 1 0 blue');
+        ).toEqual('0 0 0 rgb(255, 0, 0), 0 1 0 rgb(0, 0, 255)');
       });
     });
 

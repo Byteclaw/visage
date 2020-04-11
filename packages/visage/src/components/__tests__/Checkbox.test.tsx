@@ -121,25 +121,25 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
         border-color: light-blue;
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -160,7 +160,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         border-radius: 3px;
         border-style: solid;
         border-width: 2px;
@@ -170,7 +170,7 @@ describe('Checkbox', () => {
       .emotion-1 {
         width: 1em;
         height: 1em;
-        stroke: white;
+        stroke: rgb(255,255,255);
         stroke-width: 2px;
         fill: none;
       }
@@ -283,25 +283,25 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
         border-color: light-blue;
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -322,7 +322,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         border-radius: 3px;
         border-style: solid;
         border-width: 2px;
@@ -332,7 +332,7 @@ describe('Checkbox', () => {
       .emotion-1 {
         width: 1em;
         height: 1em;
-        stroke: white;
+        stroke: rgb(255,255,255);
         stroke-width: 2px;
         fill: none;
       }
@@ -446,25 +446,25 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
         border-color: light-blue;
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -485,7 +485,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         border-radius: 3px;
         border-style: solid;
         border-width: 2px;
@@ -495,7 +495,7 @@ describe('Checkbox', () => {
       .emotion-1 {
         width: 1em;
         height: 1em;
-        stroke: white;
+        stroke: rgb(255,255,255);
         stroke-width: 2px;
         fill: none;
       }
@@ -605,7 +605,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         border-radius: 3px;
         border-style: solid;
         border-width: 2px;
@@ -615,7 +615,7 @@ describe('Checkbox', () => {
       .emotion-1 {
         width: 1em;
         height: 1em;
-        stroke: white;
+        stroke: rgb(255,255,255);
         stroke-width: 2px;
         fill: none;
       }
@@ -665,25 +665,25 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
         border-color: light-blue;
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -772,25 +772,25 @@ describe('Checkbox', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
         border-color: light-blue;
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -804,7 +804,7 @@ describe('Checkbox', () => {
       .emotion-1 {
         width: 1em;
         height: 1em;
-        stroke: white;
+        stroke: rgb(255,255,255);
         stroke-width: 2px;
         fill: none;
       }
@@ -849,7 +849,7 @@ describe('Checkbox', () => {
         align-self: center;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         border-radius: 10px;
         border-style: solid;
         border-width: 2px;

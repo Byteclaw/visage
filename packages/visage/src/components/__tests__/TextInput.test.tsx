@@ -30,8 +30,8 @@ describe('TextInput', () => {
           data-toastmanager="true"
         />
         .emotion-2 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -57,7 +57,7 @@ describe('TextInput', () => {
 
       .emotion-2:focus,
       .emotion-2[data-focused="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-1 {
@@ -85,7 +85,7 @@ describe('TextInput', () => {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         border: none;
         color: currentColor;
         cursor: inherit;
@@ -213,7 +213,7 @@ describe('TextInput', () => {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         border: none;
         color: currentColor;
         cursor: inherit;
@@ -268,8 +268,8 @@ describe('TextInput', () => {
       }
 
       .emotion-2 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 10px;
@@ -295,7 +295,7 @@ describe('TextInput', () => {
 
       .emotion-2:focus,
       .emotion-2[data-focused="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       <div
@@ -353,8 +353,8 @@ describe('TextInput', () => {
           data-toastmanager="true"
         />
         .emotion-2 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -380,7 +380,7 @@ describe('TextInput', () => {
 
       .emotion-2:focus,
       .emotion-2[data-focused="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-1 {
@@ -408,7 +408,7 @@ describe('TextInput', () => {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         border: none;
         color: currentColor;
         cursor: inherit;
@@ -444,22 +444,22 @@ describe('TextInput', () => {
       }
 
       .emotion-0::-webkit-input-placeholder {
-        color: pink;
+        color: rgb(255,192,203);
         opacity: 1;
       }
 
       .emotion-0::-moz-placeholder {
-        color: pink;
+        color: rgb(255,192,203);
         opacity: 1;
       }
 
       .emotion-0:-ms-input-placeholder {
-        color: pink;
+        color: rgb(255,192,203);
         opacity: 1;
       }
 
       .emotion-0::placeholder {
-        color: pink;
+        color: rgb(255,192,203);
         opacity: 1;
       }
 
@@ -515,8 +515,8 @@ describe('TextInput', () => {
           data-toastmanager="true"
         />
         .emotion-2 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -542,14 +542,14 @@ describe('TextInput', () => {
 
       .emotion-2:focus,
       .emotion-2[data-focused="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         border: none;
         color: currentColor;
         cursor: inherit;
@@ -677,8 +677,8 @@ describe('TextInput', () => {
           data-toastmanager="true"
         />
         .emotion-3 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -704,7 +704,7 @@ describe('TextInput', () => {
 
       .emotion-3:focus,
       .emotion-3[data-focused="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-2 {
@@ -732,7 +732,7 @@ describe('TextInput', () => {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         border: none;
         color: currentColor;
         cursor: inherit;
@@ -816,7 +816,7 @@ describe('TextInput', () => {
       }
 
       .emotion-0:hover {
-        color: pink;
+        color: rgb(255,192,203);
       }
 
       <div

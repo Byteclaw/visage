@@ -121,25 +121,25 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
         border-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -148,7 +148,7 @@ describe('Radio', () => {
 
       .emotion-0:checked + div > svg {
         visibility: visible;
-        fill: white;
+        fill: rgb(255,255,255);
       }
 
       .emotion-2 {
@@ -165,7 +165,7 @@ describe('Radio', () => {
         border-radius: 999px;
         border-style: solid;
         border-width: 2px;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         margin-right: 8px;
       }
 
@@ -284,25 +284,25 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
         border-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -311,7 +311,7 @@ describe('Radio', () => {
 
       .emotion-0:checked + div > svg {
         visibility: visible;
-        fill: white;
+        fill: rgb(255,255,255);
       }
 
       .emotion-2 {
@@ -328,7 +328,7 @@ describe('Radio', () => {
         border-radius: 999px;
         border-style: solid;
         border-width: 2px;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         margin-right: 8px;
       }
 
@@ -448,25 +448,25 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
         border-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -475,7 +475,7 @@ describe('Radio', () => {
 
       .emotion-0:checked + div > svg {
         visibility: visible;
-        fill: white;
+        fill: rgb(255,255,255);
       }
 
       .emotion-2 {
@@ -492,7 +492,7 @@ describe('Radio', () => {
         border-radius: 999px;
         border-style: solid;
         border-width: 2px;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         margin-right: 8px;
       }
 
@@ -612,7 +612,7 @@ describe('Radio', () => {
         border-radius: 999px;
         border-style: solid;
         border-width: 2px;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         margin-right: 8px;
       }
 
@@ -666,25 +666,25 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
         border-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -693,7 +693,7 @@ describe('Radio', () => {
 
       .emotion-0:checked + div > svg {
         visibility: visible;
-        fill: white;
+        fill: rgb(255,255,255);
       }
 
       <label
@@ -776,25 +776,25 @@ describe('Radio', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0 + div {
-        background-color: white;
+        background-color: rgb(255,255,255);
       }
 
       .emotion-0:checked + div {
         background-color: light-blue;
         border-color: light-blue;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-0 + div > svg {
@@ -803,7 +803,7 @@ describe('Radio', () => {
 
       .emotion-0:checked + div > svg {
         visibility: visible;
-        fill: white;
+        fill: rgb(255,255,255);
       }
 
       .emotion-1 {
@@ -855,7 +855,7 @@ describe('Radio', () => {
         border-radius: 10px;
         border-style: solid;
         border-width: 2px;
-        border-color: blue;
+        border-color: rgb(0,0,255);
         margin-right: 8px;
       }
 

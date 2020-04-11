@@ -59,7 +59,7 @@ describe('DesignSystem', () => {
         </a>
         .emotion-0 {
         background: #ccc;
-        color: red;
+        color: rgb(255,0,0);
       }
 
       <a
@@ -70,19 +70,19 @@ describe('DesignSystem', () => {
         </a>
         .emotion-0 {
         background: #ccc;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       .emotion-0:active {
-        color: blue;
+        color: rgb(0,0,255);
       }
 
       .emotion-0:hover {
-        color: pink;
+        color: rgb(255,192,203);
       }
 
       .emotion-0:focus {
-        color: black;
+        color: rgb(0,0,0);
       }
 
       <a
@@ -142,7 +142,7 @@ describe('DesignSystem', () => {
           data-toastmanager="true"
         />
         .emotion-0 {
-        color: red;
+        color: rgb(255,0,0);
       }
 
       .emotion-0:hover {
@@ -155,12 +155,12 @@ describe('DesignSystem', () => {
         />
         .emotion-0 {
         background: black;
-        color: blue;
+        color: rgb(0,0,255);
       }
 
       .emotion-0:hover {
         background: red;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       <span
@@ -168,12 +168,12 @@ describe('DesignSystem', () => {
         />
         .emotion-0 {
         background: black;
-        color: red;
+        color: rgb(255,0,0);
       }
 
       .emotion-0:hover {
         background: black;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       <span
@@ -181,13 +181,13 @@ describe('DesignSystem', () => {
           href="/"
         />
         .emotion-0 {
-        color: blue;
+        color: rgb(0,0,255);
         background: black;
       }
 
       .emotion-0:hover {
         background: red;
-        color: white;
+        color: rgb(255,255,255);
       }
 
       <a
@@ -240,8 +240,8 @@ describe('DesignSystem', () => {
           data-toastmanager="true"
         />
         .emotion-0 {
-        color: red;
-        background-color: blue;
+        color: rgb(255,0,0);
+        background-color: rgb(0,0,255);
         font-size: 16px;
         line-height: 24px;
       }
@@ -251,7 +251,7 @@ describe('DesignSystem', () => {
         />
         .emotion-0 {
         color: light-blue;
-        background-color: blue;
+        background-color: rgb(0,0,255);
         font-size: 16px;
         line-height: 24px;
       }
@@ -260,8 +260,8 @@ describe('DesignSystem', () => {
           class="emotion-0"
         />
         .emotion-0 {
-        color: blue;
-        background-color: blue;
+        color: rgb(0,0,255);
+        background-color: rgb(0,0,255);
         font-size: 16px;
         line-height: 24px;
         margin: 8px;
@@ -273,7 +273,7 @@ describe('DesignSystem', () => {
         />
         .emotion-0 {
         color: light-blue;
-        background-color: blue;
+        background-color: rgb(0,0,255);
         font-size: 16px;
         line-height: 24px;
         margin: 16px;

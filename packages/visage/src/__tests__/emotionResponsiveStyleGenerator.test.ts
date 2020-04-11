@@ -62,7 +62,7 @@ describe('emotion responsive style generator', () => {
     expect(tablet.className).toEqual(desktop.className);
 
     expect(cache.registered[mobile.className]).toMatchInlineSnapshot(
-      `"@media only screen{color:tomato;font-family:Body font;font-size:21px;margin:16px;}@media screen and (min-width: 40.0625em){color:tomato;font-family:Body font;font-size:28px;margin:24px;}@media screen and (min-width: 64.0625em){color:tomato;font-family:Body font;font-size:38px;margin:32px;}"`,
+      `"@media only screen{color:rgb(255, 99, 71);font-family:Body font;font-size:21px;margin:16px;}@media screen and (min-width: 40.0625em){color:rgb(255, 99, 71);font-family:Body font;font-size:28px;margin:24px;}@media screen and (min-width: 64.0625em){color:rgb(255, 99, 71);font-family:Body font;font-size:38px;margin:32px;}"`,
     );
   });
 });

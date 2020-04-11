@@ -56,7 +56,7 @@ describe('NPoint modular scale theme', () => {
       it('translates colors from palette to their values', () => {
         expect(
           theme.resolve('boxShadow', '0 0 0 danger, 0 1 0 info', ctx),
-        ).toEqual('0 0 0 red, 0 1 0 blue');
+        ).toEqual('0 0 0 rgb(255, 0, 0), 0 1 0 rgb(0, 0, 255)');
       });
     });
 

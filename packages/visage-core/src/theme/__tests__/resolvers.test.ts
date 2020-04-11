@@ -40,21 +40,29 @@ describe('resolvers', () => {
 
   describe('color', () => {
     it('resolves color against scale', () => {
-      expect(resolvers.color('', 'scale', ctx)).toEqual('#999');
-      expect(resolvers.color('', 'scale.0', ctx)).toEqual('#999');
-      expect(resolvers.color('', 'scale.1', ctx)).toEqual('#444');
-      expect(resolvers.color('', 'scale.-1', ctx)).toEqual('#ccc');
+      expect(resolvers.color('', 'scale', ctx)).toEqual('rgb(153, 153, 153)');
+      expect(resolvers.color('', 'scale.0', ctx)).toEqual('rgb(153, 153, 153)');
+      expect(resolvers.color('', 'scale.1', ctx)).toEqual('rgb(68, 68, 68)');
+      expect(resolvers.color('', 'scale.-1', ctx)).toEqual(
+        'rgb(204, 204, 204)',
+      );
     });
 
     it('resolves color against string', () => {
-      expect(resolvers.color('', 'string', ctx)).toEqual('#ccc');
-      expect(resolvers.color('', 'string.0', ctx)).toEqual('#ccc');
-      expect(resolvers.color('', 'string.-1', ctx)).toEqual('#ccc');
-      expect(resolvers.color('', 'string.1', ctx)).toEqual('#ccc');
+      expect(resolvers.color('', 'string', ctx)).toEqual('rgb(204, 204, 204)');
+      expect(resolvers.color('', 'string.0', ctx)).toEqual(
+        'rgb(204, 204, 204)',
+      );
+      expect(resolvers.color('', 'string.-1', ctx)).toEqual(
+        'rgb(204, 204, 204)',
+      );
+      expect(resolvers.color('', 'string.1', ctx)).toEqual(
+        'rgb(204, 204, 204)',
+      );
     });
 
     it('passes through color if there is no setting in the color palette', () => {
-      expect(resolvers.color('', 'black', ctx)).toEqual('black');
+      expect(resolvers.color('', 'black', ctx)).toEqual('rgb(0, 0, 0)');
     });
 
     it('passes through empty value', () => {
