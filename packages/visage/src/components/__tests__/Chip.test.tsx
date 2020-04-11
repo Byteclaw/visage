@@ -50,7 +50,7 @@ describe('Chip', () => {
 
       .emotion-0:focus,
       .emotion-0[aria-selected="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       <div

@@ -3186,6 +3186,11 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==
 
+"@types/pegjs@^0.10.1":
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/@types/pegjs/-/pegjs-0.10.1.tgz#9a2f3961dc62430fdb21061eb0ddbd890f9e3b94"
+  integrity sha512-ra8IchO9odGQmYKbm+94K58UyKCEKdZh9y0vxhG4pIpOJOBlC1C+ZtBVr6jLs+/oJ4pl+1p/4t3JtBA8J10Vvw==
+
 "@types/prettier@^1.19.0":
   version "1.19.1"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-1.19.1.tgz#33509849f8e679e4add158959fdb086440e9553f"
@@ -9647,11 +9652,6 @@ html-escaper@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
-
-html-tags@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/html-tags/-/html-tags-3.1.0.tgz#7b5e6f7e665e9fb41f30007ed9e0d41e97fb2140"
-  integrity sha512-1qYz89hW3lFDEazhjW0yVAV87lw8lVkrJocr72XmBkMKsoSVJCQx3W8BXsC7hO2qAt8BoVjYjtAcZ9perqGnNg==
 
 html-tokenize@^2.0.0:
   version "2.0.0"
@@ -17763,6 +17763,13 @@ ts-node@^8.6.2:
     make-error "^1.1.1"
     source-map-support "^0.5.6"
     yn "3.1.1"
+
+ts-pegjs@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/ts-pegjs/-/ts-pegjs-0.2.6.tgz#fc6261cca04736c43e58c630ecfc5dcff23dbb39"
+  integrity sha512-mIX/dMQ6a1EHAEhvCLS6Z41+O700zlLiwB4V5ZSlKFLZKLDE93reik5IFw/HJsKgs488UiLx144yeEWWyu7YIw==
+  dependencies:
+    pegjs "^0.10.0"
 
 ts-pnp@^1.1.6:
   version "1.2.0"

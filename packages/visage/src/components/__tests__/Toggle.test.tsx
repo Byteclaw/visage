@@ -137,7 +137,7 @@ describe('Toggle', () => {
         height: 1.25em;
         position: absolute;
         border-radius: 50%;
-        background-color: white;
+        background-color: rgb(255,255,255);
         -webkit-transition-property: -webkit-transform,color;
         -webkit-transition-property: transform,color;
         transition-property: transform,color;
@@ -154,7 +154,7 @@ describe('Toggle', () => {
         margin-right: 8px;
         font-size: 0.75em;
         text-align: center;
-        color: white;
+        color: rgb(255,255,255);
         top: 50%;
         -webkit-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -168,7 +168,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: #eee;
+        background-color: rgb(238,238,238);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -182,15 +182,15 @@ describe('Toggle', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-2 {
@@ -203,11 +203,11 @@ describe('Toggle', () => {
         display: inline-flex;
         height: 1.5em;
         min-width: 2.75em;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         font-size: 16px;
         border-width: 2px;
         border-style: solid;
-        border-color: transparent;
+        border-color: rgba(0,0,0,0);
         outline: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -347,7 +347,7 @@ describe('Toggle', () => {
         height: 1.25em;
         position: absolute;
         border-radius: 50%;
-        background-color: white;
+        background-color: rgb(255,255,255);
         -webkit-transition-property: -webkit-transform,color;
         -webkit-transition-property: transform,color;
         transition-property: transform,color;
@@ -364,7 +364,7 @@ describe('Toggle', () => {
         margin-right: 8px;
         font-size: 0.75em;
         text-align: center;
-        color: white;
+        color: rgb(255,255,255);
         top: 50%;
         -webkit-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -378,7 +378,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: #eee;
+        background-color: rgb(238,238,238);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -392,15 +392,15 @@ describe('Toggle', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-2 {
@@ -413,11 +413,11 @@ describe('Toggle', () => {
         display: inline-flex;
         height: 1.5em;
         min-width: 2.75em;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         font-size: 16px;
         border-width: 2px;
         border-style: solid;
-        border-color: transparent;
+        border-color: rgba(0,0,0,0);
         outline: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -558,7 +558,7 @@ describe('Toggle', () => {
         height: 1.25em;
         position: absolute;
         border-radius: 50%;
-        background-color: white;
+        background-color: rgb(255,255,255);
         -webkit-transition-property: -webkit-transform,color;
         -webkit-transition-property: transform,color;
         transition-property: transform,color;
@@ -575,7 +575,7 @@ describe('Toggle', () => {
         margin-right: 8px;
         font-size: 0.75em;
         text-align: center;
-        color: white;
+        color: rgb(255,255,255);
         top: 50%;
         -webkit-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -589,7 +589,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: #eee;
+        background-color: rgb(238,238,238);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -603,15 +603,15 @@ describe('Toggle', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-1 {
@@ -666,11 +666,11 @@ describe('Toggle', () => {
         display: inline-flex;
         height: 1.5em;
         min-width: 2.75em;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         font-size: 16px;
         border-width: 2px;
         border-style: solid;
-        border-color: transparent;
+        border-color: rgba(0,0,0,0);
         outline: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -768,7 +768,7 @@ describe('Toggle', () => {
         height: 1.25em;
         position: absolute;
         border-radius: 50%;
-        background-color: white;
+        background-color: rgb(255,255,255);
         -webkit-transition-property: -webkit-transform,color;
         -webkit-transition-property: transform,color;
         transition-property: transform,color;
@@ -785,7 +785,7 @@ describe('Toggle', () => {
         margin-right: 8px;
         font-size: 0.75em;
         text-align: center;
-        color: white;
+        color: rgb(255,255,255);
         top: 50%;
         -webkit-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -799,7 +799,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: #eee;
+        background-color: rgb(238,238,238);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -813,15 +813,15 @@ describe('Toggle', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-2 {
@@ -834,11 +834,11 @@ describe('Toggle', () => {
         display: inline-flex;
         height: 1.5em;
         min-width: 2.75em;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         font-size: 16px;
         border-width: 2px;
         border-style: solid;
-        border-color: transparent;
+        border-color: rgba(0,0,0,0);
         outline: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -959,11 +959,11 @@ describe('Toggle', () => {
         display: inline-flex;
         height: 1.5em;
         min-width: 2.75em;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         font-size: 16px;
         border-width: 2px;
         border-style: solid;
-        border-color: transparent;
+        border-color: rgba(0,0,0,0);
         outline: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -1046,7 +1046,7 @@ describe('Toggle', () => {
         height: 1.25em;
         position: absolute;
         border-radius: 50%;
-        background-color: white;
+        background-color: rgb(255,255,255);
         -webkit-transition-property: -webkit-transform,color;
         -webkit-transition-property: transform,color;
         transition-property: transform,color;
@@ -1063,7 +1063,7 @@ describe('Toggle', () => {
         margin-right: 8px;
         font-size: 0.75em;
         text-align: center;
-        color: white;
+        color: rgb(255,255,255);
         top: 50%;
         -webkit-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -1077,7 +1077,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: #eee;
+        background-color: rgb(238,238,238);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -1091,15 +1091,15 @@ describe('Toggle', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       <label
@@ -1190,7 +1190,7 @@ describe('Toggle', () => {
         height: 1.25em;
         position: absolute;
         border-radius: 50%;
-        background-color: white;
+        background-color: rgb(255,255,255);
         -webkit-transition-property: -webkit-transform,color;
         -webkit-transition-property: transform,color;
         transition-property: transform,color;
@@ -1207,7 +1207,7 @@ describe('Toggle', () => {
         margin-right: 8px;
         font-size: 0.75em;
         text-align: center;
-        color: white;
+        color: rgb(255,255,255);
         top: 50%;
         -webkit-transform: translate(-50%,-50%);
         -ms-transform: translate(-50%,-50%);
@@ -1221,7 +1221,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: #eee;
+        background-color: rgb(238,238,238);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -1235,15 +1235,15 @@ describe('Toggle', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
       }
 
       .emotion-0[aria-invalid="true"] + div {
-        border-color: red;
+        border-color: rgb(255,0,0);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red;
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0);
       }
 
       .emotion-2 {
@@ -1256,11 +1256,11 @@ describe('Toggle', () => {
         display: inline-flex;
         height: 1.5em;
         min-width: 2.75em;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         font-size: 16px;
         border-width: 2px;
         border-style: solid;
-        border-color: transparent;
+        border-color: rgba(0,0,0,0);
         outline: none;
         -webkit-user-select: none;
         -moz-user-select: none;

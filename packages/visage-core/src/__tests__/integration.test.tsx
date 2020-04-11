@@ -55,7 +55,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             href="a"
-            style="color: tomato;"
+            style="color: rgb(255, 99, 71);"
           />
         </DocumentFragment>
       `);
@@ -183,7 +183,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             href="a"
-            style="color: red; margin: 1px; background: rgb(204, 204, 204);"
+            style="color: rgb(255, 0, 0); margin: 1px; background: rgb(204, 204, 204);"
           />
         </DocumentFragment>
       `);
@@ -195,7 +195,7 @@ describe('integration', () => {
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           <a
-            style="color: pink; margin: 1px; padding: 1px;"
+            style="color: rgb(255, 192, 203); margin: 1px; padding: 1px;"
           />
         </DocumentFragment>
       `);
@@ -226,7 +226,7 @@ describe('integration', () => {
         <DocumentFragment>
           <button
             disabled=""
-            style="color: blue;"
+            style="color: rgb(0, 0, 255);"
             type="button"
           >
             <span>
@@ -251,7 +251,7 @@ describe('integration', () => {
         <DocumentFragment>
           <button
             disabled=""
-            style="color: blue;"
+            style="color: rgb(0, 0, 255);"
             type="button"
           >
             <span>
@@ -272,7 +272,7 @@ describe('integration', () => {
         <DocumentFragment>
           <button
             disabled=""
-            style="color: blue;"
+            style="color: rgb(0, 0, 255);"
             type="button"
           >
             Custom children
@@ -287,7 +287,7 @@ describe('integration', () => {
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           <a
-            style="color: blue; margin: 1px; padding: 1px;"
+            style="color: rgb(0, 0, 255); margin: 1px; padding: 1px;"
           />
         </DocumentFragment>
       `);
@@ -301,7 +301,7 @@ describe('integration', () => {
       expect(asFragment()).toMatchInlineSnapshot(`
         <DocumentFragment>
           <a
-            style="color: blue; margin: 1px; background: black;"
+            style="color: rgb(0, 0, 255); margin: 1px; background: black;"
           />
         </DocumentFragment>
       `);
@@ -339,7 +339,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="default"
-            style="background: rgb(204, 204, 204); color: red;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0);"
           />
         </DocumentFragment>
       `);
@@ -350,7 +350,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="primary"
-            style="background: rgb(204, 204, 204); color: red; font-weight: bold; text-decoration: underline;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0); font-weight: bold; text-decoration: underline;"
           />
         </DocumentFragment>
       `);
@@ -373,7 +373,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="default"
-            style="background: rgb(204, 204, 204); color: red;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0);"
           />
         </DocumentFragment>
       `);
@@ -384,7 +384,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="primary"
-            style="background: rgb(204, 204, 204); color: red; font-weight: normal; text-decoration: underline; align-self: center;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0); font-weight: normal; text-decoration: underline; align-self: center;"
           />
         </DocumentFragment>
       `);
@@ -399,7 +399,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="default"
-            style="background: rgb(204, 204, 204); color: red; text-decoration: underline;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0); text-decoration: underline;"
           />
         </DocumentFragment>
       `);
@@ -411,7 +411,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="primary"
-            style="background: rgb(204, 204, 204); color: red; text-decoration: underline; font-weight: bold;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0); text-decoration: underline; font-weight: bold;"
           />
         </DocumentFragment>
       `);
@@ -436,7 +436,7 @@ describe('integration', () => {
         <DocumentFragment>
           <span
             data-variant="default"
-            style="background: rgb(204, 204, 204); color: red;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0);"
           />
         </DocumentFragment>
       `);
@@ -449,7 +449,7 @@ describe('integration', () => {
         <DocumentFragment>
           <span
             data-variant="primary"
-            style="background: rgb(204, 204, 204); color: red; font-weight: bold; align-self: center; text-decoration: underline;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0); font-weight: bold; align-self: center; text-decoration: underline;"
           />
         </DocumentFragment>
       `);
@@ -480,7 +480,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="default"
-            style="background: rgb(204, 204, 204); color: red;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0);"
           />
         </DocumentFragment>
       `);
@@ -493,7 +493,7 @@ describe('integration', () => {
         <DocumentFragment>
           <a
             data-variant="primary"
-            style="background: rgb(204, 204, 204); color: red; font-weight: normal; text-decoration: underline; align-self: center;"
+            style="background: rgb(204, 204, 204); color: rgb(255, 0, 0); font-weight: normal; text-decoration: underline; align-self: center;"
             variant="primary"
           />
         </DocumentFragment>

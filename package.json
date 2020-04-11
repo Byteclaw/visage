@@ -72,11 +72,11 @@
       },
       {
         "path": "./packages/visage-core/dist/byteclaw.visage.core.esm.js",
-        "maxSize": "10 kB"
+        "maxSize": "15 kB"
       },
       {
         "path": "./packages/visage-core/dist/byteclaw.visage.core.cjs.production.min.js",
-        "maxSize": "10 kB"
+        "maxSize": "15 kB"
       },
       {
         "path": "./packages/visage-themes/dist/byteclaw.visage.themes.esm.js",

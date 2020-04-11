@@ -55,16 +55,16 @@ describe('FileInput', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -89,7 +89,7 @@ describe('FileInput', () => {
       }
 
       .emotion-1[data-draggedover="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1:not([data-readonly="true"]) {
@@ -162,16 +162,16 @@ describe('FileInput', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -196,7 +196,7 @@ describe('FileInput', () => {
       }
 
       .emotion-1[data-draggedover="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1:not([data-readonly="true"]) {
@@ -286,8 +286,8 @@ describe('FileInput', () => {
       }
 
       .emotion-1 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -312,7 +312,7 @@ describe('FileInput', () => {
       }
 
       .emotion-1[data-draggedover="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1:not([data-readonly="true"]) {
@@ -334,31 +334,31 @@ describe('FileInput', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-0::-webkit-input-placeholder {
         opacity: 1;
-        color: pink;
+        color: rgb(255,192,203);
       }
 
       .emotion-0::-moz-placeholder {
         opacity: 1;
-        color: pink;
+        color: rgb(255,192,203);
       }
 
       .emotion-0:-ms-input-placeholder {
         opacity: 1;
-        color: pink;
+        color: rgb(255,192,203);
       }
 
       .emotion-0::placeholder {
         opacity: 1;
-        color: pink;
+        color: rgb(255,192,203);
       }
 
       <div
@@ -441,16 +441,16 @@ describe('FileInput', () => {
       }
 
       .emotion-0:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-0[aria-invalid="true"]:focus + div {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px red,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(255,0,0),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1 {
-        background-color: white;
-        border-color: black;
+        background-color: rgb(255,255,255);
+        border-color: rgb(0,0,0);
         border-style: solid;
         border-width: 1px;
         border-radius: 10px;
@@ -475,7 +475,7 @@ describe('FileInput', () => {
       }
 
       .emotion-1[data-draggedover="true"] {
-        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px blue,inset 0 0 200px rgba(68,68,68,0.1);
+        box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
       .emotion-1:not([data-readonly="true"]) {

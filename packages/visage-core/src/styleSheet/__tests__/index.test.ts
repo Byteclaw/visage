@@ -108,19 +108,19 @@ describe('StyleSheet', () => {
             '  ',
           ),
         ).toMatchInlineSnapshot(`
-"{
-  \\"preFinal\\": 1,
-  \\"fontSize\\": 1,
-  \\"&:hover\\": {
-    \\"preFinal\\": 1,
-    \\"fontSize\\": 2,
-    \\"&:abwab\\": {
-      \\"preFinal\\": 1,
-      \\"fontSize\\": 3
-    }
-  }
-}"
-`);
+          "{
+            \\"preFinal\\": 1,
+            \\"fontSize\\": 1,
+            \\"&:hover\\": {
+              \\"preFinal\\": 1,
+              \\"fontSize\\": 2,
+              \\"&:abwab\\": {
+                \\"preFinal\\": 1,
+                \\"fontSize\\": 3
+              }
+            }
+          }"
+        `);
       });
     });
 
@@ -141,13 +141,13 @@ describe('StyleSheet', () => {
             '  ',
           ),
         ).toMatchInlineSnapshot(`
-"{
-  \\"preFinal\\": 1,
-  \\"backgroundColor\\": \\"black\\",
-  \\"color\\": \\"red\\",
-  \\"fontSize\\": 4
-}"
-`);
+          "{
+            \\"preFinal\\": 1,
+            \\"backgroundColor\\": \\"rgb(0, 0, 0)\\",
+            \\"color\\": \\"rgb(255, 0, 0)\\",
+            \\"fontSize\\": 4
+          }"
+        `);
       });
 
       it('works correctly for nested style sheets', () => {
@@ -179,27 +179,27 @@ describe('StyleSheet', () => {
             '  ',
           ),
         ).toMatchInlineSnapshot(`
-"{
-  \\"preFinal\\": 1,
-  \\"backgroundColor\\": \\"black\\",
-  \\"color\\": \\"red\\",
-  \\"fontSize\\": 4,
-  \\"marginLeft\\": 10,
-  \\"marginRight\\": 10,
-  \\"&:hover\\": {
-    \\"preFinal\\": 1,
-    \\"backgroundColor\\": \\"black\\",
-    \\"color\\": \\"red\\",
-    \\"fontSize\\": 4,
-    \\"&:abwab\\": {
-      \\"preFinal\\": 1,
-      \\"backgroundColor\\": \\"black\\",
-      \\"color\\": \\"red\\",
-      \\"fontSize\\": 4
-    }
-  }
-}"
-`);
+          "{
+            \\"preFinal\\": 1,
+            \\"backgroundColor\\": \\"rgb(0, 0, 0)\\",
+            \\"color\\": \\"rgb(255, 0, 0)\\",
+            \\"fontSize\\": 4,
+            \\"marginLeft\\": 10,
+            \\"marginRight\\": 10,
+            \\"&:hover\\": {
+              \\"preFinal\\": 1,
+              \\"backgroundColor\\": \\"rgb(0, 0, 0)\\",
+              \\"color\\": \\"rgb(255, 0, 0)\\",
+              \\"fontSize\\": 4,
+              \\"&:abwab\\": {
+                \\"preFinal\\": 1,
+                \\"backgroundColor\\": \\"rgb(0, 0, 0)\\",
+                \\"color\\": \\"rgb(255, 0, 0)\\",
+                \\"fontSize\\": 4
+              }
+            }
+          }"
+        `);
       });
     });
 
@@ -236,32 +236,32 @@ describe('StyleSheet', () => {
           ctx,
         ),
       ).toMatchInlineSnapshot(`
-Object {
-  "*": Object {
-    "MozOsxFontSmoothing": "grayscale",
-    "WebkitFontSmoothing": "antialiased",
-    "textRendering": "optimizeLegibility",
-  },
-  "*, *::before, *::after": Object {
-    "boxSizing": "inherit",
-    "lineHeight": 0,
-  },
-  "body": Object {
-    "margin": 0,
-    "maxWidth": "none",
-    "width": "100%",
-  },
-  "html": Object {
-    "boxSizing": "border-box",
-    "margin": 0,
-    "maxWidth": "none",
-    "msTextSizeAdjust": "100%",
-    "textSizeAdjust": "100%",
-    "webkitTextSizeAdjust": "100%",
-    "width": "100%",
-  },
-}
-`);
+        Object {
+          "*": Object {
+            "MozOsxFontSmoothing": "grayscale",
+            "WebkitFontSmoothing": "antialiased",
+            "textRendering": "optimizeLegibility",
+          },
+          "*, *::before, *::after": Object {
+            "boxSizing": "inherit",
+            "lineHeight": 0,
+          },
+          "body": Object {
+            "margin": 0,
+            "maxWidth": "none",
+            "width": "100%",
+          },
+          "html": Object {
+            "boxSizing": "border-box",
+            "margin": 0,
+            "maxWidth": "none",
+            "msTextSizeAdjust": "100%",
+            "textSizeAdjust": "100%",
+            "webkitTextSizeAdjust": "100%",
+            "width": "100%",
+          },
+        }
+      `);
     });
   });
 });

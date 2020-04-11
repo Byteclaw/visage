@@ -34,7 +34,7 @@ describe('CloseButton', () => {
         border-style: none;
         border-width: 0;
         border-radius: 4px;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         color: currentColor;
         cursor: pointer;
         font-size: 16px;
@@ -45,18 +45,18 @@ describe('CloseButton', () => {
       }
 
       .emotion-1:focus {
-        background-color: blue;
-        color: white;
+        background-color: rgb(0,0,255);
+        color: rgb(255,255,255);
       }
 
       .emotion-1:hover {
-        background-color: blue;
-        color: white;
+        background-color: rgb(0,0,255);
+        color: rgb(255,255,255);
       }
 
       .emotion-1:active {
-        background-color: blue;
-        color: white;
+        background-color: rgb(0,0,255);
+        color: rgb(255,255,255);
       }
 
       .emotion-0 {
@@ -172,7 +172,7 @@ describe('CloseButton', () => {
         border-style: none;
         border-width: 0;
         border-radius: 4px;
-        background-color: transparent;
+        background-color: rgba(0,0,0,0);
         color: currentColor;
         cursor: pointer;
         font-size: 16px;
@@ -185,18 +185,18 @@ describe('CloseButton', () => {
       }
 
       .emotion-1:focus {
-        background-color: blue;
-        color: white;
+        background-color: rgb(0,0,255);
+        color: rgb(255,255,255);
       }
 
       .emotion-1:hover {
-        background-color: blue;
-        color: white;
+        background-color: rgb(0,0,255);
+        color: rgb(255,255,255);
       }
 
       .emotion-1:active {
-        background-color: blue;
-        color: white;
+        background-color: rgb(0,0,255);
+        color: rgb(255,255,255);
       }
 
       <button
