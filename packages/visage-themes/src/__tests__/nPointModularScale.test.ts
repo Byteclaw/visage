@@ -1,3 +1,4 @@
+import { LRUCache } from '@byteclaw/visage-utils';
 import { createNPointModularScaleTheme, modularScaleFontRatios } from '..';
 
 describe('NPoint modular scale theme', () => {
@@ -48,6 +49,7 @@ describe('NPoint modular scale theme', () => {
   });
   const ctx = {
     breakpoint: 0,
+    stylerCache: new LRUCache(100),
     ...theme,
   };
 

@@ -1,4 +1,4 @@
-import { ScaleValue } from '@byteclaw/visage-utils';
+import { LRUCache, ScaleValue } from '@byteclaw/visage-utils';
 
 export type StyleSheetScalarValue = string | number | null | undefined;
 
@@ -149,6 +149,8 @@ export interface StylerSheetResolveContext<
     themeKey: StyleValueResolver;
     [name: string]: StyleValueResolver;
   };
+  /** Styler resolution cache  */
+  stylerCache: LRUCache<string, StylerResult>;
   /** All stylers defined in the system */
   stylers: {
     catchAll: StylerFunction;

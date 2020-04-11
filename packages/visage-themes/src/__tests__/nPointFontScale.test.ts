@@ -1,3 +1,4 @@
+import { LRUCache } from '@byteclaw/visage-utils';
 import { createNPointFontScaleTheme } from '..';
 
 describe('NPoint font scale theme', () => {
@@ -36,6 +37,7 @@ describe('NPoint font scale theme', () => {
 
   const ctx = {
     breakpoint: 0,
+    stylerCache: new LRUCache(100),
     ...theme,
   };
 
