@@ -18,10 +18,6 @@ export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
     darkShadesText: palette.shadesText,
     shades: palette.darkShades,
     shadesText: palette.darkShadesText,
-    darkShadesOverlay: palette.shadesOverlay,
-    darkShadesOverlayText: palette.shadesOverlayText,
-    shadesOverlay: palette.darkShadesOverlay,
-    shadesOverlayText: palette.darkShadesOverlayText,
     // if default colors are same, calculate these
     textInput: color(palette.darkShades)
       .lighten(0.3)

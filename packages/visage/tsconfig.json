@@ -7,6 +7,6 @@
     "rootDir": "./src"
   },
   "include": ["src"],
-  "exclude": ["**/__tests__/**", "**/__benchmarks__/**"],
+  "exclude": ["**/__tests__/**", "**/__benchmarks__/**", "**/__snapshots__/**"],
   "references": [{ "path": "../visage-core" }, { "path": "../visage-utils" }]
 }

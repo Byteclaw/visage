@@ -1,0 +1,568 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider is extendable by Divider face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom-width: 1px;
+  min-height: 1px;
+  width: 100%;
+}
+
+.emotion-1 {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  color: rgb(0,0,0);
+}
+
+<div
+    aria-label="OR"
+    class="emotion-3"
+    data-vertical="false"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+    <span
+      class="emotion-1"
+      data-vertical="false"
+      role="presentation"
+    >
+      OR
+    </span>
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Divider is extendable by DividerLabel face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom-width: 1px;
+  min-height: 1px;
+  width: 100%;
+}
+
+.emotion-1 {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: rgb(0,0,0);
+}
+
+<div
+    aria-label="OR"
+    class="emotion-3"
+    data-vertical="false"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+    <span
+      class="emotion-1"
+      data-vertical="false"
+      role="presentation"
+    >
+      OR
+    </span>
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Divider is extendable by DividerLine face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.emotion-1 {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom-width: 1px;
+  min-height: 1px;
+  width: 100%;
+  color: rgb(0,0,0);
+}
+
+<div
+    aria-label="OR"
+    class="emotion-3"
+    data-vertical="false"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+    <span
+      class="emotion-1"
+      data-vertical="false"
+      role="presentation"
+    >
+      OR
+    </span>
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Divider renders correctly (horizontal - default) 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom-width: 1px;
+  min-height: 1px;
+  width: 100%;
+}
+
+<div
+    class="emotion-1"
+    data-vertical="false"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Divider renders correctly as vertical 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  max-width: 100%;
+}
+
+.emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-left-width: 1px;
+  height: 100%;
+  min-width: 1px;
+}
+
+<div
+    class="emotion-1"
+    data-vertical="true"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="true"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Divider renders correctly as vertical with a label 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  max-width: 100%;
+}
+
+.emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-left-width: 1px;
+  height: 100%;
+  min-width: 1px;
+}
+
+.emotion-1 {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+<div
+    aria-label="OR"
+    class="emotion-3"
+    data-vertical="true"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="true"
+    />
+    <span
+      class="emotion-1"
+      data-vertical="true"
+      role="presentation"
+    >
+      OR
+    </span>
+    <div
+      class="emotion-0"
+      data-vertical="true"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Divider renders correctly with a label 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.emotion-0 {
+  border-width: 0;
+  display: block;
+  border-color: rgb(184,184,184);
+  border-style: solid;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-bottom-width: 1px;
+  min-height: 1px;
+  width: 100%;
+}
+
+.emotion-1 {
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  padding: 0px;
+  margin: 0px;
+  margin-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+<div
+    aria-label="OR"
+    class="emotion-3"
+    data-vertical="false"
+    role="separator"
+  >
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+    <span
+      class="emotion-1"
+      data-vertical="false"
+      role="presentation"
+    >
+      OR
+    </span>
+    <div
+      class="emotion-0"
+      data-vertical="false"
+    />
+  </div>
+</DocumentFragment>
+`;

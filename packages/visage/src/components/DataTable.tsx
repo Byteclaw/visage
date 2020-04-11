@@ -17,15 +17,17 @@ export const DataTableHeader = createComponent('thead', {
   styles: {
     '& th': {
       borderBottomStyle: 'solid',
-      borderBottomColor: 'shadesOverlay',
+      borderBottomColor:
+        'color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
       borderBottomWidth: '1px',
     },
   },
 });
 
 const totalStyles: VisageStyleSheet = {
-  backgroundColor: 'shadesOverlay',
-  color: 'shadesOverlayText',
+  backgroundColor:
+    'color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
+  color: 'shadesText',
   fontWeight: 600,
 };
 
@@ -61,8 +63,9 @@ export const DataTableRow = createComponent('tr', {
   displayName: 'DataTableRow',
   styles: {
     '&:hover td': {
-      color: 'shadesOverlayText',
-      backgroundColor: 'shadesOverlay',
+      color: 'shadesText',
+      backgroundColor:
+        'color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
     },
   },
 });
