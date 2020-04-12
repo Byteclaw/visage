@@ -38,7 +38,7 @@ export interface VisageComponent<TComponentProps extends {}> {
 
   // as component
   <P>(
-    props: { as: React.ComponentType<P> } & P &
+    props: { as: React.ComponentType<P> } & Omit<P, keyof TComponentProps> &
       TComponentProps &
       StyleProps &
       React.RefAttributes<any>,
@@ -400,7 +400,7 @@ export interface StyleFunction<TProps extends {}> {
   (props: TProps): StyleSheet;
 }
 
-export type UnionToIntersection<U> = (U extends any
+export type UnionToIntersection<U> = (U extends unknown
 ? (k: U) => void
 : never) extends (k: infer I) => void
   ? I

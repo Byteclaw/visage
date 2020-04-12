@@ -12,17 +12,27 @@ import {
 import { StyleSheet } from './styleSheet';
 import { useVisage, UseVisageHookOptions } from './useVisage';
 
-const DEFAULT_PROPS = {};
 const DEFAULT_STYLE_SHEET = {};
 
 export function createComponent<
   TDefaultComponent extends ComponentConstraint,
-  TVariants extends {}[] = {}[]
+  TVariants extends {}[] = {}[],
+  TVariantIntersection = UnionToIntersection<TVariants[number]>,
+  TProps extends Omit<
+    ExtractVisageComponentProps<TDefaultComponent>,
+    keyof TVariantIntersection
+  > &
+    TVariantIntersection = Omit<
+    ExtractVisageComponentProps<TDefaultComponent>,
+    keyof TVariantIntersection
+  > &
+    TVariantIntersection,
+  TDefaultProps extends Partial<TProps> = {}
 >(
   defaultAs: TDefaultComponent,
   {
     asMemo = true,
-    defaultProps = DEFAULT_PROPS,
+    defaultProps,
     defaultStyles,
     styles,
     displayName: name,
@@ -36,19 +46,11 @@ export function createComponent<
     asMemo?: boolean;
     /** Component's display name, if none is provided component name is inferred */
     displayName?: string;
-    defaultProps?: Partial<
-      ExtractVisageComponentProps<TDefaultComponent> &
-        UnionToIntersection<TVariants[number]>
-    >;
+    defaultProps?: TDefaultProps;
     /**
      * This is alias for styles in options, if you specify both, only styles option is accepted
      */
-    defaultStyles?:
-      | StyleSheet
-      | StyleFunction<
-          ExtractVisageComponentProps<TDefaultComponent> &
-            UnionToIntersection<TVariants[number]>
-        >;
+    defaultStyles?: StyleSheet | StyleFunction<TProps>;
     /**
      * Component's styles
      *
@@ -57,12 +59,7 @@ export function createComponent<
      * If you don't rely on props, please don't use a function to prevent unnecessary
      * styles invalidation
      */
-    styles?:
-      | StyleSheet
-      | StyleFunction<
-          ExtractVisageComponentProps<TDefaultComponent> &
-            UnionToIntersection<TVariants[number]>
-        >;
+    styles?: StyleSheet | StyleFunction<TProps>;
     /**
      * Component variant prop processors, these are used to tell the component
      * which variant props should be stripped and work as a syntactic sugar to get types
@@ -70,10 +67,7 @@ export function createComponent<
      */
     variants?: TVariants;
   } = {},
-): VisageComponent<
-  ExtractVisageComponentProps<TDefaultComponent> &
-    UnionToIntersection<TVariants[number]>
-> {
+): VisageComponent<TProps> {
   const componentName = displayName(name || defaultAs);
   const faceStyleSheet = { face: componentName };
   const componentOptions: UseVisageHookOptions = {
@@ -82,6 +76,7 @@ export function createComponent<
     faceStyleSheet,
     variants: (variants as undefined | OmitPropsSetting[]) || [],
   };
+  const defProps = defaultProps || {};
   const RawComponent = (
     {
       as = defaultAs,
@@ -92,9 +87,9 @@ export function createComponent<
     const props = useVisage(
       as,
       {
-        ...defaultProps,
+        ...defProps,
         ...restProps,
-        children: restProps.children || (defaultProps as any).children,
+        children: restProps.children || (defProps as any).children,
       },
       componentOptions,
     );
