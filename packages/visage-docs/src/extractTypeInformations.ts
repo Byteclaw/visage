@@ -66,16 +66,36 @@ function isGenericObjectType(type: ts.ObjectType): type is ts.TypeReference {
   return type.objectFlags === ts.ObjectFlags.Reference;
 }
 
+function getPropertyName(property: ts.Symbol): string | undefined {
+  const declarations = property.getDeclarations();
+
+  if (!declarations || declarations.length === 0) {
+    return undefined;
+  }
+
+  const { parent } = declarations[0];
+
+  if (parent.kind === ts.SyntaxKind.InterfaceDeclaration) {
+    return (parent as ts.InterfaceDeclaration).name.getText();
+  }
+
+  return undefined;
+}
+
 function visitObjectType(
   type: ts.Type,
   checker: ts.TypeChecker,
   ctx: ObjectTypeVisitorContext,
+  valueDeclaration: ts.Node,
 ) {
-  type.getProperties().forEach(property => {
-    const { parent } = (property as any) as ts.Symbol & { parent?: ts.Symbol };
+  checker.getPropertiesOfType(type).forEach(property => {
+    const declarations = property.getDeclarations() || [
+      property.valueDeclaration || valueDeclaration,
+    ];
+    const parentName = getPropertyName(property);
 
     ctx.properties.push({
-      parent: parent ? (parent as ts.Symbol).getName() : undefined,
+      parent: parentName,
       name: property.getName(),
       // eslint-disable-next-line no-bitwise
       isOptional: (property.flags & ts.SymbolFlags.Optional) !== 0,
@@ -83,20 +103,23 @@ function visitObjectType(
         property.getDocumentationComment(checker),
       ),
       type: checker.typeToString(
-        checker.getTypeOfSymbolAtLocation(property, property.valueDeclaration),
+        checker.getTypeOfSymbolAtLocation(property, declarations[0]),
       ),
     });
   });
 }
 
-function visitGenericObjectTypeArguments(
+function visitTypeReference(
   type: ts.TypeReference,
   checker: ts.TypeChecker,
   ctx: ObjectTypeVisitorContext,
+  valueDeclaration: ts.Node,
 ) {
   const args = checker.getTypeArguments(type);
 
-  args.forEach(arg => visitObjectType(arg, checker, ctx));
+  args.forEach(arg => {
+    visitObjectType(arg, checker, ctx, valueDeclaration);
+  });
 }
 
 function visitFunctionParameters(
@@ -115,7 +138,7 @@ function visitFunctionParameters(
       return;
     }
 
-    visitObjectType(type, checker, ctx);
+    visitObjectType(type, checker, ctx, parameter);
   });
 }
 
@@ -146,7 +169,7 @@ function visit(node: ts.Node, checker: ts.TypeChecker, ctx: VisitorContext) {
         properties: [],
       };
 
-      visitGenericObjectTypeArguments(type, checker, ctx[variableName]);
+      visitTypeReference(type, checker, ctx[variableName], node);
     }
   } else if (ts.isFunctionDeclaration(node)) {
     // ignore anonymous functions

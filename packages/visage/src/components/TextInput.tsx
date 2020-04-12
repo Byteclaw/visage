@@ -112,6 +112,8 @@ const InputBase = createComponent('div', {
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 
+type InputProps = Omit<JSX.IntrinsicElements['input'], 'prefix'>;
+
 interface TextInputProps {
   baseProps?: ExtractVisageComponentProps<typeof InputBase>;
   invalid?: boolean;
@@ -126,7 +128,7 @@ interface TextInputProps {
 }
 
 export const TextInput: VisageComponent<TextInputProps &
-  JSX.IntrinsicElements['input']> = forwardRef(
+  InputProps> = forwardRef(
   (
     {
       baseProps,
@@ -141,7 +143,7 @@ export const TextInput: VisageComponent<TextInputProps &
       suffixExtra,
       suffixProps,
       ...restProps
-    }: TextInputProps & JSX.IntrinsicElements['input'],
+    }: TextInputProps & InputProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     const [focused, setFocused] = useState(false);

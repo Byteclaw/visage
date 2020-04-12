@@ -145,7 +145,7 @@ interface CheckboxProps
    *  - it applies backgroundColor to a div
    *  - it applies to svg element which is a direct ancestor of div a visiblity hidden
    */
-  toggler?: React.ComponentType<{}>;
+  toggler?: React.ComponentType<any>;
 }
 
 export const Checkbox: VisageComponent<CheckboxProps> = forwardRef(
