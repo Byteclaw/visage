@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import {
   ExtractVisageComponentProps,
-  OmittableProps,
   markAsVisageComponent,
+  StyleProps,
 } from '@byteclaw/visage-core';
 import React, {
   useRef,
@@ -11,6 +11,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   Dispatch,
+  RefObject,
+  MouseEvent,
 } from 'react';
 import {
   SelectorOptions,
@@ -20,6 +22,7 @@ import {
   SelectorReducerEnhancer,
 } from './hooks/useSelector';
 import { UnfoldLessIcon, UnfoldMoreIcon } from '../assets';
+import { createComponent } from '../core';
 import { scrollAriaSelectedElementToView } from './effects';
 import {
   useDebouncedCallback,
@@ -36,35 +39,151 @@ const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
 };
 
+interface SelectMenuProps extends StyleProps {
+  focusedIndex: number;
+  id: string;
+  /**
+   * A ref to TextInput wrapper, can be used as an anchor for Menu
+   */
+  inputContainerRef: RefObject<HTMLDivElement>;
+  listboxId: string;
+  onSelect: (optionIndex: number) => void;
+  open: boolean;
+  options: any[];
+  optionToString: (option: any) => string;
+}
+
+const SelectMenu = createComponent(
+  markAsVisageComponent(
+    ({
+      focusedIndex,
+      id,
+      inputContainerRef,
+      listboxId,
+      open,
+      options,
+      optionToString,
+      onSelect,
+    }: SelectMenuProps) => {
+      const menuBaseRef = useRef(null);
+      const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
+        onSelect(Number(e.currentTarget.dataset.optionIndex));
+      });
+      const onOptionMouseDown = useHandlerRef(
+        (e: MouseEvent<HTMLLIElement>) => {
+          // prevent changing body activeElement and blur on input
+          e.preventDefault();
+        },
+      );
+
+      // scroll focused item into view
+      useStaticEffect(
+        scrollAriaSelectedElementToView,
+        menuBaseRef,
+        focusedIndex,
+      );
+
+      return (
+        <Menu
+          anchor={inputContainerRef}
+          baseRef={menuBaseRef}
+          disableEvents
+          keepAnchorWidth
+          id={listboxId}
+          open={open}
+          role="listbox"
+          tabIndex={-1}
+        >
+          {open
+            ? options.map((option, index) => (
+                <MenuItem
+                  aria-selected={focusedIndex === index}
+                  data-option-index={index}
+                  id={optionId(id, index)}
+                  key={optionId(id, index)}
+                  role="option"
+                  onClick={onOptionClick}
+                  onMouseDown={onOptionMouseDown}
+                >
+                  {optionToString(option)}
+                </MenuItem>
+              ))
+            : null}
+        </Menu>
+      );
+    },
+  ),
+  {
+    displayName: 'SelectMenu',
+  },
+);
+
+interface SelectTogglerProps {
+  // class name is provided by visage
+  className?: string;
+  onClick: () => void;
+  open: boolean;
+}
+
+const SelectToggler = createComponent(
+  ({ className, onClick, open }: SelectTogglerProps) => {
+    return (
+      <SvgIcon
+        className={className}
+        icon={open ? UnfoldLessIcon : UnfoldMoreIcon}
+        onClick={onClick}
+        role="button"
+        tabIndex={-1}
+      />
+    );
+  },
+  {
+    displayName: 'SelectToggler',
+  },
+);
+
 type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
 
 interface TextInputProps
   extends Omit<RawTextInputProps, 'defaultValue' | 'onChange' | 'value'> {}
 
 interface SelectProps<TValue extends any = string>
-  extends SelectorOptions<TValue> {
+  extends SelectorOptions<TValue>,
+    StyleProps {
   debounceDelay?: number;
   id?: string;
-  menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
   options?: TValue[] | ((inputValue: string) => Promise<TValue[]>);
+  /**
+   * Select menu component
+   */
+  menu?: React.ComponentType<SelectMenuProps>;
   searchable?: boolean;
+  /**
+   * Toggler component
+   */
+  toggler?: React.ComponentType<SelectTogglerProps>;
 }
 
 export function Select<TValue extends any = string>({
+  $$variants,
   debounceDelay = 500,
   defaultValue,
+  disabled,
   children,
   id: outerId,
   enhanceReducer,
+  menu: DropdownMenu = SelectMenu,
   onChange,
   onInputValueChange,
   onSelect,
   onStateChange,
   optionToString,
   options,
-  menuProps,
+  parentStyles,
   readOnly,
   searchable,
+  styles,
+  toggler: Toggler = SelectToggler,
   value,
   valueToString,
   ...restProps
@@ -74,7 +193,7 @@ export function Select<TValue extends any = string>({
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
   const lastArrowPressed = useRef<string | null>(null);
-  const menuBaseRef = useRef<HTMLDivElement>(null);
+  // const menuBaseRef = useRef<HTMLDivElement>(null);
   const loadOptions = useHandlerRef(
     (inputValue: string, dispatch: Dispatch<SelectorAction<TValue>>) => {
       if (!options) {
@@ -186,7 +305,7 @@ export function Select<TValue extends any = string>({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const inputContainerRef = useRef<HTMLInputElement | null>(null);
   const onToggleClick = useHandlerRef(() => {
-    if (!readOnly) {
+    if (!readOnly || disabled) {
       dispatch({ type: 'MenuToggle' });
 
       if (inputRef.current) {
@@ -274,25 +393,10 @@ export function Select<TValue extends any = string>({
       }
     },
   );
-  const onOptionClick: MouseEventHandler<HTMLElement> = useHandlerRef(e => {
-    e.preventDefault();
-
-    dispatch({
-      type: 'SetValueByIndex',
-      index: Number(e.currentTarget.dataset.optionIndex),
-    });
+  const onOptionSelect = useHandlerRef((optionIndex: number) => {
+    dispatch({ type: 'SetValueByIndex', index: optionIndex });
     dispatch({ type: 'MenuClose' });
   });
-  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useHandlerRef(e => {
-    // prevent changing body activeElement and blur on input
-    e.preventDefault();
-  });
-  // scroll focused item into view
-  useStaticEffect(
-    scrollAriaSelectedElementToView,
-    menuBaseRef,
-    state.focusedIndex,
-  );
 
   return (
     <React.Fragment>
@@ -312,6 +416,7 @@ export function Select<TValue extends any = string>({
           ref: inputContainerRef,
           role: 'combobox',
         }}
+        disabled={disabled}
         id={id}
         readOnly={readOnly || !searchable}
         ref={inputRef}
@@ -319,52 +424,22 @@ export function Select<TValue extends any = string>({
         onChange={onInputChange}
         onClick={onInputClick}
         onKeyDown={onInputKeyDown}
-        suffix={
-          state.isOpen ? (
-            <SvgIcon
-              aria-hidden
-              icon={UnfoldLessIcon}
-              onClick={readOnly ? onToggleClick : undefined}
-              tabIndex={-1}
-            />
-          ) : (
-            <SvgIcon
-              aria-hidden
-              icon={UnfoldMoreIcon}
-              onClick={!readOnly ? onToggleClick : undefined}
-              tabIndex={-1}
-            />
-          )
-        }
+        parentStyles={parentStyles}
+        styles={styles}
+        suffix={<Toggler open={state.isOpen} onClick={onToggleClick} />}
+        $$variants={$$variants}
         value={state.inputValue}
       />
-      <Menu
-        anchor={inputContainerRef}
-        baseRef={menuBaseRef}
-        disableEvents
-        keepAnchorWidth
-        id={listboxId}
+      <DropdownMenu
+        focusedIndex={state.focusedIndex}
+        inputContainerRef={inputContainerRef}
+        id={id}
+        listboxId={listboxId}
+        onSelect={onOptionSelect}
         open={state.isOpen}
-        role="listbox"
-        tabIndex={-1}
-        {...menuProps}
-      >
-        {state.isOpen
-          ? state.options.map((option, index) => (
-              <MenuItem
-                aria-selected={state.focusedIndex === index}
-                data-option-index={index}
-                id={optionId(id, index)}
-                key={optionId(id, index)}
-                role="option"
-                onClick={onOptionClick}
-                onMouseDown={onOptionMouseDown}
-              >
-                {state.optionToString(option)}
-              </MenuItem>
-            ))
-          : null}
-      </Menu>
+        options={state.options}
+        optionToString={state.optionToString}
+      />
     </React.Fragment>
   );
 }

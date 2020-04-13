@@ -407,4 +407,80 @@ describe('Select', () => {
       expect(onChange).toHaveBeenCalledTimes(1);
     });
   });
+
+  it('supports custom toggler', async () => {
+    const toggler = jest.fn(() => <div data-testid="toggler" />);
+
+    const { getByTestId, findByTestId } = render(
+      <Select
+        data-testid="select"
+        id="root"
+        options={['a', 'b', 'c', 'd']}
+        toggler={toggler}
+        value="b"
+      />,
+    );
+
+    await expect(findByTestId('toggler')).resolves.toBeInstanceOf(HTMLElement);
+
+    expect(toggler).toHaveBeenCalledTimes(1);
+    expect(toggler).toHaveBeenCalledWith(
+      expect.objectContaining({
+        onClick: expect.any(Function),
+        open: false,
+      }),
+      expect.anything(),
+    );
+
+    // now open the menu
+    fireEvent.click(getByTestId('select'));
+
+    // resolve loading
+    await act(() => Promise.resolve());
+
+    expect(toggler).toHaveBeenCalledWith(
+      expect.objectContaining({
+        onClick: expect.any(Function),
+        open: true,
+      }),
+      expect.anything(),
+    );
+  });
+
+  it('supports custom menu', async () => {
+    const menu = jest.fn(() => <div data-testid="menu" />);
+
+    const { getByTestId, findByTestId } = render(
+      <Select
+        data-testid="select"
+        id="root"
+        menu={menu}
+        options={['a', 'b', 'c', 'd']}
+        value="b"
+      />,
+    );
+
+    await expect(findByTestId('menu')).resolves.toBeInstanceOf(HTMLElement);
+
+    expect(menu).toHaveBeenCalledTimes(1);
+    expect(menu).toHaveBeenCalledWith(
+      expect.objectContaining({
+        open: false,
+      }),
+      expect.anything(),
+    );
+
+    // now open the menu
+    fireEvent.click(getByTestId('select'));
+
+    // resolve loading
+    await act(() => Promise.resolve());
+
+    expect(menu).toHaveBeenCalledWith(
+      expect.objectContaining({
+        open: true,
+      }),
+      expect.anything(),
+    );
+  });
 });
