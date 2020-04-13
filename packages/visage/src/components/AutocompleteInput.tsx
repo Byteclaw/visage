@@ -1,8 +1,9 @@
 /* eslint-disable react/no-array-index-key */
 import {
   ExtractVisageComponentProps,
-  OmittableProps,
   markAsVisageComponent,
+  createComponent,
+  StyleProps,
 } from '@byteclaw/visage-core';
 import React, {
   ChangeEventHandler,
@@ -12,6 +13,8 @@ import React, {
   MouseEventHandler,
   KeyboardEventHandler,
   Dispatch,
+  RefObject,
+  MouseEvent,
 } from 'react';
 import {
   SelectorOptions,
@@ -29,7 +32,6 @@ import {
 import { scrollAriaSelectedElementToView } from './effects';
 import { Menu, MenuItem } from './Menu';
 import { TextInput } from './TextInput';
-
 import { normalizeKeyboardEventKey } from './shared';
 
 type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
@@ -41,18 +43,99 @@ const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
 };
 
+interface AutocompleteInputMenuProps extends StyleProps {
+  focusedIndex: number;
+  id: string;
+  /**
+   * A ref to TextInput wrapper, can be used as an anchor for Menu
+   */
+  inputContainerRef: RefObject<HTMLDivElement>;
+  listboxId: string;
+  onSelect: (optionIndex: number) => void;
+  open: boolean;
+  options: any[];
+  optionToString: (option: any) => string;
+}
+
+const AutocompleteInputMenu = createComponent(
+  markAsVisageComponent(
+    ({
+      focusedIndex,
+      id,
+      inputContainerRef,
+      listboxId,
+      open,
+      options,
+      optionToString,
+      onSelect,
+    }: AutocompleteInputMenuProps) => {
+      const menuBaseRef = useRef(null);
+      const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
+        onSelect(Number(e.currentTarget.dataset.optionIndex));
+      });
+      const onOptionMouseDown = useHandlerRef(
+        (e: MouseEvent<HTMLLIElement>) => {
+          // prevent changing body activeElement and blur on input
+          e.preventDefault();
+        },
+      );
+
+      // scroll focused item into view
+      useStaticEffect(
+        scrollAriaSelectedElementToView,
+        menuBaseRef,
+        focusedIndex,
+      );
+
+      return (
+        <Menu
+          anchor={inputContainerRef}
+          baseRef={menuBaseRef}
+          disableEvents
+          keepAnchorWidth
+          id={listboxId}
+          open={open}
+          role="listbox"
+          tabIndex={-1}
+        >
+          {open
+            ? options.map((option, index) => (
+                <MenuItem
+                  aria-selected={focusedIndex === index}
+                  data-option-index={index}
+                  id={optionId(id, index)}
+                  key={optionId(id, index)}
+                  role="option"
+                  onClick={onOptionClick}
+                  onMouseDown={onOptionMouseDown}
+                >
+                  {optionToString(option)}
+                </MenuItem>
+              ))
+            : null}
+        </Menu>
+      );
+    },
+  ),
+  {
+    displayName: 'AutocompleteInputMenu',
+  },
+);
+
 interface AutocompleteInputProps<TValue extends any>
-  extends SelectorOptions<TValue> {
+  extends SelectorOptions<TValue>,
+    StyleProps {
   debounceDelay?: number;
   expandOnClick?: boolean;
   id?: string;
-  menuProps?: OmittableProps<ExtractVisageComponentProps<typeof Menu>>;
+  menu?: React.ComponentType<AutocompleteInputMenuProps>;
   options?: TValue[] | ((inputValue: string) => Promise<TValue[]>);
   /** Set focused option as value on blur */
   selectOnBlur?: boolean;
 }
 
 export function AutocompleteInput<TValue extends any = string>({
+  $$variants,
   debounceDelay = 500,
   defaultValue,
   enhanceReducer,
@@ -63,9 +146,11 @@ export function AutocompleteInput<TValue extends any = string>({
   onStateChange,
   options,
   optionToString,
-  menuProps,
+  menu: DropdownMenu = AutocompleteInputMenu,
   readOnly,
+  parentStyles,
   selectOnBlur,
+  styles,
   value,
   valueToString,
   ...restProps
@@ -76,7 +161,6 @@ export function AutocompleteInput<TValue extends any = string>({
   // last arrow pressed is used to automatically focus an option if automatic mode is turn on
   // and is reset to null when options are loaded
   const lastArrowPressed = useRef<string | null>(null);
-  const menuBaseRef = useRef<HTMLDivElement>(null);
   const loadOptions = useCallback(
     (inputValue: string, dispatch: Dispatch<SelectorAction<TValue>>) => {
       if (!options) {
@@ -259,24 +343,9 @@ export function AutocompleteInput<TValue extends any = string>({
       }
     },
   );
-  const onOptionClick: MouseEventHandler<HTMLElement> = useHandlerRef(e => {
-    e.preventDefault();
-
-    dispatch({
-      type: 'SetValueByIndex',
-      index: Number(e.currentTarget.dataset.optionIndex),
-    });
+  const onOptionSelect = useHandlerRef((optionIndex: number) => {
+    dispatch({ type: 'SetValueByIndex', index: optionIndex });
   });
-  const onOptionMouseDown: MouseEventHandler<HTMLElement> = useHandlerRef(e => {
-    // prevent changing body activeElement and blur on input
-    e.preventDefault();
-  });
-  // scroll focused item into view
-  useStaticEffect(
-    scrollAriaSelectedElementToView,
-    menuBaseRef,
-    state.focusedIndex,
-  );
 
   return (
     <React.Fragment>
@@ -302,35 +371,21 @@ export function AutocompleteInput<TValue extends any = string>({
         onClick={onInputClick}
         onKeyDown={onInputKeyDown}
         readOnly={readOnly}
+        parentStyles={parentStyles}
+        styles={styles}
         value={state.inputValue}
+        $$variants={$$variants}
       />
-      <Menu
-        anchor={inputContainerRef}
-        baseRef={menuBaseRef}
-        disableEvents
-        id={listboxId}
-        keepAnchorWidth
+      <DropdownMenu
+        focusedIndex={state.focusedIndex}
+        inputContainerRef={inputContainerRef}
+        id={id}
+        listboxId={listboxId}
+        onSelect={onOptionSelect}
         open={state.isOpen}
-        role="listbox"
-        tabIndex={-1}
-        {...menuProps}
-      >
-        {state.isOpen
-          ? state.options.map((option, index) => (
-              <MenuItem
-                aria-selected={index === state.focusedIndex}
-                data-option-index={index}
-                key={optionId(id, index)}
-                id={optionId(id, index)}
-                role="option"
-                onClick={onOptionClick}
-                onMouseDown={onOptionMouseDown}
-              >
-                {state.optionToString(option)}
-              </MenuItem>
-            ))
-          : null}
-      </Menu>
+        options={state.options}
+        optionToString={state.optionToString}
+      />
     </React.Fragment>
   );
 }
