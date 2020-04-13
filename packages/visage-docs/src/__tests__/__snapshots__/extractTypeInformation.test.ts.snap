@@ -62026,7 +62026,7 @@ Object {
       "isOptional": true,
       "name": "anchor",
       "parent": "MenuProps",
-      "type": "HTMLElement | RefObject<HTMLElement> | null | undefined",
+      "type": "RefObject<HTMLElement> | null | undefined",
     },
     Object {
       "documentation": "",
@@ -65873,6 +65873,15 @@ Default is dialog (you don't need users immediate action)",
       "name": "focusElementRef",
       "parent": "ModalProps",
       "type": "MutableRefObject<HTMLElement | null> | undefined",
+    },
+    Object {
+      "documentation": "Extra elements that should not propagate onClose when click away is enabled
+
+This prop is immutable so make sure you don't use a new array because only first one is being used",
+      "isOptional": true,
+      "name": "preventCloseRefs",
+      "parent": "ModalProps",
+      "type": "MutableRefObject<HTMLElement | null>[] | undefined",
     },
     Object {
       "documentation": "Should we allow to scroll document body?",

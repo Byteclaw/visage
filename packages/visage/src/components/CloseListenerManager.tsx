@@ -16,7 +16,7 @@ export type OnCloseHandler = (
 ) => any | Promise<any>;
 
 interface ClickAwayHandler {
-  ref: RefObject<HTMLElement>;
+  refs: RefObject<HTMLElement>[];
   onClose: OnCloseHandler;
   isFullscreen: boolean;
 }
@@ -38,7 +38,12 @@ export interface CloseListenerManagerContextAPI {
    * Returns a function that must be called to deregister the listener if component is unmounted
    */
   registerClickAwayListener(
-    ref: RefObject<HTMLElement>,
+    /**
+     * Elements that needs to contain click in order to prevent the element from closing
+     *
+     * At least one must be matched
+     */
+    refs: RefObject<HTMLElement>[],
     listener: OnCloseHandler,
     isFullscreen?: boolean,
   ): () => void;
@@ -91,20 +96,19 @@ function onClickAwayHandlerCreator(
     }
 
     for (let i = clickAwayStack.current.length - 1; i >= 0; i--) {
-      const { isFullscreen, onClose, ref } = clickAwayStack.current[i];
+      const { isFullscreen, onClose, refs } = clickAwayStack.current[i];
 
-      if (ref.current) {
-        if (!ref.current.contains(e.target as any)) {
-          await onClose(e);
+      const shouldNotClose = !!refs.find(
+        ref => ref.current && ref.current.contains(e.target as any),
+      );
 
-          // if user prevented default or the element is fullscreen (backdrop is used?)
-          // do not go any further
-          // do not go any further if given element is fullscreen
-          if (e.defaultPrevented || isFullscreen) {
-            break;
-          }
-        } else {
-          // do not go any further if the click is from element's children
+      if (!shouldNotClose) {
+        await onClose(e);
+
+        // if user prevented default or the element is fullscreen (backdrop is used?)
+        // do not go any further
+        // do not go any further if given element is fullscreen
+        if (e.defaultPrevented || isFullscreen) {
           break;
         }
       } else if (isFullscreen) {
@@ -155,7 +159,10 @@ function createRegisterClickAwayListener(
   clickAwayStack: MutableRefObject<ClickAwayHandler[]>,
 ) {
   return (
-    ref: RefObject<HTMLElement>,
+    /**
+     * List of refs to elements that should contain a click
+     */
+    refs: RefObject<HTMLElement>[],
     onClose: OnCloseHandler,
     isFullscreen: boolean = true,
   ) => {
@@ -165,7 +172,7 @@ function createRegisterClickAwayListener(
 
     clickAwayStack.current = ([] as ClickAwayHandler[]).concat(
       clickAwayStack.current,
-      [{ isFullscreen, ref, onClose }],
+      [{ isFullscreen, refs, onClose }],
     );
 
     return () => {

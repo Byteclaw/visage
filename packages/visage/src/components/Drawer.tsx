@@ -85,7 +85,7 @@ function bindOnCloseListeners(
 
   // if drawer is open, register close listeners
   const unregisterClickAway = closeListenerManager.registerClickAwayListener(
-    baseRef,
+    [baseRef],
     onClose,
     isFullscreen,
   );

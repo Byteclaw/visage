@@ -51,6 +51,7 @@ const BaseModal = createComponent('div', {
 function bindOnCloseListeners(
   open: boolean,
   closeListenerManagerContext: CloseListenerManagerContextAPI,
+  preventCloseRefs: RefObject<HTMLElement>[],
   modalRef: RefObject<HTMLElement>,
   isFullscreen: boolean,
   onClose: undefined | (() => void),
@@ -64,7 +65,7 @@ function bindOnCloseListeners(
   const unregisterClickAway = disableOnClickAwayClose
     ? () => {}
     : closeListenerManagerContext.registerClickAwayListener(
-        modalRef,
+        [modalRef, ...preventCloseRefs],
         onClose,
         isFullscreen,
       );
@@ -115,6 +116,12 @@ interface ModalProps {
    */
   focusElementRef?: MutableRefObject<HTMLElement | null>;
   /**
+   * Extra elements that should not propagate onClose when click away is enabled
+   *
+   * This prop is immutable so make sure you don't use a new array because only first one is being used
+   */
+  preventCloseRefs?: MutableRefObject<HTMLElement | null>[];
+  /**
    * Should we allow to scroll document body?
    */
   unlockBodyScroll?: boolean;
@@ -137,6 +144,7 @@ export function Modal({
   onClose,
   open = true,
   focusElementRef,
+  preventCloseRefs = [],
   scrollable = false,
 }: ModalProps) {
   const id = useUniqueId(outerId, 'modal-portal');
@@ -150,6 +158,8 @@ export function Modal({
     bindOnCloseListeners,
     open,
     closeListenerManagerContext,
+    // this one is not picked up on update so be careful
+    preventCloseRefs,
     contentRef || modalRef,
     backdrop,
     onClose,

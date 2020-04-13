@@ -54,7 +54,7 @@ export const BasePopover = createComponent('div', {
 interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
   allowScrolling?: boolean;
   alwaysVisible?: boolean;
-  anchor?: null | HTMLElement | RefObject<HTMLElement>;
+  anchor?: null | RefObject<HTMLElement>;
   anchorOrigin?: TransformOriginSettings;
   anchorPosition?: { top: number; left: number };
   anchorReference?: 'anchor' | 'anchorPosition' | 'none';
@@ -140,6 +140,7 @@ export function Popover({
 
   const contentRef = useRef<HTMLDivElement | null>(null);
   const handleResizeRef = useRef(() => {});
+  const preventCloseRefs = useRef(anchor ? [anchor] : []);
   const { zIndex } = useLayerManager();
 
   const getAnchorOffset = useCallback(
@@ -398,6 +399,7 @@ export function Popover({
       onClose={onClose}
       open={open}
       contentRef={contentRef}
+      preventCloseRefs={preventCloseRefs.current}
     >
       <BasePopover
         {...restProps}
