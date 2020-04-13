@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.5 (2020-04-13)
+
+* feat(visage): allow AutocompleteInput to use custom menu ([21f17ed](https://github.com/Byteclaw/visage/commit/21f17ed))
+* feat(visage): allow Select to use custom menu and toggler ([d2c6add](https://github.com/Byteclaw/visage/commit/d2c6add))
+* feat(visage): allow to define multiple onClose prevent refs ([7317a96](https://github.com/Byteclaw/visage/commit/7317a96))
+* chore(visage): pass id to BaseDrawer ([d029cd2](https://github.com/Byteclaw/visage/commit/d029cd2))
+
+
+
+
+
 ## 1.0.0-alpha.4 (2020-04-13)
 
 * feat(visage/core): color manipulation api ([7cc9d8f](https://github.com/Byteclaw/visage/commit/7cc9d8f))

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.5 (2020-04-13)
+
+* docs: allow to toggle Menu and Popover by a button ([0a4b961](https://github.com/Byteclaw/visage/commit/0a4b961))
+* docs: deploy to S3 ([2f7854b](https://github.com/Byteclaw/visage/commit/2f7854b))
+* feat(visage): allow to define multiple onClose prevent refs ([7317a96](https://github.com/Byteclaw/visage/commit/7317a96))
+* fix(visage/docs): use two pass render to pick up theme setting ([13efe06](https://github.com/Byteclaw/visage/commit/13efe06))
+
+
+
+
+
 ## 1.0.0-alpha.4 (2020-04-13)
 
 * fix(visage/core): allow to nested styles in style sheet ([744c3bd](https://github.com/Byteclaw/visage/commit/744c3bd))

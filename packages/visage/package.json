@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage",
-  "version": "1.0.0-alpha.4",
+  "version": "1.0.0-alpha.5",
   "description": "Design system based set of UI components for React applications.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
