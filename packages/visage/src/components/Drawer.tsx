@@ -161,7 +161,7 @@ export function Drawer({
 
   if (relative) {
     return (
-      <BaseDrawer relative={relative} {...restProps}>
+      <BaseDrawer id={outerId} relative={relative} {...restProps}>
         {children}
       </BaseDrawer>
     );
