@@ -20,7 +20,7 @@ function Example() {
 
   return (
     <Fragment>
-      <Button onClick={() => setOpen(true)} ref={anchorRef} type="button">
+      <Button onClick={() => setOpen(!open)} ref={anchorRef} type="button">
         Show popover
       </Button>
       <Popover
