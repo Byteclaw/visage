@@ -31,8 +31,42 @@ jobs:
       - run:
           name: Check bundle size
           command: yarn bundlewatch
+  docs:
+    docker:
+      - image: circleci/node:12.16.1
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key: yarn-packages-docs-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-packages-docs-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: Build libraries
+          command: yarn build
+      - run:
+          name: Build documentation
+          working_directory: ~/project/packages/visage-docs
+          command: yarn build
+      - run:
+          name: Deploy documentation
+          working_directory: ~/project/packages/visage-docs
+          command: yarn deploy
+
 workflows:
   version: 2
   build-test-and-deploy:
     jobs:
       - build
+      - docs:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - build

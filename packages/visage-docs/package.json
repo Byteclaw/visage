@@ -27,10 +27,11 @@
     "gatsby": "^2.18.14",
     "gatsby-plugin-algolia": "^0.5.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
+    "gatsby-plugin-canonical-urls": "^2.0.12",
     "gatsby-plugin-google-analytics": "^2.1.31",
     "gatsby-plugin-mdx": "^1.0.63",
-    "gatsby-plugin-netlify": "^2.1.30",
     "gatsby-plugin-react-helmet": "^3.1.18",
+    "gatsby-plugin-s3": "^0.3.3",
     "gatsby-plugin-svgr": "^2.0.2",
     "gatsby-plugin-typescript": "^2.1.23",
     "gatsby-remark-emoji": "^0.0.3",
@@ -46,8 +47,10 @@
     "store2": "^2.11.0"
   },
   "scripts": {
+    "deploy": "gatsby-plugin-s3 deploy -y",
     "prestart": "lerna run build --scope @byteclaw/babel-plugin-visage",
     "start": "gatsby develop",
+    "prebuild": "lerna run build --scope @byteclaw/babel-plugin-visage",
     "build": "gatsby build",
     "clean": "gatsby clean"
   }
