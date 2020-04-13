@@ -3,7 +3,7 @@ import React from 'react';
 import { AutocompleteInput } from '../AutocompleteInput';
 import { render } from './render';
 
-describe('Autocomplete', () => {
+describe('AutocompleteInput', () => {
   describe('readOnly', () => {
     it('reacts to mouse interaction', async () => {
       const onLoadOptions = jest.fn();
@@ -355,5 +355,43 @@ describe('Autocomplete', () => {
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(0);
     });
+  });
+
+  it('supports custom menu', async () => {
+    const menu = jest.fn(() => <div data-testid="menu" />);
+
+    const { getByTestId, findByTestId } = render(
+      <AutocompleteInput
+        data-testid="input"
+        expandOnClick
+        id="root"
+        menu={menu}
+        options={['a', 'b', 'c', 'd']}
+        value="b"
+      />,
+    );
+
+    await expect(findByTestId('menu')).resolves.toBeInstanceOf(HTMLElement);
+
+    expect(menu).toHaveBeenCalledTimes(1);
+    expect(menu).toHaveBeenCalledWith(
+      expect.objectContaining({
+        open: false,
+      }),
+      expect.anything(),
+    );
+
+    // now open the menu
+    fireEvent.click(getByTestId('input'));
+
+    // resolve loading
+    await act(() => Promise.resolve());
+
+    expect(menu).toHaveBeenCalledWith(
+      expect.objectContaining({
+        open: true,
+      }),
+      expect.anything(),
+    );
   });
 });
