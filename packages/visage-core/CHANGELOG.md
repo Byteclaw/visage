@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.3 (2020-04-13)
+
+* feat(visage/core): cache styler results ([0f6401a](https://github.com/Byteclaw/visage/commit/0f6401a))
+* feat(visage/core): color manipulation api ([7cc9d8f](https://github.com/Byteclaw/visage/commit/7cc9d8f))
+* fix(visage/core): allow extending variants and variant settings ([5a83846](https://github.com/Byteclaw/visage/commit/5a83846))
+* fix(visage/core): allow to nested styles in style sheet ([744c3bd](https://github.com/Byteclaw/visage/commit/744c3bd))
+* fix(visage/core): allow variants to be overriden in typescript ([ce4b3db](https://github.com/Byteclaw/visage/commit/ce4b3db))
+
+
+
+
+
 ## 1.0.0-alpha.2 (2020-04-08)
 
 * fix(visage/core): apply styles override in overridden component ([2c9d416](https://github.com/Byteclaw/visage/commit/2c9d416))

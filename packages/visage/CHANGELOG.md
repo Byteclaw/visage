@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.4 (2020-04-13)
+
+* feat(visage/core): color manipulation api ([7cc9d8f](https://github.com/Byteclaw/visage/commit/7cc9d8f))
+* fix(visage/core): allow to nested styles in style sheet ([744c3bd](https://github.com/Byteclaw/visage/commit/744c3bd))
+* fix(visage/core): allow variants to be overriden in typescript ([ce4b3db](https://github.com/Byteclaw/visage/commit/ce4b3db))
+* refactor(visage): remove shadesOverlay colors ([4fba8f4](https://github.com/Byteclaw/visage/commit/4fba8f4))
+* fix(visage): make focuses on controls consistent ([1516dc2](https://github.com/Byteclaw/visage/commit/1516dc2))
+* fix(visage): output lowercases attrs from variant creators ([eaadc3e](https://github.com/Byteclaw/visage/commit/eaadc3e))
+* fix(visage): reset options on Select blur ([72e981c](https://github.com/Byteclaw/visage/commit/72e981c))
+* test: setup test design system ([67cfd32](https://github.com/Byteclaw/visage/commit/67cfd32))
+* test(visage): add face tests for TextInput ([f359c54](https://github.com/Byteclaw/visage/commit/f359c54))
+* feat(visage): reexport helper functions ([ad962bd](https://github.com/Byteclaw/visage/commit/ad962bd))
+
+
+
+
+
 ## 1.0.0-alpha.3 (2020-04-08)
 
 * refactor: remove darkShades, darkAccent colors ([1d359e7](https://github.com/Byteclaw/visage/commit/1d359e7))

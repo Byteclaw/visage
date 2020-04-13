@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.4 (2020-04-13)
+
+* feat(visage/core): cache styler results ([0f6401a](https://github.com/Byteclaw/visage/commit/0f6401a))
+* feat(visage/core): color manipulation api ([7cc9d8f](https://github.com/Byteclaw/visage/commit/7cc9d8f))
+* fix(visage/core): allow to nested styles in style sheet ([744c3bd](https://github.com/Byteclaw/visage/commit/744c3bd))
+* fix(visage/themes): peer dependency version ([ed77cfc](https://github.com/Byteclaw/visage/commit/ed77cfc))
+* refactor(visage): remove shadesOverlay colors ([4fba8f4](https://github.com/Byteclaw/visage/commit/4fba8f4))
+
+
+
+
+
 ## 1.0.0-alpha.3 (2020-04-08)
 
 * fix(visage/themes): allow font size/line height to be string ([cdc30b6](https://github.com/Byteclaw/visage/commit/cdc30b6))
