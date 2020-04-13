@@ -26,7 +26,12 @@ module.exports = {
         extensions: ['ts', 'tsx', 'js', 'jsx'],
       },
     },
-    'gatsby-plugin-netlify',
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: 'https://visage.design',
+      },
+    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-svgr',
     'gatsby-plugin-typescript',
@@ -58,6 +63,14 @@ module.exports = {
         apiKey: process.env.ALGOLIA_ADMIN_KEY,
         queries: algoliaQueries,
         chunkSize: 10000,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-s3',
+      options: {
+        bucketName: 'visage-docs',
+        protocol: 'https',
+        hostname: 'visage.design',
       },
     },
   ],
