@@ -26,7 +26,7 @@ function Example() {
         aria-controls="buttons-menu"
         aria-haspopup="menu"
         aria-expanded={open}
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen(!open)}
         ref={anchorRef}
       >
         Pop me
@@ -89,7 +89,7 @@ function Example() {
         aria-controls="buttons-menu"
         aria-haspopup="menu"
         aria-expanded={open}
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen(!open)}
         ref={anchorRef}
       >
         {open ? 'Close' : 'Pop up'}
