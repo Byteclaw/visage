@@ -44,7 +44,7 @@ const MenuItemBase = createComponent(ListItem, {
 });
 
 interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
-  anchor?: null | HTMLElement | RefObject<HTMLElement>;
+  anchor?: null | RefObject<HTMLElement>;
   anchorOrigin?: TransformOriginSettings;
   baseRef?: RefObject<HTMLDivElement>;
   /**

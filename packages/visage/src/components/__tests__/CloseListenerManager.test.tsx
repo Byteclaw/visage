@@ -27,7 +27,7 @@ function RenderClosable({
       onClose,
     );
     const unregisterClick = closeListenerManager.registerClickAwayListener(
-      divRef,
+      [divRef],
       onClose,
       isFullscreen,
     );
