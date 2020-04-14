@@ -2,8 +2,16 @@ import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
+  markAsVisageComponent,
 } from '@byteclaw/visage-core';
-import React, { ReactNode, forwardRef, Ref } from 'react';
+import React, {
+  ReactNode,
+  forwardRef,
+  memo,
+  Ref,
+  useState,
+  FocusEventHandler,
+} from 'react';
 import { createComponent } from '../core';
 import {
   visuallyHiddenStyles,
@@ -14,38 +22,14 @@ import {
 } from './shared';
 import { Flex } from './Flex';
 import { Svg } from './Svg';
-import { preventDefaultOnReadOnlyControlHandlerCreator } from './events';
+import { booleanVariant, booleanVariantStyles } from '../variants';
+import { useComposedCallbackCreator, useHandlerRef } from '../hooks';
+import { wrapToggleOnChangeHandler } from './events';
 
 const CheckboxControl = createComponent('input', {
   displayName: 'CheckboxControl',
   styles: {
     ...visuallyHiddenStyles,
-    // + div means that we target CheckboxToggler
-    '&:focus + div': {
-      boxShadow: createControlFocusShadow(),
-    },
-    '& + div': {
-      backgroundColor: 'textInput',
-    },
-    // set up color so svg has correct color
-    '&:checked + div': {
-      backgroundColor: 'primary',
-      color: 'primaryText',
-      borderColor: 'primary',
-    },
-    // because we want to see that input is invalid even if it's checked
-    '&[aria-invalid="true"] + div': {
-      borderColor: 'danger',
-    },
-    '&[aria-invalid="true"]:focus + div': {
-      boxShadow: createControlFocusShadow('danger'),
-    },
-    '& + div > svg': {
-      visibility: 'hidden',
-    },
-    '&:checked + div > svg': {
-      visibility: 'visible',
-    },
   },
 });
 
@@ -98,6 +82,7 @@ const CheckboxToggler = createComponent(Flex, {
     ),
   },
   styles: {
+    backgroundColor: 'textInput',
     alignSelf: 'center',
     transition: 'all 150ms',
     borderColor: 'accent',
@@ -105,7 +90,56 @@ const CheckboxToggler = createComponent(Flex, {
     borderStyle: 'solid',
     borderWidth: '2px',
     mr: 1,
+    ...booleanVariantStyles('checked', {
+      on: {
+        backgroundColor: 'primary',
+        color: 'primaryText',
+        borderColor: 'primary',
+        '& > svg': {
+          visibility: 'visible',
+        },
+      },
+      off: {
+        '& > svg': {
+          visibility: 'hidden',
+        },
+      },
+    }),
+    ...booleanVariantStyles('invalid', {
+      on: {
+        borderColor: 'danger',
+        ...booleanVariantStyles('focused', {
+          on: {
+            boxShadow: createControlFocusShadow('danger'),
+          },
+        }),
+      },
+      off: booleanVariantStyles('focused', {
+        on: {
+          boxShadow: createControlFocusShadow(),
+        },
+      }),
+    }),
   },
+  variants: [
+    booleanVariant('checked', true),
+    booleanVariant('disabled', true),
+    booleanVariant('invalid', true),
+    booleanVariant('focused', true),
+    booleanVariant('readOnly', true),
+  ],
+});
+
+interface TogglerProps {
+  checked: boolean;
+  disabled?: boolean;
+  focused: boolean;
+  invalid?: boolean;
+  readOnly?: boolean;
+}
+
+const DefaultCheckboxToggler = memo((props: TogglerProps) => {
+  return <CheckboxToggler {...props} />;
 });
 
 interface CheckboxProps
@@ -132,62 +166,89 @@ interface CheckboxProps
   labelTextProps?: ExtractVisageComponentProps<typeof CheckboxLabelText>;
   ref?: React.RefObject<HTMLInputElement>;
   /**
-   * Toggler is the visual component that renders checkbox toggler
-   * It doesn't accept any props and must return a div as root element
-   * because checkbox applies styles using CSS selectors
-   *
-   * On Focus it applies boxShadow for focus styling to a div
-   * On Invalid it applies borderColor to a div
-   * On Checked
-   *  - it applies backgroundColor, color and borderColor
-   *  - it applies to svg element which is a direct ancestor of div a visibility visible
-   * On Not Checked
-   *  - it applies backgroundColor to a div
-   *  - it applies to svg element which is a direct ancestor of div a visiblity hidden
+   * Toggler componet
    */
-  toggler?: React.ComponentType<any>;
+  toggler?: React.ComponentType<TogglerProps>;
 }
 
-export const Checkbox: VisageComponent<CheckboxProps> = forwardRef(
-  function Checkbox(
+export const Checkbox: VisageComponent<CheckboxProps> = memo(
+  forwardRef(function Checkbox(
     {
+      $$variants,
+      checked,
+      defaultChecked,
       disabled,
       hiddenLabel = false,
       invalid,
       label,
       labelProps,
       labelTextProps,
-      onClick,
-      onKeyDown,
+      onBlur,
+      onFocus,
+      onChange,
+      parentStyles,
       readOnly,
-      toggler: Toggler = CheckboxToggler,
+      styles,
+      toggler: Toggler = DefaultCheckboxToggler,
       ...rest
     }: CheckboxProps,
     ref: Ref<HTMLInputElement>,
   ) {
-    const preventOnToggle = useStaticCallbackCreator(
-      preventDefaultOnReadOnlyControlHandlerCreator,
-      [readOnly, onClick, onKeyDown],
+    const [focused, setFocused] = useState(false);
+    const [innerChecked, setInnerChecked] = useState(
+      checked ?? defaultChecked ?? false,
     );
+    const onInnerBlur = useHandlerRef(() => setFocused(false));
+    const onInnerFocus = useHandlerRef(() => setFocused(true));
+    const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
+      onBlur,
+      onInnerBlur,
+    );
+    const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
+      onFocus,
+      onInnerFocus,
+    );
+    const onChangeHandler = useStaticCallbackCreator(
+      wrapToggleOnChangeHandler,
+      [readOnly, onChange, setInnerChecked],
+    );
+    // if onChange is provided then the component is controlled
+    const isChecked = onChange ? checked ?? false : innerChecked;
 
     return (
-      <CheckboxLabel {...labelProps} disabled={disabled}>
+      <CheckboxLabel
+        {...labelProps}
+        disabled={disabled}
+        parentStyles={parentStyles}
+        styles={styles}
+        $$variants={$$variants}
+      >
         <CheckboxControl
           {...rest}
+          checked={isChecked}
           aria-invalid={invalid}
           disabled={disabled}
-          onKeyDown={preventOnToggle}
-          onClick={preventOnToggle}
+          onBlur={onBlurHandler}
+          onChange={onChangeHandler}
+          onFocus={onFocusHandler}
           ref={ref}
           readOnly={readOnly}
           type="checkbox"
         />
-        <Toggler />
+        <Toggler
+          checked={isChecked}
+          disabled={disabled}
+          focused={focused}
+          invalid={invalid}
+          readOnly={readOnly}
+        />
         &#8203; {/* fixes height if label is hidden */}
         <CheckboxLabelText {...labelTextProps} hidden={hiddenLabel}>
           {label}
         </CheckboxLabelText>
       </CheckboxLabel>
     );
-  },
+  }),
 );
+
+markAsVisageComponent(Checkbox);
