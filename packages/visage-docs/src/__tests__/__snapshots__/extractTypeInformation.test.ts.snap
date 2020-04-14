@@ -91,11 +91,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from AutocompleteInput component 1`] = `
-Object {
-  "properties": Array [],
-}
-`;
+exports[`extracting type information extracts informtion from AutocompleteInput component 1`] = `undefined`;
 
 exports[`extracting type information extracts informtion from Badge component 1`] = `
 Object {
@@ -73597,11 +73593,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Select component 1`] = `
-Object {
-  "properties": Array [],
-}
-`;
+exports[`extracting type information extracts informtion from Select component 1`] = `undefined`;
 
 exports[`extracting type information extracts informtion from SkeletonSentence component 1`] = `
 Object {

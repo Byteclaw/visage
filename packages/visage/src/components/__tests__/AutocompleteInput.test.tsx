@@ -394,4 +394,14 @@ describe('AutocompleteInput', () => {
       expect.anything(),
     );
   });
+
+  it('passes ref to TextInput', () => {
+    const ref = { current: null };
+
+    render(
+      <AutocompleteInput ref={ref} options={['a', 'b', 'c', 'd']} value="b" />,
+    );
+
+    expect(ref.current).toBeInstanceOf(HTMLInputElement);
+  });
 });
