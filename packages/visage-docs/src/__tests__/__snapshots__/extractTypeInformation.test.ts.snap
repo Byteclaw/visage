@@ -71538,22 +71538,11 @@ Object {
       "type": "RefObject<HTMLInputElement> | undefined",
     },
     Object {
-      "documentation": "Toggler is the visual component that renders radio toggler
-It doesn't accept any props and must return a div as root element
-because radio applies styles using CSS selectors
-
-On Focus it applies boxShadow for focus styling to a div
-On Invalid it applies borderColor to a div
-On Checked
-  - it applies backgroundColor, color and borderColor
-  - it applies to svg element which is a direct ancestor of div a visibility and fill
-On Not Checked
-  - it applies backgroundColor to a div
-  - it applies to svg element which is a direct ancestor of div a visiblity hidden",
+      "documentation": "Toggler component",
       "isOptional": true,
       "name": "toggler",
       "parent": "RadioProps",
-      "type": "ComponentClass<{}, any> | FunctionComponent<{}> | undefined",
+      "type": "ComponentClass<RadioTogglerProps, any> | FunctionComponent<RadioTogglerProps> | undefined",
     },
     Object {
       "documentation": "",

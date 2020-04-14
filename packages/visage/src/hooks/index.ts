@@ -1,6 +1,7 @@
 export * from './useAutofocusOnMount';
 export * from './useBreakpointDetection';
 export * from './useCombinedRef';
+export * from './useComposedCallback';
 export * from './useDebouncedCallback';
 export * from './useFocusTrap';
 export * from './useHandlerRef';
