@@ -1,35 +1,31 @@
-import {
-  MouseEventHandler,
-  KeyboardEventHandler,
-  MouseEvent,
-  KeyboardEvent,
-} from 'react';
+import { ChangeEventHandler } from 'react';
 
 /**
- * This event handler creator prevents default event behaviour if control
- * is read only.
+ * This event handler prevents onChange or setChecked to be called if readOnly is enabled
  *
- * That means if click on the control or focus it and press Spacebar
- * default event behaviour is prevented
+ * This event handler should be used in Toggle components, the ones that use onChange handler
+ * to detect event.currentTarget.checked
+ *
+ * If onChange is not provided, setChecked is called.
  */
-export function preventDefaultOnReadOnlyControlHandlerCreator(
+export function wrapToggleOnChangeHandler(
   readOnly: boolean | undefined,
-  onClick: MouseEventHandler | undefined,
-  onKeyDown: KeyboardEventHandler | undefined,
-): (e: KeyboardEvent | MouseEvent) => void {
-  return (e: KeyboardEvent | MouseEvent) => {
+  onChange: ChangeEventHandler<HTMLInputElement> | undefined,
+  setChecked: (checked: boolean) => void,
+): ChangeEventHandler<HTMLInputElement> {
+  return e => {
+    // prevent onChange if readonly
+    // disabled is handled automatically by the browser
     if (readOnly) {
-      if ((e as any).key != null && (e as KeyboardEvent).key !== ' ') {
-        return;
-      }
-
-      e.preventDefault();
+      return;
     }
 
-    if (onClick && (e as any).key == null) {
-      onClick(e as MouseEvent);
-    } else if (onKeyDown && (e as any).key != null) {
-      onKeyDown(e as KeyboardEvent);
+    // onChange is defined, the component is controlled from outside
+    if (onChange) {
+      onChange(e);
+    } else {
+      // component is controlled internally
+      setChecked(e.currentTarget.checked);
     }
   };
 }

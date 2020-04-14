@@ -2,8 +2,16 @@ import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import {
   ExtractVisageComponentProps,
   VisageComponent,
+  markAsVisageComponent,
 } from '@byteclaw/visage-core';
-import React, { ReactNode, forwardRef, Ref } from 'react';
+import React, {
+  ReactNode,
+  forwardRef,
+  memo,
+  Ref,
+  useState,
+  FocusEventHandler,
+} from 'react';
 import { createComponent } from '../core';
 import {
   disabledControlStyles,
@@ -14,39 +22,15 @@ import {
 } from './shared';
 import { Flex } from './Flex';
 import { Svg } from './Svg';
-import { preventDefaultOnReadOnlyControlHandlerCreator } from './events';
+import { booleanVariant, booleanVariantStyles } from '../variants';
+import { useHandlerRef, useCombinedRef, useStaticEffect } from '../hooks';
+import { useComposedCallbackCreator } from '../hooks/useComposedCallback';
+import { detectRadioCheckedState } from './effects';
+import { wrapToggleOnChangeHandler } from './events';
 
 const RadioControl = createComponent('input', {
   displayName: 'RadioControl',
-  styles: {
-    ...visuallyHiddenStyles,
-    '&:focus + div': {
-      boxShadow: createControlFocusShadow(),
-    },
-    '& + div': {
-      backgroundColor: 'textInput',
-    },
-    // set up color so svg has correct color
-    '&:checked + div': {
-      backgroundColor: 'primary',
-      borderColor: 'primary',
-      color: 'primaryText',
-    },
-    // because we want to see that input is invalid even if it's checked
-    '&[aria-invalid="true"] + div': {
-      borderColor: 'danger',
-    },
-    '&[aria-invalid="true"]:focus + div': {
-      boxShadow: createControlFocusShadow('danger'),
-    },
-    '& + div > svg': {
-      visibility: 'hidden',
-    },
-    '&:checked + div > svg': {
-      visibility: 'visible',
-      fill: 'textInput',
-    },
-  },
+  styles: visuallyHiddenStyles,
 });
 
 const RadioLabel = createComponent('label', {
@@ -103,7 +87,57 @@ const RadioToggler = createComponent(Flex, {
     borderWidth: '2px',
     borderColor: 'accent',
     mr: 1,
+    ...booleanVariantStyles('checked', {
+      on: {
+        backgroundColor: 'primary',
+        color: 'primaryText',
+        borderColor: 'primary',
+        '& > svg': {
+          fill: 'textInput',
+          visibility: 'visible',
+        },
+      },
+      off: {
+        '& > svg': {
+          visibility: 'hidden',
+        },
+      },
+    }),
+    ...booleanVariantStyles('invalid', {
+      on: {
+        borderColor: 'danger',
+        ...booleanVariantStyles('focused', {
+          on: {
+            boxShadow: createControlFocusShadow('danger'),
+          },
+        }),
+      },
+      off: booleanVariantStyles('focused', {
+        on: {
+          boxShadow: createControlFocusShadow(),
+        },
+      }),
+    }),
   },
+  variants: [
+    booleanVariant('checked', true),
+    booleanVariant('disabled', true),
+    booleanVariant('invalid', true),
+    booleanVariant('focused', true),
+    booleanVariant('readOnly', true),
+  ],
+});
+
+interface RadioTogglerProps {
+  checked: boolean;
+  disabled?: boolean;
+  focused: boolean;
+  invalid?: boolean;
+  readOnly?: boolean;
+}
+
+const DefaultRadioToggler = memo((props: RadioTogglerProps) => {
+  return <RadioToggler {...props} />;
 });
 
 interface RadioProps extends ExtractVisageComponentProps<typeof RadioControl> {
@@ -129,55 +163,97 @@ interface RadioProps extends ExtractVisageComponentProps<typeof RadioControl> {
   labelTextProps?: ExtractVisageComponentProps<typeof RadioLabelText>;
   ref?: React.RefObject<HTMLInputElement>;
   /**
-   * Toggler is the visual component that renders radio toggler
-   * It doesn't accept any props and must return a div as root element
-   * because radio applies styles using CSS selectors
-   *
-   * On Focus it applies boxShadow for focus styling to a div
-   * On Invalid it applies borderColor to a div
-   * On Checked
-   *  - it applies backgroundColor, color and borderColor
-   *  - it applies to svg element which is a direct ancestor of div a visibility and fill
-   * On Not Checked
-   *  - it applies backgroundColor to a div
-   *  - it applies to svg element which is a direct ancestor of div a visiblity hidden
+   * Toggler component
    */
-  toggler?: React.ComponentType<{}>;
+  toggler?: React.ComponentType<RadioTogglerProps>;
 }
 
 export const Radio: VisageComponent<RadioProps> = forwardRef(function Radio(
   {
+    $$variants,
+    checked,
+    defaultChecked,
     disabled,
     hiddenLabel = false,
     invalid,
     label,
     labelProps,
     labelTextProps,
-    onClick,
-    onKeyDown,
+    name,
+    onBlur,
+    onChange,
+    onFocus,
     readOnly,
+    parentStyles,
+    styles,
+    toggler: Toggler = DefaultRadioToggler,
     ...rest
   }: RadioProps,
   ref: Ref<HTMLInputElement>,
 ) {
-  const preventOnToggle = useStaticCallbackCreator(
-    preventDefaultOnReadOnlyControlHandlerCreator,
-    [readOnly, onClick, onKeyDown],
+  const reff = useCombinedRef(ref);
+  const [focused, setFocused] = useState(false);
+  const [innerChecked, setInnerChecked] = useState(
+    checked ?? defaultChecked ?? false,
+  );
+  const onInnerBlur = useHandlerRef(() => setFocused(false));
+  const onInnerFocus = useHandlerRef(() => setFocused(true));
+  const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
+    onBlur,
+    onInnerBlur,
+  );
+  const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
+    onFocus,
+    onInnerFocus,
+  );
+  const onChangeHandler = useStaticCallbackCreator(wrapToggleOnChangeHandler, [
+    readOnly,
+    onChange,
+    setInnerChecked,
+  ]);
+  // if checked is provided then the component is controlled
+  const isChecked = checked ?? innerChecked;
+  const isControlled = checked != null;
+
+  useStaticEffect(
+    detectRadioCheckedState,
+    reff,
+    isControlled,
+    !!readOnly,
+    setInnerChecked,
   );
 
+  // find out how uncontrolled components can be handled with onChange, especially radio which
+  // fires only on change on a specific component, so the previous one does not react at all
   return (
-    <RadioLabel {...labelProps} disabled={disabled}>
+    <RadioLabel
+      {...labelProps}
+      disabled={disabled}
+      parentStyles={parentStyles}
+      styles={styles}
+      $$variants={$$variants}
+    >
       <RadioControl
         {...rest}
         aria-invalid={invalid}
+        defaultChecked={defaultChecked}
+        checked={checked}
         disabled={disabled}
-        onClick={preventOnToggle}
-        onKeyDown={preventOnToggle}
+        name={name}
+        onBlur={onBlurHandler}
+        onChange={onChangeHandler}
+        onFocus={onFocusHandler}
+        ref={reff}
         readOnly={readOnly}
-        ref={ref}
         type="radio"
       />
-      <RadioToggler />
+      <Toggler
+        checked={isChecked}
+        disabled={disabled}
+        focused={focused}
+        invalid={invalid}
+        readOnly={readOnly}
+      />
       &#8203; {/* fixes height if label is hidden */}
       <RadioLabelText {...labelTextProps} hidden={hiddenLabel}>
         {label}
@@ -185,3 +261,5 @@ export const Radio: VisageComponent<RadioProps> = forwardRef(function Radio(
     </RadioLabel>
   );
 });
+
+markAsVisageComponent(Radio);

@@ -34,3 +34,46 @@ export function disableBodyScroll(
 
   return () => unlockBodyScroll(current);
 }
+
+/**
+ * Detects if radio is checked or unchecked if radio is not controlled
+ */
+export function detectRadioCheckedState(
+  radioRef: RefObject<HTMLInputElement>,
+  isControlled: boolean,
+  isReadOnly: boolean,
+  setChecked: (checked: boolean) => void,
+) {
+  // if input is controlled, we don't want to use internal state
+  if (isControlled || isReadOnly || typeof document === 'undefined') {
+    return;
+  }
+
+  const onChangeListener = ({ target }: Event) => {
+    // if target is input with radio type, check if the name is the same as with radioRef
+    // and if the form is same
+    const { current } = radioRef;
+
+    if (!current) {
+      return;
+    }
+
+    if (target instanceof HTMLInputElement && target.type === 'radio') {
+      // if target is the same as ref, then we checked the radio
+      if (target === current) {
+        setChecked(true);
+      } else if (target.name === current.name && target.form === current.form) {
+        // if name and form are the same, then they belong to one form so we can uncheck this one
+        // https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#Properties
+        setChecked(false);
+      }
+    }
+  };
+
+  // mount document on change
+  document.addEventListener('change', onChangeListener);
+
+  return () => {
+    document.removeEventListener('change', onChangeListener);
+  };
+}
