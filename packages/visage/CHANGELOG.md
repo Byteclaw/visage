@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.7 (2020-04-14)
+
+* feat(visage): allow custom Toggler in Checkbox ([a0d18e9](https://github.com/Byteclaw/visage/commit/a0d18e9))
+* feat(visage): allow custom Toggler in Radio ([a3849cf](https://github.com/Byteclaw/visage/commit/a3849cf))
+* fix(visage): add missing faces ([08f0ca4](https://github.com/Byteclaw/visage/commit/08f0ca4))
+
+
+
+
+
 ## 1.0.0-alpha.6 (2020-04-14)
 
 * fix(visage): pass refs to TextInput from AutocompleteInput and Select ([1d16f2a](https://github.com/Byteclaw/visage/commit/1d16f2a))
