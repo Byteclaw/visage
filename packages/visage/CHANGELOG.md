@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.6 (2020-04-14)
+
+* fix(visage): pass refs to TextInput from AutocompleteInput and Select ([1d16f2a](https://github.com/Byteclaw/visage/commit/1d16f2a))
+
+
+
+
+
 ## 1.0.0-alpha.5 (2020-04-13)
 
 * feat(visage): allow AutocompleteInput to use custom menu ([21f17ed](https://github.com/Byteclaw/visage/commit/21f17ed))
