@@ -1,4 +1,6 @@
 export interface VisageFaces {
+  // AutocompleteInput.tsx
+  AutocompleteInputMenu?: VisageStyleSheet;
   // Badge.ts
   Badge?: VisageStyleSheet;
   // Banner.tsx
@@ -189,6 +191,10 @@ export interface VisageFaces {
   RadioToggler?: VisageStyleSheet;
   // Layout.ts
   Row?: VisageStyleSheet;
+  // Select.tsx
+  SelectMenu?: VisageStyleSheet;
+  // Select.tsx
+  SelectToggler?: VisageStyleSheet;
   // Slider.tsx
   SliderThumb?: VisageStyleSheet;
   // Slider.tsx
