@@ -1,6 +1,5 @@
 # Visage Design System
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e92478c1-d128-46d8-991a-ea4a088b1f9b/deploy-status)](https://app.netlify.com/sites/visage-design-system/deploys)
 ![CircleCI](https://img.shields.io/circleci/project/github/Byteclaw/visage/master.svg?style=flat-square)
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
