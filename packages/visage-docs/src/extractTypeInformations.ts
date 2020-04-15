@@ -62,6 +62,10 @@ function isObjectType(type: ts.Type): type is ts.ObjectType {
   return type.getFlags() === ts.TypeFlags.Object;
 }
 
+function isIntersectionType(type: ts.Type): type is ts.IntersectionType {
+  return type.getFlags() === ts.TypeFlags.Intersection;
+}
+
 function isGenericObjectType(type: ts.ObjectType): type is ts.TypeReference {
   return type.objectFlags === ts.ObjectFlags.Reference;
 }
@@ -82,30 +86,50 @@ function getPropertyName(property: ts.Symbol): string | undefined {
   return undefined;
 }
 
-function visitObjectType(
-  type: ts.Type,
+function visitObjectProperty(
+  symbol: ts.Symbol,
+  checker: ts.TypeChecker,
+  ctx: ObjectTypeVisitorContext,
+  valueDeclaration: ts.Node,
+) {
+  const declarations = symbol.getDeclarations() || [
+    symbol.valueDeclaration || valueDeclaration,
+  ];
+  const parentName = getPropertyName(symbol);
+
+  ctx.properties.push({
+    parent: parentName,
+    name: symbol.getName(),
+    // eslint-disable-next-line no-bitwise
+    isOptional: (symbol.flags & ts.SymbolFlags.Optional) !== 0,
+    documentation: ts.displayPartsToString(
+      symbol.getDocumentationComment(checker),
+    ),
+    type: checker.typeToString(
+      checker.getTypeOfSymbolAtLocation(symbol, declarations[0]),
+    ),
+  });
+}
+
+function visitIntersectionType(
+  type: ts.IntersectionType,
   checker: ts.TypeChecker,
   ctx: ObjectTypeVisitorContext,
   valueDeclaration: ts.Node,
 ) {
   checker.getPropertiesOfType(type).forEach(property => {
-    const declarations = property.getDeclarations() || [
-      property.valueDeclaration || valueDeclaration,
-    ];
-    const parentName = getPropertyName(property);
+    visitObjectProperty(property, checker, ctx, valueDeclaration);
+  });
+}
 
-    ctx.properties.push({
-      parent: parentName,
-      name: property.getName(),
-      // eslint-disable-next-line no-bitwise
-      isOptional: (property.flags & ts.SymbolFlags.Optional) !== 0,
-      documentation: ts.displayPartsToString(
-        property.getDocumentationComment(checker),
-      ),
-      type: checker.typeToString(
-        checker.getTypeOfSymbolAtLocation(property, declarations[0]),
-      ),
-    });
+function visitObjectType(
+  type: ts.ObjectType,
+  checker: ts.TypeChecker,
+  ctx: ObjectTypeVisitorContext,
+  valueDeclaration: ts.Node,
+) {
+  checker.getPropertiesOfType(type).forEach(property => {
+    visitObjectProperty(property, checker, ctx, valueDeclaration);
   });
 }
 
@@ -118,7 +142,8 @@ function visitTypeReference(
   const args = checker.getTypeArguments(type);
 
   args.forEach(arg => {
-    visitObjectType(arg, checker, ctx, valueDeclaration);
+    // add detection if is really ts.ObjectType?
+    visitObjectType(arg as ts.ObjectType, checker, ctx, valueDeclaration);
   });
 }
 
@@ -158,7 +183,7 @@ function visit(node: ts.Node, checker: ts.TypeChecker, ctx: VisitorContext) {
         symbol.valueDeclaration,
       );
 
-      if (!isObjectType(type) || !isGenericObjectType(type)) {
+      if (!isObjectType(type)) {
         // skip non object/non generic types
         return;
       }
@@ -169,7 +194,40 @@ function visit(node: ts.Node, checker: ts.TypeChecker, ctx: VisitorContext) {
         properties: [],
       };
 
-      visitTypeReference(type, checker, ctx[variableName], node);
+      if (isGenericObjectType(type)) {
+        visitTypeReference(type, checker, ctx[variableName], node);
+      } else if (type.objectFlags === ts.ObjectFlags.Anonymous) {
+        const [signature] = type.getCallSignatures();
+
+        if (!signature) {
+          return;
+        }
+
+        const parameters = signature.getParameters();
+
+        for (const parameter of parameters) {
+          const parameterType = checker.getTypeOfSymbolAtLocation(
+            parameter,
+            parameter.valueDeclaration,
+          );
+
+          if (isIntersectionType(parameterType)) {
+            visitIntersectionType(
+              parameterType,
+              checker,
+              ctx[variableName],
+              parameter.valueDeclaration,
+            );
+          } else if (isObjectType(parameterType)) {
+            visitObjectType(
+              parameterType,
+              checker,
+              ctx[variableName],
+              parameter.valueDeclaration,
+            );
+          }
+        }
+      }
     }
   } else if (ts.isFunctionDeclaration(node)) {
     // ignore anonymous functions
