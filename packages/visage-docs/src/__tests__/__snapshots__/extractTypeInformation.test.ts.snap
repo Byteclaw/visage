@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extracting type information extracts informtion from Accordion component 1`] = `
+exports[`extracting type information extracts information from Accordion component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -21,7 +21,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from AccordionItem component 1`] = `
+exports[`extracting type information extracts information from AccordionItem component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -91,9 +91,2174 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from AutocompleteInput component 1`] = `undefined`;
+exports[`extracting type information extracts information from AutocompleteInput component 1`] = `
+Object {
+  "properties": Array [
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "debounceDelay",
+      "parent": "AutocompleteInputProps",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "expandOnClick",
+      "parent": "AutocompleteInputProps",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "id",
+      "parent": "AutocompleteInputProps",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "menu",
+      "parent": "AutocompleteInputProps",
+      "type": "ComponentClass<AutocompleteInputMenuProps, any> | FunctionComponent<AutocompleteInputMenuProps> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "options",
+      "parent": "AutocompleteInputProps",
+      "type": "TValue[] | ((inputValue: string) => Promise<TValue[]>) | undefined",
+    },
+    Object {
+      "documentation": "Set focused option as value on blur",
+      "isOptional": true,
+      "name": "selectOnBlur",
+      "parent": "AutocompleteInputProps",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "defaultValue",
+      "parent": "SelectorOptions",
+      "type": "TValue | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "enhanceReducer",
+      "parent": "SelectorOptions",
+      "type": "SelectorReducerEnhancer<TValue> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onChange",
+      "parent": "SelectorOptions",
+      "type": "((option: any) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInputValueChange",
+      "parent": "SelectorOptions",
+      "type": "((inputValue: string) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onStateChange",
+      "parent": "SelectorOptions",
+      "type": "SelectorStateChangeListener<TValue> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "optionToString",
+      "parent": "SelectorOptions",
+      "type": "((option: any) => string) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "value",
+      "parent": "SelectorOptions",
+      "type": "any",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "valueToString",
+      "parent": "SelectorOptions",
+      "type": "((option: any) => string) | undefined",
+    },
+    Object {
+      "documentation": "Style overrides",
+      "isOptional": true,
+      "name": "styles",
+      "parent": "StyleProps",
+      "type": "ResponsiveStyleSheet | undefined",
+    },
+    Object {
+      "documentation": "Parent styles are array of all stylesheets that should be applied from parents",
+      "isOptional": true,
+      "name": "parentStyles",
+      "parent": "StyleProps",
+      "type": "ResponsiveStyleSheet[] | undefined",
+    },
+    Object {
+      "documentation": "All variant processing functions",
+      "isOptional": true,
+      "name": "$$variants",
+      "parent": "StyleProps",
+      "type": "OmitPropsSetting[] | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "hidden",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "color",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "size",
+      "parent": "InputHTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "style",
+      "parent": "HTMLAttributes",
+      "type": "CSSProperties | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "multiple",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "disabled",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "invalid",
+      "parent": "TextInputProps",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "dir",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "form",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "slot",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "title",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "pattern",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "height",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "translate",
+      "parent": "HTMLAttributes",
+      "type": "\\"yes\\" | \\"no\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "width",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "children",
+      "parent": "DOMAttributes",
+      "type": "ReactNode",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "role",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "ref",
+      "parent": "ClassAttributes",
+      "type": "string | ((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "key",
+      "parent": "Attributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "defaultChecked",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suppressContentEditableWarning",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suppressHydrationWarning",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "accessKey",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "className",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "contentEditable",
+      "parent": "HTMLAttributes",
+      "type": "boolean | \\"inherit\\" | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "contextMenu",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "draggable",
+      "parent": "HTMLAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "lang",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "placeholder",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "spellCheck",
+      "parent": "HTMLAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "tabIndex",
+      "parent": "HTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "radioGroup",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "about",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "datatype",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "inlist",
+      "parent": "HTMLAttributes",
+      "type": "any",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "prefix",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "property",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "resource",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "typeof",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "vocab",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoCapitalize",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoCorrect",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoSave",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemProp",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemScope",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemType",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemID",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemRef",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "results",
+      "parent": "HTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "security",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "unselectable",
+      "parent": "HTMLAttributes",
+      "type": "\\"on\\" | \\"off\\" | undefined",
+    },
+    Object {
+      "documentation": "Hints at the type of data that might be entered by the user while editing the element or its contents",
+      "isOptional": true,
+      "name": "inputMode",
+      "parent": "HTMLAttributes",
+      "type": "\\"none\\" | \\"text\\" | \\"tel\\" | \\"url\\" | \\"email\\" | \\"numeric\\" | \\"decimal\\" | \\"search\\" | undefined",
+    },
+    Object {
+      "documentation": "Specify that a standard HTML element should behave like a defined custom built-in element",
+      "isOptional": true,
+      "name": "is",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.",
+      "isOptional": true,
+      "name": "aria-activedescendant",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute.",
+      "isOptional": true,
+      "name": "aria-atomic",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
+presented if they are made.",
+      "isOptional": true,
+      "name": "aria-autocomplete",
+      "parent": "AriaAttributes",
+      "type": "\\"both\\" | \\"none\\" | \\"inline\\" | \\"list\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user.",
+      "isOptional": true,
+      "name": "aria-busy",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates the current \\"checked\\" state of checkboxes, radio buttons, and other widgets.",
+      "isOptional": true,
+      "name": "aria-checked",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"mixed\\" | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines the total number of columns in a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-colcount",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-colindex",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-colspan",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element (or elements) whose contents or presence are controlled by the current element.",
+      "isOptional": true,
+      "name": "aria-controls",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates the element that represents the current item within a container or set of related elements.",
+      "isOptional": true,
+      "name": "aria-current",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"page\\" | \\"false\\" | \\"true\\" | \\"time\\" | \\"step\\" | \\"location\\" | \\"date\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element (or elements) that describes the object.",
+      "isOptional": true,
+      "name": "aria-describedby",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element that provides a detailed, extended description for the object.",
+      "isOptional": true,
+      "name": "aria-details",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.",
+      "isOptional": true,
+      "name": "aria-disabled",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates what functions can be performed when a dragged object is released on the drop target.",
+      "isOptional": true,
+      "name": "aria-dropeffect",
+      "parent": "AriaAttributes",
+      "type": "\\"none\\" | \\"copy\\" | \\"move\\" | \\"link\\" | \\"execute\\" | \\"popup\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element that provides an error message for the object.",
+      "isOptional": true,
+      "name": "aria-errormessage",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.",
+      "isOptional": true,
+      "name": "aria-expanded",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
+allows assistive technology to override the general default of reading in document source order.",
+      "isOptional": true,
+      "name": "aria-flowto",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates an element's \\"grabbed\\" state in a drag-and-drop operation.",
+      "isOptional": true,
+      "name": "aria-grabbed",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element.",
+      "isOptional": true,
+      "name": "aria-haspopup",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"listbox\\" | \\"grid\\" | \\"menu\\" | \\"false\\" | \\"true\\" | \\"dialog\\" | \\"tree\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether the element is exposed to an accessibility API.",
+      "isOptional": true,
+      "name": "aria-hidden",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates the entered value does not conform to the format expected by the application.",
+      "isOptional": true,
+      "name": "aria-invalid",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | \\"grammar\\" | \\"spelling\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.",
+      "isOptional": true,
+      "name": "aria-keyshortcuts",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines a string value that labels the current element.",
+      "isOptional": true,
+      "name": "aria-label",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element (or elements) that labels the current element.",
+      "isOptional": true,
+      "name": "aria-labelledby",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines the hierarchical level of an element within a structure.",
+      "isOptional": true,
+      "name": "aria-level",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region.",
+      "isOptional": true,
+      "name": "aria-live",
+      "parent": "AriaAttributes",
+      "type": "\\"off\\" | \\"assertive\\" | \\"polite\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether an element is modal when displayed.",
+      "isOptional": true,
+      "name": "aria-modal",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether a text box accepts multiple lines of input or only a single line.",
+      "isOptional": true,
+      "name": "aria-multiline",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates that the user may select more than one item from the current selectable descendants.",
+      "isOptional": true,
+      "name": "aria-multiselectable",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous.",
+      "isOptional": true,
+      "name": "aria-orientation",
+      "parent": "AriaAttributes",
+      "type": "\\"horizontal\\" | \\"vertical\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
+between DOM elements where the DOM hierarchy cannot be used to represent the relationship.",
+      "isOptional": true,
+      "name": "aria-owns",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
+A hint could be a sample value or a brief description of the expected format.",
+      "isOptional": true,
+      "name": "aria-placeholder",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.",
+      "isOptional": true,
+      "name": "aria-posinset",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates the current \\"pressed\\" state of toggle buttons.",
+      "isOptional": true,
+      "name": "aria-pressed",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"mixed\\" | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates that the element is not editable, but is otherwise operable.",
+      "isOptional": true,
+      "name": "aria-readonly",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.",
+      "isOptional": true,
+      "name": "aria-relevant",
+      "parent": "AriaAttributes",
+      "type": "\\"all\\" | \\"text\\" | \\"additions\\" | \\"additions text\\" | \\"removals\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates that user input is required on the element before a form may be submitted.",
+      "isOptional": true,
+      "name": "aria-required",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines a human-readable, author-localized description for the role of an element.",
+      "isOptional": true,
+      "name": "aria-roledescription",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines the total number of rows in a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-rowcount",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-rowindex",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-rowspan",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates the current \\"selected\\" state of various widgets.",
+      "isOptional": true,
+      "name": "aria-selected",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.",
+      "isOptional": true,
+      "name": "aria-setsize",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates if items in a table or grid are sorted in ascending or descending order.",
+      "isOptional": true,
+      "name": "aria-sort",
+      "parent": "AriaAttributes",
+      "type": "\\"none\\" | \\"ascending\\" | \\"descending\\" | \\"other\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines the maximum allowed value for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuemax",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the minimum allowed value for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuemin",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the current value for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuenow",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the human readable text alternative of aria-valuenow for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuetext",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "dangerouslySetInnerHTML",
+      "parent": "DOMAttributes",
+      "type": "{ __html: string; } | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCopy",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCopyCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCut",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCutCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPaste",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPasteCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionStart",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionUpdate",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionUpdateCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onFocus",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onFocusCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBlur",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBlurCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBeforeInput",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBeforeInputCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInput",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInputCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onReset",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onResetCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSubmit",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSubmitCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInvalid",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInvalidCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoad",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onError",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onErrorCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyDown",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyDownCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyPress",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyPressCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyUp",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyUpCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAbort",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAbortCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlay",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlayCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlayThrough",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlayThroughCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDurationChange",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDurationChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEmptied",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEmptiedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEncrypted",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEncryptedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEnded",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEndedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedData",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedDataCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedMetadata",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedMetadataCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadStart",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPause",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPauseCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlay",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlayCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlaying",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlayingCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onProgress",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onProgressCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onRateChange",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onRateChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeeked",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeekedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeeking",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeekingCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onStalled",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onStalledCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSuspend",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSuspendCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTimeUpdate",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTimeUpdateCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onVolumeChange",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onVolumeChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWaiting",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWaitingCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAuxClick",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAuxClickCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onClick",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onClickCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onContextMenu",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onContextMenuCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDoubleClick",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDoubleClickCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDrag",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEnter",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEnterCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragExit",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragExitCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragLeave",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragLeaveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragOver",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragOverCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragStart",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDrop",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDropCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseDown",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseDownCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseEnter",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseLeave",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseMove",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseMoveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOut",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOutCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOver",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOverCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseUp",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseUpCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSelect",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSelectCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchCancel",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchCancelCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchMove",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchMoveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchStart",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerDown",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerDownCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerMove",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerMoveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerUp",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerUpCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerCancel",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerCancelCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerEnter",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerEnterCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerLeave",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerLeaveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOver",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOverCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOut",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOutCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onGotPointerCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onGotPointerCaptureCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLostPointerCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLostPointerCaptureCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onScroll",
+      "parent": "DOMAttributes",
+      "type": "((event: UIEvent<HTMLInputElement, UIEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onScrollCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: UIEvent<HTMLInputElement, UIEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWheel",
+      "parent": "DOMAttributes",
+      "type": "((event: WheelEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWheelCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: WheelEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationStart",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationIteration",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationIterationCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTransitionEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: TransitionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTransitionEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TransitionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "css",
+      "parent": "DOMAttributes",
+      "type": "InterpolationWithTheme<any>",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "list",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "step",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "type",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoFocus",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "accept",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "alt",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoComplete",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "capture",
+      "parent": "InputHTMLAttributes",
+      "type": "string | boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "checked",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "crossOrigin",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formAction",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formEncType",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formMethod",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formNoValidate",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formTarget",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "max",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "maxLength",
+      "parent": "InputHTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "min",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "minLength",
+      "parent": "InputHTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "name",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "readOnly",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "required",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "src",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "baseProps",
+      "parent": "TextInputProps",
+      "type": "(Pick<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps, \\"hidden\\" | ... 258 more ... | \\"$$variants\\"> & { ...; } & { ...; } & StyleProps) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "prefixProps",
+      "parent": "TextInputProps",
+      "type": "(Pick<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps, \\"hidden\\" | ... 258 more ... | \\"$$variants\\"> & StyleProps) | undefined",
+    },
+    Object {
+      "documentation": "Elements included between prefix and input",
+      "isOptional": true,
+      "name": "prefixExtra",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suffix",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "Elements included between input and suffix",
+      "isOptional": true,
+      "name": "suffixExtra",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suffixProps",
+      "parent": "TextInputProps",
+      "type": "(Pick<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps, \\"hidden\\" | ... 258 more ... | \\"$$variants\\"> & StyleProps) | undefined",
+    },
+  ],
+}
+`;
 
-exports[`extracting type information extracts informtion from Badge component 1`] = `
+exports[`extracting type information extracts information from Badge component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -1938,7 +4103,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Banner component 1`] = `
+exports[`extracting type information extracts information from Banner component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -3804,7 +5969,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Blockquote component 1`] = `
+exports[`extracting type information extracts information from Blockquote component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -5642,7 +7807,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Box component 1`] = `
+exports[`extracting type information extracts information from Box component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -7473,7 +9638,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Button component 1`] = `
+exports[`extracting type information extracts information from Button component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -9409,7 +11574,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Card component 1`] = `
+exports[`extracting type information extracts information from Card component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -11261,7 +13426,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Checkbox component 1`] = `
+exports[`extracting type information extracts information from Checkbox component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -13351,7 +15516,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Chip component 1`] = `
+exports[`extracting type information extracts information from Chip component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -13388,7 +15553,7 @@ Called when user click on delete element or presses Backspace / Delete",
 }
 `;
 
-exports[`extracting type information extracts informtion from Cite component 1`] = `
+exports[`extracting type information extracts information from Cite component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -15219,7 +17384,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from CloseButton component 1`] = `
+exports[`extracting type information extracts information from CloseButton component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -17127,7 +19292,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from CloseListenerManager component 1`] = `
+exports[`extracting type information extracts information from CloseListenerManager component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -17141,7 +19306,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Code component 1`] = `
+exports[`extracting type information extracts information from Code component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -18972,7 +21137,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTable component 1`] = `
+exports[`extracting type information extracts information from DataTable component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -20824,7 +22989,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableBody component 1`] = `
+exports[`extracting type information extracts information from DataTableBody component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -22655,7 +24820,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableColumn component 1`] = `
+exports[`extracting type information extracts information from DataTableColumn component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -24549,7 +26714,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableFooter component 1`] = `
+exports[`extracting type information extracts information from DataTableFooter component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -26380,9 +28545,9 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableFooterColumn component 1`] = `undefined`;
+exports[`extracting type information extracts information from DataTableFooterColumn component 1`] = `undefined`;
 
-exports[`extracting type information extracts informtion from DataTableFooterRow component 1`] = `
+exports[`extracting type information extracts information from DataTableFooterRow component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -28213,7 +30378,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableHeader component 1`] = `
+exports[`extracting type information extracts information from DataTableHeader component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -30044,7 +32209,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableHeaderColumn component 1`] = `
+exports[`extracting type information extracts information from DataTableHeaderColumn component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -31931,7 +34096,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableHeaderRow component 1`] = `
+exports[`extracting type information extracts information from DataTableHeaderRow component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -33762,7 +35927,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DataTableRow component 1`] = `
+exports[`extracting type information extracts information from DataTableRow component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -35593,7 +37758,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DescriptionList component 1`] = `
+exports[`extracting type information extracts information from DescriptionList component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -37424,7 +39589,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from DescriptionListItem component 1`] = `
+exports[`extracting type information extracts information from DescriptionListItem component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -37459,7 +39624,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Dialog component 1`] = `
+exports[`extracting type information extracts information from Dialog component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -37537,7 +39702,7 @@ Default is dialog (you don't need users immediate action)",
 }
 `;
 
-exports[`extracting type information extracts informtion from Divider component 1`] = `
+exports[`extracting type information extracts information from Divider component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -39396,7 +41561,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Drawer component 1`] = `
+exports[`extracting type information extracts information from Drawer component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -41289,7 +43454,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from FieldSet component 1`] = `
+exports[`extracting type information extracts information from FieldSet component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -41331,7 +43496,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from FileInput component 1`] = `
+exports[`extracting type information extracts information from FileInput component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -43407,7 +45572,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Flex component 1`] = `
+exports[`extracting type information extracts information from Flex component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -45238,9 +47403,13 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from FormField component 1`] = `undefined`;
+exports[`extracting type information extracts information from FormField component 1`] = `
+Object {
+  "properties": Array [],
+}
+`;
 
-exports[`extracting type information extracts informtion from Grid component 1`] = `
+exports[`extracting type information extracts information from Grid component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -47071,9 +49240,9 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Group component 1`] = `undefined`;
+exports[`extracting type information extracts information from Group component 1`] = `undefined`;
 
-exports[`extracting type information extracts informtion from Header component 1`] = `
+exports[`extracting type information extracts information from Header component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -48904,7 +51073,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Heading component 1`] = `
+exports[`extracting type information extracts information from Heading component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -50721,7 +52890,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from HeadingSkeleton component 1`] = `
+exports[`extracting type information extracts information from HeadingSkeleton component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -52545,7 +54714,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Image component 1`] = `
+exports[`extracting type information extracts information from Image component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -52601,7 +54770,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from InlineError component 1`] = `
+exports[`extracting type information extracts information from InlineError component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -54432,7 +56601,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Label component 1`] = `
+exports[`extracting type information extracts information from Label component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -56291,7 +58460,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from LayerManager component 1`] = `
+exports[`extracting type information extracts information from LayerManager component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -56312,9 +58481,9 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Layout component 1`] = `undefined`;
+exports[`extracting type information extracts information from Layout component 1`] = `undefined`;
 
-exports[`extracting type information extracts informtion from Link component 1`] = `
+exports[`extracting type information extracts information from Link component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -58208,7 +60377,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from List component 1`] = `
+exports[`extracting type information extracts information from List component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -60060,7 +62229,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from ListItem component 1`] = `
+exports[`extracting type information extracts information from ListItem component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -61919,7 +64088,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Loading component 1`] = `
+exports[`extracting type information extracts information from Loading component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -61961,7 +64130,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Loading component 2`] = `
+exports[`extracting type information extracts information from Loading component 2`] = `
 Object {
   "properties": Array [
     Object {
@@ -62003,7 +64172,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Menu component 1`] = `
+exports[`extracting type information extracts information from Menu component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -63918,7 +66087,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from MenuItem component 1`] = `
+exports[`extracting type information extracts information from MenuItem component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -65777,7 +67946,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Modal component 1`] = `
+exports[`extracting type information extracts information from Modal component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -65879,9 +68048,9 @@ This prop is immutable so make sure you don't use a new array because only first
 }
 `;
 
-exports[`extracting type information extracts informtion from NextPageButton component 1`] = `undefined`;
+exports[`extracting type information extracts information from NextPageButton component 1`] = `undefined`;
 
-exports[`extracting type information extracts informtion from Pagination component 1`] = `
+exports[`extracting type information extracts information from Pagination component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -67712,7 +69881,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Paragraph component 1`] = `
+exports[`extracting type information extracts information from Paragraph component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -69543,7 +71712,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from ParagraphSkeleton component 1`] = `
+exports[`extracting type information extracts information from ParagraphSkeleton component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -69578,7 +71747,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Portal component 1`] = `
+exports[`extracting type information extracts information from Portal component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -69606,9 +71775,9 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from PreviousPageButton component 1`] = `undefined`;
+exports[`extracting type information extracts information from PreviousPageButton component 1`] = `undefined`;
 
-exports[`extracting type information extracts informtion from ProgressBar component 1`] = `
+exports[`extracting type information extracts information from ProgressBar component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -69643,7 +71812,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Quote component 1`] = `
+exports[`extracting type information extracts information from Quote component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -71481,7 +73650,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Radio component 1`] = `
+exports[`extracting type information extracts information from Radio component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -73571,9 +75740,2174 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Select component 1`] = `undefined`;
+exports[`extracting type information extracts information from Select component 1`] = `
+Object {
+  "properties": Array [
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "debounceDelay",
+      "parent": "SelectProps",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "id",
+      "parent": "SelectProps",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "options",
+      "parent": "SelectProps",
+      "type": "TValue[] | ((inputValue: string) => Promise<TValue[]>) | undefined",
+    },
+    Object {
+      "documentation": "Select menu component",
+      "isOptional": true,
+      "name": "menu",
+      "parent": "SelectProps",
+      "type": "ComponentClass<SelectMenuProps, any> | FunctionComponent<SelectMenuProps> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "searchable",
+      "parent": "SelectProps",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "Toggler component",
+      "isOptional": true,
+      "name": "toggler",
+      "parent": "SelectProps",
+      "type": "ComponentClass<SelectTogglerProps, any> | FunctionComponent<SelectTogglerProps> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "defaultValue",
+      "parent": "SelectorOptions",
+      "type": "TValue | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "enhanceReducer",
+      "parent": "SelectorOptions",
+      "type": "SelectorReducerEnhancer<TValue> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onChange",
+      "parent": "SelectorOptions",
+      "type": "((option: any) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInputValueChange",
+      "parent": "SelectorOptions",
+      "type": "((inputValue: string) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onStateChange",
+      "parent": "SelectorOptions",
+      "type": "SelectorStateChangeListener<TValue> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "optionToString",
+      "parent": "SelectorOptions",
+      "type": "((option: any) => string) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "value",
+      "parent": "SelectorOptions",
+      "type": "any",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "valueToString",
+      "parent": "SelectorOptions",
+      "type": "((option: any) => string) | undefined",
+    },
+    Object {
+      "documentation": "Style overrides",
+      "isOptional": true,
+      "name": "styles",
+      "parent": "StyleProps",
+      "type": "ResponsiveStyleSheet | undefined",
+    },
+    Object {
+      "documentation": "Parent styles are array of all stylesheets that should be applied from parents",
+      "isOptional": true,
+      "name": "parentStyles",
+      "parent": "StyleProps",
+      "type": "ResponsiveStyleSheet[] | undefined",
+    },
+    Object {
+      "documentation": "All variant processing functions",
+      "isOptional": true,
+      "name": "$$variants",
+      "parent": "StyleProps",
+      "type": "OmitPropsSetting[] | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "hidden",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "color",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "size",
+      "parent": "InputHTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "style",
+      "parent": "HTMLAttributes",
+      "type": "CSSProperties | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "multiple",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "disabled",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "invalid",
+      "parent": "TextInputProps",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "dir",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "form",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "slot",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "title",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "pattern",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "height",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "translate",
+      "parent": "HTMLAttributes",
+      "type": "\\"yes\\" | \\"no\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "width",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "children",
+      "parent": "DOMAttributes",
+      "type": "ReactNode",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "role",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "ref",
+      "parent": "ClassAttributes",
+      "type": "string | ((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "key",
+      "parent": "Attributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "defaultChecked",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suppressContentEditableWarning",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suppressHydrationWarning",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "accessKey",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "className",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "contentEditable",
+      "parent": "HTMLAttributes",
+      "type": "boolean | \\"inherit\\" | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "contextMenu",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "draggable",
+      "parent": "HTMLAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "lang",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "placeholder",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "spellCheck",
+      "parent": "HTMLAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "tabIndex",
+      "parent": "HTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "radioGroup",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "about",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "datatype",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "inlist",
+      "parent": "HTMLAttributes",
+      "type": "any",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "prefix",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "property",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "resource",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "typeof",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "vocab",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoCapitalize",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoCorrect",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoSave",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemProp",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemScope",
+      "parent": "HTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemType",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemID",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "itemRef",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "results",
+      "parent": "HTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "security",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "unselectable",
+      "parent": "HTMLAttributes",
+      "type": "\\"on\\" | \\"off\\" | undefined",
+    },
+    Object {
+      "documentation": "Hints at the type of data that might be entered by the user while editing the element or its contents",
+      "isOptional": true,
+      "name": "inputMode",
+      "parent": "HTMLAttributes",
+      "type": "\\"none\\" | \\"text\\" | \\"tel\\" | \\"url\\" | \\"email\\" | \\"numeric\\" | \\"decimal\\" | \\"search\\" | undefined",
+    },
+    Object {
+      "documentation": "Specify that a standard HTML element should behave like a defined custom built-in element",
+      "isOptional": true,
+      "name": "is",
+      "parent": "HTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.",
+      "isOptional": true,
+      "name": "aria-activedescendant",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute.",
+      "isOptional": true,
+      "name": "aria-atomic",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether inputting text could trigger display of one or more predictions of the user's intended value for an input and specifies how predictions would be
+presented if they are made.",
+      "isOptional": true,
+      "name": "aria-autocomplete",
+      "parent": "AriaAttributes",
+      "type": "\\"both\\" | \\"none\\" | \\"inline\\" | \\"list\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates an element is being modified and that assistive technologies MAY want to wait until the modifications are complete before exposing them to the user.",
+      "isOptional": true,
+      "name": "aria-busy",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates the current \\"checked\\" state of checkboxes, radio buttons, and other widgets.",
+      "isOptional": true,
+      "name": "aria-checked",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"mixed\\" | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines the total number of columns in a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-colcount",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-colindex",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-colspan",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element (or elements) whose contents or presence are controlled by the current element.",
+      "isOptional": true,
+      "name": "aria-controls",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates the element that represents the current item within a container or set of related elements.",
+      "isOptional": true,
+      "name": "aria-current",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"page\\" | \\"false\\" | \\"true\\" | \\"time\\" | \\"step\\" | \\"location\\" | \\"date\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element (or elements) that describes the object.",
+      "isOptional": true,
+      "name": "aria-describedby",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element that provides a detailed, extended description for the object.",
+      "isOptional": true,
+      "name": "aria-details",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.",
+      "isOptional": true,
+      "name": "aria-disabled",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates what functions can be performed when a dragged object is released on the drop target.",
+      "isOptional": true,
+      "name": "aria-dropeffect",
+      "parent": "AriaAttributes",
+      "type": "\\"none\\" | \\"copy\\" | \\"move\\" | \\"link\\" | \\"execute\\" | \\"popup\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element that provides an error message for the object.",
+      "isOptional": true,
+      "name": "aria-errormessage",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether the element, or another grouping element it controls, is currently expanded or collapsed.",
+      "isOptional": true,
+      "name": "aria-expanded",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies the next element (or elements) in an alternate reading order of content which, at the user's discretion,
+allows assistive technology to override the general default of reading in document source order.",
+      "isOptional": true,
+      "name": "aria-flowto",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Indicates an element's \\"grabbed\\" state in a drag-and-drop operation.",
+      "isOptional": true,
+      "name": "aria-grabbed",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element.",
+      "isOptional": true,
+      "name": "aria-haspopup",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"listbox\\" | \\"grid\\" | \\"menu\\" | \\"false\\" | \\"true\\" | \\"dialog\\" | \\"tree\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether the element is exposed to an accessibility API.",
+      "isOptional": true,
+      "name": "aria-hidden",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates the entered value does not conform to the format expected by the application.",
+      "isOptional": true,
+      "name": "aria-invalid",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | \\"grammar\\" | \\"spelling\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.",
+      "isOptional": true,
+      "name": "aria-keyshortcuts",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines a string value that labels the current element.",
+      "isOptional": true,
+      "name": "aria-label",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Identifies the element (or elements) that labels the current element.",
+      "isOptional": true,
+      "name": "aria-labelledby",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines the hierarchical level of an element within a structure.",
+      "isOptional": true,
+      "name": "aria-level",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region.",
+      "isOptional": true,
+      "name": "aria-live",
+      "parent": "AriaAttributes",
+      "type": "\\"off\\" | \\"assertive\\" | \\"polite\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether an element is modal when displayed.",
+      "isOptional": true,
+      "name": "aria-modal",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether a text box accepts multiple lines of input or only a single line.",
+      "isOptional": true,
+      "name": "aria-multiline",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates that the user may select more than one item from the current selectable descendants.",
+      "isOptional": true,
+      "name": "aria-multiselectable",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous.",
+      "isOptional": true,
+      "name": "aria-orientation",
+      "parent": "AriaAttributes",
+      "type": "\\"horizontal\\" | \\"vertical\\" | undefined",
+    },
+    Object {
+      "documentation": "Identifies an element (or elements) in order to define a visual, functional, or contextual parent/child relationship
+between DOM elements where the DOM hierarchy cannot be used to represent the relationship.",
+      "isOptional": true,
+      "name": "aria-owns",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
+A hint could be a sample value or a brief description of the expected format.",
+      "isOptional": true,
+      "name": "aria-placeholder",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines an element's number or position in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.",
+      "isOptional": true,
+      "name": "aria-posinset",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates the current \\"pressed\\" state of toggle buttons.",
+      "isOptional": true,
+      "name": "aria-pressed",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"mixed\\" | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates that the element is not editable, but is otherwise operable.",
+      "isOptional": true,
+      "name": "aria-readonly",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates what notifications the user agent will trigger when the accessibility tree within a live region is modified.",
+      "isOptional": true,
+      "name": "aria-relevant",
+      "parent": "AriaAttributes",
+      "type": "\\"all\\" | \\"text\\" | \\"additions\\" | \\"additions text\\" | \\"removals\\" | undefined",
+    },
+    Object {
+      "documentation": "Indicates that user input is required on the element before a form may be submitted.",
+      "isOptional": true,
+      "name": "aria-required",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines a human-readable, author-localized description for the role of an element.",
+      "isOptional": true,
+      "name": "aria-roledescription",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "Defines the total number of rows in a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-rowcount",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-rowindex",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.",
+      "isOptional": true,
+      "name": "aria-rowspan",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates the current \\"selected\\" state of various widgets.",
+      "isOptional": true,
+      "name": "aria-selected",
+      "parent": "AriaAttributes",
+      "type": "boolean | \\"false\\" | \\"true\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines the number of items in the current set of listitems or treeitems. Not required if all elements in the set are present in the DOM.",
+      "isOptional": true,
+      "name": "aria-setsize",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Indicates if items in a table or grid are sorted in ascending or descending order.",
+      "isOptional": true,
+      "name": "aria-sort",
+      "parent": "AriaAttributes",
+      "type": "\\"none\\" | \\"ascending\\" | \\"descending\\" | \\"other\\" | undefined",
+    },
+    Object {
+      "documentation": "Defines the maximum allowed value for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuemax",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the minimum allowed value for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuemin",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the current value for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuenow",
+      "parent": "AriaAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "Defines the human readable text alternative of aria-valuenow for a range widget.",
+      "isOptional": true,
+      "name": "aria-valuetext",
+      "parent": "AriaAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "dangerouslySetInnerHTML",
+      "parent": "DOMAttributes",
+      "type": "{ __html: string; } | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCopy",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCopyCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCut",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCutCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPaste",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPasteCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: ClipboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionStart",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionUpdate",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCompositionUpdateCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: CompositionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onFocus",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onFocusCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBlur",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBlurCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FocusEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBeforeInput",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onBeforeInputCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInput",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInputCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onReset",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onResetCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSubmit",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSubmitCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInvalid",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onInvalidCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: FormEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoad",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onError",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onErrorCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyDown",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyDownCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyPress",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyPressCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyUp",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onKeyUpCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: KeyboardEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAbort",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAbortCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlay",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlayCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlayThrough",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onCanPlayThroughCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDurationChange",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDurationChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEmptied",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEmptiedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEncrypted",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEncryptedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEnded",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onEndedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedData",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedDataCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedMetadata",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadedMetadataCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadStart",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLoadStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPause",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPauseCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlay",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlayCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlaying",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPlayingCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onProgress",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onProgressCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onRateChange",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onRateChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeeked",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeekedCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeeking",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSeekingCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onStalled",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onStalledCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSuspend",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSuspendCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTimeUpdate",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTimeUpdateCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onVolumeChange",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onVolumeChangeCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWaiting",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWaitingCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAuxClick",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAuxClickCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onClick",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onClickCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onContextMenu",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onContextMenuCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDoubleClick",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDoubleClickCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDrag",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEnter",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragEnterCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragExit",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragExitCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragLeave",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragLeaveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragOver",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragOverCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragStart",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDragStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDrop",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onDropCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: DragEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseDown",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseDownCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseEnter",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseLeave",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseMove",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseMoveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOut",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOutCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOver",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseOverCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseUp",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onMouseUpCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: MouseEvent<HTMLInputElement, MouseEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSelect",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onSelectCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: SyntheticEvent<HTMLInputElement, Event>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchCancel",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchCancelCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchMove",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchMoveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchStart",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTouchStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TouchEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerDown",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerDownCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerMove",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerMoveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerUp",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerUpCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerCancel",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerCancelCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerEnter",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerEnterCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerLeave",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerLeaveCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOver",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOverCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOut",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onPointerOutCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onGotPointerCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onGotPointerCaptureCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLostPointerCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onLostPointerCaptureCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: PointerEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onScroll",
+      "parent": "DOMAttributes",
+      "type": "((event: UIEvent<HTMLInputElement, UIEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onScrollCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: UIEvent<HTMLInputElement, UIEvent>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWheel",
+      "parent": "DOMAttributes",
+      "type": "((event: WheelEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onWheelCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: WheelEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationStart",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationStartCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationIteration",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onAnimationIterationCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: AnimationEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTransitionEnd",
+      "parent": "DOMAttributes",
+      "type": "((event: TransitionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "onTransitionEndCapture",
+      "parent": "DOMAttributes",
+      "type": "((event: TransitionEvent<HTMLInputElement>) => void) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "css",
+      "parent": "DOMAttributes",
+      "type": "InterpolationWithTheme<any>",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "list",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "step",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "type",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoFocus",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "accept",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "alt",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "autoComplete",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "capture",
+      "parent": "InputHTMLAttributes",
+      "type": "string | boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "checked",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "crossOrigin",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formAction",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formEncType",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formMethod",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formNoValidate",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "formTarget",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "max",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "maxLength",
+      "parent": "InputHTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "min",
+      "parent": "InputHTMLAttributes",
+      "type": "string | number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "minLength",
+      "parent": "InputHTMLAttributes",
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "name",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "readOnly",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "required",
+      "parent": "InputHTMLAttributes",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "src",
+      "parent": "InputHTMLAttributes",
+      "type": "string | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "baseProps",
+      "parent": "TextInputProps",
+      "type": "(Pick<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps, \\"hidden\\" | ... 258 more ... | \\"$$variants\\"> & { ...; } & { ...; } & StyleProps) | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "prefixProps",
+      "parent": "TextInputProps",
+      "type": "(Pick<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps, \\"hidden\\" | ... 258 more ... | \\"$$variants\\"> & StyleProps) | undefined",
+    },
+    Object {
+      "documentation": "Elements included between prefix and input",
+      "isOptional": true,
+      "name": "prefixExtra",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suffix",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "Elements included between input and suffix",
+      "isOptional": true,
+      "name": "suffixExtra",
+      "parent": "TextInputProps",
+      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "suffixProps",
+      "parent": "TextInputProps",
+      "type": "(Pick<ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement> & StyleProps, \\"hidden\\" | ... 258 more ... | \\"$$variants\\"> & StyleProps) | undefined",
+    },
+  ],
+}
+`;
 
-exports[`extracting type information extracts informtion from SkeletonSentence component 1`] = `
+exports[`extracting type information extracts information from SkeletonSentence component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -75411,9 +79745,63 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Slider component 1`] = `undefined`;
+exports[`extracting type information extracts information from Slider component 1`] = `
+Object {
+  "properties": Array [
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "allowedValues",
+      "parent": "SliderProps",
+      "type": "number[] | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": false,
+      "name": "colors",
+      "parent": "SliderProps",
+      "type": "string[]",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": false,
+      "name": "max",
+      "parent": "SliderProps",
+      "type": "number",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": false,
+      "name": "min",
+      "parent": "SliderProps",
+      "type": "number",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": false,
+      "name": "onChange",
+      "parent": "SliderProps",
+      "type": "(values: number[]) => void",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": false,
+      "name": "step",
+      "parent": "SliderProps",
+      "type": "number",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": false,
+      "name": "values",
+      "parent": "SliderProps",
+      "type": "number[]",
+    },
+  ],
+}
+`;
 
-exports[`extracting type information extracts informtion from Spinner component 1`] = `
+exports[`extracting type information extracts information from Spinner component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -77244,7 +81632,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Subscript component 1`] = `
+exports[`extracting type information extracts information from Subscript component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -79075,7 +83463,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Superscript component 1`] = `
+exports[`extracting type information extracts information from Superscript component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -80906,7 +85294,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Svg component 1`] = `
+exports[`extracting type information extracts information from Svg component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -84235,7 +88623,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from SvgIcon component 1`] = `
+exports[`extracting type information extracts information from SvgIcon component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -86080,19 +90468,19 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Tab component 1`] = `
+exports[`extracting type information extracts information from Tab component 1`] = `
 Object {
   "properties": Array [],
 }
 `;
 
-exports[`extracting type information extracts informtion from Tabs component 1`] = `
+exports[`extracting type information extracts information from Tabs component 1`] = `
 Object {
   "properties": Array [],
 }
 `;
 
-exports[`extracting type information extracts informtion from Text component 1`] = `
+exports[`extracting type information extracts information from Text component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -87923,7 +92311,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from TextArea component 1`] = `
+exports[`extracting type information extracts information from TextArea component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -89873,7 +94261,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from TextInput component 1`] = `
+exports[`extracting type information extracts information from TextInput component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -91949,7 +96337,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from TextSkeleton component 1`] = `
+exports[`extracting type information extracts information from TextSkeleton component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -91984,7 +96372,7 @@ Object {
 }
 `;
 
-exports[`extracting type information extracts informtion from Toast component 1`] = `
+exports[`extracting type information extracts information from Toast component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -93836,7 +98224,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from ToastManager component 1`] = `
+exports[`extracting type information extracts information from ToastManager component 1`] = `
 Object {
   "properties": Array [
     Object {
@@ -95667,7 +100055,7 @@ A hint could be a sample value or a brief description of the expected format.",
 }
 `;
 
-exports[`extracting type information extracts informtion from Toggle component 1`] = `
+exports[`extracting type information extracts information from Toggle component 1`] = `
 Object {
   "properties": Array [
     Object {

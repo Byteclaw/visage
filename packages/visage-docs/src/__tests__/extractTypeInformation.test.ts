@@ -90,7 +90,7 @@ describe('extracting type information', () => {
     ctx = createProgram();
   });
 
-  it.each(components)('extracts informtion from %s component', component => {
+  it.each(components)('extracts information from %s component', component => {
     expect(ctx[component]).toMatchSnapshot();
   });
 });
