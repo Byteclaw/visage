@@ -20,10 +20,6 @@ export interface ColorPalette {
   /** Uses as background for success elements or as success text color */
   success: string | ScaleValue<string>;
   successText: string | ScaleValue<string>;
-  /** Text input backgrounds */
-  textInput: string | ScaleValue<string>;
-  /** Text input border colors */
-  textInputBorder: string | ScaleValue<string>;
   /** Uses as background for warning elements or as warning text color */
   warning: string | ScaleValue<string>;
   warningText: string | ScaleValue<string>;

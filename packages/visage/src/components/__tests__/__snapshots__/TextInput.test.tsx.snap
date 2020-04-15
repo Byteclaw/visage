@@ -24,8 +24,8 @@ exports[`TextInput is extendable by InputExtraElement face 1`] = `
     data-toastmanager="true"
   />
   .emotion-3 {
-  background-color: rgb(255,255,255);
-  border-color: rgb(0,0,0);
+  background-color: rgb(209,209,209);
+  border-color: rgb(143,143,143);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -287,8 +287,8 @@ exports[`TextInput is extendable by TextInputBase face 1`] = `
 }
 
 .emotion-2 {
-  background-color: rgb(255,255,255);
-  border-color: rgb(0,0,0);
+  background-color: rgb(209,209,209);
+  border-color: rgb(143,143,143);
   border-style: solid;
   border-width: 1px;
   border-radius: 10px;
@@ -358,8 +358,8 @@ exports[`TextInput is extendable by TextInputControl face 1`] = `
     data-toastmanager="true"
   />
   .emotion-2 {
-  background-color: rgb(255,255,255);
-  border-color: rgb(0,0,0);
+  background-color: rgb(209,209,209);
+  border-color: rgb(143,143,143);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -509,8 +509,8 @@ exports[`TextInput is extendable by TextInputControlBase face 1`] = `
     data-toastmanager="true"
   />
   .emotion-2 {
-  background-color: rgb(255,255,255);
-  border-color: rgb(0,0,0);
+  background-color: rgb(209,209,209);
+  border-color: rgb(143,143,143);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -656,8 +656,8 @@ exports[`TextInput render correctly 1`] = `
     data-toastmanager="true"
   />
   .emotion-2 {
-  background-color: rgb(255,255,255);
-  border-color: rgb(0,0,0);
+  background-color: rgb(209,209,209);
+  border-color: rgb(143,143,143);
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;

@@ -63,8 +63,8 @@ describe('FileInput', () => {
       }
 
       .emotion-1 {
-        background-color: rgb(255,255,255);
-        border-color: rgb(0,0,0);
+        background-color: rgb(209,209,209);
+        border-color: rgb(143,143,143);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -170,8 +170,8 @@ describe('FileInput', () => {
       }
 
       .emotion-1 {
-        background-color: rgb(255,255,255);
-        border-color: rgb(0,0,0);
+        background-color: rgb(209,209,209);
+        border-color: rgb(143,143,143);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -286,8 +286,8 @@ describe('FileInput', () => {
       }
 
       .emotion-1 {
-        background-color: rgb(255,255,255);
-        border-color: rgb(0,0,0);
+        background-color: rgb(209,209,209);
+        border-color: rgb(143,143,143);
         border-style: solid;
         border-width: 1px;
         border-radius: 4px;
@@ -449,8 +449,8 @@ describe('FileInput', () => {
       }
 
       .emotion-1 {
-        background-color: rgb(255,255,255);
-        border-color: rgb(0,0,0);
+        background-color: rgb(209,209,209);
+        border-color: rgb(143,143,143);
         border-style: solid;
         border-width: 1px;
         border-radius: 10px;

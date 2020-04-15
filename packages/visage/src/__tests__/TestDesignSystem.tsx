@@ -38,8 +38,6 @@ export function createTestTheme(faces?: VisageFaces) {
       neutralText: '#000',
       success: 'green',
       successText: 'white',
-      textInput: 'white',
-      textInputBorder: 'black',
       warning: 'orange',
       warningText: 'white',
     },

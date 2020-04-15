@@ -93,7 +93,7 @@ const RadioToggler = createComponent(Flex, {
         color: 'primaryText',
         borderColor: 'primary',
         '& > svg': {
-          fill: 'textInput',
+          fill: 'color(shades tint(10%))',
           visibility: 'visible',
         },
       },

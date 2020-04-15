@@ -22,8 +22,6 @@ export const docsThemeColorPalette: ColorPalette = {
   ...generateColorScale<'danger' | 'dangerText'>('danger', '#c0392b', 5, 5),
   ...generateColorScale<'info' | 'infoText'>('info', '#2980b9', 5, 5),
   ...generateColorScale<'warning' | 'warningText'>('warning', '#f1c40f', 5, 5),
-  textInput: shades.lighten(0.3).toString(),
-  textInputBorder: shades.darken(0.3).toString(),
 };
 
 export interface DocsThemeSettings {

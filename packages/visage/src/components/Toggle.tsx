@@ -78,7 +78,8 @@ const ToggleControl = createComponent('input', {
       left: '-50%',
     },
     '& + div': {
-      backgroundColor: 'neutral',
+      backgroundColor:
+        'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
       transitionProperty: 'all',
       transitionDuration: '0.2s',
       transitionTimingFunction: 'ease-out',

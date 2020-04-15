@@ -72,7 +72,7 @@ const CheckboxToggler = createComponent(Flex, {
         styles={{
           width: '1em',
           height: '1em',
-          stroke: 'textInput',
+          stroke: 'color(shades tint(10%))',
           strokeWidth: '2px',
           fill: 'none',
         }}
@@ -82,7 +82,7 @@ const CheckboxToggler = createComponent(Flex, {
     ),
   },
   styles: {
-    backgroundColor: 'textInput',
+    backgroundColor: 'color(shades tint(10%))',
     alignSelf: 'center',
     transition: 'all 150ms',
     borderColor: 'accent',

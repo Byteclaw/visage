@@ -48,7 +48,7 @@ exports[`Radio is extendable by RadioControl face 1`] = `
 }
 
 .emotion-2[data-checked="true"] > svg {
-  fill: rgb(255,255,255);
+  fill: rgb(209,209,209);
   visibility: visible;
 }
 
@@ -217,7 +217,7 @@ exports[`Radio is extendable by RadioLabel face 1`] = `
 }
 
 .emotion-2[data-checked="true"] > svg {
-  fill: rgb(255,255,255);
+  fill: rgb(209,209,209);
   visibility: visible;
 }
 
@@ -373,7 +373,7 @@ exports[`Radio is extendable by RadioLabelText face 1`] = `
 }
 
 .emotion-2[data-checked="true"] > svg {
-  fill: rgb(255,255,255);
+  fill: rgb(209,209,209);
   visibility: visible;
 }
 
@@ -564,7 +564,7 @@ exports[`Radio is extendable by RadioToggler face 1`] = `
 }
 
 .emotion-2[data-checked="true"] > svg {
-  fill: rgb(255,255,255);
+  fill: rgb(209,209,209);
   visibility: visible;
 }
 
@@ -684,7 +684,7 @@ exports[`Radio is extendable by styles 1`] = `
 }
 
 .emotion-2[data-checked="true"] > svg {
-  fill: rgb(255,255,255);
+  fill: rgb(209,209,209);
   visibility: visible;
 }
 
@@ -840,7 +840,7 @@ exports[`Radio renders correctly 1`] = `
 }
 
 .emotion-2[data-checked="true"] > svg {
-  fill: rgb(255,255,255);
+  fill: rgb(209,209,209);
   visibility: visible;
 }
 

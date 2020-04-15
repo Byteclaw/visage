@@ -36,8 +36,6 @@ describe('NPoint modular scale theme', () => {
       primaryText: 'white',
       success: 'green',
       successText: 'white',
-      textInput: 'white',
-      textInputBorder: 'black',
       warning: 'orange',
       warningText: 'white',
     },
