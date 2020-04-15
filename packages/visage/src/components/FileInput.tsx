@@ -54,8 +54,8 @@ const FileInputControl = createComponent('div', {
     '&[data-draggedover="true"]': {
       boxShadow: createSurfaceFocusShadow(),
     },
-    backgroundColor: 'textInput',
-    borderColor: 'textInputBorder',
+    backgroundColor: 'color(shades tint(10%))',
+    borderColor: 'color(shades shade(30%))',
     borderStyle: 'solid',
     borderWidth: '1px',
     borderRadius: 'controlBorderRadius',

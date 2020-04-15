@@ -70,10 +70,6 @@ const theme = createNPointModularScaleTheme({
     /** Uses as background for success elements or as success text color */
     success: 'green';
     successText: 'white';
-    /** Text input backgrounds */
-    textInput: 'white';
-    /** Text input border colors */
-    textInputBorder: '#999';
     /** Uses as background for warning elements or as warning text color */
     warning: 'orange';
     warningText: 'white';
@@ -146,10 +142,6 @@ const theme = createNPointFontScaleTheme({
     /** Uses as background for success elements or as success text color */
     success: 'green';
     successText: 'white';
-    /** Text input backgrounds */
-    textInput: 'white';
-    /** Text input border colors */
-    textInputBorder: '#999';
     /** Uses as background for warning elements or as warning text color */
     warning: 'orange';
     warningText: 'white';

@@ -28,7 +28,7 @@ exports[`Checkbox is extendable by CheckboxControl face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(255,255,255);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -70,7 +70,7 @@ exports[`Checkbox is extendable by CheckboxControl face 1`] = `
 .emotion-1 {
   width: 1em;
   height: 1em;
-  stroke: rgb(255,255,255);
+  stroke: rgb(209,209,209);
   stroke-width: 2px;
   fill: none;
 }
@@ -197,7 +197,7 @@ exports[`Checkbox is extendable by CheckboxLabel face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(255,255,255);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -239,7 +239,7 @@ exports[`Checkbox is extendable by CheckboxLabel face 1`] = `
 .emotion-1 {
   width: 1em;
   height: 1em;
-  stroke: rgb(255,255,255);
+  stroke: rgb(209,209,209);
   stroke-width: 2px;
   fill: none;
 }
@@ -353,7 +353,7 @@ exports[`Checkbox is extendable by CheckboxLabelText face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(255,255,255);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -395,7 +395,7 @@ exports[`Checkbox is extendable by CheckboxLabelText face 1`] = `
 .emotion-1 {
   width: 1em;
   height: 1em;
-  stroke: rgb(255,255,255);
+  stroke: rgb(209,209,209);
   stroke-width: 2px;
   fill: none;
 }
@@ -507,7 +507,7 @@ exports[`Checkbox is extendable by CheckboxToggler face 1`] = `
 .emotion-1 {
   width: 1em;
   height: 1em;
-  stroke: rgb(255,255,255);
+  stroke: rgb(209,209,209);
   stroke-width: 2px;
   fill: none;
 }
@@ -547,7 +547,7 @@ exports[`Checkbox is extendable by CheckboxToggler face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(255,255,255);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -664,7 +664,7 @@ exports[`Checkbox is extendable by styles 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(255,255,255);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -706,7 +706,7 @@ exports[`Checkbox is extendable by styles 1`] = `
 .emotion-1 {
   width: 1em;
   height: 1em;
-  stroke: rgb(255,255,255);
+  stroke: rgb(209,209,209);
   stroke-width: 2px;
   fill: none;
 }
@@ -820,7 +820,7 @@ exports[`Checkbox renders correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background-color: rgb(255,255,255);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -862,7 +862,7 @@ exports[`Checkbox renders correctly 1`] = `
 .emotion-1 {
   width: 1em;
   height: 1em;
-  stroke: rgb(255,255,255);
+  stroke: rgb(209,209,209);
   stroke-width: 2px;
   fill: none;
 }

@@ -30,8 +30,7 @@ const TextAreaBaseControl = createComponent('textarea', {
     ...(props.disabled ? disabledControlStyles : {}),
     ...(props.invalid ? invalidControlStyles : {}),
     '::placeholder': {
-      color: 'currentColor',
-      opacity: 0.3,
+      color: 'color(shadesText alpha(0.3))',
     },
   }),
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],

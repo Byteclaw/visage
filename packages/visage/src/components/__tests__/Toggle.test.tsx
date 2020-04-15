@@ -168,7 +168,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: rgb(238,238,238);
+        background-color: rgb(184,184,184);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -378,7 +378,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: rgb(238,238,238);
+        background-color: rgb(184,184,184);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -589,7 +589,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: rgb(238,238,238);
+        background-color: rgb(184,184,184);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -799,7 +799,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: rgb(238,238,238);
+        background-color: rgb(184,184,184);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -1077,7 +1077,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: rgb(238,238,238);
+        background-color: rgb(184,184,184);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;
@@ -1221,7 +1221,7 @@ describe('Toggle', () => {
       }
 
       .emotion-0 + div {
-        background-color: rgb(238,238,238);
+        background-color: rgb(184,184,184);
         -webkit-transition-property: all;
         transition-property: all;
         -webkit-transition-duration: 0.2s;

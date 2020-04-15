@@ -216,10 +216,7 @@ const colorNamesWithText: (keyof ColorPalette)[] = [
   'warning',
 ];
 
-const colorNamesWithoutText: (keyof ColorPalette)[] = [
-  'textInput',
-  'textInputBorder',
-];
+const colorNamesWithoutText: (keyof ColorPalette)[] = [];
 
 interface ThemeEditorProps {
   onClose: () => void;

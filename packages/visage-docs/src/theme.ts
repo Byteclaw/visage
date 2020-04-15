@@ -1,5 +1,4 @@
 import { ColorPalette } from '@byteclaw/visage';
-import color from 'color';
 import { createContext } from 'react';
 
 export const ThemeTogglerContext = createContext<{
@@ -18,12 +17,5 @@ export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
     darkShadesText: palette.shadesText,
     shades: palette.darkShades,
     shadesText: palette.darkShadesText,
-    // if default colors are same, calculate these
-    textInput: color(palette.darkShades)
-      .lighten(0.3)
-      .toString(),
-    textInputBorder: color(palette.darkShades)
-      .darken(0.3)
-      .toString(),
   };
 }
