@@ -179,7 +179,7 @@ describe('Radio', () => {
     const toggler = jest.fn(() => <div />);
     const onChange = jest.fn();
     const { container, rerender } = render(
-      <Radio invalid onChange={onChange} toggler={toggler} />,
+      <Radio checked={false} invalid onChange={onChange} toggler={toggler} />,
     );
 
     expect(toggler).toHaveBeenCalledTimes(1);
@@ -198,12 +198,12 @@ describe('Radio', () => {
     fireEvent.click(container.querySelector('input[type=radio]'));
 
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(toggler).toHaveBeenCalledTimes(2);
+    expect(toggler).toHaveBeenCalledTimes(1);
 
     // rerender as checked
     rerender(<Radio checked invalid onChange={onChange} toggler={toggler} />);
 
-    expect(toggler).toHaveBeenCalledTimes(3);
+    expect(toggler).toHaveBeenCalledTimes(2);
     expect(toggler).toHaveBeenLastCalledWith(
       {
         checked: true,
@@ -217,7 +217,7 @@ describe('Radio', () => {
 
     fireEvent.focus(container.querySelector('input[type=radio]'));
 
-    expect(toggler).toHaveBeenCalledTimes(4);
+    expect(toggler).toHaveBeenCalledTimes(3);
     expect(toggler).toHaveBeenLastCalledWith(
       {
         checked: true,
@@ -231,7 +231,7 @@ describe('Radio', () => {
 
     fireEvent.blur(container.querySelector('input[type=radio]'));
 
-    expect(toggler).toHaveBeenCalledTimes(5);
+    expect(toggler).toHaveBeenCalledTimes(4);
     expect(toggler).toHaveBeenLastCalledWith(
       {
         checked: true,

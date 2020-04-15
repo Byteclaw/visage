@@ -213,7 +213,7 @@ export const Checkbox: VisageComponent<CheckboxProps> = memo(
       [readOnly, onChange, setInnerChecked],
     );
     // if onChange is provided then the component is controlled
-    const isChecked = onChange ? checked ?? false : innerChecked;
+    const isChecked = checked ?? innerChecked;
 
     return (
       <CheckboxLabel

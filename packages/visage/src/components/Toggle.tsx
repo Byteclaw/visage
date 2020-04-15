@@ -2,15 +2,16 @@ import {
   ExtractVisageComponentProps,
   VisageComponent,
   StyleProps,
+  markAsVisageComponent,
 } from '@byteclaw/visage-core';
+import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import React, {
-  ChangeEvent,
   forwardRef,
   ReactElement,
   ReactNode,
   Ref,
-  useCallback,
   useState,
+  FocusEventHandler,
 } from 'react';
 import { createComponent } from '../core';
 import {
@@ -20,6 +21,9 @@ import {
   createControlFocusShadow,
   visuallyHiddenBooleanVariant,
 } from './shared';
+import { wrapToggleOnChangeHandler } from './events';
+import { booleanVariant, booleanVariantStyles } from '../variants';
+import { useHandlerRef, useComposedCallbackCreator } from '../hooks';
 
 const ToggleContainer = createComponent('div', {
   displayName: 'ToggleContainer',
@@ -30,7 +34,6 @@ const ToggleContainer = createComponent('div', {
     display: 'inline-flex',
     height: '1.5em',
     minWidth: '2.75em',
-    backgroundColor: 'transparent',
     fontSize: '16px',
     borderWidth: '2px',
     borderStyle: 'solid',
@@ -38,17 +41,12 @@ const ToggleContainer = createComponent('div', {
     outline: 'none',
     userSelect: 'none',
     my: 0.5,
-  },
-});
-
-const ToggleControl = createComponent('input', {
-  displayName: 'ToggleControl',
-  styles: {
-    ...visuallyHiddenStyles,
-    '&:checked + div > div': {
-      transform: 'translateX(calc(100% - 1.25em - 0px))',
-    },
-    '& + div > div::after': {
+    backgroundColor:
+      'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+    transitionProperty: 'all',
+    transitionDuration: '0.2s',
+    transitionTimingFunction: 'ease-out',
+    '& > div::after': {
       content: '""',
       verticalAlign: 'middle',
       top: '50%',
@@ -62,7 +60,7 @@ const ToggleControl = createComponent('input', {
       transitionDuration: '0.1s',
       transitionTimingFunction: 'ease-out',
     },
-    '& + div > div::before': {
+    '& > div::before': {
       content: 'attr(data-label-content)',
       position: 'absolute',
       mx: 1,
@@ -74,29 +72,43 @@ const ToggleControl = createComponent('input', {
       whiteSpace: 'nowrap',
       left: '50%',
     },
-    '&:checked + div > div::before': {
-      left: '-50%',
-    },
-    '& + div': {
-      backgroundColor:
-        'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
-      transitionProperty: 'all',
-      transitionDuration: '0.2s',
-      transitionTimingFunction: 'ease-out',
-    },
-    '&:checked + div': {
-      backgroundColor: 'primary',
-    },
-    '&:focus + div': {
-      boxShadow: createControlFocusShadow(),
-    },
-    '&[aria-invalid="true"] + div': {
-      borderColor: 'danger',
-    },
-    '&[aria-invalid="true"]:focus + div': {
-      boxShadow: createControlFocusShadow('danger'),
-    },
+    ...booleanVariantStyles('checked', {
+      on: {
+        backgroundColor: 'primary',
+        '& > div': {
+          transform: 'translateX(calc(100% - 1.25em - 0px))',
+        },
+        '& > div::before': {
+          left: '-50%',
+        },
+      },
+    }),
+    ...booleanVariantStyles('focused', {
+      on: {
+        boxShadow: createControlFocusShadow(),
+        ...booleanVariantStyles('invalid', {
+          on: {
+            boxShadow: createControlFocusShadow('danger'),
+          },
+        }),
+      },
+    }),
+    ...booleanVariantStyles('invalid', {
+      on: {
+        borderColor: 'danger',
+      },
+    }),
   },
+  variants: [
+    booleanVariant('checked', true),
+    booleanVariant('focused', true),
+    booleanVariant('invalid', true),
+  ],
+});
+
+const ToggleControl = createComponent('input', {
+  displayName: 'ToggleControl',
+  styles: visuallyHiddenStyles,
 });
 
 const Toggler = createComponent('div', {
@@ -161,6 +173,7 @@ interface ToggleProps
 
 export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
   {
+    $$variants,
     defaultChecked,
     disabled,
     checked,
@@ -171,44 +184,63 @@ export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
     labelTextProps,
     leftContent,
     rightContent,
-    onChange: outerOnChange,
+    onBlur,
+    onChange,
+    onFocus,
     readOnly,
+    parentStyles,
     styles,
     value,
     ...rest
   }: ToggleProps & StyleProps,
   ref: Ref<HTMLInputElement>,
 ) {
-  const [inputChecked, setInputChecked] = useState(checked);
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      setInputChecked(e.target.checked);
-
-      if (outerOnChange) {
-        outerOnChange(e);
-      }
-    },
-    [outerOnChange],
+  const [focused, setFocused] = useState(false);
+  const [inputChecked, setInputChecked] = useState(
+    checked ?? defaultChecked ?? false,
   );
+  const onInnerBlur = useHandlerRef(() => setFocused(false));
+  const onInnerFocus = useHandlerRef(() => setFocused(true));
+  const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
+    onBlur,
+    onInnerBlur,
+  );
+  const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
+    onFocus,
+    onInnerFocus,
+  );
+  const onChangeHandler = useStaticCallbackCreator(wrapToggleOnChangeHandler, [
+    readOnly,
+    onChange,
+    setInputChecked,
+  ]);
+  // if onChange is provided then the component is controlled
+  const isChecked = checked ?? inputChecked;
 
   return (
     <ToggleLabel {...labelProps} disabled={disabled}>
       <ToggleControl
         {...rest}
         aria-invalid={invalid}
-        defaultChecked={defaultChecked}
-        checked={checked}
+        checked={isChecked}
         disabled={disabled}
-        onChange={onChange}
+        onBlur={onBlurHandler}
+        onChange={onChangeHandler}
+        onFocus={onFocusHandler}
         ref={ref}
         readOnly={readOnly}
         value={value}
         type="checkbox"
       />
-      <ToggleContainer styles={styles}>
-        <Toggler
-          data-label-content={inputChecked ? rightContent : leftContent}
-        />
+      <ToggleContainer
+        checked={isChecked}
+        focused={focused}
+        invalid={invalid}
+        parentStyles={parentStyles}
+        styles={styles}
+        $$variants={$$variants}
+      >
+        <Toggler data-label-content={isChecked ? rightContent : leftContent} />
       </ToggleContainer>
       <ToggleLabelText {...labelTextProps} hidden={hiddenLabel}>
         {label}
@@ -216,3 +248,5 @@ export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
     </ToggleLabel>
   );
 });
+
+markAsVisageComponent(Toggle);
