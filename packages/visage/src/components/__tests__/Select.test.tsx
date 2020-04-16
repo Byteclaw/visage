@@ -18,8 +18,8 @@ describe('Select', () => {
         />,
       );
 
-      // now open focus using click
-      fireEvent.click(document.querySelector('input'));
+      // now open
+      fireEvent.mouseDown(document.querySelector('input'));
 
       // now expect select to be loading options
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
@@ -301,7 +301,7 @@ describe('Select', () => {
       expect(getByTestId('select')).toHaveAttribute('value', '');
 
       // now open select again, and see that options are loaded without filter
-      fireEvent.click(getByTestId('select'));
+      fireEvent.mouseDown(getByTestId('select'));
 
       // now expect select to be loading options
       expect(onLoadOptions).toHaveBeenCalledTimes(3);
@@ -358,8 +358,7 @@ describe('Select', () => {
       // now focus select
       fireEvent.focus(getByTestId('select'));
 
-      // now open focus using ArrowDown
-      fireEvent.click(document.querySelector('input'));
+      fireEvent.mouseDown(document.querySelector('input'));
 
       expect(getByTestId('select').getAttribute('value')).toBe('b');
 
@@ -433,7 +432,7 @@ describe('Select', () => {
     );
 
     // now open the menu
-    fireEvent.click(getByTestId('select'));
+    fireEvent.mouseDown(getByTestId('select'));
 
     // resolve loading
     await act(() => Promise.resolve());
@@ -471,7 +470,7 @@ describe('Select', () => {
     );
 
     // now open the menu
-    fireEvent.click(getByTestId('select'));
+    fireEvent.mouseDown(getByTestId('select'));
 
     // resolve loading
     await act(() => Promise.resolve());

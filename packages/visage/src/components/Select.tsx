@@ -33,6 +33,7 @@ import {
   useStaticEffect,
   useUniqueId,
   useCombinedRef,
+  useComposedCallbackCreator,
 } from '../hooks';
 import { Menu, MenuItem } from './Menu';
 import { SvgIcon } from './SvgIcon';
@@ -183,8 +184,11 @@ export const Select: typeof SelectComp = forwardRef(
       id: outerId,
       enhanceReducer,
       menu: DropdownMenu = SelectMenu,
+      onBlur,
       onChange,
       onInputValueChange,
+      onMouseDown,
+      onKeyDown,
       onSelect,
       onStateChange,
       optionToString,
@@ -331,21 +335,26 @@ export const Select: typeof SelectComp = forwardRef(
         }
       }
     });
-    const onInputBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(() =>
+    const onInnerBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(() =>
       dispatch({ type: 'MenuClose' }),
     );
     const onInputChange: ChangeEventHandler<HTMLInputElement> = useHandlerRef(
       e => dispatch({ type: 'InputChange', value: e.currentTarget.value }),
     );
-    const onInputClick: MouseEventHandler<HTMLInputElement> = useHandlerRef(
-      () => {
+    const onInnerMouseDown: MouseEventHandler<HTMLInputElement> = useHandlerRef(
+      e => {
+        // react only on primary button
+        if (e.button !== 0) {
+          return;
+        }
+
         if (!state.isOpen) {
           dispatch({ type: 'MenuOpen' });
           dispatch({ type: 'SetOptionFocusToFirstOption' });
         }
       },
     );
-    const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
+    const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
       e => {
         const key = normalizeKeyboardEventKey(e);
 
@@ -411,6 +420,15 @@ export const Select: typeof SelectComp = forwardRef(
         }
       },
     );
+    const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
+    const onKeyDownHandler = useComposedCallbackCreator(
+      onKeyDown,
+      onInnerKeyDown,
+    );
+    const onMouseDownHandler = useComposedCallbackCreator(
+      onMouseDown,
+      onInnerMouseDown,
+    );
     const onOptionSelect = useHandlerRef((optionIndex: number) => {
       dispatch({ type: 'SetValueByIndex', index: optionIndex });
       dispatch({ type: 'MenuClose' });
@@ -438,10 +456,10 @@ export const Select: typeof SelectComp = forwardRef(
           id={id}
           readOnly={readOnly || !searchable}
           ref={inputRef}
-          onBlur={onInputBlur}
+          onBlur={onBlurHandler}
           onChange={onInputChange}
-          onClick={onInputClick}
-          onKeyDown={onInputKeyDown}
+          onMouseDown={onMouseDownHandler}
+          onKeyDown={onKeyDownHandler}
           parentStyles={parentStyles}
           styles={styles}
           suffix={<Toggler open={state.isOpen} onClick={onToggleClick} />}
