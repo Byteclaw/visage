@@ -31,6 +31,7 @@ const TabList = createComponent('div', {
   styles: {
     boxShadow: 'none',
     display: 'flex',
+    flexWrap: 'wrap',
     m: 0,
     p: 0,
   },
@@ -64,7 +65,7 @@ const TabNavigatonButton = createComponent('button', {
       borderBottomColor: 'shadesText',
     },
     '&[disabled]': {
-      cursor: 'not-allowed',
+      cursor: 'default',
       opacity: 0.3,
     },
   },
