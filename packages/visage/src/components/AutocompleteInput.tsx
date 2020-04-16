@@ -384,13 +384,16 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
     return (
       <React.Fragment>
         <TextInput
+          autoCorrect="off"
+          autoCapitalize="none"
+          autoComplete="new-password"
+          spellCheck={false}
           {...restProps}
           aria-activedescendant={
             state.isOpen ? optionId(id, state.focusedIndex) : undefined
           }
           aria-autocomplete="list"
           aria-controls={listboxId}
-          autoComplete="off"
           baseProps={{
             ...restProps.baseProps,
             'aria-busy': state.isBusy,
