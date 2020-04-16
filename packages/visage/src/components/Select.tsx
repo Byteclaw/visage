@@ -217,7 +217,7 @@ export const Select: typeof SelectComp = forwardRef(
         }
 
         // open menu
-        dispatch({ type: 'MenuOpen' });
+        // dispatch({ type: 'MenuOpen' });
         // load options sets the input as busy
         dispatch({ type: 'SetBusy', isBusy: true, forInputValue: inputValue });
 

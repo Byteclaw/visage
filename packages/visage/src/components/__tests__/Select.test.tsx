@@ -407,6 +407,49 @@ describe('Select', () => {
     });
   });
 
+  it('does not show a menu if you blur the input before options are loaded', async () => {
+    jest.useFakeTimers();
+    const onLoadOptions = jest.fn().mockResolvedValue(['a', 'b', 'c']);
+    const onChange = jest.fn();
+
+    const { getByTestId } = render(
+      <Select
+        data-testid="input"
+        id="root"
+        onInputValueChange={onChange}
+        options={onLoadOptions}
+        searchable
+      />,
+    );
+
+    // now focus select
+    fireEvent.focus(getByTestId('input'));
+
+    expect(getByTestId('input').getAttribute('value')).toBe('');
+
+    expect(onChange).not.toHaveBeenCalled();
+
+    // now start typing
+    fireEvent.change(getByTestId('input'), { target: { value: 'a' } });
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenLastCalledWith('a');
+
+    // now blur the input, clears the input, cancels the event
+    fireEvent.blur(getByTestId('input'));
+
+    // let the options be resolved
+    act(() => jest.runAllTimers());
+
+    expect(onLoadOptions).toHaveBeenCalledTimes(1);
+    expect(onLoadOptions).toHaveBeenLastCalledWith('a');
+
+    await act(() => Promise.resolve());
+
+    // now we expect menu not to be visible
+    expect(document.querySelectorAll('[role="option"]').length).toBe(0);
+  });
+
   it('supports custom toggler', async () => {
     const toggler = jest.fn(() => <div data-testid="toggler" />);
 
