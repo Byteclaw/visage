@@ -31,6 +31,7 @@ import {
   useHandlerRef,
   useStaticEffect,
   useUniqueId,
+  useComposedCallbackCreator,
 } from '../hooks';
 import { scrollAriaSelectedElementToView } from './effects';
 import { Menu, MenuItem } from './Menu';
@@ -150,8 +151,11 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
       enhanceReducer,
       expandOnClick,
       id: outerId,
+      onBlur,
       onChange,
       onInputValueChange,
+      onKeyDown,
+      onMouseDown,
       onStateChange,
       options,
       optionToString,
@@ -279,7 +283,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
       valueToString,
     });
     const inputContainerRef = useRef<HTMLDivElement | null>(null);
-    const onInputBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(
+    const onInnerBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(
       () => {
         if (selectOnBlur) {
           dispatch({ type: 'SetCurrentFocusedOption' });
@@ -293,14 +297,24 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
         dispatch({ type: 'InputChange', value: e.currentTarget.value });
       },
     );
-    const onInputClick: MouseEventHandler<HTMLInputElement> = useHandlerRef(
-      () => {
+    const onInnerMouseDown: MouseEventHandler<HTMLInputElement> = useHandlerRef(
+      e => {
+        // react only on primary button
+        if (e.button !== 0) {
+          return;
+        }
+
         if (expandOnClick && !state.isOpen) {
           dispatch({ type: 'MenuOpen' });
         }
       },
     );
-    const onInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
+    const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
+    const onMouseDownHandler = useComposedCallbackCreator(
+      onMouseDown,
+      onInnerMouseDown,
+    );
+    const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
       e => {
         const key = normalizeKeyboardEventKey(e);
 
@@ -359,6 +373,10 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
         }
       },
     );
+    const onKeyDownHandler = useComposedCallbackCreator(
+      onKeyDown,
+      onInnerKeyDown,
+    );
     const onOptionSelect = useHandlerRef((optionIndex: number) => {
       dispatch({ type: 'SetValueByIndex', index: optionIndex });
     });
@@ -382,10 +400,10 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
             ref: inputContainerRef,
           }}
           id={id}
-          onBlur={onInputBlur}
+          onBlur={onBlurHandler}
           onChange={onInputChange}
-          onClick={onInputClick}
-          onKeyDown={onInputKeyDown}
+          onMouseDown={onMouseDownHandler}
+          onKeyDown={onKeyDownHandler}
           readOnly={readOnly}
           parentStyles={parentStyles}
           ref={ref}
