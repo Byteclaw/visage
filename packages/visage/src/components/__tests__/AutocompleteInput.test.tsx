@@ -70,7 +70,7 @@ describe('AutocompleteInput', () => {
         />,
       );
 
-      // now open focus using click
+      // focus
       fireEvent.click(getByTestId('input'));
 
       // type something
@@ -291,8 +291,8 @@ describe('AutocompleteInput', () => {
         />,
       );
 
-      // now open focus using click
-      fireEvent.click(getByTestId('input'));
+      // now open using mouse down
+      fireEvent.mouseDown(getByTestId('input'));
 
       expect(onLoadOptions).toHaveBeenCalledTimes(1);
       expect(onLoadOptions).toHaveBeenCalledWith('');
@@ -382,7 +382,7 @@ describe('AutocompleteInput', () => {
     );
 
     // now open the menu
-    fireEvent.click(getByTestId('input'));
+    fireEvent.mouseDown(getByTestId('input'));
 
     // resolve loading
     await act(() => Promise.resolve());
