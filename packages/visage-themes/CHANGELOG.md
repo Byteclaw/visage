@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.8 (2020-04-16)
+
+* refactor(visage): remove textinput color from theme ([9adbef7](https://github.com/Byteclaw/visage/commit/9adbef7))
+
+
+
+
+
 ## 1.0.0-alpha.7 (2020-04-14)
 
 **Note:** Version bump only for package @byteclaw/visage-themes

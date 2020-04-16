@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.8 (2020-04-16)
+
+* fix(visage): make Toggle controllable and fix readOnly behaviour ([b18035c](https://github.com/Byteclaw/visage/commit/b18035c))
+* refactor(visage): remove textinput color from theme ([9adbef7](https://github.com/Byteclaw/visage/commit/9adbef7))
+
+
+
+
+
 ## 1.0.0-alpha.7 (2020-04-14)
 
 * feat(visage): allow custom Toggler in Checkbox ([a0d18e9](https://github.com/Byteclaw/visage/commit/a0d18e9))
