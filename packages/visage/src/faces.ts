@@ -159,6 +159,8 @@ export interface VisageFaces {
   Menu?: VisageStyleSheet;
   // Menu.tsx
   MenuItem?: VisageStyleSheet;
+  // Message.tsx
+  Message?: VisageStyleSheet;
   // Modal.tsx
   Modal?: VisageStyleSheet;
   // Pagination.tsx

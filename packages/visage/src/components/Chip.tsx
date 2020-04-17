@@ -10,10 +10,9 @@ import React, {
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
 import { createSurfaceFocusShadow } from './shared';
-import { EmotionStyleSheet } from '../types';
 import { booleanVariant, variant } from '../variants';
 
-const variantStyles: { [key: string]: EmotionStyleSheet } = {
+const variantStyles: { [key: string]: VisageStyleSheet } = {
   danger: {
     backgroundColor: 'danger',
     color: 'dangerText',
@@ -36,7 +35,7 @@ const variantStyles: { [key: string]: EmotionStyleSheet } = {
   },
 };
 
-const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
+const outlinedVariantStyles: { [key: string]: VisageStyleSheet } = {
   success: {
     backgroundColor: 'transparent',
     borderColor: 'success',
@@ -67,10 +66,10 @@ const outlinedVariantStyles: { [key: string]: EmotionStyleSheet } = {
   },
   default: {
     backgroundColor: 'transparent',
-    borderColor: 'lightAccent',
+    borderColor: 'accent',
     borderStyle: 'solid',
     borderWidth: 1,
-    color: 'lightShadesText',
+    color: 'shadesText',
   },
 };
 

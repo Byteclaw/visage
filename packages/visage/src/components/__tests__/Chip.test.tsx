@@ -30,34 +30,57 @@ describe('Chip', () => {
           class="emotion-0"
           data-toastmanager="true"
         />
-        .emotion-0 {
-        border: 1px;
-        border-color: light-blue;
-        border-style: solid;
-        border-radius: 4px;
+        .emotion-1 {
+        border-radius: 16px;
         display: -webkit-inline-box;
         display: -webkit-inline-flex;
         display: -ms-inline-flexbox;
         display: inline-flex;
-        padding: 8px;
+        font-family: heading-font;
+        font-size: 10px;
         position: relative;
         outline: none;
+        -webkit-transition: all 150ms;
+        transition: all 150ms;
+        background-color: rgb(238,238,238);
+        color: rgb(0,0,0);
       }
 
-      .emotion-0[data-clickable="true"] {
+      .emotion-1[data-clickable="true"] {
         cursor: pointer;
       }
 
-      .emotion-0:focus,
-      .emotion-0[aria-selected="true"] {
+      .emotion-1:focus,
+      .emotion-1[aria-selected="true"] {
         box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
       }
 
+      .emotion-0 {
+        -webkit-align-self: center;
+        -ms-flex-item-align: center;
+        align-self: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        line-height: 1.2rem;
+      }
+
       <div
-          class="emotion-0"
+          class="emotion-1"
           data-clickable="false"
+          data-outlined="false"
+          data-variant="default"
         >
-          Non interactive Chip
+          <span
+            class="emotion-0"
+            data-small="false"
+          >
+            Non interactive Chip
+          </span>
         </div>
       </DocumentFragment>
     `);
