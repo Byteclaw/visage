@@ -38,7 +38,7 @@ describe('CloseButton', () => {
         color: currentColor;
         cursor: pointer;
         font-size: 16px;
-        line-height: 1em;
+        line-height: 1rem;
         outline: none;
         margin: 0px;
         padding: 8px;
@@ -176,7 +176,7 @@ describe('CloseButton', () => {
         color: currentColor;
         cursor: pointer;
         font-size: 16px;
-        line-height: 1em;
+        line-height: 1rem;
         outline: none;
         margin: 0px;
         padding: 8px;

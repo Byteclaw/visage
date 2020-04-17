@@ -5,6 +5,8 @@ components: ['Badge']
 
 # Badge
 
+**Simple indicator component to display sum of stacked items, notify on events or display warnings next to icons.**
+
 ## Import
 
 ```js transpile=false
@@ -16,35 +18,9 @@ import { Badge } from '@byteclaw/visage';
 ### Default
 
 ```jsx live=true
-<Badge>Default</Badge>
-```
-
-### Vartiants
-
-```jsx live=true
-<Fragment>
-  <Badge>Default</Badge>
-  <Badge variant="danger">Danger</Badge>
-  <Badge variant="info">Info</Badge>
-  <Badge variant="success">Success</Badge>
-  <Badge variant="warning">Warning</Badge>
-</Fragment>
-```
-
-### Align right
-
-```jsx live=true
-<Flex styles={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', p: 2, width: 200 }}>
-  <Text>Text</Text> <Badge align="right">Badge</Badge>
-</Flex>
-```
-
-### Align left
-
-```jsx live=true
-<Flex styles={{ backgroundColor: 'rgba(0, 0, 0, 0.1)', p: 2, width: 200 }}>
-  <Badge align="left">Badge</Badge> <Text>Text</Text>
-</Flex>
+<Badge content="1">
+  <Box styles={{ background: 'pink', width: '30px', height: '30px' }} />
+</Badge>
 ```
 
 ## Prop Types

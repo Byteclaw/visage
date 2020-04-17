@@ -178,7 +178,9 @@ export function Popover({
           getWindowScrollY() +
           getOffsetTop(anchorRect, anchorVertical),
         left:
-          anchorRect.left + getOffsetLeft(anchorRect, anchorOrigin.horizontal),
+          anchorRect.left +
+          getWindowScrollX() +
+          getOffsetLeft(anchorRect, anchorOrigin.horizontal),
         width: anchorRect.width,
       };
     },
@@ -259,7 +261,6 @@ export function Popover({
       const width = anchorOffset.width ? `${anchorOffset.width}px` : undefined;
       const scrollY = getWindowScrollY();
       const scrollX = getWindowScrollX();
-
       // if placement is custom or Popover content is to be always completely in the viewport
       if (
         placement === 'top' ||
@@ -315,7 +316,8 @@ export function Popover({
           left - scrollX + elemRect.width > window.innerWidth)
       ) {
         left =
-          anchorOffset.left -
+          anchorOffset.left +
+          scrollX -
           (elemRect.width - resolvedAnchor!.offsetWidth) -
           elemTransformOrigin.horizontal;
       }
