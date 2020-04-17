@@ -26,6 +26,7 @@ import {
   useAutofocusOnMount,
   useDebouncedCallback,
   useUniqueId,
+  useCombinedRef,
 } from '../hooks';
 import { useLayerManager } from './LayerManager';
 
@@ -82,6 +83,10 @@ interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
     | 'top-right'
     | 'bottom-left'
     | 'bottom-right';
+  /**
+   * Ref to div that wraps the popover content
+   */
+  popoverRef?: RefObject<HTMLDivElement>;
   transformOrigin?: TransformOriginSettings;
 }
 
@@ -126,6 +131,7 @@ export function Popover({
   transformOrigin = defaultOrigin,
   onClose = () => {},
   placement = 'bottom',
+  popoverRef,
   ...restProps
 }: PopoverProps) {
   const { breakpoint } = useDesignSystem();
@@ -138,7 +144,7 @@ export function Popover({
     return getResponsiveValue(breakpoint, fullscreen);
   }, [fullscreen, breakpoint]);
 
-  const contentRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useCombinedRef(popoverRef);
   const handleResizeRef = useRef(() => {});
   const preventCloseRefs = useRef(anchor ? [anchor] : []);
   const { zIndex } = useLayerManager();
