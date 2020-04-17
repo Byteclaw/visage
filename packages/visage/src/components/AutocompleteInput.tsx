@@ -73,7 +73,7 @@ const AutocompleteInputMenu = createComponent(
       optionToString,
       onSelect,
     }: AutocompleteInputMenuProps) => {
-      const menuBaseRef = useRef(null);
+      const popoverRef = useRef(null);
       const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
         onSelect(Number(e.currentTarget.dataset.optionIndex));
       });
@@ -87,18 +87,20 @@ const AutocompleteInputMenu = createComponent(
       // scroll focused item into view
       useStaticEffect(
         scrollAriaSelectedElementToView,
-        menuBaseRef,
+        popoverRef,
         focusedIndex,
       );
 
       return (
         <Menu
           anchor={inputContainerRef}
-          baseRef={menuBaseRef}
           disableEvents
           keepAnchorWidth
           id={listboxId}
           open={open}
+          popoverProps={{
+            popoverRef,
+          }}
           role="listbox"
           tabIndex={-1}
         >

@@ -11,12 +11,27 @@ export function scrollAriaSelectedElementToView(
   // eslint-disable-next-line
   index: number,
 ) {
-  containerRef.current
-    ?.querySelector('[aria-selected="true"]')
-    ?.scrollIntoView({
-      block: 'nearest',
-      inline: 'start',
-    });
+  const { current } = containerRef;
+
+  if (!current) {
+    return;
+  }
+
+  const selectedItem = current.querySelector<HTMLElement>(
+    '[aria-selected="true"]',
+  );
+
+  if (selectedItem) {
+    const containerScrollTop = current.scrollTop;
+    const containerHeight = current.offsetHeight;
+    const isVisible =
+      selectedItem.offsetTop >= containerScrollTop &&
+      selectedItem.offsetTop <= containerScrollTop + containerHeight;
+
+    if (!isVisible) {
+      current.scrollTop = selectedItem.offsetTop;
+    }
+  }
 }
 
 /**

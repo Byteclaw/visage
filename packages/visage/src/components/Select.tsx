@@ -70,7 +70,8 @@ const SelectMenu = createComponent(
       optionToString,
       onSelect,
     }: SelectMenuProps) => {
-      const menuBaseRef = useRef(null);
+      // ref to popover base because we can scroll only scrollable div
+      const popoverRef = useRef(null);
       const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
         onSelect(Number(e.currentTarget.dataset.optionIndex));
       });
@@ -84,18 +85,20 @@ const SelectMenu = createComponent(
       // scroll focused item into view
       useStaticEffect(
         scrollAriaSelectedElementToView,
-        menuBaseRef,
+        popoverRef,
         focusedIndex,
       );
 
       return (
         <Menu
           anchor={inputContainerRef}
-          baseRef={menuBaseRef}
           disableEvents
           keepAnchorWidth
           id={listboxId}
           open={open}
+          popoverProps={{
+            popoverRef,
+          }}
           role="listbox"
           tabIndex={-1}
         >
