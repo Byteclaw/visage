@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.9 (2020-04-17)
+
+* feat(visage): add message component ([d6978a3](https://github.com/Byteclaw/visage/commit/d6978a3))
+* feat(visage): add new Badge component ([e57def7](https://github.com/Byteclaw/visage/commit/e57def7))
+* feat(visage): add small chip and enhance chips ([b4e318c](https://github.com/Byteclaw/visage/commit/b4e318c))
+
+
+
+
+
 ## 1.0.0-alpha.8 (2020-04-16)
 
 * docs: fix extraction of props from generic functional components ([ebd5fc1](https://github.com/Byteclaw/visage/commit/ebd5fc1))
