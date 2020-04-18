@@ -71803,6 +71803,13 @@ Object {
     },
     Object {
       "documentation": "",
+      "isOptional": true,
+      "name": "max",
+      "parent": undefined,
+      "type": "number | undefined",
+    },
+    Object {
+      "documentation": "",
       "isOptional": false,
       "name": "value",
       "parent": undefined,

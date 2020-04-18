@@ -23,7 +23,7 @@ Default `ProgressBar` uses current font color as bar's color.
 
 ### Custom color or size
 
-Progress bar uses current line height and font size to specify it's size.
+`ProgressBar` uses current line height to specify it's size.
 
 ```jsx live=true
 function Example() {
@@ -40,7 +40,7 @@ function Example() {
   }, [value]);
 
   return (
-    <Box styles={{ color: 'warning', fontSize: -2 }}>
+    <Box styles={{ color: 'warning', lineHeight: -2 }}>
       <ProgressBar value={value} valueText="Copying files..."></ProgressBar>
     </Box>
   );
