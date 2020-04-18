@@ -54,8 +54,8 @@ const MessageBase = createComponent('div', {
   ],
 });
 
-const ChipDeleteButton = createComponent(CloseButton, {
-  displayName: 'ChipDeleteButton',
+const MessageDeleteButton = createComponent(CloseButton, {
+  displayName: 'MessageDeleteButton',
   styles: {
     ml: 1,
     p: 0.5,
@@ -64,7 +64,7 @@ const ChipDeleteButton = createComponent(CloseButton, {
 
 const defaultChipDeleteRenderer = (props: {
   onClick: MouseEventHandler<any>;
-}) => <ChipDeleteButton {...props} />;
+}) => <MessageDeleteButton {...props} />;
 
 interface MessageProps extends ExtractVisageComponentProps<typeof MessageBase> {
   /**

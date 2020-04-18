@@ -1,8 +1,10 @@
 export interface VisageFaces {
   // AutocompleteInput.tsx
   AutocompleteInputMenu?: VisageStyleSheet;
-  // Badge.ts
-  Badge?: VisageStyleSheet;
+  // Badge.tsx
+  BadgeContainer?: VisageStyleSheet;
+  // Badge.tsx
+  BadgeContent?: VisageStyleSheet;
   // Banner.tsx
   Banner?: VisageStyleSheet;
   // Banner.tsx
@@ -39,6 +41,8 @@ export interface VisageFaces {
   Chip?: VisageStyleSheet;
   // Chip.tsx
   ChipDeleteButton?: VisageStyleSheet;
+  // Chip.tsx
+  ChipLabel?: VisageStyleSheet;
   // Quotes.ts
   Cite?: VisageStyleSheet;
   // CloseButton.tsx
@@ -161,6 +165,8 @@ export interface VisageFaces {
   MenuItem?: VisageStyleSheet;
   // Message.tsx
   Message?: VisageStyleSheet;
+  // Message.tsx
+  MessageDeleteButton?: VisageStyleSheet;
   // Modal.tsx
   Modal?: VisageStyleSheet;
   // Pagination.tsx
