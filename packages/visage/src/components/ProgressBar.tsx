@@ -8,7 +8,7 @@ import { createComponent } from '../core';
 import { visuallyHiddenStyles } from './shared';
 
 const HiddenProgressBar = createComponent('progress', {
-  defaultStyles: visuallyHiddenStyles,
+  styles: visuallyHiddenStyles,
 });
 
 const ProgressBarBase = createComponent('div', {
@@ -23,7 +23,6 @@ const ProgressBarBase = createComponent('div', {
       backgroundColor: 'currentColor',
       content: '"\\200b"',
       display: 'inline-block',
-      lineHeight: '100%',
       opacity: 0.2,
       width: '100%',
     },
@@ -53,10 +52,12 @@ const ProgressBarProgress = createComponent('div', {
 export const ProgressBar: VisageComponent<{
   baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
   progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
+  max?: number;
   value: number;
   valueText?: string;
 }> = function ProgressBar({
   baseProps,
+  max = 100,
   progressProps,
   value,
   valueText,
@@ -64,8 +65,11 @@ export const ProgressBar: VisageComponent<{
 }: any) {
   return (
     <ProgressBarBase {...baseProps} {...restProps}>
-      <HiddenProgressBar aria-valuetext={valueText} value={value} max={100} />
-      <ProgressBarProgress style={{ width: `${value}%` }} {...progressProps} />
+      <HiddenProgressBar aria-valuetext={valueText} value={value} max={max} />
+      <ProgressBarProgress
+        style={{ width: `${(100 / max) * value}%` }}
+        {...progressProps}
+      />
     </ProgressBarBase>
   );
 };
