@@ -1,5 +1,4 @@
 /* eslint-disable react/no-array-index-key, jsx-a11y/anchor-is-valid, no-constant-condition */
-import { useUniqueId } from '@byteclaw/use-unique-id';
 import React, {
   Children,
   KeyboardEventHandler,
@@ -9,7 +8,6 @@ import React, {
   useCallback,
   useRef,
   useState,
-  useMemo,
   FocusEvent,
   cloneElement,
 } from 'react';
@@ -17,6 +15,7 @@ import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { Box } from './Box';
 import { Flex } from './Flex';
+import { useUniqueId } from '../hooks';
 
 const TabsWrapper = createComponent(Flex, {
   displayName: 'Tabs',
@@ -29,16 +28,28 @@ const TabsWrapper = createComponent(Flex, {
 const TabList = createComponent('div', {
   displayName: 'TabList',
   styles: {
+    borderBottomWidth: '1px',
+    borderBottomColor:
+      'color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
+    borderBottomStyle: 'solid',
     boxShadow: 'none',
     display: 'flex',
-    flexWrap: 'wrap',
     m: 0,
+    mb: 1,
+    overflowX: 'auto',
     p: 0,
+    width: '100%',
+    // hide scrollbar
+    msOverflowStyle: 'none',
+    scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
 });
 
-const TabNavigatonButton = createComponent('button', {
-  displayName: 'TabNavigatonButton',
+const TabNavigationButton = createComponent('button', {
+  displayName: 'TabNavigationButton',
   styles: {
     backgroundColor: 'transparent',
     borderColor: 'transparent',
@@ -48,14 +59,18 @@ const TabNavigatonButton = createComponent('button', {
     fontFamily: 'body',
     color: 'shadesText',
     cursor: 'pointer',
+    flexShrink: 0,
     fontSize: 1,
     lineHeight: 1,
     outline: 'none',
     py: 1,
     pl: 0,
     pr: 2,
+    m: 0,
     mr: 1,
     textDecoration: 'none',
+    transition: 'border-color 150ms ease-out',
+    willChange: 'border-color',
     '&[aria-selected="true"]': {
       color: 'primary',
       borderBottomColor: 'primary',
@@ -124,15 +139,11 @@ export function Tabs({
   tabListProps,
   ...restProps
 }: TabsProps & FlexProps) {
-  const idTemplate = useUniqueId();
-  const id = useMemo(() => {
-    return outerId || idTemplate;
-  }, [outerId, idTemplate]);
+  const id = useUniqueId(outerId, 'tabs');
   const childrenArray = Children.toArray(children) as ReactElement<
     TabProps & BoxProps
   >[];
   const tabsLabel = childrenArray.map(c => c.props.label);
-
   const selectedRef = useRef(selected);
   const focusedTabRef = useRef<HTMLButtonElement | null>(null);
   const [selectedTab, selectTab] = useState(selected);
@@ -168,10 +179,9 @@ export function Tabs({
     }
 
     switch (e.key) {
+      case ' ':
       case 'Enter': {
         if (childrenArray[index]!.props.onKeyDown) {
-          e.persist();
-
           childrenArray[index]!.props.onKeyDown!(e);
         }
 
@@ -262,7 +272,7 @@ export function Tabs({
           const isDisabled = !!childrenArray[i]!.props.disabled;
 
           return (
-            <TabNavigatonButton
+            <TabNavigationButton
               id={`${id}-tab-label-${i}`}
               aria-controls={`${id}-tab-panel-${i}`}
               aria-selected={isSelected}
@@ -277,7 +287,7 @@ export function Tabs({
               type="button"
             >
               {tabLabel}
-            </TabNavigatonButton>
+            </TabNavigationButton>
           );
         })}
       </TabList>

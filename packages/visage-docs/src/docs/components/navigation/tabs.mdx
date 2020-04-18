@@ -25,8 +25,62 @@ import { Tabs, Tab } from '@byteclaw/visage';
     Content 3
   </Tab>
   <Tab label="Tab 4">{() => 'Lazy rendered only if selected'}</Tab>
+  <Tab label="Tab 5" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab label="Tab 6" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab label="Tab 7" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab label="Tab 8" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
 </Tabs>
 ```
+
+## Accessibility
+
+<DescriptionList>
+  <DescriptionListItem term={<kbd>Tab</kbd>} description={
+    <ul>
+      <li>When a tab list does not have focus, moves focus into the tab list, places focus on the active <Code>Tab</Code></li>
+      <li>When a tab has focus, moves focus to the next element in the tab sequence, which is <Code>tabpanel</Code> element</li>
+    </ul>
+  } />
+  <DescriptionListItem term={<React.Fragment><kbd>Enter</kbd> / <kbd>Space</kbd></React.Fragment>} description={
+    <ul>
+      <li>When a tab has focus, activates the tab and display it&apos;s associated <Code>tabpanel</Code></li>
+    </ul>
+  } />
+  <DescriptionListItem term={<kbd>Right Arrow</kbd>} description={<React.Fragment>
+    When a tab has focus:
+    <ul>
+        <li>Moves focus to the next Tab</li>
+        <li>If focus is on the last tab, moves focus to the first tab</li>
+      </ul>
+  </React.Fragment>} />
+  <DescriptionListItem term={<kbd>Left Arrow</kbd>} description={<React.Fragment>
+    When a tab has focus:
+    <ul>
+      <li>Moves focus to the previous Tab</li>
+      <li>If focus is on the first tab, moves focus to the last tab</li>
+    </ul>
+  </React.Fragment>} />
+  <DescriptionListItem term={<kbd>Home</kbd>} description={<React.Fragment>
+    When a tab has focus, moves focus to the first Tab
+  </React.Fragment>} />
+  <DescriptionListItem term={<kbd>End</kbd>} description={<React.Fragment>
+    When a tab has focus, moves focus to the last Tab
+  </React.Fragment>} />
+</DescriptionList>
+
+## Faces
+
+* `Tabs`
+* `TabList`
+* `TabNavigationButton`
 
 ## Tabs
 

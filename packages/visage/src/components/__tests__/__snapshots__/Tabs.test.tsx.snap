@@ -1,0 +1,739 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs is extendable by TabList face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+
+.emotion-0 {
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 2px;
+  font-family: body-font;
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  font-size: 26px;
+  line-height: 48px;
+  outline: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 16px;
+  margin: 0px;
+  margin-right: 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: border-color 150ms ease-out;
+  transition: border-color 150ms ease-out;
+  will-change: border-color;
+}
+
+.emotion-0[aria-selected="true"] {
+  color: light-blue;
+  border-bottom-color: light-blue;
+  font-weight: bold;
+}
+
+.emotion-0:focus {
+  border-bottom-color: rgb(255,255,255);
+}
+
+.emotion-0[disabled] {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.emotion-3 {
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(184,184,184);
+  border-bottom-style: solid;
+  box-shadow: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0px;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  padding: 0px;
+  width: 100%;
+  -ms-overflow-style: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+  border-color: rgb(255,192,203);
+}
+
+.emotion-3::-webkit-scrollbar {
+  display: none;
+}
+
+<div
+    class="emotion-7"
+  >
+    <div
+      class="emotion-3"
+      role="tablist"
+    >
+      <button
+        aria-controls="tabs-1-tab-panel-0"
+        aria-selected="true"
+        class="emotion-0"
+        data-index="0"
+        id="tabs-1-tab-label-0"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-1"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="1"
+        disabled=""
+        id="tabs-1-tab-label-1"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-2"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="2"
+        id="tabs-1-tab-label-2"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 3
+      </button>
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-0"
+      class="emotion-4"
+      data-testid="content1"
+      id="tabs-1-tab-panel-0"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 1
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-1"
+      class="emotion-4"
+      data-testid="content2"
+      disabled=""
+      hidden=""
+      id="tabs-1-tab-panel-1"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 2
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-2"
+      class="emotion-4"
+      data-testid="content3"
+      hidden=""
+      id="tabs-1-tab-panel-2"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 3
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Tabs is extendable by TabNavigationButton face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+
+.emotion-3 {
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(184,184,184);
+  border-bottom-style: solid;
+  box-shadow: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0px;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  padding: 0px;
+  width: 100%;
+  -ms-overflow-style: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+}
+
+.emotion-3::-webkit-scrollbar {
+  display: none;
+}
+
+.emotion-0 {
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 2px;
+  font-family: body-font;
+  color: rgb(255,192,203);
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  font-size: 26px;
+  line-height: 48px;
+  outline: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 16px;
+  margin: 0px;
+  margin-right: 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: border-color 150ms ease-out;
+  transition: border-color 150ms ease-out;
+  will-change: border-color;
+}
+
+.emotion-0[aria-selected="true"] {
+  color: light-blue;
+  border-bottom-color: light-blue;
+  font-weight: bold;
+}
+
+.emotion-0:focus {
+  border-bottom-color: rgb(255,255,255);
+}
+
+.emotion-0[disabled] {
+  cursor: default;
+  opacity: 0.3;
+}
+
+<div
+    class="emotion-7"
+  >
+    <div
+      class="emotion-3"
+      role="tablist"
+    >
+      <button
+        aria-controls="tabs-1-tab-panel-0"
+        aria-selected="true"
+        class="emotion-0"
+        data-index="0"
+        id="tabs-1-tab-label-0"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-1"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="1"
+        disabled=""
+        id="tabs-1-tab-label-1"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-2"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="2"
+        id="tabs-1-tab-label-2"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 3
+      </button>
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-0"
+      class="emotion-4"
+      data-testid="content1"
+      id="tabs-1-tab-panel-0"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 1
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-1"
+      class="emotion-4"
+      data-testid="content2"
+      disabled=""
+      hidden=""
+      id="tabs-1-tab-panel-1"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 2
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-2"
+      class="emotion-4"
+      data-testid="content3"
+      hidden=""
+      id="tabs-1-tab-panel-2"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 3
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Tabs is extendable by Tabs face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-3 {
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(184,184,184);
+  border-bottom-style: solid;
+  box-shadow: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0px;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  padding: 0px;
+  width: 100%;
+  -ms-overflow-style: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+}
+
+.emotion-3::-webkit-scrollbar {
+  display: none;
+}
+
+.emotion-0 {
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 2px;
+  font-family: body-font;
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  font-size: 26px;
+  line-height: 48px;
+  outline: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 16px;
+  margin: 0px;
+  margin-right: 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: border-color 150ms ease-out;
+  transition: border-color 150ms ease-out;
+  will-change: border-color;
+}
+
+.emotion-0[aria-selected="true"] {
+  color: light-blue;
+  border-bottom-color: light-blue;
+  font-weight: bold;
+}
+
+.emotion-0:focus {
+  border-bottom-color: rgb(255,255,255);
+}
+
+.emotion-0[disabled] {
+  cursor: default;
+  opacity: 0.3;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgb(255,192,203);
+}
+
+<div
+    class="emotion-7"
+  >
+    <div
+      class="emotion-3"
+      role="tablist"
+    >
+      <button
+        aria-controls="tabs-1-tab-panel-0"
+        aria-selected="true"
+        class="emotion-0"
+        data-index="0"
+        id="tabs-1-tab-label-0"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-1"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="1"
+        disabled=""
+        id="tabs-1-tab-label-1"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-2"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="2"
+        id="tabs-1-tab-label-2"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 3
+      </button>
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-0"
+      class="emotion-4"
+      data-testid="content1"
+      id="tabs-1-tab-panel-0"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 1
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-1"
+      class="emotion-4"
+      data-testid="content2"
+      disabled=""
+      hidden=""
+      id="tabs-1-tab-panel-1"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 2
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-2"
+      class="emotion-4"
+      data-testid="content3"
+      hidden=""
+      id="tabs-1-tab-panel-2"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 3
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Tabs renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+}
+
+.emotion-3 {
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(184,184,184);
+  border-bottom-style: solid;
+  box-shadow: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0px;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  padding: 0px;
+  width: 100%;
+  -ms-overflow-style: none;
+  -webkit-scrollbar-width: none;
+  -moz-scrollbar-width: none;
+  -ms-scrollbar-width: none;
+  scrollbar-width: none;
+}
+
+.emotion-3::-webkit-scrollbar {
+  display: none;
+}
+
+.emotion-0 {
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 2px;
+  font-family: body-font;
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  font-size: 26px;
+  line-height: 48px;
+  outline: none;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 16px;
+  margin: 0px;
+  margin-right: 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: border-color 150ms ease-out;
+  transition: border-color 150ms ease-out;
+  will-change: border-color;
+}
+
+.emotion-0[aria-selected="true"] {
+  color: light-blue;
+  border-bottom-color: light-blue;
+  font-weight: bold;
+}
+
+.emotion-0:focus {
+  border-bottom-color: rgb(255,255,255);
+}
+
+.emotion-0[disabled] {
+  cursor: default;
+  opacity: 0.3;
+}
+
+<div
+    class="emotion-7"
+  >
+    <div
+      class="emotion-3"
+      role="tablist"
+    >
+      <button
+        aria-controls="tabs-1-tab-panel-0"
+        aria-selected="true"
+        class="emotion-0"
+        data-index="0"
+        id="tabs-1-tab-label-0"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        Tab 1
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-1"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="1"
+        disabled=""
+        id="tabs-1-tab-label-1"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 2
+      </button>
+      <button
+        aria-controls="tabs-1-tab-panel-2"
+        aria-selected="false"
+        class="emotion-0"
+        data-index="2"
+        id="tabs-1-tab-label-2"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        Tab 3
+      </button>
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-0"
+      class="emotion-4"
+      data-testid="content1"
+      id="tabs-1-tab-panel-0"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 1
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-1"
+      class="emotion-4"
+      data-testid="content2"
+      disabled=""
+      hidden=""
+      id="tabs-1-tab-panel-1"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 2
+    </div>
+    <div
+      aria-labelledby="tabs-1-tab-label-2"
+      class="emotion-4"
+      data-testid="content3"
+      hidden=""
+      id="tabs-1-tab-panel-2"
+      role="tabpanel"
+      tabindex="0"
+    >
+      Content 3
+    </div>
+  </div>
+</DocumentFragment>
+`;

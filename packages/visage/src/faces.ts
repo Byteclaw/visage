@@ -226,7 +226,7 @@ export interface VisageFaces {
   // Tabs.tsx
   TabList?: VisageStyleSheet;
   // Tabs.tsx
-  TabNavigatonButton?: VisageStyleSheet;
+  TabNavigationButton?: VisageStyleSheet;
   // Tabs.tsx
   Tabs?: VisageStyleSheet;
   // Text.tsx
