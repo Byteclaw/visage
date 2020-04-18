@@ -85,7 +85,7 @@ export const DescriptionList: typeof DescriptionListBase = function DescriptionL
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={i}>
             {item}
-            {i + 1 < Children.count(children) && <Divider />}
+            {i + 1 < Children.count(children) ? <Divider /> : null}
           </Fragment>
         );
       })}
