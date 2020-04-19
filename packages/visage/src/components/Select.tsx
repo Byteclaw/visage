@@ -419,7 +419,7 @@ export const Select: typeof SelectComp = forwardRef(
             break;
           }
           case ' ': {
-            if (state.isOpen) {
+            if (state.isOpen && !searchable) {
               e.preventDefault();
               dispatch({ type: 'SetCurrentFocusedOption' });
             }
