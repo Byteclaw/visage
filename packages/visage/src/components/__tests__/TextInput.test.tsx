@@ -49,11 +49,14 @@ describe('TextInput', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('is extendable by InputExtraElement face', () => {
+  it('is extendable by TextInputExtraElement face', () => {
     const { asFragment } = render(<TextInput prefix={<span>P</span>} />, {
       ds: {
         theme: createTestTheme({
-          InputExtraElement: { borderRadius: 10, '&:hover': { color: 'pink' } },
+          TextInputExtraElement: {
+            borderRadius: 10,
+            '&:hover': { color: 'pink' },
+          },
         }),
       },
     });
