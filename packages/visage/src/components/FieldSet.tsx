@@ -33,9 +33,8 @@ const FieldSetBase = createComponent('fieldset', {
     position: 'relative',
     ...booleanVariantStyles('flat', {
       off: {
-        // @TODO fix when color() will be supported
         boxShadow:
-          '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+          '0 0 0 1px color(shades shade(5%)), 0 1px 3px 0 color(shades shade(15%))',
       },
     }),
   },

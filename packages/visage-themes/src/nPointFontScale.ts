@@ -1,4 +1,5 @@
 import {
+  BorderRadiuses,
   createTheme,
   ColorPalette,
   FontPalette,
@@ -19,13 +20,7 @@ export interface NPointFontScaleThemeSettings
   fontSize: ScaleValue<string | number | (number | string)[]>;
   lineHeights: ScaleValue<string | number | (string | number)[]>;
   baseGridSize: number;
-  borderRadius:
-    | number
-    | string
-    | {
-        controlBorderRadius?: number | string;
-        [name: string]: undefined | number | string;
-      };
+  borderRadius: BorderRadiuses;
   colors: ColorPalette;
   fontFamily: FontPalette;
 }

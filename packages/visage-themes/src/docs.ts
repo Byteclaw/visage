@@ -38,6 +38,7 @@ export function createDocsTheme({
   return createNPointFontScaleTheme({
     borderRadius: {
       controlBorderRadius: 6,
+      keyboardBorderRadius: 3,
     },
     mixins,
     faces,

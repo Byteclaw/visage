@@ -33,7 +33,8 @@ export function Layout({ children }: Props) {
           flexShrink: 0,
           height: '100vh',
           overflowY: 'scroll',
-          boxShadow: 'inset -1px 0 0 0 neutral',
+          boxShadow:
+            'inset -1px 0 0 0 color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
         }}
         open
         side={DrawerPosition.left}
