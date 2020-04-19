@@ -12,6 +12,8 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
+    '@typescript-eslint/no-implied-eval': 'off',
+    '@typescript-eslint/no-throw-literal': 'off',
     'consistent-return': 'off',
     'default-case': 'off',
     'import/prefer-default-export': 'off',
@@ -25,7 +27,6 @@ module.exports = {
     'no-nested-ternary': 'off',
     'no-plusplus': 'off',
     'no-restricted-syntax': 'off',
-    'react/jsx-fragments': ['error', 'element'],
-    'react/jsx-props-no-spreading': 'off'
+    'react/jsx-props-no-spreading': 'off',
   },
 };
