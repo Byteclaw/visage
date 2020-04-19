@@ -141,6 +141,8 @@ export interface VisageFaces {
   InlineErrorIcon?: VisageStyleSheet;
   // TextInput.tsx
   InputExtraElement?: VisageStyleSheet;
+  // KeyboardKey.ts
+  KeyboardKey?: VisageStyleSheet;
   // Label.tsx
   Label?: VisageStyleSheet;
   // Link.ts

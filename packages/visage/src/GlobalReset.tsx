@@ -1,5 +1,6 @@
 import React from 'react';
 import { CodeStyles, PreformattedCodeStyles } from './components/Code';
+import { KeyboardKeyStyles } from './components/KeyboardKey';
 import { HeadingStyles } from './components/Heading';
 import { LinkStyles } from './components/Link';
 import { ParagraphStyles } from './components/Paragraph';
@@ -74,8 +75,8 @@ export const globalComponentStyles: { [selector: string]: VisageStyleSheet } = {
     face: 'h6',
   },
   kbd: {
-    ...CodeStyles,
-    face: 'Code',
+    ...KeyboardKeyStyles,
+    face: 'KeyboardKey',
   },
   p: {
     ...ParagraphStyles,
