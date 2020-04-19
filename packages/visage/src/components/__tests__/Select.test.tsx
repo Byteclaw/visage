@@ -312,31 +312,6 @@ describe('Select', () => {
 
       // now we expect menu to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
-
-      // now select an option
-      /* fireEvent.click(document.querySelector('[role="option"]:first-of-type'));
-
-      expect(getByTestId('select').getAttribute('value')).toBe('a');
-
-      // now type something to input
-      fireEvent.change(getByTestId('select'), { target: { value: 'abcd' } });
-
-      // resolve change debounce
-      act(() => jest.runAllTimers());
-
-      expect(onLoadOptions).toHaveBeenCalledTimes(2);
-      expect(onLoadOptions).toHaveBeenLastCalledWith('abcd');
-
-      expect(getByTestId('select').getAttribute('value')).toBe('abcd');
-
-      // wait for options to resolve
-      await act(() => Promise.resolve());
-
-      // now blur
-      fireEvent.blur(getByTestId('select'));
-
-      // now expect the value of input to be selected value
-      fireEvent.change(getByTestId('select'), { target: { value: 'a' } }); */
     });
   });
 
