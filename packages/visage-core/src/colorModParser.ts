@@ -60,10 +60,7 @@ export type Expectation =
 export class SyntaxError extends Error {
   public static buildMessage(expected: Expectation[], found: string | null) {
     function hex(ch: string): string {
-      return ch
-        .charCodeAt(0)
-        .toString(16)
-        .toUpperCase();
+      return ch.charCodeAt(0).toString(16).toUpperCase();
     }
 
     function literalEscape(s: string): string {
@@ -193,25 +190,22 @@ function peg$parse(input: string, options?: IParseOptions) {
   let peg$startRuleIndex = 0;
 
   const peg$consts = [
-    function(col: any): any {
-      return (ctx: any, colorLib: any) =>
-        col(ctx, colorLib)
-          .rgb()
-          .toString();
+    function (col: any): any {
+      return (ctx: any, colorLib: any) => col(ctx, colorLib).rgb().toString();
     },
     'color(',
     peg$literalExpectation('color(', false),
     ')',
     peg$literalExpectation(')', false),
-    function(color: any, ops: any): any {
+    function (color: any, ops: any): any {
       return createProcessFn(color, ops);
     },
     '#',
     peg$literalExpectation('#', false),
-    function(c: any): any {
+    function (c: any): any {
       return (ctx: any, colorLib: any) => colorLib(c);
     },
-    function(c: any): any {
+    function (c: any): any {
       return (ctx: any, colorLib: any) =>
         colorLib(ctx.resolve('colors', c, ctx));
     },
@@ -221,7 +215,7 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('rgb', false),
     '(',
     peg$literalExpectation('(', false),
-    function(r: any, g: any, b: any, a: any): any {
+    function (r: any, g: any, b: any, a: any): any {
       return (ctx: any, colorLib: any) =>
         colorLib.rgb(rgbVal(r), rgbVal(g), rgbVal(b), a == null ? 1 : a.value);
     },
@@ -229,11 +223,11 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('hsla', false),
     'hsl',
     peg$literalExpectation('hsl', false),
-    function(h: any, s: any, l: any, a: any): any {
+    function (h: any, s: any, l: any, a: any): any {
       return (ctx: any, colorLib: any) =>
         colorLib.hsl(h.value, s.value, l.value, a == null ? 1 : a.value);
     },
-    function(a: any): any {
+    function (a: any): any {
       return a;
     },
     'if(',
@@ -242,7 +236,7 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('isDark', false),
     'isLight',
     peg$literalExpectation('isLight', false),
-    function(predicate: any, ifLeaf: any, elseLeaf: any): any {
+    function (predicate: any, ifLeaf: any, elseLeaf: any): any {
       return {
         op: 'if',
         predicate,
@@ -254,7 +248,7 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('alpha', false),
     'a',
     peg$literalExpectation('a', false),
-    function(op: any, modifier: any, value: any): any {
+    function (op: any, modifier: any, value: any): any {
       return { op, modifier, value };
     },
     'hue',
@@ -265,7 +259,7 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('shade', false),
     'tint',
     peg$literalExpectation('tint', false),
-    function(op: any, value: any): any {
+    function (op: any, value: any): any {
       return {
         op: 'blend',
         color: (ctx: any, colorLib: any) =>
@@ -289,26 +283,26 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('s', false),
     'w',
     peg$literalExpectation('w', false),
-    function(op: any, modifier: any, value: any): any {
+    function (op: any, modifier: any, value: any): any {
       return { op, modifier, value };
     },
     'ifDark',
     peg$literalExpectation('ifDark', false),
     'ifLight',
     peg$literalExpectation('ifLight', false),
-    function(op: any, color: any): any {
+    function (op: any, color: any): any {
       return { op, color };
     },
     'blenda',
     peg$literalExpectation('blenda', false),
     'blend',
     peg$literalExpectation('blend', false),
-    function(op: any, color: any, value: any): any {
+    function (op: any, color: any, value: any): any {
       return { op, color, value };
     },
     'contrast',
     peg$literalExpectation('contrast', false),
-    function(op: any, value: any): any {
+    function (op: any, value: any): any {
       return { op, value };
     },
     '.',
@@ -331,10 +325,10 @@ function peg$parse(input: string, options?: IParseOptions) {
     peg$literalExpectation('+', false),
     '%',
     peg$literalExpectation('%', false),
-    function(): any {
+    function (): any {
       return { type: 'percentage', value: parseInt(text(), 10) };
     },
-    function(): any {
+    function (): any {
       return { type: 'number', value: parseFloat(text()) };
     },
     /^[a-zA-Z]/,
@@ -396,7 +390,7 @@ function peg$parse(input: string, options?: IParseOptions) {
       '%2g""6g7h/g#2.""6.7//X$;8/O$;5." &"/A$;8/8$2#""6#7$/)$8&:i&"%")(&\'#(%\'#($\'#(#\'#("\'#&\'#',
     ),
     peg$decode(
-      '%%2j""6j7k/S#2l""6l7m." &"/?$$4n""5!7o0)*4n""5!7o&/#$+#)(#\'#("\'#&\'#/"!&,)',
+      '%%2j""6j7k/Y#2l""6l7m." &"/E$$4n""5!7o/,#0)*4n""5!7o&&&#/#$+#)(#\'#("\'#&\'#/"!&,)',
     ),
     peg$decode('4p""5!7q'),
     peg$decode('2r""6r7s.) &2l""6l7m'),
@@ -804,7 +798,7 @@ function peg$parse(input: string, options?: IParseOptions) {
             break;
 
           case 26:
-            params = bc.slice(ip + 4, ip + 4 + bc[ip + 3]).map(function(p) {
+            params = bc.slice(ip + 4, ip + 4 + bc[ip + 3]).map(function (p) {
               return stack[stack.length - 1 - p];
             });
 

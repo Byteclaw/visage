@@ -175,7 +175,7 @@ AdjCol = op:("ifDark" / "ifLight") "(" _ color:(ColorFunction / Color) _ ")" { r
 AdjColPerc = op:("blenda" / "blend") "(" _ color:(ColorFunction / Color) _ value:Percentage _ ")" { return { op, color, value }; }
 AdjContrast = op:"contrast" "(" _ value:Percentage? _ ")" { return { op, value }; }
 
-ColorShade = $("." "-"? [0-9]*)
+ColorShade = $("." "-"? [0-9]+)
 HexChar = [0-9a-fA-F]
 Modifier = "+" / "-"
 NumOrPercent = Percentage / Number

@@ -41,11 +41,6 @@
   "peerDependencies": {
     "react": "^16.8.6"
   },
-  "devDependencies": {
-    "@types/pegjs": "^0.10.1",
-    "pegjs": "^0.10.0",
-    "ts-pegjs": "^0.2.6"
-  },
   "scripts": {
     "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.core --entry src/index.ts",
     "build": "tsdx build --format cjs,esm,umd --name byteclaw.visage.core --entry src/index.ts",
