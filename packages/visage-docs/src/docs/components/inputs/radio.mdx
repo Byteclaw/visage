@@ -138,6 +138,60 @@ function Example() {
 }
 ```
 
+## Keyboard shortcuts
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Radio isn&apos;t disabled and read only:
+        <ul>
+          <li>
+            When the Radio does not have focus, places focus on the Radio.
+          </li>
+          <li>
+            When the Radio has focus, moves focus to the next element in the tab
+            sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Space</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a Radio has focus and isn&apos;t checked, marks it as checked.
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Down Arrow</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a Radio has focus and has a more then one possible value, marks
+          the next value as checked.
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Up Arrow</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a Radio has focus and has a more then one possible value, marks
+          the previous value as checked.
+        </li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
 ## Faces
 
 - `RadioControl`

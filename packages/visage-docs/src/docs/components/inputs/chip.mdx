@@ -96,6 +96,45 @@ Small `Chip` useful to tag things in headers.
 </Fragment>
 ```
 
+## Keyboard shortcuts
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Chip is interactive:
+        <ul>
+          <li>When the Chip does not have focus, places focus on the Chip.</li>
+          <li>
+            When the Chip has focus:
+            <ul>
+              <li>If the chip is deletable, moves focus to delete button.</li>
+              <li>
+                If the chip isn&apos;t deletable, moves focus to the next
+                element in the tab sequence.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={
+      <>
+        When the Chips has focus, performs it&apos;s <Code>onClick</Code>{' '}
+        action.
+      </>
+    }
+  />
+</DescriptionList>
+
 ## Faces
 
 - `Chip`

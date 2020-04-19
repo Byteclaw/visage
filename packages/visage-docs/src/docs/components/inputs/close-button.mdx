@@ -19,6 +19,40 @@ import { CloseButton } from '@byteclaw/visage';
 <CloseButton />
 ```
 
+## Keyboard shortcuts
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a CloseButton isn&apos;t disabled:
+        <ul>
+          <li>
+            When the button does not have focus, places focus on the Button.
+          </li>
+          <li>
+            When the button has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={
+      <ul>
+        <li>When a CloseButton has focus performs it&apos;s action</li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
 ## Faces
 
 - `CloseButton`

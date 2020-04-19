@@ -121,6 +121,134 @@ function Example() {
 }
 ```
 
+## Keyboard shortcuts
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput isn&apos;t disabled:
+        <ul>
+          <li>
+            When the AutocompleteInput does not have focus, places focus on the
+            AutocompleteInput.
+          </li>
+          <li>
+            When the AutocompleteInput has focus, moves focus to the next
+            element in the tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Down Arrow</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput is focused and isn&apos;t read only:
+        <ul>
+          <li>When the suggestions menu is closed, opens it.</li>
+          <li>
+            When the suggestions menu is open:
+            <ul>
+              <li>
+                If an option is focused, moves focus to the next possible option
+                or the first possible one.
+              </li>
+              <li>
+                If an option isn&apos;t focused, moves focus to the first
+                possible option.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Up Arrow</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput is focused and isn&apos;t read only:
+        <ul>
+          <li>When the suggestions menu is closed, opens it.</li>
+          <li>
+            When the suggestions menu is open:
+            <ul>
+              <li>
+                If an option is focused, moves focus to the previous possible
+                option or the last possible one.
+              </li>
+              <li>
+                If an option isn&apos;t focused, moves focus to the last
+                possible option.
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Home</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput is focused:
+        <ul>
+          <li>
+            If the suggestions menu is open, moves focus to the first possible
+            option.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>End</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput is focused:
+        <ul>
+          <li>
+            If the suggestions menu is open, moves focus to the last possible
+            option.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Enter</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput is open:
+        <ul>
+          <li>
+            When an option is focused, selects it and closes the suggestions
+            menu.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Escape</KeyboardKey>}
+    description={
+      <>
+        If an AutocompleteInput is focused:
+        <ul>
+          <li>If the suggestions menu is open, closes it.</li>
+          <li>
+            If the suggestions menu is closed, clears the selected value of the
+            AutocompleteInput.
+          </li>
+        </ul>
+      </>
+    }
+  />
+</DescriptionList>
+
 ## Faces
 
 - `AutocompleteInputMenu`
