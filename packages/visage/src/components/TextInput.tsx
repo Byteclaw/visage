@@ -40,7 +40,7 @@ export const TextInputBaseStyles: VisageStyleSheet = {
 };
 
 const InputExtraElement = createComponent('div', {
-  displayName: 'InputExtraElement',
+  displayName: 'TextInputExtraElement',
   styles: {
     color: 'shadesText',
     display: 'flex',

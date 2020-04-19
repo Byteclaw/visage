@@ -1,4 +1,8 @@
 export interface VisageFaces {
+  // Accordion.tsx
+  AccordionRegion?: VisageStyleSheet;
+  // Accordion.tsx
+  AccordionTrigger?: VisageStyleSheet;
   // AutocompleteInput.tsx
   AutocompleteInputMenu?: VisageStyleSheet;
   // Badge.tsx
@@ -124,7 +128,7 @@ export interface VisageFaces {
   // Flex.ts
   Flex?: VisageStyleSheet;
   // FormField.tsx
-  FormFieldWrapper?: VisageStyleSheet;
+  FormField?: VisageStyleSheet;
   // Grid.ts
   Grid?: VisageStyleSheet;
   // Group.ts
@@ -139,12 +143,12 @@ export interface VisageFaces {
   InlineError?: VisageStyleSheet;
   // InlineError.tsx
   InlineErrorIcon?: VisageStyleSheet;
-  // TextInput.tsx
-  InputExtraElement?: VisageStyleSheet;
   // KeyboardKey.ts
   KeyboardKey?: VisageStyleSheet;
   // Label.tsx
   Label?: VisageStyleSheet;
+  // Label.tsx
+  LabelRequirementDescription?: VisageStyleSheet;
   // Link.ts
   Link?: VisageStyleSheet;
   // List.tsx
@@ -243,6 +247,8 @@ export interface VisageFaces {
   TextInputControl?: VisageStyleSheet;
   // TextInput.tsx
   TextInputControlBase?: VisageStyleSheet;
+  // TextInput.tsx
+  TextInputExtraElement?: VisageStyleSheet;
   // Text.tsx
   TextSkeleton?: VisageStyleSheet;
   // Toast.tsx
