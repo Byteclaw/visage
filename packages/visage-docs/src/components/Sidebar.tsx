@@ -77,7 +77,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/layout/box-skeleton">
-                  BoxSkeleton
+                  Box skeleton
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -120,12 +120,12 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/data-table">
-                  DataTable
+                  Data table
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/description-list">
-                  DescriptionList
+                  Description list
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -145,7 +145,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/heading-skeleton">
-                  HeadingSkeleton
+                  Heading skeleton
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -175,7 +175,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/paragraph-skeleton">
-                  ParagraphSkeleton
+                  Paragraph skeleton
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -190,7 +190,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/skeleton-sentence">
-                  SkeletonSentence
+                  Skeleton sentence
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -215,7 +215,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/svg-icon">
-                  SvgIcon
+                  Svg icon
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -225,7 +225,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/text-skeleton">
-                  TextSkeleton
+                  Text skeleton
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
@@ -238,7 +238,7 @@ export function Sidebar() {
             >
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/autocomplete-input">
-                  AutocompleteInput
+                  Autocomplete input
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -248,7 +248,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/close-button">
-                  CloseButton
+                  Close button
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -263,22 +263,22 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/field-set">
-                  FieldSet
+                  Field set
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/file-input">
-                  FileInput
+                  File input
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/form-field">
-                  FormField
+                  Form field
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/inline-error">
-                  InlineError
+                  Inline error
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -303,12 +303,12 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/textarea">
-                  TextArea
+                  Text area
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/inputs/text-input">
-                  TextInput
+                  Text input
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -364,7 +364,7 @@ export function Sidebar() {
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/feedback/progress-bar">
-                  ProgressBar
+                  Progress bar
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -415,27 +415,27 @@ export function Sidebar() {
             >
               <ListItem>
                 <ListItemRouteLink to="/components/core/is-breakpoint">
-                  IsBreakpoint
+                  Is breakpoint
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/core/design-system">
-                  DesignSystem
+                  Design system
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/core/responsive-design-system">
-                  ResponsiveDesignSystem
+                  Responsive design system
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/core/layer-manager">
-                  LayerManager
+                  Layer manager
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
                 <ListItemRouteLink to="/components/core/toast-manager">
-                  ToastManager
+                  Toast manager
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
