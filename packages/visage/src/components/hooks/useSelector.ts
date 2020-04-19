@@ -4,6 +4,8 @@ import { getNextIndexFromCycle } from '../shared';
 export type SelectorAction<TValue extends any> =
   | { type: 'Unknown' }
   | { type: 'InputChange'; value: string }
+  | { type: 'Blur' }
+  | { type: 'Focus' }
   | { type: 'MenuOpen' }
   | { type: 'MenuClose' }
   | { type: 'MenuToggle' }
@@ -23,6 +25,7 @@ export interface SelectorState<TValue extends any> {
   focusedIndex: number;
   inputValue: string;
   isBusy: boolean;
+  isFocused: boolean;
   isOpen: boolean;
   options: any[];
   optionToString: (option: TValue) => string;
@@ -52,6 +55,7 @@ function initSelectorReducer({
     focusedIndex: -1,
     inputValue: val == null ? '' : optToString(val),
     isBusy: false,
+    isFocused: false,
     isOpen: false,
     options: [],
     optionToString: optToString,
@@ -112,9 +116,16 @@ function selectorReducer(
       }
     }
   }
-  /* } */
 
   switch (action.type) {
+    case 'Blur':
+    case 'Focus': {
+      changes = {
+        ...changes,
+        isFocused: action.type !== 'Blur',
+      };
+      break;
+    }
     case 'InputChange': {
       changes = {
         ...changes,

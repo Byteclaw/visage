@@ -7,7 +7,6 @@ import {
 } from '@byteclaw/visage-core';
 import React, {
   ChangeEventHandler,
-  useCallback,
   useRef,
   FocusEventHandler,
   MouseEventHandler,
@@ -155,6 +154,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
       id: outerId,
       onBlur,
       onChange,
+      onFocus,
       onInputValueChange,
       onKeyDown,
       onMouseDown,
@@ -178,13 +178,13 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
     // last arrow pressed is used to automatically focus an option if automatic mode is turn on
     // and is reset to null when options are loaded
     const lastArrowPressed = useRef<string | null>(null);
-    const loadOptions = useCallback(
+    const loadOptions = useHandlerRef(
       (inputValue: string, dispatch: Dispatch<SelectorAction<any>>) => {
         if (!options) {
           return;
         }
 
-        // open menu
+        // open menu only if is input focused
         dispatch({ type: 'MenuOpen' });
         // load options sets the input as busy
         dispatch({ type: 'SetBusy', isBusy: true, forInputValue: inputValue });
@@ -220,7 +220,6 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
             lastArrowPressed.current = null;
           });
       },
-      [options, selectOnBlur],
     );
     const [
       debouncedLoadOptions,
@@ -228,6 +227,15 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
     ] = useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
     const enhancedReducer: SelectorReducerEnhancer<any> = useHandlerRef(
       (currentState, nextState) => {
+        // allow to open only focused input or expand on click input
+        if (
+          nextState.invokedBy.type === 'MenuOpen' &&
+          !nextState.isFocused &&
+          !expandOnClick
+        ) {
+          return currentState;
+        }
+
         // allow only to set value from outside if read only
         if (readOnly && nextState.invokedBy.type !== 'SetValue') {
           return currentState;
@@ -292,7 +300,11 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
         }
 
         dispatch({ type: 'MenuClose' });
+        dispatch({ type: 'Blur' });
       },
+    );
+    const onInnerFocus: FocusEventHandler<HTMLInputElement> = useHandlerRef(
+      () => dispatch({ type: 'Focus' }),
     );
     const onInputChange: ChangeEventHandler<HTMLInputElement> = useHandlerRef(
       e => {
@@ -312,6 +324,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
       },
     );
     const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
+    const onFocusHandler = useComposedCallbackCreator(onFocus, onInnerFocus);
     const onMouseDownHandler = useComposedCallbackCreator(
       onMouseDown,
       onInnerMouseDown,
@@ -407,6 +420,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
           id={id}
           onBlur={onBlurHandler}
           onChange={onInputChange}
+          onFocus={onFocusHandler}
           onMouseDown={onMouseDownHandler}
           onKeyDown={onKeyDownHandler}
           readOnly={readOnly}

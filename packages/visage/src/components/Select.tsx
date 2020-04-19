@@ -189,6 +189,7 @@ export const Select: typeof SelectComp = forwardRef(
       menu: DropdownMenu = SelectMenu,
       onBlur,
       onChange,
+      onFocus,
       onInputValueChange,
       onMouseDown,
       onKeyDown,
@@ -219,8 +220,6 @@ export const Select: typeof SelectComp = forwardRef(
           return;
         }
 
-        // open menu
-        // dispatch({ type: 'MenuOpen' });
         // load options sets the input as busy
         dispatch({ type: 'SetBusy', isBusy: true, forInputValue: inputValue });
 
@@ -338,8 +337,14 @@ export const Select: typeof SelectComp = forwardRef(
         }
       }
     });
-    const onInnerBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(() =>
-      dispatch({ type: 'MenuClose' }),
+    const onInnerBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(
+      () => {
+        dispatch({ type: 'MenuClose' });
+        dispatch({ type: 'Blur' });
+      },
+    );
+    const onInnerFocus: FocusEventHandler<HTMLInputElement> = useHandlerRef(
+      () => dispatch({ type: 'Focus' }),
     );
     const onInputChange: ChangeEventHandler<HTMLInputElement> = useHandlerRef(
       e => dispatch({ type: 'InputChange', value: e.currentTarget.value }),
@@ -424,6 +429,7 @@ export const Select: typeof SelectComp = forwardRef(
       },
     );
     const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
+    const onFocusHandler = useComposedCallbackCreator(onFocus, onInnerFocus);
     const onKeyDownHandler = useComposedCallbackCreator(
       onKeyDown,
       onInnerKeyDown,
@@ -464,6 +470,7 @@ export const Select: typeof SelectComp = forwardRef(
           ref={inputRef}
           onBlur={onBlurHandler}
           onChange={onInputChange}
+          onFocus={onFocusHandler}
           onMouseDown={onMouseDownHandler}
           onKeyDown={onKeyDownHandler}
           parentStyles={parentStyles}

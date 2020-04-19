@@ -97,4 +97,34 @@ describe('useSelector', () => {
       dispatch,
     );
   });
+
+  it('reacts to focus / blur accordingly', () => {
+    const onChange = jest.fn();
+    const onInputValueChange = jest.fn();
+    const onStateChange = jest.fn();
+    const { result } = renderHook(() =>
+      useSelector({ onChange, onInputValueChange, onStateChange }),
+    );
+
+    expect(result.current).toHaveLength(2);
+    expect(onChange).not.toHaveBeenCalled();
+    expect(onInputValueChange).not.toHaveBeenCalled();
+    expect(onStateChange).not.toHaveBeenCalled();
+
+    let [state, dispatch] = result.current;
+
+    expect(state.isFocused).toBe(false);
+
+    act(() => dispatch({ type: 'Focus' }));
+
+    [state, dispatch] = result.current;
+
+    expect(state.isFocused).toBe(true);
+
+    act(() => dispatch({ type: 'Blur' }));
+
+    [state, dispatch] = result.current;
+
+    expect(state.isFocused).toBe(false);
+  });
 });
