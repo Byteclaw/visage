@@ -1,5 +1,17 @@
 import { ScaleValue } from '@byteclaw/visage-utils';
 
+export interface BorderRadiuses {
+  /**
+   * Border radius used by form inputs, buttons, etc
+   */
+  controlBorderRadius?: number | string | undefined | null;
+  /**
+   * Border radius used by KeyboardKey
+   */
+  keyboardBorderRadius?: number | string | undefined | null;
+  [extra: string]: number | string | undefined | null;
+}
+
 export interface ColorPalette {
   /** Accent color to bring attention to design elements */
   accent: string | ScaleValue<string>;

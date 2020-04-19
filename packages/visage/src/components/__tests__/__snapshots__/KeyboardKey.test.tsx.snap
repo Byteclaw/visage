@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyboardKey is extendable by KeyboardKey face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  background-color: rgb(204,204,204);
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px rgb(173,173,173),0 3px 0 0 rgb(204,204,204),0 3px 0 1px rgb(173,173,173);
+  color: rgb(255,255,255);
+  display: inline-block;
+  font-family: monospace;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-align: center;
+  text-transform: lowercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+<kbd
+    class="emotion-0"
+  />
+</DocumentFragment>
+`;
+
+exports[`KeyboardKey renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  background-color: rgb(204,204,204);
+  border-radius: keyboardBorderRadius;
+  box-shadow: 0 0 0 1px rgb(173,173,173),0 3px 0 0 rgb(204,204,204),0 3px 0 1px rgb(173,173,173);
+  color: rgb(255,255,255);
+  display: inline-block;
+  font-family: monospace;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-align: center;
+  text-transform: lowercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+<kbd
+    class="emotion-0"
+  />
+</DocumentFragment>
+`;
