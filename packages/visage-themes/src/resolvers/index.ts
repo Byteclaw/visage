@@ -1,4 +1,7 @@
 import { StyleValueResolver } from '@byteclaw/visage-core';
+import { parse } from '../boxShadowParser';
+
+type BoxShadowParseResult = { color: string }[] | string;
 
 /**
  * Resolves box shadow agains theme and then tries to resolve colors against theme
@@ -17,9 +20,23 @@ export const boxShadow: StyleValueResolver = function resolveBoxShadow(
   }
 
   if (typeof themeKeyValue === 'string') {
-    return themeKeyValue.replace(/([a-zA-Z0-9.\-_]+)/g, part => {
-      return ctx.resolvers.color('color', part, ctx) as any;
-    });
+    try {
+      const result = parse(themeKeyValue) as BoxShadowParseResult;
+
+      if (Array.isArray(result)) {
+        // parser, try to map colors
+        return result.reduce(
+          (finalBoxShadow, { color }) =>
+            finalBoxShadow.replace(
+              color,
+              ctx.resolvers.color('color', color, ctx) as any,
+            ),
+          themeKeyValue,
+        );
+      }
+    } catch (e) {
+      // do nothing, returns as is
+    }
   }
 
   return themeKeyValue;
