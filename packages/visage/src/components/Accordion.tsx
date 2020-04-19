@@ -20,6 +20,7 @@ import {
 import { booleanVariant } from '../variants';
 
 const AccordionTrigger = createComponent('div', {
+  displayName: 'AccordionTrigger',
   styles: {
     borderColor: 'transparent',
     borderWidth: 0,
@@ -53,6 +54,7 @@ type AccordionTriggerProps = ExtractVisageComponentProps<
 >;
 
 const AccordionRegion = createComponent('div', {
+  displayName: 'AccordionRegion',
   styles: props => ({
     height: props.open ? 'auto' : 0,
     opacity: props.open ? 1 : 0,

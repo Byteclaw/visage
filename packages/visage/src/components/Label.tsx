@@ -7,6 +7,7 @@ import { createComponent } from '../core';
 import { visuallyHiddenBooleanVariant, visuallyHiddenStyles } from './shared';
 
 const RequirementDescription = createComponent('span', {
+  displayName: 'LabelRequirementDescription',
   defaultStyles: visuallyHiddenStyles,
 });
 

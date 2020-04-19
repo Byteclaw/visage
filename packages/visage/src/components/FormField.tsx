@@ -16,7 +16,7 @@ import { InlineError } from './InlineError';
 import { TextInput } from './TextInput';
 
 const FormFieldWrapper = createComponent(Box, {
-  displayName: 'FormFieldWrapper',
+  displayName: 'FormField',
   styles: {
     my: 1,
   },
