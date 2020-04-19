@@ -104,6 +104,21 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/blockquote">
+                  Blockquote
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/cite">
+                  Cite
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/code">
+                  Code
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/data-table">
                   DataTable
                 </ListItemRouteLink>
@@ -116,6 +131,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/divider">
                   Divider
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/emphasized-text">
+                  Emphasized text
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
@@ -159,8 +179,38 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/preformatted-code">
+                  Preformatted code
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/quote">
+                  Quote sentence
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/skeleton-sentence">
                   SkeletonSentence
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/small-text">
+                  Small text
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/strong-text">
+                  Strong text
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/subscript">
+                  Subscript
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/superscript">
+                  Superscript
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
