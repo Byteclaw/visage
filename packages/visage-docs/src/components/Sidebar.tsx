@@ -134,6 +134,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/data-and-information/keyboard-key">
+                  Keyboard key
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/list">
                   List
                 </ListItemRouteLink>
