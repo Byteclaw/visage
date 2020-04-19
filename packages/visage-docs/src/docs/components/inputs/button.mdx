@@ -104,6 +104,43 @@ Monochromatic uses current color as font and border colors. Only outlined button
 </Fragment>
 ```
 
+## Keyboard shortcuts
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Button isn&apos;t disabled:
+        <ul>
+          <li>
+            When the button does not have focus, places focus on the Button.
+          </li>
+          <li>
+            When the button has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={
+      <ul>
+        <li>
+          When a Button has focus performs it&apos;s <Code>onClick</Code>{' '}
+          action.
+        </li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
 ## Faces
 
 - `Button`
