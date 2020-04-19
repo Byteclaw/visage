@@ -179,12 +179,12 @@ export const List: VisageComponent<ListProps> = forwardRef(
     });
 
     return (
-      <React.Fragment>
+      <>
         {heading}
         <ListDepthContext.Provider value={depth + 1}>
           {listItems}
         </ListDepthContext.Provider>
-      </React.Fragment>
+      </>
     );
   },
 ) as any;
@@ -248,13 +248,13 @@ export function CollapsibleList({
   }
 
   return renderContainer(
-    <React.Fragment>
+    <>
       {renderHeading ? renderHeading() : null}
       {renderToggler ? renderToggler(collapsed, onToggle, onKeyDown) : null}
       <ListDepthContext.Provider value={depth + 1}>
         {renderItemsContainer(collapsed, children)}
       </ListDepthContext.Provider>
-    </React.Fragment>,
+    </>,
     restProps,
   );
 }

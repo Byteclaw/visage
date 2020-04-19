@@ -87,7 +87,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   p: visage.Paragraph,
   pre: (props: any) => props.children,
   strong: visage.StrongText,
-  wrapper: ({ children }: any) => <React.Fragment>{children}</React.Fragment>,
+  wrapper: ({ children }: any) => <>{children}</>,
   PropTypes,
   Paginator,
   PaginatorButton,

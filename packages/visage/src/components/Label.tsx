@@ -44,10 +44,10 @@ function Label({
     <LabelBase {...restProps}>
       {children}
       {required ? (
-        <React.Fragment>
+        <>
           <span aria-hidden>*</span>
           <RequirementDescription>{requiredTitle}</RequirementDescription>
-        </React.Fragment>
+        </>
       ) : null}
     </LabelBase>
   );

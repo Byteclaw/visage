@@ -25,7 +25,7 @@ interface Props {
 
 export function Layout({ children }: Props) {
   return (
-    <React.Fragment>
+    <>
       <Drawer
         backdrop={false}
         styles={{
@@ -79,7 +79,7 @@ export function Layout({ children }: Props) {
             >
               <ThemeTogglerContext.Consumer>
                 {value => (
-                  <React.Fragment>
+                  <>
                     <Toggle
                       label="Use dark theme"
                       hiddenLabel
@@ -88,7 +88,7 @@ export function Layout({ children }: Props) {
                       styles={{ mx: 2 }}
                     />
                     <CustomizeThemeButton />
-                  </React.Fragment>
+                  </>
                 )}
               </ThemeTogglerContext.Consumer>
             </Flex>
@@ -107,6 +107,6 @@ export function Layout({ children }: Props) {
           </Column>
         </Container>
       </Flex>
-    </React.Fragment>
+    </>
   );
 }

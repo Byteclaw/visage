@@ -183,8 +183,9 @@ interface BannerProps {
   title?: ReactNode;
 }
 
-export const Banner: VisageComponent<BannerProps &
-  BannerBaseProps> = markAsVisageComponent(
+export const Banner: VisageComponent<
+  BannerProps & BannerBaseProps
+> = markAsVisageComponent(
   forwardRef(
     (
       {

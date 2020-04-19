@@ -49,10 +49,9 @@ interface TextAreaProps {
   baseProps?: ExtractVisageComponentProps<typeof TextAreaBase>;
 }
 
-export const TextArea: VisageComponent<ExtractVisageComponentProps<
-  typeof TextAreaBaseControl
-> &
-  TextAreaProps> = forwardRef(
+export const TextArea: VisageComponent<
+  ExtractVisageComponentProps<typeof TextAreaBaseControl> & TextAreaProps
+> = forwardRef(
   (
     {
       autoResize,
@@ -104,8 +103,9 @@ export const TextArea: VisageComponent<ExtractVisageComponentProps<
             lineHeightNum -
             borderBottomWidthNum -
             borderTopWidthNum;
-          textAreaRef.current.style.height = `${currentHeight +
-            lineHeightNum}px`;
+          textAreaRef.current.style.height = `${
+            currentHeight + lineHeightNum
+          }px`;
         }
       }
     });

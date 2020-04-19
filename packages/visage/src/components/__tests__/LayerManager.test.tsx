@@ -11,7 +11,7 @@ function CurrentZIndex() {
 describe('LayerManager', () => {
   it('increments zindex correctly', () => {
     const ui = (num: number) => (
-      <React.Fragment>
+      <>
         {/* data-level 1 - 100 */}
         <CurrentZIndex key={num} />
         <LayerManager>
@@ -50,7 +50,7 @@ describe('LayerManager', () => {
           {/* data-level 2 - 200 */}
           <CurrentZIndex />
         </LayerManager>
-      </React.Fragment>
+      </>
     );
 
     const { asFragment, rerender } = render(ui(10));

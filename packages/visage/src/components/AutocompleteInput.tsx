@@ -397,7 +397,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
     });
 
     return (
-      <React.Fragment>
+      <>
         <TextInput
           autoCorrect="off"
           autoCapitalize="none"
@@ -440,7 +440,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
           options={state.options}
           optionToString={state.optionToString}
         />
-      </React.Fragment>
+      </>
     );
   },
 ) as any;

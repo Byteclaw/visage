@@ -172,7 +172,7 @@ export function Drawer({
   }
 
   let drawer: ReactElement | null = (
-    <React.Fragment>
+    <>
       {backdrop ? <Backdrop styles={{ zIndex }} /> : null}
       <BaseDrawer
         id={outerId}
@@ -183,7 +183,7 @@ export function Drawer({
       >
         {children}
       </BaseDrawer>
-    </React.Fragment>
+    </>
   );
 
   if (inPortal) {

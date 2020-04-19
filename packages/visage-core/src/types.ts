@@ -400,8 +400,8 @@ export interface StyleFunction<TProps extends {}> {
   (props: TProps): StyleSheet;
 }
 
-export type UnionToIntersection<U> = (U extends unknown
-? (k: U) => void
-: never) extends (k: infer I) => void
+export type UnionToIntersection<U> = (
+  U extends unknown ? (k: U) => void : never
+) extends (k: infer I) => void
   ? I
   : {};

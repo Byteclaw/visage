@@ -444,7 +444,7 @@ export const Select: typeof SelectComp = forwardRef(
     });
 
     return (
-      <React.Fragment>
+      <>
         <TextInput
           autoCorrect="off"
           autoCapitalize="none"
@@ -489,7 +489,7 @@ export const Select: typeof SelectComp = forwardRef(
           options={state.options}
           optionToString={state.optionToString}
         />
-      </React.Fragment>
+      </>
     );
   },
 ) as any;

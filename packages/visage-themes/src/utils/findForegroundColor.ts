@@ -23,10 +23,7 @@ export function findForegroundColor(
   // reset source color
   for (let s = 100; s >= 0; s--) {
     for (let l = 0; l <= 100; l++) {
-      const col = color()
-        .hue(sourceColor.hue())
-        .saturationl(s)
-        .lightness(l);
+      const col = color().hue(sourceColor.hue()).saturationl(s).lightness(l);
 
       if (isContrastOk(col, backgroundColor)) {
         return col.string();
