@@ -184,9 +184,11 @@ const AssignMemo: VisageComponent<{ test: boolean }> = React.memo(() => null);
 <AssignMemo />;
 
 // ok
-const AssignComplexMemoAndForward: VisageComponent<{
-  test: boolean;
-} & JSX.IntrinsicElements['div']> = React.memo(
+const AssignComplexMemoAndForward: VisageComponent<
+  {
+    test: boolean;
+  } & JSX.IntrinsicElements['div']
+> = React.memo(
   React.forwardRef(
     (
       props: JSX.IntrinsicElements['h1'] & { test: boolean },

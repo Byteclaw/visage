@@ -69,8 +69,9 @@ interface CardProps {
   touchable?: ReactElement;
 }
 
-export const Card: VisageComponent<CardProps &
-  ExtractVisageComponentProps<typeof CardBase>> = forwardRef(
+export const Card: VisageComponent<
+  CardProps & ExtractVisageComponentProps<typeof CardBase>
+> = forwardRef(
   (
     {
       children,

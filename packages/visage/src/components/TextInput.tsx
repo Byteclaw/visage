@@ -127,8 +127,9 @@ interface TextInputProps {
   suffixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
 }
 
-export const TextInput: VisageComponent<TextInputProps &
-  InputProps> = forwardRef(
+export const TextInput: VisageComponent<
+  TextInputProps & InputProps
+> = forwardRef(
   (
     {
       baseProps,

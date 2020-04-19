@@ -40,14 +40,14 @@ function RenderClosable({
 
   return (
     <div ref={divRef}>
-      <React.Fragment>
+      <>
         <div data-testid={id} />
         {open && children
           ? children(() => {
               setOpen(false);
             })
           : null}
-      </React.Fragment>
+      </>
     </div>
   );
 }

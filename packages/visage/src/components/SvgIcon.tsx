@@ -29,14 +29,12 @@ const SvgIconBase = createComponent('div', {
   },
 });
 
-export const SvgIcon: VisageComponent<{
-  icon: ReactElement | JSXElementConstructor<any>;
-  iconProps?: JSX.IntrinsicElements['svg'];
-} & ExtractVisageComponentProps<typeof SvgIconBase>> = function SvgIcon({
-  icon: Icon,
-  iconProps,
-  ...restProps
-}: any) {
+export const SvgIcon: VisageComponent<
+  {
+    icon: ReactElement | JSXElementConstructor<any>;
+    iconProps?: JSX.IntrinsicElements['svg'];
+  } & ExtractVisageComponentProps<typeof SvgIconBase>
+> = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
   return (
     <SvgIconBase {...restProps}>
       {isValidElement(Icon) ? (

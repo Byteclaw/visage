@@ -99,8 +99,9 @@ interface HeadingProps {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export const Heading: VisageComponent<JSX.IntrinsicElements['h1'] &
-  HeadingProps> = markAsVisageComponent(
+export const Heading: VisageComponent<
+  JSX.IntrinsicElements['h1'] & HeadingProps
+> = markAsVisageComponent(
   memo(
     forwardRef(
       (
@@ -148,9 +149,9 @@ interface HeadingSkeletonProps {
   mask?: number[];
 }
 
-export const HeadingSkeleton: VisageComponent<JSX.IntrinsicElements['h1'] &
-  HeadingProps &
-  HeadingSkeletonProps> = markAsVisageComponent(
+export const HeadingSkeleton: VisageComponent<
+  JSX.IntrinsicElements['h1'] & HeadingProps & HeadingSkeletonProps
+> = markAsVisageComponent(
   memo(
     forwardRef(
       (

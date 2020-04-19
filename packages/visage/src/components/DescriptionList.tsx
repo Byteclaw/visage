@@ -63,14 +63,14 @@ export function DescriptionListItem({
   term,
 }: DescriptionListItemProps) {
   return (
-    <React.Fragment>
+    <>
       {prefix}
       <DescriptionListItemTerm>{term}</DescriptionListItemTerm>
       <DescriptionListItemDescription>
         {description}
       </DescriptionListItemDescription>
       {suffix}
-    </React.Fragment>
+    </>
   );
 }
 
