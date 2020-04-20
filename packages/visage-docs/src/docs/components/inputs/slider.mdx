@@ -11,6 +11,8 @@ components: ['Slider']
 import { Slider } from '@byteclaw/visage';
 ```
 
+## Examples
+
 ### Controlled
 
 ```jsx live=true
@@ -23,6 +25,7 @@ function Example() {
       max={20}
       step={1}
       onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
       values={value}
     />
   );
@@ -42,6 +45,46 @@ function Example() {
       max={20}
       step={1}
       onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+}
+```
+
+### Disabled
+
+```jsx live=true
+function Example() {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      allowedValues={[0, 5, 10]}
+      disabled
+      min={0}
+      max={20}
+      step={1}
+      onChange={values => setValue(values)}
+      values={value}
+    />
+  );
+}
+```
+
+### Read only
+
+```jsx live=true
+function Example() {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      min={0}
+      max={20}
+      onChange={values => setValue(values)}
+      readOnly
+      step={1}
       values={value}
     />
   );
@@ -69,7 +112,12 @@ function Example() {
     }
   />
   <DescriptionListItem
-    term={<KeyboardKey>Left Arrow</KeyboardKey>}
+    term={
+      <>
+        <KeyboardKey>Left Arrow</KeyboardKey> /{' '}
+        <KeyboardKey>Down Arrow</KeyboardKey>
+      </>
+    }
     description={
       <>
         If a Slider isn&apos;t focus:
@@ -80,7 +128,12 @@ function Example() {
     }
   />
   <DescriptionListItem
-    term={<KeyboardKey>Right Arrow</KeyboardKey>}
+    term={
+      <>
+        <KeyboardKey>Right Arrow</KeyboardKey> /{' '}
+        <KeyboardKey>Up Arrow</KeyboardKey>
+      </>
+    }
     description={
       <>
         If a Slider isn&apos;t focus:
