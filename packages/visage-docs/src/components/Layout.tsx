@@ -69,7 +69,11 @@ export function Layout({ children }: Props) {
               icon={Menu}
               label="Open navigation"
               onClick={() => setMenuOpen(true)}
-              styles={{ fontSize: 1, lineHeight: 1 }}
+              styles={{
+                display: ['inline-block', undefined, 'none'],
+                fontSize: 1,
+                lineHeight: 1,
+              }}
               title="Open navigation"
             />
             <Flex
