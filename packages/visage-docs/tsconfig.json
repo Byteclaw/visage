@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "rootDir": "./src"
   },
-  "include": ["src"],
+  "include": ["assets.d.ts", "src", "static"],
   "exclude": ["**/__tests__/**"],
   "references": [
     { "path": "../visage" },

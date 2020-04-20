@@ -4,18 +4,19 @@ import {
   Drawer,
   Flex,
   Header,
+  IconButton,
   SvgIcon,
-  Toggle,
   Text,
   DrawerPosition,
+  useBreakpoint,
 } from '@byteclaw/visage';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
+import { Menu } from 'react-feather';
 // @ts-ignore
 import { version as visageVersion } from '../../../visage/package.json';
-// @ts-ignore
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
-import { ThemeTogglerContext } from '../theme';
 import { CustomizeThemeButton } from './CustomizeThemeButton';
+import { ColorModeToggle } from './ColorModeToggle';
 import { Sidebar } from './Sidebar';
 import { Search } from './Search';
 
@@ -24,10 +25,13 @@ interface Props {
 }
 
 export function Layout({ children }: Props) {
+  const isMobile = useBreakpoint({ lte: 1 });
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   return (
     <>
       <Drawer
-        backdrop={false}
+        backdrop={isMobile}
         styles={{
           width: '16rem',
           flexShrink: 0,
@@ -36,7 +40,8 @@ export function Layout({ children }: Props) {
           boxShadow:
             'inset -1px 0 0 0 color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
         }}
-        open
+        onClose={() => setMenuOpen(false)}
+        open={isMobile ? isMenuOpen : true}
         side={DrawerPosition.left}
       >
         <Flex styles={{ alignItems: 'center', py: 2, px: 2 }}>
@@ -50,15 +55,23 @@ export function Layout({ children }: Props) {
         </Flex>
         <Sidebar />
       </Drawer>
-      <Flex styles={{ flexDirection: 'column', ml: '16rem' }}>
+      <Flex styles={{ flexDirection: 'column', ml: [null, null, '16rem'] }}>
         <Header styles={{ py: 2 }}>
           <Container
             styles={{
               alignItems: 'center',
               position: 'relative',
-              justifyContent: ['flex-end', 'flex-start'],
+              justifyContent: ['space-between', undefined, 'flex-start'],
+              px: 2,
             }}
           >
+            <IconButton
+              icon={Menu}
+              label="Open navigation"
+              onClick={() => setMenuOpen(true)}
+              styles={{ fontSize: 1, lineHeight: 1 }}
+              title="Open navigation"
+            />
             <Flex
               styles={{
                 maxWidth: 840,
@@ -72,26 +85,15 @@ export function Layout({ children }: Props) {
             </Flex>
             <Flex
               styles={{
-                flexShrink: 1,
-                position: ['relative', 'absolute'],
+                flexShrink: 0,
+                fontSize: 1,
+                lineHeight: 1,
                 right: 0,
-                mx: 3,
+                ml: 2,
               }}
             >
-              <ThemeTogglerContext.Consumer>
-                {value => (
-                  <>
-                    <Toggle
-                      label="Use dark theme"
-                      hiddenLabel
-                      onChange={e => value.useDark(e.currentTarget.checked)}
-                      checked={value.isDark}
-                      styles={{ mx: 2 }}
-                    />
-                    <CustomizeThemeButton />
-                  </>
-                )}
-              </ThemeTogglerContext.Consumer>
+              <ColorModeToggle />
+              <CustomizeThemeButton />
             </Flex>
           </Container>
         </Header>
