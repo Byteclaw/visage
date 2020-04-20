@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.11 (2020-04-20)
+
+* docs: better UX for mobile devices ([0a14203](https://github.com/Byteclaw/visage/commit/0a14203))
+* test(visage): update keyboard key snapshot ([c16c30e](https://github.com/Byteclaw/visage/commit/c16c30e))
+* feat(visage): add IconButton component ([2f5c5fd](https://github.com/Byteclaw/visage/commit/2f5c5fd))
+* feat(visage): support disabled and readonly in Slider ([3286536](https://github.com/Byteclaw/visage/commit/3286536))
+* fix(visage): make KeyboardKey font weight light ([78d1fc6](https://github.com/Byteclaw/visage/commit/78d1fc6))
+
+
+
+
+
 ## 1.0.0-alpha.10 (2020-04-20)
 
 * fix(visage): allow space to in searchable Select ([18b1cbc](https://github.com/Byteclaw/visage/commit/18b1cbc))

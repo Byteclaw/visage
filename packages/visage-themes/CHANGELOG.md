@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.11 (2020-04-20)
+
+* fix(visage/themes): accept only one hex character in hex color parsing ([78ee7d4](https://github.com/Byteclaw/visage/commit/78ee7d4))
+
+
+
+
+
 ## 1.0.0-alpha.10 (2020-04-20)
 
 * feat(visage): add BorderRadiuses type ([3f29c99](https://github.com/Byteclaw/visage/commit/3f29c99))

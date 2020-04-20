@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.11 (2020-04-20)
+
+* docs: add bigger IconButton example ([e6bc0cb](https://github.com/Byteclaw/visage/commit/e6bc0cb))
+* docs: better UX for mobile devices ([0a14203](https://github.com/Byteclaw/visage/commit/0a14203))
+* docs: fix Slider keyboard shortcuts ([6952728](https://github.com/Byteclaw/visage/commit/6952728))
+* docs: hide menu button on desktop ([3370b4b](https://github.com/Byteclaw/visage/commit/3370b4b))
+* feat(visage): add IconButton component ([2f5c5fd](https://github.com/Byteclaw/visage/commit/2f5c5fd))
+* feat(visage): support disabled and readonly in Slider ([3286536](https://github.com/Byteclaw/visage/commit/3286536))
+
+
+
+
+
 ## 1.0.0-alpha.10 (2020-04-20)
 
 * docs: add keyboard shorcuts sections to some components ([08ee1e5](https://github.com/Byteclaw/visage/commit/08ee1e5))
