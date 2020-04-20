@@ -277,6 +277,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/inputs/icon-button">
+                  Icon button
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/inputs/inline-error">
                   Inline error
                 </ListItemRouteLink>

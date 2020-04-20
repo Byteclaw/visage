@@ -41,6 +41,7 @@
     "react-color": "^2.18.0",
     "react-copy-to-clipboard": "^5.0.2",
     "react-helmet": "^5.2.1",
+    "react-feather": "^2.0.4",
     "react-instantsearch-dom": "^6.4.0",
     "react-live": "^2.2.2",
     "slugify": "^1.4.0",

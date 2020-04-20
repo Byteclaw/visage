@@ -1,3 +1,5 @@
+import { OmitPropsSetting } from '@byteclaw/visage-utils';
+
 /**
  * Creates boolean variant settings for component
  */
@@ -8,12 +10,12 @@ export function booleanVariant<TName extends string>(
 ): {
   [K in TName]?: boolean;
 } {
-  return {
+  return ({
     prop: name,
     name: name.toLowerCase(),
     stripProp,
     defaultValue: false,
-  } as any;
+  } as OmitPropsSetting) as any;
 }
 
 /**
@@ -27,12 +29,12 @@ export function numberProp<TName extends string>(
 ): {
   [K in TName]?: number;
 } {
-  return {
+  return ({
     prop: name,
     name: name.toLowerCase(),
     stripProp,
     defaultValue,
-  } as any;
+  } as OmitPropsSetting) as any;
 }
 
 /**
@@ -52,12 +54,12 @@ export function variant<TName extends string, TVariants extends readonly any[]>(
         ? TVariants[Exclude<keyof TVariants, keyof Array<any>>]
         : string);
 } {
-  return {
+  return ({
     prop: name,
     name: name.toLowerCase(),
     stripProp,
     defaultValue,
-  } as any;
+  } as OmitPropsSetting) as any;
 }
 
 /**

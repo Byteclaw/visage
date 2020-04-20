@@ -1,4 +1,8 @@
 /* eslint-disable react/no-array-index-key */
+import * as DSScope from '@byteclaw/visage';
+import * as Core from '@byteclaw/visage-core';
+import { createDocsTheme } from '@byteclaw/visage-themes';
+import * as Utilities from '@byteclaw/visage-utils';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
@@ -13,17 +17,16 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { Moon, Sun } from 'react-feather';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import * as DSScope from '@byteclaw/visage';
-import * as Core from '@byteclaw/visage-core';
-import { createDocsTheme } from '@byteclaw/visage-themes';
-import * as Utilities from '@byteclaw/visage-utils';
 import { ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
 import { WithState } from './WithState';
 
 const { Box, Flex, Button, createComponent } = DSScope;
 const Scope = {
+  MoonIcon: Moon,
+  SunIcon: Sun,
   Fragment,
   ...Core,
   ...DSScope,

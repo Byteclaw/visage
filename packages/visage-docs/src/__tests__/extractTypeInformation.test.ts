@@ -40,6 +40,7 @@ const components = [
   'Header',
   'Heading',
   'HeadingSkeleton',
+  'IconButton',
   'Image',
   'InlineError',
   'KeyboardKey',
