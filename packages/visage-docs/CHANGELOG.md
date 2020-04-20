@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.10 (2020-04-20)
+
+* docs: add keyboard shorcuts sections to some components ([08ee1e5](https://github.com/Byteclaw/visage/commit/08ee1e5))
+* docs: add missing documentation pages ([4e8763b](https://github.com/Byteclaw/visage/commit/4e8763b))
+* docs: fix faces and suffix on DescriptionList page ([11348c0](https://github.com/Byteclaw/visage/commit/11348c0))
+* docs: make component page headings consistent ([320b1ca](https://github.com/Byteclaw/visage/commit/320b1ca))
+* build: update dependencies to fix mdx fragments ([44b800a](https://github.com/Byteclaw/visage/commit/44b800a))
+* feat(visage): add BorderRadiuses type ([3f29c99](https://github.com/Byteclaw/visage/commit/3f29c99))
+* feat(visage): add KeyboardKey component ([8f2fdf1](https://github.com/Byteclaw/visage/commit/8f2fdf1))
+* feat(visage): redesign Tabs ([1ce45cc](https://github.com/Byteclaw/visage/commit/1ce45cc))
+* chore: update formatting ([58f4b9d](https://github.com/Byteclaw/visage/commit/58f4b9d))
+* fix(visage): respect line height as ProgressBar height ([3af7d39](https://github.com/Byteclaw/visage/commit/3af7d39))
+
+
+
+
+
 ## 1.0.0-alpha.9 (2020-04-17)
 
 * feat(visage): add message component ([d6978a3](https://github.com/Byteclaw/visage/commit/d6978a3))

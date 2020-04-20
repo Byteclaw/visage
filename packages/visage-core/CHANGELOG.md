@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.4 (2020-04-20)
+
+* fix(visage/core): fix colorShade parsing ([26fa711](https://github.com/Byteclaw/visage/commit/26fa711))
+* chore: update formatting ([58f4b9d](https://github.com/Byteclaw/visage/commit/58f4b9d))
+
+
+
+
+
 ## 1.0.0-alpha.3 (2020-04-13)
 
 * feat(visage/core): cache styler results ([0f6401a](https://github.com/Byteclaw/visage/commit/0f6401a))

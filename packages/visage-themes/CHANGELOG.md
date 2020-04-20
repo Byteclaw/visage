@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.10 (2020-04-20)
+
+* feat(visage): add BorderRadiuses type ([3f29c99](https://github.com/Byteclaw/visage/commit/3f29c99))
+* fix(visage/themes): fix box shadow color parsing ([c554072](https://github.com/Byteclaw/visage/commit/c554072))
+* chore: update formatting ([58f4b9d](https://github.com/Byteclaw/visage/commit/58f4b9d))
+
+
+
+
+
 ## 1.0.0-alpha.9 (2020-04-17)
 
 **Note:** Version bump only for package @byteclaw/visage-themes

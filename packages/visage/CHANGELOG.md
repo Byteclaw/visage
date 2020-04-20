@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.10 (2020-04-20)
+
+* fix(visage): allow space to in searchable Select ([18b1cbc](https://github.com/Byteclaw/visage/commit/18b1cbc))
+* fix(visage): fix styles on FieldSet ([98015b4](https://github.com/Byteclaw/visage/commit/98015b4))
+* fix(visage): make face names consistent ([1f886f5](https://github.com/Byteclaw/visage/commit/1f886f5))
+* fix(visage): open AutocompleteInput menu only if focused ([7222b94](https://github.com/Byteclaw/visage/commit/7222b94))
+* fix(visage): rename delete button in Message ([cdbeed7](https://github.com/Byteclaw/visage/commit/cdbeed7))
+* fix(visage): respect line height as ProgressBar height ([3af7d39](https://github.com/Byteclaw/visage/commit/3af7d39))
+* feat(visage): add BorderRadiuses type ([3f29c99](https://github.com/Byteclaw/visage/commit/3f29c99))
+* feat(visage): add KeyboardKey component ([8f2fdf1](https://github.com/Byteclaw/visage/commit/8f2fdf1))
+* feat(visage): redesign Tabs ([1ce45cc](https://github.com/Byteclaw/visage/commit/1ce45cc))
+* chore: update formatting ([58f4b9d](https://github.com/Byteclaw/visage/commit/58f4b9d))
+* chore(visage): fix code style ([500acd4](https://github.com/Byteclaw/visage/commit/500acd4))
+* test(visage): fix TextinputExtraElement face test ([6e24113](https://github.com/Byteclaw/visage/commit/6e24113))
+
+
+
+
+
 ## 1.0.0-alpha.9 (2020-04-17)
 
 * feat(visage): add message component ([d6978a3](https://github.com/Byteclaw/visage/commit/d6978a3))
