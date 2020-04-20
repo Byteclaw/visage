@@ -31,6 +31,7 @@ exports[`KeyboardKey is extendable by KeyboardKey face 1`] = `
   display: inline-block;
   font-family: monospace;
   font-size: inherit;
+  font-weight: 400;
   line-height: inherit;
   margin: 0px;
   padding: 0px;
@@ -82,6 +83,7 @@ exports[`KeyboardKey renders correctly 1`] = `
   display: inline-block;
   font-family: monospace;
   font-size: inherit;
+  font-weight: 400;
   line-height: inherit;
   margin: 0px;
   padding: 0px;
