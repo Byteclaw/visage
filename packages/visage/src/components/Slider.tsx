@@ -1,11 +1,13 @@
 import { useDesignSystem } from '@byteclaw/visage-core';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { getTrackBackground, Range } from 'react-range';
 import { IProps } from 'react-range/lib/types';
 import { createComponent } from '../core';
 import { Box } from './Box';
 import { Flex } from './Flex';
 import { createControlActiveShadow, createControlFocusShadow } from './shared';
+import { booleanVariant, booleanVariantStyles } from '../variants';
+import { useHandlerRef } from '../hooks';
 
 const Thumb = createComponent(Flex, {
   displayName: 'SliderThumb',
@@ -33,7 +35,13 @@ const Track = createComponent(Flex, {
   styles: {
     height: '2.5rem',
     width: '100%',
+    ...booleanVariantStyles('disabled', {
+      on: {
+        opacity: 0.3,
+      },
+    }),
   },
+  variants: [booleanVariant('disabled', true)],
 });
 
 const TrackProgress = createComponent(Box, {
@@ -49,19 +57,28 @@ const TrackProgress = createComponent(Box, {
 export interface SliderProps {
   allowedValues?: number[];
   colors: string[];
-  max: number;
-  min: number;
-  onChange: (values: number[]) => void;
-  step: number;
+  disabled?: boolean;
+  max?: number;
+  min?: number;
+  onChange?: (values: number[]) => void;
+  onFinalChange?: (values: number[]) => void;
+  readOnly?: boolean;
+  step?: number;
   values: number[];
 }
 
 export const Slider = ({
   allowedValues,
-  colors = ['primary', '#ccc'],
-  max,
-  min,
+  colors = [
+    'primary',
+    'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+  ],
+  disabled,
+  max = 100,
+  min = 0,
   onChange,
+  onFinalChange,
+  readOnly,
   step,
   values,
   ...restProps
@@ -81,21 +98,32 @@ export const Slider = ({
     [ctx, colors, values, min, max],
   );
 
-  const handleChange = useCallback(
-    (vals: number[]) => {
-      if (allowedValues && !vals.every(it => allowedValues.includes(it))) {
-        return;
-      }
+  const onChangeHandler = useHandlerRef((vals: number[]) => {
+    if (allowedValues && !vals.every(it => allowedValues.includes(it))) {
+      return;
+    }
+
+    if (onChange) {
       onChange(vals);
-    },
-    [onChange],
-  );
-  const renderTrack: IProps['renderTrack'] = useCallback(
-    ({ props, children }) => {
+    }
+  });
+  const onFinalChangeHandler = useHandlerRef((vals: number[]) => {
+    if (allowedValues && !vals.every(it => allowedValues.includes(it))) {
+      return;
+    }
+
+    if (onFinalChange) {
+      onFinalChange(vals);
+    }
+  });
+  const renderTrack: IProps['renderTrack'] = useHandlerRef(
+    ({ disabled: isDisabled, props, children }) => {
       return (
         <Track
-          onMouseDown={props.onMouseDown}
-          onTouchStart={props.onTouchStart}
+          //  only really disabled, because we set disabled for readOnly too
+          disabled={isDisabled ? disabled : false}
+          onMouseDown={!readOnly ? props.onMouseDown : undefined}
+          onTouchStart={!readOnly ? props.onTouchStart : undefined}
           style={props.style}
         >
           <TrackProgress ref={props.ref} style={{ background }}>
@@ -104,20 +132,27 @@ export const Slider = ({
         </Track>
       );
     },
-    [background],
   );
-  const renderThumb: IProps['renderThumb'] = useCallback(
-    ({ props }) => <Thumb {...props} />,
-    [],
-  );
+  const renderThumb: IProps['renderThumb'] = useHandlerRef(({ props }) => (
+    <Thumb
+      aria-disabled={disabled}
+      aria-readonly={readOnly}
+      {...props}
+      onKeyDown={!readOnly ? props.onKeyDown : undefined}
+      onKeyUp={!readOnly ? props.onKeyUp : undefined}
+      tabIndex={readOnly ? undefined : props.tabIndex}
+    />
+  ));
 
   return (
     <Range
+      disabled={disabled || readOnly}
       values={values}
       step={step}
       min={min}
       max={max}
-      onChange={handleChange}
+      onChange={onChangeHandler}
+      onFinalChange={onFinalChangeHandler}
       {...restProps}
       renderTrack={renderTrack}
       renderThumb={renderThumb}
