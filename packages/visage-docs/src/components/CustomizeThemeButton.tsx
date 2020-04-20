@@ -1,5 +1,6 @@
-import { Button } from '@byteclaw/visage';
+import { IconButton } from '@byteclaw/visage';
 import React, { useState } from 'react';
+import { Sliders } from 'react-feather';
 import { ThemeEditor } from './ThemeEditor';
 
 export function CustomizeThemeButton() {
@@ -7,9 +8,13 @@ export function CustomizeThemeButton() {
 
   return (
     <>
-      <Button onClick={() => setEditorOpen(true)} type="button">
-        Customize theme
-      </Button>
+      <IconButton
+        icon={Sliders}
+        label="Customize theme"
+        onClick={() => setEditorOpen(true)}
+        type="button"
+        title="Customize theme"
+      />
       <ThemeEditor onClose={() => setEditorOpen(false)} open={isEditorOpen} />
     </>
   );

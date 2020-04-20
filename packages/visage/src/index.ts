@@ -3,6 +3,7 @@ export {
   IsBreakpoint,
   isVisageComponent,
   markAsVisageComponent,
+  useBreakpoint,
   useDesignSystem,
   Theme,
 } from '@byteclaw/visage-core';

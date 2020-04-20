@@ -5,7 +5,6 @@ import React from 'react';
 import Helmet from 'react-helmet';
 // @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-// @ts-ignore
 import { ReactComponent } from './assets/link.svg';
 import {
   CodeBlock,
