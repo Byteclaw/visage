@@ -32,6 +32,8 @@ describe('box shadow parser', () => {
     expect(parse('unset')).toEqual('unset');
     expect(parse('none')).toEqual('none');
     expect(parse('0 0 red')).toEqual([{ color: 'red' }]);
+    expect(parse('0 0 #f00')).toEqual([{ color: '#f00' }]);
+    expect(parse('0 0 #ff0000')).toEqual([{ color: '#ff0000' }]);
     expect(parse('inset 0 0 red')).toEqual([{ color: 'red' }]);
     expect(parse('inset 0px 0 red')).toEqual([{ color: 'red' }]);
     expect(parse('0px 0 red')).toEqual([{ color: 'red' }]);
@@ -116,5 +118,14 @@ describe('box shadow parser', () => {
     expect(
       parse('0 0 0 4px rgba(255, 255, 255, 0.4), 0 0 0 4px accent'),
     ).toEqual([{ color: 'rgba(255, 255, 255, 0.4)' }, { color: 'accent' }]);
+    expect(
+      parse(
+        '0px 2px 6px #AAA,0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px primary',
+      ),
+    ).toEqual([
+      { color: '#AAA' },
+      { color: 'rgba(255,255,255,0.4)' },
+      { color: 'primary' },
+    ]);
   });
 });
