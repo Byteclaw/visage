@@ -9,6 +9,7 @@ export const KeyboardKeyStyles: VisageStyleSheet = {
   display: 'inline-block',
   fontFamily: 'monospace',
   fontSize: 'inherit',
+  fontWeight: 400,
   lineHeight: 'inherit',
   m: 0,
   p: 0,
