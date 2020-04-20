@@ -25,12 +25,12 @@ jobs:
       - run:
           name: Test
           command: yarn test:ci
-      - run:
-          name: Compile packages
-          command: yarn compile
-      - run:
-          name: Check bundle size
-          command: yarn bundlewatch
+      # - run:
+      #     name: Compile packages
+      #     command: yarn compile
+      # - run:
+      #     name: Check bundle size
+      #     command: yarn bundlewatch
   docs:
     docker:
       - image: circleci/node:12.16.1
