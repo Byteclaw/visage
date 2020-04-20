@@ -40,10 +40,10 @@ function Example() {
 
   return (
     <Slider
-      allowedValues={[0, 5, 10]}
+      allowedValues={[0, 5, 10, 15]}
       min={0}
       max={20}
-      step={1}
+      step={5}
       onChange={values => setValue(values)}
       onFinalChange={values => console.log('final', values)}
       values={value}
@@ -115,12 +115,12 @@ function Example() {
     term={
       <>
         <KeyboardKey>Left Arrow</KeyboardKey> /{' '}
-        <KeyboardKey>Down Arrow</KeyboardKey>
+        <KeyboardKey>Down Arrow</KeyboardKey> / <KeyboardKey>j</KeyboardKey>
       </>
     }
     description={
       <>
-        If a Slider isn&apos;t focus:
+        If a Slider has focus:
         <ul>
           <li>Decrements the value.</li>
         </ul>
@@ -131,14 +131,36 @@ function Example() {
     term={
       <>
         <KeyboardKey>Right Arrow</KeyboardKey> /{' '}
-        <KeyboardKey>Up Arrow</KeyboardKey>
+        <KeyboardKey>Up Arrow</KeyboardKey> / <KeyboardKey>k</KeyboardKey>
       </>
     }
     description={
       <>
-        If a Slider isn&apos;t focus:
+        If a Slider has focus:
         <ul>
           <li>Increments the value.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Page Up</KeyboardKey>}
+    description={
+      <>
+        If a Slider has focus:
+        <ul>
+          <li>Increments the value by ten steps.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Page Down</KeyboardKey>}
+    description={
+      <>
+        If a Slider has focus:
+        <ul>
+          <li>Decrements the value by ten steps.</li>
         </ul>
       </>
     }
