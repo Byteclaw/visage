@@ -135,6 +135,8 @@ export interface VisageFaces {
   Group?: VisageStyleSheet;
   // Header.ts
   Header?: VisageStyleSheet;
+  // IconButton.tsx
+  IconButton?: VisageStyleSheet;
   // Image.tsx
   ImageContainer?: VisageStyleSheet;
   // Image.tsx

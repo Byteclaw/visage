@@ -1,0 +1,400 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconButton is extendable by IconButton face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.emotion-0::before {
+  content: "\\200b";
+}
+
+.emotion-0 svg {
+  height: 1em;
+  vertical-align: middle;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background-color: rgba(0,0,0,0);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+}
+
+.emotion-1[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-1[data-monochromatic="true"] {
+  color: inherit;
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="primary"] {
+  color: light-blue;
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="danger"] {
+  color: rgb(255,0,0);
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="default"] {
+  color: rgb(255,255,255);
+}
+
+.emotion-1[data-stroked="true"] svg {
+  stroke: currentColor;
+}
+
+.emotion-1[data-stroked="false"] svg {
+  fill: currentColor;
+}
+
+.emotion-1:hover {
+  opacity: 0.5;
+}
+
+.emotion-1:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px currentColor,inset 0 0 200px rgba(68,68,68,0.1);
+}
+
+.emotion-1:focus:active {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px currentColor ,inset 0 0 200px rgba(68,68,68,0.2),inset 0 0 2px rgba(0,0,0,0.2);
+}
+
+<button
+    aria-label="Label"
+    class="emotion-1"
+    data-disabled="false"
+    data-monochromatic="false"
+    data-stroked="false"
+    data-variant="default"
+  >
+    <div
+      class="emotion-0"
+    >
+      <svg
+        height="1em"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          fill="currentColor"
+        />
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`IconButton is extendable by styles prop 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.emotion-0::before {
+  content: "\\200b";
+}
+
+.emotion-0 svg {
+  height: 1em;
+  vertical-align: middle;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background-color: rgba(0,0,0,0);
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+}
+
+.emotion-1[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-1[data-monochromatic="true"] {
+  color: inherit;
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="primary"] {
+  color: light-blue;
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="danger"] {
+  color: rgb(255,0,0);
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="default"] {
+  color: rgb(255,255,255);
+}
+
+.emotion-1[data-stroked="true"] svg {
+  stroke: currentColor;
+}
+
+.emotion-1[data-stroked="false"] svg {
+  fill: currentColor;
+}
+
+.emotion-1:hover {
+  opacity: 0.5;
+}
+
+.emotion-1:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px currentColor,inset 0 0 200px rgba(68,68,68,0.1);
+}
+
+.emotion-1:focus:active {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px currentColor ,inset 0 0 200px rgba(68,68,68,0.2),inset 0 0 2px rgba(0,0,0,0.2);
+}
+
+<button
+    aria-label="Label"
+    class="emotion-1"
+    data-disabled="false"
+    data-monochromatic="false"
+    data-stroked="false"
+    data-variant="default"
+  >
+    <div
+      class="emotion-0"
+    >
+      <svg
+        height="1em"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          fill="currentColor"
+        />
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`IconButton renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  background-color: rgba(0,0,0,0);
+  border-radius: 100%;
+  cursor: pointer;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  padding: 0px;
+  outline: none;
+}
+
+.emotion-1[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-1[data-monochromatic="true"] {
+  color: inherit;
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="primary"] {
+  color: light-blue;
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="danger"] {
+  color: rgb(255,0,0);
+}
+
+.emotion-1[data-monochromatic="false"][data-variant="default"] {
+  color: rgb(255,255,255);
+}
+
+.emotion-1[data-stroked="true"] svg {
+  stroke: currentColor;
+}
+
+.emotion-1[data-stroked="false"] svg {
+  fill: currentColor;
+}
+
+.emotion-1:hover {
+  opacity: 0.5;
+}
+
+.emotion-1:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px currentColor,inset 0 0 200px rgba(68,68,68,0.1);
+}
+
+.emotion-1:focus:active {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px currentColor ,inset 0 0 200px rgba(68,68,68,0.2),inset 0 0 2px rgba(0,0,0,0.2);
+}
+
+.emotion-0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.emotion-0::before {
+  content: "\\200b";
+}
+
+.emotion-0 svg {
+  height: 1em;
+  vertical-align: middle;
+}
+
+<button
+    aria-label="Label"
+    class="emotion-1"
+    data-disabled="false"
+    data-monochromatic="false"
+    data-stroked="false"
+    data-variant="default"
+  >
+    <div
+      class="emotion-0"
+    >
+      <svg
+        height="1em"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path
+          d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+          fill="currentColor"
+        />
+        <path
+          d="M0 0h24v24H0z"
+          fill="none"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
