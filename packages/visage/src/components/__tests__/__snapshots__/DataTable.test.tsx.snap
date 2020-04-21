@@ -24,6 +24,7 @@ exports[`DataTable is extendable by DataTable face 1`] = `
     data-toastmanager="true"
   />
   .emotion-0 {
+  border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
   color: rgb(0,0,0);
@@ -64,6 +65,7 @@ exports[`DataTable renders correctly 1`] = `
     data-toastmanager="true"
   />
   .emotion-0 {
+  border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
 }
