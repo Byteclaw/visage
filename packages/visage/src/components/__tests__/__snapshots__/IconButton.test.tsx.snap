@@ -52,6 +52,7 @@ exports[`IconButton is extendable by IconButton face 1`] = `
   border: none;
   background-color: rgba(0,0,0,0);
   border-radius: 12px;
+  color: inherit;
   cursor: pointer;
   font-size: inherit;
   line-height: inherit;
@@ -65,10 +66,6 @@ exports[`IconButton is extendable by IconButton face 1`] = `
   pointer-events: none;
   resize: none;
   opacity: 0.5;
-}
-
-.emotion-1[data-monochromatic="true"] {
-  color: inherit;
 }
 
 .emotion-1[data-monochromatic="false"][data-variant="primary"] {
@@ -185,6 +182,7 @@ exports[`IconButton is extendable by styles prop 1`] = `
   border: none;
   background-color: rgba(0,0,0,0);
   border-radius: 12px;
+  color: inherit;
   cursor: pointer;
   font-size: inherit;
   line-height: inherit;
@@ -198,10 +196,6 @@ exports[`IconButton is extendable by styles prop 1`] = `
   pointer-events: none;
   resize: none;
   opacity: 0.5;
-}
-
-.emotion-1[data-monochromatic="true"] {
-  color: inherit;
 }
 
 .emotion-1[data-monochromatic="false"][data-variant="primary"] {
@@ -296,6 +290,7 @@ exports[`IconButton renders correctly 1`] = `
   border: none;
   background-color: rgba(0,0,0,0);
   border-radius: 100%;
+  color: inherit;
   cursor: pointer;
   font-size: inherit;
   line-height: inherit;
@@ -309,10 +304,6 @@ exports[`IconButton renders correctly 1`] = `
   pointer-events: none;
   resize: none;
   opacity: 0.5;
-}
-
-.emotion-1[data-monochromatic="true"] {
-  color: inherit;
 }
 
 .emotion-1[data-monochromatic="false"][data-variant="primary"] {
