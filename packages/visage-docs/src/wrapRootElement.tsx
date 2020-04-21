@@ -30,12 +30,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
   ...visage,
   a: visage.Link,
   code: CodeBlock,
-  inlineCode: (props: any) => (
-    <visage.Text
-      styles={{ backgroundColor: 'rgba(0,0,0,0.1)', px: 0.5 }}
-      {...props}
-    />
-  ),
+  inlineCode: visage.Code,
   em: visage.EmphasizedText,
   ...Array(6)
     .fill(null)
