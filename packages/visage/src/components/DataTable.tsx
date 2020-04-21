@@ -4,6 +4,7 @@ import { booleanVariant } from '../variants';
 export const DataTable = createComponent('table', {
   displayName: 'DataTable',
   styles: {
+    borderCollapse: 'collapse',
     borderSpacing: 0,
     width: '100%',
     '& th, td': {
