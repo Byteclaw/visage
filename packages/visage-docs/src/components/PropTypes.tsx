@@ -125,7 +125,11 @@ export function PropTypes({ component }: PropTypesProps) {
   return (
     <Tabs>
       {groups.map(group => (
-        <Tab key={group.source} label={group.source}>
+        <Tab
+          key={group.source}
+          label={group.source}
+          styles={{ overflowX: 'scroll' }}
+        >
           <DataTable styles={{ border: 'none', fontSize: -1 }}>
             <DataTableHeader>
               <DataTableHeaderRow>
