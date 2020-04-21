@@ -44,6 +44,7 @@ const IconButtonComponent = createComponent('button', {
     border: 'none',
     backgroundColor: 'transparent',
     borderRadius: '100%',
+    color: 'inherit',
     cursor: 'pointer',
     fontSize: 'inherit',
     lineHeight: 'inherit',
@@ -54,9 +55,6 @@ const IconButtonComponent = createComponent('button', {
       on: disabledControlStyles,
     }),
     ...booleanVariantStyles('monochromatic', {
-      on: {
-        color: 'inherit',
-      },
       off: variantStyles('variant', {
         primary: {
           color: 'primary',
