@@ -3,7 +3,7 @@ import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
 import { createDocsTheme } from '@byteclaw/visage-themes';
 import * as Utilities from '@byteclaw/visage-utils';
-import Highlight, { defaultProps, Language } from 'prism-react-renderer';
+import { Language } from 'prism-react-renderer';
 import duotoneLight from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import React, {
@@ -17,13 +17,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Moon, Sun } from 'react-feather';
+// @ts-ignore
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CheckCircle, Code, Copy, Moon, Sun } from 'react-feather';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
 import { WithState } from './WithState';
 
-const { Box, Flex, Button, createComponent } = DSScope;
+const { Box, Flex, IconButton, createComponent } = DSScope;
 const Scope = {
   MoonIcon: Moon,
   SunIcon: Sun,
@@ -73,63 +75,91 @@ export function CodeBlock({
   transpile = true,
 }: CodeBlockProps) {
   const { isDark } = useContext(ThemeTogglerContext);
+  const [isCopied, setIsCopied] = useState(false);
   const [isExpanded, setExpanded] = useState(expanded);
   const language: Language = baseClassName.replace(/language-/, '') as Language;
   const shouldTranspile = transpile !== 'false' && transpile !== false;
+  const editCodeLabel = isExpanded ? 'Hide code editor' : 'Show code editor';
+
+  const onCopy = useCallback(() => {
+    setIsCopied(true);
+
+    window.setTimeout(() => setIsCopied(false), 500);
+  }, []);
 
   return (
     <Box styles={{ mb: 2 }}>
-      {shouldTranspile ? (
-        <LiveProvider
-          code={children.trim()}
-          disabled={!live}
-          language={language}
-          transformCode={stringify ? code => `'' + ${code}` : undefined}
-          noInline={noInline}
-          scope={Scope}
-          theme={duotoneLight}
+      <LiveProvider
+        code={children.trim()}
+        disabled={!live}
+        language={language}
+        noInline={noInline}
+        scope={Scope}
+        theme={isDark ? duotoneDark : duotoneLight}
+        transformCode={stringify ? code => `'' + ${code}` : undefined}
+      >
+        <Box
+          styles={{
+            borderColor:
+              'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+            borderRadius: 'controlBorderRadius',
+            borderStyle: 'solid',
+            borderWidth: 1,
+            mb: 1,
+            p: 1,
+            width: '100%',
+          }}
         >
-          <Box styles={{ mb: 2, width: '100%' }}>
-            <LivePreview />
-          </Box>
-          <Flex styles={{ width: '100%' }}>
-            <Button onClick={() => setExpanded(!isExpanded)} type="button">
-              {live
-                ? !isExpanded
-                  ? 'Show editor'
-                  : 'Hide editor'
-                : !isExpanded
-                ? 'Show code'
-                : 'Hide code'}
-            </Button>
-          </Flex>
-          {isExpanded ? (
-            <Box styles={{ backgroundColor: 'black', width: '100%' }}>
-              <LiveEditor />
-              <EditorError />
-            </Box>
+          {shouldTranspile ? <LivePreview /> : <LiveEditor />}
+        </Box>
+        <Flex
+          styles={{
+            fontSize: 1,
+            lineHeight: 1,
+            justifyContent: 'flex-end',
+            mb: 1,
+          }}
+        >
+          {shouldTranspile ? (
+            <IconButton
+              icon={Code}
+              label={editCodeLabel}
+              onClick={() => setExpanded(!isExpanded)}
+              stroked
+              styles={{ mr: 1 }}
+              title={editCodeLabel}
+              type="button"
+            />
           ) : null}
-        </LiveProvider>
-      ) : (
-        <Highlight
-          {...defaultProps}
-          code={children.trim()}
-          language={language}
-          theme={isDark ? duotoneDark : duotoneLight}
-        >
-          {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <pre className={className} style={{ ...style, padding: '10px' }}>
-              {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line, key: i })}>
-                  {line.map((token, key) => (
-                    <span key={key} {...getTokenProps({ token, key })} />
-                  ))}
-                </div>
-              ))}
-            </pre>
-          )}
-        </Highlight>
-      )}
+          <CopyToClipboard onCopy={onCopy} text={children.trim()}>
+            <IconButton
+              icon={isCopied ? CheckCircle : Copy}
+              label="Copy the source"
+              monochromatic
+              styles={{ color: isCopied ? 'success' : 'inherit' }}
+              stroked
+              title="Copy the source"
+              type="button"
+            />
+          </CopyToClipboard>
+        </Flex>
+        {shouldTranspile && isExpanded ? (
+          <Box
+            styles={{
+              borderColor:
+                'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+              borderRadius: 'controlBorderRadius',
+              borderStyle: 'solid',
+              borderWidth: 1,
+              p: 1,
+              width: '100%',
+            }}
+          >
+            <LiveEditor />
+            <EditorError />
+          </Box>
+        ) : null}
+      </LiveProvider>
     </Box>
   );
 }
