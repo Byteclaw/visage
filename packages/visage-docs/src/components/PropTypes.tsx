@@ -161,7 +161,6 @@ export function PropTypes({ component }: PropTypesProps) {
                             whiteSpace: 'normal',
                             maxWidth: 200,
                             m: 0,
-                            p: 0,
                           }}
                         >
                           {tokens.map((line, i) => (
