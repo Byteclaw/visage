@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.12 (2020-04-22)
+
+**Note:** Version bump only for package @byteclaw/visage-themes
+
+
+
+
+
 ## 1.0.0-alpha.11 (2020-04-20)
 
 * fix(visage/themes): accept only one hex character in hex color parsing ([78ee7d4](https://github.com/Byteclaw/visage/commit/78ee7d4))

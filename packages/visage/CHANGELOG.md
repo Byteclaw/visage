@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.12 (2020-04-22)
+
+* fix(visage): inherit color by default for monochromatic IconButton ([356e257](https://github.com/Byteclaw/visage/commit/356e257))
+* fix(visage): inherit font size and fix icon alignment in InlineError ([86ad9a7](https://github.com/Byteclaw/visage/commit/86ad9a7))
+* feat(visage): add SpinButton component ([7f88e7f](https://github.com/Byteclaw/visage/commit/7f88e7f))
+* feat(visage): collapse DataTable borders ([c332595](https://github.com/Byteclaw/visage/commit/c332595))
+* feat(visage): nicer Code styles ([04f5145](https://github.com/Byteclaw/visage/commit/04f5145))
+
+
+
+
+
 ## 1.0.0-alpha.11 (2020-04-20)
 
 * docs: better UX for mobile devices ([0a14203](https://github.com/Byteclaw/visage/commit/0a14203))

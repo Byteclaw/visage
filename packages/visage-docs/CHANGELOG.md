@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.12 (2020-04-22)
+
+* docs: change code editor look ([99df9bd](https://github.com/Byteclaw/visage/commit/99df9bd))
+* docs: fix prop table horizontal scroll ([b1b1f14](https://github.com/Byteclaw/visage/commit/b1b1f14))
+* docs: fix prop types table types code formatting ([63b366f](https://github.com/Byteclaw/visage/commit/63b366f))
+* docs: remove Box from InlineError example ([d24bc04](https://github.com/Byteclaw/visage/commit/d24bc04))
+* docs: use Code for inline code ([0659d0a](https://github.com/Byteclaw/visage/commit/0659d0a))
+* fix(visage): inherit font size and fix icon alignment in InlineError ([86ad9a7](https://github.com/Byteclaw/visage/commit/86ad9a7))
+* feat(visage): add SpinButton component ([7f88e7f](https://github.com/Byteclaw/visage/commit/7f88e7f))
+
+
+
+
+
 ## 1.0.0-alpha.11 (2020-04-20)
 
 * docs: add bigger IconButton example ([e6bc0cb](https://github.com/Byteclaw/visage/commit/e6bc0cb))
