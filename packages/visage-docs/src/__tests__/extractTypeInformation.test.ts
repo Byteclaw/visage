@@ -68,6 +68,7 @@ const components = [
   'Select',
   'SkeletonSentence',
   'Slider',
+  'SpinButton',
   'Spinner',
   'Subscript',
   'Superscript',

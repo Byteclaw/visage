@@ -219,6 +219,14 @@ export interface VisageFaces {
   SliderTrackProgress?: VisageStyleSheet;
   // Text.tsx
   SmallText?: VisageStyleSheet;
+  // SpinButton.tsx
+  SpinButtonBase?: VisageStyleSheet;
+  // SpinButton.tsx
+  SpinButtonButton?: VisageStyleSheet;
+  // SpinButton.tsx
+  SpinButtonOtherValue?: VisageStyleSheet;
+  // SpinButton.tsx
+  SpinButtonValue?: VisageStyleSheet;
   // Spinner.tsx
   SpinnerSvgBase?: VisageStyleSheet;
   // Text.tsx

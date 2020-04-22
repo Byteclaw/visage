@@ -1,0 +1,1176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpinButton is extendable by SpinButtonBase face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  overflow: hidden;
+  height: 0px;
+  font-weight: 600;
+  max-height: 0;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.emotion-2 {
+  padding: 8px;
+  opacity: 0.7;
+}
+
+.emotion-3 {
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+.emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border-radius: 10px;
+}
+
+.emotion-6[data-disabled="true"] {
+  opacity: 0.3;
+}
+
+<div
+    class="emotion-6"
+    data-disabled="false"
+  >
+    <div
+      aria-hidden="true"
+      class="emotion-0"
+    >
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          1
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          2
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          3
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          4
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label="Previous value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M18 15l-6-6-6 6"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        4
+      </div>
+    </div>
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      aria-valuetext="1"
+      class="emotion-3"
+      role="spinbutton"
+      tabindex="0"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        1
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        2
+      </div>
+    </div>
+    <button
+      aria-label="Next value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M6 9l6 6 6-6"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SpinButton is extendable by SpinButtonButton face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-6[data-disabled="true"] {
+  opacity: 0.3;
+}
+
+.emotion-0 {
+  overflow: hidden;
+  height: 0px;
+  font-weight: 600;
+  max-height: 0;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-2 {
+  padding: 8px;
+  opacity: 0.7;
+}
+
+.emotion-3 {
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 10px;
+}
+
+<div
+    class="emotion-6"
+    data-disabled="false"
+  >
+    <div
+      aria-hidden="true"
+      class="emotion-0"
+    >
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          1
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          2
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          3
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          4
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label="Previous value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M18 15l-6-6-6 6"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        4
+      </div>
+    </div>
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      aria-valuetext="1"
+      class="emotion-3"
+      role="spinbutton"
+      tabindex="0"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        1
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        2
+      </div>
+    </div>
+    <button
+      aria-label="Next value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M6 9l6 6 6-6"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SpinButton is extendable by SpinButtonOtherValue face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-6[data-disabled="true"] {
+  opacity: 0.3;
+}
+
+.emotion-0 {
+  overflow: hidden;
+  height: 0px;
+  font-weight: 600;
+  max-height: 0;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.emotion-3 {
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+.emotion-2 {
+  padding: 8px;
+  opacity: 0.7;
+  border-radius: 10px;
+}
+
+<div
+    class="emotion-6"
+    data-disabled="false"
+  >
+    <div
+      aria-hidden="true"
+      class="emotion-0"
+    >
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          1
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          2
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          3
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          4
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label="Previous value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M18 15l-6-6-6 6"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        4
+      </div>
+    </div>
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      aria-valuetext="1"
+      class="emotion-3"
+      role="spinbutton"
+      tabindex="0"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        1
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        2
+      </div>
+    </div>
+    <button
+      aria-label="Next value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M6 9l6 6 6-6"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SpinButton is extendable by SpinButtonValue face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-6[data-disabled="true"] {
+  opacity: 0.3;
+}
+
+.emotion-0 {
+  overflow: hidden;
+  height: 0px;
+  font-weight: 600;
+  max-height: 0;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.emotion-2 {
+  padding: 8px;
+  opacity: 0.7;
+}
+
+.emotion-3 {
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+<div
+    class="emotion-6"
+    data-disabled="false"
+  >
+    <div
+      aria-hidden="true"
+      class="emotion-0"
+    >
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          1
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          2
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          3
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          4
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label="Previous value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M18 15l-6-6-6 6"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        4
+      </div>
+    </div>
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      aria-valuetext="1"
+      class="emotion-3"
+      role="spinbutton"
+      tabindex="0"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        1
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        2
+      </div>
+    </div>
+    <button
+      aria-label="Next value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M6 9l6 6 6-6"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SpinButton is extendable by styles prop 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-6[data-disabled="true"] {
+  opacity: 0.3;
+}
+
+.emotion-0 {
+  overflow: hidden;
+  height: 0px;
+  font-weight: 600;
+  max-height: 0;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.emotion-2 {
+  padding: 8px;
+  opacity: 0.7;
+}
+
+.emotion-3 {
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+<div
+    class="emotion-6"
+    data-disabled="false"
+  >
+    <div
+      aria-hidden="true"
+      class="emotion-0"
+    >
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          1
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          2
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          3
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          4
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label="Previous value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M18 15l-6-6-6 6"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        4
+      </div>
+    </div>
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      aria-valuetext="1"
+      class="emotion-3"
+      role="spinbutton"
+      tabindex="0"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        1
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        2
+      </div>
+    </div>
+    <button
+      aria-label="Next value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M6 9l6 6 6-6"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SpinButton render correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-6[data-disabled="true"] {
+  opacity: 0.3;
+}
+
+.emotion-0 {
+  overflow: hidden;
+  height: 0px;
+  font-weight: 600;
+  max-height: 0;
+  margin: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.emotion-1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: rgba(0,0,0,0);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.emotion-2 {
+  padding: 8px;
+  opacity: 0.7;
+}
+
+.emotion-3 {
+  font-weight: 600;
+  outline: none;
+  padding: 8px;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+<div
+    class="emotion-6"
+    data-disabled="false"
+  >
+    <div
+      aria-hidden="true"
+      class="emotion-0"
+    >
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          1
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          2
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          3
+        </div>
+      </div>
+      <div>
+        <div
+          style="text-align: center; width: 100%;"
+        >
+          4
+        </div>
+      </div>
+    </div>
+    <button
+      aria-label="Previous value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M18 15l-6-6-6 6"
+        />
+      </svg>
+    </button>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        4
+      </div>
+    </div>
+    <div
+      aria-valuemax="3"
+      aria-valuemin="0"
+      aria-valuenow="0"
+      aria-valuetext="1"
+      class="emotion-3"
+      role="spinbutton"
+      tabindex="0"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        1
+      </div>
+    </div>
+    <div
+      aria-hidden="true"
+      class="emotion-2"
+    >
+      <div
+        style="text-align: center; width: 100%;"
+      >
+        2
+      </div>
+    </div>
+    <button
+      aria-label="Next value"
+      class="emotion-1"
+      tabindex="-1"
+      type="button"
+    >
+      <svg
+        fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <path
+          d="M6 9l6 6 6-6"
+        />
+      </svg>
+    </button>
+  </div>
+</DocumentFragment>
+`;
