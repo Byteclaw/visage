@@ -6,26 +6,27 @@ import {
 import React, { forwardRef, Ref } from 'react';
 import { ErrorIcon } from '../assets';
 import { createComponent } from '../core';
-import { Flex } from './Flex';
 import { SvgIcon } from './SvgIcon';
 
-const InlineErrorWrapper = createComponent(Flex, {
+const InlineErrorWrapper = createComponent('div', {
   displayName: 'InlineError',
   styles: {
     color: 'danger',
-    fontSize: 0,
-    lineHeight: 0,
+    display: 'flex',
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
   },
 });
 
 const InlineErrorIcon = createComponent(SvgIcon, {
   displayName: 'InlineErrorIcon',
   styles: {
+    alignSelf: 'baseline',
     mr: 1,
   },
 });
 
-type FlexProps = ExtractVisageComponentProps<typeof Flex>;
+type FlexProps = ExtractVisageComponentProps<typeof InlineErrorWrapper>;
 
 export const InlineError: VisageComponent<FlexProps> = markAsVisageComponent(
   forwardRef(({ children, ...restProps }: FlexProps, ref: Ref<any>) => (
