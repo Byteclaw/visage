@@ -46,6 +46,7 @@ export * from './Scripts';
 export * from './Select';
 export * from './SkeletonSentence';
 export * from './Slider';
+export * from './SpinButton';
 export * from './Spinner';
 export * from './Svg';
 export * from './SvgIcon';

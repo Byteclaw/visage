@@ -307,6 +307,11 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
+                <ListItemRouteLink to="/components/inputs/spin-button">
+                  Spin button
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
                 <ListItemRouteLink to="/components/inputs/textarea">
                   Text area
                 </ListItemRouteLink>

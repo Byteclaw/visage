@@ -1,0 +1,171 @@
+---
+title: 'Spin button component'
+components: ['SpinButton']
+---
+
+# Spin button
+
+**`SpinButton` is an input widget that allows a user to pick a value from a discrete set of values.**
+
+For example, in an alarm clock app you can use `SpinButton` to allow users to set up seconds as a value from `0` to `59`.
+
+## Import
+
+```js transpile=false
+import { SpinButton } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live=true
+<SpinButton
+  defaultValue="March"
+  values={[
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]}
+/>
+```
+
+### Controlled
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState('March');
+
+  return (
+    <SpinButton
+      onChange={setValue}
+      value={value}
+      values={[
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ]}
+    />
+  );
+};
+```
+
+### Disabled
+
+```jsx live=true
+<SpinButton disabled values={['a', 'b', 'c', 'd']} />
+```
+
+### Read only
+
+```jsx live=true
+<SpinButton readOnly values={['a', 'b', 'c', 'd']} />
+```
+
+## Keyboard shortcuts
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a SpinButton isn&apos;t disabled:
+        <ul>
+          <li>
+            When the button does not have focus, places focus on the spin button
+            value.
+          </li>
+          <li>
+            When the button has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Down Arrow</KeyboardKey>}
+    description={
+      <>
+        If a SpinButton has focus:
+        <ul>
+          <li>Increments value by 1 step.</li>
+          <li>If the value is last possible, selects the first value.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Up Arrow</KeyboardKey>}
+    description={
+      <>
+        If a SpinButton has focus:
+        <ul>
+          <li>Decrements value by 1 step.</li>
+          <li>If the value is first possible, selects the last value.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Page Down</KeyboardKey>}
+    description={
+      <ul>
+        <li>If a SpinButton has focus, increments value by 5 steps.</li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Page Up</KeyboardKey>}
+    description={
+      <ul>
+        <li>If a SpinButton has focus, decrements value by 5 steps.</li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Home</KeyboardKey>}
+    description={
+      <ul>
+        <li>If a SpinButton has focus, selects the first possible value.</li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>End</KeyboardKey>}
+    description={
+      <ul>
+        <li>If a SpinButton has focus, selects the last possible value.</li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `SpinButtonBase`
+- `SpinButtonButton`
+- `SpinButtonOtherValue`
+- `SpinButtonValue`
+
+## Prop Types
+
+<PropTypes component="SpinButton" />
