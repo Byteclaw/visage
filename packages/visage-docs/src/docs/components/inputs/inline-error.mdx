@@ -5,6 +5,10 @@ components: ['InlineError']
 
 # Inline error
 
+**`InlineError` is an element that can be used to describe an error state.**
+
+This component is used mainly in narrow contexts. For example `InlineError` can be used to describe an error message for an invalid input widget.
+
 ## Import
 
 ```js transpile=false
@@ -14,7 +18,9 @@ import { InlineError } from '@byteclaw/visage';
 ## Examples
 
 ```jsx live
-<InlineError>Error message</InlineError>
+<Box styles={{ width: 60 }}>
+  <InlineError>Error message</InlineError>
+</Box>
 ```
 
 ## Faces
