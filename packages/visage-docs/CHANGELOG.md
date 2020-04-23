@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.13 (2020-04-23)
+
+* feat(visage): export props from extendable components ([2823418](https://github.com/Byteclaw/visage/commit/2823418))
+
+
+
+
+
 ## 1.0.0-alpha.12 (2020-04-22)
 
 * docs: change code editor look ([99df9bd](https://github.com/Byteclaw/visage/commit/99df9bd))
