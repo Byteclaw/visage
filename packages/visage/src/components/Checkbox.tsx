@@ -130,7 +130,7 @@ const CheckboxToggler = createComponent(Flex, {
   ],
 });
 
-interface TogglerProps {
+export interface CheckboxTogglerProps {
   checked: boolean;
   disabled?: boolean;
   focused: boolean;
@@ -138,7 +138,7 @@ interface TogglerProps {
   readOnly?: boolean;
 }
 
-const DefaultCheckboxToggler = memo((props: TogglerProps) => {
+const DefaultCheckboxToggler = memo((props: CheckboxTogglerProps) => {
   return <CheckboxToggler {...props} />;
 });
 
@@ -168,7 +168,7 @@ interface CheckboxProps
   /**
    * Toggler componet
    */
-  toggler?: React.ComponentType<TogglerProps>;
+  toggler?: React.ComponentType<CheckboxTogglerProps>;
 }
 
 export const Checkbox: VisageComponent<CheckboxProps> = memo(

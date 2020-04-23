@@ -44,7 +44,7 @@ const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
 };
 
-interface SelectMenuProps extends StyleProps {
+export interface SelectMenuProps extends StyleProps {
   focusedIndex: number;
   id: string;
   /**
@@ -126,7 +126,7 @@ const SelectMenu = createComponent(
   },
 );
 
-interface SelectTogglerProps {
+export interface SelectTogglerProps {
   // class name is provided by visage
   className?: string;
   onClick: () => void;

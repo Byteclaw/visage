@@ -89,13 +89,15 @@ const SpinButtonExpander = createComponent('div', {
   },
 });
 
-interface ValueProps<TValue> {
+interface SpinnerValueProps<TValue> {
   value: TValue;
 }
 
-type ValueRenderer<TValue> = (props: ValueProps<TValue>) => ReactElement;
+export type SpinnerValueRenderer<TValue> = (
+  props: SpinnerValueProps<TValue>,
+) => ReactElement;
 
-function defaultRenderValue({ value }: ValueProps<any>) {
+function defaultRenderValue({ value }: SpinnerValueProps<any>) {
   return <div style={{ textAlign: 'center', width: '100%' }}>{value}</div>;
 }
 
@@ -120,7 +122,7 @@ interface SpinButtonProps<TValue = any> {
   /**
    * Renders a current, previous and next value
    */
-  renderValue?: ValueRenderer<TValue>;
+  renderValue?: SpinnerValueRenderer<TValue>;
   ref?: Ref<HTMLDivElement>;
   readOnly?: boolean;
   previousButtonProps?: ExtractVisageComponentProps<typeof SpinButtonButton>;
