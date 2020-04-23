@@ -128,7 +128,7 @@ const RadioToggler = createComponent(Flex, {
   ],
 });
 
-interface RadioTogglerProps {
+export interface RadioTogglerProps {
   checked: boolean;
   disabled?: boolean;
   focused: boolean;

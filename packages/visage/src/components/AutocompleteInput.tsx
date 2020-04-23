@@ -46,7 +46,7 @@ const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
 };
 
-interface AutocompleteInputMenuProps extends StyleProps {
+export interface AutocompleteInputMenuProps extends StyleProps {
   focusedIndex: number;
   id: string;
   /**
