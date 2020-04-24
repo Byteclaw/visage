@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useCallback, useMemo, useRef, useReducer } from 'react';
 import { useDesignSystem } from './useDesignSystem';
 
 interface StateBreakpointAction {
@@ -56,17 +56,27 @@ export function useBreakpointManager(
   defaultBreakpoint: number,
   breakpoints: string[],
 ): [number, (breakpoint: number, matches?: boolean) => void] {
-  const [state, dispatch] = React.useReducer(
+  const defaultBreakpointRef = useRef(defaultBreakpoint);
+  const [state, dispatch] = useReducer(
     reducer,
     { defaultBreakpoint, breakpoints },
     init,
   );
-  const setBreakpoint = React.useCallback(
+  const setBreakpoint = useCallback(
     (index: number, matches: boolean = true) => {
       dispatch({ type: 'SET_BREAKPOINT', index, matches });
     },
     [dispatch],
   );
+
+  // if default breakpoint changed, set breakpoint
+  if (defaultBreakpointRef.current !== defaultBreakpoint) {
+    const previousBreadkpoint = defaultBreakpointRef.current;
+
+    defaultBreakpointRef.current = defaultBreakpoint;
+    setBreakpoint(previousBreadkpoint, false);
+    setBreakpoint(defaultBreakpoint, true);
+  }
 
   return [state.viewport, setBreakpoint];
 }
