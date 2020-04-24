@@ -1,10 +1,18 @@
 import { useEffect } from 'react';
 
+/**
+ * Sets up breakpoint detection using window.matchMedia API
+ */
 export function useBreakpointDetection(
+  enabled: boolean,
   breakpoints: string[],
   setBreakpoint: (index: number, matches: boolean) => void,
 ): any {
   return useEffect(() => {
+    if (!enabled) {
+      return;
+    }
+
     const mediaQueryList: {
       list: MediaQueryList;
       listener: (e: MediaQueryListEvent) => void;
@@ -34,5 +42,5 @@ export function useBreakpointDetection(
         list.removeListener(listener as EventListener),
       );
     };
-  }, [breakpoints, setBreakpoint]);
+  }, [breakpoints, setBreakpoint, enabled]);
 }

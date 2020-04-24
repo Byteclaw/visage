@@ -46,6 +46,47 @@ describe('useBreakpointManager', () => {
     // keeps 1 until next breakpoint is selected
     expect(result.current[0]).toBe(1);
   });
+
+  it('reacts to default breakpoint change', () => {
+    const hook = renderHook(
+      ({ is }) => useBreakpointManager(is, ['a', 'b', 'c']),
+      {
+        initialProps: { is: 0 },
+      },
+    );
+
+    expect(hook.result.current[0]).toBe(0);
+
+    // change default breakpoint
+    hook.rerender({ is: 1 });
+
+    expect(hook.result.current[0]).toBe(1);
+
+    // change back to 1 will reset to 0
+    hook.rerender({ is: 0 });
+
+    expect(hook.result.current[0]).toBe(0);
+
+    // now match higher breakpoint
+    act(() => hook.result.current[1](2, true));
+
+    expect(hook.result.current[0]).toBe(2);
+
+    // now change default, keeps higher one
+    hook.rerender({ is: 1 });
+
+    expect(hook.result.current[0]).toBe(2);
+
+    // now unmatch higher
+    act(() => hook.result.current[1](2, false));
+
+    expect(hook.result.current[0]).toBe(1);
+
+    // now match lower (keeps higher default, higher always wins)
+    act(() => hook.result.current[1](0, true));
+
+    expect(hook.result.current[0]).toBe(1);
+  });
 });
 
 describe('useBreakpoint', () => {
