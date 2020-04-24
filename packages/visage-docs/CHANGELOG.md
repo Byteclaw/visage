@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.14 (2020-04-24)
+
+* refactor(visage): use ResponsiveDesignSystem as a shortcut ([b168e81](https://github.com/Byteclaw/visage/commit/b168e81))
+
+
+
+
+
 ## 1.0.0-alpha.13 (2020-04-23)
 
 * feat(visage): export props from extendable components ([2823418](https://github.com/Byteclaw/visage/commit/2823418))

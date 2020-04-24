@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.5 (2020-04-24)
+
+* refactor(visage): use ResponsiveDesignSystem as a shortcut ([b168e81](https://github.com/Byteclaw/visage/commit/b168e81))
+
+
+
+
+
 ## 1.0.0-alpha.4 (2020-04-20)
 
 * fix(visage/core): fix colorShade parsing ([26fa711](https://github.com/Byteclaw/visage/commit/26fa711))
