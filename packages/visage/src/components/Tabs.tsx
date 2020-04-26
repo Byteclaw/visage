@@ -123,7 +123,9 @@ export function Tab({
 }
 
 interface TabsProps {
-  children: ReactElement<TabProps & BoxProps>[];
+  children:
+    | ReactElement<TabProps & BoxProps>
+    | ReactElement<TabProps & BoxProps>[];
   /**
    * Unique id used to generate references between tabs (accessibility)
    */
