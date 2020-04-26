@@ -15,7 +15,7 @@ import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import { Box } from './Box';
 import { Flex } from './Flex';
-import { useUniqueId } from '../hooks';
+import { useUniqueId, useHandlerRef } from '../hooks';
 
 const TabsWrapper = createComponent(Flex, {
   displayName: 'Tabs',
@@ -149,7 +149,7 @@ export function Tabs({
   const selectedRef = useRef(selected);
   const focusedTabRef = useRef<HTMLButtonElement | null>(null);
   const [selectedTab, selectTab] = useState(selected);
-  const onClick: MouseEventHandler<HTMLButtonElement> = useCallback(e => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = useHandlerRef(e => {
     const index = Number(e.currentTarget.dataset.index);
 
     if (e.currentTarget.getAttribute('aria-disabled') === 'true') {
@@ -169,97 +169,99 @@ export function Tabs({
     e.preventDefault();
 
     selectTab(index);
-  }, []);
+  });
   const onTabFocus = useCallback((e: FocusEvent<HTMLButtonElement>) => {
     focusedTabRef.current = e.currentTarget;
   }, []);
-  const onKeyDown: KeyboardEventHandler<HTMLButtonElement> = useCallback(e => {
-    const index = Number(e.currentTarget.dataset.index);
+  const onKeyDown: KeyboardEventHandler<HTMLButtonElement> = useHandlerRef(
+    e => {
+      const index = Number(e.currentTarget.dataset.index);
 
-    if (e.currentTarget.disabled) {
-      return;
-    }
-
-    switch (e.key) {
-      case ' ':
-      case 'Enter': {
-        if (childrenArray[index]!.props.onKeyDown) {
-          childrenArray[index]!.props.onKeyDown!(e);
-        }
-
-        if (e.defaultPrevented) {
-          return;
-        }
-
-        e.preventDefault();
-
-        selectTab(index);
-        break;
+      if (e.currentTarget.disabled) {
+        return;
       }
-      case 'ArrowLeft':
-      case 'ArrowRight': {
-        e.preventDefault();
 
-        let tab: HTMLButtonElement | null = focusedTabRef.current![
-          e.key === 'ArrowLeft'
-            ? 'previousElementSibling'
-            : 'nextElementSibling'
-        ] as HTMLButtonElement | null;
-
-        do {
-          if (tab) {
-            if (tab.disabled) {
-              // go to next sibling
-              tab = tab[
-                e.key === 'ArrowLeft'
-                  ? 'previousElementSibling'
-                  : 'nextElementSibling'
-              ] as HTMLButtonElement | null;
-            } else {
-              break;
-            }
-          } else {
-            // there is no next tab, find the first children of a parent
-            tab = focusedTabRef.current!.parentElement![
-              e.key === 'ArrowLeft' ? 'lastElementChild' : 'firstElementChild'
-            ] as HTMLButtonElement | null;
+      switch (e.key) {
+        case ' ':
+        case 'Enter': {
+          if (childrenArray[index]!.props.onKeyDown) {
+            childrenArray[index]!.props.onKeyDown!(e);
           }
-        } while (true);
 
-        tab.focus();
-        break;
-      }
-      case 'End':
-      case 'Home': {
-        e.preventDefault();
-
-        let tab: HTMLButtonElement | null = focusedTabRef.current!
-          .parentElement![
-          e.key === 'End' ? 'lastElementChild' : 'firstElementChild'
-        ] as HTMLButtonElement | null;
-
-        do {
-          if (tab) {
-            if (tab.disabled) {
-              tab = tab[
-                e.key === 'End'
-                  ? 'previousElementSibling'
-                  : 'nextElementSibling'
-              ] as HTMLButtonElement | null;
-            } else {
-              break;
-            }
-          } else {
-            tab = focusedTabRef.current!.parentElement!
-              .firstElementChild as HTMLButtonElement | null;
+          if (e.defaultPrevented) {
+            return;
           }
-        } while (true);
 
-        tab.focus();
-        break;
+          e.preventDefault();
+
+          selectTab(index);
+          break;
+        }
+        case 'ArrowLeft':
+        case 'ArrowRight': {
+          e.preventDefault();
+
+          let tab: HTMLButtonElement | null = focusedTabRef.current![
+            e.key === 'ArrowLeft'
+              ? 'previousElementSibling'
+              : 'nextElementSibling'
+          ] as HTMLButtonElement | null;
+
+          do {
+            if (tab) {
+              if (tab.disabled) {
+                // go to next sibling
+                tab = tab[
+                  e.key === 'ArrowLeft'
+                    ? 'previousElementSibling'
+                    : 'nextElementSibling'
+                ] as HTMLButtonElement | null;
+              } else {
+                break;
+              }
+            } else {
+              // there is no next tab, find the first children of a parent
+              tab = focusedTabRef.current!.parentElement![
+                e.key === 'ArrowLeft' ? 'lastElementChild' : 'firstElementChild'
+              ] as HTMLButtonElement | null;
+            }
+          } while (true);
+
+          tab.focus();
+          break;
+        }
+        case 'End':
+        case 'Home': {
+          e.preventDefault();
+
+          let tab: HTMLButtonElement | null = focusedTabRef.current!
+            .parentElement![
+            e.key === 'End' ? 'lastElementChild' : 'firstElementChild'
+          ] as HTMLButtonElement | null;
+
+          do {
+            if (tab) {
+              if (tab.disabled) {
+                tab = tab[
+                  e.key === 'End'
+                    ? 'previousElementSibling'
+                    : 'nextElementSibling'
+                ] as HTMLButtonElement | null;
+              } else {
+                break;
+              }
+            } else {
+              tab = focusedTabRef.current!.parentElement!
+                .firstElementChild as HTMLButtonElement | null;
+            }
+          } while (true);
+
+          tab.focus();
+          break;
+        }
       }
-    }
-  }, []);
+    },
+  );
 
   if (selectedRef.current !== selected) {
     selectedRef.current = selected;
