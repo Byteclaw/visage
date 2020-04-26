@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.16 (2020-04-26)
+
+* fix(visage): react to changes in tabs children ([7706207](https://github.com/Byteclaw/visage/commit/7706207))
+* feat(visage): export TabProps and TabElement type ([2064507](https://github.com/Byteclaw/visage/commit/2064507))
+
+
+
+
+
 ## 1.0.0-alpha.15 (2020-04-26)
 
 * fix(visage): allow only one child in Tabs ([d88ea4e](https://github.com/Byteclaw/visage/commit/d88ea4e))
