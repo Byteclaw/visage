@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.15 (2020-04-26)
+
+**Note:** Version bump only for package @byteclaw/visage-docs
+
+
+
+
+
 ## 1.0.0-alpha.14 (2020-04-24)
 
 * refactor(visage): use ResponsiveDesignSystem as a shortcut ([b168e81](https://github.com/Byteclaw/visage/commit/b168e81))
