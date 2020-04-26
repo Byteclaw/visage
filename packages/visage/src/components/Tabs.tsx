@@ -94,7 +94,7 @@ interface BoxProps
     'children' | 'onKeyDown' | 'onClick'
   > {}
 
-interface TabProps {
+export interface TabProps {
   children?: ReactNode | (() => ReactNode);
   disabled?: boolean;
   label: string | ReactElement;
@@ -122,10 +122,10 @@ export function Tab({
   );
 }
 
+export type TabElement = ReactElement<TabProps>;
+
 interface TabsProps {
-  children:
-    | ReactElement<TabProps & BoxProps>
-    | ReactElement<TabProps & BoxProps>[];
+  children: TabElement | TabElement[];
   /**
    * Unique id used to generate references between tabs (accessibility)
    */
