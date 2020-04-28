@@ -5,6 +5,7 @@ export {
   markAsVisageComponent,
   useBreakpoint,
   useDesignSystem,
+  StyleProps,
   Theme,
 } from '@byteclaw/visage-core';
 
