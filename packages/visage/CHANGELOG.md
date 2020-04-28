@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.17 (2020-04-28)
+
+* feat(visage): reexport StyleProps ([8b9a0ec](https://github.com/Byteclaw/visage/commit/8b9a0ec))
+
+
+
+
+
 ## 1.0.0-alpha.16 (2020-04-26)
 
 * fix(visage): react to changes in tabs children ([7706207](https://github.com/Byteclaw/visage/commit/7706207))

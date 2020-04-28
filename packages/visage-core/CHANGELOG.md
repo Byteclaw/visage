@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.6 (2020-04-28)
+
+* feat(visage/core): require StyleProps supertype in marked components ([89dd4e5](https://github.com/Byteclaw/visage/commit/89dd4e5))
+
+
+
+
+
 ## 1.0.0-alpha.5 (2020-04-24)
 
 * refactor(visage): use ResponsiveDesignSystem as a shortcut ([b168e81](https://github.com/Byteclaw/visage/commit/b168e81))
