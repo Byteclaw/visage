@@ -1,7 +1,13 @@
 /* eslint-disable react/no-multi-comp, react/prefer-stateless-function, max-classes-per-file */
 import React from 'react';
 import { isValidElementType } from 'react-is';
-import { createComponent, displayName, isVisageComponent } from '..';
+import {
+  createComponent,
+  displayName,
+  isVisageComponent,
+  markAsVisageComponent,
+} from '..';
+import { StyleProps } from '../types';
 
 describe('core', () => {
   describe('displayName', () => {
@@ -41,6 +47,32 @@ describe('core', () => {
       expect(isVisageComponent(() => <div />)).toBe(false);
       expect(isVisageComponent(class extends React.Component {})).toBe(false);
       expect(isVisageComponent(createComponent('a'))).toBe(true);
+    });
+  });
+
+  describe('markAsVisageComponent', () => {
+    it('marks functional component as visage component', () => {
+      const C = class extends React.Component<{ test: boolean } & StyleProps> {
+        render() {
+          return <div />;
+        }
+      };
+
+      expect(isVisageComponent(C)).toBe(false);
+      expect(isVisageComponent(markAsVisageComponent(C))).toBe(true);
+    });
+
+    it('marks class component as visage component', () => {
+      const C = () => <div />;
+
+      expect(isVisageComponent(C)).toBe(false);
+      expect(isVisageComponent(markAsVisageComponent(C))).toBe(true);
+    });
+
+    it('does nothing with visage component', () => {
+      const C = createComponent('a');
+
+      expect(isVisageComponent(markAsVisageComponent(C))).toBe(true);
     });
   });
 

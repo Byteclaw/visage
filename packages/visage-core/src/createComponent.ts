@@ -1,5 +1,5 @@
 import { OmitPropsSetting } from '@byteclaw/visage-utils';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { displayName, markAsVisageComponent } from './utils';
 import {
   StyleProps,
@@ -12,8 +12,16 @@ import {
 import { StyleSheet } from './styleSheet';
 import { useVisage, UseVisageHookOptions } from './useVisage';
 
+interface RenderComponentFunctionProps extends StyleProps {
+  children: ReactNode;
+  as: any;
+}
+
 const DEFAULT_STYLE_SHEET = {};
 
+/**
+ * Creates a Visage component
+ */
 export function createComponent<
   TDefaultComponent extends ComponentConstraint,
   TVariants extends {}[] = {}[],
@@ -78,10 +86,7 @@ export function createComponent<
   };
   const defProps = defaultProps || {};
   const RawComponent = (
-    {
-      as = defaultAs,
-      ...restProps
-    }: StyleProps & { as: any; [key: string]: any },
+    { as = defaultAs, ...restProps }: RenderComponentFunctionProps,
     ref: any,
   ) => {
     const props = useVisage(
