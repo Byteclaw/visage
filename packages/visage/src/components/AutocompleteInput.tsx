@@ -54,80 +54,107 @@ export interface AutocompleteInputMenuProps extends StyleProps {
    */
   inputContainerRef: RefObject<HTMLDivElement>;
   listboxId: string;
+  menuProps?: ExtractVisageComponentProps<typeof Menu>;
   onSelect: (optionIndex: number) => void;
   open: boolean;
   options: any[];
   optionToString: (option: any) => string;
 }
 
-const AutocompleteInputMenu = createComponent(
-  markAsVisageComponent(
-    ({
-      focusedIndex,
-      id,
-      inputContainerRef,
-      listboxId,
-      open,
-      options,
-      optionToString,
-      onSelect,
-      ...styleProps
-    }: AutocompleteInputMenuProps) => {
-      const popoverRef = useRef(null);
-      const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
-        onSelect(Number(e.currentTarget.dataset.optionIndex));
-      });
-      const onOptionMouseDown = useHandlerRef(
-        (e: MouseEvent<HTMLLIElement>) => {
-          // prevent changing body activeElement and blur on input
-          e.preventDefault();
-        },
-      );
+interface CreateAutocompleteInputMenuOptions {
+  /**
+   * Default props used on Menu component, some of them are forced by Visage
+   * to make it work correctly with internal logic
+   */
+  defaultProps?: AutocompleteInputMenuProps;
+  /**
+   * Custom display name (default is AutocompleteInputMenu)
+   *
+   * You can use this name as a face to extend created Menu
+   */
+  displayName?: string;
+}
 
-      // scroll focused item into view
-      useStaticEffect(
-        scrollAriaSelectedElementToView,
-        popoverRef,
+/**
+ * Creates AutocompleteInput menu component that can be used if you are happy
+ * with default Menu
+ */
+export function createAutocompleteInputMenu(
+  componentOptions: CreateAutocompleteInputMenuOptions = {},
+) {
+  return createComponent(
+    markAsVisageComponent(
+      ({
         focusedIndex,
-      );
+        id,
+        inputContainerRef,
+        listboxId,
+        menuProps,
+        open,
+        options,
+        optionToString,
+        onSelect,
+        ...styleProps
+      }: AutocompleteInputMenuProps) => {
+        const popoverRef = useRef(null);
+        const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
+          onSelect(Number(e.currentTarget.dataset.optionIndex));
+        });
+        const onOptionMouseDown = useHandlerRef(
+          (e: MouseEvent<HTMLLIElement>) => {
+            // prevent changing body activeElement and blur on input
+            e.preventDefault();
+          },
+        );
 
-      return (
-        <Menu
-          anchor={inputContainerRef}
-          disableEvents
-          keepAnchorWidth
-          id={listboxId}
-          open={open}
-          popoverProps={{
-            popoverRef,
-          }}
-          role="listbox"
-          tabIndex={-1}
-          {...styleProps}
-        >
-          {open
-            ? options.map((option, index) => (
-                <MenuItem
-                  aria-selected={focusedIndex === index}
-                  data-option-index={index}
-                  id={optionId(id, index)}
-                  key={optionId(id, index)}
-                  role="option"
-                  onClick={onOptionClick}
-                  onMouseDown={onOptionMouseDown}
-                >
-                  {optionToString(option)}
-                </MenuItem>
-              ))
-            : null}
-        </Menu>
-      );
+        // scroll focused item into view
+        useStaticEffect(
+          scrollAriaSelectedElementToView,
+          popoverRef,
+          focusedIndex,
+        );
+
+        return (
+          <Menu
+            {...menuProps}
+            anchor={inputContainerRef}
+            disableEvents
+            keepAnchorWidth
+            id={listboxId}
+            open={open}
+            popoverProps={{
+              ...menuProps?.popoverProps,
+              popoverRef,
+            }}
+            role="listbox"
+            tabIndex={-1}
+            {...styleProps}
+          >
+            {open
+              ? options.map((option, index) => (
+                  <MenuItem
+                    aria-selected={focusedIndex === index}
+                    data-option-index={index}
+                    id={optionId(id, index)}
+                    key={optionId(id, index)}
+                    role="option"
+                    onClick={onOptionClick}
+                    onMouseDown={onOptionMouseDown}
+                  >
+                    {optionToString(option)}
+                  </MenuItem>
+                ))
+              : null}
+          </Menu>
+        );
+      },
+    ),
+    {
+      displayName: 'AutocompleteInputMenu',
+      ...componentOptions,
     },
-  ),
-  {
-    displayName: 'AutocompleteInputMenu',
-  },
-);
+  );
+}
 
 interface AutocompleteInputProps<TValue extends any>
   extends SelectorOptions<TValue>,
@@ -140,6 +167,8 @@ interface AutocompleteInputProps<TValue extends any>
   /** Set focused option as value on blur */
   selectOnBlur?: boolean;
 }
+
+const defaultMenu = createAutocompleteInputMenu();
 
 declare function AutocompleteInputComp<TValue extends any = string>(
   props: AutocompleteInputProps<TValue> & TextInputProps,
@@ -163,7 +192,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
       onStateChange,
       options,
       optionToString,
-      menu: DropdownMenu = AutocompleteInputMenu,
+      menu: DropdownMenu = defaultMenu,
       readOnly,
       parentStyles,
       selectOnBlur,
