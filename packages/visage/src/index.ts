@@ -16,6 +16,7 @@ export * from './ResponsiveDesignSystem';
 export * from './assets';
 export * from './components';
 export * from './core';
+export * from './defaults';
 export * from './emotionResponsiveStyleGenerator';
 export * from './emotionStyleGenerator';
 export * from './faces';
