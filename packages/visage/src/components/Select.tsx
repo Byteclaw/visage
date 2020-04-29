@@ -52,81 +52,108 @@ export interface SelectMenuProps extends StyleProps {
    */
   inputContainerRef: RefObject<HTMLDivElement>;
   listboxId: string;
+  menuProps?: ExtractVisageComponentProps<typeof Menu>;
   onSelect: (optionIndex: number) => void;
   open: boolean;
   options: any[];
   optionToString: (option: any) => string;
 }
 
-const SelectMenu = createComponent(
-  markAsVisageComponent(
-    ({
-      focusedIndex,
-      id,
-      inputContainerRef,
-      listboxId,
-      open,
-      options,
-      optionToString,
-      onSelect,
-      ...styleProps
-    }: SelectMenuProps) => {
-      // ref to popover base because we can scroll only scrollable div
-      const popoverRef = useRef(null);
-      const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
-        onSelect(Number(e.currentTarget.dataset.optionIndex));
-      });
-      const onOptionMouseDown = useHandlerRef(
-        (e: MouseEvent<HTMLLIElement>) => {
-          // prevent changing body activeElement and blur on input
-          e.preventDefault();
-        },
-      );
+interface CreateSelectMenuOptions {
+  /**
+   * Default props used on Menu component, some of them are forced by Visage
+   * to make it work correctly with internal logic
+   */
+  defaultProps?: SelectMenuProps;
+  /**
+   * Custom display name (default is AutocompleteInputMenu)
+   *
+   * You can use this name as a face to extend created Menu
+   */
+  displayName?: string;
+}
 
-      // scroll focused item into view
-      useStaticEffect(
-        scrollAriaSelectedElementToView,
-        popoverRef,
+/**
+ * Creates Select menu component that can be used if you are happy
+ * with default Menu
+ */
+export function createSelectMenu(
+  componentOptions: CreateSelectMenuOptions = {},
+) {
+  return createComponent(
+    markAsVisageComponent(
+      ({
         focusedIndex,
-      );
+        id,
+        inputContainerRef,
+        listboxId,
+        menuProps,
+        open,
+        options,
+        optionToString,
+        onSelect,
+        ...styleProps
+      }: SelectMenuProps) => {
+        // ref to popover base because we can scroll only scrollable div
+        const popoverRef = useRef(null);
+        const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
+          onSelect(Number(e.currentTarget.dataset.optionIndex));
+        });
+        const onOptionMouseDown = useHandlerRef(
+          (e: MouseEvent<HTMLLIElement>) => {
+            // prevent changing body activeElement and blur on input
+            e.preventDefault();
+          },
+        );
 
-      return (
-        <Menu
-          anchor={inputContainerRef}
-          disableEvents
-          keepAnchorWidth
-          id={listboxId}
-          open={open}
-          popoverProps={{
-            popoverRef,
-          }}
-          role="listbox"
-          tabIndex={-1}
-          {...styleProps}
-        >
-          {open
-            ? options.map((option, index) => (
-                <MenuItem
-                  aria-selected={focusedIndex === index}
-                  data-option-index={index}
-                  id={optionId(id, index)}
-                  key={optionId(id, index)}
-                  role="option"
-                  onClick={onOptionClick}
-                  onMouseDown={onOptionMouseDown}
-                >
-                  {optionToString(option)}
-                </MenuItem>
-              ))
-            : null}
-        </Menu>
-      );
+        // scroll focused item into view
+        useStaticEffect(
+          scrollAriaSelectedElementToView,
+          popoverRef,
+          focusedIndex,
+        );
+
+        return (
+          <Menu
+            {...menuProps}
+            anchor={inputContainerRef}
+            disableEvents
+            keepAnchorWidth
+            id={listboxId}
+            open={open}
+            popoverProps={{
+              ...menuProps?.popoverProps,
+              popoverRef,
+            }}
+            role="listbox"
+            tabIndex={-1}
+            {...styleProps}
+          >
+            {open
+              ? options.map((option, index) => (
+                  <MenuItem
+                    aria-selected={focusedIndex === index}
+                    data-option-index={index}
+                    id={optionId(id, index)}
+                    key={optionId(id, index)}
+                    role="option"
+                    onClick={onOptionClick}
+                    onMouseDown={onOptionMouseDown}
+                  >
+                    {optionToString(option)}
+                  </MenuItem>
+                ))
+              : null}
+          </Menu>
+        );
+      },
+    ),
+    {
+      displayName: 'SelectMenu',
+      ...componentOptions,
     },
-  ),
-  {
-    displayName: 'SelectMenu',
-  },
-);
+  );
+}
 
 export interface SelectTogglerProps {
   // class name is provided by visage
@@ -174,6 +201,8 @@ interface SelectProps<TValue extends any = string>
   toggler?: React.ComponentType<SelectTogglerProps>;
 }
 
+const defaultMenu = createSelectMenu();
+
 declare function SelectComp<TValue extends any = string>(
   props: SelectProps<TValue> & TextInputProps,
 ): ReactElement<any, any> | null;
@@ -188,7 +217,7 @@ export const Select: typeof SelectComp = forwardRef(
       children,
       id: outerId,
       enhanceReducer,
-      menu: DropdownMenu = SelectMenu,
+      menu: DropdownMenu = defaultMenu,
       onBlur,
       onChange,
       onFocus,
