@@ -69,6 +69,7 @@ const SelectMenu = createComponent(
       options,
       optionToString,
       onSelect,
+      ...styleProps
     }: SelectMenuProps) => {
       // ref to popover base because we can scroll only scrollable div
       const popoverRef = useRef(null);
@@ -101,6 +102,7 @@ const SelectMenu = createComponent(
           }}
           role="listbox"
           tabIndex={-1}
+          {...styleProps}
         >
           {open
             ? options.map((option, index) => (

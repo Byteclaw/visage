@@ -71,6 +71,7 @@ const AutocompleteInputMenu = createComponent(
       options,
       optionToString,
       onSelect,
+      ...styleProps
     }: AutocompleteInputMenuProps) => {
       const popoverRef = useRef(null);
       const onOptionClick = useHandlerRef((e: MouseEvent<HTMLLIElement>) => {
@@ -102,6 +103,7 @@ const AutocompleteInputMenu = createComponent(
           }}
           role="listbox"
           tabIndex={-1}
+          {...styleProps}
         >
           {open
             ? options.map((option, index) => (
