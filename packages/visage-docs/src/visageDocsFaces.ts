@@ -1,4 +1,6 @@
-export const visageDocsFaces = {
+import { VisageFaces } from '@byteclaw/visage';
+
+export const visageDocsFaces: VisageFaces = {
   h1: {
     mt: 5,
     mb: 2,
