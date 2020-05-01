@@ -121,6 +121,37 @@ function Example() {
 }
 ```
 
+### Limit menu height
+
+```jsx live=true
+() => {
+  const limitedHeightMenu = useRef(
+    createAutocompleteInputMenu({
+      defaultProps: {
+        popoverProps: {
+          maxHeight: 100,
+        },
+      },
+    }),
+  );
+  const options = useRef(
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <AutocompleteInput
+      id="autocomplete-field"
+      onChange={value => console.log(value)}
+      menu={limitedHeightMenu.current}
+      options={options.current}
+      placeholder="Enter a value"
+    />
+  );
+};
+```
+
 ## Keyboard shortcuts
 
 <DescriptionList>

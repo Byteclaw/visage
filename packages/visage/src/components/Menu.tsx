@@ -16,7 +16,8 @@ import React, {
 import {
   findNextMatchingSiblingElement,
   findPreviousMatchingSiblingElement,
-  TransformOriginSettings,
+  PlacementWithAnchorOrigin,
+  Placement,
 } from './shared';
 import { createComponent } from '../core';
 import { useCombinedRef } from '../hooks';
@@ -45,25 +46,57 @@ const MenuItemBase = createComponent(ListItem, {
 
 interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
   anchor?: null | RefObject<HTMLElement>;
-  anchorOrigin?: TransformOriginSettings;
+  /**
+   * A ref to base HTML element
+   */
   baseRef?: RefObject<HTMLDivElement>;
   /**
    * Use only if you are managing focus outside of this component
    */
   disableAutoFocusItem?: boolean;
+  /**
+   * Disable all default event handlers on menu?
+   *
+   * The purpose of this props is for example if you want to use Menu as companion to TextInput
+   */
   disableEvents?: boolean;
+  /**
+   * Make menu as long as anchor element?
+   */
   keepAnchorWidth?: boolean;
   onClose?: () => void;
-  open: boolean;
+  /**
+   * Is menu open?
+   */
+  open?: boolean;
+  /**
+   * Prioritized array of Placement to Anchor origin tuples
+   */
+  placement?: PlacementWithAnchorOrigin[];
+  /**
+   * Props that will be passed to underlying Popover component
+   */
   popoverProps?: OmittableProps<ExtractVisageComponentProps<typeof Popover>>;
 }
 
 type MenuItemProps = ExtractVisageComponentProps<typeof MenuItemBase>;
 
-const defaultAnchorOrigin: TransformOriginSettings = {
-  vertical: 'bottom',
-  horizontal: 'left',
-};
+const defaultPlacement: PlacementWithAnchorOrigin[] = [
+  [
+    Placement.topLeft,
+    {
+      vertical: 'bottom',
+      horizontal: 'left',
+    },
+  ],
+  [
+    Placement.bottomLeft,
+    {
+      vertical: 'top',
+      horizontal: 'left',
+    },
+  ],
+];
 
 const popoverStyles = {
   boxShadow: '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.60)',
@@ -74,14 +107,14 @@ const isMenuItemElement = (el: HTMLElement) =>
 
 export function Menu({
   anchor,
-  anchorOrigin = defaultAnchorOrigin,
   baseRef,
   children,
   disableAutoFocusItem,
   disableEvents,
   keepAnchorWidth,
   onClose,
-  open,
+  open = false,
+  placement = defaultPlacement,
   role = 'menu',
   onKeyDown: outerOnKeyDown,
   popoverProps,
@@ -200,16 +233,16 @@ export function Menu({
 
   return (
     <Popover
-      alwaysVisible
       anchor={anchor}
-      anchorOrigin={anchorOrigin}
       autoFocus={!disableEvents && disableAutoFocusItem}
       backdrop
       keepAnchorWidth={keepAnchorWidth}
       onClose={onClose}
       onKeyDown={onPopoverKeyDown}
       open={open}
+      placement={placement}
       styles={popoverStyles}
+      minHeight={200}
       {...popoverProps}
     >
       <MenuBase ref={menuRef} role={role} {...restProps} tabIndex={-1}>
