@@ -74,11 +74,7 @@ interface CreateAutocompleteInputMenuOptions {
    */
   displayName?: string;
   /**
-   * Max height for the menu
-   */
-  maxHeight?: number;
-  /**
-   * Min height for the menu
+   * Min height in pixels required to place menu in a given position
    */
   minHeight?: number;
 }
@@ -88,8 +84,7 @@ interface CreateAutocompleteInputMenuOptions {
  * with default Menu
  */
 export function createAutocompleteInputMenu({
-  minHeight = 200,
-  maxHeight = 400,
+  minHeight = 150,
   ...restMenuOptions
 }: CreateAutocompleteInputMenuOptions = {}) {
   return createComponent(
@@ -133,7 +128,6 @@ export function createAutocompleteInputMenu({
             id={listboxId}
             open={open}
             popoverProps={{
-              maxHeight,
               minHeight,
               ...menuProps?.popoverProps,
               popoverRef,

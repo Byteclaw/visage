@@ -87,19 +87,11 @@ interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
    */
   // marginThreshold?: number;
   /**
-   * Maximum height in pixels, default is to use as much visible space as possible
-   */
-  maxHeight?: number;
-  /**
-   * Maximum width in pixels, default is to use as much visible space as possible
-   */
-  maxWidth?: number;
-  /**
-   * Minimum height in pixels
+   * Minimum height in pixels required for placement
    */
   minHeight?: number;
   /**
-   * Minimum width in pixels
+   * Minimum width in pixels required for placement
    */
   minWidth?: number;
   onClose?: () => void;
@@ -154,9 +146,6 @@ export function Popover({
   fullscreen = false,
   id: outerId,
   keepAnchorWidth = false,
-  // marginThreshold = 16,
-  maxHeight,
-  maxWidth,
   minHeight,
   minWidth,
   open = true,
@@ -205,21 +194,22 @@ export function Popover({
         throw new Error('Could not resolve an anchor');
       }
 
+      const anchorPositionAndDimensions = getAnchorPositionAndDimensions(
+        anchorElementOrPosition,
+      );
       const positioning = computePositioningStyles(window, element, {
         anchor: anchorElementOrPosition,
         placementAndOrigin: placement,
         minWidth: keepAnchorWidth
-          ? getAnchorPositionAndDimensions(anchorElementOrPosition).width
+          ? anchorPositionAndDimensions.width
           : minWidth,
-        maxHeight,
-        maxWidth: keepAnchorWidth
-          ? getAnchorPositionAndDimensions(anchorElementOrPosition).width
-          : maxWidth,
         minHeight,
       });
 
       /* eslint-disable no-param-reassign */
-      element.style.width = `${positioning.width}px`;
+      element.style.width = `${
+        keepAnchorWidth ? anchorPositionAndDimensions.width : positioning.width
+      }px`;
       element.style.height = `${positioning.height}px`;
       element.style.top = `${positioning.top}px`;
       element.style.left = `${positioning.left}px`;
@@ -232,8 +222,6 @@ export function Popover({
       keepAnchorWidth,
       isFullscreen,
       anchor,
-      maxHeight,
-      maxWidth,
       minWidth,
       minHeight,
       placement,
