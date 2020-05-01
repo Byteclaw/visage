@@ -121,7 +121,8 @@ export function getAnchorPositionAndDimensions(
 export interface PositioningStyles {
   left: number;
   height: number;
-  // transformOrigin: string;
+  minHeight: number;
+  minWidth: number;
   top: number;
   width: number;
 }
@@ -156,61 +157,27 @@ interface Viewport {
 
 interface PlacementRegion {
   /**
-   * Does element overflow visible area after constraints are applied?
+   * Does placement region match specified constraint?
    */
-  overflows: boolean;
+  matches: boolean;
   top: number;
   left: number;
   height: number;
   width: number;
-  /** Max top that can be outside of visibe area */
-  maxTop: number;
-  /** Max left that can be outside of visibe area */
-  maxLeft: number;
-  /** Max height that can be outside of visibe area */
-  maxHeight: number;
-  /** Max width that can be outside of visibe area */
-  maxWidth: number;
-}
-
-export function detectElementViewportOverflow(
-  view: Viewport,
-  placementRegion: Omit<PlacementRegion, 'overflows'>,
-): PlacementRegion {
-  if (
-    placementRegion.top < view.scrollY ||
-    placementRegion.left < view.scrollX
-  ) {
-    return {
-      ...placementRegion,
-      overflows: true,
-    };
-  }
-
-  if (
-    placementRegion.left + placementRegion.width >
-    view.scrollX + view.width
-  ) {
-    return {
-      ...placementRegion,
-      overflows: true,
-    };
-  }
-
-  if (
-    placementRegion.top + placementRegion.height >
-    view.scrollY + view.height
-  ) {
-    return {
-      ...placementRegion,
-      overflows: true,
-    };
-  }
-
-  return {
-    ...placementRegion,
-    overflows: false,
-  };
+  /**
+   * Min height that can be used to determine height for an element
+   * if constraint is applied
+   *
+   * This can differ from the height if matches is false
+   */
+  minHeight: number;
+  /**
+   * Min width that can be used to determine width for an element
+   * if coinstraint is applied
+   *
+   * This can differ from the width if matches is false
+   */
+  minWidth: number;
 }
 
 export function computePositionAndDimensions(
@@ -227,14 +194,18 @@ export function computePositionAndDimensions(
   element: ElementRect,
   placement: Placement,
   {
-    maxHeight: maxHeightC,
-    maxWidth: maxWidthC,
-    minHeight: minHeightC,
-    minWidth: minWidthC,
+    // maxHeight: maxHeightC,
+    // maxWidth: maxWidthC,
+    minHeight,
+    minWidth,
   }: PlacementConstraints = {},
 ): PlacementRegion {
   const top = anchor.top + viewport.scrollY;
   const left = anchor.left + viewport.scrollX;
+  const visibleSpaceToRight = viewport.width - anchor.left;
+  const visibleSpaceToLeft = anchor.left;
+  const visibleSpaceToTop = anchor.top;
+  const visibleSpaceToBottom = viewport.height - anchor.top;
   const elementWidth = Math.max(element.width, element.scrollWidth);
   const elementHeight = Math.max(element.height, element.scrollHeight);
 
@@ -244,247 +215,200 @@ export function computePositionAndDimensions(
       // we want an anchor to be in top left corner of an element
       const height = Math.min(viewport.height - anchor.top, elementHeight);
       const width = Math.min(viewport.width - anchor.left, elementWidth);
-      const maxWidth = Math.min(viewport.maxWidth - left, elementWidth);
-      const maxHeight = Math.min(viewport.maxHeight - top, elementHeight);
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? height, height),
-      );
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? width, width),
-      );
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
+            visibleSpaceToBottom &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight,
+        height,
+        width,
         left,
         top,
-        maxTop: top,
-        maxLeft: left,
-        maxHeight,
-        maxWidth,
-      });
+        minHeight: Math.max(minHeight ?? height, height),
+        minWidth: Math.max(minWidth ?? width, width),
+      };
     }
     case Placement.topRight: {
       // we want an anchor to be in top right corner of an element
       const height = Math.min(viewport.height - anchor.top, elementHeight);
       const width = Math.min(anchor.left, elementWidth);
-      const maxWidth = Math.min(left, elementWidth);
-      const maxHeight = Math.min(viewport.maxHeight - top, elementHeight);
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? height, height),
-      );
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? width, width),
-      );
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        left: left - widthC,
+      return {
+        matches:
+          Math.min(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
+            visibleSpaceToBottom &&
+          Math.min(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft,
+        height,
+        width,
         top,
-        maxTop: top,
-        maxLeft: left - maxWidth,
-        maxHeight,
-        maxWidth,
-      });
+        left: left - width,
+        minHeight: Math.max(minHeight ?? height, height),
+        minWidth: Math.max(minWidth ?? width, width),
+      };
     }
     case Placement.topCenter: {
       // we want an anchor to be in the center of the top edge of an element
       const height = Math.min(viewport.height - anchor.top, elementHeight);
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? height, height),
-      );
-      const maxHeight = Math.min(viewport.maxHeight - top, elementHeight);
       const halfEdge = elementWidth / 2;
-      const visibleWidth =
+      const width =
         Math.min(anchor.left, viewport.width - anchor.left, halfEdge) * 2;
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? visibleWidth, visibleWidth),
-      );
-      const maxEdge = Math.min(left, viewport.maxWidth - left, halfEdge);
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        maxWidth: maxEdge * 2,
-        maxHeight,
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight,
+        height,
+        width,
+        left: left - width / 2,
         top,
-        maxTop: top,
-        left: left - widthC / 2,
-        maxLeft: left - maxEdge,
-      });
+        minHeight: Math.max(minHeight ?? height, height),
+        minWidth: Math.max(minWidth ?? width, width),
+      };
     }
     case Placement.bottomLeft: {
       // we want an anchor to be in the bottom left corner of an element
       const height = Math.min(anchor.top, elementHeight);
-      const maxHeight = Math.min(top, elementHeight);
       const width = Math.min(viewport.width - anchor.left, elementWidth);
-      const maxWidth = Math.min(viewport.maxWidth - left, elementWidth);
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? height, height),
-      );
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? width, width),
-      );
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        top: top - heightC,
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight,
         left,
-        maxLeft: left,
-        maxTop: top - maxHeight,
-        maxHeight,
-        maxWidth,
-      });
+        top: top - height,
+        height,
+        width,
+        minHeight: Math.max(minHeight ?? height, height),
+        minWidth: Math.max(minWidth ?? width, width),
+      };
     }
     case Placement.bottomRight: {
       // we want an anchor to be in the bottom right corner of an element
       const width = Math.min(anchor.left, elementWidth);
       const height = Math.min(anchor.top, elementHeight);
-      const maxHeight = Math.min(top, elementHeight);
-      const maxWidth = Math.min(left, elementWidth);
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? height, height),
-      );
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? width, width),
-      );
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        top: top - heightC,
-        left: left - widthC,
-        maxTop: top - maxHeight,
-        maxLeft: left - maxWidth,
-        maxWidth,
-        maxHeight,
-      });
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft,
+        top: top - height,
+        left: left - width,
+        height,
+        width,
+        minWidth: Math.max(minWidth ?? width, width),
+        minHeight: Math.max(minHeight ?? height, height),
+      };
     }
     case Placement.bottomCenter: {
       // we want an anchor to be in the center of the bottom edge of an element
       const halfEdge = elementWidth / 2;
-      const visibleWidth =
+      const width =
         Math.min(anchor.left, viewport.width - anchor.left, halfEdge) * 2;
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? visibleWidth, visibleWidth),
-      );
       const height = Math.min(anchor.top, elementHeight);
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? height, height),
-      );
-      const maxHeight = Math.min(top, elementHeight);
-      const maxEdge = Math.min(left, viewport.maxWidth - left, halfEdge);
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        top: top - heightC,
-        left: left - widthC / 2,
-        maxTop: top - maxHeight,
-        maxHeight,
-        maxWidth: maxEdge * 2,
-        maxLeft: left - maxEdge,
-      });
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight &&
+          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft,
+        left: left - width / 2,
+        top: top - height,
+        height,
+        width,
+        minHeight: Math.max(minHeight ?? height, height),
+        minWidth: Math.max(minWidth ?? width, width),
+      };
     }
     case Placement.centerCenter: {
       // we want an anchor to be in the vertical and horizontal center of an element
       const halfHeight = elementHeight / 2;
       const halfWidth = elementWidth / 2;
-      const visibleHeight =
+      const height =
         Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? visibleHeight, visibleHeight),
-      );
-      const visibleWidth =
+      const width =
         Math.min(anchor.left, viewport.width - anchor.left, halfWidth) * 2;
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? visibleWidth, visibleWidth),
-      );
-      const maxHeightEdge = Math.min(top, viewport.maxHeight - top, halfHeight);
-      const maxWidthEdge = Math.min(left, viewport.maxWidth - left, halfWidth);
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        top: top - heightC / 2,
-        left: left - widthC / 2,
-        maxHeight: maxHeightEdge * 2,
-        maxWidth: maxWidthEdge * 2,
-        maxTop: top - maxHeightEdge,
-        maxLeft: left - maxWidthEdge,
-      });
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
+            visibleSpaceToBottom &&
+          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight,
+        left: left - width / 2,
+        top: top - height / 2,
+        height,
+        width,
+        minHeight: Math.max(minHeight ?? height, height),
+        minWidth: Math.max(minWidth ?? width, width),
+      };
     }
     case Placement.centerLeft: {
       // we want an anchor to be in the vertical center of the left edge of an element
       const halfHeight = elementHeight / 2;
       const width = Math.min(viewport.width - anchor.left, elementWidth);
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? width, width),
-      );
-      const maxWidth = Math.min(viewport.maxWidth - left, elementWidth);
-      const visibleHeight =
+      const height =
         Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? visibleHeight, visibleHeight),
-      );
-      const maxHeightEdge = Math.min(top, viewport.maxHeight - top, halfHeight);
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        top: top - heightC / 2,
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
+            visibleSpaceToBottom &&
+          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight,
+        top: top - height / 2,
         left,
-        maxHeight: maxHeightEdge * 2,
-        maxWidth,
-        maxTop: top - maxHeightEdge,
-        maxLeft: left,
-      });
+        height,
+        width,
+        minWidth: Math.max(minWidth ?? width, width),
+        minHeight: Math.max(minHeight ?? height, height),
+      };
     }
     case Placement.centerRight: {
       // we want an anchor to be in the vertical center of the right edge of an element
       const halfHeight = elementHeight / 2;
       const width = Math.min(anchor.left, elementWidth);
-      const widthC = Math.max(
-        minWidthC ?? 0,
-        Math.min(maxWidthC ?? width, width),
-      );
-      const maxWidth = Math.min(left, elementWidth);
-      const visibleHeight =
+      const height =
         Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
-      const heightC = Math.max(
-        minHeightC ?? 0,
-        Math.min(maxHeightC ?? visibleHeight, visibleHeight),
-      );
-      const maxHeightEdge = Math.min(top, viewport.maxHeight - top, halfHeight);
 
-      return detectElementViewportOverflow(viewport, {
-        height: heightC,
-        width: widthC,
-        top: top - heightC / 2,
-        left: left - widthC,
-        maxHeight: maxHeightEdge * 2,
-        maxWidth,
-        maxTop: top - maxHeightEdge,
-        maxLeft: left - maxWidth,
-      });
+      return {
+        matches:
+          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
+            visibleSpaceToTop &&
+          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
+            visibleSpaceToBottom &&
+          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
+            visibleSpaceToLeft &&
+          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
+            visibleSpaceToRight,
+        top: top - height / 2,
+        left: left - width,
+        height,
+        width,
+        minWidth: Math.max(minWidth ?? width, width),
+        minHeight: Math.max(minHeight ?? height, height),
+      };
     }
     default: {
       throw new TypeError(`Invalid Placement type`);
@@ -494,19 +418,11 @@ export function computePositionAndDimensions(
 
 interface PlacementConstraints {
   /**
-   * Max height for an element, if provided given element will never have height higher than maxHeight
-   */
-  maxHeight?: number;
-  /**
-   * Max width for an element, if provided given element will never have width longer than maxWidth
-   */
-  maxWidth?: number;
-  /**
-   * Min height for an element, if provided it will try to find placement where height is higher or equal to the provided value
+   * Min height required to consider if we can place the element there
    */
   minHeight?: number;
   /**
-   * Min width for an element, if provided it will try to find placement where width is longer or equal to the provided value
+   * Min width required to consider if we can place the element there
    */
   minWidth?: number;
 }
@@ -562,10 +478,8 @@ export function computePositioningStyles(
       constraints,
     );
 
-    // detect if region overflows, if yes, continue matching
-    // otherwise we found nice place to place our element so use it
-    // immediately
-    if (!intermediateValue.overflows) {
+    // detect if region matches contstraints and return immediately if it so
+    if (intermediateValue.matches) {
       break;
     }
   }
@@ -573,12 +487,16 @@ export function computePositioningStyles(
   return intermediateValue
     ? {
         height: intermediateValue.height,
+        minHeight: intermediateValue.minHeight,
+        minWidth: intermediateValue.minWidth,
         width: intermediateValue.width,
         top: intermediateValue.top,
         left: intermediateValue.left,
       }
     : {
         height: 0,
+        minHeight: 0,
+        minWidth: 0,
         width: 0,
         left: 0,
         top: 0,

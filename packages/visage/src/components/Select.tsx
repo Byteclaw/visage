@@ -72,11 +72,7 @@ interface CreateSelectMenuOptions {
    */
   displayName?: string;
   /**
-   * Max height for the menu
-   */
-  maxHeight?: number;
-  /**
-   * Min height for the menu
+   * Min height in pixels required to place menu in a given placement
    */
   minHeight?: number;
 }
@@ -86,8 +82,7 @@ interface CreateSelectMenuOptions {
  * with default Menu
  */
 export function createSelectMenu({
-  minHeight = 200,
-  maxHeight = 400,
+  minHeight = 150,
   ...restMenuOptions
 }: CreateSelectMenuOptions = {}) {
   return createComponent(
@@ -132,7 +127,6 @@ export function createSelectMenu({
             id={listboxId}
             open={open}
             popoverProps={{
-              maxHeight,
               minHeight,
               ...menuProps?.popoverProps,
               popoverRef,
