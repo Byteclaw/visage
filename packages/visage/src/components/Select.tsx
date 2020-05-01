@@ -71,15 +71,25 @@ interface CreateSelectMenuOptions {
    * You can use this name as a face to extend created Menu
    */
   displayName?: string;
+  /**
+   * Max height for the menu
+   */
+  maxHeight?: number;
+  /**
+   * Min height for the menu
+   */
+  minHeight?: number;
 }
 
 /**
  * Creates Select menu component that can be used if you are happy
  * with default Menu
  */
-export function createSelectMenu(
-  componentOptions: CreateSelectMenuOptions = {},
-) {
+export function createSelectMenu({
+  minHeight = 200,
+  maxHeight = 400,
+  ...restMenuOptions
+}: CreateSelectMenuOptions = {}) {
   return createComponent(
     markAsVisageComponent(
       ({
@@ -122,6 +132,8 @@ export function createSelectMenu(
             id={listboxId}
             open={open}
             popoverProps={{
+              maxHeight,
+              minHeight,
               ...menuProps?.popoverProps,
               popoverRef,
             }}
@@ -150,7 +162,7 @@ export function createSelectMenu(
     ),
     {
       displayName: 'SelectMenu',
-      ...componentOptions,
+      ...restMenuOptions,
     },
   );
 }

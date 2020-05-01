@@ -14,12 +14,14 @@ import { getResponsiveValue } from '@byteclaw/visage-utils';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import {
-  ElementRect,
-  getOffsetTop,
-  getOffsetLeft,
-  getTransformOriginValue,
-  TransformOriginSettings,
-  TransformVerticalPosition,
+  getAnchorPositionAndDimensions,
+  computePositioningStyles,
+  AnchorPosition,
+  AnchorOrigin,
+  Placement,
+  PlacementWithAnchorOrigin,
+  getWindowScrollX,
+  getWindowScrollY,
 } from './shared';
 import { Modal } from './Modal';
 import {
@@ -30,22 +32,12 @@ import {
 } from '../hooks';
 import { useLayerManager } from './LayerManager';
 
-function getAnchorNode(
-  anchor: HTMLElement | RefObject<HTMLElement>,
-): HTMLElement | null {
-  return anchor instanceof Element ? anchor : anchor.current;
-}
-
 export const BasePopover = createComponent('div', {
   displayName: 'Popover',
   styles: {
     position: 'absolute',
     overflowY: 'auto',
     overflowX: 'hidden',
-    minWidth: '1rem',
-    minHeight: '1rem',
-    maxWidth: ['100vw', 'calc(100% - 1rem)'],
-    maxHeight: ['100vh', 'calc(100% - 1rem)'],
     outline: 'none',
     opacity: 0,
   },
@@ -53,84 +45,123 @@ export const BasePopover = createComponent('div', {
 });
 
 interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
+  /**
+   * Should scroll of underlying elements be possible?
+   */
   allowScrolling?: boolean;
-  alwaysVisible?: boolean;
-  anchor?: null | RefObject<HTMLElement>;
-  anchorOrigin?: TransformOriginSettings;
-  anchorPosition?: { top: number; left: number };
-  anchorReference?: 'anchor' | 'anchorPosition' | 'none';
+  anchor?: null | RefObject<HTMLElement> | AnchorPosition;
+  /**
+   * Disables close listener on Escape key down
+   */
   disableOnEscapeClose?: boolean;
+  /**
+   * Disables close listener on click away
+   */
   disableOnClickAwayClose?: boolean;
+  /**
+   * Should the content be automatically focused when Popover is open? Default is true
+   */
   autoFocus?: boolean;
+  /**
+   * Enables/Disables backdrop
+   *
+   * With backdrop enabled there is an invisible layer that prevents clicking on underlying elements
+   */
   backdrop?: boolean;
   children: ReactNode;
   /**
    * Should the popover be rendered as fullscreen?
+   *
    * This prop is responsive
    */
   fullscreen?: boolean | boolean[];
   id?: string;
+  /**
+   * Should popover keep the width of an anchor? This props takes precedence over minWidth
+   *
+   * This works only if anchor is Ref to HTML element
+   */
   keepAnchorWidth?: boolean;
-  marginThreshold?: number;
+  /**
+   * Should we render Popover all the way to the edge or keep some space?
+   */
+  // marginThreshold?: number;
+  /**
+   * Maximum height in pixels, default is to use as much visible space as possible
+   */
+  maxHeight?: number;
+  /**
+   * Maximum width in pixels, default is to use as much visible space as possible
+   */
+  maxWidth?: number;
+  /**
+   * Minimum height in pixels
+   */
+  minHeight?: number;
+  /**
+   * Minimum width in pixels
+   */
+  minWidth?: number;
   onClose?: () => void;
-  open: boolean;
-  placement?:
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right';
+  /**
+   * Is Popover open?
+   */
+  open?: boolean;
+  /**
+   * Prioritized array of placement and anchor origin tuples
+   *
+   * Can be used to say how should popover behave in different scenarios
+   *
+   * Default is top left placement with top left anchor origin
+   */
+  placement?: PlacementWithAnchorOrigin[];
   /**
    * Ref to div that wraps the popover content
    */
   popoverRef?: RefObject<HTMLDivElement>;
-  transformOrigin?: TransformOriginSettings;
 }
 
-const defaultOrigin: TransformOriginSettings = {
+function isAnchorPosition(anchor: any): anchor is AnchorPosition {
+  return typeof anchor === 'object' && anchor != null && anchor.current == null;
+}
+
+function resolveAnchor(
+  anchor: RefObject<HTMLElement> | AnchorPosition | null | undefined,
+): HTMLElement | AnchorPosition | null | undefined {
+  if (anchor == null) {
+    return anchor;
+  }
+
+  return isAnchorPosition(anchor) ? anchor : anchor.current;
+}
+
+const defaultOrigin: AnchorOrigin = {
   horizontal: 'left',
   vertical: 'top',
 };
-
-/**
- * IE 11 compatibility
- *
- * @see https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
- */
-function getWindowScrollY() {
-  return window.scrollY != null ? window.scrollY : window.pageYOffset;
-}
-
-function getWindowScrollX() {
-  return window.scrollX != null ? window.scrollX : window.pageXOffset;
-}
+const defaultPlacement: PlacementWithAnchorOrigin[] = [
+  [Placement.topLeft, defaultOrigin],
+];
 
 export function Popover({
   allowScrolling = false,
-  alwaysVisible = false,
-  /**
-   * Should the content be automatically focused? Default is true
-   */
   autoFocus = true,
   children,
   anchor,
-  anchorOrigin = defaultOrigin,
-  anchorPosition,
-  anchorReference = 'anchor',
   backdrop = true,
   disableOnClickAwayClose,
   disableOnEscapeClose,
   fullscreen = false,
   id: outerId,
   keepAnchorWidth = false,
-  marginThreshold = 16,
+  // marginThreshold = 16,
+  maxHeight,
+  maxWidth,
+  minHeight,
+  minWidth,
   open = true,
-  transformOrigin = defaultOrigin,
   onClose = () => {},
-  placement = 'bottom',
+  placement = defaultPlacement,
   popoverRef,
   ...restProps
 }: PopoverProps) {
@@ -146,235 +177,67 @@ export function Popover({
 
   const contentRef = useCombinedRef(popoverRef);
   const handleResizeRef = useRef(() => {});
-  const preventCloseRefs = useRef(anchor ? [anchor] : []);
+  // @TODO check if refs are ok because dialog is being closed on Esc
+  const preventCloseRefs = useRef(
+    !anchor || isAnchorPosition(anchor) ? [] : [anchor],
+  );
   const { zIndex } = useLayerManager();
-
-  const getAnchorOffset = useCallback(
-    (
-      contentAnchorOffset: number,
-    ): {
-      top: number;
-      left: number;
-      width?: number;
-    } => {
-      if (anchorReference === 'anchorPosition') {
-        return anchorPosition!;
-      }
-
-      if (anchor == null) {
-        throw new Error('Anchor must be defined');
-      }
-
-      const resolvedAnchorEl = getAnchorNode(anchor);
-      const anchorElement =
-        resolvedAnchorEl instanceof Element ? resolvedAnchorEl : document.body;
-      const anchorRect = anchorElement.getBoundingClientRect();
-      const anchorVertical: TransformVerticalPosition =
-        contentAnchorOffset === 0 ? anchorOrigin.vertical : 'center';
-
-      return {
-        top:
-          anchorRect.top +
-          getWindowScrollY() +
-          getOffsetTop(anchorRect, anchorVertical),
-        left:
-          anchorRect.left +
-          getWindowScrollX() +
-          getOffsetLeft(anchorRect, anchorOrigin.horizontal),
-        width: anchorRect.width,
-      };
-    },
-    [
-      anchor,
-      anchorOrigin.horizontal,
-      anchorOrigin.vertical,
-      anchorPosition,
-      anchorReference,
-    ],
-  );
-
-  const getTransformOrigin = useCallback(
-    (
-      elemRect: ElementRect,
-      contentAnchorOffset: number = 0,
-    ): { vertical: number; horizontal: number } => {
-      return {
-        vertical:
-          getOffsetTop(elemRect, transformOrigin.vertical) +
-          contentAnchorOffset,
-        horizontal: getOffsetLeft(elemRect, transformOrigin.horizontal),
-      };
-    },
-    [transformOrigin.horizontal, transformOrigin.vertical],
-  );
-
-  const getPositioningStyle = useCallback(
-    (
-      element: HTMLElement,
-    ): {
-      left: null | string;
-      top: null | string;
-      transformOrigin: string;
-      height?: string;
-      width?: string;
-    } => {
-      if (anchor == null) {
-        throw new Error('Anchor must be defined');
-      }
-
-      const resolvedAnchor = getAnchorNode(anchor);
-
-      const contentAnchorOffset = 0;
-      const elemRect = {
-        width: element.offsetWidth,
-        height: element.scrollHeight,
-      };
-
-      const elemTransformOrigin = getTransformOrigin(
-        elemRect,
-        contentAnchorOffset,
-      );
-
-      if (anchorReference === 'none') {
-        return {
-          left: null,
-          top: null,
-          transformOrigin: getTransformOriginValue(elemTransformOrigin),
-        };
-      }
-
-      if (isFullscreen) {
-        return {
-          left: `${getWindowScrollX()}px`,
-          top: `${getWindowScrollY()}px`,
-          transformOrigin: getTransformOriginValue(elemTransformOrigin),
-          height: '100vh',
-          width: '100vw',
-        };
-      }
-
-      const anchorOffset = getAnchorOffset(contentAnchorOffset);
-
-      let top = anchorOffset.top - elemTransformOrigin.vertical;
-      let left = anchorOffset.left - elemTransformOrigin.horizontal;
-      let height;
-      const width = anchorOffset.width ? `${anchorOffset.width}px` : undefined;
-      const scrollY = getWindowScrollY();
-      const scrollX = getWindowScrollX();
-      // if placement is custom or Popover content is to be always completely in the viewport
-      if (
-        placement === 'top' ||
-        placement === 'top-left' ||
-        placement === 'top-right' ||
-        (alwaysVisible && top - scrollY + elemRect.height > window.innerHeight)
-      ) {
-        // look in which half of the screen (upper/lower) the anchor is
-        if (
-          anchorOffset.top -
-            resolvedAnchor!.getBoundingClientRect().height / 2 -
-            scrollY -
-            marginThreshold <
-          window.innerHeight / 2
-        ) {
-          // upper half of the screen - just cut the height at the end
-          height =
-            window.innerHeight -
-            (anchorOffset.top - scrollY - elemTransformOrigin.vertical) -
-            marginThreshold;
-        } else {
-          // lower part - it means we will open it bottom-top
-          if (
-            anchorOffset.top -
-              elemTransformOrigin.vertical -
-              scrollY -
-              marginThreshold <
-            elemRect.height
-          ) {
-            // first we will cut the top end if needed
-            height =
-              anchorOffset.top -
-              resolvedAnchor!.getBoundingClientRect().height -
-              scrollY -
-              elemTransformOrigin.vertical -
-              marginThreshold;
-          }
-          top =
-            anchorOffset.top -
-            resolvedAnchor!.offsetHeight -
-            (height == null ? elemRect.height : height) -
-            elemTransformOrigin.vertical;
-        }
-      }
-
-      // if placement is custom or cropped by the viewport right edge, render it right-left
-      if (
-        placement === 'left' ||
-        placement === 'top-left' ||
-        placement === 'bottom-right' ||
-        (alwaysVisible &&
-          keepAnchorWidth === false &&
-          left - scrollX + elemRect.width > window.innerWidth)
-      ) {
-        left =
-          anchorOffset.left +
-          scrollX -
-          (elemRect.width - resolvedAnchor!.offsetWidth) -
-          elemTransformOrigin.horizontal;
-      }
-
-      return {
-        top: `${top}px`,
-        left: `${left}px`,
-        transformOrigin: getTransformOriginValue(elemTransformOrigin),
-        width,
-        height: height ? `${height}px` : undefined,
-      };
-    },
-    [
-      alwaysVisible,
-      anchor,
-      anchorReference,
-      isFullscreen,
-      getAnchorOffset,
-      getTransformOrigin,
-      marginThreshold,
-      placement,
-    ],
-  );
 
   const setPositioningStyles = useCallback(
     (element: HTMLElement) => {
-      const positioning = getPositioningStyle(element);
-
-      if ((isFullscreen || keepAnchorWidth) && positioning.width) {
-        // eslint-disable-next-line no-param-reassign
-        element.style.width = positioning.width;
+      if (isFullscreen) {
+        /* eslint-disable no-param-reassign */
+        element.style.width = `100vw`;
+        element.style.height = `100vh`;
+        element.style.top = `${getWindowScrollY()}px`;
+        element.style.left = `${getWindowScrollX()}px`;
+        element.style.opacity = '1';
+        element.style.visibility = 'visible';
+        /* eslint-enable no-param-reassign */
+        return;
       }
 
-      if (positioning.height != null) {
-        // eslint-disable-next-line no-param-reassign
-        element.style.height = positioning.height;
-      } else {
-        // eslint-disable-next-line no-param-reassign
-        element.style.height = 'auto';
+      const anchorElementOrPosition =
+        resolveAnchor(anchor) ||
+        (typeof document !== 'undefined' ? document.body : undefined);
+
+      if (anchorElementOrPosition == null) {
+        throw new Error('Could not resolve an anchor');
       }
 
-      if (positioning.top !== null) {
-        // eslint-disable-next-line no-param-reassign
-        element.style.top = positioning.top;
-      }
-      if (positioning.left !== null) {
-        // eslint-disable-next-line no-param-reassign
-        element.style.left = positioning.left;
-      }
-      // eslint-disable-next-line no-param-reassign
-      element.style.transformOrigin = positioning.transformOrigin;
-      // eslint-disable-next-line no-param-reassign
+      const positioning = computePositioningStyles(window, element, {
+        anchor: anchorElementOrPosition,
+        placementAndOrigin: placement,
+        minWidth: keepAnchorWidth
+          ? getAnchorPositionAndDimensions(anchorElementOrPosition).width
+          : minWidth,
+        maxHeight,
+        maxWidth: keepAnchorWidth
+          ? getAnchorPositionAndDimensions(anchorElementOrPosition).width
+          : maxWidth,
+        minHeight,
+      });
+
+      /* eslint-disable no-param-reassign */
+      element.style.width = `${positioning.width}px`;
+      element.style.height = `${positioning.height}px`;
+      element.style.top = `${positioning.top}px`;
+      element.style.left = `${positioning.left}px`;
       element.style.opacity = '1';
-      // eslint-disable-next-line no-param-reassign
       element.style.visibility = 'visible';
+      /* eslint-enable no-param-reassign */
     },
-    [getPositioningStyle, keepAnchorWidth, isFullscreen],
+    [
+      children,
+      keepAnchorWidth,
+      isFullscreen,
+      anchor,
+      maxHeight,
+      maxWidth,
+      minWidth,
+      minHeight,
+      placement,
+    ],
   );
 
   const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 25, []);
@@ -392,7 +255,14 @@ export function Popover({
     return () => {
       window.removeEventListener('resize', handleResizeRef.current);
     };
-  }, [open, contentRef.current, children, setPositioningStyles]);
+  }, [
+    anchor,
+    open,
+    contentRef.current,
+    children,
+    setPositioningStyles,
+    resizeHandler,
+  ]);
 
   useAutofocusOnMount(autoFocus && open ? contentRef : undefined);
 

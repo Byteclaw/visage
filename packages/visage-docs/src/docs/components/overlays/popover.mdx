@@ -35,7 +35,8 @@ function Example() {
         <Flex
           styles={{
             alignItems: 'center',
-            backgroundColor: 'darkShadeOverlay',
+            backgroundColor:
+              'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
             height: 500,
             width: '100%',
           }}

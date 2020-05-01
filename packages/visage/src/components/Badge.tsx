@@ -1,7 +1,7 @@
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, { ReactNode, useMemo } from 'react';
 import { createComponent } from '../core';
-import { TransformOriginSettings } from './shared';
+import { AnchorOrigin } from './shared';
 
 const BadgeContainer = createComponent('span', {
   displayName: 'BadgeContainer',
@@ -13,7 +13,7 @@ const BadgeContainer = createComponent('span', {
   },
 });
 
-const getPositioningStyle = (anchorOrigin: TransformOriginSettings) => ({
+const getPositioningStyle = (anchorOrigin: AnchorOrigin) => ({
   top: anchorOrigin.vertical === 'top' ? 0 : undefined,
   bottom: anchorOrigin.vertical === 'bottom' ? 0 : undefined,
   left: anchorOrigin.horizontal === 'left' ? 0 : undefined,
@@ -50,7 +50,7 @@ const BadgeContent = createComponent('span', {
 });
 
 interface BadgeProps extends ExtractVisageComponentProps<typeof BadgeContent> {
-  anchorOrigin?: TransformOriginSettings;
+  anchorOrigin?: AnchorOrigin;
   children: ReactNode;
   content: ReactNode;
 }
