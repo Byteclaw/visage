@@ -16,8 +16,8 @@ import { AutocompleteInput } from '@byteclaw/visage';
 ### Default
 
 ```jsx live=true
-function Example() {
-  const options = useRef(
+() => {
+  const [options] = useState(() =>
     Array(100)
       .fill(null)
       .map((_, i) => i),
@@ -32,16 +32,16 @@ function Example() {
           if (filter) {
             const regex = new RegExp(filter, 'i');
 
-            return resolve(options.current.filter(o => regex.test(o)));
+            return resolve(options.filter(o => regex.test(o)));
           }
 
-          return resolve(options.current);
+          return resolve(options);
         });
       }}
       placeholder="Enter a value"
     />
   );
-}
+};
 ```
 
 ### Invalid
@@ -103,8 +103,8 @@ function Example() {
 ### Static options
 
 ```jsx live=true
-function Example() {
-  const options = useRef(
+() => {
+  const [options] = useState(() =>
     Array(100)
       .fill(null)
       .map((_, i) => i),
@@ -114,27 +114,34 @@ function Example() {
     <AutocompleteInput
       id="autocomplete-field"
       onChange={value => console.log(value)}
-      options={options.current}
+      options={options}
       placeholder="Enter a value"
     />
   );
-}
+};
 ```
 
 ### Limit menu height
+
+By default there is no limit for `Menu` height so it&apos;ll take as much visible height as possible to fit `Menu` content.
+You can limit this by creating your own menu using `createAutocompleteInputMenu()` helper and passing it to `menu` prop.
 
 ```jsx live=true
 () => {
   const limitedHeightMenu = useRef(
     createAutocompleteInputMenu({
       defaultProps: {
-        popoverProps: {
-          maxHeight: 100,
+        menuProps: {
+          popoverProps: {
+            styles: {
+              maxHeight: 300,
+            },
+          },
         },
       },
     }),
   );
-  const options = useRef(
+  const [options] = useState(() =>
     Array(100)
       .fill(null)
       .map((_, i) => i),
@@ -145,7 +152,7 @@ function Example() {
       id="autocomplete-field"
       onChange={value => console.log(value)}
       menu={limitedHeightMenu.current}
-      options={options.current}
+      options={options}
       placeholder="Enter a value"
     />
   );
