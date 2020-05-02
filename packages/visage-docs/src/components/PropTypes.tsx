@@ -130,55 +130,57 @@ export function PropTypes({ component }: PropTypesProps) {
           label={group.source}
           styles={{ overflowX: 'scroll' }}
         >
-          <DataTable styles={{ border: 'none', fontSize: -1 }}>
-            <DataTableHeader>
-              <DataTableHeaderRow>
-                <DataTableHeaderColumn>Prop</DataTableHeaderColumn>
-                <DataTableHeaderColumn>Required</DataTableHeaderColumn>
-                <DataTableHeaderColumn>Type</DataTableHeaderColumn>
-                <DataTableHeaderColumn>Description</DataTableHeaderColumn>
-              </DataTableHeaderRow>
-            </DataTableHeader>
-            <DataTableBody>
-              {group.props.map(property => (
-                <DataTableRow key={property.name}>
-                  <DataTableColumn>
-                    <Code>{property.name}</Code>
-                  </DataTableColumn>
-                  <DataTableColumn>
-                    {property.isOptional ? 'no' : 'yes'}
-                  </DataTableColumn>
-                  <DataTableColumn>
-                    <Highlight
-                      {...defaultProps}
-                      code={property.type}
-                      language="typescript"
-                      theme={isDark ? duotoneDark : duotoneLight}
-                    >
-                      {({ tokens, getLineProps, getTokenProps }) => (
-                        <PreformattedCode
-                          styles={{
-                            whiteSpace: 'normal',
-                            maxWidth: 200,
-                            m: 0,
-                          }}
-                        >
-                          {tokens.map((line, i) => (
-                            <span {...getLineProps({ line, key: i })}>
-                              {line.map((token, key) => (
-                                <span {...getTokenProps({ token, key })} />
-                              ))}
-                            </span>
-                          ))}
-                        </PreformattedCode>
-                      )}
-                    </Highlight>
-                  </DataTableColumn>
-                  <DataTableColumn>{property.documentation}</DataTableColumn>
-                </DataTableRow>
-              ))}
-            </DataTableBody>
-          </DataTable>
+          {() => (
+            <DataTable styles={{ border: 'none', fontSize: -1 }}>
+              <DataTableHeader>
+                <DataTableHeaderRow>
+                  <DataTableHeaderColumn>Prop</DataTableHeaderColumn>
+                  <DataTableHeaderColumn>Required</DataTableHeaderColumn>
+                  <DataTableHeaderColumn>Type</DataTableHeaderColumn>
+                  <DataTableHeaderColumn>Description</DataTableHeaderColumn>
+                </DataTableHeaderRow>
+              </DataTableHeader>
+              <DataTableBody>
+                {group.props.map(property => (
+                  <DataTableRow key={property.name}>
+                    <DataTableColumn>
+                      <Code>{property.name}</Code>
+                    </DataTableColumn>
+                    <DataTableColumn>
+                      {property.isOptional ? 'no' : 'yes'}
+                    </DataTableColumn>
+                    <DataTableColumn>
+                      <Highlight
+                        {...defaultProps}
+                        code={property.type}
+                        language="typescript"
+                        theme={isDark ? duotoneDark : duotoneLight}
+                      >
+                        {({ tokens, getLineProps, getTokenProps }) => (
+                          <PreformattedCode
+                            styles={{
+                              whiteSpace: 'normal',
+                              maxWidth: 200,
+                              m: 0,
+                            }}
+                          >
+                            {tokens.map((line, i) => (
+                              <span {...getLineProps({ line, key: i })}>
+                                {line.map((token, key) => (
+                                  <span {...getTokenProps({ token, key })} />
+                                ))}
+                              </span>
+                            ))}
+                          </PreformattedCode>
+                        )}
+                      </Highlight>
+                    </DataTableColumn>
+                    <DataTableColumn>{property.documentation}</DataTableColumn>
+                  </DataTableRow>
+                ))}
+              </DataTableBody>
+            </DataTable>
+          )}
         </Tab>
       ))}
     </Tabs>
