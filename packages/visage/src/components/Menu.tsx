@@ -241,9 +241,12 @@ export function Menu({
       onKeyDown={onPopoverKeyDown}
       open={open}
       placement={placement}
-      styles={popoverStyles}
-      minHeight={200}
+      minHeight={150}
       {...popoverProps}
+      styles={{
+        ...popoverStyles,
+        ...popoverProps?.styles,
+      }}
     >
       <MenuBase ref={menuRef} role={role} {...restProps} tabIndex={-1}>
         {Children.map(children, menuItem => {
