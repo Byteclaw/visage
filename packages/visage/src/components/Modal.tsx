@@ -163,8 +163,8 @@ export function Modal({
     contentRef || modalRef,
     backdrop,
     onClose,
-    disableOnClickAwayClose,
     disableOnEscapeClose,
+    disableOnClickAwayClose,
   );
   useStaticEffect(disableBodyScroll, modalRef, !unlockBodyScroll && open);
 

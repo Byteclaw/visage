@@ -126,12 +126,12 @@ function bindEventListeners(
     return;
   }
 
-  document.addEventListener('keyup', escapeKeyUpListener, true);
+  document.addEventListener('keydown', escapeKeyUpListener, true);
   document.addEventListener('click', clickAwayListener, true);
 
   return () => {
     document.removeEventListener('click', clickAwayListener, true);
-    document.removeEventListener('keyup', escapeKeyUpListener, true);
+    document.removeEventListener('keydown', escapeKeyUpListener, true);
   };
 }
 
