@@ -2,6 +2,7 @@ import {
   getOffsetLeft,
   getOffsetTop,
   computePositionAndDimensions,
+  computePositioningStyles,
   Placement,
   PlacementViewport,
   ElementRect,
@@ -89,6 +90,25 @@ describe('positioning', () => {
         width: 100,
         minHeight: 100,
         minWidth: 100,
+      });
+
+      // any element that has width or height 0 is not matched
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          { left: 0, top: 0 },
+          { height: 16, scrollHeight: 16, width: 0, scrollWidth: 1 },
+          Placement.topLeft,
+          { minHeight: 150 },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        height: 16,
+        width: 0,
+        minHeight: 150,
+        minWidth: 0,
       });
 
       // top right edge anchor
@@ -2626,6 +2646,133 @@ describe('positioning', () => {
         height: 40,
         minHeight: 40,
         minWidth: 40,
+      });
+    });
+  });
+
+  describe('computePositioningStyles', () => {
+    it('returns first matched placement', () => {
+      const window = {
+        innerHeight: 100,
+        innerWidth: 100,
+        scrollX: 0,
+        scrollY: 0,
+        document: {
+          documentElement: {
+            scrollHeight: 100,
+            scrollWidth: 100,
+          },
+        },
+      };
+      const element = {
+        offsetHeight: 100,
+        scrollHeight: 100,
+        scrollWidth: 100,
+        offsetWidth: 100,
+      };
+
+      expect(
+        computePositioningStyles(window as any, element as any, {
+          anchor: { top: 20, left: 20 },
+          placementAndOrigin: [
+            [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
+            [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+          ],
+        }),
+      ).toEqual({
+        top: 20,
+        left: 20,
+        width: 80,
+        height: 80,
+        minHeight: 80,
+        minWidth: 80,
+      });
+
+      // at bottom is not place
+      expect(
+        computePositioningStyles(window as any, element as any, {
+          anchor: { top: 100, left: 20 },
+          placementAndOrigin: [
+            [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
+            [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+          ],
+        }),
+      ).toEqual({
+        top: 0,
+        left: 20,
+        width: 80,
+        height: 100,
+        minHeight: 100,
+        minWidth: 80,
+      });
+    });
+
+    it('returns best possible placement if not matched', () => {
+      const window = {
+        innerHeight: 100,
+        innerWidth: 100,
+        scrollX: 0,
+        scrollY: 0,
+        document: {
+          documentElement: {
+            scrollHeight: 100,
+            scrollWidth: 100,
+          },
+        },
+      };
+      const element = {
+        offsetHeight: 100,
+        scrollHeight: 100,
+        scrollWidth: 100,
+        offsetWidth: 100,
+      };
+
+      expect(
+        computePositioningStyles(window as any, element as any, {
+          anchor: { top: 20, left: 20 },
+          placementAndOrigin: [
+            [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
+            [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+          ],
+          minHeight: 30,
+          marginThreshold: 10,
+        }),
+      ).toEqual({
+        top: 20,
+        left: 20,
+        width: 70,
+        height: 70,
+        minHeight: 70,
+        minWidth: 70,
+      });
+
+      // this element has no width, so it should be rendered on first best unmatched position
+      expect(
+        computePositioningStyles(
+          window as any,
+          {
+            offsetHeight: 100,
+            scrollHeight: 100,
+            scrollWidth: 1,
+            offsetWidth: 0,
+          } as any,
+          {
+            anchor: { top: 20, left: 20 },
+            placementAndOrigin: [
+              [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
+              [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+            ],
+            minHeight: 30,
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        top: 20,
+        left: 20,
+        width: 0,
+        height: 70,
+        minHeight: 70,
+        minWidth: 0,
       });
     });
   });

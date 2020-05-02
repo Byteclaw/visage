@@ -40,14 +40,14 @@ export interface AnchorPositionAndDimensions extends AnchorPosition {
   width: number;
 }
 
-export function getWindowScrollY() {
+export function getWindowScrollY(w: Window) {
   // IE 11 - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
-  return window.scrollY != null ? window.scrollY : window.pageYOffset;
+  return w.scrollY != null ? w.scrollY : w.pageYOffset;
 }
 
-export function getWindowScrollX() {
+export function getWindowScrollX(w: Window) {
   // IE 11 - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
-  return window.scrollX != null ? window.scrollX : window.pageXOffset;
+  return w.scrollX != null ? w.scrollX : w.pageXOffset;
 }
 
 export function getOffsetTop(
@@ -579,8 +579,8 @@ export function computePositioningStyles(
   const view: PlacementViewport = {
     height: viewport.innerHeight,
     width: viewport.innerWidth,
-    scrollX: getWindowScrollX(),
-    scrollY: getWindowScrollY(),
+    scrollX: getWindowScrollX(viewport),
+    scrollY: getWindowScrollY(viewport),
     maxHeight: viewport.document.documentElement.scrollHeight,
     maxWidth: viewport.document.documentElement.scrollWidth,
   };
@@ -599,7 +599,7 @@ export function computePositioningStyles(
       anchorPositionAndDimensions,
       anchorOrigin,
     );
-    intermediateValue = computePositionAndDimensions(
+    const newValue = computePositionAndDimensions(
       view,
       anchorPosition,
       rect,
@@ -608,8 +608,19 @@ export function computePositioningStyles(
     );
 
     // detect if region matches contstraints and return immediately if it so
-    if (intermediateValue.matches) {
+    if (newValue.matches) {
+      intermediateValue = newValue;
       break;
+    }
+
+    // othwerwise use this value only if is better than previous
+    if (intermediateValue == null) {
+      intermediateValue = newValue;
+    } else if (
+      intermediateValue.height < newValue.height ||
+      intermediateValue.width < newValue.width
+    ) {
+      intermediateValue = newValue;
     }
   }
 
