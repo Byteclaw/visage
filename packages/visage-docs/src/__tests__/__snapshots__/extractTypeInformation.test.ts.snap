@@ -115433,3 +115433,33 @@ A hint could be a sample value or a brief description of the expected format.",
   ],
 }
 `;
+
+exports[`extracting type information extracts information from Tooltip component 1`] = `
+Object {
+  "properties": Array [
+    Object {
+      "documentation": "An element that will receive onBlur, onFocus, onMouseEnter, onMouseLeave handlers.
+
+Must be only one element.",
+      "isOptional": false,
+      "name": "children",
+      "parent": "TooltipProps",
+      "type": "ReactElement<TooltipProvidedProps, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<...>)>",
+    },
+    Object {
+      "documentation": "Tooltip's content",
+      "isOptional": false,
+      "name": "content",
+      "parent": "TooltipProps",
+      "type": "ReactNode",
+    },
+    Object {
+      "documentation": "Delay after which tooltip will show up. Default is 500ms",
+      "isOptional": false,
+      "name": "delay",
+      "parent": "TooltipProps",
+      "type": "number",
+    },
+  ],
+}
+`;
