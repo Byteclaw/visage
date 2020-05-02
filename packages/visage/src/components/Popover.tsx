@@ -36,8 +36,7 @@ export const BasePopover = createComponent('div', {
   displayName: 'Popover',
   styles: {
     position: 'absolute',
-    overflowY: 'auto',
-    overflowX: 'hidden',
+    overflow: 'auto',
     outline: 'none',
     opacity: 0,
   },
@@ -197,6 +196,13 @@ export function Popover({
       const anchorPositionAndDimensions = getAnchorPositionAndDimensions(
         anchorElementOrPosition,
       );
+
+      // reset element's width and height so we get correct values in algorithm
+      /* eslint-disable no-param-reassign */
+      element.style.height = 'auto';
+      element.style.width = 'auto';
+      /* eslint-enable no-param-reassign */
+
       const positioning = computePositioningStyles(window, element, {
         anchor: anchorElementOrPosition,
         placementAndOrigin: placement,
@@ -228,7 +234,7 @@ export function Popover({
     ],
   );
 
-  const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 25, []);
+  const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 10, []);
 
   useEffect(() => {
     if (open && contentRef.current) {
