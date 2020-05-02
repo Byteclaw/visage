@@ -154,16 +154,6 @@ export function createNPointModularScaleTheme(
         resolver: 'modularLineHeight',
         outputProps: ['width'],
       },
-      plOffset: {
-        format: 'px',
-        resolver: 'modularLineHeight',
-        outputProps: ['paddingLeft'],
-      },
-      prOffset: {
-        format: 'px',
-        resolver: 'modularLineHeight',
-        outputProps: ['paddingRight'],
-      },
       ...stylers,
     },
     theme: settings,
