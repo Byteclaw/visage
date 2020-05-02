@@ -16,12 +16,12 @@ import { Menu, MenuItem } from '@byteclaw/visage';
 ### Default
 
 ```jsx live
-function Example() {
+() => {
   const anchorRef = useRef();
   const [open, setOpen] = useState(false);
 
   return (
-    <Fragment>
+    <>
       <Button
         aria-controls="buttons-menu"
         aria-haspopup="menu"
@@ -69,9 +69,9 @@ function Example() {
         <MenuItem>Button Two</MenuItem>
         <MenuItem>Button Three</MenuItem>
       </Menu>
-    </Fragment>
+    </>
   );
-}
+};
 ```
 
 ### Disabled events
@@ -79,12 +79,12 @@ function Example() {
 `disableAutoFocusItem` props turns of auto-focusing the first item in the menu list.
 
 ```jsx live
-function Example() {
+() => {
   const anchorRef = useRef();
   const [open, setOpen] = useState(false);
 
   return (
-    <Fragment>
+    <>
       <Button
         aria-controls="buttons-menu"
         aria-haspopup="menu"
@@ -109,9 +109,53 @@ function Example() {
         <MenuItem>Button Two</MenuItem>
         <MenuItem>Button Three</MenuItem>
       </Menu>
-    </Fragment>
+    </>
   );
-}
+};
+```
+
+### Limit menu height
+
+Bu default `Menu` height is not limited and it&apos;ll try to take as much space to fit the content. You can limit that by providing styles to `Popover` using `popoverProps.styles`.
+
+```jsx live
+() => {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button
+        aria-controls="buttons-menu"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+        ref={anchorRef}
+      >
+        {open ? 'Close' : 'Pop up'}
+      </Button>
+      <Menu
+        anchor={anchorRef}
+        id="buttons-menu"
+        onClose={() => setOpen(false)}
+        open={open}
+        popoverProps={{
+          styles: {
+            maxHeight: 150,
+          },
+        }}
+      >
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+        <Divider />
+        <MenuItem>Button One</MenuItem>
+        <MenuItem>Button Two</MenuItem>
+        <MenuItem>Button Three</MenuItem>
+      </Menu>
+    </>
+  );
+};
 ```
 
 ## Keyboard shortcuts
@@ -155,3 +199,4 @@ function Example() {
 ### Prop Types
 
 <PropTypes component="MenuItem" />
+```

@@ -16,45 +16,41 @@ import { Select } from '@byteclaw/visage';
 ### Nonsearchable Select
 
 ```jsx live=true
-<form action="">
-  <label htmlFor="nonsearchable">Select nonsearchable value</label>
-  <WithState
-    defaultValue={Array(200)
+() => {
+  const [options] = useState(() =>
+    Array(200)
       .fill(null)
-      .map((_, i) => i)}
-  >
-    {options => (
-      <Select
-        id="nonsearchable"
-        onChange={value => console.log(value)}
-        options={() => Promise.resolve(options)}
-        placeholder="Select a value"
-      />
-    )}
-  </WithState>
-</form>
+      .map((_, i) => i),
+  );
+
+  return (
+    <Select
+      id="nonsearchable"
+      onChange={value => console.log(value)}
+      options={() => Promise.resolve(options)}
+      placeholder="Select a value"
+    />
+  );
+};
 ```
 
 ### Searchable Select
 
 ```jsx live=true
-<form action="">
-  <label htmlFor="searchable">Searchable select value</label>
-  <Select
-    id="searchable"
-    onChange={value => console.log(value)}
-    options={val =>
-      Promise.resolve(
-        Array(20)
-          .fill(null)
-          .map((v, i) => 'a'.repeat(i + 1))
-          .filter(v => v.startsWith(val)),
-      )
-    }
-    placeholder="Select a value"
-    searchable
-  />
-</form>
+<Select
+  id="searchable"
+  onChange={value => console.log(value)}
+  options={val =>
+    Promise.resolve(
+      Array(20)
+        .fill(null)
+        .map((v, i) => 'a'.repeat(i + 1))
+        .filter(v => v.startsWith(val)),
+    )
+  }
+  placeholder="Select a value"
+  searchable
+/>
 ```
 
 ### Disabled Select
@@ -89,20 +85,60 @@ import { Select } from '@byteclaw/visage';
 ### Static options
 
 ```jsx live=true
-<WithState
-  defaultValue={Array(100)
-    .fill(null)
-    .map((_, i) => i)}
->
-  {options => (
+() => {
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
     <Select
       id="nonsearchable"
       onChange={value => console.log(value)}
       options={options}
       placeholder="Select a value"
     />
-  )}
-</WithState>
+  );
+};
+```
+
+### Limit menu height
+
+By default there is no limit for `Menu` height so it&apos;ll take as much visible height as possible to fit `Menu` content.
+You can limit this by creating your own menu using `createSelectMenu()` helper and passing it to `menu` prop.
+
+```jsx live=true
+() => {
+  const limitedHeightMenu = useRef(
+    createSelectMenu({
+      defaultProps: {
+        menuProps: {
+          popoverProps: {
+            styles: {
+              maxHeight: 300,
+            },
+          },
+        },
+      },
+    }),
+  );
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <Select
+      id="nonsearchable"
+      menu={limitedHeightMenu.current}
+      onChange={value => console.log(value)}
+      options={options}
+      placeholder="Select a value"
+    />
+  );
+};
 ```
 
 ## Keyboard shortcuts
