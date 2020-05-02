@@ -180,8 +180,8 @@ export function Popover({
         /* eslint-disable no-param-reassign */
         element.style.width = `100vw`;
         element.style.height = `100vh`;
-        element.style.top = `${getWindowScrollY()}px`;
-        element.style.left = `${getWindowScrollX()}px`;
+        element.style.top = `${getWindowScrollY(window)}px`;
+        element.style.left = `${getWindowScrollX(window)}px`;
         element.style.opacity = '1';
         element.style.visibility = 'visible';
         /* eslint-enable no-param-reassign */
