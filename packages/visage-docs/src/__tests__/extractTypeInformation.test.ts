@@ -83,6 +83,7 @@ const components = [
   'Toast',
   'ToastManager',
   'Toggle',
+  'Tooltip',
 ].sort();
 
 jest.setTimeout(10 * 60 * 1000);
