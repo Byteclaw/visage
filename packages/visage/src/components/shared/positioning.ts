@@ -199,10 +199,12 @@ export function computePositionAndDimensions(
    */
   element: ElementRect,
   placement: Placement,
-  { minHeight, minWidth }: PlacementConstraints = {},
+  { marginThreshold = 0, minHeight, minWidth }: PlacementConstraints = {},
 ): PlacementRegion {
   const top = anchor.top + viewport.scrollY;
   const left = anchor.left + viewport.scrollX;
+  const topMarginThreshold = viewport.scrollY + marginThreshold;
+  const leftMarginThreshold = viewport.scrollX + marginThreshold;
   const elementWidth = element.width;
   const elementHeight = element.height;
 
@@ -210,14 +212,25 @@ export function computePositionAndDimensions(
   switch (placement) {
     case Placement.topLeft: {
       // we want an anchor to be in top left corner of an element
-      const height = Math.min(viewport.height - anchor.top, elementHeight);
-      const width = Math.min(viewport.width - anchor.left, elementWidth);
+      const height = Math.max(
+        Math.min(viewport.height - marginThreshold - anchor.top, elementHeight),
+        0,
+      );
+      const width = Math.max(
+        Math.min(viewport.width - marginThreshold - anchor.left, elementWidth),
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          width > 0 && height > 0 && mHeight <= height && mWidth <= width,
+          width > 0 &&
+          height > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          top >= topMarginThreshold &&
+          left >= leftMarginThreshold,
         height,
         width,
         left,
@@ -228,37 +241,64 @@ export function computePositionAndDimensions(
     }
     case Placement.topRight: {
       // we want an anchor to be in top right corner of an element
-      const height = Math.min(viewport.height - anchor.top, elementHeight);
-      const width = Math.min(anchor.left, elementWidth);
+      const height = Math.max(
+        Math.min(viewport.height - marginThreshold - anchor.top, elementHeight),
+        0,
+      );
+      const width = Math.max(
+        Math.min(anchor.left - marginThreshold, elementWidth),
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const x = left - width;
 
       return {
         matches:
-          width > 0 && height > 0 && mHeight <= height && mWidth <= width,
+          width > 0 &&
+          height > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          top >= topMarginThreshold &&
+          x >= leftMarginThreshold,
         height,
         width,
         top,
-        left: left - width,
+        left: x,
         minHeight: Math.max(minHeight ?? height, height),
         minWidth: Math.max(minWidth ?? width, width),
       };
     }
     case Placement.topCenter: {
       // we want an anchor to be in the center of the top edge of an element
-      const height = Math.min(viewport.height - anchor.top, elementHeight);
+      const height = Math.max(
+        Math.min(viewport.height - marginThreshold - anchor.top, elementHeight),
+        0,
+      );
       const halfEdge = elementWidth / 2;
-      const width =
-        Math.min(anchor.left, viewport.width - anchor.left, halfEdge) * 2;
+      const width = Math.max(
+        Math.min(
+          anchor.left - marginThreshold,
+          viewport.width - marginThreshold - anchor.left,
+          halfEdge,
+        ) * 2,
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const x = left - width / 2;
 
       return {
         matches:
-          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
+          height > 0 &&
+          width > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          top >= topMarginThreshold &&
+          x >= leftMarginThreshold,
         height,
         width,
-        left: left - width / 2,
+        left: x,
         top,
         minHeight: Math.max(minHeight ?? height, height),
         minWidth: Math.max(minWidth ?? width, width),
@@ -266,16 +306,28 @@ export function computePositionAndDimensions(
     }
     case Placement.bottomLeft: {
       // we want an anchor to be in the bottom left corner of an element
-      const height = Math.min(anchor.top, elementHeight);
-      const width = Math.min(viewport.width - anchor.left, elementWidth);
+      const height = Math.max(
+        Math.min(anchor.top - marginThreshold, elementHeight),
+        0,
+      );
+      const width = Math.max(
+        Math.min(viewport.width - marginThreshold - anchor.left, elementWidth),
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const y = top - height;
 
       return {
         matches:
-          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
+          height > 0 &&
+          width > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          y >= topMarginThreshold &&
+          left >= leftMarginThreshold,
         left,
-        top: top - height,
+        top: y,
         height,
         width,
         minHeight: Math.max(minHeight ?? height, height),
@@ -284,16 +336,29 @@ export function computePositionAndDimensions(
     }
     case Placement.bottomRight: {
       // we want an anchor to be in the bottom right corner of an element
-      const width = Math.min(anchor.left, elementWidth);
-      const height = Math.min(anchor.top, elementHeight);
+      const width = Math.max(
+        Math.min(anchor.left - marginThreshold, elementWidth),
+        0,
+      );
+      const height = Math.max(
+        Math.min(anchor.top - marginThreshold, elementHeight),
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const x = left - width;
+      const y = top - height;
 
       return {
         matches:
-          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
-        top: top - height,
-        left: left - width,
+          height > 0 &&
+          width > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          x >= leftMarginThreshold &&
+          y >= topMarginThreshold,
+        top: y,
+        left: x,
         height,
         width,
         minWidth: Math.max(minWidth ?? width, width),
@@ -303,17 +368,33 @@ export function computePositionAndDimensions(
     case Placement.bottomCenter: {
       // we want an anchor to be in the center of the bottom edge of an element
       const halfEdge = elementWidth / 2;
-      const width =
-        Math.min(anchor.left, viewport.width - anchor.left, halfEdge) * 2;
-      const height = Math.min(anchor.top, elementHeight);
+      const width = Math.max(
+        Math.min(
+          anchor.left - marginThreshold,
+          viewport.width - marginThreshold - anchor.left,
+          halfEdge,
+        ) * 2,
+        0,
+      );
+      const height = Math.max(
+        Math.min(anchor.top - marginThreshold, elementHeight),
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const x = left - width / 2;
+      const y = top - height;
 
       return {
         matches:
-          height > 0 && width > 0 && mWidth <= width && mHeight <= height,
-        left: left - width / 2,
-        top: top - height,
+          height > 0 &&
+          width > 0 &&
+          mWidth <= width &&
+          mHeight <= height &&
+          x >= leftMarginThreshold &&
+          y >= topMarginThreshold,
+        left: x,
+        top: y,
         height,
         width,
         minHeight: Math.max(minHeight ?? height, height),
@@ -324,18 +405,37 @@ export function computePositionAndDimensions(
       // we want an anchor to be in the vertical and horizontal center of an element
       const halfHeight = elementHeight / 2;
       const halfWidth = elementWidth / 2;
-      const height =
-        Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
-      const width =
-        Math.min(anchor.left, viewport.width - anchor.left, halfWidth) * 2;
+      const height = Math.max(
+        Math.min(
+          anchor.top - marginThreshold,
+          viewport.height - marginThreshold - anchor.top,
+          halfHeight,
+        ) * 2,
+        0,
+      );
+      const width = Math.max(
+        Math.min(
+          anchor.left - marginThreshold,
+          viewport.width - marginThreshold - anchor.left,
+          halfWidth,
+        ) * 2,
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const x = left - width / 2;
+      const y = top - height / 2;
 
       return {
         matches:
-          height > 0 && width > 0 && mWidth <= width && mHeight <= height,
-        left: left - width / 2,
-        top: top - height / 2,
+          height > 0 &&
+          width > 0 &&
+          mWidth <= width &&
+          mHeight <= height &&
+          x >= leftMarginThreshold &&
+          y >= topMarginThreshold,
+        left: x,
+        top: y,
         height,
         width,
         minHeight: Math.max(minHeight ?? height, height),
@@ -345,16 +445,31 @@ export function computePositionAndDimensions(
     case Placement.centerLeft: {
       // we want an anchor to be in the vertical center of the left edge of an element
       const halfHeight = elementHeight / 2;
-      const width = Math.min(viewport.width - anchor.left, elementWidth);
-      const height =
-        Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
+      const width = Math.max(
+        Math.min(viewport.width - marginThreshold - anchor.left, elementWidth),
+        0,
+      );
+      const height = Math.max(
+        Math.min(
+          anchor.top - marginThreshold,
+          viewport.height - marginThreshold - anchor.top,
+          halfHeight,
+        ) * 2,
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const y = top - height / 2;
 
       return {
         matches:
-          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
-        top: top - height / 2,
+          height > 0 &&
+          width > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          y >= topMarginThreshold &&
+          left >= leftMarginThreshold,
+        top: y,
         left,
         height,
         width,
@@ -365,17 +480,33 @@ export function computePositionAndDimensions(
     case Placement.centerRight: {
       // we want an anchor to be in the vertical center of the right edge of an element
       const halfHeight = elementHeight / 2;
-      const width = Math.min(anchor.left, elementWidth);
-      const height =
-        Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
+      const width = Math.max(
+        Math.min(anchor.left - marginThreshold, elementWidth),
+        0,
+      );
+      const height = Math.max(
+        Math.min(
+          anchor.top - marginThreshold,
+          viewport.height - marginThreshold - anchor.top,
+          halfHeight,
+        ) * 2,
+        0,
+      );
       const mHeight = Math.min(minHeight ?? 0, elementHeight);
       const mWidth = Math.min(minWidth ?? 0, elementWidth);
+      const y = top - height / 2;
+      const x = left - width;
 
       return {
         matches:
-          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
-        top: top - height / 2,
-        left: left - width,
+          height > 0 &&
+          width > 0 &&
+          mHeight <= height &&
+          mWidth <= width &&
+          y >= topMarginThreshold &&
+          x >= leftMarginThreshold,
+        top: y,
+        left: x,
         height,
         width,
         minWidth: Math.max(minWidth ?? width, width),
@@ -389,6 +520,10 @@ export function computePositionAndDimensions(
 }
 
 interface PlacementConstraints {
+  /**
+   * How much empty space from edges should be left?
+   */
+  marginThreshold?: number;
   /**
    * Minimal height required by an element to consider a placement as matched.
    *
