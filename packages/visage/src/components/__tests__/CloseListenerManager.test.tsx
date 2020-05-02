@@ -101,8 +101,8 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      // fire escape keyUp
-      fireEvent.keyUp(document, { key: 'Escape' });
+      // fire escape keyDown
+      fireEvent.keyDown(document, { key: 'Escape' });
 
       expect(() => getByTestId('3-3')).toThrow();
       expect(getByTestId('2-2')).toBeDefined();
@@ -111,7 +111,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyDown(document, { key: 'Escape' });
 
       expect(() => getByTestId('2-2')).toThrow();
       expect(getByTestId('1-1')).toBeDefined();
@@ -119,29 +119,29 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyDown(document, { key: 'Escape' });
 
       expect(() => getByTestId('1-1')).toThrow();
       expect(getByTestId('3')).toBeDefined();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyDown(document, { key: 'Escape' });
 
       expect(() => getByTestId('3')).toThrow();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyDown(document, { key: 'Escape' });
 
       expect(() => getByTestId('2')).toThrow();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyDown(document, { key: 'Escape' });
 
       expect(() => getByTestId('1')).toThrow();
 
-      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyDown(document, { key: 'Escape' });
     });
   });
 
