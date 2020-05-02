@@ -57,5 +57,25 @@ describe('NPoint font scale theme', () => {
         ).toEqual(4);
       });
     });
+
+    describe('lineHeight', () => {
+      it('keeps non parseable line height as is', () => {
+        expect(theme.style('lineHeight', '10px', ctx).styles.lineHeight).toBe(
+          '10px',
+        );
+      });
+
+      it('uses numeric string as scale step', () => {
+        expect(theme.style('lineHeight', '10', ctx).styles.lineHeight).toBe(
+          '22px',
+        );
+      });
+
+      it('uses number as scale step', () => {
+        expect(theme.style('lineHeight', 10, ctx).styles.lineHeight).toBe(
+          '22px',
+        );
+      });
+    });
   });
 });

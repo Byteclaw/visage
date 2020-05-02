@@ -57,15 +57,7 @@ export function createNPointFontScaleTheme(
         return value;
       },
       scaleLineHeight(propName, value, ctx) {
-        if (value == null) {
-          return value;
-        }
-
-        let numericValue = Number(value);
-
-        if (Number.isNaN(numericValue)) {
-          numericValue = parseFloat(value.toString());
-        }
+        const numericValue = Number(value);
 
         if (!Number.isNaN(numericValue)) {
           const val = getScaleValue(settings.lineHeights, numericValue);
