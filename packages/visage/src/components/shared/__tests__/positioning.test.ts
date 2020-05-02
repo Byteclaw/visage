@@ -3,6 +3,8 @@ import {
   getOffsetTop,
   computePositionAndDimensions,
   Placement,
+  PlacementViewport,
+  ElementRect,
 } from '../positioning';
 
 describe('positioning', () => {
@@ -55,61 +57,112 @@ describe('positioning', () => {
   });
 
   describe('computePositionAndDimensions()', () => {
+    const viewport: PlacementViewport = {
+      height: 100,
+      maxHeight: 120,
+      maxWidth: 120,
+      width: 100,
+      scrollY: 10,
+      scrollX: 10,
+    };
+    const element: ElementRect = {
+      height: 100,
+      scrollHeight: 100,
+      scrollWidth: 100,
+      width: 100,
+    };
+
     it('computes available space and dimensions (top-left)', () => {
+      // top left edge anchor
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
-          {
-            left: 20,
-            top: 20,
-          },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          viewport,
+          { left: 0, top: 0 },
+          element,
           Placement.topLeft,
         ),
       ).toEqual({
         matches: true,
-        top: 30,
-        left: 30,
-        width: 80,
-        height: 80,
-        minHeight: 80,
-        minWidth: 80,
+        top: 10,
+        left: 10,
+        height: 100,
+        width: 100,
+        minHeight: 100,
+        minWidth: 100,
       });
-    });
 
-    it('computes available space and dimensions, takes scroll into consideration if different (top-left)', () => {
+      // top right edge anchor
       expect(
         computePositionAndDimensions(
+          viewport,
           {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
+            left: 100,
+            top: 0,
           },
+          element,
+          Placement.topLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 100,
+        minHeight: 100,
+        minWidth: 0,
+      });
+
+      // bottom right edge anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.topLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom left edge anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.topLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 100,
+        height: 0,
+        minHeight: 0,
+        minWidth: 100,
+      });
+
+      // anchor somewhere in the viewport
+      expect(
+        computePositionAndDimensions(
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 120,
-            scrollWidth: 120,
-          },
+          element,
           Placement.topLeft,
         ),
       ).toEqual({
@@ -126,24 +179,12 @@ describe('positioning', () => {
     it('computes available space and dimensions (top-left) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.topLeft,
           {
             minWidth: 110,
@@ -158,29 +199,63 @@ describe('positioning', () => {
         minWidth: 110,
         minHeight: 80,
       });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topLeft,
+          {
+            minWidth: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 30,
+        width: 80,
+        height: 80,
+        minWidth: 100,
+        minHeight: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topLeft,
+          {
+            minWidth: 80,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 30,
+        width: 80,
+        height: 80,
+        minWidth: 80,
+        minHeight: 80,
+      });
     });
 
     it('computes available space and dimensions (top-left) - minHeight', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.topLeft,
           {
             minHeight: 110,
@@ -195,29 +270,148 @@ describe('positioning', () => {
         minHeight: 110,
         minWidth: 80,
       });
-    });
 
-    it('computes available space and dimensions (top-right)', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.topLeft,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minHeight: 100,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 30,
+        width: 80,
+        height: 80,
+        minHeight: 100,
+        minWidth: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topLeft,
+          {
+            minHeight: 80,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 30,
+        width: 80,
+        height: 80,
+        minHeight: 80,
+        minWidth: 80,
+      });
+    });
+
+    it('computes available space and dimensions (top-right)', () => {
+      // top left corner
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.topRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 100,
+        minWidth: 0,
+        minHeight: 100,
+      });
+
+      // top right corner
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.topRight,
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 100,
+        minWidth: 100,
+        minHeight: 100,
+      });
+
+      // bottom left
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.topRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 0,
+        height: 0,
+        minWidth: 0,
+        minHeight: 0,
+      });
+
+      // bottom right
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.topRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 100,
+        height: 0,
+        minWidth: 100,
+        minHeight: 0,
+      });
+
+      // somewhere in the viewport
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.topRight,
         ),
       ).toEqual({
@@ -234,31 +428,19 @@ describe('positioning', () => {
     it('computes available space and dimensions (top-right) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.topRight,
           {
             minWidth: 110,
           },
         ),
       ).toEqual({
-        matches: true,
+        matches: false,
         top: 30,
         left: 10,
         width: 20,
@@ -266,32 +448,41 @@ describe('positioning', () => {
         minWidth: 110,
         minHeight: 80,
       });
-    });
 
-    it('computes available space and dimensions (top-right) - minHeight', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.topRight,
           {
-            minHeight: 110,
+            minWidth: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 10,
+        width: 20,
+        height: 80,
+        minWidth: 100,
+        minHeight: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topRight,
+          {
+            minWidth: 20,
           },
         ),
       ).toEqual({
@@ -300,32 +491,92 @@ describe('positioning', () => {
         left: 10,
         width: 20,
         height: 80,
+        minWidth: 20,
+        minHeight: 80,
+      });
+    });
+
+    it('computes available space and dimensions (top-right) - minHeight', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topRight,
+          {
+            minHeight: 110,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 10,
+        width: 20,
+        height: 80,
         minHeight: 110,
+        minWidth: 20,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topRight,
+          {
+            minHeight: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 10,
+        width: 20,
+        height: 80,
+        minHeight: 100,
+        minWidth: 20,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topRight,
+          {
+            minHeight: 80,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 10,
+        width: 20,
+        height: 80,
+        minHeight: 80,
         minWidth: 20,
       });
     });
 
     it('computes available space and dimensions (top-center)', () => {
+      // somewhere in the viewport
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.topCenter,
         ),
       ).toEqual({
@@ -337,29 +588,102 @@ describe('positioning', () => {
         minHeight: 80,
         minWidth: 40,
       });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.topCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 100,
+        minHeight: 100,
+        minWidth: 0,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.topCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 100,
+        minHeight: 100,
+        minWidth: 0,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.topCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.topCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
     });
 
     it('computes available space and dimensions (top-center) - minHeight', () => {
+      // min height is taken into consideration if shorter or equal to elements height
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.topCenter,
           {
             minHeight: 100,
@@ -374,29 +698,64 @@ describe('positioning', () => {
         minHeight: 100,
         minWidth: 40,
       });
-    });
 
-    it('computes available space and dimensions (top-center) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.topCenter,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minHeight: 110,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 10,
+        width: 40,
+        height: 80,
+        minHeight: 110,
+        minWidth: 40,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topCenter,
+          {
+            minHeight: 80,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 10,
+        width: 40,
+        height: 80,
+        minHeight: 80,
+        minWidth: 40,
+      });
+    });
+
+    it('computes available space and dimensions (top-center) - minWidth', () => {
+      // min width is taken into consideration if shorter or equal to elements width
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.topCenter,
           {
             minWidth: 100,
@@ -411,30 +770,220 @@ describe('positioning', () => {
         minWidth: 100,
         minHeight: 80,
       });
-    });
 
-    it('computes available space and dimensions (bottom-left)', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.topCenter,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minWidth: 110,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 10,
+        width: 40,
+        height: 80,
+        minWidth: 110,
+        minHeight: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topCenter,
+          {
+            minWidth: 40,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 10,
+        width: 40,
+        height: 80,
+        minWidth: 40,
+        minHeight: 80,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-left)', () => {
+      // somewhere in the viewport
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.bottomLeft,
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 20,
+        minHeight: 20,
+        minWidth: 80,
+      });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.bottomLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 0,
+        minHeight: 0,
+        minWidth: 100,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.bottomLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.bottomLeft,
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 100,
+        minHeight: 100,
+        minWidth: 100,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.bottomLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 100,
+        minHeight: 100,
+        minWidth: 0,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-left) - minHeight', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomLeft,
+          {
+            minHeight: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 20,
+        minHeight: 100,
+        minWidth: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomLeft,
+          {
+            minHeight: 110,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 20,
+        minHeight: 110,
+        minWidth: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomLeft,
+          {
+            minHeight: 20,
+          },
         ),
       ).toEqual({
         matches: true,
@@ -447,64 +996,15 @@ describe('positioning', () => {
       });
     });
 
-    it('computes available space and dimensions (bottom-left) - minHeight', () => {
-      expect(
-        computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
-          {
-            left: 20,
-            top: 20,
-          },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
-          Placement.bottomLeft,
-          {
-            minHeight: 30,
-          },
-        ),
-      ).toEqual({
-        matches: false,
-        top: 10,
-        left: 30,
-        width: 80,
-        height: 20,
-        minHeight: 30,
-        minWidth: 80,
-      });
-    });
-
     it('computes available space and dimensions (bottom-left) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.bottomLeft,
           {
             minWidth: 100,
@@ -519,29 +1019,64 @@ describe('positioning', () => {
         minWidth: 100,
         minHeight: 20,
       });
-    });
 
-    it('computes available space and dimensions (bottom-right)', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.bottomLeft,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minWidth: 110,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 20,
+        minWidth: 110,
+        minHeight: 20,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomLeft,
+          {
+            minWidth: 80,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 20,
+        minWidth: 80,
+        minHeight: 20,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-right)', () => {
+      // somewhere in the viewport
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.bottomRight,
         ),
       ).toEqual({
@@ -553,32 +1088,104 @@ describe('positioning', () => {
         minWidth: 20,
         minHeight: 20,
       });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.bottomRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 0,
+        minWidth: 0,
+        minHeight: 0,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.bottomRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 0,
+        minWidth: 100,
+        minHeight: 0,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.bottomRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 100,
+        minWidth: 0,
+        minHeight: 100,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.bottomRight,
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 100,
+        minWidth: 100,
+        minHeight: 100,
+      });
     });
 
     it('computes available space and dimensions (bottom-right) - minHeight', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.bottomRight,
           {
-            minHeight: 40,
+            minHeight: 100,
           },
         ),
       ).toEqual({
@@ -587,7 +1194,53 @@ describe('positioning', () => {
         left: 10,
         width: 20,
         height: 20,
-        minHeight: 40,
+        minHeight: 100,
+        minWidth: 20,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomRight,
+          {
+            minHeight: 110,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 20,
+        minHeight: 110,
+        minWidth: 20,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomRight,
+          {
+            minHeight: 20,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 20,
+        minHeight: 20,
         minWidth: 20,
       });
     });
@@ -595,27 +1248,15 @@ describe('positioning', () => {
     it('computes available space and dimensions (bottom-right) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.bottomRight,
           {
-            minWidth: 31,
+            minWidth: 100,
           },
         ),
       ).toEqual({
@@ -625,32 +1266,270 @@ describe('positioning', () => {
         width: 20,
         height: 20,
         minHeight: 20,
-        minWidth: 31,
+        minWidth: 100,
       });
-    });
 
-    it('computes available space and dimensions (bottom-center)', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.bottomRight,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minWidth: 110,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 20,
+        minHeight: 20,
+        minWidth: 110,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomRight,
+          {
+            minWidth: 20,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 20,
+        minHeight: 20,
+        minWidth: 20,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-center)', () => {
+      // somewhere in the viewport
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.bottomCenter,
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 20,
+        minHeight: 20,
+        minWidth: 40,
+      });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.bottomCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.bottomCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.bottomCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 100,
+        minHeight: 100,
+        minWidth: 0,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.bottomCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 100,
+        minHeight: 100,
+        minWidth: 0,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-center) - minHeight', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomCenter,
+          {
+            minHeight: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 20,
+        minHeight: 100,
+        minWidth: 40,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomCenter,
+          {
+            minHeight: 110,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 20,
+        minHeight: 110,
+        minWidth: 40,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-center) - minWidth', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomCenter,
+          {
+            minWidth: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 20,
+        minHeight: 20,
+        minWidth: 100,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomCenter,
+          {
+            minWidth: 110,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 20,
+        minHeight: 20,
+        minWidth: 110,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomCenter,
+          {
+            minWidth: 40,
+          },
         ),
       ).toEqual({
         matches: true,
@@ -663,101 +1542,16 @@ describe('positioning', () => {
       });
     });
 
-    it('computes available space and dimensions (bottom-center) - minHeight', () => {
-      expect(
-        computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
-          {
-            left: 20,
-            top: 20,
-          },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
-          Placement.bottomCenter,
-          {
-            minHeight: 31,
-          },
-        ),
-      ).toEqual({
-        matches: false,
-        top: 10,
-        left: 10,
-        width: 40,
-        height: 20,
-        minHeight: 31,
-        minWidth: 40,
-      });
-    });
-
-    it('computes available space and dimensions (bottom-center) - minWidth', () => {
-      expect(
-        computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
-          {
-            left: 20,
-            top: 20,
-          },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
-          Placement.bottomCenter,
-          {
-            minWidth: 62,
-          },
-        ),
-      ).toEqual({
-        matches: false,
-        top: 10,
-        left: 10,
-        width: 40,
-        height: 20,
-        minHeight: 20,
-        minWidth: 62,
-      });
-    });
-
     it('computes available space and dimensions (center-left)', () => {
+      // somewhere in the viewport
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerLeft,
         ),
       ).toEqual({
@@ -769,29 +1563,124 @@ describe('positioning', () => {
         minHeight: 40,
         minWidth: 80,
       });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.centerLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 0,
+        minHeight: 0,
+        minWidth: 100,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.centerLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.centerLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 100,
+        height: 0,
+        minHeight: 0,
+        minWidth: 100,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.centerLeft,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
     });
 
     it('computes available space and dimensions (center-left) - minHeight', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.centerLeft,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minHeight: 100,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 40,
+        minHeight: 100,
+        minWidth: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.centerLeft,
           {
             minHeight: 110,
@@ -806,32 +1695,43 @@ describe('positioning', () => {
         minHeight: 110,
         minWidth: 80,
       });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerLeft,
+          {
+            minHeight: 40,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 40,
+        minHeight: 40,
+        minWidth: 80,
+      });
     });
 
     it('computes available space and dimensions (center-left) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerLeft,
           {
-            minWidth: 200,
+            minWidth: 110,
           },
         ),
       ).toEqual({
@@ -841,31 +1741,66 @@ describe('positioning', () => {
         width: 80,
         height: 40,
         minHeight: 40,
-        minWidth: 200,
+        minWidth: 110,
       });
-    });
 
-    it('computes available space and dimensions (center-right)', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
+          element,
+          Placement.centerLeft,
           {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
+            minWidth: 100,
           },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 40,
+        minHeight: 40,
+        minWidth: 100,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerLeft,
+          {
+            minWidth: 80,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 30,
+        width: 80,
+        height: 40,
+        minHeight: 40,
+        minWidth: 80,
+      });
+    });
+
+    it('computes available space and dimensions (center-right)', () => {
+      // somewhere in the viewport
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
           Placement.centerRight,
         ),
       ).toEqual({
@@ -877,32 +1812,104 @@ describe('positioning', () => {
         minHeight: 40,
         minWidth: 20,
       });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.centerRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.centerRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 100,
+        height: 0,
+        minHeight: 0,
+        minWidth: 100,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.centerRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.centerRight,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 100,
+        height: 0,
+        minHeight: 0,
+        minWidth: 100,
+      });
     });
 
     it('computes available space and dimensions (center-right) - minHeight', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerRight,
           {
-            minHeight: 62,
+            minHeight: 110,
           },
         ),
       ).toEqual({
@@ -912,34 +1919,20 @@ describe('positioning', () => {
         width: 20,
         height: 40,
         minWidth: 20,
-        minHeight: 62,
+        minHeight: 110,
       });
-    });
 
-    it('computes available space and dimensions (center-right) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerRight,
           {
-            minWidth: 31,
+            minHeight: 100,
           },
         ),
       ).toEqual({
@@ -948,32 +1941,115 @@ describe('positioning', () => {
         left: 10,
         width: 20,
         height: 40,
-        minWidth: 31,
+        minWidth: 20,
+        minHeight: 100,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerRight,
+          {
+            minHeight: 40,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 40,
+        minWidth: 20,
+        minHeight: 40,
+      });
+    });
+
+    it('computes available space and dimensions (center-right) - minWidth', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerRight,
+          {
+            minWidth: 110,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 40,
+        minWidth: 110,
+        minHeight: 40,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerRight,
+          {
+            minWidth: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 40,
+        minWidth: 100,
+        minHeight: 40,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerRight,
+          {
+            minWidth: 20,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 20,
+        height: 40,
+        minWidth: 20,
         minHeight: 40,
       });
     });
 
     it('computes available space and dimensions (center-center)', () => {
+      // somewhere in the viewport
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerCenter,
         ),
       ).toEqual({
@@ -985,32 +2061,104 @@ describe('positioning', () => {
         minHeight: 40,
         minWidth: 40,
       });
+
+      // top left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 0,
+          },
+          element,
+          Placement.centerCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // top right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 0,
+          },
+          element,
+          Placement.centerCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom left anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 0,
+            top: 100,
+          },
+          element,
+          Placement.centerCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 10,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
+
+      // bottom right anchor
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 100,
+            top: 100,
+          },
+          element,
+          Placement.centerCenter,
+        ),
+      ).toEqual({
+        matches: false,
+        top: 110,
+        left: 110,
+        width: 0,
+        height: 0,
+        minHeight: 0,
+        minWidth: 0,
+      });
     });
 
     it('computes available space and dimensions (center-center) - minHeight', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerCenter,
           {
-            minHeight: 200,
+            minHeight: 110,
           },
         ),
       ).toEqual({
@@ -1019,7 +2167,53 @@ describe('positioning', () => {
         left: 10,
         width: 40,
         height: 40,
-        minHeight: 200,
+        minHeight: 110,
+        minWidth: 40,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerCenter,
+          {
+            minHeight: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 40,
+        minHeight: 100,
+        minWidth: 40,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerCenter,
+          {
+            minHeight: 40,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 40,
+        minHeight: 40,
         minWidth: 40,
       });
     });
@@ -1027,27 +2221,15 @@ describe('positioning', () => {
     it('computes available space and dimensions (center-center) - minWidth', () => {
       expect(
         computePositionAndDimensions(
-          {
-            height: 100,
-            width: 100,
-            scrollY: 10,
-            scrollX: 10,
-            maxHeight: 120,
-            maxWidth: 120,
-          },
+          viewport,
           {
             left: 20,
             top: 20,
           },
-          {
-            height: 100,
-            width: 100,
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
+          element,
           Placement.centerCenter,
           {
-            minWidth: 200,
+            minWidth: 110,
           },
         ),
       ).toEqual({
@@ -1057,7 +2239,53 @@ describe('positioning', () => {
         width: 40,
         height: 40,
         minHeight: 40,
-        minWidth: 200,
+        minWidth: 110,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerCenter,
+          {
+            minWidth: 100,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 40,
+        minHeight: 40,
+        minWidth: 100,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerCenter,
+          {
+            minWidth: 40,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 10,
+        left: 10,
+        width: 40,
+        height: 40,
+        minHeight: 40,
+        minWidth: 40,
       });
     });
   });

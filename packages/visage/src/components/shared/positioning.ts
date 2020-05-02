@@ -120,10 +120,16 @@ export function getAnchorPositionAndDimensions(
 
 export interface PositioningStyles {
   left: number;
+  /**
+   * Maximum height of the element that can be occupied.
+   */
   height: number;
   minHeight: number;
   minWidth: number;
   top: number;
+  /**
+   * Maximum width of the element that can be occupied.
+   */
   width: number;
 }
 
@@ -142,7 +148,7 @@ export enum Placement {
   centerCenter = 'center-center',
 }
 
-interface Viewport {
+export interface PlacementViewport {
   /** Visible height */
   height: number;
   scrollY: number;
@@ -155,9 +161,9 @@ interface Viewport {
   maxWidth: number;
 }
 
-interface PlacementRegion {
+export interface PlacementRegion {
   /**
-   * Does placement region match specified constraint?
+   * Does placement region match specified constraint or can it be even rendered?
    */
   matches: boolean;
   top: number;
@@ -181,7 +187,7 @@ interface PlacementRegion {
 }
 
 export function computePositionAndDimensions(
-  viewport: Viewport,
+  viewport: PlacementViewport,
   /**
    * Anchor position with anchor origin already applied
    *
@@ -193,21 +199,12 @@ export function computePositionAndDimensions(
    */
   element: ElementRect,
   placement: Placement,
-  {
-    // maxHeight: maxHeightC,
-    // maxWidth: maxWidthC,
-    minHeight,
-    minWidth,
-  }: PlacementConstraints = {},
+  { minHeight, minWidth }: PlacementConstraints = {},
 ): PlacementRegion {
   const top = anchor.top + viewport.scrollY;
   const left = anchor.left + viewport.scrollX;
-  const visibleSpaceToRight = viewport.width - anchor.left;
-  const visibleSpaceToLeft = anchor.left;
-  const visibleSpaceToTop = anchor.top;
-  const visibleSpaceToBottom = viewport.height - anchor.top;
-  const elementWidth = Math.max(element.width, element.scrollWidth);
-  const elementHeight = Math.max(element.height, element.scrollHeight);
+  const elementWidth = element.width;
+  const elementHeight = element.height;
 
   // now based on placement, compute available region based on anchor position and viewport information
   switch (placement) {
@@ -215,13 +212,12 @@ export function computePositionAndDimensions(
       // we want an anchor to be in top left corner of an element
       const height = Math.min(viewport.height - anchor.top, elementHeight);
       const width = Math.min(viewport.width - anchor.left, elementWidth);
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
-            visibleSpaceToBottom &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight,
+          width > 0 && height > 0 && mHeight <= height && mWidth <= width,
         height,
         width,
         left,
@@ -234,13 +230,12 @@ export function computePositionAndDimensions(
       // we want an anchor to be in top right corner of an element
       const height = Math.min(viewport.height - anchor.top, elementHeight);
       const width = Math.min(anchor.left, elementWidth);
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.min(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
-            visibleSpaceToBottom &&
-          Math.min(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft,
+          width > 0 && height > 0 && mHeight <= height && mWidth <= width,
         height,
         width,
         top,
@@ -255,15 +250,12 @@ export function computePositionAndDimensions(
       const halfEdge = elementWidth / 2;
       const width =
         Math.min(anchor.left, viewport.width - anchor.left, halfEdge) * 2;
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight,
+          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
         height,
         width,
         left: left - width / 2,
@@ -276,13 +268,12 @@ export function computePositionAndDimensions(
       // we want an anchor to be in the bottom left corner of an element
       const height = Math.min(anchor.top, elementHeight);
       const width = Math.min(viewport.width - anchor.left, elementWidth);
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight,
+          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
         left,
         top: top - height,
         height,
@@ -295,13 +286,12 @@ export function computePositionAndDimensions(
       // we want an anchor to be in the bottom right corner of an element
       const width = Math.min(anchor.left, elementWidth);
       const height = Math.min(anchor.top, elementHeight);
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft,
+          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
         top: top - height,
         left: left - width,
         height,
@@ -316,15 +306,12 @@ export function computePositionAndDimensions(
       const width =
         Math.min(anchor.left, viewport.width - anchor.left, halfEdge) * 2;
       const height = Math.min(anchor.top, elementHeight);
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight &&
-          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft,
+          height > 0 && width > 0 && mWidth <= width && mHeight <= height,
         left: left - width / 2,
         top: top - height,
         height,
@@ -341,17 +328,12 @@ export function computePositionAndDimensions(
         Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
       const width =
         Math.min(anchor.left, viewport.width - anchor.left, halfWidth) * 2;
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
-            visibleSpaceToBottom &&
-          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight,
+          height > 0 && width > 0 && mWidth <= width && mHeight <= height,
         left: left - width / 2,
         top: top - height / 2,
         height,
@@ -366,17 +348,12 @@ export function computePositionAndDimensions(
       const width = Math.min(viewport.width - anchor.left, elementWidth);
       const height =
         Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
-            visibleSpaceToBottom &&
-          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight,
+          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
         top: top - height / 2,
         left,
         height,
@@ -391,17 +368,12 @@ export function computePositionAndDimensions(
       const width = Math.min(anchor.left, elementWidth);
       const height =
         Math.min(anchor.top, viewport.height - anchor.top, halfHeight) * 2;
+      const mHeight = Math.min(minHeight ?? 0, elementHeight);
+      const mWidth = Math.min(minWidth ?? 0, elementWidth);
 
       return {
         matches:
-          Math.max(minHeight ?? visibleSpaceToTop, visibleSpaceToTop) <=
-            visibleSpaceToTop &&
-          Math.max(minHeight ?? visibleSpaceToBottom, visibleSpaceToBottom) <=
-            visibleSpaceToBottom &&
-          Math.max(minWidth ?? visibleSpaceToLeft, visibleSpaceToLeft) <=
-            visibleSpaceToLeft &&
-          Math.max(minWidth ?? visibleSpaceToRight, visibleSpaceToRight) <=
-            visibleSpaceToRight,
+          height > 0 && width > 0 && mHeight <= height && mWidth <= width,
         top: top - height / 2,
         left: left - width,
         height,
@@ -418,11 +390,17 @@ export function computePositionAndDimensions(
 
 interface PlacementConstraints {
   /**
-   * Min height required to consider if we can place the element there
+   * Minimal height required by an element to consider a placement as matched.
+   *
+   * Minimum height is taken into consideration only if the element's height
+   * is higher than minHeight.
    */
   minHeight?: number;
   /**
-   * Min width required to consider if we can place the element there
+   * Minimal width required by an element to consider a placement as matched.
+   *
+   * Minimum width is taken into consideration only if the element's width
+   * is longer than minWidth
    */
   minWidth?: number;
 }
@@ -437,6 +415,23 @@ interface ComputePositioningStylesOptions extends PlacementConstraints {
   placementAndOrigin: PlacementWithAnchorOrigin[];
 }
 
+/**
+ * Computes positioning styles for an element
+ *
+ * Algorithm tries to match placements and their respective origins in the order
+ * they were specified.
+ *
+ * If placement matches constraints (minHeight, minWidth) then it is used.
+ *
+ * Constraints don't have anything to do with styles, they're just required minimum dimensions
+ * that needs to be available in a given placement region to consider it as matched.
+ *
+ * Min height constraint is used only if height of an element is higher or equal to it, othwerise
+ * it uses the element height. Same rules apply to min width constraints too.
+ *
+ * Computed width and height should be considered as maxWidth and maxHeight in css. So it is possible
+ * for a developer to limit them in CSS.
+ */
 export function computePositioningStyles(
   viewport: Window,
   element: HTMLElement,
@@ -446,7 +441,7 @@ export function computePositioningStyles(
     ...constraints
   }: ComputePositioningStylesOptions,
 ): PositioningStyles {
-  const view: Viewport = {
+  const view: PlacementViewport = {
     height: viewport.innerHeight,
     width: viewport.innerWidth,
     scrollX: getWindowScrollX(),
@@ -455,10 +450,9 @@ export function computePositioningStyles(
     maxWidth: viewport.document.documentElement.scrollWidth,
   };
   const anchorPositionAndDimensions = getAnchorPositionAndDimensions(anchor);
-  const elementRect = element.getBoundingClientRect();
   const rect: ElementRect = {
-    height: elementRect.height,
-    width: elementRect.width,
+    height: element.offsetHeight,
+    width: element.offsetWidth,
     scrollHeight: element.scrollHeight,
     scrollWidth: element.scrollWidth,
   };
