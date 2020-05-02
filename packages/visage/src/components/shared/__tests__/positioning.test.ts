@@ -176,6 +176,100 @@ describe('positioning', () => {
       });
     });
 
+    it('computes available space and dimensions (top-left) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topLeft,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 30,
+        width: 70,
+        height: 70,
+        minWidth: 70,
+        minHeight: 70,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 90,
+            top: 10,
+          },
+          element,
+          Placement.topLeft,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 20,
+        left: 100,
+        width: 0,
+        height: 80,
+        minWidth: 0,
+        minHeight: 80,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 80,
+            top: 20,
+          },
+          element,
+          Placement.topLeft,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 90,
+        width: 10,
+        height: 70,
+        minWidth: 10,
+        minHeight: 70,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 80,
+            top: 0,
+          },
+          element,
+          Placement.topLeft,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 10,
+        left: 90,
+        width: 10,
+        height: 90,
+        minWidth: 10,
+        minHeight: 90,
+      });
+    });
+
     it('computes available space and dimensions (top-left) - minWidth', () => {
       expect(
         computePositionAndDimensions(
@@ -425,6 +519,77 @@ describe('positioning', () => {
       });
     });
 
+    it('computes available space and dimensions (top-right) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topRight,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 20,
+        width: 10,
+        height: 70,
+        minWidth: 10,
+        minHeight: 70,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 10,
+            top: 20,
+          },
+          element,
+          Placement.topRight,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 30,
+        left: 20,
+        width: 0,
+        height: 70,
+        minWidth: 0,
+        minHeight: 70,
+      });
+
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 5,
+          },
+          element,
+          Placement.topRight,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: false,
+        top: 15,
+        left: 20,
+        width: 10,
+        height: 85,
+        minWidth: 10,
+        minHeight: 85,
+      });
+    });
+
     it('computes available space and dimensions (top-right) - minWidth', () => {
       expect(
         computePositionAndDimensions(
@@ -671,6 +836,31 @@ describe('positioning', () => {
         height: 0,
         minHeight: 0,
         minWidth: 0,
+      });
+    });
+
+    it('computes available space and dimensions (top-center) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.topCenter,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 30,
+        left: 20,
+        width: 20,
+        height: 70,
+        minHeight: 70,
+        minWidth: 20,
       });
     });
 
@@ -925,6 +1115,31 @@ describe('positioning', () => {
       });
     });
 
+    it('computes available space and dimensions (bottom-left) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomLeft,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 20,
+        left: 30,
+        width: 70,
+        height: 10,
+        minHeight: 10,
+        minWidth: 70,
+      });
+    });
+
     it('computes available space and dimensions (bottom-left) - minHeight', () => {
       expect(
         computePositionAndDimensions(
@@ -1171,6 +1386,31 @@ describe('positioning', () => {
         height: 100,
         minWidth: 100,
         minHeight: 100,
+      });
+    });
+
+    it('computes available space and dimensions (bottom-right) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomRight,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 20,
+        left: 20,
+        width: 10,
+        height: 10,
+        minWidth: 10,
+        minHeight: 10,
       });
     });
 
@@ -1423,6 +1663,31 @@ describe('positioning', () => {
       });
     });
 
+    it('computes available space and dimensions (bottom-center) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.bottomCenter,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 20,
+        left: 20,
+        width: 20,
+        height: 10,
+        minHeight: 10,
+        minWidth: 20,
+      });
+    });
+
     it('computes available space and dimensions (bottom-center) - minHeight', () => {
       expect(
         computePositionAndDimensions(
@@ -1646,6 +1911,31 @@ describe('positioning', () => {
         height: 0,
         minHeight: 0,
         minWidth: 0,
+      });
+    });
+
+    it('computes available space and dimensions (center-left) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerLeft,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 20,
+        left: 30,
+        width: 70,
+        height: 20,
+        minHeight: 20,
+        minWidth: 70,
       });
     });
 
@@ -1898,6 +2188,31 @@ describe('positioning', () => {
       });
     });
 
+    it('computes available space and dimensions (center-right) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerRight,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 20,
+        left: 20,
+        width: 10,
+        height: 20,
+        minHeight: 20,
+        minWidth: 10,
+      });
+    });
+
     it('computes available space and dimensions (center-right) - minHeight', () => {
       expect(
         computePositionAndDimensions(
@@ -2144,6 +2459,31 @@ describe('positioning', () => {
         height: 0,
         minHeight: 0,
         minWidth: 0,
+      });
+    });
+
+    it('computes available space and dimensions (center-center) - marginThreshold', () => {
+      expect(
+        computePositionAndDimensions(
+          viewport,
+          {
+            left: 20,
+            top: 20,
+          },
+          element,
+          Placement.centerCenter,
+          {
+            marginThreshold: 10,
+          },
+        ),
+      ).toEqual({
+        matches: true,
+        top: 20,
+        left: 20,
+        width: 20,
+        height: 20,
+        minHeight: 20,
+        minWidth: 20,
       });
     });
 

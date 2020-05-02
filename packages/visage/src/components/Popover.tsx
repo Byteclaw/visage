@@ -82,9 +82,11 @@ interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
    */
   keepAnchorWidth?: boolean;
   /**
-   * Should we render Popover all the way to the edge or keep some space?
+   * How much space from the edge should be kept? This will cause Popover to not render straight to the edge.
+   *
+   * Default value is 16
    */
-  // marginThreshold?: number;
+  marginThreshold?: number;
   /**
    * Minimum height in pixels required for placement
    */
@@ -145,6 +147,7 @@ export function Popover({
   fullscreen = false,
   id: outerId,
   keepAnchorWidth = false,
+  marginThreshold = 16,
   minHeight,
   minWidth,
   open = true,
@@ -206,6 +209,7 @@ export function Popover({
       const positioning = computePositioningStyles(window, element, {
         anchor: anchorElementOrPosition,
         placementAndOrigin: placement,
+        marginThreshold,
         minWidth: keepAnchorWidth
           ? anchorPositionAndDimensions.width
           : minWidth,
@@ -228,6 +232,7 @@ export function Popover({
       keepAnchorWidth,
       isFullscreen,
       anchor,
+      marginThreshold,
       minWidth,
       minHeight,
       placement,
