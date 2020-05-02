@@ -103,16 +103,6 @@ export function createNPointFontScaleTheme(
         resolver: 'scaleLineHeight',
         outputProps: ['width'],
       },
-      plOffset: {
-        format: 'px',
-        resolver: 'scaleLineHeight',
-        outputProps: ['paddingLeft'],
-      },
-      prOffset: {
-        format: 'px',
-        resolver: 'scaleLineHeight',
-        outputProps: ['paddingRight'],
-      },
       ...stylers,
     },
     theme: settings,
