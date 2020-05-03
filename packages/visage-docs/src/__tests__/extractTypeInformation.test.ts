@@ -61,6 +61,8 @@ const components = [
   'PaginationPreviousPageButton',
   'Paragraph',
   'ParagraphSkeleton',
+  'Popper',
+  'Popover',
   'Portal',
   'ProgressBar',
   'Quote',

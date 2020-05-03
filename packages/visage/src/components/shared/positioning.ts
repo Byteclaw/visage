@@ -517,7 +517,7 @@ export function computePositionAndDimensions(
   }
 }
 
-interface PlacementConstraints {
+export interface PlacementConstraints {
   /**
    * How much empty space from edges should be left?
    */

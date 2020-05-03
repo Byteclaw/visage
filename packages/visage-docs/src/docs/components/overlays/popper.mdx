@@ -1,0 +1,64 @@
+---
+title: 'Popper component'
+components: ['Popper']
+---
+
+# Popper
+
+**A component that renders content near an element based on `placement` rules.**
+
+`Popper` can be used to implement tooltips or any extra element that pops out near some element.
+
+Unlinke [`Popover`](/components/overlays/popover), `Popper` doesn&apos;t block scroll.
+
+## Import
+
+```js transpile=false
+import { Popper } from '@byteclaw/visage';
+```
+
+## Usage
+
+`Popper` doesn&apos;t have any default placement set. To set it up use `placement` prop that must be an array from preffered placement to alternative placements. Any placement must have it&apos;s transform origin set up to say where the anchor should be positioned if given placement is considered for use.
+
+```jsx live=true
+() => {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Fragment>
+      <Button onClick={() => setOpen(!open)} ref={anchorRef} type="button">
+        {open ? 'Hide' : 'Show'} popper
+      </Button>
+      <Popper
+        anchor={anchorRef}
+        open={open}
+        placement={[
+          [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
+        ]}
+      >
+        <Flex
+          styles={{
+            alignItems: 'center',
+            backgroundColor:
+              'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+            height: 500,
+            width: '100%',
+          }}
+        >
+          Content
+        </Flex>
+      </Popper>
+    </Fragment>
+  );
+};
+```
+
+## Used by
+
+- [`Tooltip`](/components/feedback/tooltip)
+
+## Prop Types
+
+<PropTypes component="Popper" />

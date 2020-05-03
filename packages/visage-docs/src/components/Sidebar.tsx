@@ -420,6 +420,11 @@ export function Sidebar() {
                   Popover
                 </ListItemRouteLink>
               </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/overlays/popper">
+                  Popper
+                </ListItemRouteLink>
+              </ListItem>
             </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
