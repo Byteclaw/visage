@@ -38,6 +38,7 @@ export * from './Modal';
 export * from './Pagination';
 export * from './Paragraph';
 export * from './Popover';
+export * from './Popper';
 export * from './Portal';
 export * from './ProgressBar';
 export * from './Quotes';
@@ -63,4 +64,7 @@ export {
   createControlFocusShadow,
   createControlHoverShadow,
   createSurfaceFocusShadow,
+  Placement,
+  AnchorOrigin,
+  PlacementWithAnchorOrigin,
 } from './shared';
