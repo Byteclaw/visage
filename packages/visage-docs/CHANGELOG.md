@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.19 (2020-05-03)
+
+* fix(visage): expose chip base props ([2539f65](https://github.com/Byteclaw/visage/commit/2539f65))
+
+
+
+
+
 ## 1.0.0-alpha.18 (2020-05-03)
 
 * feat(visage): new Popover placement algorithm ([dd78ab4](https://github.com/Byteclaw/visage/commit/dd78ab4))
