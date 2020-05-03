@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.18 (2020-05-03)
+
+* feat(visage): new Popover placement algorithm ([dd78ab4](https://github.com/Byteclaw/visage/commit/dd78ab4))
+* feat(visage): relax fontWeight type ([6b68118](https://github.com/Byteclaw/visage/commit/6b68118))
+* feat(visage): use simplified algorithm for positioning ([c765238](https://github.com/Byteclaw/visage/commit/c765238))
+* docs: add limit menu height examples ([6e683bd](https://github.com/Byteclaw/visage/commit/6e683bd))
+* docs: lazy render prop types ([735db3b](https://github.com/Byteclaw/visage/commit/735db3b))
+* fix(visage): allow to extend Menus by faces ([d398e6f](https://github.com/Byteclaw/visage/commit/d398e6f))
+
+
+
+
+
 ## 1.0.0-alpha.17 (2020-04-28)
 
 **Note:** Version bump only for package @byteclaw/visage-docs

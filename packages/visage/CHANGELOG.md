@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.18 (2020-05-03)
+
+* fix(visage): allow to extend Menus by faces ([d398e6f](https://github.com/Byteclaw/visage/commit/d398e6f))
+* fix(visage): reset element height and width during Popover recalculation ([f3ef445](https://github.com/Byteclaw/visage/commit/f3ef445))
+* fix(visage): use best possible placement ([727c8aa](https://github.com/Byteclaw/visage/commit/727c8aa))
+* fix(visage): use keydown for escape detection ([a476117](https://github.com/Byteclaw/visage/commit/a476117))
+* feat(visage): add default AutocompleteInputMenu creator ([dc6de1e](https://github.com/Byteclaw/visage/commit/dc6de1e))
+* feat(visage): add default Select menu creator ([5e2d637](https://github.com/Byteclaw/visage/commit/5e2d637))
+* feat(visage): add support for marginThreshold ([6f8d49b](https://github.com/Byteclaw/visage/commit/6f8d49b))
+* feat(visage): change default minimum height for Menu ([e0801df](https://github.com/Byteclaw/visage/commit/e0801df))
+* feat(visage): export defaults ([b4bfab1](https://github.com/Byteclaw/visage/commit/b4bfab1))
+* feat(visage): new Popover placement algorithm ([dd78ab4](https://github.com/Byteclaw/visage/commit/dd78ab4))
+* feat(visage): relax fontWeight type ([6b68118](https://github.com/Byteclaw/visage/commit/6b68118))
+* feat(visage): simplify Popover placement algorhitm ([c3bd1b8](https://github.com/Byteclaw/visage/commit/c3bd1b8))
+* feat(visage): use simplified algorithm for positioning ([c765238](https://github.com/Byteclaw/visage/commit/c765238))
+
+
+
+
+
 ## 1.0.0-alpha.17 (2020-04-28)
 
 * feat(visage): reexport StyleProps ([8b9a0ec](https://github.com/Byteclaw/visage/commit/8b9a0ec))
