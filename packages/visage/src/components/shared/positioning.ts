@@ -118,21 +118,6 @@ export function getAnchorPositionAndDimensions(
   };
 }
 
-export interface PositioningStyles {
-  left: number;
-  /**
-   * Maximum height of the element that can be occupied.
-   */
-  height: number;
-  minHeight: number;
-  minWidth: number;
-  top: number;
-  /**
-   * Maximum width of the element that can be occupied.
-   */
-  width: number;
-}
-
 /**
  * Placement says where in the Element anchor element is positioned, first word is vertical origin and second is horizontal
  */
@@ -168,7 +153,13 @@ export interface PlacementRegion {
   matches: boolean;
   top: number;
   left: number;
+  /**
+   * Maximum height of the element that can be occupied.
+   */
   height: number;
+  /**
+   * Maximum width of the element that can be occupied.
+   */
   width: number;
   /**
    * Min height that can be used to determine height for an element
@@ -184,6 +175,13 @@ export interface PlacementRegion {
    * This can differ from the width if matches is false
    */
   minWidth: number;
+}
+
+export interface PositioningStyles extends PlacementRegion {
+  /**
+   * Resolved placement
+   */
+  placement: Placement;
 }
 
 export function computePositionAndDimensions(
@@ -591,7 +589,7 @@ export function computePositioningStyles(
     scrollHeight: element.scrollHeight,
     scrollWidth: element.scrollWidth,
   };
-  let intermediateValue: PlacementRegion | undefined;
+  let intermediateValue: PositioningStyles | undefined;
 
   // try to compute positions based on placementAndOrigin
   for (const [placement, anchorOrigin] of placementAndOrigin) {
@@ -609,36 +607,31 @@ export function computePositioningStyles(
 
     // detect if region matches contstraints and return immediately if it so
     if (newValue.matches) {
-      intermediateValue = newValue;
+      intermediateValue = {
+        placement,
+        ...newValue,
+      };
       break;
     }
 
     // othwerwise use this value only if is better than previous
-    if (intermediateValue == null) {
-      intermediateValue = newValue;
-    } else if (
+    if (
+      intermediateValue == null ||
       intermediateValue.height < newValue.height ||
       intermediateValue.width < newValue.width
     ) {
-      intermediateValue = newValue;
+      intermediateValue = {
+        placement,
+        ...newValue,
+      };
     }
   }
 
-  return intermediateValue
-    ? {
-        height: intermediateValue.height,
-        minHeight: intermediateValue.minHeight,
-        minWidth: intermediateValue.minWidth,
-        width: intermediateValue.width,
-        top: intermediateValue.top,
-        left: intermediateValue.left,
-      }
-    : {
-        height: 0,
-        minHeight: 0,
-        minWidth: 0,
-        width: 0,
-        left: 0,
-        top: 0,
-      };
+  if (intermediateValue == null) {
+    throw new Error(
+      'Positioning styles are not resolved. Probably placement array is empty',
+    );
+  }
+
+  return intermediateValue;
 }

@@ -2680,6 +2680,8 @@ describe('positioning', () => {
           ],
         }),
       ).toEqual({
+        placement: Placement.topLeft,
+        matches: true,
         top: 20,
         left: 20,
         width: 80,
@@ -2688,7 +2690,6 @@ describe('positioning', () => {
         minWidth: 80,
       });
 
-      // at bottom is not place
       expect(
         computePositioningStyles(window as any, element as any, {
           anchor: { top: 100, left: 20 },
@@ -2698,6 +2699,8 @@ describe('positioning', () => {
           ],
         }),
       ).toEqual({
+        placement: Placement.bottomLeft,
+        matches: true,
         top: 0,
         left: 20,
         width: 80,
@@ -2738,6 +2741,8 @@ describe('positioning', () => {
           marginThreshold: 10,
         }),
       ).toEqual({
+        matches: true,
+        placement: Placement.topLeft,
         top: 20,
         left: 20,
         width: 70,
@@ -2767,6 +2772,8 @@ describe('positioning', () => {
           },
         ),
       ).toEqual({
+        placement: Placement.topLeft,
+        matches: false,
         top: 20,
         left: 20,
         width: 0,
