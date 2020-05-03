@@ -9,6 +9,7 @@ import {
   Text,
   DrawerPosition,
   useBreakpoint,
+  Tooltip,
 } from '@byteclaw/visage';
 import React, { ReactNode, useState } from 'react';
 import { Menu } from 'react-feather';
@@ -65,17 +66,18 @@ export function Layout({ children }: Props) {
               px: 2,
             }}
           >
-            <IconButton
-              icon={Menu}
-              label="Open navigation"
-              onClick={() => setMenuOpen(true)}
-              styles={{
-                display: ['inline-block', undefined, 'none'],
-                fontSize: 1,
-                lineHeight: 1,
-              }}
-              title="Open navigation"
-            />
+            <Tooltip content="Open navigation">
+              <IconButton
+                icon={Menu}
+                label="Open navigation"
+                onClick={() => setMenuOpen(true)}
+                styles={{
+                  display: ['inline-block', undefined, 'none'],
+                  fontSize: 1,
+                  lineHeight: 1,
+                }}
+              />
+            </Tooltip>
             <Flex
               styles={{
                 maxWidth: 840,

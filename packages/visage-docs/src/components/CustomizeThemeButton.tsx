@@ -1,20 +1,23 @@
-import { IconButton } from '@byteclaw/visage';
+import { IconButton, Tooltip } from '@byteclaw/visage';
 import React, { useState } from 'react';
 import { Sliders } from 'react-feather';
 import { ThemeEditor } from './ThemeEditor';
+
+const label = 'Customize theme';
 
 export function CustomizeThemeButton() {
   const [isEditorOpen, setEditorOpen] = useState(false);
 
   return (
     <>
-      <IconButton
-        icon={Sliders}
-        label="Customize theme"
-        onClick={() => setEditorOpen(true)}
-        type="button"
-        title="Customize theme"
-      />
+      <Tooltip content={label}>
+        <IconButton
+          icon={Sliders}
+          label={label}
+          onClick={() => setEditorOpen(true)}
+          type="button"
+        />
+      </Tooltip>
       <ThemeEditor onClose={() => setEditorOpen(false)} open={isEditorOpen} />
     </>
   );

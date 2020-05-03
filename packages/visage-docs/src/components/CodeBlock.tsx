@@ -25,7 +25,7 @@ import { ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
 import { WithState } from './WithState';
 
-const { Box, Flex, IconButton, createComponent } = DSScope;
+const { Box, Flex, IconButton, createComponent, Tooltip } = DSScope;
 const Scope = {
   MoonIcon: Moon,
   SunIcon: Sun,
@@ -79,7 +79,9 @@ export function CodeBlock({
   const [isExpanded, setExpanded] = useState(expanded);
   const language: Language = baseClassName.replace(/language-/, '') as Language;
   const shouldTranspile = transpile !== 'false' && transpile !== false;
-  const editCodeLabel = isExpanded ? 'Hide code editor' : 'Show code editor';
+  const editCodeLabel = isExpanded
+    ? 'Hide the source code'
+    : 'Show the source code';
 
   const onCopy = useCallback(() => {
     setIsCopied(true);
@@ -121,26 +123,28 @@ export function CodeBlock({
           }}
         >
           {shouldTranspile ? (
-            <IconButton
-              icon={Code}
-              label={editCodeLabel}
-              onClick={() => setExpanded(!isExpanded)}
-              stroked
-              styles={{ mr: 1 }}
-              title={editCodeLabel}
-              type="button"
-            />
+            <Tooltip content={editCodeLabel}>
+              <IconButton
+                icon={Code}
+                label={editCodeLabel}
+                onClick={() => setExpanded(!isExpanded)}
+                stroked
+                styles={{ mr: 1 }}
+                type="button"
+              />
+            </Tooltip>
           ) : null}
           <CopyToClipboard onCopy={onCopy} text={children.trim()}>
-            <IconButton
-              icon={isCopied ? CheckCircle : Copy}
-              label="Copy the source"
-              monochromatic
-              styles={{ color: isCopied ? 'success' : 'inherit' }}
-              stroked
-              title="Copy the source"
-              type="button"
-            />
+            <Tooltip content="Copy the source code">
+              <IconButton
+                icon={isCopied ? CheckCircle : Copy}
+                label="Copy the source code"
+                monochromatic
+                styles={{ color: isCopied ? 'success' : 'inherit' }}
+                stroked
+                type="button"
+              />
+            </Tooltip>
           </CopyToClipboard>
         </Flex>
         {shouldTranspile && isExpanded ? (

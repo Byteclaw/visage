@@ -1,18 +1,20 @@
-import { IconButton } from '@byteclaw/visage';
+import { IconButton, Tooltip } from '@byteclaw/visage';
 import React, { useContext } from 'react';
 import { Moon, Sun } from 'react-feather';
 import { ThemeTogglerContext } from '../theme';
 
 export function ColorModeToggle() {
   const { isDark, useDark } = useContext(ThemeTogglerContext);
+  const label = isDark ? 'Activate light mode' : 'Activate dark mode';
 
   return (
-    <IconButton
-      icon={isDark ? Sun : Moon}
-      label={isDark ? 'Activate light mode' : 'Activate dark mode'}
-      onClick={() => useDark(!isDark)}
-      styles={{ mr: 1 }}
-      title={isDark ? 'Activate light mode' : 'Activate dark mode'}
-    />
+    <Tooltip content={label}>
+      <IconButton
+        icon={isDark ? Sun : Moon}
+        label={label}
+        onClick={() => useDark(!isDark)}
+        styles={{ mr: 1 }}
+      />
+    </Tooltip>
   );
 }
