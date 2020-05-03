@@ -228,11 +228,6 @@ export function Sidebar() {
                   Text skeleton
                 </ListItemRouteLink>
               </ListItem>
-              <ListItem>
-                <ListItemRouteLink to="/components/data-and-information/tooltip">
-                  Tooltip
-                </ListItemRouteLink>
-              </ListItem>
             </CollapsibleNavigationSection>
           </ListItem>
           <ListItem>
@@ -390,6 +385,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/feedback/toast">
                   Toast
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/tooltip">
+                  Tooltip
                 </ListItemRouteLink>
               </ListItem>
             </CollapsibleNavigationSection>
