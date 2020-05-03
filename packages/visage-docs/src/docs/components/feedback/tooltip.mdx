@@ -5,9 +5,9 @@ components: ['Tooltip']
 
 # Tooltip
 
-**Popup element to display when element receives keyboard focus or mouse hovers over it.**
+**Accessible Popup element to display when an element receives keyboard focus or mouse hovers over it.**
 
-`Tooltip` automatically provides `onBlur`, `onFocus`, `onMouseEnter` and `onMouseLeave` handlers. It&apos;s up to you to use them correctly otherwise tooltip won&apos; show up.
+`Tooltip` automatically provides `onBlur`, `onFocus`, `onMouseEnter` and `onMouseLeave` handlers and `aria-describedby` props to identify which element describes an element. It&apos;s up to you to use them correctly otherwise tooltip won&apos;t show up or fulfill accessibility requirements.
 
 ## Import
 
@@ -37,6 +37,14 @@ import { Tooltip } from '@byteclaw/visage';
     }
   />
 </DescriptionList>
+
+## Faces
+
+- `Tooltip`
+
+## Uses
+
+- [`Popper`](/components/overlays/popper)
 
 ## Prop Types
 

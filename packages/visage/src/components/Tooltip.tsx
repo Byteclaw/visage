@@ -1,20 +1,60 @@
 import React, {
   Children,
   ReactElement,
-  ReactNode,
   useCallback,
   useState,
   Ref,
   useRef,
-  useEffect,
   MouseEventHandler,
   FocusEventHandler,
+  ReactNode,
 } from 'react';
+import { createComponent } from '../core';
 import { Placement, PlacementWithAnchorOrigin } from './shared';
-import { Popover } from './Popover';
-import { useDebouncedCallback } from '../hooks';
+import { Popper } from './Popper';
+import { useDebouncedCallback, useStaticEffect, useUniqueId } from '../hooks';
+
+const TooltipComponent = createComponent('div', {
+  displayName: 'Tooltip',
+  styles: {
+    backgroundColor: `color(shadesText alpha(80%))`,
+    borderColor:
+      'color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderRadius: 'controlBorderRadius',
+    color: 'shades',
+    fontSize: -1,
+    lineHeight: -1,
+    textAlign: 'center',
+    m: 0.5,
+    p: 0.5,
+  },
+});
+
+function bindEscapeKeyDownHandlers(
+  onKeyDownHandler: (e: KeyboardEvent) => void,
+) {
+  if (typeof document !== 'undefined') {
+    document.addEventListener('keydown', onKeyDownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDownHandler);
+    };
+  }
+}
+
+function cancelDebouncedVisibilityChangeOnUnmount(
+  cancelDebouncedVisibleChanger: Function,
+) {
+  return () => cancelDebouncedVisibleChanger();
+}
 
 interface TooltipProvidedProps {
+  /** And id of tooltip */
+  'aria-describedby': string;
+  /** Says where is tooltip rendered */
+  'data-placement': Placement;
   /** Ref is necessary because it's used as an anchor for tooltip */
   ref?: Ref<any>;
   onMouseEnter: MouseEventHandler;
@@ -35,9 +75,13 @@ interface TooltipProps {
    */
   content: ReactNode;
   /**
+   * Id of an tooltip used to produce correct aria-describedby, if empty, unique id will be generated
+   */
+  id?: string;
+  /**
    * Delay after which tooltip will show up. Default is 500ms
    */
-  delay: number;
+  delay?: number;
 }
 
 const tooltipPlacements: PlacementWithAnchorOrigin[] = [
@@ -56,7 +100,13 @@ const tooltipPlacements: PlacementWithAnchorOrigin[] = [
  * https://www.w3.org/TR/wai-aria-practices-1.1/#tooltip
  *
  */
-export function Tooltip({ children, content, delay = 500 }: TooltipProps) {
+export function Tooltip({
+  children,
+  content,
+  delay = 500,
+  id: outerId,
+}: TooltipProps) {
+  const id = useUniqueId(outerId, 'tooltip');
   const [visible, setVisible] = useState(false);
   const anchorRef = useRef<HTMLElement | null>(null);
   const [
@@ -89,42 +139,34 @@ export function Tooltip({ children, content, delay = 500 }: TooltipProps) {
     debouncedVisibleChanger(true);
   }, [debouncedVisibleChanger]);
 
-  useEffect(() => {
-    return () => {
-      cancelDebouncedVisibleChanger();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.addEventListener('keydown', onKeyDownHandler);
-
-      return () => {
-        document.removeEventListener('keydown', onKeyDownHandler);
-      };
-    }
-  }, [onKeyDownHandler]);
+  useStaticEffect(
+    cancelDebouncedVisibilityChangeOnUnmount,
+    cancelDebouncedVisibleChanger,
+  );
+  useStaticEffect(bindEscapeKeyDownHandlers, onKeyDownHandler);
 
   return (
     <>
       {React.cloneElement(Children.only(children), {
+        'aria-describedby': id,
         ref: anchorRef,
         onBlur,
         onFocus,
         onMouseLeave: onBlur,
         onMouseEnter: onFocus,
       })}
-      <Popover
-        allowScrolling
+      <Popper
         anchor={anchorRef}
-        autoFocus={false}
         aria-hidden={!visible}
+        id={id}
         open={visible}
+        minHeight={50}
+        minWidth={100}
         placement={tooltipPlacements}
         role="tooltip"
       >
-        {content}
-      </Popover>
+        {() => <TooltipComponent>{content}</TooltipComponent>}
+      </Popper>
     </>
   );
 }
