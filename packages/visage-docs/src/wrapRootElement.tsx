@@ -28,7 +28,14 @@ function createHeadingUrl(slug: string): string {
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
   ...visage,
-  a: visage.Link,
+  a: ({ href, ...restProps }: any) => (
+    <visage.Link
+      {...restProps}
+      href={href}
+      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+      target={href.startsWith('http') ? '_blank' : undefined}
+    />
+  ),
   code: CodeBlock,
   inlineCode: visage.Code,
   em: visage.EmphasizedText,
