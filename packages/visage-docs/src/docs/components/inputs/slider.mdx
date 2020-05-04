@@ -178,6 +178,68 @@ To render custom thumb please provide your own render function to `renderThumb` 
 };
 ```
 
+### With Popper
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([50]);
+  const { current: PopperThumb } = useRef(
+    ({ disabled, readOnly, onKeyDown, onKeyUp, tabIndex, value, ...rest }) => {
+      const anchorRef = useRef();
+
+      return (
+        <>
+          <SliderThumb
+            aria-disabled={disabled}
+            aria-readonly={readOnly}
+            {...rest}
+            ref={anchorRef}
+            onKeyDown={!readOnly ? onKeyDown : undefined}
+            onKeyUp={!readOnly ? onKeyUp : undefined}
+            tabIndex={readOnly ? undefined : tabIndex}
+            styles={{
+              height: '3rem',
+              width: '3rem',
+              fontSize: 2,
+              lineHeight: 2,
+            }}
+          >
+            {value === 0 ? <SvgIcon icon={VolumeXIcon} /> : null}
+            {value > 0 && value < 34 ? <SvgIcon icon={VolumeIcon} /> : null}
+            {value >= 34 && value < 67 ? <SvgIcon icon={Volume1Icon} /> : null}
+            {value >= 67 ? <SvgIcon icon={Volume2Icon} /> : null}
+          </SliderThumb>
+          <Popper
+            open
+            anchor={anchorRef}
+            placement={[
+              [
+                Placement.topCenter,
+                { horizontal: 'center', vertical: 'bottom' },
+              ],
+            ]}
+          >
+            <span>{value}</span>
+          </Popper>
+        </>
+      );
+    },
+  );
+  const thumbRender = useRef(props => <PopperThumb {...props} />);
+
+  return (
+    <Slider
+      min={0}
+      max={100}
+      onChange={values => setValue(values)}
+      renderThumb={thumbRender.current}
+      step={1}
+      values={value}
+    />
+  );
+};
+```
+
 ## Keyboard Interaction
 
 <DescriptionList>
