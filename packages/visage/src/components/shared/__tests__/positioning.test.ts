@@ -2665,8 +2665,12 @@ describe('positioning', () => {
         },
       };
       const element = {
-        offsetHeight: 100,
-        scrollHeight: 100,
+        getBoundingClientRect() {
+          return {
+            height: 100,
+            width: 100,
+          };
+        },
         scrollWidth: 100,
         offsetWidth: 100,
       };
@@ -2724,8 +2728,12 @@ describe('positioning', () => {
         },
       };
       const element = {
-        offsetHeight: 100,
-        scrollHeight: 100,
+        getBoundingClientRect() {
+          return {
+            height: 100,
+            width: 100,
+          };
+        },
         scrollWidth: 100,
         offsetWidth: 100,
       };
@@ -2756,10 +2764,14 @@ describe('positioning', () => {
         computePositioningStyles(
           window as any,
           {
-            offsetHeight: 100,
+            getBoundingClientRect() {
+              return {
+                height: 100,
+                width: 0,
+              };
+            },
             scrollHeight: 100,
             scrollWidth: 1,
-            offsetWidth: 0,
           } as any,
           {
             anchor: { top: 20, left: 20 },

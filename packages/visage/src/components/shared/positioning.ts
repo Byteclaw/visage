@@ -583,9 +583,10 @@ export function computePositioningStyles(
     maxWidth: viewport.document.documentElement.scrollWidth,
   };
   const anchorPositionAndDimensions = getAnchorPositionAndDimensions(anchor);
+  const clientRect = element.getBoundingClientRect();
   const rect: ElementRect = {
-    height: element.offsetHeight,
-    width: element.offsetWidth,
+    height: clientRect.height,
+    width: clientRect.width,
     scrollHeight: element.scrollHeight,
     scrollWidth: element.scrollWidth,
   };
