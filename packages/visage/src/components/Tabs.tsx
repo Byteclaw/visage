@@ -34,6 +34,7 @@ const TabList = createComponent('div', {
     borderBottomStyle: 'solid',
     boxShadow: 'none',
     display: 'flex',
+    flexShrink: 0,
     m: 0,
     mb: 1,
     overflowX: 'auto',
