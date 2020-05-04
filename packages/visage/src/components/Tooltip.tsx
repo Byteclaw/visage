@@ -25,7 +25,7 @@ const TooltipComponent = createComponent('div', {
     borderRadius: 'controlBorderRadius',
     color: 'shades',
     fontSize: -1,
-    lineHeight: -1,
+    lineHeight: '1rem',
     textAlign: 'center',
     m: 0.5,
     p: 0.5,
