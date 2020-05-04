@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.20 (2020-05-04)
+
+* feat(visage): add basic styling to Tooltip ([e309c57](https://github.com/Byteclaw/visage/commit/e309c57))
+* feat(visage): add Popper component ([354dd6f](https://github.com/Byteclaw/visage/commit/354dd6f))
+* feat(visage): basic Tooltip ([dcbffd0](https://github.com/Byteclaw/visage/commit/dcbffd0))
+* feat(visage): custom renderers in Slider ([2c8f499](https://github.com/Byteclaw/visage/commit/2c8f499))
+* fix(visage): disable flex shrink on tab list ([f97a286](https://github.com/Byteclaw/visage/commit/f97a286))
+* fix(visage): use client bounding rect to determine dimensions ([3467c3a](https://github.com/Byteclaw/visage/commit/3467c3a))
+* chore(visage): make Tooltip nicer ([2d23b9e](https://github.com/Byteclaw/visage/commit/2d23b9e))
+* chore(visage): return placement and match from positioning ([31ca26c](https://github.com/Byteclaw/visage/commit/31ca26c))
+
+
+
+
+
 ## 1.0.0-alpha.19 (2020-05-03)
 
 * fix(visage): expose chip base props ([2539f65](https://github.com/Byteclaw/visage/commit/2539f65))

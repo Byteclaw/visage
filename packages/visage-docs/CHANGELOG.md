@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.20 (2020-05-04)
+
+* docs: add Popper example to Slider ([8326bc2](https://github.com/Byteclaw/visage/commit/8326bc2))
+* docs: add tooltips to all icon buttons ([4479975](https://github.com/Byteclaw/visage/commit/4479975))
+* docs: move Tooltip to feedback section ([444a481](https://github.com/Byteclaw/visage/commit/444a481))
+* feat(visage): add basic styling to Tooltip ([e309c57](https://github.com/Byteclaw/visage/commit/e309c57))
+* feat(visage): add Popper component ([354dd6f](https://github.com/Byteclaw/visage/commit/354dd6f))
+* feat(visage): basic Tooltip ([dcbffd0](https://github.com/Byteclaw/visage/commit/dcbffd0))
+* feat(visage): custom renderers in Slider ([2c8f499](https://github.com/Byteclaw/visage/commit/2c8f499))
+
+
+
+
+
 ## 1.0.0-alpha.19 (2020-05-03)
 
 * fix(visage): expose chip base props ([2539f65](https://github.com/Byteclaw/visage/commit/2539f65))
