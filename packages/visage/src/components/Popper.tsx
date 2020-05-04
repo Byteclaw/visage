@@ -82,8 +82,8 @@ function positionContent({
   contentEl.style.transform = `translate3d(${Math.round(
     position.left,
   )}px, ${Math.round(position.top)}px, 0px)`;
-  contentEl.style.width = `${Math.round(position.width)}px`;
-  contentEl.style.height = `${Math.round(position.height)}px`;
+  contentEl.style.width = `${position.width}px`;
+  contentEl.style.height = `${position.height}px`;
   contentEl.style.visibility = 'visible';
   /* eslint-enable no-param-reassign */
 
