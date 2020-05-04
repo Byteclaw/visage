@@ -94894,18 +94894,32 @@ exports[`extracting type information extracts information from Slider component 
 Object {
   "properties": Array [
     Object {
-      "documentation": "",
+      "documentation": "Allows you to set up fixed steps",
       "isOptional": true,
       "name": "allowedValues",
       "parent": "SliderProps",
       "type": "number[] | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "If there are multiple values on a single track, should they be allowed to overlap? Default is false.",
       "isOptional": false,
+      "name": "allowOverlap",
+      "parent": "SliderProps",
+      "type": "boolean",
+    },
+    Object {
+      "documentation": "Colors passed to getTrackBackground from react-range",
+      "isOptional": true,
       "name": "colors",
       "parent": "SliderProps",
-      "type": "string[]",
+      "type": "string[] | undefined",
+    },
+    Object {
+      "documentation": "Orientation of Slider (vertical vs horizontal) and the direction in in which value increases. Use enum SliderDirection as a value. Default value is SliderDirection.Right.",
+      "isOptional": true,
+      "name": "direction",
+      "parent": "SliderProps",
+      "type": "Direction | undefined",
     },
     Object {
       "documentation": "",
@@ -94915,14 +94929,14 @@ Object {
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Maximal value",
       "isOptional": true,
       "name": "max",
       "parent": "SliderProps",
       "type": "number | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Minimal value",
       "isOptional": true,
       "name": "min",
       "parent": "SliderProps",
@@ -94936,7 +94950,9 @@ Object {
       "type": "((values: number[]) => void) | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "On final change, use this to react on change in your forms
+
+This prop is called after user stops interacting with Thumb",
       "isOptional": true,
       "name": "onFinalChange",
       "parent": "SliderProps",
@@ -94950,14 +94966,35 @@ Object {
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Custom render function for thumb",
+      "isOptional": true,
+      "name": "renderThumb",
+      "parent": "SliderProps",
+      "type": "SliderThumbRenderer | undefined",
+    },
+    Object {
+      "documentation": "Custom render function for track",
+      "isOptional": true,
+      "name": "renderTrack",
+      "parent": "SliderProps",
+      "type": "SliderTrackRenderer | undefined",
+    },
+    Object {
+      "documentation": "Optimize Slider for right-to-left layouts?",
+      "isOptional": true,
+      "name": "rtl",
+      "parent": "SliderProps",
+      "type": "boolean | undefined",
+    },
+    Object {
+      "documentation": "How big step is?",
       "isOptional": true,
       "name": "step",
       "parent": "SliderProps",
       "type": "number | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Current value, slider can be multi thumb, so it's an array",
       "isOptional": false,
       "name": "values",
       "parent": "SliderProps",

@@ -45,7 +45,7 @@
     "@types/react-dom": "^16.8.5",
     "body-scroll-lock": "^2.6.4",
     "emotion": "^10.0.14",
-    "react-range": "^1.6.0"
+    "react-range": "^1.6.1"
   },
   "peerDependencies": {
     "react": "^16.8.6",

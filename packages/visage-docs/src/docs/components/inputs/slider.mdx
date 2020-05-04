@@ -5,6 +5,10 @@ components: ['Slider']
 
 # Slider
 
+**An accessible component that allows you to select a value from discrete set of values.**
+
+Under the hood `Slider` uses [react-range](https://github.com/tajo/react-range).
+
 ## Import
 
 ```js transpile=false
@@ -16,7 +20,7 @@ import { Slider } from '@byteclaw/visage';
 ### Controlled
 
 ```jsx live=true
-function Example() {
+() => {
   const [value, setValue] = useState([10]);
 
   return (
@@ -29,13 +33,13 @@ function Example() {
       values={value}
     />
   );
-}
+};
 ```
 
 ### Controlled with allowed steps
 
 ```jsx live=true
-function Example() {
+() => {
   const [value, setValue] = useState([10]);
 
   return (
@@ -49,13 +53,13 @@ function Example() {
       values={value}
     />
   );
-}
+};
 ```
 
 ### Disabled
 
 ```jsx live=true
-function Example() {
+() => {
   const [value, setValue] = useState([10]);
 
   return (
@@ -69,13 +73,13 @@ function Example() {
       values={value}
     />
   );
-}
+};
 ```
 
 ### Read only
 
 ```jsx live=true
-function Example() {
+() => {
   const [value, setValue] = useState([10]);
 
   return (
@@ -88,10 +92,93 @@ function Example() {
       values={value}
     />
   );
-}
+};
 ```
 
-## Keyboard shortcuts
+### Multi Thumb
+
+If you provide more than one value in `values` prop, `Slider` is considered multi thumb.
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10, 50]);
+
+  return (
+    <Slider
+      colors={['primary', 'success', 'neutral']}
+      min={0}
+      max={100}
+      step={1}
+      onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+};
+```
+
+### Custom Thumb
+
+To render custom thumb please provide your own render function to `renderThumb` prop.
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([50]);
+  const thumbRender = useRef(
+    ({ disabled, readOnly, onKeyDown, onKeyUp, tabIndex, value, ...rest }) => (
+      <SliderThumb
+        aria-disabled={disabled}
+        aria-readonly={readOnly}
+        {...rest}
+        onKeyDown={!readOnly ? onKeyDown : undefined}
+        onKeyUp={!readOnly ? onKeyUp : undefined}
+        tabIndex={readOnly ? undefined : tabIndex}
+        styles={{ height: '3rem', width: '3rem', fontSize: 2, lineHeight: 2 }}
+      >
+        {value === 0 ? <SvgIcon icon={VolumeXIcon} /> : null}
+        {value > 0 && value < 34 ? <SvgIcon icon={VolumeIcon} /> : null}
+        {value >= 34 && value < 67 ? <SvgIcon icon={Volume1Icon} /> : null}
+        {value >= 67 ? <SvgIcon icon={Volume2Icon} /> : null}
+      </SliderThumb>
+    ),
+  );
+
+  return (
+    <Slider
+      min={0}
+      max={100}
+      onChange={values => setValue(values)}
+      renderThumb={thumbRender.current}
+      step={1}
+      values={value}
+    />
+  );
+};
+```
+
+### Custom direction
+
+`direction` prop can be used to control the direction of `Slider`.
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      direction={SliderDirection.Left}
+      min={0}
+      max={100}
+      step={1}
+      onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+};
+```
+
+## Keyboard Interaction
 
 <DescriptionList>
   <DescriptionListItem

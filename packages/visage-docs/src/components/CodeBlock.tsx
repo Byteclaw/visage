@@ -19,7 +19,17 @@ import React, {
 } from 'react';
 // @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { CheckCircle, Code, Copy, Moon, Sun } from 'react-feather';
+import {
+  CheckCircle,
+  Code,
+  Copy,
+  Moon,
+  Sun,
+  Volume,
+  Volume1,
+  Volume2,
+  VolumeX,
+} from 'react-feather';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import { ThemeTogglerContext } from '../theme';
 import { WithRef } from './WithRef';
@@ -29,6 +39,10 @@ const { Box, Flex, IconButton, createComponent, Tooltip } = DSScope;
 const Scope = {
   MoonIcon: Moon,
   SunIcon: Sun,
+  VolumeIcon: Volume,
+  Volume1Icon: Volume1,
+  Volume2Icon: Volume2,
+  VolumeXIcon: VolumeX,
   Fragment,
   ...Core,
   ...DSScope,
