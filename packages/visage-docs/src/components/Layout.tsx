@@ -56,7 +56,13 @@ export function Layout({ children }: Props) {
         </Flex>
         <Sidebar />
       </Drawer>
-      <Flex styles={{ flexDirection: 'column', ml: [null, null, '16rem'] }}>
+      <Flex
+        styles={{
+          flexDirection: 'column',
+          ml: [null, null, '16rem'],
+          minHeight: '100vh',
+        }}
+      >
         <Header styles={{ py: 2 }}>
           <Container
             styles={{
@@ -103,7 +109,7 @@ export function Layout({ children }: Props) {
             </Flex>
           </Container>
         </Header>
-        <Container styles={{ maxWidth: 840, mx: 'auto', px: 3 }}>
+        <Container styles={{ mx: 'auto', px: 3 }}>
           <Column
             styles={{
               pt: 4,
