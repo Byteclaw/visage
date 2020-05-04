@@ -1,28 +1,7 @@
 import { List, ListItem, ListItemLink } from '@byteclaw/visage';
-import { Link, Match } from '@reach/router';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { CollapsibleNavigationSection } from './CollapsibleNavigationSection';
-
-interface ListItemRouteLink {
-  children: ReactNode;
-  to: string;
-}
-
-function ListItemRouteLink({ to, ...restProps }: ListItemRouteLink) {
-  return (
-    <Match path={to}>
-      {({ match }) => (
-        <ListItemLink
-          aria-current={match ? 'page' : undefined}
-          active={!!match}
-          as={Link}
-          to={to}
-          {...restProps}
-        />
-      )}
-    </Match>
-  );
-}
+import { ListItemRouteLink } from './ListItemRouteLink';
 
 export function Sidebar() {
   return (
