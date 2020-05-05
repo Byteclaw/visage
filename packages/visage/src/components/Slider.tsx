@@ -61,7 +61,7 @@ export const SliderTrackProgress = createComponent(Box, {
   },
 });
 
-interface SliderThumbProps extends IThumbProps {
+export interface SliderThumbProps extends IThumbProps {
   value: number;
   index: number;
   isDragged: boolean;
@@ -69,7 +69,7 @@ interface SliderThumbProps extends IThumbProps {
   readOnly?: boolean;
 }
 
-interface SliderTrackProps extends ITrackProps {
+export interface SliderTrackProps extends ITrackProps {
   background: string;
   children: ReactNode;
   isDragged: boolean;
@@ -77,8 +77,8 @@ interface SliderTrackProps extends ITrackProps {
   readOnly?: boolean;
 }
 
-type SliderThumbRenderer = (props: SliderThumbProps) => ReactElement;
-type SliderTrackRenderer = (props: SliderTrackProps) => ReactElement;
+export type SliderThumbRenderer = (props: SliderThumbProps) => ReactElement;
+export type SliderTrackRenderer = (props: SliderTrackProps) => ReactElement;
 
 export interface SliderProps {
   /**
