@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.22 (2020-05-05)
+
+* feat(visage): export slider types ([a267680](https://github.com/Byteclaw/visage/commit/a267680))
+
+
+
+
+
 ## 1.0.0-alpha.21 (2020-05-05)
 
 * fix(visage): make allowOverlap optional ([303eb9b](https://github.com/Byteclaw/visage/commit/303eb9b))
