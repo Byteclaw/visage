@@ -88,7 +88,7 @@ export interface SliderProps {
   /**
    * If there are multiple values on a single track, should they be allowed to overlap? Default is false.
    */
-  allowOverlap: boolean;
+  allowOverlap?: boolean;
   /**
    * Colors passed to getTrackBackground from react-range
    */

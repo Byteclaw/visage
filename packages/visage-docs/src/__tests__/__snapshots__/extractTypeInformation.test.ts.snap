@@ -94902,10 +94902,10 @@ Object {
     },
     Object {
       "documentation": "If there are multiple values on a single track, should they be allowed to overlap? Default is false.",
-      "isOptional": false,
+      "isOptional": true,
       "name": "allowOverlap",
       "parent": "SliderProps",
-      "type": "boolean",
+      "type": "boolean | undefined",
     },
     Object {
       "documentation": "Colors passed to getTrackBackground from react-range",
