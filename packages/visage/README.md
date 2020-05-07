@@ -14,21 +14,18 @@ Visage is a design system based set of UI components for React applications. It'
 ## Installation
 
 ```console
-npm install @byteclaw/visage @byteclaw/visage-themes
+npm install @byteclaw/visage
 # or
-yarn add @byteclaw/visage @byteclaw/visage-themes
+yarn add @byteclaw/visage
 ```
 
 ## Usage
 
 ```tsx
 import { DesignSystem, Text } from '@byteclaw/visage';
-import { createDocsTheme } from '@byteclaw/visage-themes';
 import React from 'react';
 
-const theme = createDocsTheme();
-
-<DesignSystem theme={theme}>
+<DesignSystem>
   <YourApp />
 </DesignSystem>;
 ```
