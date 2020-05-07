@@ -5,6 +5,8 @@ components: ['Link']
 
 # Link
 
+**A component that acts as a hyperlink if `href` attribute is provided.**
+
 ## Import
 
 ```js transpile=false
@@ -18,6 +20,20 @@ import { Link } from '@byteclaw/visage';
   Text text <Link href="#">Link</Link> text text
 </Text>
 ```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Enter</KeyboardKey>}
+    description={
+      <Text>
+        When a link has focus, visits the location defined by <Code>href</Code>{' '}
+        attribute.
+      </Text>
+    }
+  />
+</DescriptionList>
 
 ## Faces
 

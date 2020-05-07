@@ -1,4 +1,5 @@
 import { createComponent } from '../core';
+import { createSurfaceFocusShadow } from './shared';
 
 /**
  * Link component's style sheet
@@ -10,6 +11,9 @@ export const LinkStyles: VisageStyleSheet = {
   color: 'primary',
   outline: 'none',
   textDecoration: 'none',
+  '&:focus': {
+    boxShadow: createSurfaceFocusShadow(),
+  },
   '&:hover': {
     textDecoration: 'underline',
   },
