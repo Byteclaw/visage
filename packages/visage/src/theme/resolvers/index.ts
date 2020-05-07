@@ -1,5 +1,5 @@
 import { StyleValueResolver } from '@byteclaw/visage-core';
-import { parse } from '../boxShadowParser';
+import { parse } from '../../boxShadowParser';
 
 type BoxShadowParseResult = { color: string }[] | string;
 

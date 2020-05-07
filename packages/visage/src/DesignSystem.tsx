@@ -16,7 +16,11 @@ import { GlobalStyles } from './GlobalStyles';
 import { LayerManager } from './components/LayerManager';
 import { ToastManager } from './components/Toast';
 import { useBreakpointDetection } from './hooks';
-import { defaultBreakpoints, defaultStyleGenerator } from './defaults';
+import {
+  defaultBreakpoints,
+  defaultStyleGenerator,
+  defaultTheme,
+} from './defaults';
 
 export interface DesignSystemProps {
   /**
@@ -41,8 +45,14 @@ export interface DesignSystemProps {
    * Enable breakpoint detection using window.matchMedia API
    */
   responsive?: boolean;
+  /**
+   * Use custom style generator
+   */
   styleGenerator?: StyleGenerator;
-  theme: Theme;
+  /**
+   * Use custom theme
+   */
+  theme?: Theme;
 }
 
 export const DesignSystem: FunctionComponent<DesignSystemProps> = ({
@@ -53,7 +63,7 @@ export const DesignSystem: FunctionComponent<DesignSystemProps> = ({
   is = 0,
   responsive = false,
   styleGenerator = defaultStyleGenerator,
-  theme,
+  theme = defaultTheme,
 }) => {
   const [idContextValue] = useState(0);
   const toastEventEmitter = useEventEmitterInstance();

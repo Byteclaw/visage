@@ -1,12 +1,4 @@
-import {
-  BorderRadiuses,
-  createTheme,
-  ColorPalette,
-  FontPalette,
-  VisageFaces,
-  Theme,
-} from '@byteclaw/visage';
-import { StyleSheetThemeSettings } from '@byteclaw/visage-core';
+import { StyleSheetThemeSettings, Theme } from '@byteclaw/visage-core';
 import {
   getResponsiveValue,
   getScaleValue,
@@ -14,6 +6,9 @@ import {
 } from '@byteclaw/visage-utils';
 import { boxShadow, gridSize } from './resolvers';
 import { stylers } from './stylers';
+import { BorderRadiuses, ColorPalette, FontPalette } from '../types';
+import { VisageFaces } from '../faces';
+import { createTheme } from '../core';
 
 export interface NPointFontScaleThemeSettings
   extends StyleSheetThemeSettings<VisageFaces> {

@@ -2,6 +2,8 @@ import {
   BorderRadiuses,
   ColorPalette,
   createTheme,
+  defaultResolvers,
+  defaultStylers,
   FontPalette,
   Theme,
   VisageFaces,
@@ -12,8 +14,6 @@ import ModularScale, {
   modularScale as ModularScaleType,
   ratios as modularScaleFontRatios,
 } from 'modular-scale';
-import { boxShadow, gridSize } from './resolvers';
-import { stylers } from './stylers';
 
 export { modularScaleFontRatios };
 
@@ -80,8 +80,7 @@ export function createNPointModularScaleTheme(
     'boxShadow' | 'gridSize' | 'modularLineHeight' | 'modularSize'
   >({
     resolvers: {
-      boxShadow,
-      gridSize,
+      ...defaultResolvers,
       /**
        * Resolver responsible for calculating line height sizes based on
        * modular scale and base line height
@@ -125,6 +124,7 @@ export function createNPointModularScaleTheme(
       },
     },
     stylers: {
+      ...defaultStylers,
       fontSize: {
         format: 'px',
         resolver: 'modularSize',
@@ -154,7 +154,6 @@ export function createNPointModularScaleTheme(
         resolver: 'modularLineHeight',
         outputProps: ['width'],
       },
-      ...stylers,
     },
     theme: settings,
   });

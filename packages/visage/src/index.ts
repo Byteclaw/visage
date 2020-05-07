@@ -21,5 +21,6 @@ export * from './emotionResponsiveStyleGenerator';
 export * from './emotionStyleGenerator';
 export * from './faces';
 export * from './hooks';
+export * from './theme';
 export * from './types';
 export * from './variants';
