@@ -73559,16 +73559,16 @@ Object {
     Object {
       "documentation": "Makes message dismissable
 
-Called when user click on delete element",
+Called when user click on dismiss element",
       "isOptional": true,
-      "name": "onDelete",
+      "name": "onDismiss",
       "parent": "MessageProps",
       "type": "((e: KeyboardEvent<any> | MouseEvent<any, MouseEvent>) => void) | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Render function that can be used to render custom dismiss button",
       "isOptional": true,
-      "name": "renderDeleter",
+      "name": "renderDismiss",
       "parent": "MessageProps",
       "type": "((props: { onClick: (event: MouseEvent<any, MouseEvent>) => void; }) => ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<...>)>) | undefined",
     },
@@ -75399,9 +75399,16 @@ A hint could be a sample value or a brief description of the expected format.",
     Object {
       "documentation": "",
       "isOptional": true,
-      "name": "variant",
+      "name": "status",
       "parent": undefined,
       "type": "\\"default\\" | \\"info\\" | \\"success\\" | \\"warning\\" | \\"danger\\" | undefined",
+    },
+    Object {
+      "documentation": "",
+      "isOptional": true,
+      "name": "inverted",
+      "parent": undefined,
+      "type": "boolean | undefined",
     },
   ],
 }
