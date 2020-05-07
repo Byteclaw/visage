@@ -164,11 +164,6 @@ export function Sidebar() {
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>
-                <ListItemRouteLink to="/components/data-and-information/message">
-                  Message
-                </ListItemRouteLink>
-              </ListItem>
-              <ListItem>
                 <ListItemRouteLink to="/components/data-and-information/paragraph">
                   Paragraph
                 </ListItemRouteLink>
@@ -370,6 +365,11 @@ export function Sidebar() {
               <ListItem>
                 <ListItemRouteLink to="/components/feedback/loading">
                   Loading
+                </ListItemRouteLink>
+              </ListItem>
+              <ListItem>
+                <ListItemRouteLink to="/components/feedback/message">
+                  Message
                 </ListItemRouteLink>
               </ListItem>
               <ListItem>

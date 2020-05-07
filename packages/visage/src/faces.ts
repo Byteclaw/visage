@@ -174,7 +174,7 @@ export interface VisageFaces {
   // Message.tsx
   Message?: VisageStyleSheet;
   // Message.tsx
-  MessageDeleteButton?: VisageStyleSheet;
+  MessageDismissButton?: VisageStyleSheet;
   // Modal.tsx
   Modal?: VisageStyleSheet;
   // Pagination.tsx
@@ -275,6 +275,8 @@ export interface VisageFaces {
   ToggleLabelText?: VisageStyleSheet;
   // Toggle.tsx
   ToggleToggler?: VisageStyleSheet;
+  // Tooltip.tsx
+  Tooltip?: VisageStyleSheet;
   // Heading.tsx
   h1?: VisageStyleSheet;
   // Heading.tsx

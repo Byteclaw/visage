@@ -5,6 +5,11 @@ components: ['Banner']
 
 # Banner
 
+**An accessible component that can be used to notify about something major in an application.**
+
+`Banner` has similar meaning as [`Message`](/feedback/message) but is meant to be used as a main feedback component in your application.
+Based on `status` prop it renders a component with `role` attribute set to `alert` or `status`.
+
 ## Import
 
 ```js transpile=false
@@ -41,6 +46,8 @@ Just omit the usage of `onDismiss` prop.
 
 ### Variants
 
+All variants are based on `status` prop.
+
 ```jsx live=true
 <Fragment>
   <Banner onDismiss={() => {}} title="Default banner">
@@ -61,16 +68,16 @@ Just omit the usage of `onDismiss` prop.
 </Fragment>
 ```
 
-## Keyboard shortcuts
+## Keyboard Interaction
 
 <DescriptionList>
   <DescriptionListItem
     term={<KeyboardKey>Tab</KeyboardKey>}
     description={
       <ul>
-        <li>When the Banner isn&apos;t focused, focuses it.</li>
+        <li>When the Banner hasn&apos;t focus, moves focus to the Banner.</li>
         <li>
-          When the Banner is focused, moves the focus on the next element in the
+          When the Banner has focus, moves the focus on the next element in the
           Tab sequence.
         </li>
       </ul>
