@@ -28,7 +28,7 @@ exports[`Radio is extendable by RadioControl face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(255,255,255,0.3);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -197,7 +197,7 @@ exports[`Radio is extendable by RadioLabel face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(255,255,255,0.3);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -353,7 +353,7 @@ exports[`Radio is extendable by RadioLabelText face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(255,255,255,0.3);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -544,7 +544,7 @@ exports[`Radio is extendable by RadioToggler face 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(255,255,255,0.3);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -664,7 +664,7 @@ exports[`Radio is extendable by styles 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(255,255,255,0.3);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
@@ -820,7 +820,7 @@ exports[`Radio renders correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  background: rgba(255,255,255,0.3);
+  background-color: rgb(209,209,209);
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;

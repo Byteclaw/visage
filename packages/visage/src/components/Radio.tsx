@@ -79,7 +79,7 @@ const RadioToggler = createComponent(Flex, {
     ),
   },
   styles: {
-    background: 'rgba(255,255,255,0.3)',
+    backgroundColor: 'color(shades tint(10%))',
     alignSelf: 'center',
     transition: 'all 150ms',
     borderRadius: 999,
