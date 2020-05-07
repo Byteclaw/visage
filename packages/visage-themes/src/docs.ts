@@ -1,6 +1,10 @@
-import { ColorPalette, Theme, VisageFaces } from '@byteclaw/visage';
+import {
+  ColorPalette,
+  createNPointFontScaleTheme,
+  Theme,
+  VisageFaces,
+} from '@byteclaw/visage';
 import color from 'color';
-import { createNPointFontScaleTheme } from './nPointFontScale';
 import { generateColorScale } from './utils';
 
 const darkShades = color('#1b262c');

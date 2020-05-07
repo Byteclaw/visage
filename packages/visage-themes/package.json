@@ -49,7 +49,6 @@
   "scripts": {
     "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.themes --entry src/index.ts",
     "build": "tsdx build --format cjs,esm,umd --name byteclaw.visage.themes --entry src/index.ts",
-    "compile:parser": "pegjs --plugin ts-pegjs --optimize size -o src/boxShadowParser.ts box-shadow-grammar.pegjs && eslint --fix src/boxShadowParser.ts",
     "prepublishOnly": "tsdx build --format cjs,esm,umd  --name byteclaw.visage.themes --entry src/index.ts",
     "test:types": "tsc -p . --noEmit"
   }
