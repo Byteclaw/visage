@@ -1,4 +1,3 @@
-import { useUniqueId } from '@byteclaw/use-unique-id';
 import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, {
   Children,
@@ -18,6 +17,7 @@ import {
   createControlFocusShadow,
 } from './shared';
 import { booleanVariant } from '../variants';
+import { useUniqueId } from '../hooks';
 
 const AccordionTrigger = createComponent('div', {
   displayName: 'AccordionTrigger',
@@ -101,7 +101,6 @@ export function AccordionItem({
       <AccordionTrigger
         {...regionProps}
         aria-controls={regionId}
-        aria-disabled={open}
         aria-expanded={open}
         id={triggerId}
         onClick={onTriggerClick}
@@ -122,75 +121,84 @@ export function AccordionItem({
   );
 }
 
+type AccordionItemElement = ReactElement<AccordionItemProps>;
+
 interface AccordionProps {
   id?: string;
-  children: ReactElement<AccordionItemProps>[];
+  children: AccordionItemElement | AccordionItemElement[];
 }
 
 export function Accordion({ children, id }: AccordionProps) {
-  const accordionNumId = useUniqueId();
-  const accordionId = id || `accordion-${accordionNumId}`;
+  const accordionId = useUniqueId(id, 'accordion');
+
+  const items: ReactElement<AccordionItemProps>[] = Children.toArray(
+    children,
+  ) as ReactElement<AccordionItemProps>[];
+
   const [openItem, setOpenItem] = useState(() => {
-    const idx = (Children.toArray(children) as ReactElement<
-      AccordionItemProps
-    >[]).findIndex(item => item.props.open);
+    const idx = items.findIndex(item => item.props.open);
 
     return idx === -1 ? 0 : 1;
   });
 
-  return Children.map(children, (item, i) =>
-    cloneElement(item, {
-      regionId: `${accordionId}-${i}-region`,
-      triggerId: `${accordionId}-${i}-trigger`,
-      open: openItem === i,
-      onTriggerClick: (e: MouseEvent<HTMLDivElement>) => {
-        setOpenItem(i);
+  // if out of bounds
+  if (openItem >= items.length || openItem < 0) {
+    setOpenItem(0);
+  }
 
-        if (item.props.onTriggerClick) {
-          item.props.onTriggerClick(e);
-        }
-      },
-      onTriggerKeyDown: (e: KeyboardEvent<HTMLDivElement>) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
+  return (
+    <>
+      {items.map((item, i) =>
+        cloneElement(item, {
+          regionId: `${accordionId}-${i}-region`,
+          triggerId: `${accordionId}-${i}-trigger`,
+          open: openItem === i,
+          onTriggerClick: (e: MouseEvent<HTMLDivElement>) => {
+            setOpenItem(i);
 
-          setOpenItem(i);
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-          e.preventDefault();
-
-          if (typeof document !== 'undefined') {
-            const itemToFocus = document.getElementById(
-              `${accordionId}-${getNextIndexFromCycle(
-                i,
-                e.key === 'ArrowUp' ? -1 : 1,
-                children.length,
-              )}-trigger`,
-            );
-
-            if (itemToFocus) {
-              itemToFocus.focus();
+            if (item.props.onTriggerClick) {
+              item.props.onTriggerClick(e);
             }
-          }
-        } else if (e.key === 'Home' || e.key === 'End') {
-          e.preventDefault();
+          },
+          onTriggerKeyDown: (e: KeyboardEvent<HTMLDivElement>) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
 
-          if (typeof document !== 'undefined') {
-            const itemToFocus = document.getElementById(
-              `${accordionId}-${
-                e.key === 'Home' ? 0 : children.length - 1
-              }-trigger`,
-            );
+              setOpenItem(i);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+              e.preventDefault();
 
-            if (itemToFocus) {
-              itemToFocus.focus();
+              const itemToFocus = document.getElementById(
+                `${accordionId}-${getNextIndexFromCycle(
+                  i,
+                  e.key === 'ArrowUp' ? -1 : 1,
+                  items.length - 1,
+                )}-trigger`,
+              );
+
+              if (itemToFocus) {
+                itemToFocus.focus();
+              }
+            } else if (e.key === 'Home' || e.key === 'End') {
+              e.preventDefault();
+
+              const itemToFocus = document.getElementById(
+                `${accordionId}-${
+                  e.key === 'Home' ? 0 : items.length - 1
+                }-trigger`,
+              );
+
+              if (itemToFocus) {
+                itemToFocus.focus();
+              }
             }
-          }
-        }
 
-        if (item.props.onTriggerKeyDown) {
-          item.props.onTriggerKeyDown(e);
-        }
-      },
-    }),
+            if (item.props.onTriggerKeyDown) {
+              item.props.onTriggerKeyDown(e);
+            }
+          },
+        }),
+      )}
+    </>
   );
 }
