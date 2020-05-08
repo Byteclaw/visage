@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Accordion can be styles using AccordionRegion face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  border-color: rgba(0,0,0,0);
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  border-bottom-color: rgb(238,238,238);
+  border-bottom-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 26px;
+  font-family: heading-font;
+  font-weight: bolder;
+  line-height: 48px;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.emotion-0:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+.emotion-0:focus:active {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255) ,inset 0 0 200px rgba(68,68,68,0.2),inset 0 0 2px rgba(0,0,0,0.2);
+}
+
+<div
+    aria-controls="accordion-1-0-region"
+    aria-expanded="true"
+    class="emotion-0"
+    id="accordion-1-0-trigger"
+    role="button"
+    tabindex="0"
+  >
+    A
+  </div>
+  .emotion-0 {
+  height: auto;
+  opacity: 1;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  visibility: visible;
+  -webkit-transition: height cubic-bezier(0.2,0,0.38,0.9) 110ms,padding cubic-bezier(0.2,0,0.38,0.9) 110ms;
+  transition: height cubic-bezier(0.2,0,0.38,0.9) 110ms,padding cubic-bezier(0.2,0,0.38,0.9) 110ms;
+  color: rgb(0,0,255);
+}
+
+<div
+    aria-labelledby="accordion-1-0-trigger"
+    class="emotion-0"
+    data-open="true"
+    id="accordion-1-0-region"
+    role="region"
+  >
+    A
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Accordion can be styles using AccordionTrigger face 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  border-color: rgba(0,0,0,0);
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  border-bottom-color: rgb(238,238,238);
+  border-bottom-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 26px;
+  font-family: heading-font;
+  font-weight: bolder;
+  line-height: 48px;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  color: rgb(0,0,255);
+}
+
+.emotion-0:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+.emotion-0:focus:active {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255) ,inset 0 0 200px rgba(68,68,68,0.2),inset 0 0 2px rgba(0,0,0,0.2);
+}
+
+<div
+    aria-controls="accordion-1-0-region"
+    aria-expanded="true"
+    class="emotion-0"
+    id="accordion-1-0-trigger"
+    role="button"
+    tabindex="0"
+  >
+    A
+  </div>
+  .emotion-0 {
+  height: auto;
+  opacity: 1;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  visibility: visible;
+  -webkit-transition: height cubic-bezier(0.2,0,0.38,0.9) 110ms,padding cubic-bezier(0.2,0,0.38,0.9) 110ms;
+  transition: height cubic-bezier(0.2,0,0.38,0.9) 110ms,padding cubic-bezier(0.2,0,0.38,0.9) 110ms;
+}
+
+<div
+    aria-labelledby="accordion-1-0-trigger"
+    class="emotion-0"
+    data-open="true"
+    id="accordion-1-0-region"
+    role="region"
+  >
+    A
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Accordion renders correctly 1`] = `
+<DocumentFragment>
+  .emotion-0 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+}
+
+<div
+    aria-live="polite"
+    class="emotion-0"
+    data-toastmanager="true"
+  />
+  .emotion-0 {
+  border-color: rgba(0,0,0,0);
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  border-bottom-color: rgb(238,238,238);
+  border-bottom-width: 1px;
+  border-style: solid;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 26px;
+  font-family: heading-font;
+  font-weight: bolder;
+  line-height: 48px;
+  outline: none;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.emotion-0:focus {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+}
+
+.emotion-0:focus:active {
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255) ,inset 0 0 200px rgba(68,68,68,0.2),inset 0 0 2px rgba(0,0,0,0.2);
+}
+
+<div
+    aria-controls="accordion-1-0-region"
+    aria-expanded="true"
+    class="emotion-0"
+    id="accordion-1-0-trigger"
+    role="button"
+    tabindex="0"
+  >
+    A
+  </div>
+  .emotion-0 {
+  height: auto;
+  opacity: 1;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  visibility: visible;
+  -webkit-transition: height cubic-bezier(0.2,0,0.38,0.9) 110ms,padding cubic-bezier(0.2,0,0.38,0.9) 110ms;
+  transition: height cubic-bezier(0.2,0,0.38,0.9) 110ms,padding cubic-bezier(0.2,0,0.38,0.9) 110ms;
+}
+
+<div
+    aria-labelledby="accordion-1-0-trigger"
+    class="emotion-0"
+    data-open="true"
+    id="accordion-1-0-region"
+    role="region"
+  >
+    A
+  </div>
+</DocumentFragment>
+`;
