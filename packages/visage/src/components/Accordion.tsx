@@ -71,7 +71,7 @@ const AccordionRegion = createComponent('div', {
 
 type AccordionRegionProps = ExtractVisageComponentProps<typeof AccordionRegion>;
 
-interface AccordionItemProps {
+export interface AccordionItemProps {
   children: ReactNode | (() => ReactNode);
   open?: boolean;
   onTriggerClick?: MouseEventHandler<HTMLDivElement>;
