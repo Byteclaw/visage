@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.25 (2020-05-08)
+
+* fix(visage): correct Accordion types and keyboard interaction ([f800467](https://github.com/Byteclaw/visage/commit/f800467))
+
+
+
+
+
 ## 1.0.0-alpha.24 (2020-05-08)
 
 * feat(visage): export AccordionItemProps ([f250f60](https://github.com/Byteclaw/visage/commit/f250f60))
