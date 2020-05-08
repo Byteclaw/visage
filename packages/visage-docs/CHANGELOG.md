@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.26 (2020-05-08)
+
+**Note:** Version bump only for package @byteclaw/visage-docs
+
+
+
+
+
 ## 1.0.0-alpha.25 (2020-05-08)
 
 * fix(visage): correct Accordion types and keyboard interaction ([f800467](https://github.com/Byteclaw/visage/commit/f800467))
