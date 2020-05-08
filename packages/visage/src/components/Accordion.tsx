@@ -41,6 +41,7 @@ const AccordionTrigger = createComponent('div', {
     width: '100%',
     '&:focus': {
       boxShadow: createControlFocusShadow(),
+      zIndex: 1,
     },
     '&:focus:active': {
       boxShadow: createControlActiveShadow(),

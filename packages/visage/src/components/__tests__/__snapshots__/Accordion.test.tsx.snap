@@ -49,6 +49,7 @@ exports[`Accordion can be styles using AccordionRegion face 1`] = `
 
 .emotion-0:focus {
   box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+  z-index: 1;
 }
 
 .emotion-0:focus:active {
@@ -140,6 +141,7 @@ exports[`Accordion can be styles using AccordionTrigger face 1`] = `
 
 .emotion-0:focus {
   box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+  z-index: 1;
 }
 
 .emotion-0:focus:active {
@@ -229,6 +231,7 @@ exports[`Accordion renders correctly 1`] = `
 
 .emotion-0:focus {
   box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255);
+  z-index: 1;
 }
 
 .emotion-0:focus:active {
