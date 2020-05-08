@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.23 (2020-05-08)
+
+* feat(visage): default theme ([e701357](https://github.com/Byteclaw/visage/commit/e701357))
+
+
+
+
+
 ## 1.0.0-alpha.22 (2020-05-05)
 
 **Note:** Version bump only for package @byteclaw/visage-themes

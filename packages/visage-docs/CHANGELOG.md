@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.23 (2020-05-08)
+
+* feat(visage): add inverted variant of Message component ([05a64ee](https://github.com/Byteclaw/visage/commit/05a64ee))
+* feat(visage): add subtle focus styles to Link ([e2db6cc](https://github.com/Byteclaw/visage/commit/e2db6cc))
+* feat(visage): default theme ([e701357](https://github.com/Byteclaw/visage/commit/e701357))
+
+
+
+
+
 ## 1.0.0-alpha.22 (2020-05-05)
 
 **Note:** Version bump only for package @byteclaw/visage-docs
