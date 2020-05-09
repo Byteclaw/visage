@@ -16,7 +16,6 @@ import { createComponent } from '../core';
 import {
   visuallyHiddenStyles,
   visuallyHiddenBooleanVariant,
-  disabledControlBooleanVariant,
   disabledControlStyles,
   createControlFocusShadow,
 } from './shared';
@@ -35,7 +34,7 @@ const CheckboxControl = createComponent('input', {
 
 const CheckboxLabel = createComponent('label', {
   displayName: 'CheckboxLabel',
-  styles: props => ({
+  styles: {
     alignItems: 'flex-start',
     cursor: 'pointer',
     display: 'flex',
@@ -47,18 +46,30 @@ const CheckboxLabel = createComponent('label', {
     p: 0,
     position: 'relative',
     userSelect: 'none',
-    ...(props.disabled ? disabledControlStyles : {}),
-  }),
-  variants: [disabledControlBooleanVariant],
+    ...booleanVariantStyles('disabled', {
+      on: disabledControlStyles,
+    }),
+    ...booleanVariantStyles('readOnly', {
+      on: {
+        cursor: 'default',
+      },
+    }),
+  },
+  variants: [
+    booleanVariant('disabled', true),
+    booleanVariant('readOnly', true),
+  ],
 });
 
 const CheckboxLabelText = createComponent('span', {
   displayName: 'CheckboxLabelText',
-  styles: props => ({
+  styles: {
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    ...(props.hidden ? visuallyHiddenStyles : {}),
-  }),
+    ...booleanVariantStyles('hidden', {
+      on: visuallyHiddenStyles,
+    }),
+  },
   variants: [visuallyHiddenBooleanVariant],
 });
 
@@ -171,84 +182,85 @@ interface CheckboxProps
   toggler?: React.ComponentType<CheckboxTogglerProps>;
 }
 
-export const Checkbox: VisageComponent<CheckboxProps> = memo(
-  forwardRef(function Checkbox(
-    {
-      $$variants,
-      checked,
-      defaultChecked,
-      disabled,
-      hiddenLabel = false,
-      invalid,
-      label,
-      labelProps,
-      labelTextProps,
-      onBlur,
-      onFocus,
-      onChange,
-      parentStyles,
-      readOnly,
-      styles,
-      toggler: Toggler = DefaultCheckboxToggler,
-      ...rest
-    }: CheckboxProps,
-    ref: Ref<HTMLInputElement>,
-  ) {
-    const [focused, setFocused] = useState(false);
-    const [innerChecked, setInnerChecked] = useState(
-      checked ?? defaultChecked ?? false,
-    );
-    const onInnerBlur = useHandlerRef(() => setFocused(false));
-    const onInnerFocus = useHandlerRef(() => setFocused(true));
-    const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
-      onBlur,
-      onInnerBlur,
-    );
-    const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
-      onFocus,
-      onInnerFocus,
-    );
-    const onChangeHandler = useStaticCallbackCreator(
-      wrapToggleOnChangeHandler,
-      [readOnly, onChange, setInnerChecked],
-    );
-    // if onChange is provided then the component is controlled
-    const isChecked = checked ?? innerChecked;
+export const Checkbox: VisageComponent<CheckboxProps> = markAsVisageComponent(
+  memo(
+    forwardRef(function Checkbox(
+      {
+        $$variants,
+        checked,
+        defaultChecked,
+        disabled,
+        hiddenLabel = false,
+        invalid,
+        label,
+        labelProps,
+        labelTextProps,
+        onBlur,
+        onFocus,
+        onChange,
+        parentStyles,
+        readOnly,
+        styles,
+        toggler: Toggler = DefaultCheckboxToggler,
+        ...rest
+      }: CheckboxProps,
+      ref: Ref<HTMLInputElement>,
+    ) {
+      const [focused, setFocused] = useState(false);
+      const [innerChecked, setInnerChecked] = useState(
+        checked ?? defaultChecked ?? false,
+      );
+      const onInnerBlur = useHandlerRef(() => setFocused(false));
+      const onInnerFocus = useHandlerRef(() => setFocused(true));
+      const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
+        onBlur,
+        onInnerBlur,
+      );
+      const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
+        onFocus,
+        onInnerFocus,
+      );
+      const onChangeHandler = useStaticCallbackCreator(
+        wrapToggleOnChangeHandler,
+        [readOnly, onChange, setInnerChecked],
+      );
+      // if onChange is provided then the component is controlled
+      const isChecked = checked ?? innerChecked;
 
-    return (
-      <CheckboxLabel
-        {...labelProps}
-        disabled={disabled}
-        parentStyles={parentStyles}
-        styles={styles}
-        $$variants={$$variants}
-      >
-        <CheckboxControl
-          {...rest}
-          checked={isChecked}
-          aria-invalid={invalid}
+      return (
+        <CheckboxLabel
+          {...labelProps}
           disabled={disabled}
-          onBlur={onBlurHandler}
-          onChange={onChangeHandler}
-          onFocus={onFocusHandler}
-          ref={ref}
           readOnly={readOnly}
-          type="checkbox"
-        />
-        <Toggler
-          checked={isChecked}
-          disabled={disabled}
-          focused={focused}
-          invalid={invalid}
-          readOnly={readOnly}
-        />
-        &#8203; {/* fixes height if label is hidden */}
-        <CheckboxLabelText {...labelTextProps} hidden={hiddenLabel}>
-          {label}
-        </CheckboxLabelText>
-      </CheckboxLabel>
-    );
-  }),
+          parentStyles={parentStyles}
+          styles={styles}
+          $$variants={$$variants}
+        >
+          <CheckboxControl
+            {...rest}
+            checked={isChecked}
+            aria-invalid={invalid}
+            disabled={disabled}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            onFocus={onFocusHandler}
+            ref={ref}
+            readOnly={readOnly}
+            type="checkbox"
+          />
+          <Toggler
+            checked={isChecked}
+            disabled={disabled}
+            focused={focused}
+            invalid={invalid}
+            readOnly={readOnly}
+          />
+          &#8203; {/* fixes height if label is hidden */}
+          <CheckboxLabelText {...labelTextProps} hidden={hiddenLabel}>
+            {label}
+          </CheckboxLabelText>
+        </CheckboxLabel>
+      );
+    }),
+  ),
 );
-
-markAsVisageComponent(Checkbox);

@@ -16,7 +16,6 @@ import React, {
 import { createComponent } from '../core';
 import {
   disabledControlStyles,
-  disabledControlBooleanVariant,
   visuallyHiddenStyles,
   createControlFocusShadow,
   visuallyHiddenBooleanVariant,
@@ -129,27 +128,39 @@ const Toggler = createComponent('div', {
 
 const ToggleLabelText = createComponent('span', {
   displayName: 'ToggleLabelText',
-  styles: props => ({
+  styles: {
     fontSize: 'inherit',
     lineHeight: 'inherit',
     position: 'relative',
     outline: 'none',
     userSelect: 'none',
     mx: 1,
-    ...(props.hidden ? visuallyHiddenStyles : {}),
-  }),
+    ...booleanVariantStyles('hidden', {
+      on: visuallyHiddenStyles,
+    }),
+  },
   variants: [visuallyHiddenBooleanVariant],
 });
 
 const ToggleLabel = createComponent('label', {
   displayName: 'ToggleLabel',
-  styles: props => ({
+  styles: {
     alignItems: 'center',
     cursor: 'pointer',
     display: 'flex',
-    ...(props.disabled ? disabledControlStyles : {}),
-  }),
-  variants: [disabledControlBooleanVariant],
+    ...booleanVariantStyles('disabled', {
+      on: disabledControlStyles,
+    }),
+    ...booleanVariantStyles('readOnly', {
+      on: {
+        cursor: 'default',
+      },
+    }),
+  },
+  variants: [
+    booleanVariant('disabled', true),
+    booleanVariant('readOnly', true),
+  ],
 });
 
 interface ToggleProps
@@ -218,7 +229,7 @@ export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
   const isChecked = checked ?? inputChecked;
 
   return (
-    <ToggleLabel {...labelProps} disabled={disabled}>
+    <ToggleLabel {...labelProps} disabled={disabled} readOnly={readOnly}>
       <ToggleControl
         {...rest}
         aria-invalid={invalid}

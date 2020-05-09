@@ -19,7 +19,7 @@ describe('Radio', () => {
     );
 
     expect(getByTestId('radio')).toHaveAttribute('disabled');
-    expect(getByTestId('label')).toHaveAttribute('disabled');
+    expect(getByTestId('label')).toHaveAttribute('data-disabled', 'true');
 
     fireEvent.click(getByTestId('radio'));
     // we don't fire a keyDown because it isn't possible to focus disabled checkbox in browser
@@ -72,6 +72,7 @@ describe('Radio', () => {
 
     // read only checkbox can be focused, clicked, etc but can't be changed
     expect(getByTestId('radio')).toHaveAttribute('readOnly');
+    expect(getByTestId('label')).toHaveAttribute('data-readonly', 'true');
 
     fireEvent.click(getByTestId('radio'));
     fireEvent.keyDown(getByTestId('radio'), { key: ' ' });
