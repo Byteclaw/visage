@@ -123,6 +123,7 @@ export function CodeBlock({
             borderWidth: 1,
             mb: 1,
             p: 1,
+            overflow: 'auto',
             width: '100%',
           }}
         >
