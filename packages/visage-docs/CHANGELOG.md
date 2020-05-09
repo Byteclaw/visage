@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.27 (2020-05-09)
+
+* fix(visage): make Checkbox/Radio/Toggle read only styles consistent ([ff70fd3](https://github.com/Byteclaw/visage/commit/ff70fd3))
+* docs: add table of contents nav ([53e6310](https://github.com/Byteclaw/visage/commit/53e6310))
+* docs: improve Accordion and Drawer documentation ([3307162](https://github.com/Byteclaw/visage/commit/3307162))
+* docs: improve docs layout ([979ebf8](https://github.com/Byteclaw/visage/commit/979ebf8))
+
+
+
+
+
 ## 1.0.0-alpha.26 (2020-05-08)
 
 **Note:** Version bump only for package @byteclaw/visage-docs
