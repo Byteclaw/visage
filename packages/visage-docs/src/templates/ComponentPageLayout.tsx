@@ -78,15 +78,20 @@ export function ComponentPageLayout({
   return (
     <ComponentInformationMap information={pageContext.componentInformationMap}>
       <SEO {...frontmatter} pathname={path} />
-      <Flex styles={{ justifyContent: 'center' }}>
-        <Box styles={{ maxWidth: 850 }}>
+      <Flex
+        styles={{
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          width: '100%',
+        }}
+      >
+        <Box styles={{ maxWidth: 850, width: '100%', minWidth: 400 }}>
           <MDXRenderer>{body}</MDXRenderer>
         </Box>
         <IsBreakpoint gte={2}>
           <PageTableOfContents
             headings={headings}
             githubEditLink={fields.githubEditLink}
-            title={frontmatter.title}
           />
         </IsBreakpoint>
       </Flex>

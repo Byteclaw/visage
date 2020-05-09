@@ -15,7 +15,10 @@ const Aside = createComponent('aside', {
   displayName: 'PageTableOfContents',
   styles: {
     position: 'sticky',
-    ml: 3,
+    minWidth: 200,
+    maxWidth: 250,
+    width: '100%',
+    ml: 4,
     top: 0,
   },
 });
@@ -23,18 +26,27 @@ const Aside = createComponent('aside', {
 interface PageTableOfContentsProps {
   githubEditLink: string;
   headings: { depth: number; value: string }[];
-  title: string;
 }
 
 export function PageTableOfContents({
   githubEditLink,
   headings,
-  title,
 }: PageTableOfContentsProps) {
+  const mainHeading = headings.find(h => h.depth === 1);
+
   return (
     <Aside>
-      <Heading level={4}>{title}</Heading>
-      <List>
+      {mainHeading ? (
+        <Heading level={4}>
+          <Link
+            href={`#${slugify(mainHeading.value)}`}
+            styles={{ color: 'inherit' }}
+          >
+            {mainHeading.value}
+          </Link>
+        </Heading>
+      ) : null}
+      <List styles={{ mb: 4 }}>
         {headings
           .filter(h => h.depth === 2)
           .map((h, i) => (

@@ -32,6 +32,7 @@ export function Layout({ children }: Props) {
   return (
     <>
       <Drawer
+        as="aside"
         backdrop={isMobile}
         styles={{
           width: '16rem',
@@ -57,6 +58,7 @@ export function Layout({ children }: Props) {
         <Sidebar />
       </Drawer>
       <Flex
+        as="main"
         styles={{
           flexDirection: 'column',
           ml: [null, null, '16rem'],
@@ -69,7 +71,7 @@ export function Layout({ children }: Props) {
               alignItems: 'center',
               position: 'relative',
               justifyContent: ['space-between', undefined, 'flex-start'],
-              px: 2,
+              px: 3,
             }}
           >
             <Tooltip content="Open navigation">
@@ -81,14 +83,14 @@ export function Layout({ children }: Props) {
                   display: ['inline-block', undefined, 'none'],
                   fontSize: 1,
                   lineHeight: 1,
+                  mr: 2,
                 }}
               />
             </Tooltip>
             <Flex
               styles={{
-                maxWidth: 840,
+                maxWidth: 850,
                 mx: 'auto',
-                px: 3,
                 flex: 1,
                 display: ['none', 'flex'],
               }}
@@ -100,8 +102,12 @@ export function Layout({ children }: Props) {
                 flexShrink: 0,
                 fontSize: 1,
                 lineHeight: 1,
+                // same as page table of contents
+                maxWidth: 250,
+                width: '100%',
                 right: 0,
                 ml: 2,
+                justifyContent: 'flex-end',
               }}
             >
               <ColorModeToggle />
