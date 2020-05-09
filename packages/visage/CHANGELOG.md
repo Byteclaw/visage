@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.28 (2020-05-09)
+
+* feat(visage): reexport CheckboxToggler and RadioToggler ([2b5a5e0](https://github.com/Byteclaw/visage/commit/2b5a5e0))
+
+
+
+
+
 ## 1.0.0-alpha.27 (2020-05-09)
 
 * fix(visage): make Checkbox/Radio/Toggle read only styles consistent ([ff70fd3](https://github.com/Byteclaw/visage/commit/ff70fd3))
