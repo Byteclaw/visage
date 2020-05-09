@@ -7,7 +7,13 @@ components: ['Accordion', 'AccordionItem']
 
 **A component that acts as a vertically stacked set of headings that can be expanded to reveal a content.**
 
-Accordions are commonly used to reduce the need to scroll when content with multiple sections is displayed on a single page.
+`Accordion` are commonly used to reduce the need to scroll when content with multiple sections is displayed on a single page.
+
+## Import
+
+```js transpile=false
+import { Accordion, AccordionItem } from '@byteclaw/visage';
+```
 
 ## Examples
 
@@ -34,16 +40,23 @@ Accordions are commonly used to reduce the need to scroll when content with mult
 
 <DescriptionList>
   <DescriptionListItem
-    term={<KeyboardKey>Tab</KeyboardKey>}
+    term={
+      <>
+        <KeyboardKey>Tab</KeyboardKey> /{' '}
+        <Text styles={{ whiteSpace: 'nowrap' }}>
+          <KeyboardKey>Shift</KeyboardKey> + <KeyboardKey>Tab</KeyboardKey>
+        </Text>
+      </>
+    }
     description={
       <ul>
         <li>
-          When an accordion item does not have focus, moves focus to the first
-          possible accordion item.
+          When an Accordion item does not have focus, moves focus to the first
+          possible Accordion item.
         </li>
         <li>
-          When an accordion item has focus, moves focus to the next element in
-          the tab sequence, which can be an another accordion item.
+          When an Accordion item has focus, moves focus to the next element in
+          the tab sequence, which can be an another Accordion item.
         </li>
       </ul>
     }
@@ -57,8 +70,8 @@ Accordions are commonly used to reduce the need to scroll when content with mult
     description={
       <ul>
         <li>
-          When an accordion item has focus and is closed, opens its region and
-          closes previous open accordion region.
+          When an Accordion item has focus and is closed, opens its region and
+          closes previous open Accordion region.
         </li>
       </ul>
     }
@@ -69,8 +82,8 @@ Accordions are commonly used to reduce the need to scroll when content with mult
       <>
         <ul>
           <li>
-            When an accordion item has focus, moves focus to the next possible
-            accordion item.
+            When an Accordion item has focus, moves focus to the next possible
+            Accordion item.
           </li>
         </ul>
       </>
@@ -82,8 +95,8 @@ Accordions are commonly used to reduce the need to scroll when content with mult
       <>
         <ul>
           <li>
-            When an accordion item has focus, moves focus to the previous
-            possible accordion item.
+            When an Accordion item has focus, moves focus to the previous
+            possible Accordion item.
           </li>
         </ul>
       </>
@@ -91,11 +104,11 @@ Accordions are commonly used to reduce the need to scroll when content with mult
   />
   <DescriptionListItem
     term={<KeyboardKey>Home</KeyboardKey>}
-    description="When an accordion item has focus, moves focus to the first possible accordion item."
+    description="When an Accordion item has focus, moves focus to the first possible Accordion item."
   />
   <DescriptionListItem
     term={<KeyboardKey>End</KeyboardKey>}
-    description="When an accordion item has focus, moves focus to the last possible accordion item."
+    description="When an Accordion item has focus, moves focus to the last possible Accordion item."
   />
 </DescriptionList>
 

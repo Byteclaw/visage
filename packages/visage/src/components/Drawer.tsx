@@ -1,4 +1,8 @@
-import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
+import {
+  ExtractVisageComponentProps,
+  VisageComponent,
+  markAsVisageComponent,
+} from '@byteclaw/visage-core';
 import React, { ReactElement, ReactNode, RefObject, useRef } from 'react';
 import {
   CloseListenerManagerContextAPI,
@@ -101,7 +105,7 @@ function bindOnCloseListeners(
 
 interface DrawerProps extends ExtractVisageComponentProps<typeof BaseDrawer> {
   /**
-   * Enables to completely disable backdrop even if Drawer is closable, default is true
+   * Can be used to completely disable backdrop even if Drawer is closable, default is true (enabled)
    *
    * Backdrop prevents bubbling onClose event to underlying layers, if you don't use a backdrop
    * but you don't want to close drawer on click away, you need to call event.preventDefault()
@@ -117,81 +121,88 @@ interface DrawerProps extends ExtractVisageComponentProps<typeof BaseDrawer> {
   focusElementRef?: RefObject<HTMLElement>;
   /** Render Drawer in Portal, default is true */
   inPortal?: boolean;
+  /** On close handler */
   onClose?: OnCloseHandler;
+  /** Is Drawer open? */
   open?: boolean;
   /**
    * Use relative position instead of fixed
    */
   relative?: boolean;
+  /**
+   * If drawer is not relative, which side we should render the Drawer on?
+   */
   side?: DrawerPosition;
 }
 
-export function Drawer({
-  backdrop = true,
-  children,
-  focusElementRef,
-  id: outerId,
-  inPortal = false,
-  onClose,
-  open = false,
-  relative = false,
-  side = DrawerPosition.left,
-  ...restProps
-}: DrawerProps) {
-  const id = useUniqueId(outerId, 'drawer');
-  const baseRef = useRef<HTMLDivElement>(null);
-  const { zIndex } = useLayerManager();
-  const closeListenerManager = useCloseListenerManager();
-
-  useStaticOnRenderEffect(
-    bindOnCloseListeners,
-    closeListenerManager,
-    baseRef,
-    open,
-    relative,
-    // if there is a backdrop, the drawer is fullscreen
-    // meaning we don't want to bubble onClose when we close outside of drawer
-    backdrop,
+export const Drawer: VisageComponent<DrawerProps> = markAsVisageComponent(
+  function Drawer({
+    backdrop = true,
+    children,
+    focusElementRef,
+    id: outerId,
+    inPortal = false,
     onClose,
-  );
+    open = false,
+    relative = false,
+    side = DrawerPosition.left,
+    ...restProps
+  }: DrawerProps) {
+    const id = useUniqueId(outerId, 'drawer');
+    const baseRef = useRef<HTMLDivElement>(null);
+    const { zIndex } = useLayerManager();
+    const closeListenerManager = useCloseListenerManager();
 
-  useAutofocusOnMount(focusElementRef, open);
-  useFocusTrap(baseRef, backdrop && open ? focusElementRef : undefined);
-  useStaticEffect(disableBodyScroll, baseRef, !relative && backdrop && open);
-
-  if (relative) {
-    return (
-      <BaseDrawer id={outerId} relative={relative} {...restProps}>
-        {children}
-      </BaseDrawer>
+    useStaticOnRenderEffect(
+      bindOnCloseListeners,
+      closeListenerManager,
+      baseRef,
+      open,
+      relative,
+      // if there is a backdrop, the drawer is fullscreen
+      // meaning we don't want to bubble onClose when we close outside of drawer
+      backdrop,
+      onClose,
     );
-  }
 
-  if (!open) {
-    return null;
-  }
+    useAutofocusOnMount(focusElementRef, open);
+    useFocusTrap(baseRef, backdrop && open ? focusElementRef : undefined);
+    useStaticEffect(disableBodyScroll, baseRef, !relative && backdrop && open);
 
-  let drawer: ReactElement | null = (
-    <>
-      {backdrop ? <Backdrop styles={{ zIndex }} /> : null}
-      <BaseDrawer
-        id={outerId}
-        ref={baseRef}
-        side={side}
-        zIndex={zIndex + 1}
-        {...restProps}
-      >
-        {children}
-      </BaseDrawer>
-    </>
-  );
-
-  if (inPortal) {
-    drawer =
-      typeof document === 'undefined' ? null : (
-        <Portal containerId={id}>{drawer}</Portal>
+    if (relative) {
+      return (
+        <BaseDrawer id={outerId} relative={relative} {...restProps}>
+          {children}
+        </BaseDrawer>
       );
-  }
+    }
 
-  return <LayerManager>{drawer}</LayerManager>;
-}
+    if (!open) {
+      return null;
+    }
+
+    let drawer: ReactElement | null = (
+      <>
+        {backdrop ? <Backdrop styles={{ zIndex }} /> : null}
+        <BaseDrawer
+          id={outerId}
+          ref={baseRef}
+          side={side}
+          zIndex={zIndex + 1}
+          {...restProps}
+        >
+          {children}
+        </BaseDrawer>
+      </>
+    );
+
+    if (inPortal) {
+      drawer =
+        typeof document === 'undefined' ? null : (
+          <Portal containerId={id}>{drawer}</Portal>
+        );
+    }
+
+    return <LayerManager>{drawer}</LayerManager>;
+  },
+);

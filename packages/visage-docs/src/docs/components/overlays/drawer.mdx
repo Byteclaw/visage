@@ -5,6 +5,10 @@ components: ['Drawer']
 
 # Drawer
 
+**A component that is used to render collapsible content to a side of your choice.**
+
+`Drawer` is commonly used for collapsible navigation.
+
 ## Import
 
 ```js transpile=false
@@ -209,6 +213,31 @@ function AutomaticallyFocusElementInDrawer() {
   );
 }
 ```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Escape</KeyboardKey>}
+    description="If a Drawer is open and is the top most layer in layer stack, closes it."
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Tab</KeyboardKey> /{' '}
+        <Text styles={{ whiteSpace: 'nowrap' }}>
+          <KeyboardKey>Shift</KeyboardKey> + <KeyboardKey>Tab</KeyboardKey>
+        </Text>
+      </>
+    }
+    description={
+      <Text>
+        If a Drawer is open with <Code>focusElementRef</Code> set up, focus will
+        move according to tab sequence inside the Drawer.
+      </Text>
+    }
+  />
+</DescriptionList>
 
 ## Faces
 
