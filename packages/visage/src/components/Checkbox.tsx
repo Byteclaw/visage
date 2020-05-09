@@ -73,7 +73,7 @@ const CheckboxLabelText = createComponent('span', {
   variants: [visuallyHiddenBooleanVariant],
 });
 
-const CheckboxToggler = createComponent(Flex, {
+export const CheckboxToggler = createComponent(Flex, {
   displayName: 'CheckboxToggler',
   defaultProps: {
     'aria-hidden': true,

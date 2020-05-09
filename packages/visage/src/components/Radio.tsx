@@ -73,7 +73,7 @@ const RadioLabelText = createComponent('span', {
   variants: [visuallyHiddenBooleanVariant],
 });
 
-const RadioToggler = createComponent(Flex, {
+export const RadioToggler = createComponent(Flex, {
   displayName: 'RadioToggler',
   defaultProps: {
     'aria-hidden': true,
