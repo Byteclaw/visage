@@ -19,7 +19,7 @@ describe('Toggle', () => {
     );
 
     expect(getByTestId('toggle')).toHaveAttribute('disabled');
-    expect(getByTestId('label')).toHaveAttribute('disabled');
+    expect(getByTestId('label')).toHaveAttribute('data-disabled', 'true');
 
     fireEvent.click(getByTestId('toggle'));
     // we don't fire a keyDown because it isn't possible to focus disabled checkbox in browser
@@ -74,6 +74,7 @@ describe('Toggle', () => {
 
     // read only checkbox can be focused, clicked, etc but can't be changed
     expect(getByTestId('toggle')).toHaveAttribute('readOnly');
+    expect(getByTestId('label')).toHaveAttribute('data-readonly', 'true');
     expect(container.querySelector('[data-checked="false"]')).toBeDefined();
 
     fireEvent.click(getByTestId('toggle'));
@@ -190,7 +191,30 @@ describe('Toggle', () => {
           class="emotion-0"
           data-toastmanager="true"
         />
-        .emotion-0 {
+        .emotion-4 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .emotion-4[data-disabled="true"] {
+        cursor: default;
+        pointer-events: none;
+        resize: none;
+        opacity: 0.5;
+      }
+
+      .emotion-4[data-readonly="true"] {
+        cursor: default;
+      }
+
+      .emotion-0 {
         border: 0;
         -webkit-clip: rect(0,0,0,0);
         clip: rect(0,0,0,0);
@@ -326,21 +350,23 @@ describe('Toggle', () => {
         margin-right: 8px;
       }
 
-      .emotion-4 {
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        cursor: pointer;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
+      .emotion-3[data-hidden="true"] {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
       }
 
       <label
           class="emotion-4"
           data-disabled="false"
+          data-readonly="false"
         >
           <input
             class="emotion-0"
@@ -535,6 +561,19 @@ describe('Toggle', () => {
         margin-right: 8px;
       }
 
+      .emotion-3[data-hidden="true"] {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
       .emotion-4 {
         -webkit-align-items: center;
         -webkit-box-align: center;
@@ -548,9 +587,21 @@ describe('Toggle', () => {
         border-radius: 10px;
       }
 
+      .emotion-4[data-disabled="true"] {
+        cursor: default;
+        pointer-events: none;
+        resize: none;
+        opacity: 0.5;
+      }
+
+      .emotion-4[data-readonly="true"] {
+        cursor: default;
+      }
+
       <label
           class="emotion-4"
           data-disabled="false"
+          data-readonly="false"
         >
           <input
             class="emotion-0"
@@ -609,7 +660,30 @@ describe('Toggle', () => {
           class="emotion-0"
           data-toastmanager="true"
         />
-        .emotion-0 {
+        .emotion-4 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .emotion-4[data-disabled="true"] {
+        cursor: default;
+        pointer-events: none;
+        resize: none;
+        opacity: 0.5;
+      }
+
+      .emotion-4[data-readonly="true"] {
+        cursor: default;
+      }
+
+      .emotion-0 {
         border: 0;
         -webkit-clip: rect(0,0,0,0);
         clip: rect(0,0,0,0);
@@ -652,16 +726,17 @@ describe('Toggle', () => {
         margin-right: 8px;
       }
 
-      .emotion-4 {
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        cursor: pointer;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
+      .emotion-3[data-hidden="true"] {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
       }
 
       .emotion-2 {
@@ -760,6 +835,7 @@ describe('Toggle', () => {
       <label
           class="emotion-4"
           data-disabled="false"
+          data-readonly="false"
         >
           <input
             class="emotion-0"
@@ -818,7 +894,30 @@ describe('Toggle', () => {
           class="emotion-0"
           data-toastmanager="true"
         />
-        .emotion-0 {
+        .emotion-4 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .emotion-4[data-disabled="true"] {
+        cursor: default;
+        pointer-events: none;
+        resize: none;
+        opacity: 0.5;
+      }
+
+      .emotion-4[data-readonly="true"] {
+        cursor: default;
+      }
+
+      .emotion-0 {
         border: 0;
         -webkit-clip: rect(0,0,0,0);
         clip: rect(0,0,0,0);
@@ -941,18 +1040,6 @@ describe('Toggle', () => {
         transition-timing-function: ease-out;
       }
 
-      .emotion-4 {
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        cursor: pointer;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-      }
-
       .emotion-3 {
         font-size: inherit;
         line-height: inherit;
@@ -967,9 +1054,23 @@ describe('Toggle', () => {
         border-radius: 10px;
       }
 
+      .emotion-3[data-hidden="true"] {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
       <label
           class="emotion-4"
           data-disabled="false"
+          data-readonly="false"
         >
           <input
             class="emotion-0"
@@ -1028,7 +1129,30 @@ describe('Toggle', () => {
           class="emotion-0"
           data-toastmanager="true"
         />
-        .emotion-2 {
+        .emotion-4 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .emotion-4[data-disabled="true"] {
+        cursor: default;
+        pointer-events: none;
+        resize: none;
+        opacity: 0.5;
+      }
+
+      .emotion-4[data-readonly="true"] {
+        cursor: default;
+      }
+
+      .emotion-2 {
         overflow: hidden;
         border-radius: 999px;
         width: auto;
@@ -1151,16 +1275,17 @@ describe('Toggle', () => {
         margin-right: 8px;
       }
 
-      .emotion-4 {
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        cursor: pointer;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
+      .emotion-3[data-hidden="true"] {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
       }
 
       .emotion-0 {
@@ -1180,6 +1305,7 @@ describe('Toggle', () => {
       <label
           class="emotion-4"
           data-disabled="false"
+          data-readonly="false"
         >
           <input
             class="emotion-0"
@@ -1238,7 +1364,30 @@ describe('Toggle', () => {
           class="emotion-0"
           data-toastmanager="true"
         />
-        .emotion-0 {
+        .emotion-4 {
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .emotion-4[data-disabled="true"] {
+        cursor: default;
+        pointer-events: none;
+        resize: none;
+        opacity: 0.5;
+      }
+
+      .emotion-4[data-readonly="true"] {
+        cursor: default;
+      }
+
+      .emotion-0 {
         border: 0;
         -webkit-clip: rect(0,0,0,0);
         clip: rect(0,0,0,0);
@@ -1357,16 +1506,17 @@ describe('Toggle', () => {
         margin-right: 8px;
       }
 
-      .emotion-4 {
-        -webkit-align-items: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        cursor: pointer;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
+      .emotion-3[data-hidden="true"] {
+        border: 0;
+        -webkit-clip: rect(0,0,0,0);
+        clip: rect(0,0,0,0);
+        height: 1px;
+        overflow: hidden;
+        margin: -1px;
+        padding: 0px;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
       }
 
       .emotion-1 {
@@ -1390,6 +1540,7 @@ describe('Toggle', () => {
       <label
           class="emotion-4"
           data-disabled="false"
+          data-readonly="false"
         >
           <input
             class="emotion-0"

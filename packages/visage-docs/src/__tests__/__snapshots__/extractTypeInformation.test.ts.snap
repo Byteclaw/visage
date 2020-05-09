@@ -13455,7 +13455,7 @@ Object {
       "isOptional": true,
       "name": "labelProps",
       "parent": "CheckboxProps",
-      "type": "(Pick<ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps, \\"color\\" | ... 260 more ... | \\"htmlFor\\"> & { ...; } & StyleProps) | undefined",
+      "type": "(Pick<ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps, \\"color\\" | ... 260 more ... | \\"htmlFor\\"> & { ...; } & { ...; } & StyleProps) | undefined",
     },
     Object {
       "documentation": "Passes props to the label text",
@@ -88831,7 +88831,7 @@ Object {
       "isOptional": true,
       "name": "labelProps",
       "parent": "RadioProps",
-      "type": "(Pick<ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps, \\"color\\" | ... 260 more ... | \\"htmlFor\\"> & { ...; } & StyleProps) | undefined",
+      "type": "(Pick<ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps, \\"color\\" | ... 260 more ... | \\"htmlFor\\"> & { ...; } & { ...; } & StyleProps) | undefined",
     },
     Object {
       "documentation": "Passes props to the label text",
@@ -117212,7 +117212,7 @@ Object {
       "isOptional": true,
       "name": "labelProps",
       "parent": "ToggleProps",
-      "type": "(Pick<ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps, \\"color\\" | ... 260 more ... | \\"htmlFor\\"> & { ...; } & StyleProps) | undefined",
+      "type": "(Pick<ClassAttributes<HTMLLabelElement> & LabelHTMLAttributes<HTMLLabelElement> & StyleProps, \\"color\\" | ... 260 more ... | \\"htmlFor\\"> & { ...; } & { ...; } & StyleProps) | undefined",
     },
     Object {
       "documentation": "Passes props to the label text",

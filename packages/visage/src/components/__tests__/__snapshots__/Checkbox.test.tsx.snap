@@ -23,7 +23,43 @@ exports[`Checkbox is extendable by CheckboxControl face 1`] = `
     class="emotion-0"
     data-toastmanager="true"
   />
-  .emotion-2 {
+  .emotion-4 {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  outline: none;
+  padding: 0px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-4[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-4[data-readonly="true"] {
+  cursor: default;
+}
+
+.emotion-2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -80,29 +116,17 @@ exports[`Checkbox is extendable by CheckboxControl face 1`] = `
   line-height: inherit;
 }
 
-.emotion-4 {
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0px;
-  outline: none;
+.emotion-3[data-hidden="true"] {
+  border: 0;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
   padding: 0px;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .emotion-0 {
@@ -122,6 +146,7 @@ exports[`Checkbox is extendable by CheckboxControl face 1`] = `
 <label
     class="emotion-4"
     data-disabled="false"
+    data-readonly="false"
   >
     <input
       class="emotion-0"
@@ -249,6 +274,19 @@ exports[`Checkbox is extendable by CheckboxLabel face 1`] = `
   line-height: inherit;
 }
 
+.emotion-3[data-hidden="true"] {
+  border: 0;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0px;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .emotion-4 {
   -webkit-align-items: flex-start;
   -webkit-box-align: flex-start;
@@ -275,9 +313,21 @@ exports[`Checkbox is extendable by CheckboxLabel face 1`] = `
   border-radius: 10px;
 }
 
+.emotion-4[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-4[data-readonly="true"] {
+  cursor: default;
+}
+
 <label
     class="emotion-4"
     data-disabled="false"
+    data-readonly="false"
   >
     <input
       class="emotion-0"
@@ -335,7 +385,43 @@ exports[`Checkbox is extendable by CheckboxLabelText face 1`] = `
     class="emotion-0"
     data-toastmanager="true"
   />
-  .emotion-0 {
+  .emotion-4 {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  outline: none;
+  padding: 0px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-4[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-4[data-readonly="true"] {
+  cursor: default;
+}
+
+.emotion-0 {
   border: 0;
   -webkit-clip: rect(0,0,0,0);
   clip: rect(0,0,0,0);
@@ -400,40 +486,29 @@ exports[`Checkbox is extendable by CheckboxLabelText face 1`] = `
   fill: none;
 }
 
-.emotion-4 {
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0px;
-  outline: none;
-  padding: 0px;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
 .emotion-3 {
   font-size: inherit;
   line-height: inherit;
   border-radius: 10px;
 }
 
+.emotion-3[data-hidden="true"] {
+  border: 0;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0px;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 <label
     class="emotion-4"
     data-disabled="false"
+    data-readonly="false"
   >
     <input
       class="emotion-0"
@@ -491,7 +566,43 @@ exports[`Checkbox is extendable by CheckboxToggler face 1`] = `
     class="emotion-0"
     data-toastmanager="true"
   />
-  .emotion-0 {
+  .emotion-4 {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  outline: none;
+  padding: 0px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-4[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-4[data-readonly="true"] {
+  cursor: default;
+}
+
+.emotion-0 {
   border: 0;
   -webkit-clip: rect(0,0,0,0);
   clip: rect(0,0,0,0);
@@ -517,29 +628,17 @@ exports[`Checkbox is extendable by CheckboxToggler face 1`] = `
   line-height: inherit;
 }
 
-.emotion-4 {
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0px;
-  outline: none;
+.emotion-3[data-hidden="true"] {
+  border: 0;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
   padding: 0px;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .emotion-2 {
@@ -589,6 +688,7 @@ exports[`Checkbox is extendable by CheckboxToggler face 1`] = `
 <label
     class="emotion-4"
     data-disabled="false"
+    data-readonly="false"
   >
     <input
       class="emotion-0"
@@ -716,6 +816,19 @@ exports[`Checkbox is extendable by styles 1`] = `
   line-height: inherit;
 }
 
+.emotion-3[data-hidden="true"] {
+  border: 0;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0px;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .emotion-4 {
   -webkit-align-items: flex-start;
   -webkit-box-align: flex-start;
@@ -742,9 +855,21 @@ exports[`Checkbox is extendable by styles 1`] = `
   color: rgb(255,192,203);
 }
 
+.emotion-4[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-4[data-readonly="true"] {
+  cursor: default;
+}
+
 <label
     class="emotion-4"
     data-disabled="false"
+    data-readonly="false"
   >
     <input
       class="emotion-0"
@@ -802,7 +927,43 @@ exports[`Checkbox renders correctly 1`] = `
     class="emotion-0"
     data-toastmanager="true"
   />
-  .emotion-0 {
+  .emotion-4 {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-size: inherit;
+  line-height: inherit;
+  margin: 0px;
+  outline: none;
+  padding: 0px;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-4[data-disabled="true"] {
+  cursor: default;
+  pointer-events: none;
+  resize: none;
+  opacity: 0.5;
+}
+
+.emotion-4[data-readonly="true"] {
+  cursor: default;
+}
+
+.emotion-0 {
   border: 0;
   -webkit-clip: rect(0,0,0,0);
   clip: rect(0,0,0,0);
@@ -872,34 +1033,23 @@ exports[`Checkbox renders correctly 1`] = `
   line-height: inherit;
 }
 
-.emotion-4 {
-  -webkit-align-items: flex-start;
-  -webkit-box-align: flex-start;
-  -ms-flex-align: flex-start;
-  align-items: flex-start;
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-size: inherit;
-  line-height: inherit;
-  margin: 0px;
-  outline: none;
+.emotion-3[data-hidden="true"] {
+  border: 0;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
   padding: 0px;
-  position: relative;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 <label
     class="emotion-4"
     data-disabled="false"
+    data-readonly="false"
   >
     <input
       class="emotion-0"

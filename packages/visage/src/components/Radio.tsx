@@ -15,7 +15,6 @@ import React, {
 import { createComponent } from '../core';
 import {
   disabledControlStyles,
-  disabledControlBooleanVariant,
   visuallyHiddenBooleanVariant,
   visuallyHiddenStyles,
   createControlFocusShadow,
@@ -35,7 +34,7 @@ const RadioControl = createComponent('input', {
 
 const RadioLabel = createComponent('label', {
   displayName: 'RadioLabel',
-  styles: props => ({
+  styles: {
     alignItems: 'flex-start',
     cursor: 'pointer',
     display: 'flex',
@@ -47,18 +46,30 @@ const RadioLabel = createComponent('label', {
     p: 0,
     position: 'relative',
     userSelect: 'none',
-    ...(props.disabled ? disabledControlStyles : {}),
-  }),
-  variants: [disabledControlBooleanVariant],
+    ...booleanVariantStyles('disabled', {
+      on: disabledControlStyles,
+    }),
+    ...booleanVariantStyles('readOnly', {
+      on: {
+        cursor: 'default',
+      },
+    }),
+  },
+  variants: [
+    booleanVariant('disabled', true),
+    booleanVariant('readOnly', true),
+  ],
 });
 
 const RadioLabelText = createComponent('span', {
   displayName: 'RadioLabelText',
-  styles: props => ({
+  styles: {
     fontSize: 'inherit',
     lineHeight: 'inherit',
-    ...(props.hidden ? visuallyHiddenStyles : {}),
-  }),
+    ...booleanVariantStyles('hidden', {
+      on: visuallyHiddenStyles,
+    }),
+  },
   variants: [visuallyHiddenBooleanVariant],
 });
 
@@ -230,6 +241,7 @@ export const Radio: VisageComponent<RadioProps> = forwardRef(function Radio(
       {...labelProps}
       disabled={disabled}
       parentStyles={parentStyles}
+      readOnly={readOnly}
       styles={styles}
       $$variants={$$variants}
     >
