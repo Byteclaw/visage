@@ -1,6 +1,6 @@
 import { createComponent } from '../core';
 
-export const Header = createComponent('div', {
+export const Header = createComponent('header', {
   displayName: 'Header',
   styles: {
     display: 'flex',
