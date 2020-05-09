@@ -74,13 +74,37 @@ type AccordionRegionProps = ExtractVisageComponentProps<typeof AccordionRegion>;
 
 export interface AccordionItemProps {
   children: ReactNode | (() => ReactNode);
+  /**
+   * Is this item open? If there is more than 1 item open, only the first one will be expanded.
+   */
   open?: boolean;
+  /**
+   * On trigger click passed by Accordion
+   */
   onTriggerClick?: MouseEventHandler<HTMLDivElement>;
+  /**
+   * On trigger keydown passed by Accordion
+   */
   onTriggerKeyDown?: KeyboardEventHandler<HTMLDivElement>;
+  /**
+   * Item heading
+   */
   title: ReactNode;
+  /**
+   * Region element id, passed by Accordion
+   */
   regionId?: string;
+  /**
+   * You can pass custom props to a region accociated with this item
+   */
   regionProps?: AccordionRegionProps;
+  /**
+   * Trigger element id, passed by Accordion
+   */
   triggerId?: string;
+  /**
+   * You can pass custom props to a trigger associated with this item
+   */
   triggerProps?: AccordionTriggerProps;
 }
 
@@ -89,11 +113,9 @@ export function AccordionItem({
   onTriggerClick,
   onTriggerKeyDown,
   open,
-  // passed from Accordion
   regionId,
   regionProps,
   title,
-  // passed from Accordion
   triggerId,
   triggerProps,
 }: AccordionItemProps) {
