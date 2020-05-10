@@ -19,6 +19,7 @@ import {
 import {
   CloseListenerManagerContext,
   CloseListenerManagerContextAPI,
+  OnCloseHandler,
 } from './CloseListenerManager';
 import { disableBodyScroll } from './effects';
 
@@ -54,7 +55,7 @@ function bindOnCloseListeners(
   preventCloseRefs: RefObject<HTMLElement>[],
   modalRef: RefObject<HTMLElement>,
   isFullscreen: boolean,
-  onClose: undefined | (() => void),
+  onClose: undefined | OnCloseHandler,
   disableOnEscapeClose: boolean = false,
   disableOnClickAwayClose: boolean = false,
 ) {
@@ -89,19 +90,27 @@ interface ModalProps {
    * so contentRef should be a ref to the div
    */
   contentRef?: MutableRefObject<HTMLElement | null>;
+  /**
+   * Disable on click away close listener
+   */
   disableOnClickAwayClose?: boolean;
+  /**
+   * Disable on escape key down close listener
+   */
   disableOnEscapeClose?: boolean;
   children?: ReactNode;
   /**
    * Render modal content as position: fixed
    */
   fixed?: boolean;
-  /** Close button label (default close modal) */
   /**
    * Unique id of the modal
    */
   id?: string;
-  onClose?: () => void;
+  /**
+   * Optional on close handler. Can be used to prevent closing using e.preventDefault().
+   */
+  onClose?: OnCloseHandler;
   /**
    * When content overflows screen height should we scroll the modal content?
    */
