@@ -7,11 +7,11 @@ import {
 import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import React, {
   forwardRef,
-  ReactElement,
   ReactNode,
   Ref,
   useState,
   FocusEventHandler,
+  memo,
 } from 'react';
 import { createComponent } from '../core';
 import {
@@ -165,8 +165,17 @@ const ToggleLabel = createComponent('label', {
 
 interface ToggleProps
   extends ExtractVisageComponentProps<typeof ToggleControl> {
+  /**
+   * Hides label visually
+   */
   hiddenLabel?: boolean;
+  /**
+   * Sets the checkbox aria-invalid to true and applies visual style
+   */
   invalid?: boolean;
+  /**
+   * Label of the toggle
+   */
   label: ReactNode;
   /**
    * Passes props to the label
@@ -176,88 +185,96 @@ interface ToggleProps
    * Passes props to the label text
    */
   labelTextProps?: ExtractVisageComponentProps<typeof ToggleLabelText>;
+  /**
+   * Content that should be visible to the left of the toggler
+   */
   leftContent?: ReactNode;
-  ref?: React.RefObject<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
+  /**
+   * Content that should be visible to the right of the toggler
+   */
   rightContent?: ReactNode;
-  wrapper?: ReactElement;
 }
 
-export const Toggle: VisageComponent<ToggleProps> = forwardRef(function Toggle(
-  {
-    $$variants,
-    defaultChecked,
-    disabled,
-    checked,
-    hiddenLabel = false,
-    invalid,
-    label,
-    labelProps,
-    labelTextProps,
-    leftContent,
-    rightContent,
-    onBlur,
-    onChange,
-    onFocus,
-    readOnly,
-    parentStyles,
-    styles,
-    value,
-    ...rest
-  }: ToggleProps & StyleProps,
-  ref: Ref<HTMLInputElement>,
-) {
-  const [focused, setFocused] = useState(false);
-  const [inputChecked, setInputChecked] = useState(
-    checked ?? defaultChecked ?? false,
-  );
-  const onInnerBlur = useHandlerRef(() => setFocused(false));
-  const onInnerFocus = useHandlerRef(() => setFocused(true));
-  const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
-    onBlur,
-    onInnerBlur,
-  );
-  const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
-    onFocus,
-    onInnerFocus,
-  );
-  const onChangeHandler = useStaticCallbackCreator(wrapToggleOnChangeHandler, [
-    readOnly,
-    onChange,
-    setInputChecked,
-  ]);
-  // if onChange is provided then the component is controlled
-  const isChecked = checked ?? inputChecked;
+export const Toggle: VisageComponent<ToggleProps> = markAsVisageComponent(
+  memo(
+    forwardRef(function Toggle(
+      {
+        $$variants,
+        defaultChecked,
+        disabled,
+        checked,
+        hiddenLabel = false,
+        invalid,
+        label,
+        labelProps,
+        labelTextProps,
+        leftContent,
+        rightContent,
+        onBlur,
+        onChange,
+        onFocus,
+        readOnly,
+        parentStyles,
+        styles,
+        value,
+        ...rest
+      }: ToggleProps & StyleProps,
+      ref: Ref<HTMLInputElement>,
+    ) {
+      const [focused, setFocused] = useState(false);
+      const [inputChecked, setInputChecked] = useState(
+        checked ?? defaultChecked ?? false,
+      );
+      const onInnerBlur = useHandlerRef(() => setFocused(false));
+      const onInnerFocus = useHandlerRef(() => setFocused(true));
+      const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
+        onBlur,
+        onInnerBlur,
+      );
+      const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
+        onFocus,
+        onInnerFocus,
+      );
+      const onChangeHandler = useStaticCallbackCreator(
+        wrapToggleOnChangeHandler,
+        [readOnly, onChange, setInputChecked],
+      );
+      // if onChange is provided then the component is controlled
+      const isChecked = checked ?? inputChecked;
 
-  return (
-    <ToggleLabel {...labelProps} disabled={disabled} readOnly={readOnly}>
-      <ToggleControl
-        {...rest}
-        aria-invalid={invalid}
-        checked={isChecked}
-        disabled={disabled}
-        onBlur={onBlurHandler}
-        onChange={onChangeHandler}
-        onFocus={onFocusHandler}
-        ref={ref}
-        readOnly={readOnly}
-        value={value}
-        type="checkbox"
-      />
-      <ToggleContainer
-        checked={isChecked}
-        focused={focused}
-        invalid={invalid}
-        parentStyles={parentStyles}
-        styles={styles}
-        $$variants={$$variants}
-      >
-        <Toggler data-label-content={isChecked ? rightContent : leftContent} />
-      </ToggleContainer>
-      <ToggleLabelText {...labelTextProps} hidden={hiddenLabel}>
-        {label}
-      </ToggleLabelText>
-    </ToggleLabel>
-  );
-});
-
-markAsVisageComponent(Toggle);
+      return (
+        <ToggleLabel {...labelProps} disabled={disabled} readOnly={readOnly}>
+          <ToggleControl
+            {...rest}
+            aria-invalid={invalid}
+            checked={isChecked}
+            disabled={disabled}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            onFocus={onFocusHandler}
+            ref={ref}
+            readOnly={readOnly}
+            value={value}
+            type="checkbox"
+          />
+          <ToggleContainer
+            checked={isChecked}
+            focused={focused}
+            invalid={invalid}
+            parentStyles={parentStyles}
+            styles={styles}
+            $$variants={$$variants}
+          >
+            <Toggler
+              data-label-content={isChecked ? rightContent : leftContent}
+            />
+          </ToggleContainer>
+          <ToggleLabelText {...labelTextProps} hidden={hiddenLabel}>
+            {label}
+          </ToggleLabelText>
+        </ToggleLabel>
+      );
+    }),
+  ),
+);

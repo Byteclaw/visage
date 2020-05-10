@@ -13469,7 +13469,7 @@ Object {
       "isOptional": true,
       "name": "ref",
       "parent": "CheckboxProps",
-      "type": "RefObject<HTMLInputElement> | undefined",
+      "type": "((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined",
     },
     Object {
       "documentation": "Toggler componet",
@@ -88856,7 +88856,7 @@ Object {
       "isOptional": true,
       "name": "ref",
       "parent": "RadioProps",
-      "type": "RefObject<HTMLInputElement> | undefined",
+      "type": "((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined",
     },
     Object {
       "documentation": "Toggler component",
@@ -117198,21 +117198,21 @@ exports[`extracting type information extracts information from Toggle component 
 Object {
   "properties": Array [
     Object {
-      "documentation": "",
+      "documentation": "Hides label visually",
       "isOptional": true,
       "name": "hiddenLabel",
       "parent": "ToggleProps",
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Sets the checkbox aria-invalid to true and applies visual style",
       "isOptional": true,
       "name": "invalid",
       "parent": "ToggleProps",
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Label of the toggle",
       "isOptional": false,
       "name": "label",
       "parent": "ToggleProps",
@@ -117233,7 +117233,7 @@ Object {
       "type": "(Pick<ClassAttributes<HTMLSpanElement> & HTMLAttributes<HTMLSpanElement> & StyleProps, \\"color\\" | ... 257 more ... | \\"$$variants\\"> & { ...; } & StyleProps) | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Content that should be visible to the left of the toggler",
       "isOptional": true,
       "name": "leftContent",
       "parent": "ToggleProps",
@@ -117244,21 +117244,14 @@ Object {
       "isOptional": true,
       "name": "ref",
       "parent": "ToggleProps",
-      "type": "RefObject<HTMLInputElement> | undefined",
+      "type": "((instance: HTMLInputElement | null) => void) | RefObject<HTMLInputElement> | null | undefined",
     },
     Object {
-      "documentation": "",
+      "documentation": "Content that should be visible to the right of the toggler",
       "isOptional": true,
       "name": "rightContent",
       "parent": "ToggleProps",
       "type": "ReactNode",
-    },
-    Object {
-      "documentation": "",
-      "isOptional": true,
-      "name": "wrapper",
-      "parent": "ToggleProps",
-      "type": "ReactElement<any, string | ((props: any) => ReactElement<any, string | ... | (new (props: any) => Component<any, any, any>)> | null) | (new (props: any) => Component<any, any, any>)> | undefined",
     },
     Object {
       "documentation": "",
