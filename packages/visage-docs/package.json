@@ -1,13 +1,13 @@
 {
   "name": "@byteclaw/visage-docs",
-  "version": "1.0.0-alpha.29",
+  "version": "1.0.0-alpha.30",
   "private": true,
   "license": "MIT",
   "main": "src/index.ts",
   "dependencies": {
     "@byteclaw/babel-plugin-visage": "^1.0.0-alpha.0",
-    "@byteclaw/visage": "^1.0.0-alpha.29",
-    "@byteclaw/visage-themes": "^1.0.0-alpha.29",
+    "@byteclaw/visage": "^1.0.0-alpha.30",
+    "@byteclaw/visage-themes": "^1.0.0-alpha.30",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
     "@mdx-js/mdx": "^1.5.8",
