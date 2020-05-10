@@ -5,6 +5,12 @@ components: ['Dialog']
 
 # Dialog
 
+**A component that works as a window overlaid on either the primary window or another `Dialog`.**
+
+`Dialog` works as a focus trap. That means that <kbd>Tab</kbd> or <kbd>Shift</kbd> + <kbd>Tab</kbd> do not move focus outside of the dialog.
+
+`Dialog` also forbids a user to interact with a content outside of the dialog.
+
 ## Import
 
 ```js transpile=false
@@ -95,6 +101,51 @@ function Example() {
   );
 }
 ```
+
+## Keyboard Interaction
+
+When a `Dialog` opens, focus is moved to an element defined by `focusElementRef` prop or if not provided but dialog is closable, it will be moved to Close button.
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        <ul>
+          <li>Moves focus to the next tabbable element inside the dialog.</li>
+          <li>
+            If focus is on the last tabbable element inside the dialog, moves
+            focus to the first tabbable element inside the dialog.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <Text styles={{ whiteSpace: 'nowrap' }}>
+        <kbd>Shift</kbd> + <kbd>Tab</kbd>
+      </Text>
+    }
+    description={
+      <>
+        <ul>
+          <li>
+            Moves focus to the previous tabbable element inside the dialog.
+          </li>
+          <li>
+            If focus is on the first tabbable element inside the dialog, moves
+            focus to the last tabbable element inside the dialog.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Escape</KeyboardKey>}
+    description="If the dialog is closable, closes it."
+  />
+</DescriptionList>
 
 ## Faces
 
