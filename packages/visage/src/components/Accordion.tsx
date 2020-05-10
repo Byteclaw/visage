@@ -161,7 +161,7 @@ export function Accordion({ children, id }: AccordionProps) {
   const [openItem, setOpenItem] = useState(() => {
     const idx = items.findIndex(item => item.props.open);
 
-    return idx === -1 ? 0 : 1;
+    return idx === -1 ? 0 : idx;
   });
 
   // if out of bounds
