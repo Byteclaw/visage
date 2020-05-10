@@ -1,4 +1,9 @@
-import React, { ReactElement, ReactNode, useRef } from 'react';
+import React, {
+  ReactElement,
+  ReactNode,
+  useRef,
+  MutableRefObject,
+} from 'react';
 import { createComponent } from '../core';
 import { useUniqueId } from '../hooks';
 import { booleanVariant, variant } from '../variants';
@@ -107,6 +112,13 @@ interface DialogProps {
   contentStyles?: VisageStyleSheet;
   /** Close button label (default Close dialog) */
   closeButtonLabel?: string;
+  /**
+   * This element will be focused on mount and will receive focus from focus trap
+   *
+   * If ommited and onClose is set, close button will receive the focus
+   */
+  focusElementRef?: MutableRefObject<HTMLElement | null>;
+  /** Dialog heading */
   label: string | ReactElement;
   /**
    * Unique id of the dialog
@@ -138,6 +150,7 @@ export function Dialog({
   children,
   contentStyles,
   closeButtonLabel = 'Close dialog',
+  focusElementRef,
   label,
   id: outerId,
   onClose,
@@ -153,7 +166,7 @@ export function Dialog({
   return (
     <Modal
       contentRef={dialogRef}
-      focusElementRef={closeButtonRef}
+      focusElementRef={focusElementRef || closeButtonRef}
       open
       scrollable={scroll === 'body'}
       id={id}
