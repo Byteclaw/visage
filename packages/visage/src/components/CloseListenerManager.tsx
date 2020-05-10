@@ -12,7 +12,7 @@ import { useStaticEffect } from '../hooks';
 import { normalizeKeyboardEventKey } from './shared';
 
 export type OnCloseHandler = (
-  e: KeyboardEvent | MouseEvent,
+  e: KeyboardEvent | MouseEvent | React.MouseEvent | React.KeyboardEvent,
 ) => any | Promise<any>;
 
 interface ClickAwayHandler {

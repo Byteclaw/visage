@@ -8,6 +8,7 @@ import { CloseButton } from './CloseButton';
 import { Heading } from './Heading';
 import { Modal } from './Modal';
 import { Text } from './Text';
+import { OnCloseHandler } from './CloseListenerManager';
 
 const DialogBase = createComponent(Flex, {
   displayName: 'Dialog',
@@ -104,20 +105,31 @@ interface DialogProps {
    * Content wrapper's styles
    */
   contentStyles?: VisageStyleSheet;
-  /** Close button label (default close dialog) */
+  /** Close button label (default Close dialog) */
   closeButtonLabel?: string;
   label: string | ReactElement;
   /**
    * Unique id of the dialog
    */
   id?: string;
-  onClose?: () => void;
+  /**
+   * Optional on close handler. Can be used to prevent closing using e.preventDefault().
+   *
+   * If the handler is not provided, close button is not visible.
+   */
+  onClose?: OnCloseHandler;
   /**
    * Accessibility role, use alert dialog if you need user's interaction
    * Default is dialog (you don't need users immediate action)
    */
   role?: 'dialog' | 'alertdialog';
+  /**
+   * Show we allow to scroll body or content? Default is content
+   */
   scroll?: 'content' | 'body';
+  /**
+   * Dialog's subheading
+   */
   secondaryLabel?: string | ReactElement;
 }
 
