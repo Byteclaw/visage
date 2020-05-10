@@ -172,106 +172,107 @@ interface RadioProps extends ExtractVisageComponentProps<typeof RadioControl> {
    * Passes props to the label text
    */
   labelTextProps?: ExtractVisageComponentProps<typeof RadioLabelText>;
-  ref?: React.RefObject<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
   /**
    * Toggler component
    */
   toggler?: React.ComponentType<RadioTogglerProps>;
 }
 
-export const Radio: VisageComponent<RadioProps> = forwardRef(function Radio(
-  {
-    $$variants,
-    checked,
-    defaultChecked,
-    disabled,
-    hiddenLabel = false,
-    invalid,
-    label,
-    labelProps,
-    labelTextProps,
-    name,
-    onBlur,
-    onChange,
-    onFocus,
-    readOnly,
-    parentStyles,
-    styles,
-    toggler: Toggler = DefaultRadioToggler,
-    ...rest
-  }: RadioProps,
-  ref: Ref<HTMLInputElement>,
-) {
-  const reff = useCombinedRef(ref);
-  const [focused, setFocused] = useState(false);
-  const [innerChecked, setInnerChecked] = useState(
-    checked ?? defaultChecked ?? false,
-  );
-  const onInnerBlur = useHandlerRef(() => setFocused(false));
-  const onInnerFocus = useHandlerRef(() => setFocused(true));
-  const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
-    onBlur,
-    onInnerBlur,
-  );
-  const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
-    onFocus,
-    onInnerFocus,
-  );
-  const onChangeHandler = useStaticCallbackCreator(wrapToggleOnChangeHandler, [
-    readOnly,
-    onChange,
-    setInnerChecked,
-  ]);
-  // if checked is provided then the component is controlled
-  const isChecked = checked ?? innerChecked;
-  const isControlled = checked != null;
+export const Radio: VisageComponent<RadioProps> = markAsVisageComponent(
+  memo(
+    forwardRef(function Radio(
+      {
+        $$variants,
+        checked,
+        defaultChecked,
+        disabled,
+        hiddenLabel = false,
+        invalid,
+        label,
+        labelProps,
+        labelTextProps,
+        name,
+        onBlur,
+        onChange,
+        onFocus,
+        readOnly,
+        parentStyles,
+        styles,
+        toggler: Toggler = DefaultRadioToggler,
+        ...rest
+      }: RadioProps,
+      ref: Ref<HTMLInputElement>,
+    ) {
+      const reff = useCombinedRef(ref);
+      const [focused, setFocused] = useState(false);
+      const [innerChecked, setInnerChecked] = useState(
+        checked ?? defaultChecked ?? false,
+      );
+      const onInnerBlur = useHandlerRef(() => setFocused(false));
+      const onInnerFocus = useHandlerRef(() => setFocused(true));
+      const onBlurHandler = useComposedCallbackCreator<FocusEventHandler>(
+        onBlur,
+        onInnerBlur,
+      );
+      const onFocusHandler = useComposedCallbackCreator<FocusEventHandler>(
+        onFocus,
+        onInnerFocus,
+      );
+      const onChangeHandler = useStaticCallbackCreator(
+        wrapToggleOnChangeHandler,
+        [readOnly, onChange, setInnerChecked],
+      );
+      // if checked is provided then the component is controlled
+      const isChecked = checked ?? innerChecked;
+      const isControlled = checked != null;
 
-  useStaticEffect(
-    detectRadioCheckedState,
-    reff,
-    isControlled,
-    !!readOnly,
-    setInnerChecked,
-  );
+      useStaticEffect(
+        detectRadioCheckedState,
+        reff,
+        isControlled,
+        !!readOnly,
+        setInnerChecked,
+      );
 
-  // find out how uncontrolled components can be handled with onChange, especially radio which
-  // fires only on change on a specific component, so the previous one does not react at all
-  return (
-    <RadioLabel
-      {...labelProps}
-      disabled={disabled}
-      parentStyles={parentStyles}
-      readOnly={readOnly}
-      styles={styles}
-      $$variants={$$variants}
-    >
-      <RadioControl
-        {...rest}
-        aria-invalid={invalid}
-        defaultChecked={defaultChecked}
-        checked={checked}
-        disabled={disabled}
-        name={name}
-        onBlur={onBlurHandler}
-        onChange={onChangeHandler}
-        onFocus={onFocusHandler}
-        ref={reff}
-        readOnly={readOnly}
-        type="radio"
-      />
-      <Toggler
-        checked={isChecked}
-        disabled={disabled}
-        focused={focused}
-        invalid={invalid}
-        readOnly={readOnly}
-      />
-      &#8203; {/* fixes height if label is hidden */}
-      <RadioLabelText {...labelTextProps} hidden={hiddenLabel}>
-        {label}
-      </RadioLabelText>
-    </RadioLabel>
-  );
-});
-
-markAsVisageComponent(Radio);
+      // find out how uncontrolled components can be handled with onChange, especially radio which
+      // fires only on change on a specific component, so the previous one does not react at all
+      return (
+        <RadioLabel
+          {...labelProps}
+          disabled={disabled}
+          parentStyles={parentStyles}
+          readOnly={readOnly}
+          styles={styles}
+          $$variants={$$variants}
+        >
+          <RadioControl
+            {...rest}
+            aria-invalid={invalid}
+            defaultChecked={defaultChecked}
+            checked={checked}
+            disabled={disabled}
+            name={name}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            onFocus={onFocusHandler}
+            ref={reff}
+            readOnly={readOnly}
+            type="radio"
+          />
+          <Toggler
+            checked={isChecked}
+            disabled={disabled}
+            focused={focused}
+            invalid={invalid}
+            readOnly={readOnly}
+          />
+          &#8203; {/* fixes height if label is hidden */}
+          <RadioLabelText {...labelTextProps} hidden={hiddenLabel}>
+            {label}
+          </RadioLabelText>
+        </RadioLabel>
+      );
+    }),
+  ),
+);

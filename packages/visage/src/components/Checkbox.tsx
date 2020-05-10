@@ -175,7 +175,7 @@ interface CheckboxProps
    * Passes props to the label text
    */
   labelTextProps?: ExtractVisageComponentProps<typeof CheckboxLabelText>;
-  ref?: React.RefObject<HTMLInputElement>;
+  ref?: Ref<HTMLInputElement>;
   /**
    * Toggler componet
    */
