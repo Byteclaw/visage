@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.32 (2020-05-13)
+
+* feat(visage): add transform anchor origin options ([60fbc92](https://github.com/Byteclaw/visage/commit/60fbc92))
+* feat(visage): make placement and origin responsive ([7954043](https://github.com/Byteclaw/visage/commit/7954043))
+* fix(visage): allow to close Popover on anchor click ([a41907c](https://github.com/Byteclaw/visage/commit/a41907c))
+
+
+
+
+
 ## 1.0.0-alpha.31 (2020-05-10)
 
 * fix(visage): use correct index to detect which accordion item is open ([8b737d4](https://github.com/Byteclaw/visage/commit/8b737d4))
