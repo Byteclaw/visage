@@ -69843,11 +69843,15 @@ The purpose of this props is for example if you want to use Menu as companion to
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "Prioritized array of Placement to Anchor origin tuples",
+      "documentation": "A responsive array of prioritized placements
+
+Can be used to say how should popover behave in different scenarios
+
+Default is top left placement with top left anchor origin and bottom left alternative",
       "isOptional": true,
       "name": "placement",
       "parent": "MenuProps",
-      "type": "PlacementWithAnchorOrigin[] | undefined",
+      "type": "(PlacementWithAnchorOrigin[] | undefined)[] | undefined",
     },
     Object {
       "documentation": "Props that will be passed to underlying Popover component",
@@ -83213,7 +83217,7 @@ Default value is 16",
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "Prioritized array of placement and anchor origin tuples
+      "documentation": "A responsive array of prioritized placements
 
 Can be used to say how should popover behave in different scenarios
 
@@ -83221,7 +83225,7 @@ Default is top left placement with top left anchor origin",
       "isOptional": true,
       "name": "placement",
       "parent": "PopoverProps",
-      "type": "PlacementWithAnchorOrigin[] | undefined",
+      "type": "(PlacementWithAnchorOrigin[] | undefined)[] | undefined",
     },
     Object {
       "documentation": "Ref to div that wraps the popover content",
@@ -85072,11 +85076,13 @@ It's recommended not to change content dimensions in response to matched placeme
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "Prioritized array of placement to anchor origin tuples",
+      "documentation": "A responsive array of prioritized placements
+
+Can be used to say how should popover behave in different scenarios",
       "isOptional": false,
       "name": "placement",
       "parent": "PopperProps",
-      "type": "PlacementWithAnchorOrigin[]",
+      "type": "(PlacementWithAnchorOrigin[] | undefined)[]",
     },
     Object {
       "documentation": "",

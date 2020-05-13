@@ -1,12 +1,18 @@
 export interface AnchorOrigin {
+  /**
+   * Horizontal anchor position on anchor element
+   */
   horizontal?: AnchorHorizontalOrigin;
+  /**
+   * Vertical anchor position on anchor element
+   */
   vertical?: AnchorVerticalOrigin;
   /**
-   * Transforms origin horizontal position
+   * Transforms anchor origin horizontal position
    */
   transformX?: number;
   /**
-   * Transforms origin vertical position
+   * Transforms anchor origin vertical position
    */
   transformY?: number;
 }
@@ -552,7 +558,9 @@ export interface PlacementConstraints {
   minWidth?: number;
 }
 
-export type PlacementWithAnchorOrigin = [Placement, AnchorOrigin];
+export interface PlacementWithAnchorOrigin extends AnchorOrigin {
+  placement: Placement;
+}
 
 interface ComputePositioningStylesOptions extends PlacementConstraints {
   anchor: HTMLElement | AnchorPosition;
@@ -607,23 +615,23 @@ export function computePositioningStyles(
   let intermediateValue: PositioningStyles | undefined;
 
   // try to compute positions based on placementAndOrigin
-  for (const [placement, anchorOrigin] of placementAndOrigin) {
+  for (const placementSettings of placementAndOrigin) {
     const anchorPosition = applyAnchorOrigin(
       anchorPositionAndDimensions,
-      anchorOrigin,
+      placementSettings,
     );
     const newValue = computePositionAndDimensions(
       view,
       anchorPosition,
       rect,
-      placement,
+      placementSettings.placement,
       constraints,
     );
 
     // detect if region matches contstraints and return immediately if it so
     if (newValue.matches) {
       intermediateValue = {
-        placement,
+        placement: placementSettings.placement,
         ...newValue,
       };
       break;
@@ -636,7 +644,7 @@ export function computePositioningStyles(
       intermediateValue.width < newValue.width
     ) {
       intermediateValue = {
-        placement,
+        placement: placementSettings.placement,
         ...newValue,
       };
     }

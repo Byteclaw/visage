@@ -19,7 +19,7 @@ import { Popper } from '@byteclaw/visage';
 
 ## Usage
 
-`Popper` doesn&apos;t have any default placement set. To set it up use `placement` prop that must be an array from preffered placement to alternative placements. Any placement must have it&apos;s transform origin set up to say where the anchor should be positioned if given placement is considered for use.
+`Popper` doesn&apos;t have any default placement set. To set it up use `placement` prop that must be a responsive value which accepts a prioritized array of preffered placements. Any placement must have it&apos;s transform origin set up to say where the anchor should be positioned if given placement is considered for use.
 
 ```jsx live=true
 () => {
@@ -35,7 +35,13 @@ import { Popper } from '@byteclaw/visage';
         anchor={anchorRef}
         open={open}
         placement={[
-          [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
+          [
+            {
+              placement: Placement.topLeft,
+              horizontal: 'left',
+              vertical: 'bottom',
+            },
+          ],
         ]}
       >
         <Flex
