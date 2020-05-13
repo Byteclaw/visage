@@ -65,6 +65,6 @@ export {
   createControlHoverShadow,
   createSurfaceFocusShadow,
   Placement,
-  AnchorOrigin,
-  PlacementWithAnchorOrigin,
 } from './shared';
+
+export type { AnchorOrigin, PlacementWithAnchorOrigin } from './shared';

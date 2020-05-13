@@ -1,6 +1,14 @@
 export interface AnchorOrigin {
   horizontal?: AnchorHorizontalOrigin;
   vertical?: AnchorVerticalOrigin;
+  /**
+   * Transforms origin horizontal position
+   */
+  transformX?: number;
+  /**
+   * Transforms origin vertical position
+   */
+  transformY?: number;
 }
 
 export type AnchorHorizontalOrigin = 'left' | 'center' | 'right';
@@ -53,6 +61,7 @@ export function getWindowScrollX(w: Window) {
 export function getOffsetTop(
   element: HTMLElement | AnchorPositionAndDimensions,
   vertical: AnchorVerticalOrigin = 'top',
+  transformY: number = 0,
 ): number {
   let offset = 0;
   const height =
@@ -64,12 +73,13 @@ export function getOffsetTop(
     offset = height;
   }
 
-  return offset;
+  return offset + transformY;
 }
 
 export function getOffsetLeft(
   element: HTMLElement | AnchorPositionAndDimensions,
   horizontal: AnchorHorizontalOrigin = 'left',
+  transformX: number = 0,
 ): number {
   let offset = 0;
   const width =
@@ -81,7 +91,7 @@ export function getOffsetLeft(
     offset = width;
   }
 
-  return offset;
+  return offset + transformX;
 }
 
 export function applyAnchorOrigin(
@@ -89,8 +99,12 @@ export function applyAnchorOrigin(
   anchorOrigin: AnchorOrigin,
 ): AnchorPosition {
   return {
-    left: anchor.left + getOffsetLeft(anchor, anchorOrigin.horizontal),
-    top: anchor.top + getOffsetTop(anchor, anchorOrigin.vertical),
+    left:
+      anchor.left +
+      getOffsetLeft(anchor, anchorOrigin.horizontal, anchorOrigin.transformX),
+    top:
+      anchor.top +
+      getOffsetTop(anchor, anchorOrigin.vertical, anchorOrigin.transformY),
   };
 }
 
