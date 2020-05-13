@@ -84,11 +84,29 @@ interface TooltipProps {
   delay?: number;
 }
 
-const tooltipPlacements: PlacementWithAnchorOrigin[] = [
-  [Placement.topCenter, { horizontal: 'center', vertical: 'bottom' }],
-  [Placement.centerLeft, { horizontal: 'right', vertical: 'center' }],
-  [Placement.bottomCenter, { horizontal: 'center', vertical: 'top' }],
-  [Placement.centerRight, { horizontal: 'left', vertical: 'center' }],
+const tooltipPlacements: PlacementWithAnchorOrigin[][] = [
+  [
+    {
+      placement: Placement.topCenter,
+      horizontal: 'center',
+      vertical: 'bottom',
+    },
+    {
+      placement: Placement.centerLeft,
+      horizontal: 'right',
+      vertical: 'center',
+    },
+    {
+      placement: Placement.bottomCenter,
+      horizontal: 'center',
+      vertical: 'top',
+    },
+    {
+      placement: Placement.centerRight,
+      horizontal: 'left',
+      vertical: 'center',
+    },
+  ],
 ];
 
 /**

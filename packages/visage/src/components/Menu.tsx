@@ -70,9 +70,13 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
    */
   open?: boolean;
   /**
-   * Prioritized array of Placement to Anchor origin tuples
+   * A responsive array of prioritized placements
+   *
+   * Can be used to say how should popover behave in different scenarios
+   *
+   * Default is top left placement with top left anchor origin and bottom left alternative
    */
-  placement?: PlacementWithAnchorOrigin[];
+  placement?: (PlacementWithAnchorOrigin[] | undefined)[];
   /**
    * Props that will be passed to underlying Popover component
    */
@@ -81,17 +85,11 @@ interface MenuProps extends ExtractVisageComponentProps<typeof MenuBase> {
 
 type MenuItemProps = ExtractVisageComponentProps<typeof MenuItemBase>;
 
-const defaultPlacement: PlacementWithAnchorOrigin[] = [
+const defaultPlacement: PlacementWithAnchorOrigin[][] = [
   [
-    Placement.topLeft,
+    { placement: Placement.topLeft, vertical: 'bottom', horizontal: 'left' },
     {
-      vertical: 'bottom',
-      horizontal: 'left',
-    },
-  ],
-  [
-    Placement.bottomLeft,
-    {
+      placement: Placement.bottomLeft,
       vertical: 'top',
       horizontal: 'left',
     },

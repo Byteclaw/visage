@@ -2679,8 +2679,16 @@ describe('positioning', () => {
         computePositioningStyles(window as any, element as any, {
           anchor: { top: 20, left: 20 },
           placementAndOrigin: [
-            [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
-            [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+            {
+              placement: Placement.topLeft,
+              horizontal: 'left',
+              vertical: 'bottom',
+            },
+            {
+              placement: Placement.bottomLeft,
+              horizontal: 'left',
+              vertical: 'top',
+            },
           ],
         }),
       ).toEqual({
@@ -2698,8 +2706,16 @@ describe('positioning', () => {
         computePositioningStyles(window as any, element as any, {
           anchor: { top: 100, left: 20 },
           placementAndOrigin: [
-            [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
-            [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+            {
+              placement: Placement.topLeft,
+              horizontal: 'left',
+              vertical: 'bottom',
+            },
+            {
+              placement: Placement.bottomLeft,
+              horizontal: 'left',
+              vertical: 'top',
+            },
           ],
         }),
       ).toEqual({
@@ -2742,8 +2758,16 @@ describe('positioning', () => {
         computePositioningStyles(window as any, element as any, {
           anchor: { top: 20, left: 20 },
           placementAndOrigin: [
-            [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
-            [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+            {
+              placement: Placement.topLeft,
+              horizontal: 'left',
+              vertical: 'bottom',
+            },
+            {
+              placement: Placement.bottomLeft,
+              horizontal: 'left',
+              vertical: 'top',
+            },
           ],
           minHeight: 30,
           marginThreshold: 10,
@@ -2776,8 +2800,16 @@ describe('positioning', () => {
           {
             anchor: { top: 20, left: 20 },
             placementAndOrigin: [
-              [Placement.topLeft, { horizontal: 'left', vertical: 'bottom' }],
-              [Placement.bottomLeft, { horizontal: 'left', vertical: 'top' }],
+              {
+                placement: Placement.topLeft,
+                horizontal: 'left',
+                vertical: 'bottom',
+              },
+              {
+                placement: Placement.bottomLeft,
+                horizontal: 'left',
+                vertical: 'top',
+              },
             ],
             minHeight: 30,
             marginThreshold: 10,

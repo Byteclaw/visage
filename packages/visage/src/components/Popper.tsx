@@ -1,3 +1,5 @@
+import { useDesignSystem } from '@byteclaw/visage-core';
+import { getResponsiveValue } from '@byteclaw/visage-utils';
 import React, {
   ReactElement,
   useRef,
@@ -156,9 +158,11 @@ interface PopperProps extends DivProps, PlacementConstraints {
    */
   open?: boolean;
   /**
-   * Prioritized array of placement to anchor origin tuples
+   * A responsive array of prioritized placements
+   *
+   * Can be used to say how should popover behave in different scenarios
    */
-  placement: PlacementWithAnchorOrigin[];
+  placement: (PlacementWithAnchorOrigin[] | undefined)[];
 }
 
 const baseStyle: React.CSSProperties = {
@@ -190,9 +194,14 @@ export function Popper({
   ...restProps
 }: PopperProps) {
   const portalId = useUniqueId(outerId, 'popper');
+  const { breakpoint } = useDesignSystem();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const openRef = useRef(open);
   const { zIndex } = useLayerManager();
+  const placementAndOrigin: PlacementWithAnchorOrigin[] = useMemo(
+    () => getResponsiveValue(breakpoint, placement as any),
+    [breakpoint, placement],
+  );
   const [position, setPosition] = useState<PositioningStyles | null>(null);
   const params: PositioningParams = useMemo(
     () => ({
@@ -203,7 +212,7 @@ export function Popper({
       minHeight,
       minWidth,
       open,
-      placementAndOrigin: placement,
+      placementAndOrigin,
       zIndex,
     }),
     [
@@ -213,7 +222,7 @@ export function Popper({
       minHeight,
       minWidth,
       open,
-      placement,
+      placementAndOrigin,
       setPosition,
       zIndex,
     ],

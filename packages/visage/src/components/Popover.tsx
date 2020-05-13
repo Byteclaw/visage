@@ -17,7 +17,6 @@ import {
   getAnchorPositionAndDimensions,
   computePositioningStyles,
   AnchorPosition,
-  AnchorOrigin,
   Placement,
   PlacementWithAnchorOrigin,
   getWindowScrollX,
@@ -101,13 +100,13 @@ interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
    */
   open?: boolean;
   /**
-   * Prioritized array of placement and anchor origin tuples
+   * A responsive array of prioritized placements
    *
    * Can be used to say how should popover behave in different scenarios
    *
    * Default is top left placement with top left anchor origin
    */
-  placement?: PlacementWithAnchorOrigin[];
+  placement?: (PlacementWithAnchorOrigin[] | undefined)[];
   /**
    * Ref to div that wraps the popover content
    */
@@ -127,13 +126,14 @@ function resolveAnchor(
 
   return isAnchorPosition(anchor) ? anchor : anchor.current;
 }
-
-const defaultOrigin: AnchorOrigin = {
-  horizontal: 'left',
-  vertical: 'top',
-};
-const defaultPlacement: PlacementWithAnchorOrigin[] = [
-  [Placement.topLeft, defaultOrigin],
+const defaultPlacement: PlacementWithAnchorOrigin[][] = [
+  [
+    {
+      placement: Placement.topLeft,
+      horizontal: 'left',
+      vertical: 'top',
+    },
+  ],
 ];
 
 export function Popover({
@@ -165,6 +165,10 @@ export function Popover({
 
     return getResponsiveValue(breakpoint, fullscreen);
   }, [fullscreen, breakpoint]);
+  const placementAndOrigin: PlacementWithAnchorOrigin[] = useMemo(
+    () => getResponsiveValue(breakpoint, placement as any),
+    [breakpoint, placement],
+  );
 
   const contentRef = useCombinedRef(popoverRef);
   const handleResizeRef = useRef(() => {});
@@ -207,7 +211,7 @@ export function Popover({
 
       const positioning = computePositioningStyles(window, element, {
         anchor: anchorElementOrPosition,
-        placementAndOrigin: placement,
+        placementAndOrigin,
         marginThreshold,
         minWidth: keepAnchorWidth
           ? anchorPositionAndDimensions.width
