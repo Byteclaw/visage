@@ -115,7 +115,7 @@ interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
 }
 
 function isAnchorPosition(anchor: any): anchor is AnchorPosition {
-  return typeof anchor === 'object' && anchor != null && anchor.current == null;
+  return typeof anchor === 'object' && anchor != null && anchor.left != null;
 }
 
 function resolveAnchor(
@@ -168,7 +168,6 @@ export function Popover({
 
   const contentRef = useCombinedRef(popoverRef);
   const handleResizeRef = useRef(() => {});
-  // @TODO check if refs are ok because dialog is being closed on Esc
   const preventCloseRefs = useRef(
     !anchor || isAnchorPosition(anchor) ? [] : [anchor],
   );
