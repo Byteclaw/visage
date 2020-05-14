@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.33 (2020-05-14)
+
+* fix(visage): use width auto on SvgIcon ([e67c988](https://github.com/Byteclaw/visage/commit/e67c988))
+
+
+
+
+
 ## 1.0.0-alpha.32 (2020-05-13)
 
 * feat(visage): add transform anchor origin options ([60fbc92](https://github.com/Byteclaw/visage/commit/60fbc92))
