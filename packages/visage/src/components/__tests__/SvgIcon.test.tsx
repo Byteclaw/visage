@@ -50,6 +50,7 @@ describe('SvgIcon', () => {
       .emotion-0 svg {
         height: 1em;
         vertical-align: middle;
+        width: auto;
       }
 
       <div
@@ -120,6 +121,7 @@ describe('SvgIcon', () => {
       .emotion-0 svg {
         height: 1em;
         vertical-align: middle;
+        width: auto;
       }
 
       <div
@@ -192,6 +194,7 @@ describe('SvgIcon', () => {
       .emotion-0 svg {
         height: 1em;
         vertical-align: middle;
+        width: auto;
       }
 
       <div

@@ -43,6 +43,7 @@ exports[`IconButton is extendable by IconButton face 1`] = `
 .emotion-0 svg {
   height: 1em;
   vertical-align: middle;
+  width: auto;
 }
 
 .emotion-1 {
@@ -173,6 +174,7 @@ exports[`IconButton is extendable by styles prop 1`] = `
 .emotion-0 svg {
   height: 1em;
   vertical-align: middle;
+  width: auto;
 }
 
 .emotion-1 {
@@ -358,6 +360,7 @@ exports[`IconButton renders correctly 1`] = `
 .emotion-0 svg {
   height: 1em;
   vertical-align: middle;
+  width: auto;
 }
 
 <button

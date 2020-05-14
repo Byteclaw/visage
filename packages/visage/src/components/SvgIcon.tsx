@@ -25,6 +25,7 @@ const SvgIconBase = createComponent('div', {
     '& svg': {
       height: '1em',
       verticalAlign: 'middle',
+      width: 'auto',
     },
   },
 });

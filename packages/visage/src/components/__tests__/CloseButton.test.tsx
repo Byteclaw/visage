@@ -81,6 +81,7 @@ describe('CloseButton', () => {
       .emotion-0 svg {
         height: 1em;
         vertical-align: middle;
+        width: auto;
       }
 
       <button
@@ -166,6 +167,7 @@ describe('CloseButton', () => {
       .emotion-0 svg {
         height: 1em;
         vertical-align: middle;
+        width: auto;
       }
 
       .emotion-1 {
