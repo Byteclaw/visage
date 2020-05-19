@@ -50,6 +50,12 @@ exports[`InlineError is extendable by InlineError face 1`] = `
   width: auto;
 }
 
+@media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+  .emotion-0 svg {
+    width: 1em;
+  }
+}
+
 .emotion-1 {
   color: rgb(0,0,255);
   display: -webkit-box;
@@ -150,6 +156,12 @@ exports[`InlineError is extendable by InlineErrorIcon face 1`] = `
   width: auto;
 }
 
+@media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+  .emotion-0 svg {
+    width: 1em;
+  }
+}
+
 <div
     class="emotion-1"
   >
@@ -227,6 +239,12 @@ exports[`InlineError is extendable by styles prop 1`] = `
   height: 1em;
   vertical-align: middle;
   width: auto;
+}
+
+@media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+  .emotion-0 svg {
+    width: 1em;
+  }
 }
 
 .emotion-1 {
@@ -326,6 +344,12 @@ exports[`InlineError renders correctly 1`] = `
   height: 1em;
   vertical-align: middle;
   width: auto;
+}
+
+@media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+  .emotion-0 svg {
+    width: 1em;
+  }
 }
 
 <div

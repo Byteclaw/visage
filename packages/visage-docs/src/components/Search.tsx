@@ -42,12 +42,21 @@ const SearchInput = connectAutoComplete(({ refine, hits: searchHits }: any) => {
       options={hits}
       placeholder="Search Visage docs"
       suffix={
-        <a href="https://www.algolia.com/">
-          <SvgIcon icon={AlgoliaLogo} />
+        <a href="https://www.algolia.com/" tabIndex={-1}>
+          <SvgIcon
+            icon={AlgoliaLogo}
+            styles={{
+              '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
+                '& > svg': {
+                  width: '7em',
+                },
+              },
+            }}
+          />
         </a>
       }
       baseProps={{
-        styles: { mr: 'auto', mb: 0, minWidth: ['50%', '50%', '30em'] },
+        styles: { mr: 'auto', mb: 0, flexGrow: 1 },
       }}
       type="search"
     />

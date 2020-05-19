@@ -1,4 +1,4 @@
-import { Theme } from '@byteclaw/visage-core';
+import { Theme, StyleGenerator } from '@byteclaw/visage-core';
 import { createNPointModularScaleTheme } from '@byteclaw/visage-themes';
 import React, { ReactNode } from 'react';
 import { createEmotionStyleGenerator } from '../emotionStyleGenerator';
@@ -15,14 +15,14 @@ export function createTestTheme(faces?: VisageFaces) {
       controlBorderRadius: 4,
     },
     fontFamily: {
-      body: 'body-font',
-      heading: 'heading-font',
+      body: 'sans-serif',
+      heading: 'serif',
     },
     colors: {
       primaryText: 'white',
       bodyText: 'black',
       primary: {
-        values: ['light-blue', 'blue', 'dark-blue'],
+        values: ['lightblue', 'blue', 'darkblue'],
         offset: 0,
       },
       shades: '#ccc',
@@ -50,14 +50,16 @@ export const theme = createTestTheme();
 interface Props {
   children?: ReactNode;
   is?: number;
+  styleGenerator?: StyleGenerator;
   theme?: Theme;
 }
 
-const styleGenerator = createEmotionStyleGenerator();
+const defaultStyleGenerator = createEmotionStyleGenerator();
 
 export function TestDesignSystem({
   children,
   is,
+  styleGenerator = defaultStyleGenerator,
   theme: themeOverride = theme,
 }: Props) {
   return (

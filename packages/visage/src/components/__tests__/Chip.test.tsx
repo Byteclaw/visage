@@ -36,7 +36,7 @@ describe('Chip', () => {
         display: -webkit-inline-flex;
         display: -ms-inline-flexbox;
         display: inline-flex;
-        font-family: heading-font;
+        font-family: serif;
         font-size: 10px;
         line-height: 24px;
         position: relative;

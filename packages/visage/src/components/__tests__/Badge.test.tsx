@@ -51,13 +51,13 @@ describe('Badge', () => {
         display: -ms-flexbox;
         display: flex;
         border-radius: 10px;
-        font-family: heading-font;
+        font-family: serif;
         font-weight: 600;
         padding-top: 0px;
         padding-bottom: 0px;
         padding-left: 4px;
         padding-right: 4px;
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
         position: absolute;
         -webkit-flex-wrap: wrap;
         -ms-flex-wrap: wrap;

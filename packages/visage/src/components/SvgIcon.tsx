@@ -26,6 +26,10 @@ const SvgIconBase = createComponent('div', {
       height: '1em',
       verticalAlign: 'middle',
       width: 'auto',
+      '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
+        // this is dumb, but we expect icons to be squares in IE11
+        width: '1em',
+      },
     },
   },
 });
@@ -38,6 +42,8 @@ export const SvgIcon: VisageComponent<
 > = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
   const svgProps = {
     focusable: false,
+    height: null,
+    width: null,
     ...iconProps,
   };
 
