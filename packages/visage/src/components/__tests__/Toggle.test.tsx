@@ -299,9 +299,9 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] > div {
-        -webkit-transform: translateX(calc(100% - 1.25em - 0px));
-        -ms-transform: translateX(calc(100% - 1.25em - 0px));
-        transform: translateX(calc(100% - 1.25em - 0px));
+        -webkit-transform: translateX(100%) translateX(-1.25em);
+        -ms-transform: translateX(100%) translateX(-1.25em);
+        transform: translateX(100%) translateX(-1.25em);
       }
 
       .emotion-2[data-checked="true"] > div::before {
@@ -510,9 +510,9 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] > div {
-        -webkit-transform: translateX(calc(100% - 1.25em - 0px));
-        -ms-transform: translateX(calc(100% - 1.25em - 0px));
-        transform: translateX(calc(100% - 1.25em - 0px));
+        -webkit-transform: translateX(100%) translateX(-1.25em);
+        -ms-transform: translateX(100%) translateX(-1.25em);
+        transform: translateX(100%) translateX(-1.25em);
       }
 
       .emotion-2[data-checked="true"] > div::before {
@@ -811,9 +811,9 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] > div {
-        -webkit-transform: translateX(calc(100% - 1.25em - 0px));
-        -ms-transform: translateX(calc(100% - 1.25em - 0px));
-        transform: translateX(calc(100% - 1.25em - 0px));
+        -webkit-transform: translateX(100%) translateX(-1.25em);
+        -ms-transform: translateX(100%) translateX(-1.25em);
+        transform: translateX(100%) translateX(-1.25em);
       }
 
       .emotion-2[data-checked="true"] > div::before {
@@ -1002,9 +1002,9 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] > div {
-        -webkit-transform: translateX(calc(100% - 1.25em - 0px));
-        -ms-transform: translateX(calc(100% - 1.25em - 0px));
-        transform: translateX(calc(100% - 1.25em - 0px));
+        -webkit-transform: translateX(100%) translateX(-1.25em);
+        -ms-transform: translateX(100%) translateX(-1.25em);
+        transform: translateX(100%) translateX(-1.25em);
       }
 
       .emotion-2[data-checked="true"] > div::before {
@@ -1224,9 +1224,9 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] > div {
-        -webkit-transform: translateX(calc(100% - 1.25em - 0px));
-        -ms-transform: translateX(calc(100% - 1.25em - 0px));
-        transform: translateX(calc(100% - 1.25em - 0px));
+        -webkit-transform: translateX(100%) translateX(-1.25em);
+        -ms-transform: translateX(100%) translateX(-1.25em);
+        transform: translateX(100%) translateX(-1.25em);
       }
 
       .emotion-2[data-checked="true"] > div::before {
@@ -1472,9 +1472,9 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] > div {
-        -webkit-transform: translateX(calc(100% - 1.25em - 0px));
-        -ms-transform: translateX(calc(100% - 1.25em - 0px));
-        transform: translateX(calc(100% - 1.25em - 0px));
+        -webkit-transform: translateX(100%) translateX(-1.25em);
+        -ms-transform: translateX(100%) translateX(-1.25em);
+        transform: translateX(100%) translateX(-1.25em);
       }
 
       .emotion-2[data-checked="true"] > div::before {
