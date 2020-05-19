@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.36 (2020-05-19)
+
+* fix(visage): make Dialog work in all browsers ([0916abf](https://github.com/Byteclaw/visage/commit/0916abf))
+* fix(visage): make SvgIcon behave as square in IE ([b4813d0](https://github.com/Byteclaw/visage/commit/b4813d0))
+* docs: add Spinner IE11 support message ([341a829](https://github.com/Byteclaw/visage/commit/341a829))
+* docs: fix Banner in usage ([d65a951](https://github.com/Byteclaw/visage/commit/d65a951))
+
+
+
+
+
 ## 1.0.0-alpha.35 (2020-05-19)
 
 * feat(visage): add support for custom default value of booleanVariant ([934366c](https://github.com/Byteclaw/visage/commit/934366c))

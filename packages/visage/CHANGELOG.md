@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.36 (2020-05-19)
+
+* fix(visage): do not handle click away if selection is being made ([d004b87](https://github.com/Byteclaw/visage/commit/d004b87))
+* fix(visage): make Dialog work in all browsers ([0916abf](https://github.com/Byteclaw/visage/commit/0916abf))
+* fix(visage): make SvgIcon behave as square in IE ([b4813d0](https://github.com/Byteclaw/visage/commit/b4813d0))
+* fix(visage): remove calc from translateX in Toggle ([bd4f27e](https://github.com/Byteclaw/visage/commit/bd4f27e))
+* feat(visage): add padding to dialog content ([70db661](https://github.com/Byteclaw/visage/commit/70db661))
+
+
+
+
+
 ## 1.0.0-alpha.35 (2020-05-19)
 
 * feat(visage): add support for custom default value of booleanVariant ([934366c](https://github.com/Byteclaw/visage/commit/934366c))
