@@ -27,8 +27,7 @@ const DialogBase = createComponent(Flex, {
     ...(props.scroll === 'content' ? { maxHeight: ['100%', '90%'] } : {}),
     m: 'auto',
     overflowY: 'auto',
-    pb: 2,
-    px: 2,
+    p: 0,
   }),
   variants: [
     variant('scroll', true, ['content', 'body'] as const, 'content' as any),
@@ -57,6 +56,8 @@ const DialogCloseButtonWrapper = createComponent(Flex, {
 const DialogContent = createComponent(Box, {
   displayName: 'DialogContent',
   styles: {
+    px: 2,
+    pb: 2,
     maxHeight: '100%',
     maxWidth: '100%',
     overflowY: 'auto',
@@ -97,6 +98,7 @@ const DialogHeader = createComponent(Flex, {
   displayName: 'DialogHeader',
   styles: {
     flexShrink: 0,
+    px: 2,
   },
 });
 
