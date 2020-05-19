@@ -36,12 +36,17 @@ export const SvgIcon: VisageComponent<
     iconProps?: JSX.IntrinsicElements['svg'];
   } & ExtractVisageComponentProps<typeof SvgIconBase>
 > = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
+  const svgProps = {
+    focusable: false,
+    ...iconProps,
+  };
+
   return (
     <SvgIconBase {...restProps}>
       {isValidElement(Icon) ? (
-        cloneElement(Icon, iconProps)
+        cloneElement(Icon, svgProps)
       ) : (
-        <Icon {...iconProps} />
+        <Icon {...svgProps} />
       )}
     </SvgIconBase>
   );
