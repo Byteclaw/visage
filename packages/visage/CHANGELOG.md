@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.34 (2020-05-19)
+
+* fix(visage): make svg non focusable by default ([a57e6a0](https://github.com/Byteclaw/visage/commit/a57e6a0))
+* fix(visage): use correct justify content in Message ([7ab766f](https://github.com/Byteclaw/visage/commit/7ab766f))
+
+
+
+
+
 ## 1.0.0-alpha.33 (2020-05-14)
 
 * fix(visage): use width auto on SvgIcon ([e67c988](https://github.com/Byteclaw/visage/commit/e67c988))

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.34 (2020-05-19)
+
+* fix(visage): make props from default props optional ([35a8192](https://github.com/Byteclaw/visage/commit/35a8192))
+* fix(visage): use correct justify content in Message ([7ab766f](https://github.com/Byteclaw/visage/commit/7ab766f))
+
+
+
+
+
 ## 1.0.0-alpha.33 (2020-05-14)
 
 **Note:** Version bump only for package @byteclaw/visage-docs
