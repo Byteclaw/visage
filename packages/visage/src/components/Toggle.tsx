@@ -75,7 +75,7 @@ const ToggleContainer = createComponent('div', {
       on: {
         backgroundColor: 'primary',
         '& > div': {
-          transform: 'translateX(calc(100% - 1.25em - 0px))',
+          transform: 'translateX(100%) translateX(-1.25em)',
         },
         '& > div::before': {
           left: '-50%',
