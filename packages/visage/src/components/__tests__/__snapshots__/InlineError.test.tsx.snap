@@ -67,6 +67,7 @@ exports[`InlineError is extendable by InlineError face 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         viewBox="0 0 20 20"
       >
         <g
@@ -156,6 +157,7 @@ exports[`InlineError is extendable by InlineErrorIcon face 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         viewBox="0 0 20 20"
       >
         <g
@@ -244,6 +246,7 @@ exports[`InlineError is extendable by styles prop 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         viewBox="0 0 20 20"
       >
         <g
@@ -332,6 +335,7 @@ exports[`InlineError renders correctly 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         viewBox="0 0 20 20"
       >
         <g

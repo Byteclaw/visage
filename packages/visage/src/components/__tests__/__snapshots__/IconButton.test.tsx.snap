@@ -113,6 +113,7 @@ exports[`IconButton is extendable by IconButton face 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         height="1em"
         viewBox="0 0 24 24"
         width="1em"
@@ -244,6 +245,7 @@ exports[`IconButton is extendable by styles prop 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         height="1em"
         viewBox="0 0 24 24"
         width="1em"
@@ -375,6 +377,7 @@ exports[`IconButton renders correctly 1`] = `
       class="emotion-0"
     >
       <svg
+        focusable="false"
         height="1em"
         viewBox="0 0 24 24"
         width="1em"

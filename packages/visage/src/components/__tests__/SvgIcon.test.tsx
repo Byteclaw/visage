@@ -57,6 +57,7 @@ describe('SvgIcon', () => {
           class="emotion-0"
         >
           <svg
+            focusable="false"
             height="1em"
             viewBox="0 0 24 24"
             width="1em"
@@ -128,6 +129,7 @@ describe('SvgIcon', () => {
           class="emotion-0"
         >
           <svg
+            focusable="false"
             height="1em"
             viewBox="0 0 24 24"
             width="1em"
@@ -201,6 +203,7 @@ describe('SvgIcon', () => {
           class="emotion-0"
         >
           <svg
+            focusable="false"
             height="1em"
             viewBox="0 0 24 24"
             width="1em"
