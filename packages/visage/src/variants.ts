@@ -7,14 +7,16 @@ export function booleanVariant<TName extends string>(
   name: TName,
   /** Strip the prop from HTML element? */
   stripProp: boolean,
+  /** Default value, if undefined, false will be used */
+  defaultValue: boolean | null | undefined = false,
 ): {
-  [K in TName]?: boolean;
+  [K in TName]?: boolean | null;
 } {
   return ({
     prop: name,
     name: name.toLowerCase(),
     stripProp,
-    defaultValue: false,
+    defaultValue,
   } as OmitPropsSetting) as any;
 }
 
@@ -46,6 +48,9 @@ export function variant<TName extends string, TVariants extends readonly any[]>(
   stripProp: boolean,
   // eslint-disable-next-line
   variants: TVariants,
+  /**
+   * Default value, if omitted "default" is used
+   */
   defaultValue: keyof TVariants | 'default' = 'default',
 ): {
   [K in TName]?:
