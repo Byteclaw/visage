@@ -75,7 +75,10 @@ export function createComponent<
      */
     variants?: TVariants;
   } = {},
-): VisageComponent<TProps> {
+): VisageComponent<
+  Omit<TProps, keyof TDefaultProps> &
+    Partial<Pick<TProps, keyof Pick<TDefaultProps, keyof TProps>>>
+> {
   const componentName = displayName(name || defaultAs);
   const faceStyleSheet = { face: componentName };
   const componentOptions: UseVisageHookOptions = {
