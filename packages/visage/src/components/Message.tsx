@@ -26,7 +26,7 @@ const MessageBase = createComponent('div', {
   displayName: 'Message',
   styles: {
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     fontSize: 0,
     p: 1,
@@ -128,7 +128,7 @@ const MessageBase = createComponent('div', {
 const MessageDismissButton = createComponent(CloseButton, {
   displayName: 'MessageDismissButton',
   styles: {
-    ml: 1,
+    ml: 'auto',
     p: 0.5,
   },
 });

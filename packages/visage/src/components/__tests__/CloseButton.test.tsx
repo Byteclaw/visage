@@ -31,8 +31,10 @@ describe('CloseButton', () => {
           data-toastmanager="true"
         />
         .emotion-1 {
-        border-style: none;
-        border-width: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
         border-radius: 4px;
         background-color: rgba(0,0,0,0);
         color: currentColor;
@@ -171,8 +173,10 @@ describe('CloseButton', () => {
       }
 
       .emotion-1 {
-        border-style: none;
-        border-width: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: none;
         border-radius: 4px;
         background-color: rgba(0,0,0,0);
         color: currentColor;
