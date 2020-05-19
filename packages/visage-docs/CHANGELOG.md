@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.35 (2020-05-19)
+
+* feat(visage): add support for custom default value of booleanVariant ([934366c](https://github.com/Byteclaw/visage/commit/934366c))
+
+
+
+
+
 ## 1.0.0-alpha.34 (2020-05-19)
 
 * fix(visage): make props from default props optional ([35a8192](https://github.com/Byteclaw/visage/commit/35a8192))
