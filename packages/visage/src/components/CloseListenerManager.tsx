@@ -98,9 +98,11 @@ function onClickAwayHandlerCreator(
     for (let i = clickAwayStack.current.length - 1; i >= 0; i--) {
       const { isFullscreen, onClose, refs } = clickAwayStack.current[i];
 
-      const shouldNotClose = !!refs.find(
-        ref => ref.current && ref.current.contains(e.target as any),
-      );
+      const shouldNotClose =
+        window.getSelection()?.toString() ||
+        !!refs.find(
+          ref => ref.current && ref.current.contains(e.target as any),
+        );
 
       if (!shouldNotClose) {
         await onClose(e);

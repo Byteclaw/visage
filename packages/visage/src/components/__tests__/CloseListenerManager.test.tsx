@@ -146,6 +146,8 @@ describe('CloseListenerManager', () => {
   });
 
   describe('click away', () => {
+    window.getSelection = jest.fn().mockReturnValue('');
+
     it('registers as fullscreen by default (prevents bubbling to shallower layers)', async () => {
       // close listener always closes latest mounted component
       // because we work with an assumption that the latest mounted component is the one which is visible
@@ -354,6 +356,66 @@ describe('CloseListenerManager', () => {
       fireEvent.click(document);
 
       expect(onRootClose).toHaveBeenCalledTimes(1);
+    });
+
+    it('ignores click away if selection is being made', async () => {
+      window.getSelection = jest.fn().mockReturnValue('Selection');
+      // close listener always closes latest mounted component
+      // because we work with an assumption that the latest mounted component is the one which is visible
+      const { getByTestId } = render(
+        <CloseListenerManager>
+          <RootCloser>
+            {onRootClose => (
+              <RenderClosable id="1" onClose={onRootClose}>
+                {onClose => (
+                  <RenderClosable id="2" onClose={onClose}>
+                    {onClose => (
+                      <RenderClosable
+                        id="3"
+                        isFullscreen={false}
+                        onClose={onClose}
+                      />
+                    )}
+                  </RenderClosable>
+                )}
+              </RenderClosable>
+            )}
+          </RootCloser>
+          <RootCloser>
+            {onRootClose => (
+              <RenderClosable id="1-1" onClose={onRootClose}>
+                {onClose => (
+                  <RenderClosable id="2-2" onClose={onClose}>
+                    {onClose => (
+                      <RenderClosable
+                        id="3-3"
+                        isFullscreen={false}
+                        onClose={onClose}
+                      />
+                    )}
+                  </RenderClosable>
+                )}
+              </RenderClosable>
+            )}
+          </RootCloser>
+        </CloseListenerManager>,
+      );
+
+      expect(getByTestId('3-3')).toBeDefined();
+      expect(getByTestId('2-2')).toBeDefined();
+      expect(getByTestId('1-1')).toBeDefined();
+      expect(getByTestId('3')).toBeDefined();
+      expect(getByTestId('2')).toBeDefined();
+      expect(getByTestId('1')).toBeDefined();
+
+      await act(async () => fireEvent.click(document));
+
+      expect(getByTestId('3-3')).toBeDefined();
+      expect(getByTestId('2-2')).toBeDefined();
+      expect(getByTestId('1-1')).toBeDefined();
+      expect(getByTestId('3')).toBeDefined();
+      expect(getByTestId('2')).toBeDefined();
+      expect(getByTestId('1')).toBeDefined();
     });
   });
 });
