@@ -26,9 +26,9 @@ const DialogBase = createComponent(Flex, {
     position: 'relative',
     ...(props.scroll === 'content' ? { maxHeight: ['100%', '90%'] } : {}),
     m: 'auto',
+    overflowY: 'auto',
     pb: 2,
     px: 2,
-    transform: 'translateZ(0)',
   }),
   variants: [
     variant('scroll', true, ['content', 'body'] as const, 'content' as any),
@@ -59,7 +59,7 @@ const DialogContent = createComponent(Box, {
   styles: {
     maxHeight: '100%',
     maxWidth: '100%',
-    overflowY: 'scroll',
+    overflowY: 'auto',
   },
 });
 

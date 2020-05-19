@@ -26,9 +26,8 @@ import { disableBodyScroll } from './effects';
 const BaseModal = createComponent('div', {
   displayName: 'Modal',
   styles: props => ({
-    alignItems: 'flex-start',
+    alignItems: 'center',
     display: 'flex',
-    justifyContent: 'center',
     top: 0,
     left: 0,
     right: 0,

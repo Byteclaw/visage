@@ -20,7 +20,7 @@ import { Dialog } from '@byteclaw/visage';
 ## Examples
 
 ```jsx live=true
-function Example() {
+() => {
   const [show, setShow] = useState(false);
 
   if (!show) {
@@ -55,13 +55,13 @@ function Example() {
         ))}
     </Dialog>
   );
-}
+};
 ```
 
 #### Optional label
 
 ```jsx live=true
-function Example() {
+() => {
   const [show, setShow] = useState(false);
 
   if (!show) {
@@ -99,7 +99,7 @@ function Example() {
       </p>
     </Dialog>
   );
-}
+};
 ```
 
 ## Keyboard Interaction
