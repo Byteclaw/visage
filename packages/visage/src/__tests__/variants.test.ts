@@ -14,6 +14,36 @@ describe('booleanVariant', () => {
       defaultValue: false,
     });
   });
+
+  it('accepts default value', () => {
+    expect(booleanVariant('isCamelCase', true, undefined)).toEqual({
+      prop: 'isCamelCase',
+      name: 'iscamelcase',
+      stripProp: true,
+      defaultValue: false,
+    });
+
+    expect(booleanVariant('isCamelCase', true, false)).toEqual({
+      prop: 'isCamelCase',
+      name: 'iscamelcase',
+      stripProp: true,
+      defaultValue: false,
+    });
+
+    expect(booleanVariant('isCamelCase', true, true)).toEqual({
+      prop: 'isCamelCase',
+      name: 'iscamelcase',
+      stripProp: true,
+      defaultValue: true,
+    });
+
+    expect(booleanVariant('isCamelCase', true, null)).toEqual({
+      prop: 'isCamelCase',
+      name: 'iscamelcase',
+      stripProp: true,
+      defaultValue: null,
+    });
+  });
 });
 
 describe('booleanVariantStyles', () => {
