@@ -250,7 +250,7 @@ describe('DesignSystem', () => {
           class="emotion-0"
         />
         .emotion-0 {
-        color: light-blue;
+        color: rgb(173,216,230);
         background-color: rgb(0,0,255);
         font-size: 16px;
         line-height: 24px;
@@ -272,7 +272,7 @@ describe('DesignSystem', () => {
           class="emotion-0"
         />
         .emotion-0 {
-        color: light-blue;
+        color: rgb(173,216,230);
         background-color: rgb(0,0,255);
         font-size: 16px;
         line-height: 24px;

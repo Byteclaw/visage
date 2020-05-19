@@ -43,7 +43,7 @@ const IconButtonComponent = createComponent('button', {
     appearance: 'none',
     border: 'none',
     backgroundColor: 'transparent',
-    borderRadius: '100%',
+    borderRadius: 'controlBorderRadius',
     color: 'inherit',
     cursor: 'pointer',
     fontSize: 'inherit',

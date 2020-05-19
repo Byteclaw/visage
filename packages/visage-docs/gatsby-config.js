@@ -33,7 +33,15 @@ module.exports = {
       },
     },
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-svgr',
+    {
+      resolve: 'gatsby-plugin-svgr',
+      options: {
+        svgo: true,
+        svgoConfig: {
+          plugins: [{ removeViewBox: false }],
+        },
+      },
+    },
     'gatsby-plugin-typescript',
     {
       resolve: 'gatsby-source-filesystem',

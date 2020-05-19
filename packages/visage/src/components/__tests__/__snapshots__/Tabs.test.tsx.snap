@@ -40,7 +40,7 @@ exports[`Tabs is extendable by TabList face 1`] = `
   border-style: solid;
   border-width: 0;
   border-bottom-width: 2px;
-  font-family: body-font;
+  font-family: sans-serif;
   color: rgb(255,255,255);
   cursor: pointer;
   -webkit-flex-shrink: 0;
@@ -63,8 +63,8 @@ exports[`Tabs is extendable by TabList face 1`] = `
 }
 
 .emotion-0[aria-selected="true"] {
-  color: light-blue;
-  border-bottom-color: light-blue;
+  color: rgb(173,216,230);
+  border-bottom-color: rgb(173,216,230);
   font-weight: bold;
 }
 
@@ -256,7 +256,7 @@ exports[`Tabs is extendable by TabNavigationButton face 1`] = `
   border-style: solid;
   border-width: 0;
   border-bottom-width: 2px;
-  font-family: body-font;
+  font-family: sans-serif;
   color: rgb(255,192,203);
   cursor: pointer;
   -webkit-flex-shrink: 0;
@@ -279,8 +279,8 @@ exports[`Tabs is extendable by TabNavigationButton face 1`] = `
 }
 
 .emotion-0[aria-selected="true"] {
-  color: light-blue;
-  border-bottom-color: light-blue;
+  color: rgb(173,216,230);
+  border-bottom-color: rgb(173,216,230);
   font-weight: bold;
 }
 
@@ -432,7 +432,7 @@ exports[`Tabs is extendable by Tabs face 1`] = `
   border-style: solid;
   border-width: 0;
   border-bottom-width: 2px;
-  font-family: body-font;
+  font-family: sans-serif;
   color: rgb(255,255,255);
   cursor: pointer;
   -webkit-flex-shrink: 0;
@@ -455,8 +455,8 @@ exports[`Tabs is extendable by Tabs face 1`] = `
 }
 
 .emotion-0[aria-selected="true"] {
-  color: light-blue;
-  border-bottom-color: light-blue;
+  color: rgb(173,216,230);
+  border-bottom-color: rgb(173,216,230);
   font-weight: bold;
 }
 
@@ -631,7 +631,7 @@ exports[`Tabs renders correctly 1`] = `
   border-style: solid;
   border-width: 0;
   border-bottom-width: 2px;
-  font-family: body-font;
+  font-family: sans-serif;
   color: rgb(255,255,255);
   cursor: pointer;
   -webkit-flex-shrink: 0;
@@ -654,8 +654,8 @@ exports[`Tabs renders correctly 1`] = `
 }
 
 .emotion-0[aria-selected="true"] {
-  color: light-blue;
-  border-bottom-color: light-blue;
+  color: rgb(173,216,230);
+  border-bottom-color: rgb(173,216,230);
   font-weight: bold;
 }
 

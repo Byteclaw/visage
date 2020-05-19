@@ -295,7 +295,7 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] {
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
       }
 
       .emotion-2[data-checked="true"] > div {
@@ -506,7 +506,7 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] {
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
       }
 
       .emotion-2[data-checked="true"] > div {
@@ -807,7 +807,7 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] {
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
       }
 
       .emotion-2[data-checked="true"] > div {
@@ -998,7 +998,7 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] {
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
       }
 
       .emotion-2[data-checked="true"] > div {
@@ -1220,7 +1220,7 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] {
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
       }
 
       .emotion-2[data-checked="true"] > div {
@@ -1468,7 +1468,7 @@ describe('Toggle', () => {
       }
 
       .emotion-2[data-checked="true"] {
-        background-color: light-blue;
+        background-color: rgb(173,216,230);
       }
 
       .emotion-2[data-checked="true"] > div {

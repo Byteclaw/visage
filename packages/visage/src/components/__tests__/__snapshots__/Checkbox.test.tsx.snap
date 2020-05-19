@@ -78,9 +78,9 @@ exports[`Checkbox is extendable by CheckboxControl face 1`] = `
 }
 
 .emotion-2[data-checked="true"] {
-  background-color: light-blue;
+  background-color: rgb(173,216,230);
   color: rgb(255,255,255);
-  border-color: light-blue;
+  border-color: rgb(173,216,230);
 }
 
 .emotion-2[data-checked="true"] > svg {
@@ -236,9 +236,9 @@ exports[`Checkbox is extendable by CheckboxLabel face 1`] = `
 }
 
 .emotion-2[data-checked="true"] {
-  background-color: light-blue;
+  background-color: rgb(173,216,230);
   color: rgb(255,255,255);
-  border-color: light-blue;
+  border-color: rgb(173,216,230);
 }
 
 .emotion-2[data-checked="true"] > svg {
@@ -453,9 +453,9 @@ exports[`Checkbox is extendable by CheckboxLabelText face 1`] = `
 }
 
 .emotion-2[data-checked="true"] {
-  background-color: light-blue;
+  background-color: rgb(173,216,230);
   color: rgb(255,255,255);
-  border-color: light-blue;
+  border-color: rgb(173,216,230);
 }
 
 .emotion-2[data-checked="true"] > svg {
@@ -660,9 +660,9 @@ exports[`Checkbox is extendable by CheckboxToggler face 1`] = `
 }
 
 .emotion-2[data-checked="true"] {
-  background-color: light-blue;
+  background-color: rgb(173,216,230);
   color: rgb(255,255,255);
-  border-color: light-blue;
+  border-color: rgb(173,216,230);
 }
 
 .emotion-2[data-checked="true"] > svg {
@@ -778,9 +778,9 @@ exports[`Checkbox is extendable by styles 1`] = `
 }
 
 .emotion-2[data-checked="true"] {
-  background-color: light-blue;
+  background-color: rgb(173,216,230);
   color: rgb(255,255,255);
-  border-color: light-blue;
+  border-color: rgb(173,216,230);
 }
 
 .emotion-2[data-checked="true"] > svg {
@@ -995,9 +995,9 @@ exports[`Checkbox renders correctly 1`] = `
 }
 
 .emotion-2[data-checked="true"] {
-  background-color: light-blue;
+  background-color: rgb(173,216,230);
   color: rgb(255,255,255);
-  border-color: light-blue;
+  border-color: rgb(173,216,230);
 }
 
 .emotion-2[data-checked="true"] > svg {

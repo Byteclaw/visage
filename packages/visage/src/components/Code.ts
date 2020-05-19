@@ -11,6 +11,8 @@ export const CodeStyles: VisageStyleSheet = {
   borderStyle: 'solid',
   borderWidth: 1,
   borderRadius: 'controlBorderRadius',
+  color:
+    'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))) contrast())',
   display: 'inline-block',
   fontSize: 'inherit',
   fontFamily: 'monospace',

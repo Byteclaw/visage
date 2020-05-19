@@ -36,7 +36,7 @@ exports[`Accordion can be styles using AccordionRegion face 1`] = `
   display: -ms-flexbox;
   display: flex;
   font-size: 26px;
-  font-family: heading-font;
+  font-family: serif;
   font-weight: bolder;
   line-height: 48px;
   outline: none;
@@ -127,7 +127,7 @@ exports[`Accordion can be styles using AccordionTrigger face 1`] = `
   display: -ms-flexbox;
   display: flex;
   font-size: 26px;
-  font-family: heading-font;
+  font-family: serif;
   font-weight: bolder;
   line-height: 48px;
   outline: none;
@@ -218,7 +218,7 @@ exports[`Accordion renders correctly 1`] = `
   display: -ms-flexbox;
   display: flex;
   font-size: 26px;
-  font-family: heading-font;
+  font-family: serif;
   font-weight: bolder;
   line-height: 48px;
   outline: none;

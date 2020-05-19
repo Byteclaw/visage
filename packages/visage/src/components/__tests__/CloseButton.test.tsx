@@ -86,6 +86,12 @@ describe('CloseButton', () => {
         width: auto;
       }
 
+      @media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+        .emotion-0 svg {
+          width: 1em;
+        }
+      }
+
       <button
           class="emotion-1"
           type="button"
@@ -96,9 +102,7 @@ describe('CloseButton', () => {
           >
             <svg
               focusable="false"
-              height="1em"
               viewBox="0 0 24 24"
-              width="1em"
             >
               <path
                 d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
@@ -173,6 +177,12 @@ describe('CloseButton', () => {
         width: auto;
       }
 
+      @media all and (-ms-high-contrast:none),(-ms-high-contrast:active) {
+        .emotion-0 svg {
+          width: 1em;
+        }
+      }
+
       .emotion-1 {
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -216,9 +226,7 @@ describe('CloseButton', () => {
           >
             <svg
               focusable="false"
-              height="1em"
               viewBox="0 0 24 24"
-              width="1em"
             >
               <path
                 d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"

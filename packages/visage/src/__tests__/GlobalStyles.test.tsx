@@ -64,7 +64,7 @@ describe('GlobalStyles', () => {
           "background-color": "rgb(204, 204, 204)",
           "box-sizing": "inherit",
           "display": "block",
-          "font-family": "body-font",
+          "font-family": "sans-serif",
           "font-size": "26px",
           "margin": "0px",
           "margin-bottom": "0px",

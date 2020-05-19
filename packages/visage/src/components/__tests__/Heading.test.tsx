@@ -30,7 +30,7 @@ describe('Heading', () => {
           data-toastmanager="true"
         />
         .emotion-0 {
-        font-family: heading-font;
+        font-family: serif;
         font-size: 429px;
         font-weight: normal;
         line-height: 432px;
@@ -75,7 +75,7 @@ describe('Heading', () => {
           data-toastmanager="true"
         />
         .emotion-0 {
-        font-family: heading-font;
+        font-family: serif;
         font-size: 105px;
         line-height: 120px;
         margin-top: 8px;
