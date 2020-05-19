@@ -16,8 +16,8 @@ export const CloseButton = createComponent('button', {
     type: 'button',
   },
   styles: {
-    borderStyle: 'none',
-    borderWidth: 0,
+    appearance: 'none',
+    border: 'none',
     borderRadius: 'controlBorderRadius',
     backgroundColor: 'transparent',
     color: 'currentColor',

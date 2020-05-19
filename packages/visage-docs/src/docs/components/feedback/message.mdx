@@ -38,7 +38,7 @@ To make message dismissable, pass `onDismiss` handler. You can also specify a cu
   <Message
     status="success"
     renderDismiss={props => (
-      <Button variant="primary" {...props}>
+      <Button variant="primary" styles={{ ml: 'auto' }} {...props}>
         Dismiss
       </Button>
     )}
