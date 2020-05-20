@@ -39,14 +39,27 @@ Object {
       "type": "boolean | undefined",
     },
     Object {
-      "documentation": "On trigger click passed by Accordion",
+      "documentation": "Called when user wants to open the item.
+
+You can use this event to control current open item.",
+      "isOptional": true,
+      "name": "onOpen",
+      "parent": "AccordionItemProps",
+      "type": "((itemIndex: number) => void) | undefined",
+    },
+    Object {
+      "documentation": "On trigger click passed by Accordion
+
+You can use this event too, it'll be called by internal handler",
       "isOptional": true,
       "name": "onTriggerClick",
       "parent": "AccordionItemProps",
       "type": "((event: MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined",
     },
     Object {
-      "documentation": "On trigger keydown passed by Accordion",
+      "documentation": "On trigger keydown passed by Accordion
+
+You can use this event too, it'll be called by internal handler",
       "isOptional": true,
       "name": "onTriggerKeyDown",
       "parent": "AccordionItemProps",
