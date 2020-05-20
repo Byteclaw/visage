@@ -141,6 +141,30 @@ describe('integration', () => {
         </DocumentFragment>
       `);
     });
+
+    it('allows to pass custom className', () => {
+      const Link = createComponent('a', {
+        styles: {
+          background: '#ccc',
+        },
+        defaultProps: { href: '/test', id: 'id' },
+      });
+
+      const { asFragment } = render(
+        <Link className="test-class-name" href="a" />,
+      );
+
+      expect(asFragment()).toMatchInlineSnapshot(`
+        <DocumentFragment>
+          <a
+            class="test-class-name"
+            href="a"
+            id="id"
+            style="background: rgb(204, 204, 204);"
+          />
+        </DocumentFragment>
+      `);
+    });
   });
 
   describe('extending', () => {

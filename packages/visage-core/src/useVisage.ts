@@ -87,12 +87,17 @@ export function useVisage<TOutputProps extends { [prop: string]: any }>(
       }
     }
 
+    // some style generators do not output class names so be careful, this is just general purpose
     const styleProps = visage.generate(finalStyleSheets);
     // process props using variant processors
     // this will strip props according to processor settings
     const passProps = omitProps(restProps, variantSettings);
+    const className =
+      styleProps.className || passProps.className
+        ? `${styleProps.className || ''} ${passProps.className || ''}`.trim()
+        : undefined;
 
-    return { ...passProps, ...styleProps } as any;
+    return { ...passProps, ...styleProps, className } as any;
   }
 
   return {
