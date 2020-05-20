@@ -9,6 +9,7 @@ import React, {
   MouseEvent,
   KeyboardEventHandler,
   KeyboardEvent,
+  useMemo,
 } from 'react';
 import { createComponent } from '../core';
 import {
@@ -79,11 +80,21 @@ export interface AccordionItemProps {
    */
   open?: boolean;
   /**
+   * Called when user wants to open the item.
+   *
+   * You can use this event to control current open item.
+   */
+  onOpen?: (itemIndex: number) => void;
+  /**
    * On trigger click passed by Accordion
+   *
+   * You can use this event too, it'll be called by internal handler
    */
   onTriggerClick?: MouseEventHandler<HTMLDivElement>;
   /**
    * On trigger keydown passed by Accordion
+   *
+   * You can use this event too, it'll be called by internal handler
    */
   onTriggerKeyDown?: KeyboardEventHandler<HTMLDivElement>;
   /**
@@ -153,20 +164,22 @@ interface AccordionProps {
 
 export function Accordion({ children, id }: AccordionProps) {
   const accordionId = useUniqueId(id, 'accordion');
-
   const items: ReactElement<AccordionItemProps>[] = Children.toArray(
     children,
   ) as ReactElement<AccordionItemProps>[];
+  const controlledIndex = useMemo(() => {
+    return items.findIndex(item => item.props.open);
+  }, [children]);
 
-  const [openItem, setOpenItem] = useState(() => {
-    const idx = items.findIndex(item => item.props.open);
+  const [openItem, setOpenItem] = useState(
+    controlledIndex !== -1 ? controlledIndex : 0,
+  );
 
-    return idx === -1 ? 0 : idx;
-  });
-
-  // if out of bounds
+  // if out of bounds or is different than currently set
   if (openItem >= items.length || openItem < 0) {
     setOpenItem(0);
+  } else if (controlledIndex !== -1 && controlledIndex !== openItem) {
+    setOpenItem(controlledIndex);
   }
 
   return (
@@ -182,12 +195,20 @@ export function Accordion({ children, id }: AccordionProps) {
             if (item.props.onTriggerClick) {
               item.props.onTriggerClick(e);
             }
+
+            if (item.props.onOpen) {
+              item.props.onOpen(i);
+            }
           },
           onTriggerKeyDown: (e: KeyboardEvent<HTMLDivElement>) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
 
               setOpenItem(i);
+
+              if (item.props.onOpen) {
+                item.props.onOpen(i);
+              }
             } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
               e.preventDefault();
 

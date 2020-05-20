@@ -19,6 +19,8 @@ import { Accordion, AccordionItem } from '@byteclaw/visage';
 
 ### Default
 
+By default `Accordion` expands the first item and it can&apos;t be changed unless you make it controlled by using `open` prop on items.
+
 ```jsx live=true
 <Accordion>
   <AccordionItem title="Section 1">
@@ -34,6 +36,32 @@ import { Accordion, AccordionItem } from '@byteclaw/visage';
     <Text>Section 4 content</Text>
   </AccordionItem>
 </Accordion>
+```
+
+### Controlled
+
+To make `Accordion` controlled, set `open` prop on active item and use `onOpen` prop on individual items to control the state.
+
+```jsx live=true
+() => {
+  const [item, setItem] = useState(0);
+  return (
+    <Accordion>
+      <AccordionItem open={item === 0} onOpen={setItem} title="Section 1">
+        <Text>Section 1 content</Text>
+      </AccordionItem>
+      <AccordionItem open={item === 1} onOpen={setItem} title="Section 2">
+        <Text>Section 2 content</Text>
+      </AccordionItem>
+      <AccordionItem open={item === 2} onOpen={setItem} title="Section 3">
+        <Text>Section 3 content</Text>
+      </AccordionItem>
+      <AccordionItem open={item === 3} onOpen={setItem} title="Section 4">
+        <Text>Section 4 content</Text>
+      </AccordionItem>
+    </Accordion>
+  );
+};
 ```
 
 ## Keyboard Interaction

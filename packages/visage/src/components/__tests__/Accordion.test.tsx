@@ -165,4 +165,50 @@ describe('Accordion', () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('can be controlled from outside', () => {
+    const { container, rerender } = render(
+      <Accordion>
+        <AccordionItem title="A">A</AccordionItem>
+        <AccordionItem title="B">B</AccordionItem>
+        <AccordionItem title="C">C</AccordionItem>
+      </Accordion>,
+    );
+
+    const A = container.querySelector(
+      '#accordion-1-0-trigger',
+    ) as HTMLDivElement;
+    const B = container.querySelector(
+      '#accordion-1-1-trigger',
+    ) as HTMLDivElement;
+    const C = container.querySelector(
+      '#accordion-1-2-trigger',
+    ) as HTMLDivElement;
+
+    expect(A).toHaveAttribute('aria-expanded', 'true');
+
+    rerender(
+      <Accordion>
+        <AccordionItem title="A">A</AccordionItem>
+        <AccordionItem open title="B">
+          B
+        </AccordionItem>
+        <AccordionItem title="C">C</AccordionItem>
+      </Accordion>,
+    );
+
+    expect(B).toHaveAttribute('aria-expanded', 'true');
+
+    rerender(
+      <Accordion>
+        <AccordionItem title="A">A</AccordionItem>
+        <AccordionItem title="B">B</AccordionItem>
+        <AccordionItem open title="C">
+          C
+        </AccordionItem>
+      </Accordion>,
+    );
+
+    expect(C).toHaveAttribute('aria-expanded', 'true');
+  });
 });
