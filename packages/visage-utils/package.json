@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage-utils",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Collection of utilities used by Visage Design System.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"

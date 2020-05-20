@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.8 (2020-05-20)
+
+* feat(visage/core): allow to pass custom class names ([95f8c20](https://github.com/Byteclaw/visage/commit/95f8c20))
+
+
+
+
+
 ## 1.0.0-alpha.7 (2020-05-19)
 
 * fix(visage): make props from default props optional ([35a8192](https://github.com/Byteclaw/visage/commit/35a8192))
