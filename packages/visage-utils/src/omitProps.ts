@@ -28,8 +28,7 @@ export function omitProps(
     clone[`data-${setting.name}`] = clone[setting.prop] || setting.defaultValue;
 
     if (setting.stripProp) {
-      // react strips props that are undefined, so this is fine
-      clone[setting.prop] = undefined;
+      delete clone[setting.prop];
     }
   }
 
