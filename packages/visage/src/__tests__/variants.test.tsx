@@ -1,9 +1,32 @@
+import { render } from '@testing-library/react';
+import React from 'react';
+import { createComponent } from '../core';
 import {
   booleanVariant,
   booleanVariantStyles,
   variant,
   variantStyles,
 } from '../variants';
+import { TestDesignSystem } from './TestDesignSystem';
+
+it('does not show warning on camel cased variant', () => {
+  const A = createComponent('div', {
+    variants: [
+      booleanVariant('isActive', true),
+      variant('toggleMode', true, ['a', 'b'] as const),
+    ],
+  });
+  const { getByTestId } = render(
+    <TestDesignSystem>
+      <A data-testid="A" isActive toggleMode="a" />
+    </TestDesignSystem>,
+  );
+
+  expect(getByTestId('A')).not.toHaveAttribute('isActive');
+  expect(getByTestId('A')).not.toHaveAttribute('toggleMode');
+  expect(getByTestId('A')).toHaveAttribute('data-isactive', 'true');
+  expect(getByTestId('A')).toHaveAttribute('data-togglemode', 'a');
+});
 
 describe('booleanVariant', () => {
   it('lowercases output attribute name', () => {

@@ -15,4 +15,16 @@ describe('omitProps', () => {
       'data-b': 2,
     });
   });
+
+  it('works correctly with camelCased', () => {
+    expect(
+      omitProps({ isActive: true, b: 2, c: 3 }, [
+        { prop: 'isActive', name: 'isactive', stripProp: true },
+      ]),
+    ).toEqual({
+      b: 2,
+      c: 3,
+      'data-isactive': true,
+    });
+  });
 });
