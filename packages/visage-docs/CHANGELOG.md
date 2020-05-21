@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.38 (2020-05-21)
+
+* feat(visage): make Modal extendable ([c6dbe50](https://github.com/Byteclaw/visage/commit/c6dbe50))
+
+
+
+
+
 ## 1.0.0-alpha.37 (2020-05-20)
 
 * fix(visage): react to changes in open prop on AccordionItem ([b663f38](https://github.com/Byteclaw/visage/commit/b663f38))
