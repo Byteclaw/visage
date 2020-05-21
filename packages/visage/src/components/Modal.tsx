@@ -5,8 +5,12 @@ import React, {
   useContext,
   RefObject,
 } from 'react';
+import {
+  markAsVisageComponent,
+  ExtractVisageComponentProps,
+} from '@byteclaw/visage-core';
 import { createComponent } from '../core';
-import { booleanVariant } from '../variants';
+import { booleanVariant, numberProp } from '../variants';
 import { LayerManager, useLayerManager } from './LayerManager';
 import { Portal } from './Portal';
 import {
@@ -35,6 +39,7 @@ const BaseModal = createComponent('div', {
     position: 'static',
     p: 2,
     height: '100%',
+    zIndex: props.zIndex,
     ...(props.scrollable ? { overflowY: 'scroll' } : {}),
     ...(props.fixed ? { position: 'fixed' } : {}),
     ...(props.backdrop && props.fixed
@@ -45,6 +50,7 @@ const BaseModal = createComponent('div', {
     booleanVariant('fixed', true),
     booleanVariant('backdrop', true),
     booleanVariant('scrollable', true),
+    numberProp('zIndex', true),
   ],
 });
 
@@ -79,7 +85,7 @@ function bindOnCloseListeners(
   };
 }
 
-interface ModalProps {
+interface ModalProps extends ExtractVisageComponentProps<typeof BaseModal> {
   /**
    * Backdrop enables visible background overlay
    */
@@ -118,7 +124,7 @@ interface ModalProps {
    * Accessibility role, use alert dialog if you need user's interaction
    * Default is dialog (you don't need users immediate action)
    */
-  open: boolean;
+  open?: boolean;
   /**
    * This element will be focused on mount and will receive focus from focus trap
    */
@@ -135,64 +141,70 @@ interface ModalProps {
   unlockBodyScroll?: boolean;
 }
 
+const defaultPreventCloseRefs: any[] = [];
+
 /**
  * Modal
  *
  * Works as a focus trap
  */
-export function Modal({
-  disableOnClickAwayClose,
-  disableOnEscapeClose,
-  unlockBodyScroll = false,
-  backdrop = true,
-  contentRef,
-  fixed = true,
-  children,
-  id: outerId,
-  onClose,
-  open = true,
-  focusElementRef,
-  preventCloseRefs = [],
-  scrollable = false,
-}: ModalProps) {
-  const id = useUniqueId(outerId, 'modal-portal');
-  const modalRef = useRef<HTMLDivElement>(null);
-  const closeListenerManagerContext = useContext(CloseListenerManagerContext);
-  const { zIndex } = useLayerManager();
-
-  useFocusTrap(contentRef || modalRef, focusElementRef);
-  useAutofocusOnMount(focusElementRef);
-  useStaticOnRenderEffect(
-    bindOnCloseListeners,
-    open,
-    closeListenerManagerContext,
-    // this one is not picked up on update so be careful
-    preventCloseRefs,
-    contentRef || modalRef,
-    backdrop,
-    onClose,
-    disableOnEscapeClose,
+export const Modal = markAsVisageComponent(
+  ({
     disableOnClickAwayClose,
-  );
-  useStaticEffect(disableBodyScroll, modalRef, !unlockBodyScroll && open);
+    disableOnEscapeClose,
+    unlockBodyScroll = false,
+    backdrop = true,
+    contentRef,
+    fixed = true,
+    children,
+    id: outerId,
+    onClose,
+    open = true,
+    focusElementRef,
+    preventCloseRefs = defaultPreventCloseRefs,
+    scrollable = false,
+    ...restModalProps
+  }: ModalProps) => {
+    const id = useUniqueId(outerId, 'modal-portal');
+    const modalRef = useRef<HTMLDivElement>(null);
+    const closeListenerManagerContext = useContext(CloseListenerManagerContext);
+    const { zIndex } = useLayerManager();
 
-  if (typeof document === 'undefined' || !open) {
-    return null;
-  }
+    useFocusTrap(contentRef || modalRef, focusElementRef);
+    useAutofocusOnMount(focusElementRef);
+    useStaticOnRenderEffect(
+      bindOnCloseListeners,
+      open,
+      closeListenerManagerContext,
+      // this one is not picked up on update so be careful
+      preventCloseRefs,
+      contentRef || modalRef,
+      backdrop,
+      onClose,
+      disableOnEscapeClose,
+      disableOnClickAwayClose,
+    );
+    useStaticEffect(disableBodyScroll, modalRef, !unlockBodyScroll && open);
 
-  return (
-    <Portal containerId={id}>
-      <LayerManager>
-        <BaseModal
-          backdrop={backdrop}
-          fixed={fixed}
-          ref={modalRef}
-          scrollable={scrollable}
-          styles={{ zIndex: zIndex + 1 }}
-        >
-          {children}
-        </BaseModal>
-      </LayerManager>
-    </Portal>
-  );
-}
+    if (typeof document === 'undefined' || !open) {
+      return null;
+    }
+
+    return (
+      <Portal containerId={id}>
+        <LayerManager>
+          <BaseModal
+            backdrop={backdrop}
+            fixed={fixed}
+            ref={modalRef}
+            scrollable={scrollable}
+            zIndex={zIndex + 1}
+            {...restModalProps}
+          >
+            {children}
+          </BaseModal>
+        </LayerManager>
+      </Portal>
+    );
+  },
+);
