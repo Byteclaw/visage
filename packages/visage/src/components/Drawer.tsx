@@ -45,7 +45,7 @@ const BaseDrawer = createComponent('div', {
   displayName: 'Drawer',
   styles: props => ({
     backgroundColor: 'shades',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     ...(props.relative
       ? { position: 'relative' }
       : {
