@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.40 (2020-05-22)
+
+* fix(visage): make vertical scrollbar automatic in Drawer ([4574ec1](https://github.com/Byteclaw/visage/commit/4574ec1))
+
+
+
+
+
 ## 1.0.0-alpha.39 (2020-05-22)
 
 **Note:** Version bump only for package @byteclaw/visage
