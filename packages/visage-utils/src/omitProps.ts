@@ -25,7 +25,10 @@ export function omitProps(
   for (let i = 0; i < settingsLength; i++) {
     const setting = settings[i];
 
-    clone[`data-${setting.name}`] = clone[setting.prop] || setting.defaultValue;
+    clone[`data-${setting.name}`] =
+      clone[setting.prop] === undefined
+        ? setting.defaultValue
+        : clone[setting.prop];
 
     if (setting.stripProp) {
       delete clone[setting.prop];
