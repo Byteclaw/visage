@@ -38,7 +38,6 @@ export function Layout({ children }: Props) {
           width: '16rem',
           flexShrink: 0,
           height: '100vh',
-          overflowY: 'scroll',
           boxShadow:
             'inset -1px 0 0 0 color(shades if(isDark, color(shades tint(10%)), color(shades shade(10%))))',
         }}
@@ -91,7 +90,8 @@ export function Layout({ children }: Props) {
               styles={{
                 maxWidth: 850,
                 mx: 'auto',
-                flex: 1,
+                // flex: 1,
+                width: '100%',
                 display: ['none', 'flex'],
               }}
             >
