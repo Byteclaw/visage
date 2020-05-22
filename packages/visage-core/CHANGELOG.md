@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.9 (2020-05-22)
+
+**Note:** Version bump only for package @byteclaw/visage-core
+
+
+
+
+
 ## 1.0.0-alpha.8 (2020-05-20)
 
 * feat(visage/core): allow to pass custom class names ([95f8c20](https://github.com/Byteclaw/visage/commit/95f8c20))

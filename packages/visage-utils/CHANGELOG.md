@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.3 (2020-05-22)
+
+* fix(visage/utils): use default value only if prop value is undefined ([da837ff](https://github.com/Byteclaw/visage/commit/da837ff))
+
+
+
+
+
 ## 1.0.0-alpha.2 (2020-05-20)
 
 * fix(visage/utils): remove stripped variant prop completely ([01af046](https://github.com/Byteclaw/visage/commit/01af046))
