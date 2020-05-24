@@ -22,7 +22,7 @@ const flatten = arr =>
     return {
       ...frontmatter,
       ...rest,
-      pathname: fields,
+      pathname: fields.urlPath,
     };
   });
 const settings = { attributesToSnippet: [`excerpt:20`] };

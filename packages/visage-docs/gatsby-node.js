@@ -10,7 +10,7 @@ require('ts-node').register({
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const path = require('path');
-const pathListToTree = require('path-list-to-tree').default;
+const { pathListToTree } = require('./utils/pathListToTree');
 const { createProgram } = require('./src/extractTypeInformations');
 
 const GITHUB_USERNAME = 'byteclaw';
@@ -65,7 +65,8 @@ function processNode(node, root, pages) {
 
 function createNavigation(pages, root) {
   const tree = pathListToTree(
-    pages.map(p => p.node.fileAbsolutePath.replace(`${root}/`, '')),
+    pages.map(p => p.node.fileAbsolutePath.replace(`${root}${path.sep}`, '')),
+    path.sep,
   );
 
   // now go through the tree and process names, add absolute paths
@@ -109,15 +110,15 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const pages = result.data.allMdx.edges.sort((a, b) => {
     // take shortest path and compare
-    const aparts = a.node.fileAbsolutePath.split('/');
+    const aparts = a.node.fileAbsolutePath.split(path.sep);
     const aLength = aparts.length;
-    const bparts = b.node.fileAbsolutePath.split('/');
+    const bparts = b.node.fileAbsolutePath.split(path.sep);
     const bLength = bparts.length;
     const minLength = Math.min(aLength, bLength);
-    const apath = aparts.slice(0, minLength).join('/');
-    const bpath = bparts.slice(0, minLength).join('/');
-    const adirname = aparts.slice(0, minLength - 1).join('/');
-    const bdirname = bparts.slice(0, minLength - 1).join('/');
+    const apath = aparts.slice(0, minLength).join(path.sep);
+    const bpath = bparts.slice(0, minLength).join(path.sep);
+    const adirname = aparts.slice(0, minLength - 1).join(path.sep);
+    const bdirname = bparts.slice(0, minLength - 1).join(path.sep);
 
     if (adirname === bdirname) {
       if (apath.endsWith('index.mdx')) {
