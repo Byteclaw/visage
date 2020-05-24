@@ -90,7 +90,7 @@ const components = [
 
 jest.setTimeout(10 * 60 * 1000);
 
-describe('extracting type information', () => {
+xdescribe('extracting type information', () => {
   let ctx: VisitorContext = {};
 
   beforeAll(() => {

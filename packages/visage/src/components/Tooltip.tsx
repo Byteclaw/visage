@@ -13,6 +13,7 @@ import { createComponent } from '../core';
 import { Placement, PlacementWithAnchorOrigin } from './shared';
 import { Popper } from './Popper';
 import { useDebouncedCallback, useStaticEffect, useUniqueId } from '../hooks';
+import { variant, variantStyles } from '../variants';
 
 const TooltipComponent = createComponent('div', {
   displayName: 'Tooltip',
@@ -29,7 +30,38 @@ const TooltipComponent = createComponent('div', {
     textAlign: 'center',
     m: 0.5,
     p: 0.5,
+    ...variantStyles('status', {
+      danger: {
+        backgroundColor: 'danger',
+        color: 'dangerText',
+      },
+      info: {
+        backgroundColor: 'info',
+        color: 'infoText',
+      },
+      success: {
+        backgroundColor: 'success',
+        color: 'successText',
+      },
+      warning: {
+        backgroundColor: 'warning',
+        color: 'warningText',
+      },
+      default: {
+        backgroundColor: 'color(shadesText alpha(80%)',
+        color: 'shades',
+      },
+    }),
   },
+  variants: [
+    variant('status', true, [
+      'danger',
+      'info',
+      'success',
+      'warning',
+      'default',
+    ] as const),
+  ],
 });
 
 function bindEscapeKeyDownHandlers(
@@ -82,6 +114,10 @@ interface TooltipProps {
    * Delay after which tooltip will show up. Default is 500ms
    */
   delay?: number;
+  /**
+   * Changes the look of tooltip component
+   */
+  status?: 'danger' | 'info' | 'success' | 'warning' | 'default';
 }
 
 const tooltipPlacements: PlacementWithAnchorOrigin[][] = [
@@ -123,6 +159,7 @@ export function Tooltip({
   content,
   delay = 500,
   id: outerId,
+  status,
 }: TooltipProps) {
   const id = useUniqueId(outerId, 'tooltip');
   const [visible, setVisible] = useState(false);
@@ -183,7 +220,7 @@ export function Tooltip({
         placement={tooltipPlacements}
         role="tooltip"
       >
-        {() => <TooltipComponent>{content}</TooltipComponent>}
+        {() => <TooltipComponent status={status}>{content}</TooltipComponent>}
       </Popper>
     </>
   );
