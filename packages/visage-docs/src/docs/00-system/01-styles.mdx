@@ -1,0 +1,43 @@
+---
+title: 'Styles'
+description: 'How to define styles on Visage components'
+---
+
+Styles in Visage are defined by simple objects of CSS attributes to their respective values. If you are familiar with CSS-in-JS solutions like [emotion](https://emotion.sh/) or [styled-components](https://styled-components.com) they allow you to define styles as objects, see [emotion and their object styles](https://emotion.sh/docs/object-styles) or [styled-component and their style objects](https://styled-components.com/docs/advanced#style-objects).
+
+https://codesandbox.io/s/00-style-object-0wtgn?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+## Responsive styles
+
+Visage supports two ways of writing responsive styles which can be combined.
+
+### Responsive CSS attributes
+
+Visage supports a concept of responsive CSS attributes where each CSS attribute can be written as an array. Each item in array has it&apos;s corrensponding breakpoint so you can target multiple devices in just one line from smallest to largest one.
+
+https://codesandbox.io/s/01-css-style-object-te23p?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+If you want to omit (turn off) a value on some device, use `null` as a value.
+
+https://codesandbox.io/s/02-turning-off-css-style-jg62t?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+You can also repeat a value from previous breakpoint by setting it to `undefined`.
+
+https://codesandbox.io/s/03-repeating-previous-css-value-2it4z?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+<Message status="warning">
+  <span>
+    If you set up first value as <Code>undefined</Code> it will be the same
+    meaning as if you were using <Code>null</Code>.
+  </span>
+</Message>
+
+In case you used less values than breakpoints available to your application a last matched value is used.
+
+https://codesandbox.io/s/04-using-less-values-than-breakpoints-2tth6?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+### Media queries
+
+Media queries are also supported. You can use jsut media queries or combine them with responsive CSS attributes too.
+
+https://codesandbox.io/s/05-using-media-queries-5iw3v?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light

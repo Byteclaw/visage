@@ -1,0 +1,131 @@
+---
+title: 'Toast'
+components: ['Toast']
+tags: ['feedback', 'user exprience']
+---
+
+**Toasts provide a feedback for results of user actions.**
+
+Toast can be controlled using `duration` and `onDismiss` prop.
+
+Toast will pause expiration on mouse over/focus.
+
+**⚠️ Make sure you always specify `onDismiss` so you can hide `<Toast />`**
+
+## Examples
+
+### Default
+
+```jsx live=true
+function Example() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <Fragment>
+      <Button disabled={show} onClick={() => setShow(true)} type="button">
+        Show toast
+      </Button>
+      {show ? (
+        <Toast onDismiss={() => setShow(false)}>Default toast</Toast>
+      ) : null}
+    </Fragment>
+  );
+}
+```
+
+### Custom duration
+
+Duration can be specified in `milliseconds`.
+
+```jsx live=true
+function Example() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <Fragment>
+      <Button disabled={show} onClick={() => setShow(true)} type="button">
+        Show toast
+      </Button>
+      {show ? (
+        <Toast duration={10000} onDismiss={() => setShow(false)}>
+          Custom toast
+        </Toast>
+      ) : null}
+    </Fragment>
+  );
+}
+```
+
+### Variants
+
+```jsx live=true
+function Example() {
+  const [show, setShow] = useState([]);
+
+  return (
+    <Fragment>
+      {['default', 'danger', 'info', 'primary', 'success', 'warning'].map(
+        variant => (
+          <Button
+            disabled={show.includes(variant)}
+            key={variant}
+            onClick={() => setShow([...show, variant])}
+            type="button"
+          >
+            {variant} toast
+          </Button>
+        ),
+      )}
+      {['default', 'danger', 'info', 'primary', 'success', 'warning'].map(
+        variant => {
+          if (show.includes(variant)) {
+            return (
+              <Toast
+                key={variant}
+                onDismiss={() => setShow(show.filter(v => v !== variant))}
+                variant={variant}
+              >
+                {variant} toast
+              </Toast>
+            );
+          }
+
+          return null;
+        },
+      )}
+    </Fragment>
+  );
+}
+```
+
+### Longer width
+
+```jsx live=true
+function Example() {
+  const [show, setShow] = useState(false);
+
+  return (
+    <Fragment>
+      <Button disabled={show} onClick={() => setShow(true)} type="button">
+        Show toast
+      </Button>
+      {show ? (
+        <Toast onDismiss={() => setShow(false)}>
+          This is a default toast with a litte bit longer message. See how this
+          component deals with a multi-line child text. Lorem ipsum is
+          placeholder text commonly used in the graphic, print, and publishing
+          industries for previewing layouts and visual mockups.
+        </Toast>
+      ) : null}
+    </Fragment>
+  );
+}
+```
+
+## Faces
+
+- `Toast`
+
+## Prop Types
+
+<PropTypes component="Toast" />

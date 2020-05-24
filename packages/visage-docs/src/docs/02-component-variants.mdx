@@ -1,0 +1,59 @@
+---
+title: 'Component variants'
+description: 'How component variants are defined in Visage'
+---
+
+Often there is a need in an application to use the same component but with different looking. An examples of such variants can be button of large size or a button which is disabled.
+
+This can be achieved using style object.
+
+https://codesandbox.io/s/naive-component-variants-vjchc?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+
+But you can end up in a scenario when React will complain that the given prop is not known to a HTML element (because Visage components do not omit the props automatically).
+
+In this case you should use our variant creators, which work as a syntactic sugar.
+
+<Message status="info">
+  Variant creators also automatically add a support for Typescript.
+</Message>
+
+## Boolean variants
+
+Boolean variants can be used by `booleanVariant()` function. This function accepts a name of prop used to control the style, boolean flag whether the prop should be ommitted from the HTML element and an optional default value, which is set to `false` by default.
+
+This functions has it&apos;s `booleanVariantStyles()` function, that helps you to generate correct style object, so it matches the value correctly.
+
+https://codesandbox.io/s/boolean-component-variants-oh2bd?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+
+The same can be achieved manually without `booleanVariantStyles()`.
+
+https://codesandbox.io/s/boolean-component-variants-without-helper-xkudn?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+
+## Enum variants
+
+There are cases when the variant of a component can&apos;t be described using a boolean flag. For example button can have different sizes.
+
+For this scenario we have `variant()` function. This function accepts a name of prop used to control the style, boolean flag whether the prop should be ommitted from the HTML element, an array of possible values + `default` value and an optional default value, which is by default set to `default`.
+
+Similar to `booleanVariant()`, `variant()` has it&apos;s own function `variantStyles()` that suits a need to generate correct style object for your variant.
+
+https://codesandbox.io/s/enum-variants-2yedb?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+
+<Message status="info">
+  Every variant created using this function contain a default variant which
+  can&apos;t be removed.
+</Message>
+
+To use this correctly in Typescript you must modify your code a little so Typescript is able to resolve possible variants.
+
+https://codesandbox.io/s/enum-variants-typescript-jm3pm?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.tsx&theme=light
+
+## Number prop
+
+Sometime it happens that you need to work with some number value in your styles (for example `zIndex`). But you don&apos;t want to create a completely custom component just for that.
+
+In this case you can use `numberProp()` variant creator which accepts a name of prop used to control style, boolean flag whether the prop should be ommitted from the HTML element and an optional default value, which doesn&apos;t have any value.
+
+`numberProp()` doesn&apos;t have a styling function so you need to use style function on your component.
+
+https://codesandbox.io/s/number-prop-lu3hg?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light

@@ -1,0 +1,31 @@
+---
+title: 'Reusing styles'
+description: 'How to share style objects among different Visage components.'
+---
+
+Based on how Visage styling works. You can create shared style objects and import them to different components.
+
+https://codesandbox.io/s/reusing-styles-te6bc?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+
+But this way it&apos;s lot of manual work with imports. There is a simpler way to do this by using `extends` and `face` CSS attributes.
+
+## Extends
+
+Extends is a Visage CSS attribute that can replace itself with a style object defined in your theme using `mixins` object.
+
+https://codesandbox.io/s/extends-37yxl?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+
+By using `extends` you can create shared base style that can be extended by different components, meaning that styles of a component are merged to a style object defined in `extends`.
+
+## Faces
+
+Faces work in a similar way as `extends` but the styles are applied to the component at the end so you can override the styles on a component by faces. Faces are defined on theme using `faces` object.
+
+https://codesandbox.io/s/faces-2ljut?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+
+<Message status="info">
+  <span>
+    Every component defined by <Code>createComponent()</Code> automatically uses
+    a face with it&apos;s name.
+  </span>
+</Message>

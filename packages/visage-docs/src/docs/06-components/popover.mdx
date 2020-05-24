@@ -1,0 +1,59 @@
+---
+title: 'Popover'
+components: ['Popover']
+tags: ['overlay', 'data and information', 'feedback']
+---
+
+**A component that render a content in a fixed position with support for fullscreen overlay.**
+
+## Import
+
+```js transpile=false
+import { Popover } from '@byteclaw/visage';
+```
+
+## Examples
+
+```jsx live=true
+function Example() {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Fragment>
+      <Button onClick={() => setOpen(!open)} ref={anchorRef} type="button">
+        Show popover
+      </Button>
+      <Popover
+        allowScrolling={false}
+        alwaysVisible
+        anchor={anchorRef}
+        keepAnchorWidth
+        fullscreen={[true, false]}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <Flex
+          styles={{
+            alignItems: 'center',
+            backgroundColor:
+              'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+            height: 500,
+            width: '100%',
+          }}
+        >
+          Content
+        </Flex>
+      </Popover>
+    </Fragment>
+  );
+}
+```
+
+## Faces
+
+- `Popover`
+
+## Prop Types
+
+<PropTypes component="Popover" />

@@ -1,5 +1,5 @@
 import {
-  Column,
+  Box,
   Container,
   Drawer,
   Flex,
@@ -18,14 +18,19 @@ import { version as visageVersion } from '../../../visage/package.json';
 import { ReactComponent as LogoSvg } from '../../static/logo.svg';
 import { CustomizeThemeButton } from './CustomizeThemeButton';
 import { ColorModeToggle } from './ColorModeToggle';
+import { GithubButton } from './GithubButton';
 import { Sidebar } from './Sidebar';
 import { Search } from './Search';
+import { NavigationTree } from '../types';
 
 interface Props {
   children: ReactNode;
+  pageContext: {
+    navigationTree: NavigationTree;
+  };
 }
 
-export function Layout({ children }: Props) {
+export function Layout({ children, pageContext }: Props) {
   const isMobile = useBreakpoint({ lte: 1 });
   const [isMenuOpen, setMenuOpen] = useState(false);
 
@@ -54,17 +59,25 @@ export function Layout({ children }: Props) {
             </Text>
           </Text>
         </Flex>
-        <Sidebar />
+        <Sidebar tree={pageContext.navigationTree} />
       </Drawer>
-      <Flex
+      <Box
         as="main"
         styles={{
-          flexDirection: 'column',
+          display: 'block',
           ml: [null, null, '16rem'],
           minHeight: '100vh',
         }}
       >
-        <Header styles={{ py: 2 }}>
+        <Header
+          styles={{
+            backgroundColor: 'shades',
+            py: 2,
+            position: 'sticky',
+            top: 0,
+            zIndex: 2,
+          }}
+        >
           <Container
             styles={{
               alignItems: 'center',
@@ -110,24 +123,14 @@ export function Layout({ children }: Props) {
                 justifyContent: 'flex-end',
               }}
             >
+              <GithubButton />
               <ColorModeToggle />
               <CustomizeThemeButton />
             </Flex>
           </Container>
         </Header>
-        <Container styles={{ mx: 'auto', px: 3 }}>
-          <Column
-            styles={{
-              pt: 4,
-              pb: 6,
-              width: '100%',
-              '& > div': { width: '100%' },
-            }}
-          >
-            {children}
-          </Column>
-        </Container>
-      </Flex>
+        {children}
+      </Box>
     </>
   );
 }

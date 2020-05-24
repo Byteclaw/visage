@@ -1,0 +1,37 @@
+---
+title: 'Box'
+components: ['Box']
+tags: ['layout']
+---
+
+**Box component is universal block component that can be customed to do anything you want. It is a `div` by default without any styles applied.**
+
+## Import
+
+```js transpile=false
+import { Box } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default Box
+
+```jsx live=true
+<Box>This is default box</Box>
+```
+
+### Customized Box
+
+```jsx live=true
+<Box styles={{ background: 'pink', p: 2 }}>
+  This is pink box with some padding
+</Box>
+```
+
+## Faces
+
+- `Box`
+
+## Prop Types
+
+<PropTypes component="Box" />

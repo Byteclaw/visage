@@ -1,0 +1,172 @@
+---
+title: 'Icon button'
+components: ['IconButton']
+tags: ['forms', 'controls']
+---
+
+**[Button](/component/button) like component that uses an icon.**
+
+## Import
+
+```js transpile=false
+import { IconButton } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default Button
+
+```jsx live=true
+<Fragment>
+  <IconButton icon={MoonIcon} label="Default button" type="button" />
+  <Box styles={{ mt: 2 }} />
+  <IconButton icon={MoonIcon} label="Default button" stroked type="button" />
+  <Box styles={{ mt: 2 }} />
+  <IconButton disabled icon={MoonIcon} label="Default button" type="button" />
+  <Box styles={{ mt: 2 }} />
+  <IconButton
+    icon={MoonIcon}
+    label="Default button"
+    styles={{ fontSize: 2, lineHeight: 2 }}
+    type="button"
+  />
+</Fragment>
+```
+
+### Primary Button
+
+```jsx live=true
+<Fragment>
+  <IconButton
+    icon={MoonIcon}
+    label="Primary button"
+    type="button"
+    variant="primary"
+  />
+  <Box styles={{ mt: 2 }} />
+  <IconButton
+    icon={MoonIcon}
+    label="Primary button"
+    stroked
+    type="button"
+    variant="primary"
+  />
+  <Box styles={{ mt: 2 }} />
+  <IconButton
+    disabled
+    icon={MoonIcon}
+    label="Primary button"
+    type="button"
+    variant="primary"
+  />
+</Fragment>
+```
+
+### Danger Button
+
+```jsx live=true
+<Fragment>
+  <IconButton
+    icon={MoonIcon}
+    label="Danger button"
+    type="button"
+    variant="danger"
+  />
+  <Box styles={{ mt: 2 }} />
+  <IconButton
+    icon={MoonIcon}
+    label="Danger button"
+    stroked
+    type="button"
+    variant="danger"
+  />
+  <Box styles={{ mt: 2 }} />
+  <IconButton
+    disabled
+    icon={MoonIcon}
+    label="Danger button"
+    type="button"
+    variant="danger"
+  />
+</Fragment>
+```
+
+### Monochromatic Button
+
+Monochromatic uses current color.
+
+```jsx live=true
+<Fragment>
+  <Box styles={{ color: 'tomato', mt: 2 }}>
+    <IconButton
+      icon={MoonIcon}
+      label="Monochromatic button"
+      monochromatic
+      type="button"
+    />
+  </Box>
+  <Box styles={{ color: 'tomato', mt: 2 }}>
+    <IconButton
+      icon={MoonIcon}
+      label="Monochromatic button"
+      monochromatic
+      stroked
+      type="button"
+    />
+  </Box>
+  <Box styles={{ color: 'tomato', mt: 2 }}>
+    <IconButton
+      disabled
+      icon={MoonIcon}
+      label="Monochromatic button"
+      monochromatic
+      type="button"
+    />
+  </Box>
+</Fragment>
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If an IconButton isn&apos;t disabled:
+        <ul>
+          <li>
+            When the button does not have focus, places focus on the IconButton.
+          </li>
+          <li>
+            When the button has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={
+      <ul>
+        <li>
+          When a IconButton has focus performs it&apos;s <Code>onClick</Code>{' '}
+          action.
+        </li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `IconButton`
+
+## Prop Types
+
+<PropTypes component="IconButton" />

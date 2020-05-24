@@ -2,7 +2,7 @@ import { renderStylesToString } from 'emotion-server';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 
-export { wrapRootElement } from './src';
+export { wrapRootElement, wrapPageElement } from './src';
 
 export function replaceRenderer({ bodyComponent, replaceBodyHTMLString }) {
   const bodyHTML = renderStylesToString(renderToString(bodyComponent));

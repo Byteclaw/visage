@@ -1,0 +1,19 @@
+---
+title: 'Layer management'
+description: 'What is layer management and how Visage manages z-indexes in your application.'
+components: ['LayerManager']
+---
+
+`z-indexes` can be hard. Especially in big applications where the usage of `absolute` or `fixed` positioned components like [Dialog](/components/dialog) is unpredicable and they can be stacked in infinite number of ways.
+
+Visage uses `LayerManager` to handle `z-index` management in a consistent way so you don&apos;t need to define `z-indexes` as fixed numbers anywhere.
+
+Leveraging on `LayerManager` means to use `useLayerManager()` hook in a component that needs to know it&apos;s `z-index` it should use and wrapping it&apos;s content to `LayerManager` so underlying children will use higher `z-index`.
+
+https://codesandbox.io/s/layer-management-u0b02?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+
+On each `LayerManager` level you have `99` possible `z-index` values to use. Each `LayerManager` raises the value by `100` if itsn&apos;s defined otherwise by `increaseBy` prop.
+
+## Prop Types
+
+<PropTypes component="LayerManager" />

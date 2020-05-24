@@ -1,0 +1,31 @@
+---
+title: 'Preformatted code'
+components: ['PreformattedCode']
+tags: ['typography', 'code']
+---
+
+**A component for preformatted blocks of code.**
+
+## Import
+
+```js transpile=false
+import { PreformattedCode } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live
+<PreformattedCode>
+  {JSON.stringify({ something: true }, null, '  ')}
+</PreformattedCode>
+```
+
+## Faces
+
+- `PreformattedCode`
+
+## Prop Types
+
+<PropTypes component="PreformattedCode" />

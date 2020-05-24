@@ -1,0 +1,50 @@
+---
+title: 'Skeleton sentence'
+description: 'Skeleton component for sentences created by Text, Heading or Paragraph components'
+components: ['SkeletonSentence']
+tags: ['typography', 'loading', 'user experience', 'feedback']
+---
+
+**Skeleton sentence component is used to create [Text](/components/text) skeleton placeholders for any text format.**
+
+Use this component as component override using `as` prop.
+
+## Import
+
+```js transpile=false
+import { SkeletonSentence } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live
+<SkeletonSentence />
+```
+
+### Custom sentence
+
+```jsx live
+<SkeletonSentence mask={[4, 2, 6, 2, 7]} />
+```
+
+### Skeleton Heading
+
+```jsx live
+<Heading as={SkeletonSentence} mask={[4, 6]} />
+```
+
+### Skeleton Paragraph
+
+```jsx live
+<Paragraph as={SkeletonSentence} />
+```
+
+## Faces
+
+- `TextSkeleton`
+
+## Prop Types
+
+<PropTypes component="SkeletonSentence" />

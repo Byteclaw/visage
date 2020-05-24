@@ -1,0 +1,76 @@
+---
+title: 'Text area'
+components: ['TextArea']
+tags: ['forms', 'data and information']
+---
+
+**A widget for multiline text input.**
+
+## Import
+
+```js transpile=false
+import { TextArea } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live=true
+<TextArea placeholder="Placeholder" />
+```
+
+### ReadOnly
+
+```jsx live=true
+<TextArea readOnly />
+```
+
+### Invalid
+
+```jsx live=true
+<TextArea invalid />
+```
+
+### Disabled
+
+```jsx live=true
+<TextArea disabled />
+```
+
+### Auto resizing
+
+```jsx live=true
+<TextArea autoResize />
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a TextArea isn&apos;t disabled:
+        <ul>
+          <li>
+            When the TextArea does not have focus, places focus on the TextArea.
+          </li>
+          <li>
+            When the TextArea has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `TextArea`
+- `TextAreaBase`
+
+## Prop Types
+
+<PropTypes component="TextArea" />

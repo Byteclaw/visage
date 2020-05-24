@@ -1,6 +1,7 @@
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
 import * as visage from '@byteclaw/visage';
+import { Link } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 // @ts-ignore
@@ -8,6 +9,9 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { ReactComponent } from './assets/link.svg';
 import {
   CodeBlock,
+  ColorPalette,
+  ColorPlayground,
+  ColorScale,
   DesignSystem,
   Layout,
   Paginator,
@@ -28,14 +32,24 @@ function createHeadingUrl(slug: string): string {
 
 const mdxComponents: { [key: string]: React.ReactNode } = {
   ...visage,
-  a: ({ href, ...restProps }: any) => (
-    <visage.Link
-      {...restProps}
-      href={href}
-      rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-      target={href.startsWith('http') ? '_blank' : undefined}
-    />
-  ),
+  CodeBlock,
+  ColorPalette,
+  ColorPlayground,
+  ColorScale,
+  a: ({ href, ...restProps }: any) => {
+    if (href.startsWith('http')) {
+      return (
+        <visage.Link
+          {...restProps}
+          href={href}
+          rel="noopener noreferrer"
+          target="_blank"
+        />
+      );
+    }
+
+    return <visage.Link {...restProps} as={Link} to={href} />;
+  },
   code: CodeBlock,
   inlineCode: visage.Code,
   em: visage.EmphasizedText,
@@ -99,7 +113,7 @@ interface RootProps {
   props: any;
 }
 
-export const wrapRootElement = ({ element, props }: RootProps) => {
+export const wrapRootElement = ({ element }: RootProps) => {
   return (
     <DesignSystem>
       <MDXProvider components={mdxComponents}>
@@ -113,8 +127,12 @@ export const wrapRootElement = ({ element, props }: RootProps) => {
             rel="stylesheet"
           />
         </Helmet>
-        <Layout {...props}>{element}</Layout>
+        {element}
       </MDXProvider>
     </DesignSystem>
   );
+};
+
+export const wrapPageElement = ({ element, props }: RootProps) => {
+  return <Layout {...props}>{element}</Layout>;
 };

@@ -1,0 +1,20 @@
+---
+title: 'styles prop'
+description: 'Styling Visage components using styles prop'
+---
+
+Visage supports multiple ways of styling already created components that were created by `createComponent()`. This sections is about `styles` prop.
+
+https://codesandbox.io/s/styles-prop-jkkuj?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+
+This prop has highest priority and is merged to final style object at the end so the resulting style object will have any shared attribute overridden by the `styles` prop.
+
+https://codesandbox.io/s/styles-prop-jkw9t?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+
+<Message status="warning">
+  <span>
+    It isn&apos;t recommended to use this way of styling because it can cause
+    performance problems. You can fix them by defining styles out of component
+    scope or by using <Code>@byteclaw/babel-plugin-visage</Code>
+  </span>
+</Message>

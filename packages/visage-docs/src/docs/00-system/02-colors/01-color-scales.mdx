@@ -1,0 +1,12 @@
+---
+title: 'Color scales'
+description: 'How color scales work in Visage and how to use them.'
+---
+
+Sometimes you can find yourself in a situation when you need one particular color and it&apos;s different tones. For example you can have different tones of success color.
+
+<ColorScale color="success" />
+
+Each shade can be addressed by dot notation where the name of color in your palette is first followed by `.` and a number that says which tone and in which direction from offset you want to use. For example `success` and `success.0` are the same color, `success.-1` is one tone lighter and `success.1` is one tone darker.
+
+<ColorPlayground color="success.0" />

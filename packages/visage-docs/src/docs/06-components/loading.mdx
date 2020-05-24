@@ -1,0 +1,62 @@
+---
+title: 'Loading'
+components: ['Loading']
+tags: ['feedback', 'loading', 'user experience']
+---
+
+**A component used to describe a progress of a task.**
+
+`Loading` component can be used to describe progress of a task with known state or with indeterminate state.
+
+## Import
+
+```js transpile=false
+import { Loading } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+Default `Loading` respects `value` property which must be in range 0 to 100.
+
+```jsx live=true
+function DefaultExample() {
+  const [value, setValue] = useState(0);
+
+  useLayoutEffect(() => {
+    window.setTimeout(() => {
+      if (value < 100) {
+        setValue(value + 5);
+      } else {
+        setValue(0);
+      }
+    }, 1000);
+  }, [value]);
+
+  return <Loading value={value} valueText="Copying files..." />;
+}
+```
+
+### Indeterminate
+
+Indeterminate `Loading` can be specified using `indeterminate` prop. In this case `value` is ignored.
+
+```jsx live=true
+<Loading indeterminate />
+```
+
+### Custom color and height
+
+```jsx live=true
+<Loading value={60} styles={{ color: 'blue', height: 10 }} />
+```
+
+## Faces
+
+- `LoadingProgressBar`
+- `LoadingProgressBarProgress`
+
+## Prop Types
+
+<PropTypes component="Loading" />

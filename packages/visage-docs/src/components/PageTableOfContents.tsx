@@ -19,33 +19,26 @@ const Aside = createComponent('aside', {
     maxWidth: 250,
     width: '100%',
     ml: 4,
-    top: 0,
+    top: 100,
   },
 });
 
 interface PageTableOfContentsProps {
   githubEditLink: string;
   headings: { depth: number; value: string }[];
+  title: string;
 }
 
 export function PageTableOfContents({
   githubEditLink,
   headings,
+  title,
 }: PageTableOfContentsProps) {
-  const mainHeading = headings.find(h => h.depth === 1);
-
   return (
     <Aside>
-      {mainHeading ? (
-        <Heading level={4}>
-          <Link
-            href={`#${slugify(mainHeading.value)}`}
-            styles={{ color: 'inherit' }}
-          >
-            {mainHeading.value}
-          </Link>
-        </Heading>
-      ) : null}
+      <Heading level={4} styles={{ mt: 2 }}>
+        {title}
+      </Heading>
       <List styles={{ mb: 4 }}>
         {headings
           .filter(h => h.depth === 2)

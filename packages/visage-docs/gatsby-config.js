@@ -5,7 +5,7 @@ module.exports = {
   siteMetadata: {
     banner: '',
     description:
-      'Highly customizable React design system for rapid UI development',
+      'Accessible and highly customizable React design system for rapid UI development',
     author: '@byteclaw',
     github: 'https://github.com/byteclaw/visage',
     ogLanguage: 'en_US',
@@ -54,7 +54,10 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-mdx',
       options: {
-        gatsbyRemarkPlugins: [{ resolve: 'gatsby-remark-emoji' }],
+        gatsbyRemarkPlugins: [
+          { resolve: 'gatsby-remark-emoji' },
+          { resolve: 'gatsby-remark-embedder' },
+        ],
         extensions: ['.md', '.mdx'],
       },
     },

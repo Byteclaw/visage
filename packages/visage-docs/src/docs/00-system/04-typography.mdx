@@ -1,0 +1,48 @@
+---
+title: 'Typography'
+description: 'How Visage achieves beautiful and readable typography.'
+---
+
+Visage by default uses scales for font sizes and their corrensponding line heights and font families for body and headings.
+
+## Font scale
+
+Font scale is based on `fontSizes` and `lineHeights` settings in `nPointFontScale` theme.
+
+```tsx transpile=false
+createNPointFontScaleTheme({
+  fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
+  lineHeights: {
+    values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56],
+    offset: 2,
+  },
+  baseGridSize: 8,
+  fontFamily: {
+    body: 'Open Sans,sans-serif',
+    heading: 'Nunito Sans,sans-serif',
+  },
+  // rest of settings
+});
+```
+
+Each font size and line height can be addressed by a number. For example, if you want bigger font, you will use `N > 0`, if you want smaller then `N < 0`. `0` means the default value set by `offset`.
+
+https://codesandbox.io/s/00-font-scale-7ykez?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+<Message status="info">
+  If you use a number outside of bounds, the last number on the given bound is
+  used.
+</Message>
+
+<Message status="info">
+  Visage by default uses font size and line height of 0 as a base font size for
+  HTML.
+</Message>
+
+## Modular scale
+
+[Modular scale](https://www.modularscale.com) is a way to compute font size based on base font size and ratio. Visage supports this type of computation in `createNPointModularScaleTheme()` from `@byteclaw/visage-themes` package.
+
+https://codesandbox.io/s/00-font-scale-7ykez?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+Line heights in this type of theme are computed based on resulting font size and grid size so it keeps the vertical rhytm.

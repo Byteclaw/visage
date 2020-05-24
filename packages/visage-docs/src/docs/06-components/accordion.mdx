@@ -1,0 +1,155 @@
+---
+title: 'Accordion'
+components: ['Accordion', 'AccordionItem']
+tags: ['forms', 'data and information', 'layout']
+---
+
+**A component that acts as a vertically stacked set of headings that can be expanded to reveal a content.**
+
+`Accordion` are commonly used to reduce the need to scroll when content with multiple sections is displayed on a single page.
+
+## Import
+
+```js transpile=false
+import { Accordion, AccordionItem } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+By default `Accordion` expands the first item and it can&apos;t be changed unless you make it controlled by using `open` prop on items.
+
+```jsx live=true
+<Accordion>
+  <AccordionItem title="Section 1">
+    <Text>Section 1 content</Text>
+  </AccordionItem>
+  <AccordionItem title="Section 2">
+    <Text>Section 2 content</Text>
+  </AccordionItem>
+  <AccordionItem title="Section 3">
+    <Text>Section 3 content</Text>
+  </AccordionItem>
+  <AccordionItem title="Section 4">
+    <Text>Section 4 content</Text>
+  </AccordionItem>
+</Accordion>
+```
+
+### Controlled
+
+To make `Accordion` controlled, set `open` prop on active item and use `onOpen` prop on individual items to control the state.
+
+```jsx live=true
+() => {
+  const [item, setItem] = useState(0);
+  return (
+    <Accordion>
+      <AccordionItem open={item === 0} onOpen={setItem} title="Section 1">
+        <Text>Section 1 content</Text>
+      </AccordionItem>
+      <AccordionItem open={item === 1} onOpen={setItem} title="Section 2">
+        <Text>Section 2 content</Text>
+      </AccordionItem>
+      <AccordionItem open={item === 2} onOpen={setItem} title="Section 3">
+        <Text>Section 3 content</Text>
+      </AccordionItem>
+      <AccordionItem open={item === 3} onOpen={setItem} title="Section 4">
+        <Text>Section 4 content</Text>
+      </AccordionItem>
+    </Accordion>
+  );
+};
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Tab</KeyboardKey> /{' '}
+        <Text styles={{ whiteSpace: 'nowrap' }}>
+          <KeyboardKey>Shift</KeyboardKey> + <KeyboardKey>Tab</KeyboardKey>
+        </Text>
+      </>
+    }
+    description={
+      <ul>
+        <li>
+          When an Accordion item does not have focus, moves focus to the first
+          possible Accordion item.
+        </li>
+        <li>
+          When an Accordion item has focus, moves focus to the next element in
+          the tab sequence, which can be an another Accordion item.
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={
+      <ul>
+        <li>
+          When an Accordion item has focus and is closed, opens its region and
+          closes previous open Accordion region.
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Down Arrow</KeyboardKey>}
+    description={
+      <>
+        <ul>
+          <li>
+            When an Accordion item has focus, moves focus to the next possible
+            Accordion item.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Up Arrow</KeyboardKey>}
+    description={
+      <>
+        <ul>
+          <li>
+            When an Accordion item has focus, moves focus to the previous
+            possible Accordion item.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Home</KeyboardKey>}
+    description="When an Accordion item has focus, moves focus to the first possible Accordion item."
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>End</KeyboardKey>}
+    description="When an Accordion item has focus, moves focus to the last possible Accordion item."
+  />
+</DescriptionList>
+
+## Faces
+
+- `AccordionRegion`
+- `AccordionTrigger`
+
+## Prop Types
+
+### Accordion
+
+<PropTypes component="Accordion" />
+
+### AccordionItem
+
+<PropTypes component="AccordionItem" />

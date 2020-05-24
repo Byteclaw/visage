@@ -1,0 +1,62 @@
+---
+title: 'Pagination'
+components:
+  ['Pagination', 'PaginationNextPageButton', 'PaginationPreviousPageButton']
+tags: ['navigation']
+---
+
+**A component for simple direction based pagination.**
+
+## Import
+
+```js transpile=false
+import {
+  Pagination,
+  PaginationNextPageButton,
+  PaginationPreviousPageButton,
+} from '@byteclaw/visage';
+```
+
+## Examples
+
+### Arrow pagination only
+
+```jsx live=true
+<Pagination>
+  <PaginationPreviousPageButton />
+  <PaginationNextPageButton />
+</Pagination>
+```
+
+### Arrow pagination for just one page (disabled arrows)
+
+```jsx live=true
+<Pagination>
+  <PaginationPreviousPageButton disabled />
+  <PaginationNextPageButton disabled />
+</Pagination>
+```
+
+## Faces
+
+- `Pagination`
+- `PaginationNextPageButton`
+- `PaginationPreviousPageButton`
+
+## Pagination
+
+### Prop Types
+
+<PropTypes component="Pagination" />
+
+## PaginationNextPageButton
+
+### Prop Types
+
+<PropTypes component="PaginationNextPageButton" />
+
+## PaginationPreviousPageButton
+
+### Prop Types
+
+<PropTypes component="PaginationPreviousPageButton" />

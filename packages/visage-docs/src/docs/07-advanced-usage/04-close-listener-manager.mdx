@@ -1,0 +1,31 @@
+---
+title: 'Close listener manager'
+description: 'How Visage handles click away and escape key down closing of stacked layers.'
+components: ['CloseListenerManager']
+---
+
+Components that are rendered on layer stack such as [Dialog](/components/dialog) or [Menu](/components/menu) can close themself on click away or <kbd>Escape</kbd> key down.
+
+For this purpose Visage uses `CloseListenerManager` which keeps track of current layer stack and manages click away and <kbd>Escape</kbd> key down handling.
+
+Each component that wants to register itself for click away or <kbd>Escape</kbd> key down listening, or both, must use `useCloseListenerManager()` and register it&apos;s event handler and reference on mount.
+
+https://codesandbox.io/s/layer-management-2emg4?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+
+`CloseListenerManager` distinguishes between so called fullscreen and non-fulscreen layers. It doesn&apos;t have anything to do with the styling, it&apos;s just an abstract concept that determines how `CloseListenerManager` behaves if the top most layer is fullscreen or not.
+
+Fulscreen layers stop the close event propagation to underlying layers. For example if you open 2 [Dialog](/components/dialog) components, and click away, only the top most Dialog will be closed.
+
+https://codesandbox.io/s/layer-management-fullnonfulscreen-31owv?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+
+Unlike fullscreen layers, non-fullscreen layers doesn&apos;t stop the close event propagation to underlying layers. For example if you have [Dialog](/component/dialog) with [Menu](/component/menu) open inside. If you click on body of Dialog, Menu will close. But if you click outside of Dialog with Menu open, it will close both the menu and the dialog.
+
+https://codesandbox.io/s/dialog-and-menu-8z6pk?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+
+You can also manage wheter you want to close a layer or not. Each registered close listener receives an `Event` that can be prevented using `preventDefault()` and is async.
+
+https://codesandbox.io/s/layer-management-cancel-close-rw464?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+
+## Prop Types
+
+<PropTypes component="CloseListenerManager" />

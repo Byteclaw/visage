@@ -1,0 +1,58 @@
+---
+title: 'Progress bar'
+components: ['ProgressBar']
+tags: ['feedback', 'loading', 'user exprience']
+---
+
+**A component to describe task with a known determined state.**
+
+## Import
+
+```js transpile=false
+import { ProgressBar } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+Default `ProgressBar` uses current font color as bar's color.
+
+```jsx live=true
+<ProgressBar value={75}></ProgressBar>
+```
+
+### Custom color or size
+
+`ProgressBar` uses current line height to specify it's size.
+
+```jsx live=true
+function Example() {
+  const [value, setValue] = useState(0);
+
+  useLayoutEffect(() => {
+    window.setTimeout(() => {
+      if (value < 100) {
+        setValue(value + 5);
+      } else {
+        setValue(0);
+      }
+    }, 1000);
+  }, [value]);
+
+  return (
+    <Box styles={{ color: 'warning', lineHeight: -2 }}>
+      <ProgressBar value={value} valueText="Copying files..."></ProgressBar>
+    </Box>
+  );
+}
+```
+
+## Faces
+
+- `ProgressBar`
+- `ProgressBarProgress`
+
+## Prop Types
+
+<PropTypes component="ProgressBar" />

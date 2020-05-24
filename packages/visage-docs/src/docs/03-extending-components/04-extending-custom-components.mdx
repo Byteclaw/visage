@@ -1,0 +1,12 @@
+---
+title: 'Extending custom components'
+description: 'How to turn custom components to Visage components'
+---
+
+Visage applies styles on components using props that are produced by [style generators](/advanced-usage/style-generators).
+
+Given this fact it&apos;s possible to turn any component to Visage component by wrapping it in `createComponent()` and passing the given props to underlying element.
+
+https://codesandbox.io/s/extending-custom-component-zwlz4?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+
+In the example above we know that defaut Visage style generator produces `className` prop, so we must pass to whatever element we want to style.

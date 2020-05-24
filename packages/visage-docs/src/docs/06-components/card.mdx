@@ -1,0 +1,82 @@
+---
+title: 'Card'
+components: ['Card']
+tags: ['data and information', 'layout']
+---
+
+**A component that contains content and actions about a single subject.**
+
+## Examples
+
+### Default
+
+```jsx live=true
+<Card styles={{ maxWidth: 300 }}>
+  <Paragraph>This is a card</Paragraph>
+</Card>
+```
+
+### Clickable
+
+Clickable card is specified using `touchable` prop. Clickable card have `hover, focus, active` styles.
+
+```jsx live=true
+<Card
+  styles={{ maxWidth: 300 }}
+  touchable={
+    <Button onClick={() => console.log('clicked')} type="button">
+      This is a click handle
+    </Button>
+  }
+>
+  <Paragraph>This is a clickable card</Paragraph>
+</Card>
+```
+
+#### Clickable with clickable content
+
+```jsx live=true
+<Card
+  styles={{ maxWidth: 300 }}
+  touchable={
+    <Button onClick={() => console.log('clicked')} type="button">
+      This is a click handle
+    </Button>
+  }
+>
+  <Paragraph>This is a clickable card</Paragraph>
+  <Button onClick={() => console.log('add to cart')} type="button">
+    Add to cart
+  </Button>
+</Card>
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        When a Card is clickable:
+        <ul>
+          <li>When the card does not have focus, moves focus on the card.</li>
+          <li>
+            When the card has focus, moves focus on the next element in tab
+            sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `Card`
+- `CardContent`
+- `CardTouchable`
+
+## Prop Types
+
+<PropTypes component="Card" />

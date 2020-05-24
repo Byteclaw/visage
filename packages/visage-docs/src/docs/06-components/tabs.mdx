@@ -1,0 +1,127 @@
+---
+title: 'Tabs'
+components: ['Tabs', 'Tab']
+tags: ['data and information', 'navigation']
+---
+
+**A set of panels, that display one panel of content at a time**
+
+## Import
+
+```js transpile=false
+import { Tabs, Tab } from '@byteclaw/visage';
+```
+
+## Examples
+
+```jsx live=true
+<Tabs id="tabs">
+  <Tab label="Tab 1" onClick={e => console.log(e)}>
+    Content 1
+  </Tab>
+  <Tab label="Tab 2" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab disabled label="Tab 3">
+    Content 3
+  </Tab>
+  <Tab label="Tab 4">{() => 'Lazy rendered only if selected'}</Tab>
+  <Tab label="Tab 5" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab label="Tab 6" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab label="Tab 7" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+  <Tab label="Tab 8" onKeyDown={e => console.log(e)}>
+    Content 2
+  </Tab>
+</Tabs>
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a tab list does not have focus, moves focus into the tab list,
+          places focus on the active <Code>Tab</Code>
+        </li>
+        <li>
+          When a tab has focus, moves focus to the next element in the tab
+          sequence, which is <Code>tabpanel</Code> element
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={
+      <ul>
+        <li>
+          When a tab has focus, activates the tab and display it&apos;s
+          associated <Code>tabpanel</Code>
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Right Arrow</KeyboardKey>}
+    description={
+      <>
+        When a tab has focus:
+        <ul>
+          <li>Moves focus to the next Tab</li>
+          <li>If focus is on the last tab, moves focus to the first tab</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Left Arrow</KeyboardKey>}
+    description={
+      <>
+        When a tab has focus:
+        <ul>
+          <li>Moves focus to the previous Tab</li>
+          <li>If focus is on the first tab, moves focus to the last tab</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Home</KeyboardKey>}
+    description="When a tab has focus, moves focus to the first Tab"
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>End</KeyboardKey>}
+    description="When a tab has focus, moves focus to the last Tab"
+  />
+</DescriptionList>
+
+## Faces
+
+- `Tabs`
+- `TabList`
+- `TabNavigationButton`
+
+## Tabs
+
+### Prop Types
+
+<PropTypes component="Tabs" />
+
+## Tab
+
+### Prop Types
+
+<PropTypes component="Tab" />

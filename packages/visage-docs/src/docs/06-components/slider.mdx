@@ -1,0 +1,326 @@
+---
+title: 'Slider'
+components: ['Slider']
+tags: ['forms', 'data and information']
+---
+
+**An accessible component that allows you to select a value from discrete set of values.**
+
+Under the hood `Slider` uses [react-range](https://github.com/tajo/react-range).
+
+## Import
+
+```js transpile=false
+import { Slider } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Controlled
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      min={0}
+      max={20}
+      step={1}
+      onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+};
+```
+
+### Controlled with allowed steps
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      allowedValues={[0, 5, 10, 15]}
+      min={0}
+      max={20}
+      step={5}
+      onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+};
+```
+
+### Disabled
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      allowedValues={[0, 5, 10]}
+      disabled
+      min={0}
+      max={20}
+      step={1}
+      onChange={values => setValue(values)}
+      values={value}
+    />
+  );
+};
+```
+
+### Read only
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      min={0}
+      max={20}
+      onChange={values => setValue(values)}
+      readOnly
+      step={1}
+      values={value}
+    />
+  );
+};
+```
+
+### Multi Thumb
+
+If you provide more than one value in `values` prop, `Slider` is considered multi thumb.
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10, 50]);
+
+  return (
+    <Slider
+      colors={['primary', 'success', 'neutral']}
+      min={0}
+      max={100}
+      step={1}
+      onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+};
+```
+
+### Custom Thumb
+
+To render custom thumb please provide your own render function to `renderThumb` prop.
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([50]);
+  const thumbRender = useRef(
+    ({ disabled, readOnly, onKeyDown, onKeyUp, tabIndex, value, ...rest }) => (
+      <SliderThumb
+        aria-disabled={disabled}
+        aria-readonly={readOnly}
+        {...rest}
+        onKeyDown={!readOnly ? onKeyDown : undefined}
+        onKeyUp={!readOnly ? onKeyUp : undefined}
+        tabIndex={readOnly ? undefined : tabIndex}
+        styles={{ height: '3rem', width: '3rem', fontSize: 2, lineHeight: 2 }}
+      >
+        {value === 0 ? <SvgIcon icon={VolumeXIcon} /> : null}
+        {value > 0 && value < 34 ? <SvgIcon icon={VolumeIcon} /> : null}
+        {value >= 34 && value < 67 ? <SvgIcon icon={Volume1Icon} /> : null}
+        {value >= 67 ? <SvgIcon icon={Volume2Icon} /> : null}
+      </SliderThumb>
+    ),
+  );
+
+  return (
+    <Slider
+      min={0}
+      max={100}
+      onChange={values => setValue(values)}
+      renderThumb={thumbRender.current}
+      step={1}
+      values={value}
+    />
+  );
+};
+```
+
+### Custom direction
+
+`direction` prop can be used to control the direction of `Slider`.
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([10]);
+
+  return (
+    <Slider
+      direction={SliderDirection.Left}
+      min={0}
+      max={100}
+      step={1}
+      onChange={values => setValue(values)}
+      onFinalChange={values => console.log('final', values)}
+      values={value}
+    />
+  );
+};
+```
+
+### With Popper
+
+```jsx live=true
+() => {
+  const [value, setValue] = useState([50]);
+  const { current: PopperThumb } = useRef(
+    ({ disabled, readOnly, onKeyDown, onKeyUp, tabIndex, value, ...rest }) => {
+      const anchorRef = useRef();
+
+      return (
+        <>
+          <SliderThumb
+            aria-disabled={disabled}
+            aria-readonly={readOnly}
+            {...rest}
+            ref={anchorRef}
+            onKeyDown={!readOnly ? onKeyDown : undefined}
+            onKeyUp={!readOnly ? onKeyUp : undefined}
+            tabIndex={readOnly ? undefined : tabIndex}
+            styles={{
+              height: '3rem',
+              width: '3rem',
+              fontSize: 2,
+              lineHeight: 2,
+            }}
+          >
+            {value === 0 ? <SvgIcon icon={VolumeXIcon} /> : null}
+            {value > 0 && value < 34 ? <SvgIcon icon={VolumeIcon} /> : null}
+            {value >= 34 && value < 67 ? <SvgIcon icon={Volume1Icon} /> : null}
+            {value >= 67 ? <SvgIcon icon={Volume2Icon} /> : null}
+          </SliderThumb>
+          <Popper
+            open
+            anchor={anchorRef}
+            placement={[
+              [
+                Placement.topCenter,
+                { horizontal: 'center', vertical: 'bottom' },
+              ],
+            ]}
+          >
+            <span>{value}</span>
+          </Popper>
+        </>
+      );
+    },
+  );
+  const thumbRender = useRef(props => <PopperThumb {...props} />);
+
+  return (
+    <Slider
+      min={0}
+      max={100}
+      onChange={values => setValue(values)}
+      renderThumb={thumbRender.current}
+      step={1}
+      values={value}
+    />
+  );
+};
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Slider isn&apos;t disabled:
+        <ul>
+          <li>
+            When the thumb does not have focus, places focus on the thumb.
+          </li>
+          <li>
+            When the thumb has focus, moves focus to the next element in the tab
+            sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Left Arrow</KeyboardKey> /{' '}
+        <KeyboardKey>Down Arrow</KeyboardKey> / <KeyboardKey>j</KeyboardKey>
+      </>
+    }
+    description={
+      <>
+        If a Slider has focus:
+        <ul>
+          <li>Decrements the value.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Right Arrow</KeyboardKey> /{' '}
+        <KeyboardKey>Up Arrow</KeyboardKey> / <KeyboardKey>k</KeyboardKey>
+      </>
+    }
+    description={
+      <>
+        If a Slider has focus:
+        <ul>
+          <li>Increments the value.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Page Up</KeyboardKey>}
+    description={
+      <>
+        If a Slider has focus:
+        <ul>
+          <li>Increments the value by ten steps.</li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Page Down</KeyboardKey>}
+    description={
+      <>
+        If a Slider has focus:
+        <ul>
+          <li>Decrements the value by ten steps.</li>
+        </ul>
+      </>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `SliderThumb`
+- `SliderTrack`
+- `SliderTrackProgress`
+
+## Prop Types
+
+<PropTypes component="Slider" />

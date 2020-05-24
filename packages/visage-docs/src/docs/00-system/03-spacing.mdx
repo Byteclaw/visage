@@ -1,0 +1,34 @@
+---
+title: 'Spacing'
+description: 'How Visage keeps spacings consisent in your application.'
+---
+
+Visage uses [N-point grid system](https://spec.fm/specifics/8-pt-grid) with the abiity to set up the base grid size in your theme. It keeps margins and paddings consistent.
+
+```tsx transpile=false
+createNPointFontScaleTheme({
+  baseGridSize: 8,
+  // rest of settings
+});
+```
+
+https://codesandbox.io/s/00-spacings-2b6yf?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+
+You can avoid computing the value based on grid system by using a string value for example `"10px"`.
+
+## Supported CSS attributes
+
+- `m / margin`
+- `mb / marginBottom`
+- `ml / marginLeft`
+- `mr / marginRight`
+- `mt / marginTop`
+- `mx / marginLeft + marginRight`
+- `my / marginTop + marginBottom`
+- `p / padding`
+- `pb / paddingBottom`
+- `pl / paddingLeft`
+- `pr / paddingRight`
+- `pt / paddingTop`
+- `px / paddingLeft + paddingRight`
+- `py / paddingTop + paddingBottom`

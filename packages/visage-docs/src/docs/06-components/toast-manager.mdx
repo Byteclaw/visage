@@ -1,0 +1,47 @@
+---
+title: 'Toast manager'
+components: ['ToastManager']
+tags: ['feedback']
+---
+
+**A component that manages when and how to show [Toast](/component/toast)**
+
+ToastManager component is responsible for [Toast](/components/feedback/toast) management. ToastManager requires [EventEmitterContext](https://github.com/Byteclaw/hooks/tree/master/packages/use-event-emitter) which is already provided by [DesignSystem](/system/design-system).
+
+## Import
+
+```js transpile=false
+import { ToastManager } from '@byteclaw/visage';
+```
+
+## Usage
+
+```js transpile=false
+import {
+  EventEmitterContext,
+  useEventEmitterInstance,
+} from '@byteclaw/use-event-emitter';
+import { ToastManager } from './components/Toast';
+
+function MyToastManager({ children }) {
+  const toastEventEmitter = useEventEmitterInstance();
+
+  return (
+    <EventEmitterContext.Provider value={toastEventEmitter}>
+      <ToastManager />
+      {children}
+    </EventEmitterContext.Provider>
+  );
+}
+```
+
+If some of the children will emit toast, it will be handled by ToastManager.
+
+<Banner status="warning">
+  ToastManager is already used in DesignSystem or ResponsiveDesignSystem. Use
+  this component directly only if wrapped in new EventEmitterContext.
+</Banner>
+
+## Prop Types
+
+<PropTypes component="ToastManager" />
