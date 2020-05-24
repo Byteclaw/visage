@@ -52,10 +52,12 @@ const Scope = {
   theme: Themes.createDocsTheme(),
 };
 
-export default function LivePreview(props: PageProps & { '*': string }) {
+export default function LivePreview({ location: { search } }: PageProps) {
   const { isDark, useDark } = useContext(ThemeTogglerContext);
   // eslint-disable-next-line react/destructuring-assignment
-  const [code, setCode] = useState(decodeURIComponent(props['*']));
+  const [code, setCode] = useState(
+    decodeURIComponent(search.replace('?code=', '')),
+  );
   const themeModeRef = useRef(
     (typeof window !== 'undefined'
       ? window.frameElement.getAttribute('data-theme')

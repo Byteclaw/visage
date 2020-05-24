@@ -136,7 +136,7 @@ export const wrapRootElement = ({ element }: RootProps) => {
 export const wrapPageElement = ({ element, props }: RootProps) => {
   const { path } = props;
 
-  if (path === '/live-preview/*') {
+  if (path === '/live-preview/') {
     return element;
   }
 

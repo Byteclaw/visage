@@ -88,7 +88,7 @@ export function CodeBlock({
 
   useEffect(() => {
     // load iframe on mount
-    setSrc(`/live-preview/${encodeURIComponent(children.trim())}`);
+    setSrc(`/live-preview?code=${encodeURIComponent(children.trim())}`);
   }, []);
 
   return (
