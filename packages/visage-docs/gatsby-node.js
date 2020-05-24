@@ -44,7 +44,7 @@ exports.onCreateWebpackConfig = function onCreateWebpackConfig({
 };
 
 function processNode(node, root, pages) {
-  const absPath = path.join(root.path, node.name);
+  const absPath = path.join(root.path, node.name).replace(/[\\]/g, '/');
   node.path = absPath;
 
   if (node.name.endsWith('.mdx')) {
@@ -65,8 +65,7 @@ function processNode(node, root, pages) {
 
 function createNavigation(pages, root) {
   const tree = pathListToTree(
-    pages.map(p => p.node.fileAbsolutePath.replace(`${root}${path.sep}`, '')),
-    path.sep,
+    pages.map(p => p.node.fileAbsolutePath.replace(`${root}/`, '')),
   );
 
   // now go through the tree and process names, add absolute paths
@@ -110,15 +109,15 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const pages = result.data.allMdx.edges.sort((a, b) => {
     // take shortest path and compare
-    const aparts = a.node.fileAbsolutePath.split(path.sep);
+    const aparts = a.node.fileAbsolutePath.split('/');
     const aLength = aparts.length;
-    const bparts = b.node.fileAbsolutePath.split(path.sep);
+    const bparts = b.node.fileAbsolutePath.split('/');
     const bLength = bparts.length;
     const minLength = Math.min(aLength, bLength);
-    const apath = aparts.slice(0, minLength).join(path.sep);
-    const bpath = bparts.slice(0, minLength).join(path.sep);
-    const adirname = aparts.slice(0, minLength - 1).join(path.sep);
-    const bdirname = bparts.slice(0, minLength - 1).join(path.sep);
+    const apath = aparts.slice(0, minLength).join('/');
+    const bpath = bparts.slice(0, minLength).join('/');
+    const adirname = aparts.slice(0, minLength - 1).join('/');
+    const bdirname = bparts.slice(0, minLength - 1).join('/');
 
     if (adirname === bdirname) {
       if (apath.endsWith('index.mdx')) {
@@ -141,11 +140,10 @@ exports.createPages = async ({ graphql, actions }) => {
     return 0;
   });
 
-  const root = path.join(__dirname, 'src', 'docs');
+  const root = path.join(__dirname, 'src', 'docs').replace(/[\\]/g, '/');
 
   // generate navigation, all files are sorted so we just need to go through them
   const tree = createNavigation(pages, root);
-
   function constructPages(nodes, allPages) {
     return [].concat(
       ...nodes.map(node => {
