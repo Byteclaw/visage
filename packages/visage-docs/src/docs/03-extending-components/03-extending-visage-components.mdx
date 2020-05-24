@@ -5,4 +5,12 @@ description: 'How to extends Visage components for ease of use and maintenance.'
 
 Each component created by `createComponent()` can be extended by wrapping it by `createComponent()`. It&apos;s basically the same approach as [`as` prop](/extending-components/as-prop) but you can easily use the component on different places.
 
-https://codesandbox.io/s/extending-visage-component-7f377?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx live noInline expanded codesandbox=extending-visage-component-7f377
+const RedButton = createComponent(Button, {
+  styles: {
+    color: 'red',
+  },
+});
+
+render(<RedButton>Red text button</RedButton>);
+```

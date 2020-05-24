@@ -12,7 +12,38 @@ createNPointFontScaleTheme({
 });
 ```
 
-https://codesandbox.io/s/00-spacings-2b6yf?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+## Spacings in action
+
+```tsx live noInline expanded codesandbox=00-spacings-2b6yf
+const theme = createNPointFontScaleTheme({
+  ...defaultTheme.theme,
+  baseGridSize: 8,
+});
+
+const styles = {
+  display: 'inline-flex',
+  backgroundColor: 'primary',
+  borderColor: 'black',
+  borderWidth: 1,
+  borderStyle: 'solid',
+  alignItems: 'center',
+  justifyContent: 'center',
+  // you can work around computing based on grid size
+  // by using string values with units, like p: '10px'.
+  p: 2,
+  m: 2,
+};
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Box styles={{ display: 'inline-flex', backgroundColor: 'neutral.2' }}>
+      <Box styles={styles}>
+        <Box styles={{ backgroundColor: 'neutral', height: 100, width: 100 }} />
+      </Box>
+    </Box>
+  </DesignSystem>,
+);
+```
 
 You can avoid computing the value based on grid system by using a string value for example `"10px"`.
 

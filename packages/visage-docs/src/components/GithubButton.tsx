@@ -10,6 +10,7 @@ export function GithubButton() {
         icon={GitHub}
         href="https://github.com/Byteclaw/visage"
         label="GitHub"
+        stroked
         styles={{ mr: 1 }}
       />
     </Tooltip>

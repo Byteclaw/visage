@@ -5,11 +5,21 @@ description: 'Styling Visage components using styles prop'
 
 Visage supports multiple ways of styling already created components that were created by `createComponent()`. This sections is about `styles` prop.
 
-https://codesandbox.io/s/styles-prop-jkkuj?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx expanded live codesandbox=styles-prop-jkkuj
+<Box styles={{ color: 'primary' }}>This is my component</Box>
+```
 
 This prop has highest priority and is merged to final style object at the end so the resulting style object will have any shared attribute overridden by the `styles` prop.
 
-https://codesandbox.io/s/styles-prop-jkw9t?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx expanded live noInline codesandbox=styles-prop-jkw9t
+const MyBox = createComponent('div', {
+  styles: {
+    color: 'primary',
+  },
+});
+
+render(<MyBox styles={{ color: 'danger' }}>This is my component</MyBox>);
+```
 
 <Message status="warning">
   <span>

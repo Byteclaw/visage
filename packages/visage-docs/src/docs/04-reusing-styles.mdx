@@ -5,7 +5,20 @@ description: 'How to share style objects among different Visage components.'
 
 Based on how Visage styling works. You can create shared style objects and import them to different components.
 
-https://codesandbox.io/s/reusing-styles-te6bc?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx live noInline expanded codesandbox=reusing-styles-te6bc
+const styles = {
+  fontSize: 1,
+  lineHeight: 1,
+  color: 'primary',
+};
+
+render(
+  <>
+    <Box styles={styles}>Box 1</Box>
+    <Box styles={styles}>Box 2</Box>
+  </>,
+);
+```
 
 But this way it&apos;s lot of manual work with imports. There is a simpler way to do this by using `extends` and `face` CSS attributes.
 
@@ -13,7 +26,40 @@ But this way it&apos;s lot of manual work with imports. There is a simpler way t
 
 Extends is a Visage CSS attribute that can replace itself with a style object defined in your theme using `mixins` object.
 
-https://codesandbox.io/s/extends-37yxl?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx live noInline expanded codesandbox=extends-37yxl
+const theme = createNPointFontScaleTheme({
+  ...defaultTheme.theme,
+  mixins: {
+    ButtonBase: {
+      color: 'primary',
+      m: 1,
+      p: 1,
+      fontSize: 1,
+      lineHeight: 1,
+    },
+  },
+});
+
+const DefaultButton = createComponent('button', {
+  styles: {
+    extends: 'ButtonBase',
+  },
+});
+
+const RedButton = createComponent('button', {
+  styles: {
+    extends: 'ButtonBase',
+    color: 'red',
+  },
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <DefaultButton>Default button</DefaultButton>
+    <RedButton>Red text button</RedButton>
+  </DesignSystem>,
+);
+```
 
 By using `extends` you can create shared base style that can be extended by different components, meaning that styles of a component are merged to a style object defined in `extends`.
 
@@ -21,7 +67,38 @@ By using `extends` you can create shared base style that can be extended by diff
 
 Faces work in a similar way as `extends` but the styles are applied to the component at the end so you can override the styles on a component by faces. Faces are defined on theme using `faces` object.
 
-https://codesandbox.io/s/faces-2ljut?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx live noInline expanded codesandbox=faces-2ljut
+const theme = createNPointFontScaleTheme({
+  ...defaultTheme.theme,
+  faces: {
+    ButtonLarge: {
+      fontSize: 2,
+      lineHeight: 2,
+    },
+  },
+});
+
+const DefaultButton = createComponent('button', {
+  styles: {
+    color: 'primary',
+    face: 'ButtonLarge',
+  },
+});
+
+const RedButton = createComponent('button', {
+  styles: {
+    face: 'ButtonLarge',
+    color: 'red',
+  },
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <DefaultButton>Default button</DefaultButton>
+    <RedButton>Red text button</RedButton>
+  </DesignSystem>,
+);
+```
 
 <Message status="info">
   <span>

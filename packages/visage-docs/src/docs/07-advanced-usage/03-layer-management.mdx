@@ -10,7 +10,65 @@ Visage uses `LayerManager` to handle `z-index` management in a consistent way so
 
 Leveraging on `LayerManager` means to use `useLayerManager()` hook in a component that needs to know it&apos;s `z-index` it should use and wrapping it&apos;s content to `LayerManager` so underlying children will use higher `z-index`.
 
-https://codesandbox.io/s/layer-management-u0b02?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+```tsx live noInline expanded codesandbox=layer-management-u0b02
+function FullscreenDialog({ onClose, zIndex }) {
+  return (
+    <LayerManager>
+      <Flex
+        styles={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex,
+        }}
+      >
+        <Box>
+          <Box
+            styles={{
+              backgroundColor: 'primary',
+              p: 2,
+              fontWeight: 'bold',
+              color: 'primaryText',
+            }}
+          >
+            z-index={zIndex}
+          </Box>
+          <Button onClick={onClose} type="button">
+            Close this dialog
+          </Button>
+          <DialogButton />
+        </Box>
+      </Flex>
+    </LayerManager>
+  );
+}
+
+function DialogButton() {
+  const [open, setOpen] = useState(false);
+  const { zIndex } = useLayerManager();
+
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)} type="button">
+        {!open ? 'Open dialog' : 'Close dialog'}
+      </Button>
+      {open ? (
+        <FullscreenDialog onClose={() => setOpen(false)} zIndex={zIndex + 1} />
+      ) : null}
+    </>
+  );
+}
+
+render(
+  <DesignSystem>
+    <DialogButton />
+  </DesignSystem>,
+);
+```
 
 On each `LayerManager` level you have `99` possible `z-index` values to use. Each `LayerManager` raises the value by `100` if itsn&apos;s defined otherwise by `increaseBy` prop.
 

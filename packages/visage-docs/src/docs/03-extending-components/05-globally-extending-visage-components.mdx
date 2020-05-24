@@ -7,6 +7,23 @@ Let&apos;s say you have an application and you want to change all the buttons th
 
 Each Visage component created by `createComponent()` can be changed by a face that is named by this component.
 
-https://codesandbox.io/s/globally-extending-visage-components-tpk90?fontsize=14&hidenavigation=1&module=%2Fsrc%2Ftheme.js&theme=light
+```tsx live noInline expanded codesandbox=globally-extending-visage-components-tpk90
+const theme = createNPointFontScaleTheme({
+  ...defaultTheme.theme,
+  faces: {
+    Text: {
+      fontSize: 2,
+      lineHeight: 2,
+      color: 'danger',
+    },
+  },
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Text>Hello</Text>
+  </DesignSystem>,
+);
+```
 
 Faces are applied at the end with second highest priority after [`styles` prop](/extending-components/styles-prop).

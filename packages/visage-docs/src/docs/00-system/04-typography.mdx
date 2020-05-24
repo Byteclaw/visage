@@ -27,7 +27,16 @@ createNPointFontScaleTheme({
 
 Each font size and line height can be addressed by a number. For example, if you want bigger font, you will use `N > 0`, if you want smaller then `N < 0`. `0` means the default value set by `offset`.
 
-https://codesandbox.io/s/00-font-scale-7ykez?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+```tsx live noInline expanded codesandbox=00-font-scale-7ykez
+const styles = {
+  // you can use larger font using N > 0 or smaller by using N < 0
+  // same applies to line height
+  fontSize: 0,
+  lineHeight: 0,
+};
+
+render(<Text styles={styles}>Hello</Text>);
+```
 
 <Message status="info">
   If you use a number outside of bounds, the last number on the given bound is
@@ -43,6 +52,31 @@ https://codesandbox.io/s/00-font-scale-7ykez?fontsize=14&hidenavigation=1&module
 
 [Modular scale](https://www.modularscale.com) is a way to compute font size based on base font size and ratio. Visage supports this type of computation in `createNPointModularScaleTheme()` from `@byteclaw/visage-themes` package.
 
-https://codesandbox.io/s/00-font-scale-7ykez?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fstyles.js&theme=light
+```tsx live noInline expanded codesandbox=01-modular-font-scale-t98yt
+const theme = createNPointModularScaleTheme({
+  baseLineHeightRatio: 1.5,
+  baseGridSize: 8,
+  baseFontSize: 16,
+  fontScaleRatio: modularScaleFontRatios.perfectFourth,
+  fontFamily: {
+    body: 'Open Sans,sans-serif',
+    heading: 'Nunito Sans,sans-serif',
+  },
+  colors: defaultTheme.theme.colors,
+});
+
+const styles = {
+  // you can use larger font using N > 0 or smaller by using N < 0
+  // same applies to line height
+  fontSize: 0,
+  lineHeight: 0,
+};
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Text styles={styles}>Hello</Text>
+  </DesignSystem>,
+);
+```
 
 Line heights in this type of theme are computed based on resulting font size and grid size so it keeps the vertical rhytm.
