@@ -14,14 +14,43 @@
       "name": "Michal Kvasničák",
       "avatar_url": "https://avatars1.githubusercontent.com/u/174716?v=4",
       "profile": "https://github.com/michalkvasnicak",
-      "contributions": ["question", "code", "design", "doc", "example", "ideas", "review", "test"]
+      "contributions": [
+        "question",
+        "code",
+        "design",
+        "doc",
+        "example",
+        "ideas",
+        "review",
+        "test"
+      ]
     },
     {
       "login": "jurajhrib",
       "name": "Juraj Hríb",
       "avatar_url": "https://avatars1.githubusercontent.com/u/373788?v=4",
       "profile": "https://github.com/jurajhrib",
-      "contributions": ["question", "code", "design", "doc", "example", "ideas", "review", "test"]
+      "contributions": [
+        "question",
+        "code",
+        "design",
+        "doc",
+        "example",
+        "ideas",
+        "review",
+        "test"
+      ]
+    },
+    {
+      "login": "AdamMichalak",
+      "name": "AdamMichalak",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/51763269?v=4",
+      "profile": "https://github.com/AdamMichalak",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
-  ]
+  ],
+  "commitConvention": "none"
 }
