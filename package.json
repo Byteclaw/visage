@@ -5,6 +5,7 @@
     "benchmark": "TS_NODE_PROJECT=benchmarks/tsconfig.json node -r ts-node/register benchmarks/benchmark.ts",
     "build": "tsc -b .",
     "build:watch": "tsc -b . --watch",
+    "docs:start": "lerna run start --scope @byteclaw/visage-docs",
     "compile": "lerna run bundle --ignore @byteclaw/visage-docs --ignore @byteclaw/type-tests",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",

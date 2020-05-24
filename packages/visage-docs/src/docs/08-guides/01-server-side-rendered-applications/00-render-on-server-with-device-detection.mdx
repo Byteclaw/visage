@@ -1,0 +1,12 @@
+---
+title: 'Render on server with device detection'
+description: 'How to generate correct CSS styles based on current device during server side rendering'
+---
+
+In case you don&apos;t want to generate media queries, which is default Visage behaviour, but you need to render website correctly for the user&apos;s device, you need to implement device detection on the server.
+
+Then based on the device, you need to set up `is` prop on `DesignSystem` component to say what is the current breakpoint. Also you&apos;ll need to send this information in HTML so React hydration will work correctly.
+
+Following example uses [node-device-detector](https://www.npmjs.com/package/node-device-detector) with fallback to mobile detection.
+
+https://codesandbox.io/s/nextjs-using-device-detection-yt08o?fontsize=14&hidenavigation=1&module=%2Fpages%2F_app.js&theme=light

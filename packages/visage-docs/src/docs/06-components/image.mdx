@@ -1,0 +1,59 @@
+---
+title: 'Image'
+components: ['Image']
+tags: ['images']
+---
+
+**A component for images.**
+
+Image component can be set up to respect aspect ratio.
+
+Default aspect ratio is `1/1`.
+
+## Import
+
+```js transpile=false
+import { Image } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Without aspect ratio specified (default size)
+
+```jsx live=true
+<Box styles={{ width: 300 }}>
+  <Image src="https://via.placeholder.com/150" />
+  <Image src="https://via.placeholder.com/150x85" />
+</Box>
+```
+
+### Without aspect ratio specified, with specified sizes
+
+```jsx live=true
+<Fragment>
+  <Image src="https://via.placeholder.com/150" width={150} />
+  <Image src="https://via.placeholder.com/150x85" height={85} width={150} />
+</Fragment>
+```
+
+### With aspect ratio (default size)
+
+To specify aspect ratio use `aspectRatio` property e.g. `aspectRatio={16/9}`.
+
+```jsx live=true
+<Box styles={{ width: 150 }}>
+  <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150" />
+  <Image aspectRatio={16 / 9} src="https://via.placeholder.com/150x85" />
+  <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150" />
+  <Image aspectRatio={4 / 3} src="https://via.placeholder.com/150x85" />
+</Box>
+```
+
+## Faces
+
+- `Img`
+- `ImageContainer`
+
+## Prop Types
+
+<PropTypes component="Image" />

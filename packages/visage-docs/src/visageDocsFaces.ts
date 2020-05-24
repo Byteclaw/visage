@@ -32,8 +32,7 @@ export const visageDocsFaces: VisageFaces = {
     fontWeight: 800,
   },
   Paragraph: {
-    mt: 0,
-    mb: 2,
+    my: 2,
     fontSize: 0,
     lineHeight: 0,
   },

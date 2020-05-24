@@ -1,0 +1,50 @@
+---
+title: 'Tooltip'
+components: ['Tooltip']
+tags: ['feedback', 'user exprience']
+---
+
+**Accessible Popup element to display when an element receives keyboard focus or mouse hovers over it.**
+
+`Tooltip` automatically provides `onBlur`, `onFocus`, `onMouseEnter` and `onMouseLeave` handlers and `aria-describedby` props to identify which element describes an element. It&apos;s up to you to use them correctly otherwise tooltip won&apos;t show up or fulfill accessibility requirements.
+
+## Import
+
+```js transpile=false
+import { Tooltip } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live=true
+<Tooltip content="1">
+  <Button>With tooltip</Button>
+</Tooltip>
+```
+
+### Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Escape</KeyboardKey>}
+    description={
+      <>
+        If anchor element has focus and a tooltip is visible, hides the tooltip.
+      </>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `Tooltip`
+
+## Uses
+
+- [`Popper`](/components/overlays/popper)
+
+## Prop Types
+
+<PropTypes component="Tooltip" />

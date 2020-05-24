@@ -1,0 +1,51 @@
+---
+title: 'Extending color palette'
+description: 'How to intoduce custom colors to Visage color palette.'
+---
+
+Color palette can be extended by extra colors to suit your needs. You just need to add them to your palette and that&apos;s it.
+
+```ts transpile=false
+createNPointFontScaleTheme({
+  borderRadius: {
+    controlBorderRadius: 6,
+    keyboardBorderRadius: 3,
+  },
+  fontSize: { values: [10, 12, 14, 16, 20, 24, 28, 32, 40, 48], offset: 2 },
+  lineHeights: {
+    values: [18, 20, 22, 24, 28, 32, 36, 40, 48, 56],
+    offset: 2,
+  },
+  baseGridSize: 8,
+  fontFamily: {
+    body: 'Open Sans,sans-serif',
+    heading: 'Nunito Sans,sans-serif',
+  },
+  colors: {
+    neutral: 'rgb(227, 232, 238)',
+    neutralText: 'black',
+    darkShades: 'rgb(27, 38, 44)',
+    darkShadesText: '#fff',
+    accent: 'rgb(219, 226, 239)',
+    accentText: '#000',
+    shades: 'rgb(255, 255, 255)',
+    shadesText: '#000',
+    primary: 'rgb(31, 167, 236)',
+    primaryText: '#fff',
+    success: 'rgb(39, 174, 96)',
+    successText: 'white',
+    danger: 'rgb(192, 57, 43)',
+    dangerText: 'white',
+    info: 'rgb(41, 128, 185)',
+    infoText: 'white',
+    warning: 'rgb(241, 196, 15)',
+    warningText: 'black',
+    // extra color
+    extra: 'red',
+    extraScaled: {
+      values: ['white', '#ccc', 'black'],
+      offset: 1,
+    },
+  },
+});
+```

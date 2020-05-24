@@ -1,0 +1,111 @@
+---
+title: 'Theme'
+description: 'What are themes in Visage made of and how they work.'
+---
+
+Theme suits as a base for style generation in Visage. All the rules about how to process CSS attributes, how to compute their resulting value and how it should be formatted are defined by the theme.
+
+To understand how themes work, you need to understand the concept of `stylers`, `resolvers` and `formatters`.
+
+## Style object resolution
+
+Visage takes your style object from components styles, it&apos;s parents (in case you are [extending component](/extending-components/extending-visage-components)) and [`styles` prop](/extending-components/styles-prop).
+
+Then it create a list of style objects collected from local styles, parent styles and style overrides and starts resolving them in this order. That means that styles from parent will be always merged into component&apos;s styles and styles from `styles` prop will be always merged into style object at the end.
+
+Using this process, Visage is able to use different types of stylers which can affect the order when they are applied.
+
+## Stylers
+
+Styler is a function that is used to generate a style object which is then merged into final style object for a component.
+
+Styler accepts a name of processed CSS attribute, it&apos;s value resolved for the current breakpoint and a context. The CSS attribute is processed by following these steps:
+
+1. Input value is resolved using [resolver](#resolvers) function
+2. A value returned by resolver is formatted using a [formatter](#formatters) function
+3. Resulting style object is created which usually contains just a CSS attribute name and it&apos;s processed value. But it&apos;s not limited just for this, you can return complex style objects, which can be processed too (see [face](/reusing-styles#faces) or [extends](/reusing-styles#faces) stylers)
+
+Theme supports different types of stylers which serve a different purpose and have different priorities.
+
+<DataTable>
+  <DataTableBody>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>in place</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Outputs a style object that is then resolved using the same process
+        until the resulting style object is final.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>in place final</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Outputs a style object that is then merged to final style object in the
+        same order as it was resolved.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>pre</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Outputs a style object that is then resolved using the same process but
+        has lowest priority so it&apos;s prepended before all the style objects
+        that were resolved to time.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>pre final</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Outpus a style object that is prepended before all the resolved style
+        object to time.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>post</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Outpus a style object that is then resolved using the same process but
+        has highest priority so it&apos;s appended to all resolved style
+        objects.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>post final</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Outpus a style object that is appended to all resolved style objects.
+      </DataTableColumn>
+    </DataTableRow>
+  </DataTableBody>
+</DataTable>
+
+## Resolvers
+
+Resolver is a function that is used to process a raw value for the current breakpoint from processed CSS attribute. It takes processed CSS attribute name, it&apos;s resolved value based on the current breakpoint and a context.
+
+Resolver is responsible to return a scalar value for current breakpoint (which can be found in the context).
+
+An example of resolver can be `themeKey` resolver which is always present in every theme and serves a fallback for CSS attributes that don&apos;t have their specific resolver. This resolver is then used by `catchAll` styler that is `in place final` styler.
+
+`themeKey` resolver looks on raw value and if:
+
+1. value is `null`, returns it
+2. looks to theme if there are settings for given CSS attribute
+   1. if there are no settings, returns a raw value
+   2. if the settings value is `null` returns `null`
+   3. if the settings value is `Array` returns it (it&apos;s then processed in the resolve phase, **this doesn&apos;t work for `catchAll` styler!**)
+   4. if the value is `scale`, resolves it and returns the current value
+   5. If the value is `object`, resolves against it&apos;s keys using the same rules
+3. otherwise it returns the input value
+
+## Formatters
+
+Formatter is a function that take CSS atrribute name, output value from a resolver and context. It then outputs any value based on the value from resolver. For example `sizeUnit` formatter takes a value and decides whether it returns value in `%` or `px` or value as is.

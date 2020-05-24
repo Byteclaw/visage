@@ -1,0 +1,283 @@
+---
+title: 'Select'
+components: ['Select']
+tags: ['forms', 'data and information']
+---
+
+**[TextInput](/components/text-input) component with distinct set of possible values.**
+
+## Import
+
+```js transpile=false
+import { Select } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Nonsearchable Select
+
+```jsx live=true
+() => {
+  const [options] = useState(() =>
+    Array(200)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <Select
+      id="nonsearchable"
+      onChange={value => console.log(value)}
+      options={() => Promise.resolve(options)}
+      placeholder="Select a value"
+    />
+  );
+};
+```
+
+### Searchable Select
+
+```jsx live=true
+<Select
+  id="searchable"
+  onChange={value => console.log(value)}
+  options={val =>
+    Promise.resolve(
+      Array(20)
+        .fill(null)
+        .map((v, i) => 'a'.repeat(i + 1))
+        .filter(v => v.startsWith(val)),
+    )
+  }
+  placeholder="Select a value"
+  searchable
+/>
+```
+
+### Disabled Select
+
+```jsx live=true
+<Select id="disabled-select" disabled placeholder="Select a value" />
+```
+
+### Invalid Select
+
+```jsx live=true
+<Select
+  id="invalid-select"
+  invalid
+  searchable
+  onChange={value => console.log(value)}
+  options={filter =>
+    new Promise(resolve =>
+      resolve(
+        Array(30)
+          .fill(null)
+          .map((i, id) => id)
+          .filter(i => (filter ? i > Number(filter) : true))
+          .map(i => i.toString()),
+      ),
+    )
+  }
+  placeholder="Select a value"
+/>
+```
+
+### Static options
+
+```jsx live=true
+() => {
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <Select
+      id="nonsearchable"
+      onChange={value => console.log(value)}
+      options={options}
+      placeholder="Select a value"
+    />
+  );
+};
+```
+
+### Limit menu height
+
+By default there is no limit for `Menu` height so it&apos;ll take as much visible height as possible to fit `Menu` content.
+You can limit this by creating your own menu using `createSelectMenu()` helper and passing it to `menu` prop.
+
+```jsx live=true
+() => {
+  const limitedHeightMenu = useRef(
+    createSelectMenu({
+      defaultProps: {
+        menuProps: {
+          popoverProps: {
+            styles: {
+              maxHeight: 300,
+            },
+          },
+        },
+      },
+    }),
+  );
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <Select
+      id="nonsearchable"
+      menu={limitedHeightMenu.current}
+      onChange={value => console.log(value)}
+      options={options}
+      placeholder="Select a value"
+    />
+  );
+};
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Select isn&apos;t disabled:
+        <ul>
+          <li>
+            When the Select does not have focus, places focus on the Select.
+          </li>
+          <li>
+            When the Select has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Down Arrow</KeyboardKey>}
+    description={
+      <>
+        If a Select is focused and isn&apos;t read only:
+        <ul>
+          <li>
+            When the options menu is closed, opens it and moves focus to the
+            first possible option.
+          </li>
+          <li>
+            When the options menu is open, moves focus to the next possible
+            option.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Up Arrow</KeyboardKey>}
+    description={
+      <>
+        If a Select is focused and isn&apos;t read only:
+        <ul>
+          <li>
+            When the options menu is closed, opens it and moves focus to the
+            last possible option.
+          </li>
+          <li>
+            When the options menu is open, moves focus to the previous possible
+            option.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Home</KeyboardKey>}
+    description={
+      <>
+        If a Select is focused:
+        <ul>
+          <li>
+            If the options menu is open, moves focus to the first possible
+            option.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>End</KeyboardKey>}
+    description={
+      <>
+        If a Select is focused:
+        <ul>
+          <li>
+            If the options menu is open, moves focus to the last possible
+            option.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Enter</KeyboardKey>}
+    description={
+      <>
+        If a Select is open:
+        <ul>
+          <li>
+            When an option is focused, selects it and closes the options menu.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Space</KeyboardKey>}
+    description={
+      <>
+        If a Select is open and isn&apos;t searchable:
+        <ul>
+          <li>
+            When an option is focused, selects it and closes the options menu.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Escape</KeyboardKey>}
+    description={
+      <>
+        If a Select is focused:
+        <ul>
+          <li>If the options menu is open, closes it.</li>
+          <li>
+            If the options menu is closed, clears the selected value of the
+            Select.
+          </li>
+        </ul>
+      </>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `SelectMenu`
+- `SelectToggler`
+- `TextInputBase`
+- `TextInputControl`
+- `TextInputControlBase`
+- `TextInputExtraElement`
+
+## Prop Types
+
+<PropTypes component="Select" />

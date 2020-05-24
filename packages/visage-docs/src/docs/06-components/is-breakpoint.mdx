@@ -1,0 +1,79 @@
+---
+title: 'Is breakpoint'
+components: ['IsBreakpoint']
+tags: ['layout', 'utilities']
+---
+
+**Component to render parts of tree conditionally based on current matched breakpoint.**
+
+Conditions are matched in following order `is, not, gte, lte`. First condition that matches wins.
+
+If no conditions are specified or none match, `null` is rendered.
+
+## Import
+
+```js transpile=false
+import { IsBreakpoint } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Is as scalar or array
+
+```jsx live=true
+<DesignSystem is={0} theme={theme}>
+  <IsBreakpoint is={0}>
+    <Paragraph>Matched</Paragraph>
+  </IsBreakpoint>
+  <IsBreakpoint is={[0, 1]}>
+    <Paragraph>Matched</Paragraph>
+  </IsBreakpoint>
+  <IsBreakpoint is={0}>{() => <Paragraph>Matched</Paragraph>}</IsBreakpoint>
+  <IsBreakpoint is={[0, 1]}>
+    {() => <Paragraph>Matched</Paragraph>}
+  </IsBreakpoint>
+</DesignSystem>
+```
+
+### Not as scalar or array
+
+```jsx live=true
+<DesignSystem is={1} theme={theme}>
+  <IsBreakpoint not={0}>
+    <Paragraph>Matched</Paragraph>
+  </IsBreakpoint>
+  <IsBreakpoint not={[0, 2]}>
+    <Paragraph>Matched</Paragraph>
+  </IsBreakpoint>
+  <IsBreakpoint not={0}>{() => <Paragraph>Matched</Paragraph>}</IsBreakpoint>
+  <IsBreakpoint not={[0, 2]}>
+    {() => <Paragraph>Matched</Paragraph>}
+  </IsBreakpoint>
+</DesignSystem>
+```
+
+### Greater than or equal
+
+```jsx live=true
+<DesignSystem is={1} theme={theme}>
+  <IsBreakpoint gte={0}>
+    <Paragraph>Matched</Paragraph>
+  </IsBreakpoint>
+  <IsBreakpoint gte={0}>{() => <Paragraph>Matched</Paragraph>}</IsBreakpoint>
+</DesignSystem>
+```
+
+### Less than or equal
+
+```jsx live=true
+<DesignSystem is={0} theme={theme}>
+  <IsBreakpoint lte={1}>
+    <Paragraph>Matched</Paragraph>
+  </IsBreakpoint>
+  <IsBreakpoint lte={1}>{() => <Paragraph>Matched</Paragraph>}</IsBreakpoint>
+</DesignSystem>
+```
+
+## Prop Types
+
+<PropTypes component="IsBreakpoint" />

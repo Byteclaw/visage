@@ -1,0 +1,30 @@
+---
+title: 'Extending theme'
+description: 'How to extend the theme with custom settings to make the development with Visage easier.'
+---
+
+If you find yourself in the situation when you need to use some style value on multiple places you can defined it in the theme.
+
+Practically every CSS attribute can have it&apos;s settings in the theme. You just need to add a settings with name of a CSS property to your theme (e.g. `fontWeight`) and define it&apos;s value.
+
+Values can be scalar, scale or dictionary.
+
+https://codesandbox.io/s/extending-theme-2z9zq?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+
+## Custom stylers
+
+You can control how Visage processes CSS attributes or introduce your own CSS attributes using [stylers](/system/theme#stylers).
+
+https://codesandbox.io/s/custom-styler-gw6z8?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+
+## Custom resolvers
+
+In your theme you can also add custom [resolvers](/system/theme#resolvers).
+
+https://codesandbox.io/s/custom-resolver-qmxfv?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+
+## Custom formatters
+
+Also custom [formatters](/system/theme#formatters) are supported too.
+
+https://codesandbox.io/s/custom-formatter-rpod6?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light

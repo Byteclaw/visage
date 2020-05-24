@@ -1,0 +1,114 @@
+---
+title: 'Checkbox'
+components: ['Checkbox']
+tags: ['forms', 'data and information']
+---
+
+**A component that can be used to toggle between two possible states.**
+
+Another alternative can be [`Toggle`](/components/inputs/toggle) which works in the same way as `Checkbox` but has different visual design.
+
+## Import
+
+```js transpile=false
+import { Checkbox } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live=true
+<Fragment>
+  <Checkbox defaultChecked label="Checkbox label" name="1" />
+  <Checkbox label="Checkbox label" name="2" />
+</Fragment>
+```
+
+### Hidden label
+
+```jsx live=true
+<Fragment>
+  <Checkbox hiddenLabel label="Hidden label" name="3-1" />
+  <Checkbox hiddenLabel label="Hidden label" name="3-2" />
+</Fragment>
+```
+
+### Invalid
+
+```jsx live=true
+<Checkbox invalid label="Invalid checkbox" name="invalid-checkbox" />
+```
+
+### Read only
+
+```jsx live=true
+<Checkbox readOnly label="Read only checkbox" name="4" />
+```
+
+### Disabled
+
+```jsx live=true
+<Fragment>
+  <Checkbox disabled label="Disabled checkbox" name="5" />
+  <Checkbox disabled checked label="Disabled checked checkbox" name="6" />
+</Fragment>
+```
+
+### Controlled
+
+```jsx live=true
+function Example() {
+  const [value, setValue] = useState();
+
+  return (
+    <Checkbox
+      checked={!!value}
+      onChange={e => setValue(e.currentTarget.checked)}
+      label="Controlled checkbox"
+      name="6"
+    />
+  );
+}
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Checkbox isn&apos;t disabled and read only:
+        <ul>
+          <li>
+            When the Checkbox does not have focus, places focus on the Checkbox.
+          </li>
+          <li>
+            When the Checkbox has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Space</KeyboardKey>}
+    description={
+      <ul>
+        <li>When a Checkbox has focus, toggles it&apos;s state</li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `CheckboxControl`
+- `CheckboxLabel`
+- `CheckboxLabelText`
+- `CheckboxToggler`
+
+## Prop Types
+
+<PropTypes component="Checkbox" />

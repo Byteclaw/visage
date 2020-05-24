@@ -1,0 +1,42 @@
+---
+title: 'Paragraph skeleton'
+description: 'Skeleton component for Paragraph component'
+components: ['ParagraphSkeleton']
+tags: ['typography', 'loading', 'user experience', 'feedback']
+---
+
+**Skeleton component for [Paragraph](/components/paragraph) component**
+
+## Import
+
+```js transpile=false
+import { ParagraphSkeleton } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live
+<ParagraphSkeleton />
+```
+
+### Custom lines count
+
+```jsx live
+<ParagraphSkeleton lines={2} />
+```
+
+### Bigger font size
+
+```jsx live
+<ParagraphSkeleton styles={{ fontSize: 2, lineHeight: 2 }} />
+```
+
+## Faces
+
+- `ParagraphSkeleton`
+
+## Prop Types
+
+<PropTypes component="ParagraphSkeleton" />

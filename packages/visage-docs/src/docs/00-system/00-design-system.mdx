@@ -1,0 +1,51 @@
+---
+title: 'Design system'
+components: ['DesignSystem']
+description: 'Wrapping your React application in Visage design system.'
+---
+
+`DesignSystem` component serves as a root component for your application that gives access to all components to the current theme and breakpoint.
+
+Every application must be wrapped in by `DesignSystem` in order to use Visage components.
+
+```tsx transpile=false
+import { DesignSystem } from '@byteclaw/visage';
+import App from './your-app';
+
+<DesignSystem>
+  <App />
+</DesignSystem>;
+```
+
+## Responsive design
+
+Design of applications is often responsive so it adapts to user&apos;s device screen size. Visage supports responsive design but you have to enable it because it&apos;s disabled by default.
+
+To enable responsive support you need to use `responsive` prop on `DesignSystem` component. This prop enables breakpoint detection using [`window.matchMedia` API](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
+
+Visage uses it&apos;s default set of breakpoints which can be changed.
+
+<BreakpointsTable />
+
+If default breakpoints don&apos;t suit your needs you change them using `breakpoints` prop.
+
+```tsx transpile=false
+<DesignSystem breakpoints={['(max-width: 100px)', '(min-width: 101px) and (max-width: 200px)', '(min-width: 201px)']}>
+  <App />
+</DesignSytem>
+```
+
+<Banner status="warning">
+  Be careful when setting up custom breakpoints. Always write just a condition
+  and not the whole media query.
+</Banner>
+
+By default Visage uses [`createEmotionStyleGenerator()`](/advanced-usage/emotion-style-generator) that produces only styles for current matched breakpoint and doesn&apos;t output any media queries.
+
+Default style generator works fine for client side only applications or if you use [server side rendering with device detection](/guides/server-side-rendered-applications/render-on-server-with-device-detection).
+
+In case you need to produce styles for server side rendered application without an ability to detect device, you need to use [`createEmotionResponsiveStyleGenerator()`](/advanced-usage/emotion-responsive-style-generator) so styles produced by Visage will contain media queries. For example you&apos;d use this in a website powered by [Gatsby](/guides/gatsby).
+
+## Prop Types
+
+<PropTypes component="DesignSystem" />

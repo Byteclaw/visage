@@ -28,6 +28,8 @@ const PaginatorLink = createComponent(GatsbyLink, {
       textDecoration: 'none',
     },
     my: 2,
+    minHeight: 100,
+    maxWidth: 250,
   },
   variants: [variant('direction', true, ['next', 'prev'] as const)],
 });
@@ -37,7 +39,7 @@ interface PaginatorProps {
 }
 
 export function Paginator({ children }: PaginatorProps) {
-  return <Flex styles={{ width: '100%' }}>{children}</Flex>;
+  return <Flex styles={{ mt: 4, width: '100%' }}>{children}</Flex>;
 }
 
 interface PaginatorButtonProps {

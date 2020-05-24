@@ -1,0 +1,221 @@
+---
+title: 'Color manipulation'
+description: 'How color() function works in Visage, how colors can be manipulated and what it means to application development.'
+---
+
+To ease up working with colors during development Visage offers `color()` function and a range of modificators that can be used to manipulate colors.
+
+This way you can manipulate colors in different ways and produce interesting results. For example you can generate an accessible font color for different background colors.
+
+Try different combinations in the playground.
+
+<ColorPlayground color="color(white contrast())" />
+
+<Message status="info">
+  You can chain color modificators where each modificator will receive a color
+  produced by the previous one.
+</Message>
+
+## Color function
+
+`color()` function is used as a value for [color CSS attributes](#available-color-css-attributes). It takes a color as the first argument and any number of modificators. Color can be a safe color name, a color name from the color palette, hex code, `rgb()/rgba()` or `hsl()/hsla()`.
+
+## Available modificators
+
+<DataTable>
+  <DataTableBody>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>alpha(0.1)</Code>
+        <Code>alpha(10%)</Code>
+        <Code>a(0.1)</Code>
+        <Code>a(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Sets the opacity of a color to 10%.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>alpha(+10%)</Code>
+        <Code>alpha(-10%)</Code>
+      </DataTableColumn>
+      <DataTablColumn>Adds or subtracts 10% from alpha channel.</DataTablColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>hue(10)</Code>
+        <Code>h(10)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Sets the hue to 10 degrees.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>hue(+10)</Code>
+        <Code>hue(-10)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Rotates hue by 10 degrees in a given direction.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>shade(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Blends 10% of black color. Resulting color will be darker.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>tint(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Blends 10% of white color. Resulting color will be lighter.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>blackness(10%)</Code>
+        <Code>b(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Sets the color blackness to 10%.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>blackness(+10%)</Code>
+        <Code>b(+10%)</Code>
+        <Code>blackness(-10%)</Code>
+        <Code>b(-10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Raises or lowers the color blackness by 10%.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>lightness(10%)</Code>
+        <Code>l(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Sets the color ligthness to 10%.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>lightness(+10%)</Code>
+        <Code>l(+10%)</Code>
+        <Code>lightness(-10%)</Code>
+        <Code>l(-10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Raises or lowers the color ligthness by 10%.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>saturation(10%)</Code>
+        <Code>s(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Sets the color saturation to 10%.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>saturation(+10%)</Code>
+        <Code>s(+10%)</Code>
+        <Code>saturation(-10%)</Code>
+        <Code>s(-10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Raises or lowers the color saturation by 10%.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>whiteness(10%)</Code>
+        <Code>w(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Sets the color whiteness to 10%.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>whiteness(+10%)</Code>
+        <Code>w(+10%)</Code>
+        <Code>whiteness(-10%)</Code>
+        <Code>w(-10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Raises or lowers the color whiteness by 10%.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>blend(blue 10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Blends 10% of blue to the color.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>blenda(blue 10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Blends 10% of blue to the color respecting the alpha channels.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>contrast()</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Computes a contrasting color, same as <Code>contrast(100%)</Code>.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>contrast(10%)</Code>
+      </DataTableColumn>
+      <DataTableColumn>Computes a contrasting color.</DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>if(isDark white)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Uses white color if given color is dark, otherwise it uses color as is.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>if(isLight black)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Uses black color if given color is light, otherwise it uses color as is.
+      </DataTableColumn>
+    </DataTableRow>
+    <DataTableRow>
+      <DataTableColumn>
+        <Code>if(isLight black white)</Code>
+      </DataTableColumn>
+      <DataTableColumn>
+        Uses black color if given color is light otherwise it uses white color.
+      </DataTableColumn>
+    </DataTableRow>
+  </DataTableBody>
+</DataTable>
+
+## Available color CSS attributes
+
+- `backgroundColor`
+- `borderColor`
+- `borderBlockColor`
+- `borderBottomColor`
+- `borderLeftColor`
+- `borderRightColor`
+- `borderTopColor`
+- `borderBlockColor`
+- `borderBlockEndColor`
+- `borderBlockStartColor`
+- `borderInlineColor`
+- `borderInlineEndColor`
+- `borderInlineStartColor`
+- `boxShadow`
+- `color`
+- `fill`
+- `outlineColor`
+- `stroke`

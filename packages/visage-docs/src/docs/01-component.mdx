@@ -1,0 +1,19 @@
+---
+title: 'Component'
+description: 'How components in Visage work'
+---
+
+Visage already contains a big set of predefined components that are ready to use in your application. But sometimes you can find yourself in a situation when you need some specific component that is not provided by Visage.
+
+In this scenario you can create your own components using `createComponent()` function which serves this need.
+
+https://codesandbox.io/s/custom-visage-component-k4c03?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+
+Styles in a component created by `createComponent()` can be defined as a style object or as a function that accepts component props and returns the style object.
+
+https://codesandbox.io/s/custom-visage-component-with-styles-as-function-53gxv?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+
+<Message status="warning">
+  We highly recommend not to use functions to style your components. If
+  it&apos;s possible, try to use variants.
+</Message>

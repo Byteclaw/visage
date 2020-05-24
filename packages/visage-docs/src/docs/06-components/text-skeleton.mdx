@@ -1,0 +1,48 @@
+---
+title: 'Text skeleton'
+description: 'Skeleton component for Text component'
+components: ['TextSkeleton']
+tags: ['typography', 'loading', 'user experience', 'feedback']
+---
+
+**Text skeleton component adds an animated placeholder for a word.**
+
+This component is used by [Skeleton sentence](./skeleton-sentence) to make skeleton sentences.
+
+## Import
+
+```js transpile=false
+import { TextSkeleton } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default
+
+```jsx live
+<TextSkeleton />
+```
+
+### Custom length
+
+```jsx live
+<Fragment>
+  <TextSkeleton letters={2} /> <TextSkeleton letters={10} />
+</Fragment>
+```
+
+### Custom font size
+
+Make sure you have `fontSize` and `lineHeight` set properly.
+
+```jsx live
+<TextSkeleton styles={{ fontSize: 1, lineHeight: 1 }} />
+```
+
+## Faces
+
+- `TextSkeleton`
+
+## Prop Types
+
+<PropTypes component="TextSkeleton" />

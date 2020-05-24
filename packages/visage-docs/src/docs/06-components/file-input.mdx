@@ -1,0 +1,124 @@
+---
+title: 'File input'
+components: ['FileInput']
+tags: ['forms', 'data and information']
+---
+
+**File input component. Behaves as classic `<input type="file" />` and supports dropping file/files.**
+
+## Import
+
+```js transpile=false
+import { FileInput } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Single file input
+
+File input accepts media types provided in `accept` prop. If you try to drop file that doesn't match the media types, it will ignore the event.
+
+```jsx live
+<FileInput
+  accept="image/jpeg,image/pdf"
+  onChange={files => console.log(files)}
+/>
+```
+
+### Custom placeholder
+
+```jsx live
+<FileInput placeholder="Please select a file" />
+```
+
+### Custom label
+
+File input component accepts `label` prop which can be a `string` or `(file: Files[], placeholder: string) => string`.
+The label is not a proper HTML label so make sure you use `<label>` elements or `aria-label/aria-labelledby` props.
+
+```jsx live
+<Fragment>
+  <Label htmlFor="custom-labelled-input">Files</Label>
+  <FileInput
+    id="custom-labelled-input"
+    label={(files, placeholder) => {
+      // this won't be called because placeholder is renderer automatically from placeholder prop
+      if (files.length === 0) {
+        return placeholder;
+      }
+
+      if (files.length === 1) {
+        return files[0].name;
+      }
+
+      return `${files.length} files`;
+    }}
+    multiple
+  />
+</Fragment>
+```
+
+### Multi file input
+
+```jsx live
+<FileInput multiple onChange={files => console.log(files)} />
+```
+
+### Invalid
+
+```jsx live
+<FileInput invalid />
+```
+
+### Disabled
+
+```jsx live
+<FileInput disabled />
+```
+
+### Read Only
+
+```jsx live
+<FileInput readOnly />
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a FileInput isn&apos;t disabled:
+        <ul>
+          <li>
+            When the FileInput does not have focus, places focus on the
+            FileInput.
+          </li>
+          <li>
+            When the FileInput has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={
+      <>
+        <KeyboardKey>Enter</KeyboardKey> / <KeyboardKey>Space</KeyboardKey>
+      </>
+    }
+    description={<>When the FileInput has focus, opens the add file dialog.</>}
+  />
+</DescriptionList>
+
+## Faces
+
+- `FileInputBase`
+- `FileInputControl`
+- `FileInputControlBase`
+
+## Prop Types
+
+<PropTypes component="FileInput" />

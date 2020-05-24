@@ -1,0 +1,207 @@
+---
+title: 'Radio'
+components: ['Radio']
+tags: ['forms', 'data and information']
+---
+
+**A component that can be used to choose only one option from a distinct set of multiple choices.**
+
+`Radio` must be used in a group so you can always choose an option from possible values.
+
+## Import
+
+```js transpile=false
+import { Radio } from '@byteclaw/visage';
+```
+
+## Examples
+
+Provide `id` and `name`. Name should be same for radio group that controls the same value. The `id` must be unique per radio.
+
+### Default
+
+```jsx live=true
+<Fragment>
+  <Radio
+    defaultChecked
+    label="Turned On"
+    id="state-on"
+    value="on"
+    name="state"
+  />
+  <Radio label="Turned Off" id="state-off" value="off" name="state" />
+</Fragment>
+```
+
+### Hidden labels
+
+```jsx live=true
+<Fragment>
+  <Radio
+    defaultChecked
+    hiddenLabel
+    id="hidden-on"
+    name="hide"
+    label="Checked radio with hidden label"
+    value="on"
+  />
+  <Radio
+    hiddenLabel
+    id="hidden-ff"
+    name="hide"
+    label="Checked radio with hidden label"
+    value="off"
+  />
+</Fragment>
+```
+
+### Invalid
+
+```jsx live=true
+<Fragment>
+  <Radio
+    defaultChecked
+    invalid
+    label="Turn On"
+    id="invalid-0"
+    name="invalid-radio"
+  />
+  <Radio invalid label="Turn Off" id="invalid-1" name="invalid-radio" />
+</Fragment>
+```
+
+### Read only
+
+```jsx live=true
+<Fragment>
+  <Radio
+    defaultChecked
+    readOnly
+    label="Turned On"
+    id="readonly-state-on"
+    value="on"
+    name="readonly-state"
+  />
+  <Radio
+    readOnly
+    label="Turned Off"
+    id="readonly-state-off"
+    value="off"
+    name="readonly-state"
+  />
+</Fragment>
+```
+
+### Disabled
+
+```jsx live=true
+<Fragment>
+  <Radio
+    defaultChecked
+    disabled
+    label="Turn On"
+    id="disabled-0"
+    name="disabled-state"
+  />
+  <Radio disabled label="Turn Off" id="disabled-1" name="disabled-state" />
+  <Radio
+    disabled
+    label="Disabled checked radio"
+    name="disabled-checked"
+  ></Radio>
+</Fragment>
+```
+
+### Controlled
+
+```jsx live=true
+function Example() {
+  const [value, setValue] = useState('on');
+
+  return (
+    <>
+      <Radio
+        checked={value === 'on'}
+        label="Turned On"
+        id="state-on"
+        onChange={e => setValue(e.currentTarget.value)}
+        value="on"
+        name="state-controlled"
+      />
+      <Radio
+        checked={value === 'off'}
+        label="Turned Off"
+        id="state-off"
+        onChange={e => setValue(e.currentTarget.value)}
+        value="off"
+        name="state-controlled"
+      />
+    </>
+  );
+}
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a Radio isn&apos;t disabled and read only:
+        <ul>
+          <li>
+            When the Radio does not have focus, places focus on the Radio.
+          </li>
+          <li>
+            When the Radio has focus, moves focus to the next element in the tab
+            sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Space</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a Radio has focus and isn&apos;t checked, marks it as checked.
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Down Arrow</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a Radio has focus and has a more then one possible value, marks
+          the next value as checked.
+        </li>
+      </ul>
+    }
+  />
+  <DescriptionListItem
+    term={<KeyboardKey>Up Arrow</KeyboardKey>}
+    description={
+      <ul>
+        <li>
+          When a Radio has focus and has a more then one possible value, marks
+          the previous value as checked.
+        </li>
+      </ul>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `RadioControl`
+- `RadioLabel`
+- `RadioLabelText`
+- `RadioToggler`
+
+## Prop Types
+
+<PropTypes component="Radio" />

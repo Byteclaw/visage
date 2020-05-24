@@ -1,6 +1,6 @@
 // import ReactDOM from 'react-dom';
 
-export { wrapRootElement } from './src';
+export { wrapRootElement, wrapPageElement } from './src';
 
 let offsetY = 0;
 

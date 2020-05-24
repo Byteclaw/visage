@@ -1,0 +1,108 @@
+---
+title: 'Text input'
+components: ['TextInput']
+tags: ['forms', 'data and information']
+---
+
+**A widget for single line text input.**
+
+## Import
+
+```js transpile=false
+import { TextInput } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default input
+
+```jsx live=true
+<TextInput placeholder="Placeholder text" />
+```
+
+### Default input with larger font size
+
+```jsx live=true
+<TextInput
+  placeholder="Placeholder text"
+  styles={{ fontSize: 1, lineHeight: 1 }}
+/>
+```
+
+### Invalid input
+
+```jsx live=true
+<TextInput invalid placeholder="Placeholder text" />
+```
+
+### Disabled input
+
+```jsx live=true
+<TextInput
+  disabled
+  defaultValue="Disabled input"
+  placeholder="Placeholder text"
+/>
+```
+
+### ReadOnly input
+
+```jsx live=true
+<TextInput
+  readOnly
+  defaultValue="Read only input"
+  placeholder="Placeholder text"
+/>
+```
+
+### Input with prefix
+
+```jsx live=true
+<TextInput prefix={<div>A</div>} placeholder="Placeholder text" />
+```
+
+### Input with suffix
+
+```jsx live=true
+<TextInput suffix="B" placeholder="Placeholder text" />
+```
+
+### Input with prefix and suffix
+
+```jsx live=true
+<TextInput prefix="A" suffix="B" placeholder="Placeholder text" />
+```
+
+## Keyboard Interaction
+
+<DescriptionList>
+  <DescriptionListItem
+    term={<KeyboardKey>Tab</KeyboardKey>}
+    description={
+      <>
+        If a TextInput isn&apos;t disabled:
+        <ul>
+          <li>
+            When the TextInput does not have focus, places focus on the
+            TextInput.
+          </li>
+          <li>
+            When the TextInput has focus, moves focus to the next element in the
+            tab sequence.
+          </li>
+        </ul>
+      </>
+    }
+  />
+</DescriptionList>
+
+## Faces
+
+- `TextInputBase`
+- `TextInputControl`
+- `TextInputControlBase`
+- `TextInputExtraElement`
+
+## Prop Types
+
+<PropTypes component="TextInput" />

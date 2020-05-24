@@ -1,0 +1,47 @@
+---
+title: 'Heading skeleton'
+description: 'Skeleton component for Heading component'
+components: ['HeadingSkeleton']
+tags: ['typography', 'loading', 'user experience', 'feedback']
+---
+
+**Skeleton component for [Heading](/components/heading) component**
+
+## Import
+
+```js transpile=false
+import { HeadingSkeleton } from '@byteclaw/visage';
+```
+
+## Examples
+
+### Default (heading 1)
+
+```jsx live
+<HeadingSkeleton />
+```
+
+### Other levels
+
+Use `level` prop to control the size of heading, same as in `Heading` component.
+
+```jsx live
+<HeadingSkeleton level={3} />
+```
+
+### Custom mask
+
+Use mask the same way as in `SkeletonSentence`.
+
+```jsx live
+<HeadingSkeleton mask={[4, 5, 6]} />
+```
+
+## Faces
+
+- `Heading`
+- `SkeletonSentence`
+
+## Prop Types
+
+<PropTypes component="HeadingSkeleton" />
