@@ -34,11 +34,16 @@ export function DesignSystem({ children }: DesignSystemProps) {
     });
   }, [colors]);
 
-  const togglePaletteMode = useCallback(() => {
-    setDarkTheme(!isDark);
-    setColorPalette(toggleColorPaletteMode(colors));
-    store.set(STORAGE_KEY_DARK_MODE, !isDark);
-  }, [colors, isDark]);
+  const togglePaletteMode = useCallback(
+    (asDark?: boolean) => {
+      const setDark = asDark == null ? !isDark : asDark;
+
+      setDarkTheme(setDark);
+      setColorPalette(toggleColorPaletteMode(colors));
+      store.set(STORAGE_KEY_DARK_MODE, setDark);
+    },
+    [colors, isDark],
+  );
 
   useEffect(() => {
     // set up the theme by local storage in new render pass because

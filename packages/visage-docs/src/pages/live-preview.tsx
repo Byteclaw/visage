@@ -16,6 +16,7 @@ import React, {
 } from 'react';
 import { Moon, Sun, Volume, Volume1, Volume2, VolumeX } from 'react-feather';
 import { LivePreview as Preview, LiveError, LiveProvider } from 'react-live';
+import { ThemeTogglerContext } from '../theme';
 
 const { Box, createComponent } = DSScope;
 
@@ -52,9 +53,22 @@ const Scope = {
 };
 
 export default function LivePreview(props: PageProps & { '*': string }) {
+  const { isDark, useDark } = useContext(ThemeTogglerContext);
   // eslint-disable-next-line react/destructuring-assignment
   const [code, setCode] = useState(decodeURIComponent(props['*']));
-  const noInline = window.frameElement.getAttribute('data-noinline') === 'true';
+  const themeModeRef = useRef(
+    (typeof window !== 'undefined'
+      ? window.frameElement.getAttribute('data-theme')
+      : null) || 'light',
+  );
+  const noInline =
+    typeof window !== 'undefined'
+      ? window.frameElement.getAttribute('data-noinline') === 'true'
+      : false;
+
+  if (!isDark && themeModeRef.current === 'dark') {
+    useDark(false);
+  }
 
   useEffect(() => {
     const onMessage = (e: MessageEvent) => {

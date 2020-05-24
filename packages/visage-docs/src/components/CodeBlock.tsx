@@ -108,6 +108,8 @@ export function CodeBlock({
         {shouldTranspile ? (
           <iframe
             data-noinline={noInline}
+            key={isDark ? 'dark' : 'light'}
+            data-theme={isDark ? 'dark' : 'light'}
             ref={iframeRef}
             src={src}
             frameBorder="0"
