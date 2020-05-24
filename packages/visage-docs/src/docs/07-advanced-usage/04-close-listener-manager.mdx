@@ -10,21 +10,379 @@ For this purpose Visage uses `CloseListenerManager` which keeps track of current
 
 Each component that wants to register itself for click away or <kbd>Escape</kbd> key down listening, or both, must use `useCloseListenerManager()` and register it&apos;s event handler and reference on mount.
 
-https://codesandbox.io/s/layer-management-2emg4?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+```tsx live noInline expanded codesandbox=close-listener-manager-2emg4
+function ClosableDialog({ onClose, zIndex }) {
+  const contentRef = useRef();
+  const {
+    registerClickAwayListener,
+    registerEscapeKeyUpListener,
+  } = useCloseListenerManager();
+
+  useEffect(() => {
+    // registers as fullscreen handler
+    const unregisterClickAway = registerClickAwayListener(
+      [contentRef],
+      onClose,
+      true,
+    );
+    const unregisterEscapeKeyUp = registerEscapeKeyUpListener(onClose);
+
+    return () => {
+      unregisterClickAway();
+      unregisterEscapeKeyUp();
+    };
+  }, [onClose, registerClickAwayListener, registerEscapeKeyUpListener]);
+
+  return (
+    <LayerManager>
+      <Flex
+        styles={{
+          backgroundColor: 'color(black alpha(30%))',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          userSelect: 'none',
+          zIndex,
+        }}
+      >
+        <Box ref={contentRef} styles={{ backgroundColor: 'shades', p: 2 }}>
+          <Box
+            styles={{
+              backgroundColor: 'primary',
+              p: 2,
+              fontWeight: 'bold',
+              color: 'primaryText',
+            }}
+          >
+            z-index={zIndex}
+          </Box>
+          <Button onClick={onClose} type="button">
+            Close this dialog
+          </Button>
+          <DialogButton />
+        </Box>
+      </Flex>
+    </LayerManager>
+  );
+}
+
+function DialogButton() {
+  const [open, setOpen] = useState(false);
+  const { zIndex } = useLayerManager();
+
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)} type="button">
+        {!open ? 'Open dialog' : 'Close dialog'}
+      </Button>
+      {open ? (
+        <ClosableDialog onClose={() => setOpen(false)} zIndex={zIndex + 1} />
+      ) : null}
+    </>
+  );
+}
+
+render(
+  <DesignSystem>
+    <DialogButton />
+  </DesignSystem>,
+);
+```
 
 `CloseListenerManager` distinguishes between so called fullscreen and non-fulscreen layers. It doesn&apos;t have anything to do with the styling, it&apos;s just an abstract concept that determines how `CloseListenerManager` behaves if the top most layer is fullscreen or not.
 
 Fulscreen layers stop the close event propagation to underlying layers. For example if you open 2 [Dialog](/components/dialog) components, and click away, only the top most Dialog will be closed.
 
-https://codesandbox.io/s/layer-management-fullnonfulscreen-31owv?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+```tsx live noInline expanded codesandbox=close-listener-manager-fullnonfulscreen-31owv
+function ClosableDialog({ fullscreen, onClose, zIndex }) {
+  const contentRef = useRef();
+  const {
+    registerClickAwayListener,
+    registerEscapeKeyUpListener,
+  } = useCloseListenerManager();
+
+  useEffect(() => {
+    // registers as fullscreen handler
+    const unregisterClickAway = registerClickAwayListener(
+      [contentRef],
+      onClose,
+      fullscreen,
+    );
+    const unregisterEscapeKeyUp = registerEscapeKeyUpListener(onClose);
+
+    return () => {
+      unregisterClickAway();
+      unregisterEscapeKeyUp();
+    };
+  }, [
+    fullscreen,
+    onClose,
+    registerClickAwayListener,
+    registerEscapeKeyUpListener,
+  ]);
+
+  return (
+    <LayerManager>
+      <Flex
+        styles={{
+          backgroundColor: fullscreen ? 'color(black alpha(30%))' : null,
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          userSelect: 'none',
+          zIndex,
+        }}
+      >
+        <Box ref={contentRef} styles={{ backgroundColor: 'shades', p: 2 }}>
+          <Box
+            styles={{
+              backgroundColor: 'primary',
+              p: 2,
+              fontWeight: 'bold',
+              color: 'primaryText',
+            }}
+          >
+            z-index={zIndex}
+          </Box>
+          <Button onClick={onClose} type="button">
+            Close this dialog
+          </Button>
+          <DialogButton />
+          <NonFullscreenDialogButton />
+        </Box>
+      </Flex>
+    </LayerManager>
+  );
+}
+
+function NonFullscreenDialogButton() {
+  const [open, setOpen] = useState(false);
+  const { zIndex } = useLayerManager();
+
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)} type="button">
+        Open non-fullscreen dialog
+      </Button>
+      {open ? (
+        <ClosableDialog
+          fullscreen={false}
+          onClose={() => setOpen(false)}
+          zIndex={zIndex + 1}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function DialogButton() {
+  const [open, setOpen] = useState(false);
+  const { zIndex } = useLayerManager();
+
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)} type="button">
+        Open fullscreen dialog
+      </Button>
+      {open ? (
+        <ClosableDialog
+          fullscreen
+          onClose={() => setOpen(false)}
+          zIndex={zIndex + 1}
+        />
+      ) : null}
+    </>
+  );
+}
+
+render(
+  <DesignSystem>
+    <DialogButton />
+    <NonFullscreenDialogButton />
+  </DesignSystem>,
+);
+```
 
 Unlike fullscreen layers, non-fullscreen layers doesn&apos;t stop the close event propagation to underlying layers. For example if you have [Dialog](/component/dialog) with [Menu](/component/menu) open inside. If you click on body of Dialog, Menu will close. But if you click outside of Dialog with Menu open, it will close both the menu and the dialog.
 
-https://codesandbox.io/s/dialog-and-menu-8z6pk?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+```tsx live noInline expanded codesandbox=dialog-and-menu-8z6pk
+function DialogButton() {
+  const menuButtonRef = useRef();
+  const [open, setOpen] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)} type="button">
+        Open dialog
+      </Button>
+      {open ? (
+        <Dialog label="Dialog" onClose={() => setOpen(false)}>
+          <Button
+            ref={menuButtonRef}
+            onClick={() => setMenuOpen(true)}
+            type="button"
+          >
+            Open menu
+          </Button>
+          <Menu
+            anchor={menuButtonRef}
+            onClose={() => setMenuOpen(false)}
+            open={isMenuOpen}
+            popoverProps={{
+              backdrop: false,
+            }}
+          >
+            <MenuItem>A</MenuItem>
+          </Menu>
+        </Dialog>
+      ) : null}
+    </>
+  );
+}
+
+render(
+  <DesignSystem>
+    <DialogButton />
+  </DesignSystem>,
+);
+```
 
 You can also manage wheter you want to close a layer or not. Each registered close listener receives an `Event` that can be prevented using `preventDefault()` and is async.
 
-https://codesandbox.io/s/layer-management-cancel-close-rw464?fontsize=14&hidenavigation=1&module=%2Fsrc%2Fcomponents.js&theme=light
+```tsx live noInline expanded codesandbox=close-listener-manager-cancel-close-rw464
+function ClosableDialog({ fullscreen, onClose, zIndex }) {
+  const contentRef = useRef();
+  const {
+    registerClickAwayListener,
+    registerEscapeKeyUpListener,
+  } = useCloseListenerManager();
+
+  useEffect(() => {
+    // registers as fullscreen handler
+    const unregisterClickAway = registerClickAwayListener(
+      [contentRef],
+      onClose,
+      fullscreen,
+    );
+    const unregisterEscapeKeyUp = registerEscapeKeyUpListener(onClose);
+
+    return () => {
+      unregisterClickAway();
+      unregisterEscapeKeyUp();
+    };
+  }, [
+    fullscreen,
+    onClose,
+    registerClickAwayListener,
+    registerEscapeKeyUpListener,
+  ]);
+
+  return (
+    <LayerManager>
+      <Flex
+        styles={{
+          backgroundColor: fullscreen ? 'color(black alpha(30%))' : null,
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          userSelect: 'none',
+          zIndex,
+        }}
+      >
+        <Box ref={contentRef} styles={{ backgroundColor: 'shades', p: 2 }}>
+          <Box
+            styles={{
+              backgroundColor: 'primary',
+              p: 2,
+              fontWeight: 'bold',
+              color: 'primaryText',
+            }}
+          >
+            z-index={zIndex}
+          </Box>
+          <Button onClick={onClose} type="button">
+            Close this dialog
+          </Button>
+          <DialogButton />
+          <NonFullscreenDialogButton />
+        </Box>
+      </Flex>
+    </LayerManager>
+  );
+}
+
+function NonFullscreenDialogButton() {
+  const [open, setOpen] = useState(false);
+  const { zIndex } = useLayerManager();
+
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)} type="button">
+        Open non-fullscreen dialog
+      </Button>
+      {open ? (
+        <ClosableDialog
+          fullscreen={false}
+          onClose={e => {
+            if (window.confirm(`Are you sure (${zIndex})`)) {
+              setOpen(false);
+            } else {
+              e.preventDefault();
+            }
+          }}
+          zIndex={zIndex + 1}
+        />
+      ) : null}
+    </>
+  );
+}
+
+function DialogButton() {
+  const [open, setOpen] = useState(false);
+  const { zIndex } = useLayerManager();
+
+  return (
+    <>
+      <Button onClick={() => setOpen(!open)} type="button">
+        Open fullscreen dialog
+      </Button>
+      {open ? (
+        <ClosableDialog
+          fullscreen
+          onClose={e => {
+            if (window.confirm(`Are you sure (${zIndex})`)) {
+              setOpen(false);
+            } else {
+              e.preventDefault();
+            }
+          }}
+          zIndex={zIndex + 1}
+        />
+      ) : null}
+    </>
+  );
+}
+
+render(
+  <DesignSystem>
+    <DialogButton />
+    <NonFullscreenDialogButton />
+  </DesignSystem>,
+);
+```
 
 ## Prop Types
 

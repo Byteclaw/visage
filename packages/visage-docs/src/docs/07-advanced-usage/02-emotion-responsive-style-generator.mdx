@@ -7,7 +7,22 @@ In applications where you can&apos;t use device detection during server side ren
 
 This style generator produces a CSS with media queries for your style objects.
 
-https://codesandbox.io/s/emotion-style-generator-o11fd?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx live noInline expanded codesandbox=emotion-responsive-style-generator-cwh2l
+const styleGenerator = createResponsiveEmotionStyleGenerator(
+  defaultBreakpoints,
+);
+
+render(
+  <DesignSystem
+    breakpoint={defaultBreakpoints}
+    // use this for IsBreakpoint component to work
+    responsive
+    styleGenerator={styleGenerator}
+  >
+    <Text>Hello</Text>
+  </DesignSystem>,
+);
+```
 
 <Message status="info">
   It&apos;s recommended to use this style generator in static websites produced

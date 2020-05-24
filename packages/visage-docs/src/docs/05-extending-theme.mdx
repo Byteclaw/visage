@@ -9,22 +9,154 @@ Practically every CSS attribute can have it&apos;s settings in the theme. You ju
 
 Values can be scalar, scale or dictionary.
 
-https://codesandbox.io/s/extending-theme-2z9zq?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+```tsx live noInline expanded codesandbox=extending-theme-2z9zq
+const theme = createNPointFontScaleTheme({
+  ...defaultTheme.theme,
+  borderRadius: 8,
+  fontWeight: {
+    normal: 300,
+    bold: 700,
+  },
+  opacity: {
+    values: [0.2, 0.5, 1],
+    offset: 1,
+  },
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Box
+      styles={{
+        display: 'inline-block',
+        // uses borderRadius from theme, 3 is ignored
+        borderRadius: 3,
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderColor: 'primary',
+        fontWeight: 'bold',
+        opacity: -1,
+        p: 1,
+      }}
+    >
+      Text box
+    </Box>
+  </DesignSystem>,
+);
+```
 
 ## Custom stylers
 
 You can control how Visage processes CSS attributes or introduce your own CSS attributes using [stylers](/system/theme#stylers).
 
-https://codesandbox.io/s/custom-styler-gw6z8?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+```tsx live noInline expanded codesandbox=custom-styler-gw6z8
+const theme = createTheme({
+  theme: defaultTheme.theme,
+  formatters: defaultTheme.formatters,
+  resolvers: defaultTheme.resolvers,
+  stylers: {
+    ...defaultTheme.stylers,
+    // applies border color to top and bottom borders
+    borderColorY: inPlaceFinalStyler((propName, value, ctx) => {
+      const color = ctx.resolvers.color('color', value, ctx);
+
+      return {
+        borderTopColor: color,
+        borderBottomColor: color,
+      };
+    }),
+  },
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Box
+      styles={{
+        display: 'inline-block',
+        borderColor: 'primary',
+        borderColorY: 'danger',
+        borderStyle: 'solid',
+        borderWidth: 3,
+        p: 1,
+      }}
+    >
+      Text box
+    </Box>
+  </DesignSystem>,
+);
+```
 
 ## Custom resolvers
 
 In your theme you can also add custom [resolvers](/system/theme#resolvers).
 
-https://codesandbox.io/s/custom-resolver-qmxfv?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+```tsx live noInline expanded codesandbox=custom-resolver-qmxfv
+const theme = createTheme({
+  theme: defaultTheme.theme,
+  formatters: defaultTheme.formatters,
+  resolvers: {
+    ...defaultTheme.resolvers,
+    // compute border width using n-point grid size
+    borderWidth(propName, value, ctx) {
+      return ctx.resolve('gridSize', value, ctx);
+    },
+  },
+  stylers: defaultTheme.stylers,
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Box
+      styles={{
+        display: 'inline-block',
+        borderColor: 'primary',
+        borderStyle: 'solid',
+        borderWidth: 1,
+        p: 1,
+      }}
+    >
+      Text box
+    </Box>
+  </DesignSystem>,
+);
+```
 
 ## Custom formatters
 
 Also custom [formatters](/system/theme#formatters) are supported too.
 
-https://codesandbox.io/s/custom-formatter-rpod6?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.js&theme=light
+```tsx live noInline expanded codesandbox=custom-formatter-rpod6
+const theme = createTheme({
+  theme: defaultTheme.theme,
+  formatters: {
+    ...defaultTheme.formatters,
+    // makes number value an em value
+    em(propName, value, ctx) {
+      return `${value}em`;
+    },
+  },
+  resolvers: defaultTheme.resolvers,
+  stylers: {
+    ...defaultTheme.stylers,
+    // apply this formatter to borderWidth only
+    borderWidth: {
+      format: 'em',
+    },
+  },
+});
+
+render(
+  <DesignSystem responsive theme={theme}>
+    <Box
+      styles={{
+        display: 'inline-block',
+        borderColor: 'primary',
+        borderStyle: 'solid',
+        borderWidth: 2,
+        p: 1,
+      }}
+    >
+      Text box
+    </Box>
+  </DesignSystem>,
+);
+```

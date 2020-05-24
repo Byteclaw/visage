@@ -7,7 +7,18 @@ Often there is a need in an application to use the same component but with diffe
 
 This can be achieved using style object.
 
-https://codesandbox.io/s/naive-component-variants-vjchc?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+```tsx live noInline expanded codesandbox=naive-component-variants-vjchc
+const MyComponent = createComponent('div', {
+  displayName: 'MyComponent',
+  styles: ({ red }) => ({
+    color: red ? 'danger' : 'primary',
+    fontSize: 1,
+    lineHeight: 1,
+  }),
+});
+
+render(<MyComponent red>This is my component</MyComponent>);
+```
 
 But you can end up in a scenario when React will complain that the given prop is not known to a HTML element (because Visage components do not omit the props automatically).
 
@@ -23,11 +34,43 @@ Boolean variants can be used by `booleanVariant()` function. This function accep
 
 This functions has it&apos;s `booleanVariantStyles()` function, that helps you to generate correct style object, so it matches the value correctly.
 
-https://codesandbox.io/s/boolean-component-variants-oh2bd?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+```tsx live noInline expanded codesandbox=boolean-component-variants-oh2bd
+const MyComponent = createComponent('div', {
+  displayName: 'MyComponent',
+  styles: {
+    color: 'primary',
+    fontSize: 1,
+    lineHeight: 1,
+    ...booleanVariantStyles('red', {
+      on: {
+        color: 'danger',
+      },
+    }),
+  },
+  variants: [booleanVariant('red', true)],
+});
+
+render(<MyComponent red>This is my component</MyComponent>);
+```
 
 The same can be achieved manually without `booleanVariantStyles()`.
 
-https://codesandbox.io/s/boolean-component-variants-without-helper-xkudn?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+```tsx live noInline expanded codesandbox=boolean-component-variants-without-helper-xkudn
+const MyComponent = createComponent('div', {
+  displayName: 'MyComponent',
+  styles: {
+    color: 'primary',
+    fontSize: 1,
+    lineHeight: 1,
+    '&[data-red="true"]': {
+      color: 'danger',
+    },
+  },
+  variants: [booleanVariant('red', true)],
+});
+
+render(<MyComponent red>This is my component</MyComponent>);
+```
 
 ## Enum variants
 
@@ -37,7 +80,30 @@ For this scenario we have `variant()` function. This function accepts a name of 
 
 Similar to `booleanVariant()`, `variant()` has it&apos;s own function `variantStyles()` that suits a need to generate correct style object for your variant.
 
-https://codesandbox.io/s/enum-variants-2yedb?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+```tsx live noInline expanded codesandbox=enum-variants-2yedb
+const MyComponent = createComponent('div', {
+  displayName: 'MyComponent',
+  styles: {
+    color: 'primary',
+    fontSize: 1,
+    lineHeight: 1,
+    ...variantStyles('size', {
+      large: {
+        fontSize: 3,
+        lineHeight: 3,
+      },
+      small: {
+        fontSize: -1,
+        lineHeight: -1,
+      },
+    }),
+  },
+  // use as const so typescript can typecheck values
+  variants: [variant('size', true, ['large', 'small'])],
+});
+
+render(<MyComponent size="large">This is my component</MyComponent>);
+```
 
 <Message status="info">
   Every variant created using this function contain a default variant which
@@ -46,7 +112,30 @@ https://codesandbox.io/s/enum-variants-2yedb?fontsize=14&hidenavigation=1&module
 
 To use this correctly in Typescript you must modify your code a little so Typescript is able to resolve possible variants.
 
-https://codesandbox.io/s/enum-variants-typescript-jm3pm?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.tsx&theme=light
+```tsx transpile=false noInline expanded codesandbox=enum-variants-typescript-jm3pm
+const MyComponent = createComponent('div', {
+  displayName: 'MyComponent',
+  styles: {
+    color: 'primary',
+    fontSize: 1,
+    lineHeight: 1,
+    ...variantStyles('size', {
+      large: {
+        fontSize: 3,
+        lineHeight: 3,
+      },
+      small: {
+        fontSize: -1,
+        lineHeight: -1,
+      },
+    }),
+  },
+  // use as const so typescript can typecheck values
+  variants: [variant('size', true, ['large', 'small'] as const)],
+});
+
+render(<MyComponent size="large">This is my component</MyComponent>);
+```
 
 ## Number prop
 
@@ -56,4 +145,33 @@ In this case you can use `numberProp()` variant creator which accepts a name of 
 
 `numberProp()` doesn&apos;t have a styling function so you need to use style function on your component.
 
-https://codesandbox.io/s/number-prop-lu3hg?fontsize=14&hidenavigation=1&module=%2Fsrc%2FMyComponent.js&theme=light
+```tsx live noInline expanded codesandbox=number-prop-lu3hg
+const MyComponent = createComponent('div', {
+  displayName: 'MyComponent',
+  styles: ({ zIndex }) => ({
+    backgroundColor: 'danger',
+    height: 50,
+    width: 50,
+    top: 20,
+    left: 20,
+    position: 'absolute',
+    zIndex,
+  }),
+  variants: [numberProp('zIndex', true)],
+});
+
+render(
+  <Box styles={{ position: 'relative', height: 100, width: 100 }}>
+    <Box
+      styles={{
+        position: 'absolute',
+        backgroundColor: 'primary',
+        height: 50,
+        width: 50,
+        zIndex: 10,
+      }}
+    />
+    <MyComponent zIndex={20} />
+  </Box>,
+);
+```

@@ -1,7 +1,7 @@
 // @ts-ignore
 import { MDXProvider } from '@mdx-js/react';
 import * as visage from '@byteclaw/visage';
-import { Link } from 'gatsby';
+import { Link, PageProps } from 'gatsby';
 import React from 'react';
 import Helmet from 'react-helmet';
 // @ts-ignore
@@ -110,7 +110,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
 
 interface RootProps {
   element: React.ReactNode;
-  props: any;
+  props: PageProps;
 }
 
 export const wrapRootElement = ({ element }: RootProps) => {
@@ -134,5 +134,11 @@ export const wrapRootElement = ({ element }: RootProps) => {
 };
 
 export const wrapPageElement = ({ element, props }: RootProps) => {
+  const { path } = props;
+
+  if (path === '/live-preview/*') {
+    return element;
+  }
+
   return <Layout {...props}>{element}</Layout>;
 };

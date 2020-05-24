@@ -7,7 +7,15 @@ Visage uses emotion style generator by default. It&apos;s created by `createEmot
 
 This style generator doesn&apos;t produce CSS media queries but uses the current breakpoint matched by `window.matchMedia` API.
 
-https://codesandbox.io/s/emotion-style-generator-o11fd?fontsize=14&hidenavigation=1&module=%2Fsrc%2Findex.js&theme=light
+```tsx live noInline expanded codesandbox=emotion-style-generator-o11fd
+const styleGenerator = createEmotionStyleGenerator();
+
+render(
+  <DesignSystem responsive styleGenerator={styleGenerator}>
+    <Text>Hello</Text>
+  </DesignSystem>,
+);
+```
 
 <Message status="warning">
   This style generator is not recommended for application where you cannot
