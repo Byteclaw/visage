@@ -226,3 +226,19 @@ exports.onCreateNode = ({ getNode, node, actions }) => {
     });
   }
 };
+
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions;
+
+  if (page.path.startsWith('/live-preview')) {
+    deletePage(page);
+
+    createPage({
+      ...page,
+      context: {
+        ...page.context,
+        withoutLayout: true,
+      },
+    });
+  }
+};

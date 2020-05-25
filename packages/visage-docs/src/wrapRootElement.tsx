@@ -110,7 +110,7 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
 
 interface RootProps {
   element: React.ReactNode;
-  props: PageProps;
+  props: PageProps<object, { withoutLayout?: boolean }>;
 }
 
 export const wrapRootElement = ({ element }: RootProps) => {
@@ -134,9 +134,11 @@ export const wrapRootElement = ({ element }: RootProps) => {
 };
 
 export const wrapPageElement = ({ element, props }: RootProps) => {
-  const { path } = props;
+  const {
+    pageContext: { withoutLayout },
+  } = props;
 
-  if (path === '/live-preview/') {
+  if (withoutLayout) {
     return element;
   }
 

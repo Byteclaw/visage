@@ -15,12 +15,42 @@ import React, {
   useRef,
   useState,
   useEffect,
+  memo,
+  RefObject,
 } from 'react';
 // @ts-ignore
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CheckCircle, Code, Codesandbox, Copy } from 'react-feather';
 import { Editor } from 'react-live';
 import { ThemeTogglerContext } from '../theme';
+
+interface PreviewIFrameProps {
+  codeRef: RefObject<string>;
+  iframeRef: RefObject<HTMLIFrameElement>;
+  noInline?: boolean;
+  isDark: boolean;
+}
+
+const PreviewIFrame = memo(
+  ({ codeRef, isDark, iframeRef, noInline }: PreviewIFrameProps) => {
+    return (
+      <iframe
+        data-noinline={noInline}
+        key={isDark ? 'dark' : 'light'}
+        data-thee={isDark ? 'dark' : 'light'}
+        ref={iframeRef}
+        src={`/live-preview?code=${encodeURIComponent(codeRef.current || '')}`}
+        frameBorder="0"
+        sandbox="allow-same-origin allow-scripts"
+        style={{
+          height: '100%',
+          width: '100%',
+        }}
+        title="Live preview"
+      />
+    );
+  },
+);
 
 interface CodeBlockProps {
   className: string;
@@ -42,7 +72,7 @@ export function CodeBlock({
   transpile = true,
 }: CodeBlockProps) {
   const [code, setCode] = useState(children.trim());
-  const [src, setSrc] = useState<string | undefined>();
+  const codeRef = useRef(code);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { isDark } = useContext(ThemeTogglerContext);
   const [isCopied, setIsCopied] = useState(false);
@@ -60,6 +90,9 @@ export function CodeBlock({
         newCode,
         window.location.origin,
       );
+      // this one ensures that if you change the theme mode
+      // iframe will use the new code in URL
+      codeRef.current = newCode;
     },
     500,
     [],
@@ -86,11 +119,6 @@ export function CodeBlock({
     };
   }, [cancelChange]);
 
-  useEffect(() => {
-    // load iframe on mount
-    setSrc(`/live-preview?code=${encodeURIComponent(children.trim())}`);
-  }, []);
-
   return (
     <Box styles={{ my: 4 }}>
       <Box
@@ -106,19 +134,11 @@ export function CodeBlock({
         }}
       >
         {shouldTranspile ? (
-          <iframe
-            data-noinline={noInline}
-            key={isDark ? 'dark' : 'light'}
-            data-theme={isDark ? 'dark' : 'light'}
-            ref={iframeRef}
-            src={src}
-            frameBorder="0"
-            sandbox="allow-same-origin allow-scripts"
-            style={{
-              height: '100%',
-              width: '100%',
-            }}
-            title="Live preview"
+          <PreviewIFrame
+            codeRef={codeRef}
+            noInline={noInline}
+            isDark={isDark}
+            iframeRef={iframeRef}
           />
         ) : (
           <Editor

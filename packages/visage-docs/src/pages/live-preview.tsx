@@ -86,10 +86,12 @@ export default function LivePreview({ location: { search } }: PageProps) {
 
   return (
     <Box styles={{ p: 1 }}>
-      <LiveProvider code={code} noInline={noInline} scope={Scope}>
-        <EditorError />
-        <Preview />
-      </LiveProvider>
+      {!code ? null : (
+        <LiveProvider code={code} noInline={noInline} scope={Scope}>
+          <EditorError />
+          <Preview />
+        </LiveProvider>
+      )}
     </Box>
   );
 }
