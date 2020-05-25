@@ -37,7 +37,7 @@ const PreviewIFrame = memo(
       <iframe
         data-noinline={noInline}
         key={isDark ? 'dark' : 'light'}
-        data-thee={isDark ? 'dark' : 'light'}
+        data-theme={isDark ? 'dark' : 'light'}
         ref={iframeRef}
         src={`/live-preview?code=${encodeURIComponent(codeRef.current || '')}`}
         frameBorder="0"
