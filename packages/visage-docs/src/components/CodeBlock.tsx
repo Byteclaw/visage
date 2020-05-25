@@ -39,7 +39,7 @@ const PreviewIFrame = memo(
         key={isDark ? 'dark' : 'light'}
         data-theme={isDark ? 'dark' : 'light'}
         ref={iframeRef}
-        src={`/live-preview?code=${encodeURIComponent(codeRef.current || '')}`}
+        src={`/live-preview/?code=${encodeURIComponent(codeRef.current || '')}`}
         frameBorder="0"
         sandbox="allow-same-origin allow-scripts"
         style={{
