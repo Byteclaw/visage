@@ -239,6 +239,8 @@ exports.onCreatePage = ({ page, actions }) => {
         ...page.context,
         withoutLayout: true,
       },
+      // turn off layout
+      component: require.resolve('./src/pages/live-preview.tsx'),
     });
   }
 };
