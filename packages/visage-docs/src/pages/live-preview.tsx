@@ -2,7 +2,6 @@ import * as DSScope from '@byteclaw/visage';
 import * as Core from '@byteclaw/visage-core';
 import * as Themes from '@byteclaw/visage-themes';
 import * as Utilities from '@byteclaw/visage-utils';
-import { PageProps } from 'gatsby';
 import React, {
   Fragment,
   useCallback,
@@ -52,19 +51,23 @@ const Scope = {
   theme: Themes.createDocsTheme(),
 };
 
-export default function LivePreview({ location: { search } }: PageProps) {
+export default function LivePreview() {
   const { isDark, useDark } = useContext(ThemeTogglerContext);
   // eslint-disable-next-line react/destructuring-assignment
   const [code, setCode] = useState(
-    decodeURIComponent(search.replace('?code=', '')),
+    decodeURIComponent(
+      typeof window !== 'undefined'
+        ? window.location.search.replace('?code=', '')
+        : '',
+    ),
   );
   const themeModeRef = useRef(
-    (typeof window !== 'undefined'
+    (typeof window !== 'undefined' && window.frameElement != null
       ? window.frameElement.getAttribute('data-theme')
       : null) || 'light',
   );
   const noInline =
-    typeof window !== 'undefined'
+    typeof window !== 'undefined' && window.frameElement != null
       ? window.frameElement.getAttribute('data-noinline') === 'true'
       : false;
 
