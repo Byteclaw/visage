@@ -7,6 +7,7 @@ export * from './CustomizeThemeButton';
 export * from './DesignSystem';
 export * from './GeneratePaletteButton';
 export * from './Layout';
+export * from './LivePreview';
 export * from './Pagination';
 export * from './PageTableOfContents';
 export * from './PropTypes';
