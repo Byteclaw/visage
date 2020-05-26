@@ -1,55 +1,9 @@
 import * as DSScope from '@byteclaw/visage';
-import * as Core from '@byteclaw/visage-core';
-import * as Themes from '@byteclaw/visage-themes';
-import * as Utilities from '@byteclaw/visage-utils';
-import React, {
-  Fragment,
-  useCallback,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
-import { Moon, Sun, Volume, Volume1, Volume2, VolumeX } from 'react-feather';
-import { LivePreview as Preview, LiveError, LiveProvider } from 'react-live';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { LivePreview as Preview } from '../components';
 import { ThemeTogglerContext } from '../theme';
 
-const { Box, createComponent } = DSScope;
-
-const EditorError = createComponent(LiveError, {
-  styles: {
-    backgroundColor: 'red',
-    color: 'white',
-    m: 0,
-    p: 1,
-  },
-});
-
-const Scope = {
-  MoonIcon: Moon,
-  SunIcon: Sun,
-  VolumeIcon: Volume,
-  Volume1Icon: Volume1,
-  Volume2Icon: Volume2,
-  VolumeXIcon: VolumeX,
-  Fragment,
-  ...Core,
-  ...DSScope,
-  ...Themes,
-  ...Utilities,
-  useState,
-  useContext,
-  useReducer,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useCallback,
-  theme: Themes.createDocsTheme(),
-};
+const { Box } = DSScope;
 
 export default function LivePreview() {
   const { isDark, useDark } = useContext(ThemeTogglerContext);
@@ -89,12 +43,7 @@ export default function LivePreview() {
 
   return (
     <Box styles={{ p: 1 }}>
-      {!code ? null : (
-        <LiveProvider code={code} noInline={noInline} scope={Scope}>
-          <EditorError />
-          <Preview />
-        </LiveProvider>
-      )}
+      {!code ? null : <Preview code={code} noInline={noInline} />}
     </Box>
   );
 }
