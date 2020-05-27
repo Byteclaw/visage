@@ -45,7 +45,16 @@ export function disableBodyScroll(
     return;
   }
 
-  lockBodyScroll(current);
+  lockBodyScroll(current, {
+    allowTouchMove: el => {
+      // allow to scroll children on iOS
+      if (current.contains(el)) {
+        return true;
+      }
+
+      return false;
+    },
+  });
 
   return () => unlockBodyScroll(current);
 }
