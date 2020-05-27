@@ -103,7 +103,7 @@ const popoverStyles = {
 const isMenuItemElement = (el: HTMLElement) =>
   el.getAttribute('role') === 'menuitem';
 
-export function Menu({
+export const Menu = markAsVisageComponent(function Menu({
   anchor,
   baseRef,
   children,
@@ -255,7 +255,7 @@ export function Menu({
       </MenuBase>
     </Popover>
   );
-}
+});
 
 export const MenuItem: typeof MenuItemBase = forwardRef(
   (

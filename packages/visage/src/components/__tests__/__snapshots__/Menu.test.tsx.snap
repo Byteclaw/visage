@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu is possible to extend menu 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border: 0;
+  height: auto;
+  margin: 0px;
+  overflow: hidden;
+  width: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-0[role="button"]:hover,
+.emotion-0[role="button"]:focus {
+  outline: none;
+  background-color: rgb(0,0,255);
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-0:hover,
+.emotion-0:focus,
+.emotion-0[aria-selected="true"] {
+  outline: none;
+  background-color: rgb(0,0,255);
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-1 {
+  display: block;
+  list-style: none;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: auto;
+  background-color: rgb(204,204,204);
+}
+
+<ul
+  class="emotion-1"
+  data-collapsed="false"
+  data-testid="menu"
+  role="menu"
+  tabindex="-1"
+>
+  <li
+    class="emotion-0"
+    data-active="false"
+    data-button="false"
+    data-gutters="true"
+    role="menuitem"
+    tabindex="-1"
+  >
+    A
+  </li>
+</ul>
+`;
+
+exports[`Menu is possible to style menu base using styles prop 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border: 0;
+  height: auto;
+  margin: 0px;
+  overflow: hidden;
+  width: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-0[role="button"]:hover,
+.emotion-0[role="button"]:focus {
+  outline: none;
+  background-color: rgb(0,0,255);
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-0:hover,
+.emotion-0:focus,
+.emotion-0[aria-selected="true"] {
+  outline: none;
+  background-color: rgb(0,0,255);
+  color: rgb(255,255,255);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-1 {
+  display: block;
+  list-style: none;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  margin: 0px;
+  padding: 0px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: auto;
+  background-color: rgb(204,204,204);
+}
+
+<ul
+  class="emotion-1"
+  data-collapsed="false"
+  data-testid="menu"
+  role="menu"
+  tabindex="-1"
+>
+  <li
+    class="emotion-0"
+    data-active="false"
+    data-button="false"
+    data-gutters="true"
+    role="menuitem"
+    tabindex="-1"
+  >
+    A
+  </li>
+</ul>
+`;
