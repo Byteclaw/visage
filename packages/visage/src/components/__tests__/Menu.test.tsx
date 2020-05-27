@@ -2,6 +2,7 @@ import { fireEvent } from '@testing-library/react';
 import React from 'react';
 import { render } from './render';
 import { Menu, MenuItem } from '../Menu';
+import { createComponent } from '../../core';
 
 describe('Menu', () => {
   it('automatically focuses first item on open and navigates using arrows', () => {
@@ -10,7 +11,7 @@ describe('Menu', () => {
     document.body.append(anchor);
 
     render(
-      <Menu anchor={anchor} open>
+      <Menu anchor={{ current: anchor }} open>
         <MenuItem onFocus={() => onFocus('A')}>A</MenuItem>
         <MenuItem onFocus={() => onFocus('B')}>B</MenuItem>
         <div />
@@ -65,7 +66,7 @@ describe('Menu', () => {
     document.body.append(anchor);
 
     render(
-      <Menu anchor={anchor} disableAutoFocusItem open>
+      <Menu anchor={{ current: anchor }} disableAutoFocusItem open>
         <MenuItem onFocus={() => onFocus('A')}>A</MenuItem>
         <MenuItem onFocus={() => onFocus('B')}>B</MenuItem>
         <div />
@@ -90,7 +91,7 @@ describe('Menu', () => {
     document.body.append(anchor);
 
     render(
-      <Menu anchor={anchor} disableEvents open>
+      <Menu anchor={{ current: anchor }} disableEvents open>
         <MenuItem onFocus={() => onFocus('A')}>A</MenuItem>
         <MenuItem onFocus={() => onFocus('B')}>B</MenuItem>
         <div />
@@ -105,5 +106,42 @@ describe('Menu', () => {
     });
 
     expect(onFocus).not.toBeCalled();
+  });
+
+  it('is possible to style menu base using styles prop', () => {
+    const anchor = document.createElement('div');
+    document.body.append(anchor);
+
+    const { getByTestId } = render(
+      <Menu
+        anchor={{ current: anchor }}
+        data-testid="menu"
+        open
+        styles={{ py: 2 }}
+      >
+        <MenuItem>A</MenuItem>
+      </Menu>,
+    );
+
+    expect(getByTestId('menu')).toMatchSnapshot();
+  });
+
+  it('is possible to extend menu', () => {
+    const anchor = document.createElement('div');
+    document.body.append(anchor);
+
+    const ExtendedMenu = createComponent(Menu, {
+      styles: {
+        py: 2,
+      },
+    });
+
+    const { getByTestId } = render(
+      <ExtendedMenu anchor={{ current: anchor }} data-testid="menu" open>
+        <MenuItem>A</MenuItem>
+      </ExtendedMenu>,
+    );
+
+    expect(getByTestId('menu')).toMatchSnapshot();
   });
 });
