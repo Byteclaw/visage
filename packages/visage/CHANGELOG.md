@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.42 (2020-05-27)
+
+* fix(visage): allow menu to be extended ([cb9691e](https://github.com/Byteclaw/visage/commit/cb9691e))
+
+
+
+
+
 ## 1.0.0-alpha.41 (2020-05-24)
 
 * feat(visage): add variants to Tooltip ([0b11e17](https://github.com/Byteclaw/visage/commit/0b11e17))

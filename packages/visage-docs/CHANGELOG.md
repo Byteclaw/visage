@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.42 (2020-05-27)
+
+* docs: add theme toggling support to doc examples ([46f6f89](https://github.com/Byteclaw/visage/commit/46f6f89))
+* docs: allow live preview to run outside of an iframe ([7073fa4](https://github.com/Byteclaw/visage/commit/7073fa4))
+* docs: allow to run examples in scope or fullscreen ([fa85d73](https://github.com/Byteclaw/visage/commit/fa85d73))
+* docs: fix code example theme toggle and code sync ([308a0e3](https://github.com/Byteclaw/visage/commit/308a0e3))
+* docs: fix infinite redirect problem in code examples ([584ad0a](https://github.com/Byteclaw/visage/commit/584ad0a))
+* docs: fix theme setting sent to iframe ([2d07c90](https://github.com/Byteclaw/visage/commit/2d07c90))
+* docs: remove layout from live-preview page ([fa3023c](https://github.com/Byteclaw/visage/commit/fa3023c))
+* docs: use correct live-preview uri ending with slash ([86a52c7](https://github.com/Byteclaw/visage/commit/86a52c7))
+* docs: use iframes and react-live code examples ([8a04a94](https://github.com/Byteclaw/visage/commit/8a04a94))
+
+
+
+
+
 ## 1.0.0-alpha.41 (2020-05-24)
 
 * feat(visage): add variants to Tooltip ([0b11e17](https://github.com/Byteclaw/visage/commit/0b11e17))
