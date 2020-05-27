@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.43 (2020-05-27)
+
+* docs: do not zoom on input focus ([e9aa4d1](https://github.com/Byteclaw/visage/commit/e9aa4d1))
+
+
+
+
+
 ## 1.0.0-alpha.42 (2020-05-27)
 
 * docs: add theme toggling support to doc examples ([46f6f89](https://github.com/Byteclaw/visage/commit/46f6f89))
