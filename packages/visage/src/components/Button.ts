@@ -126,6 +126,7 @@ const monochromeButtonVariants: VisageStyleSheet = {
 export const Button = createComponent('button', {
   displayName: 'Button',
   styles: props => ({
+    appearance: 'none',
     alignItems: 'center',
     borderRadius: 'controlBorderRadius',
     border: 'none',
@@ -140,6 +141,7 @@ export const Button = createComponent('button', {
     minHeight: '2rem',
     minWidth: '4rem',
     outline: 'none',
+    m: 0,
     py: 1,
     px: 2,
     position: 'relative',
