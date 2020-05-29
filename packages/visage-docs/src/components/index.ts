@@ -15,5 +15,3 @@ export * from './Search';
 export * from './SEO';
 export * from './Sidebar';
 export * from './ThemeEditor';
-export * from './WithRef';
-export * from './WithState';
