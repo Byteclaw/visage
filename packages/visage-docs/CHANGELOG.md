@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.44 (2020-05-29)
+
+* fix(visage): compute correct positioning across all browsers and devices ([e7ec49e](https://github.com/Byteclaw/visage/commit/e7ec49e))
+* docs: remove unnecessary code from sideabr ([23fb0a6](https://github.com/Byteclaw/visage/commit/23fb0a6))
+* docs: remove unnecessary components ([b3028f7](https://github.com/Byteclaw/visage/commit/b3028f7))
+
+
+
+
+
 ## 1.0.0-alpha.43 (2020-05-27)
 
 * docs: do not zoom on input focus ([e9aa4d1](https://github.com/Byteclaw/visage/commit/e9aa4d1))

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.44 (2020-05-29)
+
+* fix(visage): compute correct positioning across all browsers and devices ([e7ec49e](https://github.com/Byteclaw/visage/commit/e7ec49e))
+* fix(visage): make Button consistent in all browsers ([ca396a3](https://github.com/Byteclaw/visage/commit/ca396a3))
+
+
+
+
+
 ## 1.0.0-alpha.43 (2020-05-27)
 
 * fix(visage): allow touch move on children ([402b588](https://github.com/Byteclaw/visage/commit/402b588))
