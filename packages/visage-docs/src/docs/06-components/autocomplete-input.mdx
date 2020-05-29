@@ -26,7 +26,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
   return (
     <AutocompleteInput
-      id="autocomplete-field"
       onChange={value => console.log(value)}
       options={filter => {
         return new Promise(resolve => {
@@ -49,7 +48,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
 ```jsx live=true
 <AutocompleteInput
-  id="autocomplete-invalid-field"
   invalid
   onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
@@ -60,7 +58,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
 ```jsx live=true
 <AutocompleteInput
-  id="readonly-autocomplete-field"
   onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
   readOnly
@@ -71,7 +68,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
 ```jsx live=true
 <AutocompleteInput
-  id="disabled-autocomplete-field"
   disabled
   onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
@@ -82,7 +78,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
 ```jsx live=true
 <AutocompleteInput
-  id="expand-on-click-field"
   expandOnClick
   onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
@@ -93,7 +88,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
 ```jsx live=true
 <AutocompleteInput
-  id="expand-select-on-click-field"
   expandOnClick
   onChange={value => console.log(value)}
   options={() => Promise.resolve(['a', 'b', 'c', 'd'])}
@@ -113,7 +107,6 @@ import { AutocompleteInput } from '@byteclaw/visage';
 
   return (
     <AutocompleteInput
-      id="autocomplete-field"
       onChange={value => console.log(value)}
       options={options}
       placeholder="Enter a value"
@@ -150,7 +143,6 @@ You can limit this by creating your own menu using `createAutocompleteInputMenu(
 
   return (
     <AutocompleteInput
-      id="autocomplete-field"
       onChange={value => console.log(value)}
       menu={limitedHeightMenu.current}
       options={options}
@@ -159,6 +151,49 @@ You can limit this by creating your own menu using `createAutocompleteInputMenu(
   );
 };
 ```
+
+### Allow scroll when menu is open
+
+On iOS menu can sometimes open partially underneath the soft keyboard. In this case allowing scroll could be a good solution to improve the user experience.
+
+To enable scrolling of the whole page when Menu is present, use `popoverProps` with `allowScrolling: true`.
+
+```jsx live=true
+() => {
+  const limitedHeightMenu = useRef(
+    createAutocompleteInputMenu({
+      defaultProps: {
+        menuProps: {
+          popoverProps: {
+            allowScrolling: true,
+            styles: {
+              maxHeight: 300,
+            },
+          },
+        },
+      },
+    }),
+  );
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <AutocompleteInput
+      onChange={value => console.log(value)}
+      menu={limitedHeightMenu.current}
+      options={options}
+      placeholder="Enter a value"
+    />
+  );
+};
+```
+
+<Message status="info">
+  On iOS 13 this is not necessary because we can compute real viewport size.
+</Message>
 
 ## Keyboard Interaction
 

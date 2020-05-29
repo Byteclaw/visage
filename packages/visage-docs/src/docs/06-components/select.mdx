@@ -26,7 +26,6 @@ import { Select } from '@byteclaw/visage';
 
   return (
     <Select
-      id="nonsearchable"
       onChange={value => console.log(value)}
       options={() => Promise.resolve(options)}
       placeholder="Select a value"
@@ -39,7 +38,6 @@ import { Select } from '@byteclaw/visage';
 
 ```jsx live=true
 <Select
-  id="searchable"
   onChange={value => console.log(value)}
   options={val =>
     Promise.resolve(
@@ -64,7 +62,6 @@ import { Select } from '@byteclaw/visage';
 
 ```jsx live=true
 <Select
-  id="invalid-select"
   invalid
   searchable
   onChange={value => console.log(value)}
@@ -95,7 +92,6 @@ import { Select } from '@byteclaw/visage';
 
   return (
     <Select
-      id="nonsearchable"
       onChange={value => console.log(value)}
       options={options}
       placeholder="Select a value"
@@ -132,7 +128,6 @@ You can limit this by creating your own menu using `createSelectMenu()` helper a
 
   return (
     <Select
-      id="nonsearchable"
       menu={limitedHeightMenu.current}
       onChange={value => console.log(value)}
       options={options}
@@ -141,6 +136,49 @@ You can limit this by creating your own menu using `createSelectMenu()` helper a
   );
 };
 ```
+
+### Allow scroll when menu is open
+
+On iOS menu can sometimes open partially underneath the soft keyboard. In this case allowing scroll could be a good solution to improve the user experience.
+
+To enable scrolling of the whole page when Menu is present, use `popoverProps` with `allowScrolling: true`.
+
+```jsx live=true
+() => {
+  const limitedHeightMenu = useRef(
+    createSelectMenu({
+      defaultProps: {
+        menuProps: {
+          popoverProps: {
+            allowScrolling: true,
+            styles: {
+              maxHeight: 300,
+            },
+          },
+        },
+      },
+    }),
+  );
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <Select
+      menu={limitedHeightMenu.current}
+      onChange={value => console.log(value)}
+      options={options}
+      placeholder="Select a value"
+    />
+  );
+};
+```
+
+<Message status="info">
+  On iOS 13 this is not necessary because we can compute real viewport size.
+</Message>
 
 ## Keyboard Interaction
 
