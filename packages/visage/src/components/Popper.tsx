@@ -8,6 +8,7 @@ import React, {
   RefObject,
   useMemo,
 } from 'react';
+import { useStaticCallbackCreator } from '@byteclaw/use-static-callback';
 import {
   Placement,
   PlacementConstraints,
@@ -19,6 +20,7 @@ import {
 import { useDebouncedCallback, useUniqueId, useStaticEffect } from '../hooks';
 import { Portal } from './Portal';
 import { LayerManager, useLayerManager } from './LayerManager';
+import { useVisualViewport, VisualViewport } from '../hooks/useVisualViewport';
 
 function isAnchorPosition(anchor: any): anchor is AnchorPosition {
   return typeof anchor === 'object' && anchor != null && anchor.current == null;
@@ -44,75 +46,56 @@ interface PositioningParams extends PlacementConstraints {
   zIndex: number;
 }
 
-function positionContent({
-  anchor,
-  content,
-  placementAndOrigin,
-  setPosition,
-  zIndex,
-  ...constraints
-}: PositioningParams) {
-  const { current: contentEl } = content;
-
-  if (contentEl == null) {
-    return;
-  }
-
-  const resolvedAnchor = resolveAnchor(anchor);
-
-  if (resolvedAnchor == null) {
-    throw new Error('Anchor must be an HTMLElement or AnchorPosition');
-  }
-
-  // reset styles so we can compute right dimensions
-  /* eslint-disable no-param-reassign */
-  contentEl.style.height = 'auto';
-  contentEl.style.width = 'auto';
-  /* eslint-enable no-param-reassign */
-
-  const position = computePositioningStyles(window, contentEl, {
-    anchor: resolvedAnchor,
+function positionContent(
+  open: boolean,
+  {
+    anchor,
+    content,
     placementAndOrigin,
-    ...constraints,
-  });
-
-  /* eslint-disable no-param-reassign */
-  contentEl.style.zIndex = `${zIndex}`;
-  contentEl.style.opacity = '1';
-  // following lines causes blurry render if fractions are computed, so we round them
-  // https://stackoverflow.com/questions/6411361/webkit-based-blurry-distorted-text-post-animation-via-translate3d
-  contentEl.style.transform = `translate3d(${Math.round(
-    position.left,
-  )}px, ${Math.round(position.top)}px, 0px)`;
-  contentEl.style.width = `${position.width}px`;
-  contentEl.style.height = `${position.height}px`;
-  contentEl.style.visibility = 'visible';
-  /* eslint-enable no-param-reassign */
-
-  setPosition(position);
-}
-
-function positionContentAndBindResizeListeners(
-  params: PositioningParams,
-  positionFn: typeof positionContent,
+    setPosition,
+    zIndex,
+    ...constraints
+  }: PositioningParams,
 ) {
-  if (
-    !params.open ||
-    !params.content.current ||
-    typeof window === 'undefined'
-  ) {
-    return;
-  }
+  return (viewport: VisualViewport) => {
+    const { current: contentEl } = content;
 
-  const resizeHandler = () => positionFn(params);
+    if (contentEl == null || !open) {
+      return;
+    }
 
-  window.addEventListener('resize', resizeHandler);
+    const resolvedAnchor = resolveAnchor(anchor);
 
-  // position content
-  positionFn(params);
+    if (resolvedAnchor == null) {
+      throw new Error('Anchor must be an HTMLElement or AnchorPosition');
+    }
 
-  return () => {
-    window.removeEventListener('resize', resizeHandler);
+    // reset styles so we can compute right dimensions
+    /* eslint-disable no-param-reassign */
+    contentEl.style.height = 'auto';
+    contentEl.style.width = 'auto';
+    /* eslint-enable no-param-reassign */
+
+    const position = computePositioningStyles(viewport, contentEl, {
+      anchor: resolvedAnchor,
+      placementAndOrigin,
+      ...constraints,
+    });
+
+    /* eslint-disable no-param-reassign */
+    contentEl.style.zIndex = `${zIndex}`;
+    contentEl.style.opacity = '1';
+    // following lines causes blurry render if fractions are computed, so we round them
+    // https://stackoverflow.com/questions/6411361/webkit-based-blurry-distorted-text-post-animation-via-translate3d
+    contentEl.style.transform = `translate3d(${Math.round(
+      position.left,
+    )}px, ${Math.round(position.top)}px, 0px)`;
+    contentEl.style.width = `${position.width}px`;
+    contentEl.style.height = `${position.height}px`;
+    contentEl.style.visibility = 'visible';
+    /* eslint-enable no-param-reassign */
+
+    setPosition(position);
   };
 }
 
@@ -227,13 +210,18 @@ export function Popper({
       zIndex,
     ],
   );
+  const positionElement = useStaticCallbackCreator(positionContent, [
+    open,
+    params,
+  ]);
   const [positionFn, cancelPositionFn] = useDebouncedCallback(
-    positionContent,
+    positionElement,
     10,
-    [],
+    [params],
   );
 
-  useStaticEffect(positionContentAndBindResizeListeners, params, positionFn);
+  useVisualViewport(positionFn);
+
   useStaticEffect(cancelPositionFnOnUnmount, cancelPositionFn);
 
   if (openRef.current !== open && !open) {

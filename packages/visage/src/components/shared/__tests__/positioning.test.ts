@@ -7,6 +7,7 @@ import {
   PlacementViewport,
   ElementRect,
 } from '../positioning';
+import { VisualViewport } from '../../../hooks/useVisualViewport';
 
 describe('positioning', () => {
   const rect = {
@@ -2652,17 +2653,13 @@ describe('positioning', () => {
 
   describe('computePositioningStyles', () => {
     it('returns first matched placement', () => {
-      const window = {
-        innerHeight: 100,
-        innerWidth: 100,
-        scrollX: 0,
-        scrollY: 0,
-        document: {
-          documentElement: {
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
-        },
+      const viewport: VisualViewport = {
+        height: 100,
+        width: 100,
+        offsetLeft: 0,
+        offsetTop: 0,
+        maxWidth: 100,
+        maxHeight: 100,
       };
       const element = {
         getBoundingClientRect() {
@@ -2676,7 +2673,7 @@ describe('positioning', () => {
       };
 
       expect(
-        computePositioningStyles(window as any, element as any, {
+        computePositioningStyles(viewport, element as any, {
           anchor: { top: 20, left: 20 },
           placementAndOrigin: [
             {
@@ -2703,7 +2700,7 @@ describe('positioning', () => {
       });
 
       expect(
-        computePositioningStyles(window as any, element as any, {
+        computePositioningStyles(viewport, element as any, {
           anchor: { top: 100, left: 20 },
           placementAndOrigin: [
             {
@@ -2731,17 +2728,13 @@ describe('positioning', () => {
     });
 
     it('returns best possible placement if not matched', () => {
-      const window = {
-        innerHeight: 100,
-        innerWidth: 100,
-        scrollX: 0,
-        scrollY: 0,
-        document: {
-          documentElement: {
-            scrollHeight: 100,
-            scrollWidth: 100,
-          },
-        },
+      const viewport: VisualViewport = {
+        height: 100,
+        width: 100,
+        offsetLeft: 0,
+        offsetTop: 0,
+        maxWidth: 100,
+        maxHeight: 100,
       };
       const element = {
         getBoundingClientRect() {
@@ -2755,7 +2748,7 @@ describe('positioning', () => {
       };
 
       expect(
-        computePositioningStyles(window as any, element as any, {
+        computePositioningStyles(viewport, element as any, {
           anchor: { top: 20, left: 20 },
           placementAndOrigin: [
             {
@@ -2786,7 +2779,7 @@ describe('positioning', () => {
       // this element has no width, so it should be rendered on first best unmatched position
       expect(
         computePositioningStyles(
-          window as any,
+          viewport,
           {
             getBoundingClientRect() {
               return {

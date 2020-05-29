@@ -1,3 +1,5 @@
+import { VisualViewport } from '../../hooks/useVisualViewport';
+
 export interface AnchorOrigin {
   /**
    * Horizontal anchor position on anchor element
@@ -52,16 +54,6 @@ export interface AnchorPosition {
 export interface AnchorPositionAndDimensions extends AnchorPosition {
   height: number;
   width: number;
-}
-
-export function getWindowScrollY(w: Window) {
-  // IE 11 - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
-  return w.scrollY != null ? w.scrollY : w.pageYOffset;
-}
-
-export function getWindowScrollX(w: Window) {
-  // IE 11 - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollY
-  return w.scrollX != null ? w.scrollX : w.pageXOffset;
 }
 
 export function getOffsetTop(
@@ -588,7 +580,7 @@ interface ComputePositioningStylesOptions extends PlacementConstraints {
  * for a developer to limit them in CSS.
  */
 export function computePositioningStyles(
-  viewport: Window,
+  viewport: VisualViewport,
   element: HTMLElement,
   {
     anchor,
@@ -597,12 +589,12 @@ export function computePositioningStyles(
   }: ComputePositioningStylesOptions,
 ): PositioningStyles {
   const view: PlacementViewport = {
-    height: viewport.innerHeight,
-    width: viewport.innerWidth,
-    scrollX: getWindowScrollX(viewport),
-    scrollY: getWindowScrollY(viewport),
-    maxHeight: viewport.document.documentElement.scrollHeight,
-    maxWidth: viewport.document.documentElement.scrollWidth,
+    height: viewport.height,
+    width: viewport.width,
+    scrollX: viewport.offsetLeft,
+    scrollY: viewport.offsetTop,
+    maxHeight: viewport.maxHeight,
+    maxWidth: viewport.maxWidth,
   };
   const anchorPositionAndDimensions = getAnchorPositionAndDimensions(anchor);
   const clientRect = element.getBoundingClientRect();

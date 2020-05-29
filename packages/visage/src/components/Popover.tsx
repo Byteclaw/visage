@@ -2,7 +2,6 @@ import React, {
   ReactNode,
   RefObject,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
 } from 'react';
@@ -19,17 +18,11 @@ import {
   AnchorPosition,
   Placement,
   PlacementWithAnchorOrigin,
-  getWindowScrollX,
-  getWindowScrollY,
 } from './shared';
 import { Modal } from './Modal';
-import {
-  useAutofocusOnMount,
-  useDebouncedCallback,
-  useUniqueId,
-  useCombinedRef,
-} from '../hooks';
+import { useAutofocusOnMount, useUniqueId, useCombinedRef } from '../hooks';
 import { useLayerManager } from './LayerManager';
+import { useVisualViewport, VisualViewport } from '../hooks/useVisualViewport';
 
 export const BasePopover = createComponent('div', {
   displayName: 'Popover',
@@ -171,20 +164,19 @@ export function Popover({
   );
 
   const contentRef = useCombinedRef(popoverRef);
-  const handleResizeRef = useRef(() => {});
   const preventCloseRefs = useRef(
     !anchor || isAnchorPosition(anchor) ? [] : [anchor],
   );
   const { zIndex } = useLayerManager();
 
   const setPositioningStyles = useCallback(
-    (element: HTMLElement) => {
+    (element: HTMLElement, viewport: VisualViewport) => {
       if (isFullscreen) {
         /* eslint-disable no-param-reassign */
         element.style.width = `100vw`;
         element.style.height = `100vh`;
-        element.style.top = `${getWindowScrollY(window)}px`;
-        element.style.left = `${getWindowScrollX(window)}px`;
+        element.style.top = `${viewport.offsetTop}px`;
+        element.style.left = `${viewport.offsetLeft}px`;
         element.style.opacity = '1';
         element.style.visibility = 'visible';
         /* eslint-enable no-param-reassign */
@@ -209,7 +201,7 @@ export function Popover({
       element.style.width = 'auto';
       /* eslint-enable no-param-reassign */
 
-      const positioning = computePositioningStyles(window, element, {
+      const positioning = computePositioningStyles(viewport, element, {
         anchor: anchorElementOrPosition,
         placementAndOrigin,
         marginThreshold,
@@ -242,29 +234,13 @@ export function Popover({
     ],
   );
 
-  const [resizeHandler] = useDebouncedCallback(setPositioningStyles, 10, []);
-
-  useEffect(() => {
+  useVisualViewport(viewport => {
     if (open && contentRef.current) {
       const el = contentRef.current;
 
-      setPositioningStyles(el);
-
-      handleResizeRef.current = () => resizeHandler(el);
-
-      window.addEventListener('resize', handleResizeRef.current);
+      setPositioningStyles(el, viewport);
     }
-    return () => {
-      window.removeEventListener('resize', handleResizeRef.current);
-    };
-  }, [
-    anchor,
-    open,
-    contentRef.current,
-    children,
-    setPositioningStyles,
-    resizeHandler,
-  ]);
+  });
 
   useAutofocusOnMount(autoFocus && open ? contentRef : undefined);
 
