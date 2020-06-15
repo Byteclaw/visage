@@ -1,4 +1,4 @@
-import isEqual from 'fast-deep-equal-ts/react';
+import isEqual from 'fast-deep-equal/react';
 import { useRef } from 'react';
 import { OmitPropsSetting, omitProps } from '@byteclaw/visage-utils';
 import { isVisageComponent } from './utils';
