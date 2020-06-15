@@ -3,10 +3,11 @@ import {
   markAsVisageComponent,
   VisageComponent,
 } from '@byteclaw/visage-core';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, ReactElement } from 'react';
 import { createComponent } from '../core';
 import { booleanVariant } from '../variants';
 import { Text } from './Text';
+import { useUniqueId } from '../hooks';
 
 const DividerLine = createComponent('div', {
   displayName: 'DividerLine',
@@ -45,7 +46,7 @@ const DividerLabel = createComponent(Text, {
 });
 
 interface DividerProps extends ExtractVisageComponentProps<typeof DividerBase> {
-  label?: string;
+  label?: string | ReactElement | null;
   labelProps?: ExtractVisageComponentProps<typeof DividerLine>;
   lineProps?: ExtractVisageComponentProps<typeof DividerLine>;
   vertical?: boolean;
@@ -57,6 +58,8 @@ export const Divider: VisageComponent<DividerProps> = React.memo(
       { label, labelProps, lineProps, vertical, ...restProps }: DividerProps,
       ref,
     ) => {
+      const labelId = useUniqueId(undefined, 'divider');
+
       // if label is provided, split horizontal line to 2 elements
       if (!label) {
         return (
@@ -74,13 +77,13 @@ export const Divider: VisageComponent<DividerProps> = React.memo(
       return (
         <DividerBase
           {...restProps}
-          aria-label={label}
+          aria-labelledby={labelId}
           role="separator"
           ref={ref as any}
           vertical={vertical}
         >
           <DividerLine {...lineProps} vertical={vertical} />
-          <DividerLabel {...labelProps} role="presentation" vertical={vertical}>
+          <DividerLabel {...labelProps} id={labelId} vertical={vertical}>
             {label}
           </DividerLabel>
           <DividerLine {...lineProps} vertical={vertical} />
