@@ -63,7 +63,7 @@ exports[`Divider is extendable by Divider face 1`] = `
 }
 
 <div
-    aria-label="OR"
+    aria-labelledby="divider-1"
     class="emotion-3"
     data-vertical="false"
     role="separator"
@@ -75,7 +75,7 @@ exports[`Divider is extendable by Divider face 1`] = `
     <span
       class="emotion-1"
       data-vertical="false"
-      role="presentation"
+      id="divider-1"
     >
       OR
     </span>
@@ -150,7 +150,7 @@ exports[`Divider is extendable by DividerLabel face 1`] = `
 }
 
 <div
-    aria-label="OR"
+    aria-labelledby="divider-1"
     class="emotion-3"
     data-vertical="false"
     role="separator"
@@ -162,7 +162,7 @@ exports[`Divider is extendable by DividerLabel face 1`] = `
     <span
       class="emotion-1"
       data-vertical="false"
-      role="presentation"
+      id="divider-1"
     >
       OR
     </span>
@@ -237,7 +237,7 @@ exports[`Divider is extendable by DividerLine face 1`] = `
 }
 
 <div
-    aria-label="OR"
+    aria-labelledby="divider-1"
     class="emotion-3"
     data-vertical="false"
     role="separator"
@@ -249,7 +249,7 @@ exports[`Divider is extendable by DividerLine face 1`] = `
     <span
       class="emotion-1"
       data-vertical="false"
-      role="presentation"
+      id="divider-1"
     >
       OR
     </span>
@@ -457,7 +457,7 @@ exports[`Divider renders correctly as vertical with a label 1`] = `
 }
 
 <div
-    aria-label="OR"
+    aria-labelledby="divider-1"
     class="emotion-3"
     data-vertical="true"
     role="separator"
@@ -469,7 +469,7 @@ exports[`Divider renders correctly as vertical with a label 1`] = `
     <span
       class="emotion-1"
       data-vertical="true"
-      role="presentation"
+      id="divider-1"
     >
       OR
     </span>
@@ -543,7 +543,7 @@ exports[`Divider renders correctly with a label 1`] = `
 }
 
 <div
-    aria-label="OR"
+    aria-labelledby="divider-1"
     class="emotion-3"
     data-vertical="false"
     role="separator"
@@ -555,7 +555,7 @@ exports[`Divider renders correctly with a label 1`] = `
     <span
       class="emotion-1"
       data-vertical="false"
-      role="presentation"
+      id="divider-1"
     >
       OR
     </span>
