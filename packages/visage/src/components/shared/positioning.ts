@@ -599,8 +599,8 @@ export function computePositioningStyles(
   const anchorPositionAndDimensions = getAnchorPositionAndDimensions(anchor);
   const clientRect = element.getBoundingClientRect();
   const rect: ElementRect = {
-    height: clientRect.height,
-    width: clientRect.width,
+    height: Math.ceil(clientRect.height),
+    width: Math.ceil(clientRect.width),
     scrollHeight: element.scrollHeight,
     scrollWidth: element.scrollWidth,
   };
@@ -648,5 +648,11 @@ export function computePositioningStyles(
     );
   }
 
-  return intermediateValue;
+  return {
+    ...intermediateValue,
+    height: Math.ceil(intermediateValue.height),
+    width: Math.ceil(intermediateValue.width),
+    minHeight: Math.ceil(intermediateValue.minHeight),
+    minWidth: Math.ceil(intermediateValue.minWidth),
+  };
 }

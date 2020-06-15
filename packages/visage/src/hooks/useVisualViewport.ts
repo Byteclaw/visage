@@ -118,8 +118,9 @@ function computeViewportSize(
   device: Device,
 ): VisualViewport {
   const {
-    innerHeight,
-    innerWidth,
+    document: {
+      documentElement: { scrollHeight, scrollWidth, clientHeight, clientWidth },
+    },
     scrollX,
     scrollY,
     pageXOffset,
@@ -143,12 +144,12 @@ function computeViewportSize(
     offsetLeft: scrollX ?? pageXOffset ?? 0,
     offsetTop: scrollY ?? pageYOffset ?? 0,
     height:
-      innerHeight -
+      clientHeight -
       softKeyboardHeight(document, window, device) -
       chromeBarHeight(window, device),
-    maxHeight: document.documentElement.scrollHeight,
-    maxWidth: document.documentElement.scrollWidth,
-    width: innerWidth,
+    maxHeight: scrollHeight,
+    maxWidth: scrollWidth,
+    width: clientWidth,
   };
 }
 
