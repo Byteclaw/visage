@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.10 (2020-06-15)
+
+* chore(visage/core): replace deep check lib ([7155498](https://github.com/Byteclaw/visage/commit/7155498))
+
+
+
+
+
 ## 1.0.0-alpha.9 (2020-05-22)
 
 **Note:** Version bump only for package @byteclaw/visage-core

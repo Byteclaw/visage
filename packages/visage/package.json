@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage",
-  "version": "1.0.0-alpha.44",
+  "version": "1.0.0-alpha.45",
   "description": "Design system based set of UI components for React applications.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -37,7 +37,7 @@
     "@byteclaw/use-event-emitter": "^1.0.0",
     "@byteclaw/use-static-callback": "^1.1.0",
     "@byteclaw/use-unique-id": "^1.0.0",
-    "@byteclaw/visage-core": "^1.0.0-alpha.9",
+    "@byteclaw/visage-core": "^1.0.0-alpha.10",
     "@byteclaw/visage-utils": "^1.0.0-alpha.3",
     "@emotion/core": "^10.0.14",
     "@types/body-scroll-lock": "^2.6.1",
