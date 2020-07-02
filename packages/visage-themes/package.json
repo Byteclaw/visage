@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage-themes",
-  "version": "1.0.0-alpha.46",
+  "version": "1.0.0-alpha.47",
   "description": "Collection of themes for Visage Design System.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -44,7 +44,7 @@
     "@byteclaw/visage": "^1.0.0-alpha.3"
   },
   "devDependencies": {
-    "@byteclaw/visage": "^1.0.0-alpha.46"
+    "@byteclaw/visage": "^1.0.0-alpha.47"
   },
   "scripts": {
     "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.themes --entry src/index.ts",
