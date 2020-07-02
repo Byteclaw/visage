@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.46 (2020-07-02)
+
+* fix(visage):  make defaultProps partial on Select/Autocomplete ([f85a114](https://github.com/Byteclaw/visage/commit/f85a114))
+* fix(visage): use span for SvgIcon component ([66e3e19](https://github.com/Byteclaw/visage/commit/66e3e19))
+
+
+
+
+
 ## 1.0.0-alpha.45 (2020-06-15)
 
 * fix(visage): allow react nodes in Divider label ([feb5315](https://github.com/Byteclaw/visage/commit/feb5315))
