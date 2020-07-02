@@ -66,7 +66,7 @@ interface CreateAutocompleteInputMenuOptions {
    * Default props used on Menu component, some of them are forced by Visage
    * to make it work correctly with internal logic
    */
-  defaultProps?: AutocompleteInputMenuProps;
+  defaultProps?: Partial<AutocompleteInputMenuProps>;
   /**
    * Custom display name (default is AutocompleteInputMenu)
    *
@@ -162,9 +162,10 @@ export function createAutocompleteInputMenu({
   );
 }
 
-interface AutocompleteInputProps<TValue extends any>
+export interface AutocompleteInputProps<TValue extends any>
   extends SelectorOptions<TValue>,
-    StyleProps {
+    StyleProps,
+    TextInputProps {
   debounceDelay?: number;
   expandOnClick?: boolean;
   id?: string;
@@ -177,7 +178,7 @@ interface AutocompleteInputProps<TValue extends any>
 const defaultMenu = createAutocompleteInputMenu();
 
 declare function AutocompleteInputComp<TValue extends any = string>(
-  props: AutocompleteInputProps<TValue> & TextInputProps,
+  props: AutocompleteInputProps<TValue>,
 ): ReactElement<any, any> | null;
 
 export const AutocompleteInput: typeof AutocompleteInputComp = forwardRef(
