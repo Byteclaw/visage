@@ -64,7 +64,7 @@ interface CreateSelectMenuOptions {
    * Default props used on Menu component, some of them are forced by Visage
    * to make it work correctly with internal logic
    */
-  defaultProps?: SelectMenuProps;
+  defaultProps?: Partial<SelectMenuProps>;
   /**
    * Custom display name (default is AutocompleteInputMenu)
    *
@@ -120,6 +120,7 @@ export function createSelectMenu({
 
         return (
           <Menu
+            {...styleProps}
             {...menuProps}
             anchor={inputContainerRef}
             disableEvents
@@ -133,7 +134,6 @@ export function createSelectMenu({
             }}
             role="listbox"
             tabIndex={-1}
-            {...styleProps}
           >
             {open
               ? options.map((option, index) => (
@@ -190,9 +190,10 @@ type RawTextInputProps = ExtractVisageComponentProps<typeof TextInput>;
 interface TextInputProps
   extends Omit<RawTextInputProps, 'defaultValue' | 'onChange' | 'value'> {}
 
-interface SelectProps<TValue extends any = string>
+export interface SelectProps<TValue extends any = string>
   extends SelectorOptions<TValue>,
-    StyleProps {
+    StyleProps,
+    TextInputProps {
   debounceDelay?: number;
   id?: string;
   options?: TValue[] | ((inputValue: string) => Promise<TValue[]>);
@@ -210,7 +211,7 @@ interface SelectProps<TValue extends any = string>
 const defaultMenu = createSelectMenu();
 
 declare function SelectComp<TValue extends any = string>(
-  props: SelectProps<TValue> & TextInputProps,
+  props: SelectProps<TValue>,
 ): ReactElement<any, any> | null;
 
 export const Select: typeof SelectComp = forwardRef(
