@@ -7,6 +7,7 @@ import {
 } from '@byteclaw/visage-core';
 import React, {
   ChangeEventHandler,
+  ComponentType,
   useRef,
   FocusEventHandler,
   MouseEventHandler,
@@ -61,6 +62,15 @@ export interface AutocompleteInputMenuProps extends StyleProps {
   optionToString: (option: any) => string;
 }
 
+export interface AutocompleteInputMenuItemProps {
+  'aria-selected': boolean;
+  'data-option-index': number;
+  id: string | undefined;
+  role: string;
+  onClick: (e: MouseEvent<any>) => void;
+  onMouseDown: (e: MouseEvent<any>) => void;
+}
+
 interface CreateAutocompleteInputMenuOptions {
   /**
    * Default props used on Menu component, some of them are forced by Visage
@@ -77,6 +87,10 @@ interface CreateAutocompleteInputMenuOptions {
    * Min height in pixels required to place menu in a given position
    */
   minHeight?: number;
+  /**
+   * Custom menu item component
+   */
+  menuItem?: ComponentType<AutocompleteInputMenuItemProps>;
 }
 
 /**
@@ -85,6 +99,7 @@ interface CreateAutocompleteInputMenuOptions {
  */
 export function createAutocompleteInputMenu({
   minHeight = 150,
+  menuItem: AutocompleteMenuItem = MenuItem,
   ...restMenuOptions
 }: CreateAutocompleteInputMenuOptions = {}) {
   return createComponent(
@@ -138,7 +153,7 @@ export function createAutocompleteInputMenu({
           >
             {open
               ? options.map((option, index) => (
-                  <MenuItem
+                  <AutocompleteMenuItem
                     aria-selected={focusedIndex === index}
                     data-option-index={index}
                     id={optionId(id, index)}
@@ -148,7 +163,7 @@ export function createAutocompleteInputMenu({
                     onMouseDown={onOptionMouseDown}
                   >
                     {optionToString(option)}
-                  </MenuItem>
+                  </AutocompleteMenuItem>
                 ))
               : null}
           </Menu>
