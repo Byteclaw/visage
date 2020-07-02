@@ -5,6 +5,7 @@ import {
   StyleProps,
 } from '@byteclaw/visage-core';
 import React, {
+  ComponentType,
   forwardRef,
   useRef,
   FocusEventHandler,
@@ -44,6 +45,15 @@ const optionId = (id: string, index: number): string | undefined => {
   return index === -1 ? undefined : `${id}-listbox-option-${index}`;
 };
 
+export interface SelectMenuItemProps {
+  'aria-selected': boolean;
+  'data-option-index': number;
+  id: string | undefined;
+  role: string;
+  onClick: (e: MouseEvent<any>) => void;
+  onMouseDown: (e: MouseEvent<any>) => void;
+}
+
 export interface SelectMenuProps extends StyleProps {
   focusedIndex: number;
   id: string;
@@ -75,6 +85,10 @@ interface CreateSelectMenuOptions {
    * Min height in pixels required to place menu in a given placement
    */
   minHeight?: number;
+  /**
+   * Custom menu item component
+   */
+  menuItem?: ComponentType<SelectMenuItemProps>;
 }
 
 /**
@@ -83,6 +97,7 @@ interface CreateSelectMenuOptions {
  */
 export function createSelectMenu({
   minHeight = 150,
+  menuItem: SelectMenuItem = MenuItem,
   ...restMenuOptions
 }: CreateSelectMenuOptions = {}) {
   return createComponent(
@@ -137,7 +152,7 @@ export function createSelectMenu({
           >
             {open
               ? options.map((option, index) => (
-                  <MenuItem
+                  <SelectMenuItem
                     aria-selected={focusedIndex === index}
                     data-option-index={index}
                     id={optionId(id, index)}
@@ -147,7 +162,7 @@ export function createSelectMenu({
                     onMouseDown={onOptionMouseDown}
                   >
                     {optionToString(option)}
-                  </MenuItem>
+                  </SelectMenuItem>
                 ))
               : null}
           </Menu>
