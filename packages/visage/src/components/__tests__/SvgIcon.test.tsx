@@ -59,7 +59,7 @@ describe('SvgIcon', () => {
         }
       }
 
-      <div
+      <span
           class="emotion-0"
         >
           <svg
@@ -75,7 +75,7 @@ describe('SvgIcon', () => {
               fill="none"
             />
           </svg>
-        </div>
+        </span>
       </DocumentFragment>
     `);
   });
@@ -135,7 +135,7 @@ describe('SvgIcon', () => {
         }
       }
 
-      <div
+      <span
           class="emotion-0"
         >
           <svg
@@ -151,7 +151,7 @@ describe('SvgIcon', () => {
               fill="none"
             />
           </svg>
-        </div>
+        </span>
       </DocumentFragment>
     `);
   });
@@ -213,7 +213,7 @@ describe('SvgIcon', () => {
         }
       }
 
-      <div
+      <span
           class="emotion-0"
         >
           <svg
@@ -229,7 +229,7 @@ describe('SvgIcon', () => {
               fill="none"
             />
           </svg>
-        </div>
+        </span>
       </DocumentFragment>
     `);
   });

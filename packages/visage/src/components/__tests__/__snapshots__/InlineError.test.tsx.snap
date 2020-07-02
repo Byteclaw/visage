@@ -69,7 +69,7 @@ exports[`InlineError is extendable by InlineError face 1`] = `
 <div
     class="emotion-1"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -89,7 +89,7 @@ exports[`InlineError is extendable by InlineError face 1`] = `
           />
         </g>
       </svg>
-    </div>
+    </span>
     This is an error
   </div>
 </DocumentFragment>
@@ -165,7 +165,7 @@ exports[`InlineError is extendable by InlineErrorIcon face 1`] = `
 <div
     class="emotion-1"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -185,7 +185,7 @@ exports[`InlineError is extendable by InlineErrorIcon face 1`] = `
           />
         </g>
       </svg>
-    </div>
+    </span>
     This is an error
   </div>
 </DocumentFragment>
@@ -260,7 +260,7 @@ exports[`InlineError is extendable by styles prop 1`] = `
 <div
     class="emotion-1"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -280,7 +280,7 @@ exports[`InlineError is extendable by styles prop 1`] = `
           />
         </g>
       </svg>
-    </div>
+    </span>
     This is an error
   </div>
 </DocumentFragment>
@@ -355,7 +355,7 @@ exports[`InlineError renders correctly 1`] = `
 <div
     class="emotion-1"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -375,7 +375,7 @@ exports[`InlineError renders correctly 1`] = `
           />
         </g>
       </svg>
-    </div>
+    </span>
     This is an error
   </div>
 </DocumentFragment>

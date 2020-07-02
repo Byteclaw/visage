@@ -96,7 +96,7 @@ describe('CloseButton', () => {
           class="emotion-1"
           type="button"
         >
-          <div
+          <span
             aria-hidden="true"
             class="emotion-0"
           >
@@ -113,7 +113,7 @@ describe('CloseButton', () => {
                 fill="none"
               />
             </svg>
-          </div>
+          </span>
         </button>
       </DocumentFragment>
     `);
@@ -220,7 +220,7 @@ describe('CloseButton', () => {
           class="emotion-1"
           type="button"
         >
-          <div
+          <span
             aria-hidden="true"
             class="emotion-0"
           >
@@ -237,7 +237,7 @@ describe('CloseButton', () => {
                 fill="none"
               />
             </svg>
-          </div>
+          </span>
         </button>
       </DocumentFragment>
     `);

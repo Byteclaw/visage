@@ -11,7 +11,7 @@ import React, {
 } from 'react';
 import { createComponent } from '../core';
 
-const SvgIconBase = createComponent('div', {
+const SvgIconBase = createComponent('span', {
   displayName: 'SvgIconBase',
   styles: {
     alignItems: 'center',
