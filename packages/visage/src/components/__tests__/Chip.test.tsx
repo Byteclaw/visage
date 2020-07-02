@@ -96,7 +96,9 @@ describe('Chip', () => {
     );
 
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('false');
-    expect(document.querySelector('[data-testid="chip"] div')).not.toBeNull();
+    expect(
+      document.querySelector('[data-testid="chip"] > button'),
+    ).not.toBeNull();
 
     fireEvent.click(document.querySelector('[data-testid="chip"] > button'));
 
@@ -114,7 +116,7 @@ describe('Chip', () => {
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('true');
 
     // deleter is not rendered
-    expect(document.querySelector('[data-testid="chip"] div')).toBeNull();
+    expect(document.querySelector('[data-testid="chip"] > button')).toBeNull();
 
     fireEvent.click(getByTestId('chip'));
 
@@ -131,7 +133,9 @@ describe('Chip', () => {
     );
 
     expect(getByTestId('chip').getAttribute('data-clickable')).toBe('true');
-    expect(document.querySelector('[data-testid="chip"] div')).not.toBeNull();
+    expect(
+      document.querySelector('[data-testid="chip"] > button'),
+    ).not.toBeNull();
 
     fireEvent.click(document.querySelector('[data-testid="chip"] > button'));
 

@@ -115,7 +115,7 @@ exports[`IconButton is extendable by IconButton face 1`] = `
     data-stroked="false"
     data-variant="default"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -131,7 +131,7 @@ exports[`IconButton is extendable by IconButton face 1`] = `
           fill="none"
         />
       </svg>
-    </div>
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -251,7 +251,7 @@ exports[`IconButton is extendable by styles prop 1`] = `
     data-stroked="false"
     data-variant="default"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -267,7 +267,7 @@ exports[`IconButton is extendable by styles prop 1`] = `
           fill="none"
         />
       </svg>
-    </div>
+    </span>
   </button>
 </DocumentFragment>
 `;
@@ -387,7 +387,7 @@ exports[`IconButton renders correctly 1`] = `
     data-stroked="false"
     data-variant="default"
   >
-    <div
+    <span
       class="emotion-0"
     >
       <svg
@@ -403,7 +403,7 @@ exports[`IconButton renders correctly 1`] = `
           fill="none"
         />
       </svg>
-    </div>
+    </span>
   </button>
 </DocumentFragment>
 `;
