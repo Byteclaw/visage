@@ -1,4 +1,4 @@
-import { useOnRenderEffect } from './useOnRenderEffect';
+import { useEffect } from 'react';
 
 /**
  * Sets up breakpoint detection using window.matchMedia API
@@ -8,7 +8,7 @@ export function useBreakpointDetection(
   breakpoints: string[],
   setBreakpoint: (index: number, matches: boolean) => void,
 ) {
-  useOnRenderEffect(() => {
+  return useEffect(() => {
     if (!enabled) {
       return;
     }
