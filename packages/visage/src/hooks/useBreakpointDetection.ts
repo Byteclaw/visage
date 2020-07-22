@@ -18,7 +18,7 @@ export function useBreakpointDetection(
       listener: (e: MediaQueryListEvent) => void;
     }[] = [];
 
-    if (window != null && window.matchMedia) {
+    if (typeof window !== 'undefined' && window.matchMedia) {
       const matches = breakpoints.map((mediaQuery, mqIndex) => {
         const mqList = window.matchMedia(mediaQuery);
         const listener = (e: MediaQueryListEvent) => {
