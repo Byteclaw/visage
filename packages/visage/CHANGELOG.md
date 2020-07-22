@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.49 (2020-07-22)
+
+* fix(visage):  detect breakpoints in effect so app can be hydrated ([b30f8fe](https://github.com/Byteclaw/visage/commit/b30f8fe))
+
+
+
+
+
 ## 1.0.0-alpha.48 (2020-07-22)
 
 * fix(visage): correct window detection ([dd49fa7](https://github.com/Byteclaw/visage/commit/dd49fa7))
