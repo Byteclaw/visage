@@ -16,6 +16,16 @@ export function resolveStyleSheet(
   styleSheet: StyleSheet,
   ctx: StylerSheetResolveContext,
 ): ResolvedStyleSheet {
+  const cache = ctx.resolutionCache.get(ctx.breakpoint);
+
+  if (!cache) {
+    ctx.resolutionCache.set(ctx.breakpoint, new WeakMap());
+  }
+
+  if (cache?.has(styleSheet)) {
+    return cache.get(styleSheet)!;
+  }
+
   const keys = Object.keys(styleSheet);
   const keysLength = keys.length;
   const preSheets: ResolvedStyleSheet[] = [];
@@ -68,5 +78,13 @@ export function resolveStyleSheet(
     }
   }
 
-  return depthFirstObjectMerge(...preSheets, resolvedStyleSheet, ...postSheets);
+  const finalStyleSheet = depthFirstObjectMerge(
+    ...preSheets,
+    resolvedStyleSheet,
+    ...postSheets,
+  );
+
+  cache?.set(styleSheet, finalStyleSheet);
+
+  return finalStyleSheet;
 }

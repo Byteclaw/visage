@@ -56,6 +56,7 @@ const theme = createTheme({
 
 const ctx: StylerSheetResolveContext = {
   breakpoint: 0,
+  resolutionCache: new Map(),
   ...theme,
 };
 

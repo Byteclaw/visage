@@ -157,7 +157,7 @@ export function createTheme<
       )(resolverName, propValue, ctx);
     },
     style(resolverName, propValue, ctx) {
-      const cacheKey = `${resolverName}::${propValue}`;
+      const cacheKey = `${resolverName}::${propValue}::${ctx.breakpoint}`;
 
       if (ctx.stylerCache.has(cacheKey)) {
         return ctx.stylerCache.get(cacheKey)!;

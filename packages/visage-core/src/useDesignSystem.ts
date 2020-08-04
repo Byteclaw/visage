@@ -1,6 +1,6 @@
 import { LRUCache } from '@byteclaw/visage-utils';
-import { useContext } from 'react';
-import { createCache } from './cache';
+import { useContext, useRef } from 'react';
+import { createCache, StyleSheetCache } from './cache';
 import { VisageContext } from './context';
 import {
   ExtractThemeSettingsFromTheme,
@@ -8,19 +8,42 @@ import {
   Theme,
   StyleGenerator,
 } from './types';
-import { resolveStyleSheets, StylerSheetResolveContext } from './styleSheet';
+import {
+  resolveStyleSheets,
+  StylerSheetResolveContext,
+  ResolvedStyleSheet,
+  StyleSheet,
+} from './styleSheet';
 import { useStaticMemo } from './useStaticMemo';
+
+interface DesignSystemCache {
+  generation: Map<number, WeakMap<StyleSheet[], ResolvedStyleSheet>>;
+  resolution: StylerSheetResolveContext['resolutionCache'];
+  styler: StylerSheetResolveContext['stylerCache'];
+  styleSheet: Map<number, StyleSheetCache>;
+}
 
 function createDesignSystem<TTheme extends Theme = Theme>(
   breakpoint: number = 0,
   theme: any,
-  styleGenerator: any,
+  styleGenerator: StyleGenerator,
+  { generation, resolution, styler, styleSheet }: DesignSystemCache,
 ): Visage<TTheme> {
-  // reset cache everytime the design system is recreated
-  const generationCache = new WeakMap();
-  const resolutionCache = new WeakMap();
-  const stylerCache = new LRUCache(1000);
-  const styleSheetCache = createCache();
+  if (!resolution.has(breakpoint)) {
+    resolution.set(breakpoint, new WeakMap());
+  }
+
+  if (!generation.has(breakpoint)) {
+    generation.set(breakpoint, new WeakMap());
+  }
+
+  if (!styleSheet.has(breakpoint)) {
+    styleSheet.set(breakpoint, createCache());
+  }
+
+  const generationCache = generation.get(breakpoint)!;
+  const resolutionForBreakpointCache = resolution.get(breakpoint)!;
+  const styleSheetCache = styleSheet.get(breakpoint)!;
 
   const resolveCtx: StylerSheetResolveContext<ExtractThemeSettingsFromTheme<
     TTheme
@@ -31,8 +54,9 @@ function createDesignSystem<TTheme extends Theme = Theme>(
     style: theme.style,
     formatters: theme.formatters,
     resolvers: theme.resolvers,
+    resolutionCache: resolution,
     stylers: theme.stylers,
-    stylerCache,
+    stylerCache: styler,
     theme: theme.theme as any,
   };
 
@@ -51,11 +75,11 @@ function createDesignSystem<TTheme extends Theme = Theme>(
       return result;
     },
     resolveStyleSheets(styleSheets) {
-      let result = resolutionCache.get(styleSheets);
+      let result = resolutionForBreakpointCache.get(styleSheets);
 
       if (!result) {
         result = resolveStyleSheets(styleSheets, resolveCtx);
-        resolutionCache.set(styleSheets, result);
+        resolutionForBreakpointCache.set(styleSheets, result);
       }
 
       return result;
@@ -91,10 +115,30 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
 
   // if we pass options, we want to create new design system root
   if (options) {
+    const cacheRef = useRef<DesignSystemCache>();
+    const generatorRef = useRef<StyleGenerator>(options.styleGenerator);
+    const themeRef = useRef(options.theme);
+
+    if (
+      !cacheRef.current ||
+      generatorRef.current !== options.styleGenerator ||
+      themeRef.current !== options.theme
+    ) {
+      cacheRef.current = {
+        generation: new Map(),
+        resolution: new Map(),
+        styleSheet: new Map(),
+        styler: new LRUCache(1000),
+      };
+      generatorRef.current = options.styleGenerator;
+      themeRef.current = options.theme;
+    }
+
     return useStaticMemo(createDesignSystem, [
       options.is,
       options.theme,
       options.styleGenerator,
+      cacheRef.current,
     ]);
   }
 
