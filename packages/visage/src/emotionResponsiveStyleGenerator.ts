@@ -21,6 +21,7 @@ export function createResponsiveEmotionStyleGenerator(
 
     // iterate through media queries and resolve style for them
     mediaQueries.forEach((mediaQuery, breakpoint) => {
+      // @todo investigate whether to use cache here too
       sheet[`@media ${mediaQuery}`] = resolveStyleSheets(styleSheets, {
         ...ctx,
         breakpoint,

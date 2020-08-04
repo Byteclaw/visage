@@ -3,6 +3,7 @@ import {
   modularScaleFontRatios,
 } from '@byteclaw/visage-themes';
 import { cache } from 'emotion';
+import { StylerSheetResolveContext } from '@byteclaw/visage-core';
 import { createEmotionStyleGenerator } from '../emotionStyleGenerator';
 
 const styleGenerator = createEmotionStyleGenerator();
@@ -29,6 +30,10 @@ describe('emotion style generator', () => {
       fontScaleRatio: modularScaleFontRatios.perfectFourth,
     });
 
+    const ctx: StylerSheetResolveContext = {
+      resolutionCache: new Map(),
+      ...theme,
+    };
     const styleSheet = {
       color: 'primary',
       fontFamily: 'body',
@@ -36,9 +41,18 @@ describe('emotion style generator', () => {
       margin: [2, 3, 4],
     };
 
-    const mobile = styleGenerator([styleSheet], { breakpoint: 0, ...theme });
-    const tablet = styleGenerator([styleSheet], { breakpoint: 1, ...theme });
-    const desktop = styleGenerator([styleSheet], { breakpoint: 2, ...theme });
+    const mobile = styleGenerator([styleSheet], {
+      breakpoint: 0,
+      ...ctx,
+    });
+    const tablet = styleGenerator([styleSheet], {
+      breakpoint: 1,
+      ...ctx,
+    });
+    const desktop = styleGenerator([styleSheet], {
+      breakpoint: 2,
+      ...ctx,
+    });
 
     expect(mobile).toMatchObject({
       className: expect.any(String),

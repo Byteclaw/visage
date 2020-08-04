@@ -149,6 +149,11 @@ export interface StylerSheetResolveContext<
     themeKey: StyleValueResolver;
     [name: string]: StyleValueResolver;
   };
+  /** Resolution cache for intermediatory style sheets */
+  resolutionCache: Map<
+    number,
+    WeakMap<ResponsiveStyleSheet | ResponsiveStyleSheet[], ResolvedStyleSheet>
+  >;
   /** Styler resolution cache  */
   stylerCache: LRUCache<string, StylerResult>;
   /** All stylers defined in the system */
