@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.11 (2020-08-05)
+
+* feat: add intermediatory style sheet resolution cache ([862dfa6](https://github.com/Byteclaw/visage/commit/862dfa6))
+
+
+
+
+
 ## 1.0.0-alpha.10 (2020-06-15)
 
 * chore(visage/core): replace deep check lib ([7155498](https://github.com/Byteclaw/visage/commit/7155498))

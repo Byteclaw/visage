@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.50 (2020-08-05)
+
+* feat: add intermediatory style sheet resolution cache ([862dfa6](https://github.com/Byteclaw/visage/commit/862dfa6))
+
+
+
+
+
 ## 1.0.0-alpha.49 (2020-07-22)
 
 * fix(visage):  detect breakpoints in effect so app can be hydrated ([b30f8fe](https://github.com/Byteclaw/visage/commit/b30f8fe))
