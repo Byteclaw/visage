@@ -247,7 +247,9 @@ export function CodeBlock({
   const { isDark } = useContext(ThemeTogglerContext);
   const [isExpanded, setExpanded] = useState(expanded);
   const [isFullscreen, setFullscreen] = useState(false);
-  const [inDocsScope, setInDocsScope] = useState(false);
+  const [inDocsScope, setInDocsScope] = useState(
+    process.env.NODE_ENV !== 'production',
+  );
   const theme = isDark ? duotoneDark : duotoneLight;
   const language: Language = baseClassName.replace(/language-/, '') as Language;
   const shouldTranspile = transpile !== 'false' && transpile !== false;
