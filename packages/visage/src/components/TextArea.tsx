@@ -1,7 +1,6 @@
 import React, {
-  ChangeEventHandler,
   forwardRef,
-  useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -57,31 +56,35 @@ export const TextArea: VisageComponent<
       autoResize,
       baseProps,
       defaultValue,
-      onChange,
       value,
       ...restProps
     }: TextAreaProps & JSX.IntrinsicElements['textarea'],
     ref: any,
   ) => {
-    const outerValueRef = useRef(value || defaultValue);
     const heightRef = useRef<number | undefined>(undefined);
-    const [innerValue, setValue] = useState(value || defaultValue);
+    const [, setValue] = useState(value || defaultValue);
     const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-    const innerOnChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
-      e => {
-        if (onChange) {
-          onChange(e);
+
+    // bind event listener onChange to trigger useLayoutEffect to recompute if autoResize is enabled
+    useEffect(() => {
+      const { current: textArea } = textAreaRef;
+
+      if (!autoResize || textArea == null) {
+        return;
+      }
+
+      const listener: EventListener = (e: Event) => {
+        if (e.currentTarget instanceof HTMLTextAreaElement) {
+          setValue(e.currentTarget.value);
         }
+      };
 
-        setValue(e.currentTarget.value);
-      },
-      [onChange],
-    );
+      textArea.addEventListener('input', listener);
 
-    if (outerValueRef.current !== value) {
-      outerValueRef.current = value;
-      setValue(value);
-    }
+      return () => {
+        textArea.removeEventListener('input', listener);
+      };
+    }, [autoResize]);
 
     useLayoutEffect(() => {
       if (autoResize && textAreaRef.current) {
@@ -125,9 +128,9 @@ export const TextArea: VisageComponent<
               }
             }
           }}
+          defaultValue={defaultValue}
+          value={value}
           {...restProps}
-          onChange={innerOnChange}
-          value={innerValue}
         />
       </TextAreaBase>
     );
