@@ -22,7 +22,7 @@
     "color": "^3.1.2",
     "emotion": "^10.0.14",
     "emotion-server": "^10.0.14",
-    "gatsby": "^2.20.25",
+    "gatsby": "^2.20.32",
     "gatsby-plugin-algolia": "^0.7.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-canonical-urls": "^2.2.3",
