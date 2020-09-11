@@ -66,6 +66,8 @@ exports[`IconButton is extendable by IconButton face 1`] = `
   margin: 0px;
   padding: 0px;
   outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-1[data-disabled="true"] {
@@ -97,6 +99,8 @@ exports[`IconButton is extendable by IconButton face 1`] = `
 
 .emotion-1:hover {
   opacity: 0.5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-1:focus {
@@ -202,6 +206,8 @@ exports[`IconButton is extendable by styles prop 1`] = `
   margin: 0px;
   padding: 0px;
   outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-1[data-disabled="true"] {
@@ -233,6 +239,8 @@ exports[`IconButton is extendable by styles prop 1`] = `
 
 .emotion-1:hover {
   opacity: 0.5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-1:focus {
@@ -309,6 +317,8 @@ exports[`IconButton renders correctly 1`] = `
   margin: 0px;
   padding: 0px;
   outline: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-1[data-disabled="true"] {
@@ -340,6 +350,8 @@ exports[`IconButton renders correctly 1`] = `
 
 .emotion-1:hover {
   opacity: 0.5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-1:focus {

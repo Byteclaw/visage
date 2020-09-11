@@ -51,6 +51,7 @@ const IconButtonComponent = createComponent('button', {
     m: 0,
     p: 0,
     outline: 'none',
+    textDecoration: 'none',
     ...booleanVariantStyles('disabled', {
       on: disabledControlStyles,
     }),
@@ -71,6 +72,7 @@ const IconButtonComponent = createComponent('button', {
     ...strokedVariantStyles,
     '&:hover': {
       opacity: 0.5,
+      textDecoration: 'none',
     },
     '&:focus': {
       boxShadow: createSurfaceFocusShadow('currentColor'),

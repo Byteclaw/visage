@@ -153,6 +153,7 @@ export const Button = createComponent('button', {
     verticalAlign: 'middle',
     '&:hover': {
       boxShadow: createControlHoverShadow(),
+      textDecoration: 'none',
     },
     '&:focus': {
       zIndex: 1, // for button group
