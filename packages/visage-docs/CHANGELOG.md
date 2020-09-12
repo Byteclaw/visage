@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.51 (2020-09-12)
+
+* fix(visage): use dom event handlers for textarea resizing ([10e16ce](https://github.com/Byteclaw/visage/commit/10e16ce))
+* docs: use docs scope mode for code blocks in dev ([a0dd660](https://github.com/Byteclaw/visage/commit/a0dd660))
+
+
+
+
+
 ## 1.0.0-alpha.50 (2020-08-05)
 
 **Note:** Version bump only for package @byteclaw/visage-docs

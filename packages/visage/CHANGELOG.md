@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.51 (2020-09-12)
+
+* fix(visage): remove text decoration from link button ([d88b8a3](https://github.com/Byteclaw/visage/commit/d88b8a3))
+* fix(visage): use dom event handlers for textarea resizing ([10e16ce](https://github.com/Byteclaw/visage/commit/10e16ce))
+
+
+
+
+
 ## 1.0.0-alpha.50 (2020-08-05)
 
 * feat: add intermediatory style sheet resolution cache ([862dfa6](https://github.com/Byteclaw/visage/commit/862dfa6))
