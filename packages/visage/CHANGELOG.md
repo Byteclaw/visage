@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.52 (2020-10-07)
+
+* chore(visage): make positioning error message clear ([2ab86b5](https://github.com/Byteclaw/visage/commit/2ab86b5))
+* feat(visage): make react-range a peer dependency ([b15893a](https://github.com/Byteclaw/visage/commit/b15893a))
+
+
+
+
+
 ## 1.0.0-alpha.51 (2020-09-12)
 
 * fix(visage): remove text decoration from link button ([d88b8a3](https://github.com/Byteclaw/visage/commit/d88b8a3))

@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage",
-  "version": "1.0.0-alpha.51",
+  "version": "1.0.0-alpha.52",
   "description": "Design system based set of UI components for React applications.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -47,9 +47,9 @@
     "emotion": "^10.0.14"
   },
   "peerDependencies": {
-    "react-range": "^1.6.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-range": "^1.6.1"
   },
   "devDependencies": {
     "jest-emotion": "^10.0.14",

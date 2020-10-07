@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 1.0.0-alpha.52 (2020-10-07)
+
+* docs: fix slider with tooltip documentation ([2364680](https://github.com/Byteclaw/visage/commit/2364680))
+
+
+
+
+
 ## 1.0.0-alpha.51 (2020-09-12)
 
 * fix(visage): use dom event handlers for textarea resizing ([10e16ce](https://github.com/Byteclaw/visage/commit/10e16ce))
