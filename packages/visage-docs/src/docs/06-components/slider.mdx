@@ -8,6 +8,11 @@ tags: ['forms', 'data and information']
 
 Under the hood `Slider` uses [react-range](https://github.com/tajo/react-range).
 
+<Banner status="warning">
+  <Code>react-range</Code> is peer dependency, make sure you install it if you
+  want to use <Code>Slider</Code> in your application.
+</Banner>
+
 ## Import
 
 ```js transpile=false
@@ -213,8 +218,11 @@ To render custom thumb please provide your own render function to `renderThumb` 
             anchor={anchorRef}
             placement={[
               [
-                Placement.topCenter,
-                { horizontal: 'center', vertical: 'bottom' },
+                {
+                  placement: Placement.topCenter,
+                  horizontal: 'center',
+                  vertical: 'bottom',
+                },
               ],
             ]}
           >
