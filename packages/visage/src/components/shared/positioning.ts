@@ -524,7 +524,7 @@ export function computePositionAndDimensions(
       };
     }
     default: {
-      throw new TypeError(`Invalid Placement type`);
+      throw new TypeError(`Invalid Placement type: ${placement}`);
     }
   }
 }
