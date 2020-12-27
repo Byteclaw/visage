@@ -18,7 +18,7 @@ import React, {
   Ref,
 } from 'react';
 import { createComponent } from '../core';
-import { booleanVariant } from '../variants';
+import { booleanVariant, booleanVariantStyles } from '../variants';
 
 const ListDepthContext = createContext(0);
 
@@ -36,7 +36,7 @@ export const ListContainer = createComponent('section', {
 });
 export const ListItemsContainer = createComponent('ul', {
   displayName: 'ListItemsContainer',
-  styles: props => ({
+  styles: {
     display: 'block',
     listStyle: 'none',
     flexGrow: 1,
@@ -45,16 +45,21 @@ export const ListItemsContainer = createComponent('ul', {
     p: 0,
     py: 1,
     width: 'auto',
-    ...(props.collapsed
-      ? { maxHeight: 0, visibility: 'hidden', p: 0, m: 0 }
-      : {}),
-  }),
+    ...booleanVariantStyles('collapsed', {
+      on: {
+        maxHeight: 0,
+        visibility: 'hidden',
+        p: 0,
+        m: 0,
+      },
+    }),
+  },
   variants: [booleanVariant('collapsed', true)],
 });
 
 export const BaseListItem = createComponent('li', {
   displayName: 'ListItem',
-  styles: props => ({
+  styles: {
     display: 'flex',
     border: 0,
     height: 'auto',
@@ -68,9 +73,16 @@ export const BaseListItem = createComponent('li', {
       cursor: 'pointer',
       userSelect: 'none',
     },
-    ...(props.gutters ? { px: 2, py: 1 } : {}),
-    ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
-  }),
+    ...booleanVariantStyles('gutters', {
+      on: { px: 2, py: 1 },
+    }),
+    ...booleanVariantStyles('active', {
+      on: {
+        color: 'primary',
+        fontWeight: 'bolder',
+      },
+    }),
+  },
   variants: [
     booleanVariant('active', true),
     booleanVariant('button', true), // just for the sake of typing
@@ -80,7 +92,7 @@ export const BaseListItem = createComponent('li', {
 
 const ListItemLinkBase = createComponent('a', {
   displayName: 'ListItemLink',
-  styles: props => ({
+  styles: {
     color: 'shadesText',
     cursor: 'pointer',
     display: 'flex',
@@ -104,24 +116,28 @@ const ListItemLinkBase = createComponent('a', {
       backgroundColor: 'accent',
       color: 'accentText',
     },
-    ...(props.active ? { color: 'primary', fontWeight: 'bolder' } : {}),
-  }),
+    ...booleanVariantStyles('active', {
+      on: { color: 'primary', fontWeight: 'bolder' },
+    }),
+  },
   variants: [booleanVariant('active', true)],
 });
 
-export const ListItemLink: typeof ListItemLinkBase = ({
-  styles,
-  ...props
-}: any) => {
-  const depth = useContext(ListDepthContext);
+type ListItemLinkProps = ExtractVisageComponentProps<typeof ListItemLinkBase>;
 
-  return (
-    <ListItemLinkBase
-      {...props}
-      styles={{ pl: (depth > 1 ? 2 : 3) * depth, ...styles }}
-    />
-  );
-};
+export const ListItemLink = markAsVisageComponent(
+  forwardRef(({ styles, ...props }: ListItemLinkProps, ref: Ref<any>) => {
+    const depth = useContext(ListDepthContext);
+
+    return (
+      <ListItemLinkBase
+        {...props}
+        styles={{ pl: (depth > 1 ? 2 : 3) * depth, ...styles }}
+        ref={ref}
+      />
+    );
+  }),
+);
 
 export const ListHeader = createComponent('h1', {
   displayName: 'ListHeader',
@@ -136,8 +152,8 @@ export const ListHeader = createComponent('h1', {
 
 type ListItemProps = ExtractVisageComponentProps<typeof BaseListItem>;
 
-export const ListItem: typeof BaseListItem = forwardRef(
-  ({ gutters, children, ...rest }: ListItemProps, ref: Ref<any>) => {
+export const ListItem = markAsVisageComponent(
+  forwardRef(({ gutters, children, ...rest }: ListItemProps, ref: Ref<any>) => {
     return (
       <BaseListItem
         gutters={gutters != null ? gutters : typeof children === 'string'}
@@ -147,10 +163,8 @@ export const ListItem: typeof BaseListItem = forwardRef(
         {children}
       </BaseListItem>
     );
-  },
-) as any;
-
-markAsVisageComponent(ListItem);
+  }),
+);
 
 export interface ListProps
   extends ExtractVisageComponentProps<typeof ListContainer> {
@@ -161,35 +175,35 @@ export interface ListProps
 
 const defaultItemsContainer = <ListItemsContainer />;
 
-export const List: VisageComponent<ListProps> = forwardRef(
-  (
-    {
-      children,
-      heading,
-      itemsContainer = defaultItemsContainer,
-      ...restProps
-    }: ListProps,
-    ref: Ref<any>,
-  ) => {
-    const depth = useContext(ListDepthContext);
-    const listItems = cloneElement(itemsContainer, {
-      children,
-      ref,
-      ...restProps,
-    });
+export const List: VisageComponent<ListProps> = markAsVisageComponent(
+  forwardRef(
+    (
+      {
+        children,
+        heading,
+        itemsContainer = defaultItemsContainer,
+        ...restProps
+      }: ListProps,
+      ref: Ref<any>,
+    ) => {
+      const depth = useContext(ListDepthContext);
+      const listItems = cloneElement(itemsContainer, {
+        children,
+        ref,
+        ...restProps,
+      });
 
-    return (
-      <>
-        {heading}
-        <ListDepthContext.Provider value={depth + 1}>
-          {listItems}
-        </ListDepthContext.Provider>
-      </>
-    );
-  },
-) as any;
-
-markAsVisageComponent(List);
+      return (
+        <>
+          {heading}
+          <ListDepthContext.Provider value={depth + 1}>
+            {listItems}
+          </ListDepthContext.Provider>
+        </>
+      );
+    },
+  ),
+);
 
 const defaultContainerRenderer = (
   children: ReactNode,

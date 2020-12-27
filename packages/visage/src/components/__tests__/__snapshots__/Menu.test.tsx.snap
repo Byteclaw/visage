@@ -11,10 +11,6 @@ exports[`Menu is possible to extend menu 1`] = `
   margin: 0px;
   overflow: hidden;
   width: auto;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 .emotion-0[role="button"]:hover,
@@ -27,6 +23,18 @@ exports[`Menu is possible to extend menu 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.emotion-0[data-gutters="true"] {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-0[data-active="true"] {
+  color: rgb(173,216,230);
+  font-weight: bolder;
 }
 
 .emotion-0:hover,
@@ -58,6 +66,13 @@ exports[`Menu is possible to extend menu 1`] = `
   padding-bottom: 16px;
   width: auto;
   background-color: rgb(204,204,204);
+}
+
+.emotion-1[data-collapsed="true"] {
+  max-height: 0;
+  visibility: hidden;
+  padding: 0px;
+  margin: 0px;
 }
 
 <ul
@@ -91,10 +106,6 @@ exports[`Menu is possible to style menu base using styles prop 1`] = `
   margin: 0px;
   overflow: hidden;
   width: auto;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 8px;
 }
 
 .emotion-0[role="button"]:hover,
@@ -107,6 +118,18 @@ exports[`Menu is possible to style menu base using styles prop 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.emotion-0[data-gutters="true"] {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-0[data-active="true"] {
+  color: rgb(173,216,230);
+  font-weight: bolder;
 }
 
 .emotion-0:hover,
@@ -138,6 +161,13 @@ exports[`Menu is possible to style menu base using styles prop 1`] = `
   padding-bottom: 16px;
   width: auto;
   background-color: rgb(204,204,204);
+}
+
+.emotion-1[data-collapsed="true"] {
+  max-height: 0;
+  visibility: hidden;
+  padding: 0px;
+  margin: 0px;
 }
 
 <ul
