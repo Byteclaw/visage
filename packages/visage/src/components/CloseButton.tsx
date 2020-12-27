@@ -28,15 +28,15 @@ export const CloseButton = createComponent('button', {
     m: 0,
     p: 1,
     '&:focus': {
-      backgroundColor: 'accent',
+      backgroundColor: 'color(accent, alpha(0.8))',
       color: 'accentText',
     },
     '&:hover': {
-      backgroundColor: 'accent',
+      backgroundColor: 'color(accent, alpha(0.8))',
       color: 'accentText',
     },
     '&:active': {
-      backgroundColor: 'accent',
+      backgroundColor: 'color(accent, alpha(0.8))',
       color: 'accentText',
     },
   },
