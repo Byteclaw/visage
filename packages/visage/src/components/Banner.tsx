@@ -12,7 +12,12 @@ import {
   WarningIcon,
 } from '../assets';
 import { createComponent } from '../core';
-import { booleanVariant, variant } from '../variants';
+import {
+  booleanVariant,
+  booleanVariantStyles,
+  variant,
+  variantStyles as createVariantStyles,
+} from '../variants';
 import { Box } from './Box';
 import { CloseButton } from './CloseButton';
 import { Flex } from './Flex';
@@ -73,7 +78,7 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
 
 const BannerBase = createComponent(Flex, {
   displayName: 'Banner',
-  styles: props => ({
+  styles: {
     borderColor: 'transparent',
     borderStyle: 'solid',
     borderWidth: 1,
@@ -81,16 +86,14 @@ const BannerBase = createComponent(Flex, {
     p: 2,
     my: 1,
     transition: 'box-shadow 150ms ease-out',
-    ...(props.flat
-      ? {
-          off: {
-            boxShadow:
-              '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
-          },
-        }
-      : {}),
-    ...(variantStyles[props.status || 'default'] || variantStyles.default),
-  }),
+    ...booleanVariantStyles('flat', {
+      off: {
+        boxShadow:
+          '0 0 0 1px rgba(63,63,68,.05), 0 1px 3px 0 rgba(63,63,68,.15)',
+      },
+    }),
+    ...createVariantStyles('status', variantStyles),
+  },
   variants: [
     booleanVariant('flat', true),
     variant('status', true, [
@@ -123,12 +126,11 @@ const ribbonVariantStyles: { [key: string]: VisageStyleSheet } = {
 
 const BannerRibbon = createComponent('div', {
   displayName: 'BannerRibbon',
-  styles: props => ({
+  styles: {
     fontSize: 1,
     mr: 2,
-    ...(ribbonVariantStyles[props.status || 'default'] ||
-      ribbonVariantStyles.default),
-  }),
+    ...createVariantStyles('status', ribbonVariantStyles),
+  },
   variants: [
     variant('status', true, [
       'critical',
@@ -140,6 +142,10 @@ const BannerRibbon = createComponent('div', {
   ],
 });
 
+export type BannerRibbonProps = ExtractVisageComponentProps<
+  typeof BannerRibbon
+>;
+
 const BannerContent = createComponent(Box, {
   displayName: 'BannerContent',
   styles: {
@@ -147,11 +153,13 @@ const BannerContent = createComponent(Box, {
   },
 });
 
+export type BannerContentProps = ExtractVisageComponentProps<
+  typeof BannerContent
+>;
+
 const BannerHeading = createComponent(Heading, {
   displayName: 'BannerHeading',
   defaultProps: {
-    // @ts-ignore
-    as: 'h5',
     level: 5,
   },
   styles: {
@@ -164,6 +172,10 @@ const BannerHeading = createComponent(Heading, {
   },
 });
 
+export type BannerHeadingProps = ExtractVisageComponentProps<
+  typeof BannerHeading
+>;
+
 const BannerCloseButtonWrapper = createComponent(Box, {
   displayName: 'BannerCloseButtonWrapper',
   styles: {
@@ -172,12 +184,21 @@ const BannerCloseButtonWrapper = createComponent(Box, {
   },
 });
 
+export type BannerCloseButtonWrapperProps = ExtractVisageComponentProps<
+  typeof BannerCloseButtonWrapper
+>;
+
 interface BannerBaseProps
   extends Omit<ExtractVisageComponentProps<typeof BannerBase>, 'title'> {}
 
 interface BannerProps {
+  closeButtonWrapperProps?: BannerCloseButtonWrapperProps;
+  contentProps?: BannerContentProps;
+  headingProps?: BannerHeadingProps;
+  ribbonProps?: BannerRibbonProps;
   children: ReactNode;
   dismissLabel?: string;
+  /** Pass false to disable icon */
   icon?: ReactNode;
   onDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
   title?: ReactNode;
@@ -190,11 +211,15 @@ export const Banner: VisageComponent<
     (
       {
         children,
+        closeButtonWrapperProps,
+        contentProps,
         dismissLabel = 'Dismiss notification',
         icon,
+        headingProps,
         status = 'default',
         onDismiss,
         title,
+        ribbonProps,
         ...restProps
       }: BannerProps & BannerBaseProps,
       ref: Ref<any>,
@@ -210,25 +235,29 @@ export const Banner: VisageComponent<
           ref={ref}
           {...restProps}
         >
-          <BannerRibbon aria-hidden status={status}>
-            {icon != null ? (
-              icon
-            ) : (
-              <SvgIcon
-                aria-hidden
-                icon={
-                  statusIcons[(status as any) as keyof typeof statusIcons] ||
-                  statusIcons.default
-                }
-              />
-            )}
-          </BannerRibbon>
-          <BannerContent>
-            {title != null ? <BannerHeading>{title}</BannerHeading> : null}
+          {icon !== false ? (
+            <BannerRibbon {...ribbonProps} aria-hidden status={status}>
+              {icon != null ? (
+                icon
+              ) : (
+                <SvgIcon
+                  aria-hidden
+                  icon={
+                    statusIcons[status as keyof typeof statusIcons] ||
+                    statusIcons.default
+                  }
+                />
+              )}
+            </BannerRibbon>
+          ) : null}
+          <BannerContent {...contentProps}>
+            {title != null ? (
+              <BannerHeading {...headingProps}>{title}</BannerHeading>
+            ) : null}
             {children}
           </BannerContent>
           {onDismiss ? (
-            <BannerCloseButtonWrapper>
+            <BannerCloseButtonWrapper {...closeButtonWrapperProps}>
               <CloseButton aria-label={dismissLabel} onClick={onDismiss} />
             </BannerCloseButtonWrapper>
           ) : null}
