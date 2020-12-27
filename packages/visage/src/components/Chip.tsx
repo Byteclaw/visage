@@ -15,16 +15,25 @@ import React, {
 import { createComponent } from '../core';
 import { CloseButton } from './CloseButton';
 import { createSurfaceFocusShadow } from './shared';
-import { booleanVariant, variant } from '../variants';
+import {
+  booleanVariant,
+  booleanVariantStyles,
+  variant,
+  variantStyles as createVariantStyles,
+} from '../variants';
 
 const variantStyles: { [key: string]: VisageStyleSheet } = {
   danger: {
     backgroundColor: 'danger',
     color: 'dangerText',
   },
-  primary: {
+  info: {
     backgroundColor: 'info',
     color: 'infoText',
+  },
+  primary: {
+    backgroundColor: 'primary',
+    color: 'primaryText',
   },
   success: {
     backgroundColor: 'success',
@@ -42,45 +51,34 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
 
 const outlinedVariantStyles: { [key: string]: VisageStyleSheet } = {
   success: {
-    backgroundColor: 'transparent',
     borderColor: 'success',
-    borderStyle: 'solid',
-    borderWidth: 1,
     color: 'success',
   },
   danger: {
-    backgroundColor: 'transparent',
     borderColor: 'danger',
-    borderStyle: 'solid',
-    borderWidth: 1,
     color: 'danger',
   },
+  info: {
+    borderColor: 'info',
+    color: 'info',
+  },
   warning: {
-    backgroundColor: 'transparent',
     borderColor: 'warning',
-    borderStyle: 'solid',
-    borderWidth: 1,
     color: 'warning',
   },
   primary: {
-    backgroundColor: 'transparent',
     borderColor: 'primary',
-    borderStyle: 'solid',
-    borderWidth: 1,
     color: 'primary',
   },
   default: {
-    backgroundColor: 'transparent',
-    borderColor: 'accent',
     borderStyle: 'solid',
-    borderWidth: 1,
     color: 'shadesText',
   },
 };
 
 const ChipBase = createComponent('div', {
   displayName: 'Chip',
-  styles: props => ({
+  styles: {
     borderRadius: '16px',
     display: 'inline-flex',
     fontFamily: 'heading',
@@ -95,15 +93,25 @@ const ChipBase = createComponent('div', {
       boxShadow: createSurfaceFocusShadow(),
     },
     transition: 'all 150ms',
-    ...(props.outlined
+    ...booleanVariantStyles('outlined', {
+      on: {
+        backgroundColor: 'transparent',
+        borderColor: 'accent',
+        borderWidth: 1,
+        ...createVariantStyles('variant', outlinedVariantStyles),
+      },
+      off: createVariantStyles('variant', variantStyles),
+    }),
+    /* ...(props.outlined
       ? outlinedVariantStyles[props.variant || 'default'] ||
         outlinedVariantStyles.default
-      : variantStyles[props.variant || 'default'] || variantStyles.default),
-  }),
+      : variantStyles[props.variant || 'default'] || variantStyles.default), */
+  },
   variants: [
     booleanVariant('outlined', true),
     variant('variant', true, [
       'danger',
+      'info',
       'primary',
       'success',
       'warning',
@@ -114,7 +122,7 @@ const ChipBase = createComponent('div', {
 
 const ChipLabel = createComponent('span', {
   displayName: 'ChipLabel',
-  styles: props => ({
+  styles: {
     alignSelf: 'center',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -122,12 +130,12 @@ const ChipLabel = createComponent('span', {
     px: 1.5,
     py: 0.5,
     lineHeight: '1.2rem',
-    ...(props.small
-      ? {
-          px: 1,
-        }
-      : {}),
-  }),
+    ...booleanVariantStyles('size', {
+      on: {
+        px: 1,
+      },
+    }),
+  },
   variants: [booleanVariant('small', false)],
 });
 
@@ -149,6 +157,7 @@ type ChipBaseProps = Omit<ExtractVisageComponentProps<typeof ChipBase>, 'ref'>;
 
 interface ChipProps extends ChipBaseProps {
   children: ReactNode;
+  labelProps?: ExtractVisageComponentProps<typeof ChipLabel>;
   /**
    * Called when clicked or chip is focused and Space/Enter is pressed on chip and chip is not readOnly
    */
@@ -169,6 +178,7 @@ export const Chip: VisageComponent<ChipProps> = markAsVisageComponent(
       (
         {
           children,
+          labelProps,
           onClick,
           onDelete,
           renderDeleter = defaultChipDeleteRenderer,
@@ -227,7 +237,9 @@ export const Chip: VisageComponent<ChipProps> = markAsVisageComponent(
             {...restProps}
             ref={ref}
           >
-            <ChipLabel small={small}>{children}</ChipLabel>
+            <ChipLabel small={small} {...labelProps}>
+              {children}
+            </ChipLabel>
             {onDelete ? renderDeleter({ onClick: onDeleteClick }) : null}
           </ChipBase>
         );

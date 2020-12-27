@@ -43,8 +43,6 @@ describe('Chip', () => {
         outline: none;
         -webkit-transition: all 150ms;
         transition: all 150ms;
-        background-color: rgb(238,238,238);
-        color: rgb(0,0,0);
       }
 
       .emotion-1[data-clickable="true"] {
@@ -54,6 +52,72 @@ describe('Chip', () => {
       .emotion-1:focus,
       .emotion-1[aria-selected="true"] {
         box-shadow: 0 0 0 4px rgba(255,255,255,0.4),0 0 0 4px rgb(0,0,255),inset 0 0 200px rgba(68,68,68,0.1);
+      }
+
+      .emotion-1[data-outlined="true"] {
+        background-color: rgba(0,0,0,0);
+        border-color: rgb(0,0,255);
+        border-width: 1px;
+      }
+
+      .emotion-1[data-outlined="true"][data-variant="success"] {
+        border-color: rgb(0,128,0);
+        color: rgb(0,128,0);
+      }
+
+      .emotion-1[data-outlined="true"][data-variant="danger"] {
+        border-color: rgb(255,0,0);
+        color: rgb(255,0,0);
+      }
+
+      .emotion-1[data-outlined="true"][data-variant="info"] {
+        border-color: rgb(0,255,255);
+        color: rgb(0,255,255);
+      }
+
+      .emotion-1[data-outlined="true"][data-variant="warning"] {
+        border-color: rgb(255,165,0);
+        color: rgb(255,165,0);
+      }
+
+      .emotion-1[data-outlined="true"][data-variant="primary"] {
+        border-color: rgb(173,216,230);
+        color: rgb(173,216,230);
+      }
+
+      .emotion-1[data-outlined="true"][data-variant="default"] {
+        border-style: solid;
+        color: rgb(255,255,255);
+      }
+
+      .emotion-1[data-outlined="false"][data-variant="danger"] {
+        background-color: rgb(255,0,0);
+        color: rgb(255,255,255);
+      }
+
+      .emotion-1[data-outlined="false"][data-variant="info"] {
+        background-color: rgb(0,255,255);
+        color: rgb(255,255,255);
+      }
+
+      .emotion-1[data-outlined="false"][data-variant="primary"] {
+        background-color: rgb(173,216,230);
+        color: rgb(255,255,255);
+      }
+
+      .emotion-1[data-outlined="false"][data-variant="success"] {
+        background-color: rgb(0,128,0);
+        color: rgb(255,255,255);
+      }
+
+      .emotion-1[data-outlined="false"][data-variant="warning"] {
+        background-color: rgb(255,165,0);
+        color: rgb(255,255,255);
+      }
+
+      .emotion-1[data-outlined="false"][data-variant="default"] {
+        background-color: rgb(238,238,238);
+        color: rgb(0,0,0);
       }
 
       .emotion-0 {
@@ -68,6 +132,11 @@ describe('Chip', () => {
         padding-top: 4px;
         padding-bottom: 4px;
         line-height: 1.2rem;
+      }
+
+      .emotion-0[data-size="true"] {
+        padding-left: 8px;
+        padding-right: 8px;
       }
 
       <div
