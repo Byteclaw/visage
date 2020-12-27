@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
   createContext,
@@ -175,7 +174,7 @@ export interface ListProps
 
 const defaultItemsContainer = <ListItemsContainer />;
 
-export const List: VisageComponent<ListProps> = markAsVisageComponent(
+export const List = markAsVisageComponent(
   forwardRef(
     (
       {
