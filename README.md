@@ -12,11 +12,11 @@
 
 ## Packages
 
-- [`@byteclaw/visage`](./src/visage) - Visage design system for React.
-- [`@byteclaw/visage-core`](./src/visage-core) - Visage design system core, useful to create own design systems.
-- [`@byteclaw/visage-themes`](./src/visage-themes) - Collection of themes and helpers to quickstart your project.
-- [`@byteclaw/visage-utils`](./src/visage-utils) - Utilities used in Visage.
-- [`@byteclaw/babel-plugin-visage`](./src/babel-plugin-visage) - Babel plugin that hoists Stylesheet object to increase performance.
+- [`@byteclaw/visage`](./packages/visage) - Visage design system for React.
+- [`@byteclaw/visage-core`](./packages/visage-core) - Visage design system core, useful to create own design systems.
+- [`@byteclaw/visage-themes`](./packages/visage-themes) - Collection of themes and helpers to quickstart your project.
+- [`@byteclaw/visage-utils`](./packages/visage-utils) - Utilities used in Visage.
+- [`@byteclaw/babel-plugin-visage`](./packages/babel-plugin-visage) - Babel plugin that hoists Stylesheet object to increase performance.
 
 ## Contributors
 
@@ -33,6 +33,7 @@
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
