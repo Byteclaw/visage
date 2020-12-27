@@ -1,6 +1,7 @@
 import { createComponent } from '../core';
 import {
   booleanVariant,
+  booleanVariantStyles,
   variant,
   variantStyles as createVariantStyles,
 } from '../variants';
@@ -44,16 +45,19 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
 const sizeVariantStyles: { [key: string]: VisageStyleSheet } = {
   small: {
     fontSize: -1,
+    lineHeight: -1,
     py: 0,
     px: 1,
   },
   medium: {
     fontSize: 0,
+    lineHeight: 0,
     py: 1,
     px: 2,
   },
   large: {
     fontSize: 1,
+    lineHeight: 1,
     py: 1.5,
     px: 2.5,
   },
@@ -125,7 +129,7 @@ const monochromeButtonVariants: VisageStyleSheet = {
 
 export const Button = createComponent('button', {
   displayName: 'Button',
-  styles: props => ({
+  styles: {
     appearance: 'none',
     alignItems: 'center',
     borderRadius: 'controlBorderRadius',
@@ -134,7 +138,8 @@ export const Button = createComponent('button', {
     cursor: 'pointer',
     display: 'inline-flex',
     flexShrink: 0,
-    fontSize: 0,
+    fontSize: 'inherit',
+    lineHeight: 'inherit',
     fontFamily: 'body',
     fontWeight: 600,
     justifyContent: 'center',
@@ -165,15 +170,16 @@ export const Button = createComponent('button', {
       boxShadow: createControlActiveShadow(),
     },
     // only outlined buttons can be monochrome
-    ...(props.outlined
-      ? props.monochrome
-        ? monochromeButtonVariants
-        : outlinedVariantStyles[props.variant || 'default'] ||
-          outlinedVariantStyles.default
-      : variantStyles[props.variant || 'default'] || variantStyles.default),
+    ...booleanVariantStyles('outlined', {
+      on: booleanVariantStyles('monochrome', {
+        on: monochromeButtonVariants,
+        off: createVariantStyles('variant', outlinedVariantStyles),
+      }),
+      off: createVariantStyles('variant', variantStyles),
+    }),
     ...createVariantStyles('size', sizeVariantStyles),
     '&[disabled]': disabledControlStyles,
-  }),
+  },
   variants: [
     booleanVariant('outlined', true),
     booleanVariant('monochrome', true),
