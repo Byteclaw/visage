@@ -35,7 +35,7 @@ const statusIcons = {
 
 const variantStyles: { [key: string]: VisageStyleSheet } = {
   critical: {
-    borderColor: 'danger.1',
+    borderColor: 'color(danger, shade(10%))',
     backgroundColor: 'danger',
     color: 'dangerText',
     '&:focus': {
@@ -43,7 +43,7 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
     },
   },
   info: {
-    borderColor: 'info.1',
+    borderColor: 'color(info, shade(10%))',
     backgroundColor: 'info',
     color: 'infoText',
     '&:focus': {
@@ -51,7 +51,7 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
     },
   },
   success: {
-    borderColor: 'success.1',
+    borderColor: 'color(success, shade(10%))',
     backgroundColor: 'success',
     color: 'successText',
     '&:focus': {
@@ -59,7 +59,7 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
     },
   },
   warning: {
-    borderColor: 'warning.1',
+    borderColor: 'color(warning, shade(10%))',
     backgroundColor: 'warning',
     color: 'warningText',
     '&:focus': {
@@ -67,7 +67,7 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
     },
   },
   default: {
-    borderColor: 'neutral.1',
+    borderColor: 'color(neutral, shade(10%))',
     backgroundColor: 'neutral',
     color: 'neutralText',
     '&:focus': {
@@ -107,20 +107,21 @@ const BannerBase = createComponent(Flex, {
 });
 
 const ribbonVariantStyles: { [key: string]: VisageStyleSheet } = {
+  // maybe we can remove these names and use color function instead?
   critical: {
-    color: 'danger.3',
+    color: 'dangerText',
   },
   info: {
-    color: 'info.3',
+    color: 'infoText',
   },
   success: {
-    color: 'success.3',
+    color: 'successText',
   },
   warning: {
-    color: 'warning.3',
+    color: 'warningText',
   },
   default: {
-    color: 'neutral.3',
+    color: 'neutralText',
   },
 };
 

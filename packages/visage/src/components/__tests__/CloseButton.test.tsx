@@ -47,17 +47,17 @@ describe('CloseButton', () => {
       }
 
       .emotion-1:focus {
-        background-color: rgb(0,0,255);
+        background-color: rgba(0,0,255,0.8);
         color: rgb(255,255,255);
       }
 
       .emotion-1:hover {
-        background-color: rgb(0,0,255);
+        background-color: rgba(0,0,255,0.8);
         color: rgb(255,255,255);
       }
 
       .emotion-1:active {
-        background-color: rgb(0,0,255);
+        background-color: rgba(0,0,255,0.8);
         color: rgb(255,255,255);
       }
 
@@ -202,17 +202,17 @@ describe('CloseButton', () => {
       }
 
       .emotion-1:focus {
-        background-color: rgb(0,0,255);
+        background-color: rgba(0,0,255,0.8);
         color: rgb(255,255,255);
       }
 
       .emotion-1:hover {
-        background-color: rgb(0,0,255);
+        background-color: rgba(0,0,255,0.8);
         color: rgb(255,255,255);
       }
 
       .emotion-1:active {
-        background-color: rgb(0,0,255);
+        background-color: rgba(0,0,255,0.8);
         color: rgb(255,255,255);
       }
 
