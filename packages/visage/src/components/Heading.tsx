@@ -95,13 +95,13 @@ const h6 = createComponent('h6', {
   styles: HeadingStyles.h6,
 });
 
-interface HeadingProps {
+type H1Props = JSX.IntrinsicElements['h1'];
+
+export interface HeadingProps extends H1Props {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export const Heading: VisageComponent<
-  JSX.IntrinsicElements['h1'] & HeadingProps
-> = markAsVisageComponent(
+export const Heading: VisageComponent<HeadingProps> = markAsVisageComponent(
   memo(
     forwardRef(
       (
