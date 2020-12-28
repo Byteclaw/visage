@@ -47,8 +47,8 @@
   "peerDependencies": {
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.8.6 || ^17.x",
+    "react-dom": "^16.8.6 || ^17.x",
     "react-range": "^1.6.1"
   },
   "devDependencies": {
