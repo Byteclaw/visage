@@ -45,9 +45,9 @@ function createDesignSystem<TTheme extends Theme = Theme>(
   const resolutionForBreakpointCache = resolution.get(breakpoint)!;
   const styleSheetCache = styleSheet.get(breakpoint)!;
 
-  const resolveCtx: StylerSheetResolveContext<ExtractThemeSettingsFromTheme<
-    TTheme
-  >> = {
+  const resolveCtx: StylerSheetResolveContext<
+    ExtractThemeSettingsFromTheme<TTheme>
+  > = {
     breakpoint,
     format: theme.format,
     resolve: theme.resolve,

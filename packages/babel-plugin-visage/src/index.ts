@@ -39,9 +39,9 @@ function isStylesObjectProperty(
 
   if (babel.types.isTemplateLiteral(node.key)) {
     // try to evaluate
-    const keyExpr = path.get('key') as babel.NodePath<
-      babel.types.TemplateLiteral
-    >;
+    const keyExpr = path.get(
+      'key',
+    ) as babel.NodePath<babel.types.TemplateLiteral>;
     const result = keyExpr.evaluate();
 
     return result.confident && result.value === 'styles';
@@ -71,9 +71,9 @@ export default function hostVisageStylesPlugin({
           return;
         }
 
-        const valuePath = path.get('value') as babel.NodePath<
-          babel.types.ObjectExpression
-        >;
+        const valuePath = path.get(
+          'value',
+        ) as babel.NodePath<babel.types.ObjectExpression>;
 
         if (isSimpleStyleSheetObjectExpression(valuePath)) {
           // replace with freeze
@@ -97,9 +97,9 @@ export default function hostVisageStylesPlugin({
           types.isJSXExpressionContainer(node.value) &&
           types.isObjectExpression(node.value.expression)
         ) {
-          const expressionPath = path.get('value.expression') as babel.NodePath<
-            babel.types.ObjectExpression
-          >;
+          const expressionPath = path.get(
+            'value.expression',
+          ) as babel.NodePath<babel.types.ObjectExpression>;
 
           if (isSimpleStyleSheetObjectExpression(expressionPath)) {
             // replace with freeze
