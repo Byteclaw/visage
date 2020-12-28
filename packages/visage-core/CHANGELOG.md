@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.13](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.12...@byteclaw/visage-core@1.0.0-alpha.13) (2020-12-28)
+
+
+### Bug Fixes
+
+* allow react 17 for core ([f687a30](https://github.com/Byteclaw/visage/commit/f687a30b2a214106c06544b604e0cb5724062783))
+
+
+
 ## [1.0.0-alpha.12](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.11...@byteclaw/visage-core@1.0.0-alpha.12) (2020-12-28)
 
 **Note:** Version bump only for package @byteclaw/visage-core

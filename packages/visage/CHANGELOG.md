@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.54](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.53...@byteclaw/visage@1.0.0-alpha.54) (2020-12-28)
+
+
+### Bug Fixes
+
+* update peer dependencies ([069c3fa](https://github.com/Byteclaw/visage/commit/069c3faa4ae98ee344b5c7be4ed8d9c78f86ba01))
+
+
+
 ## [1.0.0-alpha.53](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.52...@byteclaw/visage@1.0.0-alpha.53) (2020-12-28)
 
 
