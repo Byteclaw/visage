@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.53](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.52...@byteclaw/visage@1.0.0-alpha.53) (2020-12-28)
+
+
+### Features
+
+* allow to override banner props and add iconless banner ([7a67bba](https://github.com/Byteclaw/visage/commit/7a67bba7b2c350a095fd6ae8c852a05470046569))
+* export heading props ([6d474a0](https://github.com/Byteclaw/visage/commit/6d474a02484e73984bf03f349ca018c1c897eb14))
+* use color function in Banner ([cb13741](https://github.com/Byteclaw/visage/commit/cb13741f55ddb948f4a1de011f4cd0ba7700d901))
+
+
+### Bug Fixes
+
+* button variants and line heights ([deb3ed5](https://github.com/Byteclaw/visage/commit/deb3ed5b55227e942ebb9f94d17889637ef47883))
+* pass refs to ListItemLink ([80ed454](https://github.com/Byteclaw/visage/commit/80ed454374eda38f9e0d2e82bd228753a514504c))
+* remove unnecessary type ([238dc95](https://github.com/Byteclaw/visage/commit/238dc959e14e8f9d1862bbbd966319ebecfd8bf8))
+* use correct primary colors for primary chip and add info variant ([fa67f97](https://github.com/Byteclaw/visage/commit/fa67f977acc2b89b0094511478e1d332a26194d5))
+
+
+
 ## 1.0.0-alpha.52 (2020-10-07)
 
 * chore(visage): make positioning error message clear ([2ab86b5](https://github.com/Byteclaw/visage/commit/2ab86b5))

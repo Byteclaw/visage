@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.12](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.11...@byteclaw/visage-core@1.0.0-alpha.12) (2020-12-28)
+
+**Note:** Version bump only for package @byteclaw/visage-core
+
+
+
+
+
 ## 1.0.0-alpha.11 (2020-08-05)
 
 * feat: add intermediatory style sheet resolution cache ([862dfa6](https://github.com/Byteclaw/visage/commit/862dfa6))

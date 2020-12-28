@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.53](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-docs@1.0.0-alpha.52...@byteclaw/visage-docs@1.0.0-alpha.53) (2020-12-28)
+
+
+### Features
+
+* allow to override banner props and add iconless banner ([7a67bba](https://github.com/Byteclaw/visage/commit/7a67bba7b2c350a095fd6ae8c852a05470046569))
+
+
+### Bug Fixes
+
+* use correct primary colors for primary chip and add info variant ([fa67f97](https://github.com/Byteclaw/visage/commit/fa67f977acc2b89b0094511478e1d332a26194d5))
+
+
+
 ## 1.0.0-alpha.52 (2020-10-07)
 
 * docs: fix slider with tooltip documentation ([2364680](https://github.com/Byteclaw/visage/commit/2364680))
