@@ -114,6 +114,9 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
   }
 
   // if we pass options, we want to create new design system root
+  // we know that useRef can be called in condition
+  // because otherwise the component would throw
+  /* eslint-disable react-hooks/rules-of-hooks */
   if (options) {
     const cacheRef = useRef<DesignSystemCache>();
     const generatorRef = useRef<StyleGenerator>(options.styleGenerator);
@@ -141,6 +144,7 @@ export function useDesignSystem<TTheme extends Theme = Theme>(
       cacheRef.current,
     ]);
   }
+  /* eslint-enable react-hooks/rules-of-hooks */
 
   // ctx is defined because there is a check above
   return ctx as Visage<TTheme>;

@@ -1,4 +1,4 @@
-import { markAsVisageComponent, VisageComponent } from '@byteclaw/visage-core';
+import { markAsVisageComponent } from '@byteclaw/visage-core';
 import React, { forwardRef, createElement, memo } from 'react';
 import { createComponent } from '../core';
 import { SkeletonSentence } from './SkeletonSentence';
@@ -101,7 +101,7 @@ export interface HeadingProps extends H1Props {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
-export const Heading: VisageComponent<HeadingProps> = markAsVisageComponent(
+export const Heading = markAsVisageComponent(
   memo(
     forwardRef(
       (
@@ -136,7 +136,7 @@ export const Heading: VisageComponent<HeadingProps> = markAsVisageComponent(
       },
     ),
   ),
-) as any;
+);
 
 Heading.displayName = 'Heading';
 
@@ -149,9 +149,7 @@ interface HeadingSkeletonProps {
   mask?: number[];
 }
 
-export const HeadingSkeleton: VisageComponent<
-  JSX.IntrinsicElements['h1'] & HeadingProps & HeadingSkeletonProps
-> = markAsVisageComponent(
+export const HeadingSkeleton = markAsVisageComponent(
   memo(
     forwardRef(
       (
@@ -167,6 +165,6 @@ export const HeadingSkeleton: VisageComponent<
       },
     ),
   ),
-) as any;
+);
 
 HeadingSkeleton.displayName = 'HeadingSkeleton';

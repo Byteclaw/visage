@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React from 'react';
 import { createComponent } from '../core';
@@ -49,20 +48,25 @@ const ProgressBarProgress = createComponent('div', {
   },
 });
 
-export const ProgressBar: VisageComponent<{
+interface ProgressBarProps {
   baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
   progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
+  /**
+   * @default 100
+   */
   max?: number;
   value: number;
   valueText?: string;
-}> = function ProgressBar({
+}
+
+export const ProgressBar = markAsVisageComponent(function ProgressBar({
   baseProps,
   max = 100,
   progressProps,
   value,
   valueText,
   ...restProps
-}: any) {
+}: ProgressBarProps) {
   return (
     <ProgressBarBase {...baseProps} {...restProps}>
       <HiddenProgressBar aria-valuetext={valueText} value={value} max={max} />
@@ -72,6 +76,4 @@ export const ProgressBar: VisageComponent<{
       />
     </ProgressBarBase>
   );
-};
-
-markAsVisageComponent(ProgressBar);
+});

@@ -12,6 +12,7 @@ import React, {
   forwardRef,
   RefObject,
   Ref,
+  useRef,
 } from 'react';
 import {
   findNextMatchingSiblingElement,
@@ -118,7 +119,8 @@ export const Menu = markAsVisageComponent(function Menu({
   popoverProps,
   ...restProps
 }: MenuProps) {
-  const menuRef = useCombinedRef(baseRef);
+  const menuRef = useRef<HTMLElement>();
+  const menuRefCallback = useCombinedRef(menuRef, baseRef);
   const onKeyDown: KeyboardEventHandler<HTMLElement> = useCallback(
     e => {
       if (outerOnKeyDown) {
@@ -246,7 +248,7 @@ export const Menu = markAsVisageComponent(function Menu({
         ...popoverProps?.styles,
       }}
     >
-      <MenuBase ref={menuRef} role={role} {...restProps} tabIndex={-1}>
+      <MenuBase ref={menuRefCallback} role={role} {...restProps} tabIndex={-1}>
         {Children.map(children, menuItem => {
           return cloneElement(menuItem as any, {
             onKeyDown,
@@ -257,20 +259,20 @@ export const Menu = markAsVisageComponent(function Menu({
   );
 });
 
-export const MenuItem: typeof MenuItemBase = forwardRef(
-  (
-    { children, role = 'menuitem', ...restProps }: MenuItemProps,
-    ref: Ref<HTMLLIElement>,
-  ) => {
-    // https://www.w3.org/TR/wai-aria-practices-1.1/#wai-aria-roles-states-and-properties-13
-    return (
-      <MenuItemBase tabIndex={-1} role={role} ref={ref} {...restProps}>
-        {children}
-      </MenuItemBase>
-    );
-  },
-) as any;
+export const MenuItem = markAsVisageComponent(
+  forwardRef(
+    (
+      { children, role = 'menuitem', ...restProps }: MenuItemProps,
+      ref: Ref<HTMLLIElement>,
+    ) => {
+      // https://www.w3.org/TR/wai-aria-practices-1.1/#wai-aria-roles-states-and-properties-13
+      return (
+        <MenuItemBase tabIndex={-1} role={role} ref={ref} {...restProps}>
+          {children}
+        </MenuItemBase>
+      );
+    },
+  ),
+);
 
 MenuItem.displayName = 'MenuItem';
-
-markAsVisageComponent(MenuItem);

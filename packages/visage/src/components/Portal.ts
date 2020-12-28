@@ -3,7 +3,13 @@ import { createPortal } from 'react-dom';
 
 interface PortalProps {
   children: ReactNode;
+  /**
+   * @default 'portal-root'
+   */
   containerId?: string;
+  /**
+   * @default true
+   */
   removeOnUnmount?: boolean;
 }
 
@@ -11,7 +17,7 @@ export function Portal({
   children,
   containerId = 'portal-root',
   removeOnUnmount = true,
-}: PortalProps) {
+}: PortalProps): React.ReactPortal | null {
   const portalContainer: null | HTMLDivElement = useMemo(() => {
     if (typeof document !== 'undefined') {
       let el = document.getElementById(containerId);
@@ -30,7 +36,7 @@ export function Portal({
     }
 
     return null;
-  }, [true]);
+  }, [containerId]);
 
   useEffect(
     () => () => {
@@ -38,7 +44,7 @@ export function Portal({
         document.body.removeChild(portalContainer);
       }
     },
-    [],
+    [removeOnUnmount, portalContainer],
   );
 
   if (portalContainer == null) {

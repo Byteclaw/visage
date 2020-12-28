@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, { forwardRef, ReactNode, MouseEvent, Ref } from 'react';
 import {
@@ -205,9 +204,7 @@ interface BannerProps {
   title?: ReactNode;
 }
 
-export const Banner: VisageComponent<
-  BannerProps & BannerBaseProps
-> = markAsVisageComponent(
+export const Banner = markAsVisageComponent(
   forwardRef(
     (
       {
@@ -266,4 +263,4 @@ export const Banner: VisageComponent<
       );
     },
   ),
-) as any;
+);

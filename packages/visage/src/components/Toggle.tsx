@@ -1,6 +1,5 @@
 import {
   ExtractVisageComponentProps,
-  VisageComponent,
   StyleProps,
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
@@ -196,7 +195,7 @@ interface ToggleProps
   rightContent?: ReactNode;
 }
 
-export const Toggle: VisageComponent<ToggleProps> = markAsVisageComponent(
+export const Toggle = markAsVisageComponent(
   memo(
     forwardRef(function Toggle(
       {

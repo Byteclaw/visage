@@ -4,6 +4,7 @@ import React, { useContext, useState, ReactElement, useRef } from 'react';
 import {
   CloseListenerManager,
   CloseListenerManagerContext,
+  OnCloseHandler,
 } from '../CloseListenerManager';
 import { useOnRenderEffect } from '../../hooks';
 
@@ -16,7 +17,7 @@ function RenderClosable({
   children?: (onClose: () => void) => ReactElement;
   id: string;
   isFullscreen?: boolean;
-  onClose(e: Event): void;
+  onClose: OnCloseHandler;
 }) {
   const divRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(true);
@@ -74,7 +75,7 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2" onClose={onClose}>
-                    {onClose => <RenderClosable id="3" onClose={onClose} />}
+                    {onClose1 => <RenderClosable id="3" onClose={onClose1} />}
                   </RenderClosable>
                 )}
               </RenderClosable>
@@ -85,7 +86,7 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1-1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2-2" onClose={onClose}>
-                    {onClose => <RenderClosable id="3-3" onClose={onClose} />}
+                    {onClose1 => <RenderClosable id="3-3" onClose={onClose1} />}
                   </RenderClosable>
                 )}
               </RenderClosable>
@@ -158,7 +159,7 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2" onClose={onClose}>
-                    {onClose => <RenderClosable id="3" onClose={onClose} />}
+                    {onClose1 => <RenderClosable id="3" onClose={onClose1} />}
                   </RenderClosable>
                 )}
               </RenderClosable>
@@ -169,7 +170,7 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1-1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2-2" onClose={onClose}>
-                    {onClose => <RenderClosable id="3-3" onClose={onClose} />}
+                    {onClose1 => <RenderClosable id="3-3" onClose={onClose1} />}
                   </RenderClosable>
                 )}
               </RenderClosable>
@@ -236,11 +237,11 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2" onClose={onClose}>
-                    {onClose => (
+                    {onClose1 => (
                       <RenderClosable
                         id="3"
                         isFullscreen={false}
-                        onClose={onClose}
+                        onClose={onClose1}
                       />
                     )}
                   </RenderClosable>
@@ -253,11 +254,11 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1-1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2-2" onClose={onClose}>
-                    {onClose => (
+                    {onClose1 => (
                       <RenderClosable
                         id="3-3"
                         isFullscreen={false}
-                        onClose={onClose}
+                        onClose={onClose1}
                       />
                     )}
                   </RenderClosable>
@@ -309,9 +310,13 @@ describe('CloseListenerManager', () => {
           <RenderClosable id="1" onClose={onRootClose}>
             {onClose => (
               <RenderClosable id="2" onClose={onClose}>
-                {onClose => (
-                  <RenderClosable id="3" isFullscreen={false} onClose={onClose}>
-                    {onClose => (
+                {onClose1 => (
+                  <RenderClosable
+                    id="3"
+                    isFullscreen={false}
+                    onClose={onClose1}
+                  >
+                    {onClose2 => (
                       <RenderClosable
                         id="4"
                         isFullscreen={false}
@@ -320,7 +325,7 @@ describe('CloseListenerManager', () => {
                             e.preventDefault();
                             close4++;
                           } else {
-                            onClose();
+                            onClose2();
                           }
                         }}
                       />
@@ -369,11 +374,11 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2" onClose={onClose}>
-                    {onClose => (
+                    {onClose1 => (
                       <RenderClosable
                         id="3"
                         isFullscreen={false}
-                        onClose={onClose}
+                        onClose={onClose1}
                       />
                     )}
                   </RenderClosable>
@@ -386,11 +391,11 @@ describe('CloseListenerManager', () => {
               <RenderClosable id="1-1" onClose={onRootClose}>
                 {onClose => (
                   <RenderClosable id="2-2" onClose={onClose}>
-                    {onClose => (
+                    {onClose1 => (
                       <RenderClosable
                         id="3-3"
                         isFullscreen={false}
-                        onClose={onClose}
+                        onClose={onClose1}
                       />
                     )}
                   </RenderClosable>

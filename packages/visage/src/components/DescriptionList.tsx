@@ -61,7 +61,7 @@ export function DescriptionListItem({
   prefix,
   suffix,
   term,
-}: DescriptionListItemProps) {
+}: DescriptionListItemProps): React.ReactElement {
   return (
     <>
       {prefix}
@@ -74,7 +74,7 @@ export function DescriptionListItem({
   );
 }
 
-export const DescriptionList: typeof DescriptionListBase = function DescriptionList({
+export const DescriptionList = markAsVisageComponent(function DescriptionList({
   children,
   ...restProps
 }: ExtractVisageComponentProps<typeof DescriptionListBase>) {
@@ -91,6 +91,4 @@ export const DescriptionList: typeof DescriptionListBase = function DescriptionL
       })}
     </DescriptionListBase>
   );
-};
-
-markAsVisageComponent(DescriptionList);
+});

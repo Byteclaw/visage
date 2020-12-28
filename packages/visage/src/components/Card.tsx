@@ -1,6 +1,5 @@
 import React, { ReactElement, ReactNode, forwardRef } from 'react';
 import {
-  VisageComponent,
   markAsVisageComponent,
   ExtractVisageComponentProps,
 } from '@byteclaw/visage-core';
@@ -62,33 +61,33 @@ const CardContent = createComponent('div', {
   },
 });
 
-interface CardProps {
+type CardBaseProps = ExtractVisageComponentProps<typeof CardBase>;
+
+interface CardProps extends Omit<CardBaseProps, 'children' | 'touchable'> {
   contentProps?: ExtractVisageComponentProps<typeof CardContent>;
   touchableProps?: ExtractVisageComponentProps<typeof CardTouchable>;
   children?: ReactNode;
   touchable?: ReactElement;
 }
 
-export const Card: VisageComponent<
-  CardProps & ExtractVisageComponentProps<typeof CardBase>
-> = forwardRef(
-  (
-    {
-      children,
-      contentProps,
-      touchable,
-      touchableProps,
-      ...restProps
-    }: CardProps,
-    ref: any,
-  ) => (
-    <CardBase touchable={!!touchable} ref={ref} {...restProps}>
-      {touchable ? (
-        <CardTouchable {...touchableProps}>{touchable}</CardTouchable>
-      ) : null}
-      <CardContent {...contentProps}>{children}</CardContent>
-    </CardBase>
+export const Card = markAsVisageComponent(
+  forwardRef(
+    (
+      {
+        children,
+        contentProps,
+        touchable,
+        touchableProps,
+        ...restProps
+      }: CardProps,
+      ref: any,
+    ) => (
+      <CardBase touchable={!!touchable} ref={ref} {...restProps}>
+        {touchable ? (
+          <CardTouchable {...touchableProps}>{touchable}</CardTouchable>
+        ) : null}
+        <CardContent {...contentProps}>{children}</CardContent>
+      </CardBase>
+    ),
   ),
-) as any;
-
-markAsVisageComponent(Card);
+);

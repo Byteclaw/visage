@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import { keyframes } from '@emotion/core';
 import React from 'react';
@@ -71,20 +70,25 @@ const ProgressBarProgress = createComponent('div', {
   variants: [booleanVariant('indeterminate', true)],
 });
 
-export const Loading: VisageComponent<{
+interface LoadingProps {
   baseProps?: ExtractVisageComponentProps<typeof ProgressBarBase>;
   indeterminate?: boolean;
   progressProps?: ExtractVisageComponentProps<typeof ProgressBarProgress>;
+  /**
+   * @default 0
+   */
   value?: number;
   valueText?: string;
-}> = function Loading({
+}
+
+export const Loading = markAsVisageComponent(function Loading({
   baseProps,
   indeterminate,
   progressProps,
-  value,
+  value = 0,
   valueText,
   ...restProps
-}: any) {
+}: LoadingProps) {
   return (
     <ProgressBarBase
       role="progressbar"
@@ -104,6 +108,4 @@ export const Loading: VisageComponent<{
       />
     </ProgressBarBase>
   );
-};
-
-markAsVisageComponent(Loading);
+});

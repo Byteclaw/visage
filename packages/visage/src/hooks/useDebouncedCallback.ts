@@ -4,7 +4,7 @@ export function useDebouncedCallback<T extends (...args: any[]) => any>(
   callback: T,
   delay: number,
   deps: any[],
-): [T, Function] {
+): [T, () => void] {
   const callbackRef = useRef<T | null>(null);
   const currentTimeout = useRef<any>();
   const cancel = useCallback(() => {
@@ -34,6 +34,7 @@ export function useDebouncedCallback<T extends (...args: any[]) => any>(
         ...args,
       );
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [delay, ...deps],
   );
 

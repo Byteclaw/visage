@@ -159,7 +159,7 @@ type SpinButtonValueProps = ExtractVisageComponentProps<typeof SpinButtonValue>;
 
 declare function SpinButtonComponent<TValue = any>(
   props: SpinButtonValueProps & SpinButtonProps<TValue>,
-): ReactElement<any, any> | null;
+): ReactElement | null;
 
 export const SpinButton: typeof SpinButtonComponent = markAsVisageComponent(
   memo(
@@ -216,7 +216,8 @@ export const SpinButton: typeof SpinButtonComponent = markAsVisageComponent(
             return undefined;
           };
         }, [valueText]);
-        const valueElementRef = useCombinedRef(ref);
+        const valueElementRef = useRef();
+        const valueElementRefCallback = useCombinedRef(valueElementRef, ref);
         const handleChange = useHandlerRef((index: number) => {
           if (!isControlled) {
             setSelectedIndex(index);
@@ -340,7 +341,7 @@ export const SpinButton: typeof SpinButtonComponent = markAsVisageComponent(
               aria-readonly={readOnly}
               onChange={onChange}
               onKeyDown={disabled || readOnly ? undefined : onKeyDown}
-              ref={valueElementRef}
+              ref={valueElementRefCallback}
               role="spinbutton"
               tabIndex={disabled ? undefined : 0}
             >

@@ -111,7 +111,7 @@ export function Tab({
   onClick,
   onKeyDown,
   ...restProps
-}: TabProps & BoxProps) {
+}: TabProps & BoxProps): React.ReactElement {
   return (
     <Box {...restProps}>
       {typeof children === 'function'
@@ -141,7 +141,7 @@ export function Tabs({
   selected = 0,
   tabListProps,
   ...restProps
-}: TabsProps & FlexProps) {
+}: TabsProps & FlexProps): React.ReactElement {
   const id = useUniqueId(outerId, 'tabs');
   const childrenArray = Children.toArray(children) as ReactElement<
     TabProps & BoxProps

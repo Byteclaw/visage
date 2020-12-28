@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, { forwardRef, Ref } from 'react';
 import { ErrorIcon } from '../assets';
@@ -28,11 +27,11 @@ const InlineErrorIcon = createComponent(SvgIcon, {
 
 type FlexProps = ExtractVisageComponentProps<typeof InlineErrorWrapper>;
 
-export const InlineError: VisageComponent<FlexProps> = markAsVisageComponent(
+export const InlineError = markAsVisageComponent(
   forwardRef(({ children, ...restProps }: FlexProps, ref: Ref<any>) => (
     <InlineErrorWrapper ref={ref} {...restProps}>
       <InlineErrorIcon icon={ErrorIcon} />
       {children}
     </InlineErrorWrapper>
   )),
-) as any;
+);

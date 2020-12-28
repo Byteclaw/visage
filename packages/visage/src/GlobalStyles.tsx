@@ -9,10 +9,12 @@ interface GlobalStylesProps {
 /**
  * Allows to apply visage style sheet to global styles
  */
-export function GlobalStyles({ styles = {} }: GlobalStylesProps) {
+export function GlobalStyles({
+  styles = {},
+}: GlobalStylesProps): React.ReactElement {
   const ctx = useDesignSystem<Theme>();
   const globalStyles = useMemo(() => ctx.resolveStyleSheets([styles]), [
-    ctx.resolveStyleSheets,
+    ctx,
     styles,
   ]);
 

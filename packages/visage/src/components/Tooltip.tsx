@@ -77,7 +77,7 @@ function bindEscapeKeyDownHandlers(
 }
 
 function cancelDebouncedVisibilityChangeOnUnmount(
-  cancelDebouncedVisibleChanger: Function,
+  cancelDebouncedVisibleChanger: () => void,
 ) {
   return () => cancelDebouncedVisibleChanger();
 }
@@ -160,7 +160,7 @@ export function Tooltip({
   delay = 500,
   id: outerId,
   status,
-}: TooltipProps) {
+}: TooltipProps): React.ReactElement {
   const id = useUniqueId(outerId, 'tooltip');
   const [visible, setVisible] = useState(false);
   const anchorRef = useRef<HTMLElement | null>(null);
@@ -189,7 +189,7 @@ export function Tooltip({
   const onBlur = useCallback(() => {
     setVisible(false);
     cancelDebouncedVisibleChanger();
-  }, [debouncedVisibleChanger]);
+  }, [cancelDebouncedVisibleChanger]);
   const onFocus = useCallback(() => {
     debouncedVisibleChanger(true);
   }, [debouncedVisibleChanger]);

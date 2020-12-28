@@ -22,7 +22,7 @@ interface DesignSystemProps {
 
 const initIsDarkMode = store.get(STORAGE_KEY_DARK_MODE, false);
 
-export function DesignSystem({ children }: DesignSystemProps) {
+export function DesignSystem({ children }: DesignSystemProps): JSX.Element {
   const [isDark, setDarkTheme] = useState(false);
   const [colors, setColorPalette] = useState<ColorPalette>(
     docsThemeColorPalette,
@@ -45,6 +45,8 @@ export function DesignSystem({ children }: DesignSystemProps) {
     [colors, isDark],
   );
 
+  // we want this to run only once on mount, so we ignore deps
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     // set up the theme by local storage in new render pass because
     // React.hydrate used by gatsby does not pick up theme correctly (which is correct behaviour)
@@ -53,6 +55,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
       togglePaletteMode();
     }
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <ResponsiveDesignSystem theme={theme}>
@@ -60,7 +63,7 @@ export function DesignSystem({ children }: DesignSystemProps) {
         value={{
           colorPalette: colors,
           isDark,
-          useDark: togglePaletteMode,
+          setMode: togglePaletteMode,
           setColorPalette,
         }}
       >

@@ -3,17 +3,19 @@ module.exports = {
     jest: true,
     browser: true,
   },
-  extends: [
-    'airbnb-typescript',
-    'prettier',
-    'prettier/react',
-    'prettier/@typescript-eslint',
-  ],
-  parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'prettier'],
+  extends: ['airbnb-typescript-prettier'],
   rules: {
+    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     '@typescript-eslint/no-implied-eval': 'off',
     '@typescript-eslint/no-throw-literal': 'off',
+    '@typescript-eslint/no-inferrable-types': 'off',
+    '@typescript-eslint/no-shadow': ['error', { ignoreTypeValueShadow: true }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { args: 'after-used', ignoreRestSiblings: true },
+    ],
     'consistent-return': 'off',
     'default-case': 'off',
     'import/prefer-default-export': 'off',
@@ -28,5 +30,10 @@ module.exports = {
     'no-plusplus': 'off',
     'no-restricted-syntax': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react/no-unused-prop-types': 'off',
+  },
+  parserOptions: {
+    project: null,
   },
 };

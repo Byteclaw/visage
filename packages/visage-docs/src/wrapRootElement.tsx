@@ -19,6 +19,7 @@ import {
   PropTypes,
 } from './components';
 import { slugify } from './utils';
+import { NavigationTree } from './types';
 
 function createHeadingUrl(slug: string): string {
   if (typeof window === 'undefined') {
@@ -110,10 +111,13 @@ const mdxComponents: { [key: string]: React.ReactNode } = {
 
 interface RootProps {
   element: React.ReactNode;
-  props: PageProps<object, { withoutLayout?: boolean }>;
+  props: PageProps<
+    Record<string, any>,
+    { withoutLayout?: boolean; navigationTree: NavigationTree }
+  >;
 }
 
-export const wrapRootElement = ({ element }: RootProps) => {
+export const wrapRootElement = ({ element }: RootProps): React.ReactElement => {
   return (
     <DesignSystem>
       <MDXProvider components={mdxComponents}>
@@ -133,7 +137,10 @@ export const wrapRootElement = ({ element }: RootProps) => {
   );
 };
 
-export const wrapPageElement = ({ element, props }: RootProps) => {
+export const wrapPageElement = ({
+  element,
+  props,
+}: RootProps): React.ReactNode => {
   const {
     pageContext: { withoutLayout },
   } = props;

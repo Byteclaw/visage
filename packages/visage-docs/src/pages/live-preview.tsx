@@ -6,7 +6,7 @@ import { ThemeTogglerContext } from '../theme';
 const { Box } = DSScope;
 
 export default function LivePreview() {
-  const { isDark, useDark } = useContext(ThemeTogglerContext);
+  const { isDark, setMode } = useContext(ThemeTogglerContext);
   // eslint-disable-next-line react/destructuring-assignment
   const [code, setCode] = useState(
     decodeURIComponent(
@@ -26,7 +26,7 @@ export default function LivePreview() {
       : false;
 
   if (!isDark && themeModeRef.current === 'dark') {
-    useDark(false);
+    setMode('light');
   }
 
   useEffect(() => {

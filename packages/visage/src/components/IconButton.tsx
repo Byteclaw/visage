@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import {
   markAsVisageComponent,
-  VisageComponent,
   ExtractVisageComponentProps,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
@@ -98,11 +97,11 @@ interface IconButtonProps
   ref?: Ref<HTMLButtonElement>;
 }
 
-export const IconButton: VisageComponent<IconButtonProps> = markAsVisageComponent(
+export const IconButton = markAsVisageComponent(
   memo(
     forwardRef(
       (
-        { icon, iconProps, label, ...restProps },
+        { icon, iconProps, label, ...restProps }: IconButtonProps,
         ref: Ref<HTMLButtonElement>,
       ) => {
         return (

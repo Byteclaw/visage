@@ -2,7 +2,6 @@ import { ExtractVisageComponentProps } from '@byteclaw/visage-core';
 import React, {
   Children,
   cloneElement,
-  ReactElement,
   ReactNode,
   useState,
   MouseEventHandler,
@@ -129,7 +128,7 @@ export function AccordionItem({
   title,
   triggerId,
   triggerProps,
-}: AccordionItemProps) {
+}: AccordionItemProps): React.ReactElement {
   return (
     <>
       <AccordionTrigger
@@ -155,20 +154,25 @@ export function AccordionItem({
   );
 }
 
-type AccordionItemElement = ReactElement<AccordionItemProps>;
+type AccordionItemElement = React.ReactElement<AccordionItemProps>;
 
 interface AccordionProps {
   id?: string;
   children: AccordionItemElement | AccordionItemElement[];
 }
 
-export function Accordion({ children, id }: AccordionProps) {
+export function Accordion({
+  children,
+  id,
+}: AccordionProps): React.ReactElement {
   const accordionId = useUniqueId(id, 'accordion');
-  const items: ReactElement<AccordionItemProps>[] = Children.toArray(
+  const items: React.ReactElement<AccordionItemProps>[] = Children.toArray(
     children,
-  ) as ReactElement<AccordionItemProps>[];
+  ) as React.ReactElement<AccordionItemProps>[];
   const controlledIndex = useMemo(() => {
     return items.findIndex(item => item.props.open);
+    // items depends on children, so we need just children
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [children]);
 
   const [openItem, setOpenItem] = useState(

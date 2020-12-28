@@ -9,7 +9,4 @@ import './stylesheet';
 
 export { createComponent } from '@byteclaw/visage-core';
 
-export const createTheme: CreateThemeFactory<
-  VisageStylingProperties,
-  VisageFaces
-> = baseCreateTheme;
+export const createTheme: CreateThemeFactory<VisageFaces> = baseCreateTheme;

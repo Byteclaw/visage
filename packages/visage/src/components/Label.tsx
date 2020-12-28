@@ -34,7 +34,7 @@ interface LabelProps extends ExtractVisageComponentProps<typeof LabelBase> {
   requiredTitle?: string;
 }
 
-function Label({
+export const Label = markAsVisageComponent(function Label({
   children,
   required,
   requiredTitle = 'Required',
@@ -51,9 +51,4 @@ function Label({
       ) : null}
     </LabelBase>
   );
-}
-
-// mark as visage component, so we can passthrough outer styles
-markAsVisageComponent(Label);
-
-export { Label };
+});

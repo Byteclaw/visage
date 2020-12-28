@@ -9,7 +9,6 @@ import React, {
 import {
   markAsVisageComponent,
   ExtractVisageComponentProps,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import {
@@ -127,78 +126,76 @@ interface TextInputProps {
   suffixProps?: ExtractVisageComponentProps<typeof InputExtraElement>;
 }
 
-export const TextInput: VisageComponent<
-  TextInputProps & InputProps
-> = forwardRef(
-  (
-    {
-      baseProps,
-      disabled,
-      invalid,
-      onBlur: outerOnBlur,
-      onFocus: outerOnFocus,
-      prefix,
-      prefixExtra,
-      prefixProps,
-      suffix,
-      suffixExtra,
-      suffixProps,
-      ...restProps
-    }: TextInputProps & InputProps,
-    ref: Ref<HTMLInputElement>,
-  ) => {
-    const [focused, setFocused] = useState(false);
-    const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(
-      e => {
-        setFocused(false);
+export const TextInput = markAsVisageComponent(
+  forwardRef(
+    (
+      {
+        baseProps,
+        disabled,
+        invalid,
+        onBlur: outerOnBlur,
+        onFocus: outerOnFocus,
+        prefix,
+        prefixExtra,
+        prefixProps,
+        suffix,
+        suffixExtra,
+        suffixProps,
+        ...restProps
+      }: TextInputProps & InputProps,
+      ref: Ref<HTMLInputElement>,
+    ) => {
+      const [focused, setFocused] = useState(false);
+      const onBlur: FocusEventHandler<HTMLInputElement> = useCallback(
+        e => {
+          setFocused(false);
 
-        if (outerOnBlur) outerOnBlur(e);
-      },
-      [outerOnBlur],
-    );
-    const onFocus: FocusEventHandler<HTMLInputElement> = useCallback(
-      e => {
-        setFocused(true);
+          if (outerOnBlur) outerOnBlur(e);
+        },
+        [outerOnBlur],
+      );
+      const onFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+        e => {
+          setFocused(true);
 
-        if (outerOnFocus) outerOnFocus(e);
-      },
-      [outerOnFocus],
-    );
+          if (outerOnFocus) outerOnFocus(e);
+        },
+        [outerOnFocus],
+      );
 
-    return (
-      <InputBase
-        {...baseProps}
-        data-focused={focused}
-        disabled={disabled}
-        invalid={invalid}
-      >
-        {prefix ? (
-          <InputExtraElement {...prefixProps} data-prefix>
-            {prefix}
-          </InputExtraElement>
-        ) : null}
-        <TextInputControlBase>
-          {prefixExtra}
-          <TextInputControl
-            aria-invalid={invalid}
-            data-prefix={prefix ? true : undefined}
-            data-suffix={suffix ? true : undefined}
-            disabled={disabled}
-            onBlur={onBlur}
-            onFocus={onFocus}
-            ref={ref}
-            {...restProps}
-          />
-          {suffixExtra}
-        </TextInputControlBase>
-        {suffix ? (
-          <InputExtraElement {...suffixProps} data-suffix>
-            {suffix}
-          </InputExtraElement>
-        ) : null}
-      </InputBase>
-    );
-  },
-) as any;
-
-markAsVisageComponent(TextInput);
+      return (
+        <InputBase
+          {...baseProps}
+          data-focused={focused}
+          disabled={disabled}
+          invalid={invalid}
+        >
+          {prefix ? (
+            <InputExtraElement {...prefixProps} data-prefix>
+              {prefix}
+            </InputExtraElement>
+          ) : null}
+          <TextInputControlBase>
+            {prefixExtra}
+            <TextInputControl
+              aria-invalid={invalid}
+              data-prefix={prefix ? true : undefined}
+              data-suffix={suffix ? true : undefined}
+              disabled={disabled}
+              onBlur={onBlur}
+              onFocus={onFocus}
+              ref={ref}
+              {...restProps}
+            />
+            {suffixExtra}
+          </TextInputControlBase>
+          {suffix ? (
+            <InputExtraElement {...suffixProps} data-suffix>
+              {suffix}
+            </InputExtraElement>
+          ) : null}
+        </InputBase>
+      );
+    },
+  ),
+);

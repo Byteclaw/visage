@@ -15,14 +15,10 @@ import {
   StyleSheetFaces,
   StyleValueFormatter,
   StyleValueResolver,
-  ValidStyleSheet,
   StyleSheetThemeSettings,
 } from '../styleSheet';
 
-export interface CreateThemeFactory<
-  TStyleSheet extends ValidStyleSheet,
-  TDefaultFaces extends StyleSheetFaces
-> {
+export interface CreateThemeFactory<TDefaultFaces extends StyleSheetFaces> {
   <
     TFormattersName extends keyof any = any,
     TResolversName extends keyof any = any,

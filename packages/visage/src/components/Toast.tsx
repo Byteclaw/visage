@@ -64,7 +64,7 @@ export const ToastManager = createComponent(
         unbindMount();
         unbindUnmount();
       };
-    }, []);
+    }, [toastEventEmitter]);
 
     return (
       <div aria-live="polite" data-toastmanager {...props}>
@@ -137,6 +137,8 @@ export const Toast = createComponent(
     // override onDismiss every time, we don't want to update toast after initial render
     onDismissRef.current = onDismiss;
 
+    // we want this effect to be called only on mount
+    /* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
       const dismiss = () => {
         if (onDismissRef.current) {
@@ -179,6 +181,7 @@ export const Toast = createComponent(
         toastEventEmitter.emit('UNMOUNT', toast);
       };
     }, []);
+    /* eslint-enable react-hooks/exhaustive-deps */
 
     return null;
   },

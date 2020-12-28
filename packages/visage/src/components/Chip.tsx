@@ -224,7 +224,7 @@ export const Chip: VisageComponent<ChipProps> = markAsVisageComponent(
                 }
             }
           },
-          [onDelete],
+          [onDelete, onClick],
         );
 
         return (
