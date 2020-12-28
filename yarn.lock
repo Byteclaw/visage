@@ -1499,20 +1499,20 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@byteclaw/use-event-emitter@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@byteclaw/use-event-emitter/-/use-event-emitter-1.0.0.tgz#05f88069e098a2cb3b49508f67d5a29b90ed49dc"
-  integrity sha512-HsfNxUnT+VpHa3IlsUNKXQPQMsdsvh3zalJ1AqMXRHAN8YYPoGJelHxDVMDO2INgqtKno919522m7NBZOrTQug==
+"@byteclaw/use-event-emitter@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@byteclaw/use-event-emitter/-/use-event-emitter-1.0.1.tgz#0241ba83e29eacf4dce45ccbc602e975a4e0a681"
+  integrity sha512-HnkzsSdTp4mkQAuT9shH2e3kVa1MGjWN+qgj0axDgGsTVCW9ICMSJQk7CMCuNUh6OlZYrn6ozvszV01LPny/aw==
 
-"@byteclaw/use-static-callback@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@byteclaw/use-static-callback/-/use-static-callback-1.1.0.tgz#b2e6c50dc26f96ae7dcfddbcbd03b1a28a26c106"
-  integrity sha512-yzrPl5N6RwT2hLDmG86J+b6lCPuauG8qjrmwG5uJCmEcuAl4ZcjW06W7VDtIOVCVkZiPHvCi/2SEXAW5qZbkIg==
+"@byteclaw/use-static-callback@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@byteclaw/use-static-callback/-/use-static-callback-1.1.1.tgz#4b5cfd0eef0e1b6211ba694978506e1d171da63f"
+  integrity sha512-eE3G45euw3SaGXV1kKh9BxV8Eu9zYoZIvzWnfiVL6qMVmVd+7fbovhziDTzxMdzd+1kE/QkBHoEsBM5n3kFwTQ==
 
-"@byteclaw/use-unique-id@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@byteclaw/use-unique-id/-/use-unique-id-1.0.0.tgz#afb4caeee3eb923c1ea31c5c219de622aca401fd"
-  integrity sha512-TdZJAELQZS5xlXjATBbFkf9hKdYrJP6ZsoyuE3/AJvFxxKTK1Wp/DOoRJ4qn3RdsBXvblD4DmMSui+tQb1Q7dA==
+"@byteclaw/use-unique-id@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@byteclaw/use-unique-id/-/use-unique-id-1.0.1.tgz#9fb204ca320b50407185f493224969570a047373"
+  integrity sha512-+E81AxCwFCJroL1EWkC1X7e7+7BIpSGWGJo0y14MMb87smt+F0GaaMlPUzc4r9PcQ7VWYNQxxrF5/QRA0g3vBA==
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"

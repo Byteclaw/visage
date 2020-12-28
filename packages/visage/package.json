@@ -34,9 +34,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@byteclaw/use-event-emitter": "^1.0.0",
-    "@byteclaw/use-static-callback": "^1.1.0",
-    "@byteclaw/use-unique-id": "^1.0.0",
+    "@byteclaw/use-event-emitter": "^1.0.1",
+    "@byteclaw/use-static-callback": "^1.1.1",
+    "@byteclaw/use-unique-id": "^1.0.1",
     "@byteclaw/visage-core": "^1.0.0-alpha.12",
     "@byteclaw/visage-utils": "^1.0.0-alpha.3",
     "@emotion/core": "^10.0.14",
