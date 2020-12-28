@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-unused-vars, max-classes-per-file, react/prefer-stateless-function */
+/* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-unused-vars, max-classes-per-file, react/prefer-stateless-function, no-unused-expressions */
 
 /**
  * This file contains all possible combinations of visage usage

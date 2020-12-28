@@ -6,11 +6,14 @@ import { ExtractArgs } from '@byteclaw/visage-core';
  * And then cleans them up in same order as useEffect works
  *
  * So basically mount works from parent to child and unmount in opposite order
+ *
+ * Effect is not invalidated on function change
  */
 export function useOnRenderEffect(
   effect: () => void | (() => void),
   dependencies?: any[],
-) {
+): void {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const unregister = useMemo(effect, dependencies);
 
   useEffect(() => unregister, [unregister]);
@@ -23,8 +26,9 @@ export function useOnRenderEffect(
  * So basically mount works from parent to child and unmount in opposite order
  */
 export function useStaticOnRenderEffect<
-  T extends (...args: any[]) => void | (() => void)
->(effect: T, ...args: ExtractArgs<T>) {
+  T extends (...effectArgs: any[]) => void | (() => void)
+>(effect: T, ...args: ExtractArgs<T>): void {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const unregister = useMemo(() => effect(...args), [effect, ...args]);
 
   useEffect(() => unregister, [unregister]);

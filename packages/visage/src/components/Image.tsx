@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, { forwardRef, Ref } from 'react';
 import { createComponent } from '../core';
@@ -45,40 +44,40 @@ interface ImageProps {
   width?: number;
 }
 
-export const Image: VisageComponent<ImageProps> = forwardRef(
-  (
-    {
-      alt,
-      aspectRatio,
-      containerProps,
-      imgProps,
-      height,
-      src,
-      width,
-      ...restProps
-    }: ImageProps,
-    ref: Ref<any>,
-  ) => {
-    return (
-      <ImageContainer
-        {...restProps}
-        {...containerProps}
-        styles={{
-          height,
-          width,
-          '&::after': {
-            paddingBottom:
-              typeof aspectRatio === 'number'
-                ? `${100 / aspectRatio}%`
-                : '100%',
-          },
-          ...(containerProps ? containerProps.styles : {}),
-        }}
-      >
-        <Img alt={alt} ref={ref} src={src} {...imgProps} />
-      </ImageContainer>
-    );
-  },
+export const Image = markAsVisageComponent(
+  forwardRef(
+    (
+      {
+        alt,
+        aspectRatio,
+        containerProps,
+        imgProps,
+        height,
+        src,
+        width,
+        ...restProps
+      }: ImageProps,
+      ref: Ref<any>,
+    ) => {
+      return (
+        <ImageContainer
+          {...restProps}
+          {...containerProps}
+          styles={{
+            height,
+            width,
+            '&::after': {
+              paddingBottom:
+                typeof aspectRatio === 'number'
+                  ? `${100 / aspectRatio}%`
+                  : '100%',
+            },
+            ...(containerProps ? containerProps.styles : {}),
+          }}
+        >
+          <Img alt={alt} ref={ref} src={src} {...imgProps} />
+        </ImageContainer>
+      );
+    },
+  ),
 );
-
-markAsVisageComponent(Image);

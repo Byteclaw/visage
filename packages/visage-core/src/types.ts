@@ -27,13 +27,15 @@ declare global {
 
 type HTMLELProps<
   TElement extends keyof JSX.IntrinsicElements,
-  TComponentProps extends {}
+  TComponentProps extends { [key: string]: any }
 > = { as: TElement } & JSX.IntrinsicElements[TElement] &
   TComponentProps &
   StyleProps &
   React.RefAttributes<any>;
 
-export interface VisageComponent<TComponentProps extends {}> {
+export interface VisageComponent<
+  TComponentProps extends { [key: string]: any }
+> {
   displayName?: string;
 
   // as component
@@ -285,7 +287,7 @@ export type ExtractReturn<T extends (...args: any[]) => any> = T extends (
 
 export type ExtractThemeSettingsFromTheme<
   TTheme extends any
-> = TTheme extends Theme<infer A> ? A : {};
+> = TTheme extends Theme<infer A> ? A : { [key: string]: any };
 
 export interface Theme<
   TThemeSettings extends StyleSheetThemeSettings = StyleSheetThemeSettings
@@ -392,11 +394,11 @@ export type ExtractVisageComponentProps<
   ? P & StyleProps
   : ComponentProps<T> & StyleProps;
 
-export type OmittableProps<T extends {}> = {
+export type OmittableProps<T extends { [key: string]: any }> = {
   [K in keyof T]?: undefined | T[K];
 };
 
-export interface StyleFunction<TProps extends {}> {
+export interface StyleFunction<TProps extends { [key: string]: any }> {
   (props: TProps): StyleSheet;
 }
 
@@ -404,4 +406,4 @@ export type UnionToIntersection<U> = (
   U extends unknown ? (k: U) => void : never
 ) extends (k: infer I) => void
   ? I
-  : {};
+  : never;

@@ -504,7 +504,7 @@ describe('Select', () => {
   it('passes ref to TextInput', () => {
     const ref = { current: null };
 
-    render(<Select<Number> ref={ref} options={[1, 2, 3, 4]} value="b" />);
+    render(<Select<number> ref={ref} options={[1, 2, 3, 4]} value="b" />);
 
     expect(ref.current).toBeInstanceOf(HTMLInputElement);
   });

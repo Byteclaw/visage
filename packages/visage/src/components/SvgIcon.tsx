@@ -1,7 +1,6 @@
 import {
   ExtractVisageComponentProps,
   markAsVisageComponent,
-  VisageComponent,
 } from '@byteclaw/visage-core';
 import React, {
   cloneElement,
@@ -34,12 +33,18 @@ const SvgIconBase = createComponent('span', {
   },
 });
 
-export const SvgIcon: VisageComponent<
-  {
-    icon: ReactElement | JSXElementConstructor<any>;
-    iconProps?: JSX.IntrinsicElements['svg'];
-  } & ExtractVisageComponentProps<typeof SvgIconBase>
-> = function SvgIcon({ icon: Icon, iconProps, ...restProps }: any) {
+type SvgIconBaseProps = ExtractVisageComponentProps<typeof SvgIconBase>;
+
+interface SvgIconProps extends SvgIconBaseProps {
+  icon: ReactElement | JSXElementConstructor<any>;
+  iconProps?: JSX.IntrinsicElements['svg'];
+}
+
+export const SvgIcon = markAsVisageComponent(function SvgIcon({
+  icon: Icon,
+  iconProps,
+  ...restProps
+}: SvgIconProps) {
   const svgProps = {
     focusable: false,
     height: null,
@@ -56,6 +61,4 @@ export const SvgIcon: VisageComponent<
       )}
     </SvgIconBase>
   );
-};
-
-markAsVisageComponent(SvgIcon);
+});

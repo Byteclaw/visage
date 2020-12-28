@@ -4,13 +4,20 @@ import { createContext } from 'react';
 export const ThemeTogglerContext = createContext<{
   colorPalette: ColorPalette;
   isDark: boolean;
-  useDark(use: boolean): void;
+  setMode(isDark: boolean): void;
   setColorPalette(colors: ColorPalette): void;
 }>({} as any);
 
+interface DocsColorPalette extends ColorPalette {
+  darkShades: ColorPalette['shades'];
+  darkShadesText: ColorPalette['shadesText'];
+}
+
 ThemeTogglerContext.displayName = 'ThemeToggler';
 
-export function toggleColorPaletteMode(palette: ColorPalette): ColorPalette {
+export function toggleColorPaletteMode(
+  palette: DocsColorPalette,
+): DocsColorPalette {
   return {
     ...palette,
     darkShades: palette.shades,

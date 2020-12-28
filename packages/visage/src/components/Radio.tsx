@@ -9,6 +9,7 @@ import React, {
   forwardRef,
   memo,
   Ref,
+  useRef,
   useState,
   FocusEventHandler,
 } from 'react';
@@ -204,7 +205,8 @@ export const Radio: VisageComponent<RadioProps> = markAsVisageComponent(
       }: RadioProps,
       ref: Ref<HTMLInputElement>,
     ) {
-      const reff = useCombinedRef(ref);
+      const controlRef = useRef<HTMLInputElement>(null);
+      const refCallback = useCombinedRef(controlRef, ref);
       const [focused, setFocused] = useState(false);
       const [innerChecked, setInnerChecked] = useState(
         checked ?? defaultChecked ?? false,
@@ -229,7 +231,7 @@ export const Radio: VisageComponent<RadioProps> = markAsVisageComponent(
 
       useStaticEffect(
         detectRadioCheckedState,
-        reff,
+        controlRef,
         isControlled,
         !!readOnly,
         setInnerChecked,
@@ -256,7 +258,7 @@ export const Radio: VisageComponent<RadioProps> = markAsVisageComponent(
             onBlur={onBlurHandler}
             onChange={onChangeHandler}
             onFocus={onFocusHandler}
-            ref={reff}
+            ref={refCallback}
             readOnly={readOnly}
             type="radio"
           />

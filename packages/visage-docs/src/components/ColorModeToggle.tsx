@@ -3,8 +3,8 @@ import React, { useContext } from 'react';
 import { Moon, Sun } from 'react-feather';
 import { ThemeTogglerContext } from '../theme';
 
-export function ColorModeToggle() {
-  const { isDark, useDark } = useContext(ThemeTogglerContext);
+export function ColorModeToggle(): React.ReactElement {
+  const { isDark, setMode } = useContext(ThemeTogglerContext);
   const label = isDark ? 'Activate light mode' : 'Activate dark mode';
 
   return (
@@ -12,7 +12,7 @@ export function ColorModeToggle() {
       <IconButton
         icon={isDark ? Sun : Moon}
         label={label}
-        onClick={() => useDark(!isDark)}
+        onClick={() => setMode(!isDark)}
         styles={{ mr: 1 }}
       />
     </Tooltip>

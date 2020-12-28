@@ -24,7 +24,7 @@ const DEFAULT_STYLE_SHEET = {};
  */
 export function createComponent<
   TDefaultComponent extends ComponentConstraint,
-  TVariants extends {}[] = {}[],
+  TVariants extends Record<string, any>[] = Record<string, any>[],
   TVariantIntersection = UnionToIntersection<TVariants[number]>,
   TProps extends Omit<
     ExtractVisageComponentProps<TDefaultComponent>,
@@ -35,7 +35,7 @@ export function createComponent<
     keyof TVariantIntersection
   > &
     TVariantIntersection,
-  TDefaultProps extends Partial<TProps> = {}
+  TDefaultProps extends Partial<TProps> = any
 >(
   defaultAs: TDefaultComponent,
   {

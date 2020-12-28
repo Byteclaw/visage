@@ -1,5 +1,6 @@
 import { ListItemLink } from '@byteclaw/visage';
-import { Link, Match } from '@reach/router';
+import { Link } from 'gatsby';
+import { Match } from '@reach/router';
 import React, { ReactNode } from 'react';
 
 interface ListItemRouteLink {

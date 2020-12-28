@@ -1,5 +1,6 @@
+import { ComponentType } from 'react';
 import { VisageComponentSymbol } from './constants';
-import { VisageComponent, StyleProps } from './types';
+import { VisageComponent } from './types';
 
 /**
  * Returns a display name of a component
@@ -16,11 +17,21 @@ export function displayName(
   );
 }
 
+export function markAsVisageComponent<T extends ComponentType<any>>(
+  component: React.MemoExoticComponent<T>,
+): VisageComponent<T extends ComponentType<infer P> ? P : any>;
+export function markAsVisageComponent<T>(
+  component: React.ForwardRefExoticComponent<T>,
+): VisageComponent<T>;
+export function markAsVisageComponent<T>(
+  component: React.ComponentType<T>,
+): VisageComponent<T>;
+
 /**
  * Marks a component as Visage component
  */
-export function markAsVisageComponent<T extends StyleProps>(
-  component: React.ComponentType<T>,
+export function markAsVisageComponent<T>(
+  component: React.ForwardRefExoticComponent<T> | React.ComponentType<T>,
 ): VisageComponent<T> {
   // eslint-disable-next-line no-param-reassign
   (component as any)[VisageComponentSymbol] = true;

@@ -148,7 +148,7 @@ export function Popover({
   placement = defaultPlacement,
   popoverRef,
   ...restProps
-}: PopoverProps) {
+}: PopoverProps): React.ReactElement {
   const { breakpoint } = useDesignSystem();
   const id = useUniqueId(outerId, 'popover');
   const isFullscreen = useMemo(() => {
@@ -163,7 +163,8 @@ export function Popover({
     [breakpoint, placement],
   );
 
-  const contentRef = useCombinedRef(popoverRef);
+  const contentRef = useRef<HTMLElement>(null);
+  const contentRefCallback = useCombinedRef(contentRef, popoverRef);
   const preventCloseRefs = useRef(
     !anchor || isAnchorPosition(anchor) ? [] : [anchor],
   );
@@ -222,6 +223,8 @@ export function Popover({
       element.style.visibility = 'visible';
       /* eslint-enable no-param-reassign */
     },
+    // we need children to invalidate this callback
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [
       children,
       keepAnchorWidth,
@@ -230,7 +233,7 @@ export function Popover({
       marginThreshold,
       minWidth,
       minHeight,
-      placement,
+      placementAndOrigin,
     ],
   );
 
@@ -261,7 +264,7 @@ export function Popover({
         {...restProps}
         tabIndex={-1}
         open={open}
-        ref={contentRef}
+        ref={contentRefCallback}
         styles={{ zIndex, ...restProps.styles }}
       >
         {children}

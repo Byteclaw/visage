@@ -9,7 +9,6 @@ import React, {
 } from 'react';
 import {
   ExtractVisageComponentProps,
-  VisageComponent,
   markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
@@ -150,7 +149,7 @@ interface MessageProps extends ExtractVisageComponentProps<typeof MessageBase> {
   renderDismiss?: (props: { onClick: MouseEventHandler<any> }) => ReactElement;
 }
 
-export const Message: VisageComponent<MessageProps> = markAsVisageComponent(
+export const Message = markAsVisageComponent(
   forwardRef(
     (
       {
@@ -188,4 +187,4 @@ export const Message: VisageComponent<MessageProps> = markAsVisageComponent(
       );
     },
   ),
-) as any;
+);

@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 
 interface HTMLProps {
-  htmlAttributes?: object;
+  htmlAttributes?: JSX.IntrinsicElements['html'];
   headComponents?: ReactNode;
-  bodyAttributes?: object;
+  bodyAttributes?: JSX.IntrinsicElements['body'];
   preBodyComponents?: ReactNode;
   body: string;
   postBodyComponents: ReactNode;

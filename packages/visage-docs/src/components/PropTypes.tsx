@@ -120,7 +120,7 @@ export function PropTypes({ component }: PropTypesProps) {
         source,
         props: foundGroups[source].sort(sortProps),
       })) as { source: string; props: ComponentProperty[] }[];
-  }, [information]);
+  }, [information, component]);
 
   return (
     <Tabs>

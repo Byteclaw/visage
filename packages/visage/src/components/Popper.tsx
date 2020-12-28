@@ -99,7 +99,7 @@ function positionContent(
   };
 }
 
-function cancelPositionFnOnUnmount(cancelPositionFn: Function) {
+function cancelPositionFnOnUnmount(cancelPositionFn: () => void) {
   return () => {
     cancelPositionFn();
   };
@@ -175,7 +175,7 @@ export function Popper({
   open = false,
   placement,
   ...restProps
-}: PopperProps) {
+}: PopperProps): React.ReactElement | null {
   const portalId = useUniqueId(outerId, 'popper');
   const { breakpoint } = useDesignSystem();
   const contentRef = useRef<HTMLDivElement | null>(null);

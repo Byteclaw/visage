@@ -1,25 +1,19 @@
 /* eslint-disable no-param-reassign */
-import { useEffect, useRef, Ref, MutableRefObject } from 'react';
+import { RefCallback, Ref, MutableRefObject } from 'react';
 
 /**
  * Reflects local ref to outside one
  */
 export function useCombinedRef<T>(
-  outsideRef?: Ref<T>,
-): MutableRefObject<T | null> {
-  const ref = useRef<T | null>(null);
-
-  // use ref.current in dependencies otherwise it won't propagate ref to outside ref
-  useEffect(() => {
-    if (outsideRef) {
-      if (typeof outsideRef === 'function') {
-        outsideRef(ref.current);
-      } else {
-        // @ts-ignore - wrong typings? current is readonly
-        outsideRef.current = ref.current;
+  ...refs: (Ref<T> | null | undefined)[]
+): RefCallback<T> {
+  return (element: T) => {
+    for (const ref of refs) {
+      if (typeof ref === 'function') {
+        ref(element);
+      } else if (ref && typeof ref === 'object') {
+        (ref as MutableRefObject<T>).current = element;
       }
     }
-  }, [ref.current]);
-
-  return ref;
+  };
 }

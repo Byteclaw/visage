@@ -65,7 +65,7 @@ export const FormField: FormFieldComponent = function FormField({
   const idTemplate = useUniqueId();
   const id = useMemo(() => {
     return outerId || `field-${idTemplate}-${name || ''}`;
-  }, [outerId, idTemplate]);
+  }, [outerId, idTemplate, name]);
 
   return (
     <FormFieldWrapper {...wrapperProps}>

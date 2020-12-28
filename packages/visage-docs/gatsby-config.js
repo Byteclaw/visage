@@ -2,6 +2,9 @@ const { resolve } = require('path');
 const algoliaQueries = require('./utils/algolia');
 
 module.exports = {
+  flags: {
+    QUERY_ON_DEMAND: false,
+  },
   siteMetadata: {
     banner: '',
     description:
