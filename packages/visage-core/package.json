@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@types/react": "^16.8.23",
-    "react": "^16.8.6"
+    "react": "^16.8.6 || ^17.x"
   },
   "scripts": {
     "bundle": "tsdx build --format cjs,esm  --name byteclaw.visage.core --entry src/index.ts",
