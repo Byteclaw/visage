@@ -18,3 +18,12 @@ export const colorProps = [
   'outlineColor',
   'stroke',
 ] as const;
+
+/** Name of CSS properties that should use borderRadius theme value or their own theme value */
+export const borderRadiusProps = [
+  'borderRadius',
+  'bordeTopLeftRadius',
+  'bordeTopRightRadius',
+  'bordeBottomLeftRadius',
+  'bordeBottomRightRadius',
+] as const;

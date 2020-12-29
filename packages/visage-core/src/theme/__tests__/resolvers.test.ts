@@ -28,6 +28,9 @@ describe('resolvers', () => {
         nullish: null,
         size: 1,
       },
+      borderTopLeftRadius: {
+        size: 8,
+      },
       extra: 11,
       faces: {},
       mixins: {},
@@ -67,6 +70,26 @@ describe('resolvers', () => {
 
     it('passes through empty value', () => {
       expect(resolvers.color('', null, ctx)).toEqual(null);
+    });
+  });
+
+  describe('borderRadius', () => {
+    it('uses value from exact prop setting', () => {
+      expect(
+        resolvers.borderRadius('borderTopLeftRadius', 'size', ctx),
+      ).toEqual(8);
+    });
+
+    it('uses value from borderRadius if exact is not found', () => {
+      expect(
+        resolvers.borderRadius('borderTopLeftRadius', 'nullish', ctx),
+      ).toEqual(null);
+    });
+
+    it('returns value as is if there is no value for exact nor borderRadius', () => {
+      expect(
+        resolvers.borderRadius('borderTopLeftRadius', 'missing', ctx),
+      ).toEqual('missing');
     });
   });
 
