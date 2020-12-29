@@ -47,6 +47,7 @@ describe('GlobalStyles', () => {
         "6": "background-color",
         "7": "font-family",
         "8": "font-size",
+        "9": "visibility",
         "_importants": Object {
           "background-color": "",
           "box-sizing": "",
@@ -56,9 +57,10 @@ describe('GlobalStyles', () => {
           "margin": "",
           "max-width": "",
           "text-rendering": "",
+          "visibility": undefined,
           "width": "",
         },
-        "_length": 9,
+        "_length": 10,
         "_onChange": [Function],
         "_values": Object {
           "background-color": "rgb(204, 204, 204)",
@@ -73,6 +75,7 @@ describe('GlobalStyles', () => {
           "margin-top": "0px",
           "max-width": "none",
           "text-rendering": "optimizeLegibility",
+          "visibility": "visible",
           "width": "100%",
         },
       }
