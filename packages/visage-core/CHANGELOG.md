@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.14](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.13...@byteclaw/visage-core@1.0.0-alpha.14) (2020-12-29)
+
+
+### Bug Fixes
+
+* apply border radius settings to specific border*Radius props ([a36f8ec](https://github.com/Byteclaw/visage/commit/a36f8ec696079a73354bed11faf916d1c3d4bc07))
+
+
+
 ## [1.0.0-alpha.13](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.12...@byteclaw/visage-core@1.0.0-alpha.13) (2020-12-28)
 
 
