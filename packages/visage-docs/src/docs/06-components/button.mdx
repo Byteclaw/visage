@@ -14,14 +14,46 @@ import { Button } from '@byteclaw/visage';
 
 ## Examples
 
-### Default Button
+### Button variants
 
 ```jsx live=true
-<Fragment>
-  <Button>Button</Button>
+<>
+  <Button styles={{ ml: 1 }}>Default</Button>
+  <Button styles={{ ml: 1 }} variant="primary">
+    Primary
+  </Button>
+  <Button styles={{ ml: 1 }} variant="danger">
+    Danger
+  </Button>
+  <Button styles={{ ml: 1 }} variant="success">
+    Success
+  </Button>
+  <Button styles={{ ml: 1 }} variant="warning">
+    Warning
+  </Button>
+  <Button styles={{ ml: 1 }} variant="info">
+    Info
+  </Button>
   <Box styles={{ mt: 2 }}></Box>
-  <Button disabled>Disabled button</Button>
-</Fragment>
+  <Button styles={{ ml: 1 }} disabled>
+    Default
+  </Button>
+  <Button disabled styles={{ ml: 1 }} variant="primary">
+    Primary
+  </Button>
+  <Button disabled styles={{ ml: 1 }} variant="danger">
+    Danger
+  </Button>
+  <Button disabled styles={{ ml: 1 }} variant="success">
+    Success
+  </Button>
+  <Button disabled styles={{ ml: 1 }} variant="warning">
+    Warning
+  </Button>
+  <Button disabled styles={{ ml: 1 }} variant="info">
+    Info
+  </Button>
+</>
 ```
 
 ### Size variants
@@ -40,47 +72,50 @@ import { Button } from '@byteclaw/visage';
 </Fragment>
 ```
 
-### Primary Button
-
-```jsx live=true
-<Fragment>
-  <Button variant="primary">Button</Button>
-  <Box styles={{ mt: 2 }}></Box>
-  <Button disabled variant="primary">
-    Disabled button
-  </Button>
-</Fragment>
-```
-
-### Danger Button
-
-```jsx live=true
-<Fragment>
-  <Button variant="danger">Button</Button>
-  <Box styles={{ mt: 2 }}></Box>
-  <Button disabled variant="danger">
-    Disabled button
-  </Button>
-</Fragment>
-```
-
 ### Outlined Button
 
 ```jsx live=true
 <Fragment>
   <Button outlined>Button</Button>
+  <Button disabled outlined styles={{ ml: 1 }}>
+    Disabled button
+  </Button>
   <Box styles={{ mt: 2 }}></Box>
   <Button outlined variant="primary">
     Button
+  </Button>
+  <Button disabled outlined variant="primary" styles={{ ml: 1 }}>
+    Disabled button
   </Button>
   <Box styles={{ mt: 2 }}></Box>
   <Button outlined variant="danger">
     Button
   </Button>
-  <Box styles={{ mt: 2 }}></Box>
-  <Button disabled outlined>
+  <Button disabled outlined variant="danger" styles={{ ml: 1 }}>
     Disabled button
   </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button outlined variant="success">
+    Button
+  </Button>
+  <Button disabled outlined variant="success" styles={{ ml: 1 }}>
+    Disabled button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button outlined variant="warning">
+    Button
+  </Button>
+  <Button disabled outlined variant="warning" styles={{ ml: 1 }}>
+    Disabled button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
+  <Button outlined variant="info">
+    Button
+  </Button>
+  <Button disabled outlined variant="info" styles={{ ml: 1 }}>
+    Disabled button
+  </Button>
+  <Box styles={{ mt: 2 }}></Box>
 </Fragment>
 ```
 
@@ -89,7 +124,7 @@ import { Button } from '@byteclaw/visage';
 Monochromatic uses current color as font and border colors. Only outlined buttons can be monochromatic.
 
 ```jsx live=true
-<Fragment>
+<>
   <Button monochrome outlined>
     Button
   </Button>
@@ -102,7 +137,7 @@ Monochromatic uses current color as font and border colors. Only outlined button
   <Button disabled monochrome outlined>
     Disabled button
   </Button>
-</Fragment>
+</>
 ```
 
 ## Keyboard Interaction
