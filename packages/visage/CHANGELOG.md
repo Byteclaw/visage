@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.57](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.56...@byteclaw/visage@1.0.0-alpha.57) (2020-12-30)
+
+
+### Features
+
+* add more button variants ([23b3f9b](https://github.com/Byteclaw/visage/commit/23b3f9b5a928bc4120418a21d57570d2941f3546))
+
+
+
 ## [1.0.0-alpha.56](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.55...@byteclaw/visage@1.0.0-alpha.56) (2020-12-29)
 
 
