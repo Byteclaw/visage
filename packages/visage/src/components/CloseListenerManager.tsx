@@ -13,7 +13,7 @@ import { normalizeKeyboardEventKey } from './shared';
 
 export type OnCloseHandler = (
   e: KeyboardEvent | MouseEvent | React.MouseEvent | React.KeyboardEvent,
-) => any | Promise<any>;
+) => unknown | Promise<unknown>;
 
 interface ClickAwayHandler {
   refs: RefObject<HTMLElement>[];
@@ -69,43 +69,69 @@ export function useCloseListenerManager(): CloseListenerManagerContextAPI {
 
 function onEscapeKeyUpHandlerCreator(
   escapeStack: MutableRefObject<OnCloseHandler[]>,
+  resolutionRef: MutableRefObject<boolean>,
 ) {
-  return (e: KeyboardEvent) => {
+  return async (e: KeyboardEvent) => {
     if (
       normalizeKeyboardEventKey(e) === 'Escape' &&
       escapeStack.current &&
-      escapeStack.current.length > 0
+      escapeStack.current.length > 0 &&
+      !resolutionRef.current
     ) {
+      // set as resolving
+      resolutionRef.current = true;
+
       // get the last added listener but do not mutate the array
       // the component will unregister it's listener on unmount
       // we don't propagate close any further because using escape you want to close only
       // the top most element (for example Menu in Drawer)
-      escapeStack.current[escapeStack.current.length - 1](e);
+      try {
+        await escapeStack.current[escapeStack.current.length - 1](e);
+      } finally {
+        resolutionRef.current = false;
+      }
     }
   };
 }
 
 function onClickAwayHandlerCreator(
   clickAwayStack: MutableRefObject<ClickAwayHandler[]>,
+  resolutionRef: MutableRefObject<boolean>,
 ) {
   return async (e: MouseEvent) => {
     // go from last added and close it if target is not a part of element
     // repeat until we reach full screen listener
-    if (!clickAwayStack.current || clickAwayStack.current.length === 0) {
+    if (
+      !clickAwayStack.current ||
+      clickAwayStack.current.length === 0 ||
+      resolutionRef.current
+    ) {
       return;
     }
+
+    // set as resolving
+    resolutionRef.current = true;
 
     for (let i = clickAwayStack.current.length - 1; i >= 0; i--) {
       const { isFullscreen, onClose, refs } = clickAwayStack.current[i];
 
       const shouldNotClose =
+        // if you select something in an input and move cursor outside during the selection
+        // this will prevent from closing
         window.getSelection()?.toString() ||
         !!refs.find(
-          ref => ref.current && ref.current.contains(e.target as any),
+          ref => ref.current && ref.current.contains(e.target as Node),
         );
 
       if (!shouldNotClose) {
-        await onClose(e);
+        try {
+          // eslint-disable-next-line no-await-in-loop
+          await onClose(e);
+        } catch (err) {
+          resolutionRef.current = false;
+
+          throw err;
+        }
 
         // if user prevented default or the element is fullscreen (backdrop is used?)
         // do not go any further
@@ -117,6 +143,8 @@ function onClickAwayHandlerCreator(
         break;
       }
     }
+
+    resolutionRef.current = false;
   };
 }
 
@@ -128,12 +156,12 @@ function bindEventListeners(
     return;
   }
 
-  document.addEventListener('keydown', escapeKeyUpListener, true);
+  document.addEventListener('keyup', escapeKeyUpListener, true);
   document.addEventListener('click', clickAwayListener, true);
 
   return () => {
     document.removeEventListener('click', clickAwayListener, true);
-    document.removeEventListener('keydown', escapeKeyUpListener, true);
+    document.removeEventListener('keyup', escapeKeyUpListener, true);
   };
 }
 
@@ -141,13 +169,7 @@ function createRegisterEscapeListener(
   escapeStack: MutableRefObject<OnCloseHandler[]>,
 ) {
   return (onClose: OnCloseHandler) => {
-    if (!escapeStack.current) {
-      return () => {};
-    }
-
-    escapeStack.current = ([] as OnCloseHandler[]).concat(escapeStack.current, [
-      onClose,
-    ]);
+    escapeStack.current = [...escapeStack.current, onClose];
 
     return () => {
       escapeStack.current = escapeStack.current.filter(
@@ -189,7 +211,9 @@ interface Props {
   children?: ReactNode;
 }
 
-export function CloseListenerManager({ children }: Props) {
+export function CloseListenerManager({ children }: Props): React.ReactElement {
+  /** says whether we are in the middle of on close resolution */
+  const resolutionRef = useRef<boolean>(false);
   const escapeStack = useRef<OnCloseHandler[]>([]);
   const clickAwayStack = useRef<ClickAwayHandler[]>([]);
   const registerEscapeKeyUpListener = useStaticCallbackCreator(
@@ -200,25 +224,23 @@ export function CloseListenerManager({ children }: Props) {
     createRegisterClickAwayListener,
     [clickAwayStack],
   );
-  const context = useRef<CloseListenerManagerContextAPI | undefined>();
+  const context = useRef<CloseListenerManagerContextAPI>({
+    registerClickAwayListener,
+    registerEscapeKeyUpListener,
+  });
   const onEscapeKeyUp = useStaticCallbackCreator(onEscapeKeyUpHandlerCreator, [
     escapeStack,
+    resolutionRef,
   ]);
   const onClickAway = useStaticCallbackCreator(onClickAwayHandlerCreator, [
     clickAwayStack,
+    resolutionRef,
   ]);
 
   useStaticEffect(bindEventListeners, onEscapeKeyUp, onClickAway);
 
-  if (context.current == null) {
-    context.current = {
-      registerClickAwayListener,
-      registerEscapeKeyUpListener,
-    };
-  }
-
   return (
-    <CloseListenerManagerContext.Provider value={context.current!}>
+    <CloseListenerManagerContext.Provider value={context.current}>
       {children}
     </CloseListenerManagerContext.Provider>
   );

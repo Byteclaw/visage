@@ -247,6 +247,7 @@ export const Select: typeof SelectComp = markAsVisageComponent(
         onInputValueChange,
         onMouseDown,
         onKeyDown,
+        onKeyUp,
         onSelect,
         onStateChange,
         optionToString,
@@ -421,6 +422,22 @@ export const Select: typeof SelectComp = markAsVisageComponent(
           }
         },
       );
+      const onInnerKeyUp: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
+        e => {
+          const key = normalizeKeyboardEventKey(e);
+
+          if (key === 'Escape') {
+            e.preventDefault();
+
+            // close menu if open, or reset the input
+            if (state.isOpen) {
+              dispatch({ type: 'MenuClose' });
+            } else {
+              dispatch({ type: 'Reset' });
+            }
+          }
+        },
+      );
       const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
         e => {
           const key = normalizeKeyboardEventKey(e);
@@ -460,18 +477,6 @@ export const Select: typeof SelectComp = markAsVisageComponent(
               dispatch({ type: 'SetCurrentFocusedOption' });
               break;
             }
-            case 'Escape': {
-              e.preventDefault();
-
-              // close menu if open, or reset the input
-              if (state.isOpen) {
-                dispatch({ type: 'MenuClose' });
-              } else {
-                dispatch({ type: 'Reset' });
-              }
-
-              break;
-            }
             case 'Home': {
               e.preventDefault();
               dispatch({ type: 'SetOptionFocusToFirstOption' });
@@ -489,6 +494,7 @@ export const Select: typeof SelectComp = markAsVisageComponent(
       );
       const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
       const onFocusHandler = useComposedCallbackCreator(onFocus, onInnerFocus);
+      const onKeyUpHandler = useComposedCallbackCreator(onKeyUp, onInnerKeyUp);
       const onKeyDownHandler = useComposedCallbackCreator(
         onKeyDown,
         onInnerKeyDown,
@@ -531,6 +537,7 @@ export const Select: typeof SelectComp = markAsVisageComponent(
             onChange={onInputChange}
             onFocus={onFocusHandler}
             onMouseDown={onMouseDownHandler}
+            onKeyUp={onKeyUpHandler}
             onKeyDown={onKeyDownHandler}
             parentStyles={parentStyles}
             styles={styles}

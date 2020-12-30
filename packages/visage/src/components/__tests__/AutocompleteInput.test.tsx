@@ -189,7 +189,7 @@ describe('AutocompleteInput', () => {
       expect(document.querySelectorAll('[role="option"]').length).toBe(3);
 
       // now close menu with escape
-      fireEvent.keyDown(getByTestId('input'), { key: 'Escape' });
+      fireEvent.keyUp(getByTestId('input'), { key: 'Escape' });
 
       // now we expect menu not to be visible
       expect(document.querySelectorAll('[role="option"]').length).toBe(0);

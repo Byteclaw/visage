@@ -185,7 +185,7 @@ describe('Select', () => {
       );
 
       // now close popup using escape
-      fireEvent.keyDown(getByTestId('select'), { key: 'Escape' });
+      fireEvent.keyUp(getByTestId('select'), { key: 'Escape' });
 
       expect(getByTestId('select').getAttribute('aria-activedescendant')).toBe(
         null,
