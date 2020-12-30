@@ -1,13 +1,7 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
 import {
   ExtractVisageComponentProps,
-  VisageComponent,
+  markAsVisageComponent,
 } from '@byteclaw/visage-core';
 import { createComponent } from '../core';
 import {
@@ -17,122 +11,91 @@ import {
   invalidControlBooleanVariant,
 } from './shared';
 import { TextInputBaseStyles } from './TextInput';
+import { useCombinedRef } from '../hooks';
+import { booleanVariantStyles } from '../variants';
 
 const TextAreaBaseControl = createComponent('textarea', {
   displayName: 'TextArea',
-  styles: props => ({
+  styles: {
     ...TextInputBaseStyles,
     m: 0,
     resize: 'none',
     p: 1,
     width: '100%',
-    ...(props.disabled ? disabledControlStyles : {}),
-    ...(props.invalid ? invalidControlStyles : {}),
+    '&[disabled]': disabledControlStyles,
+    ...booleanVariantStyles('invalid', {
+      on: invalidControlStyles,
+    }),
     '::placeholder': {
       color: 'color(shadesText alpha(0.3))',
     },
-  }),
+  },
   variants: [disabledControlBooleanVariant, invalidControlBooleanVariant],
 });
 
-const TextAreaBase = createComponent('div', {
-  displayName: 'TextAreaBase',
-  styles: {
-    display: 'flex',
-    position: 'relative',
-  },
-});
+type TextAreaControlProps = ExtractVisageComponentProps<
+  typeof TextAreaBaseControl
+>;
 
-interface TextAreaProps {
+interface TextAreaProps extends TextAreaControlProps {
   autoResize?: boolean;
-  baseProps?: ExtractVisageComponentProps<typeof TextAreaBase>;
 }
 
-export const TextArea: VisageComponent<
-  ExtractVisageComponentProps<typeof TextAreaBaseControl> & TextAreaProps
-> = forwardRef(
-  (
-    {
-      autoResize,
-      baseProps,
-      defaultValue,
-      value,
-      ...restProps
-    }: TextAreaProps & JSX.IntrinsicElements['textarea'],
-    ref: any,
-  ) => {
-    const heightRef = useRef<number | undefined>(undefined);
-    const [, setValue] = useState(value || defaultValue);
-    const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
+const recomputeTextAreaHeight = (textArea: HTMLTextAreaElement) => {
+  /* eslint-disable no-param-reassign */
+  textArea.style.height = 'auto';
+  textArea.style.height = `${textArea.scrollHeight}px`;
+  /* eslint-enable no-param-reassign */
+};
 
-    // bind event listener onChange to trigger useLayoutEffect to recompute if autoResize is enabled
-    useEffect(() => {
-      const { current: textArea } = textAreaRef;
+export const TextArea = markAsVisageComponent(
+  forwardRef(
+    (
+      { autoResize, defaultValue, value, ...restProps }: TextAreaProps,
+      ref: React.Ref<HTMLTextAreaElement>,
+    ) => {
+      const textAreaRef = useRef<HTMLTextAreaElement>(null);
+      const textAreaRefCallback = useCombinedRef(textAreaRef, ref);
 
-      if (!autoResize || textArea == null) {
-        return;
-      }
+      useEffect(() => {
+        const { current: textArea } = textAreaRef;
 
-      const listener: EventListener = (e: Event) => {
-        if (e.currentTarget instanceof HTMLTextAreaElement) {
-          setValue(e.currentTarget.value);
+        if (!autoResize || textArea == null) {
+          return;
         }
-      };
 
-      textArea.addEventListener('input', listener);
+        const listener = (e: Event) => {
+          if (e.currentTarget instanceof HTMLTextAreaElement) {
+            recomputeTextAreaHeight(e.currentTarget);
+          }
+        };
 
-      return () => {
-        textArea.removeEventListener('input', listener);
-      };
-    }, [autoResize]);
+        textArea.addEventListener('input', listener);
 
-    useLayoutEffect(() => {
-      if (autoResize && textAreaRef.current) {
-        const {
-          borderBottomWidth,
-          borderTopWidth,
-          lineHeight,
-        } = getComputedStyle(textAreaRef.current);
-        const currentHeight = textAreaRef.current.scrollHeight;
-        const lineHeightNum = parseInt(lineHeight, 10);
-        const borderBottomWidthNum = parseInt(borderBottomWidth, 10);
-        const borderTopWidthNum = parseInt(borderTopWidth, 10);
+        return () => {
+          textArea.removeEventListener('input', listener);
+        };
+      }, [autoResize]);
 
-        if (heightRef.current !== currentHeight) {
-          // keep current height in ref but subtract borders
-          // because borders are added by browser to height
-          heightRef.current =
-            currentHeight +
-            lineHeightNum -
-            borderBottomWidthNum -
-            borderTopWidthNum;
-          textAreaRef.current.style.height = `${
-            currentHeight + lineHeightNum
-          }px`;
+      useEffect(() => {
+        const { current: textArea } = textAreaRef;
+
+        if (autoResize && textArea) {
+          recomputeTextAreaHeight(textArea);
         }
-      }
-    });
+      }, [autoResize, defaultValue, value]);
 
-    return (
-      <TextAreaBase {...baseProps}>
+      return (
         <TextAreaBaseControl
-          ref={r => {
-            textAreaRef.current = r;
-
-            if (ref) {
-              if (typeof ref === 'function') {
-                ref(r);
-              } else {
-                // eslint-disable-next-line
-                ref.current = r;
-              }
-            }
-          }}
+          aria-invalid={restProps.invalid ?? undefined}
+          ref={textAreaRefCallback}
           defaultValue={defaultValue}
           value={value}
           {...restProps}
         />
-      </TextAreaBase>
-    );
-  },
-) as any;
+      );
+    },
+  ),
+);
+
+TextArea.displayName = 'TextArea';

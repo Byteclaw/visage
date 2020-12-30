@@ -23,25 +23,41 @@ import { TextArea } from '@byteclaw/visage';
 ### ReadOnly
 
 ```jsx live=true
-<TextArea readOnly />
+<TextArea defaultValue="ReadOnly TextArea" readOnly />
 ```
 
 ### Invalid
 
 ```jsx live=true
-<TextArea invalid />
+<TextArea invalid placeholder="Invalid TextArea" />
 ```
 
 ### Disabled
 
 ```jsx live=true
-<TextArea disabled />
+<TextArea disabled placeholder="Disabled TextArea" />
 ```
 
 ### Auto resizing
 
 ```jsx live=true
-<TextArea autoResize />
+<TextArea autoResize placeholder="Auto resizing TextArea" />
+```
+
+### Controlled auto resizable TextArea
+
+```jsx live=true
+function ControlledTextArea() {
+  const [value, setValue] = useState('');
+
+  return (
+    <TextArea
+      autoResize
+      onChange={e => setValue(e.currentTarget.value)}
+      value={value}
+    />
+  );
+}
 ```
 
 ## Keyboard Interaction
