@@ -68,10 +68,10 @@ function bindEscapeKeyDownHandlers(
   onKeyDownHandler: (e: KeyboardEvent) => void,
 ) {
   if (typeof document !== 'undefined') {
-    document.addEventListener('keydown', onKeyDownHandler);
+    document.addEventListener('keyup', onKeyDownHandler);
 
     return () => {
-      document.removeEventListener('keydown', onKeyDownHandler);
+      document.removeEventListener('keyup', onKeyDownHandler);
     };
   }
 }

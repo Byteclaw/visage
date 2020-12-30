@@ -1,27 +1,29 @@
 /* eslint-disable no-shadow */
-import { act, fireEvent, render } from '@testing-library/react';
-import React, { useContext, useState, ReactElement, useRef } from 'react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import React, { useState, ReactElement, useRef } from 'react';
 import {
   CloseListenerManager,
-  CloseListenerManagerContext,
   OnCloseHandler,
+  useCloseListenerManager,
 } from '../CloseListenerManager';
 import { useOnRenderEffect } from '../../hooks';
 
 function RenderClosable({
   children,
+  delay,
   id,
   isFullscreen,
   onClose,
 }: {
-  children?: (onClose: () => void) => ReactElement;
+  children?: (onClose: () => void | Promise<void>) => ReactElement;
+  delay?: number;
   id: string;
   isFullscreen?: boolean;
   onClose: OnCloseHandler;
 }) {
   const divRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(true);
-  const closeListenerManager = useContext(CloseListenerManagerContext);
+  const closeListenerManager = useCloseListenerManager();
 
   useOnRenderEffect(() => {
     const unregisterEscape = closeListenerManager.registerEscapeKeyUpListener(
@@ -44,9 +46,19 @@ function RenderClosable({
       <>
         <div data-testid={id} />
         {open && children
-          ? children(() => {
-              setOpen(false);
-            })
+          ? children(
+              delay != null
+                ? async () => {
+                    await new Promise(r => {
+                      setTimeout(r, delay);
+                    });
+
+                    setOpen(false);
+                  }
+                : () => {
+                    setOpen(false);
+                  },
+            )
           : null}
       </>
     </div>
@@ -55,17 +67,31 @@ function RenderClosable({
 
 function RootCloser({
   children,
+  delay,
 }: {
-  children: (onClose: () => void) => ReactElement;
+  delay?: number;
+  children: (onClose: () => void | Promise<void>) => ReactElement;
 }) {
   const [open, setOpen] = useState(true);
 
-  return open ? children(() => setOpen(false)) : null;
+  return open
+    ? children(
+        delay != null
+          ? async () => {
+              await new Promise(r => {
+                setTimeout(r, delay);
+              });
+
+              setOpen(false);
+            }
+          : () => setOpen(false),
+      )
+    : null;
 }
 
 describe('CloseListenerManager', () => {
   describe('escape key down', () => {
-    it('registers escape key down handler', () => {
+    it('registers escape key down handler', async () => {
       // close listener always closes latest mounted component
       // because we work with an assumption that the latest mounted component is the one which is visible
       const { getByTestId } = render(
@@ -103,7 +129,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('1')).toBeDefined();
 
       // fire escape keyDown
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
 
       expect(() => getByTestId('3-3')).toThrow();
       expect(getByTestId('2-2')).toBeDefined();
@@ -112,7 +138,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
 
       expect(() => getByTestId('2-2')).toThrow();
       expect(getByTestId('1-1')).toBeDefined();
@@ -120,34 +146,82 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
 
       expect(() => getByTestId('1-1')).toThrow();
       expect(getByTestId('3')).toBeDefined();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
 
       expect(() => getByTestId('3')).toThrow();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
 
       expect(() => getByTestId('2')).toThrow();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
 
       expect(() => getByTestId('1')).toThrow();
 
-      fireEvent.keyDown(document, { key: 'Escape' });
+      await act(async () => fireEvent.keyUp(document, { key: 'Escape' }));
+    });
+
+    it('does not call onClose if onClose is already being resolved', async () => {
+      let onClose1Mock = jest.fn();
+      /* eslint-disable no-return-assign */
+      const { getByTestId } = render(
+        <CloseListenerManager>
+          <RootCloser>
+            {onRootClose => (
+              <RenderClosable id="1" onClose={onRootClose}>
+                {onClose => (
+                  <RenderClosable id="2" delay={50} onClose={onClose}>
+                    {onClose1 => (
+                      <RenderClosable
+                        id="3"
+                        onClose={(onClose1Mock = jest.fn(onClose1))}
+                      />
+                    )}
+                  </RenderClosable>
+                )}
+              </RenderClosable>
+            )}
+          </RootCloser>
+        </CloseListenerManager>,
+      );
+      /* eslint-enable no-return-assign */
+
+      expect(getByTestId('3')).toBeDefined();
+      expect(getByTestId('2')).toBeDefined();
+      expect(getByTestId('1')).toBeDefined();
+
+      // fire escape keyDown
+      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyUp(document, { key: 'Escape' });
+      fireEvent.keyUp(document, { key: 'Escape' });
+
+      expect(getByTestId('3')).toBeDefined();
+      expect(getByTestId('2')).toBeDefined();
+      expect(getByTestId('1')).toBeDefined();
+
+      // wait
+      await waitFor(() => {
+        expect(() => getByTestId('3')).toThrow();
+      });
+
+      expect(onClose1Mock).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('click away', () => {
-    window.getSelection = jest.fn().mockReturnValue('');
+    beforeEach(() => {
+      window.getSelection = jest.fn().mockReturnValue('');
+    });
 
     it('registers as fullscreen by default (prevents bubbling to shallower layers)', async () => {
       // close listener always closes latest mounted component
@@ -187,7 +261,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('1')).toBeDefined();
 
       // fire click away (closes only fullscreen layer and doesn't go further)
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('3-3')).toThrow();
       expect(getByTestId('2-2')).toBeDefined();
@@ -196,7 +270,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('2-2')).toThrow();
       expect(getByTestId('1-1')).toBeDefined();
@@ -204,25 +278,25 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('1-1')).toThrow();
       expect(getByTestId('3')).toBeDefined();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('3')).toThrow();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('2')).toThrow();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('1')).toThrow();
     });
@@ -286,7 +360,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('1-1')).toThrow();
 
@@ -297,7 +371,7 @@ describe('CloseListenerManager', () => {
       expect(() => getByTestId('2')).toThrow();
       expect(getByTestId('1')).toBeDefined();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(() => getByTestId('1')).toThrow();
     });
@@ -344,7 +418,7 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('1')).toBeDefined();
 
       // first click away is prevented so nothing happens
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(getByTestId('4')).toBeDefined();
 
@@ -358,7 +432,7 @@ describe('CloseListenerManager', () => {
 
       expect(onRootClose).not.toHaveBeenCalled();
 
-      fireEvent.click(document);
+      await act(async () => fireEvent.click(document));
 
       expect(onRootClose).toHaveBeenCalledTimes(1);
     });
@@ -421,6 +495,51 @@ describe('CloseListenerManager', () => {
       expect(getByTestId('3')).toBeDefined();
       expect(getByTestId('2')).toBeDefined();
       expect(getByTestId('1')).toBeDefined();
+    });
+
+    it('does not call onClose if onClose is already being resolved', async () => {
+      let onClose1Mock = jest.fn();
+      /* eslint-disable no-return-assign */
+      const { getByTestId } = render(
+        <CloseListenerManager>
+          <RootCloser>
+            {onRootClose => (
+              <RenderClosable id="1" onClose={onRootClose}>
+                {onClose => (
+                  <RenderClosable id="2" delay={50} onClose={onClose}>
+                    {onClose1 => (
+                      <RenderClosable
+                        id="3"
+                        onClose={(onClose1Mock = jest.fn(onClose1))}
+                      />
+                    )}
+                  </RenderClosable>
+                )}
+              </RenderClosable>
+            )}
+          </RootCloser>
+        </CloseListenerManager>,
+      );
+      /* eslint-enable no-return-assign */
+
+      expect(getByTestId('3')).toBeDefined();
+      expect(getByTestId('2')).toBeDefined();
+      expect(getByTestId('1')).toBeDefined();
+
+      // fire click away (closes only fullscreen layer and doesn't go further)
+      fireEvent.click(document);
+      fireEvent.click(document);
+      fireEvent.click(document);
+
+      expect(getByTestId('3')).toBeDefined();
+      expect(getByTestId('2')).toBeDefined();
+      expect(getByTestId('1')).toBeDefined();
+      expect(onClose1Mock).toHaveBeenCalledTimes(1);
+
+      // wait
+      await waitFor(() => {
+        expect(() => getByTestId('3')).toThrow();
+      });
     });
   });
 });

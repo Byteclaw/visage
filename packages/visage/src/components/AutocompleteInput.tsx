@@ -211,6 +211,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = markAsVisageCompo
         onFocus,
         onInputValueChange,
         onKeyDown,
+        onKeyUp,
         onMouseDown,
         onStateChange,
         options,
@@ -387,6 +388,22 @@ export const AutocompleteInput: typeof AutocompleteInputComp = markAsVisageCompo
         onMouseDown,
         onInnerMouseDown,
       );
+      const onInnerKeyUp: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
+        e => {
+          const key = normalizeKeyboardEventKey(e);
+
+          if (key === 'Escape') {
+            e.preventDefault();
+
+            // close menu if open, or reset the input
+            if (state.isOpen) {
+              dispatch({ type: 'MenuClose' });
+            } else {
+              dispatch({ type: 'Reset' });
+            }
+          }
+        },
+      );
       const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
         e => {
           const key = normalizeKeyboardEventKey(e);
@@ -426,18 +443,6 @@ export const AutocompleteInput: typeof AutocompleteInputComp = markAsVisageCompo
               dispatch({ type: 'SetCurrentFocusedOption' });
               break;
             }
-            case 'Escape': {
-              e.preventDefault();
-
-              // close menu if open, or reset the input
-              if (state.isOpen) {
-                dispatch({ type: 'MenuClose' });
-              } else {
-                dispatch({ type: 'Reset' });
-              }
-
-              break;
-            }
             case 'Home': {
               e.preventDefault();
               dispatch({ type: 'SetOptionFocusToFirstOption' });
@@ -446,6 +451,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = markAsVisageCompo
           }
         },
       );
+      const onKeyUpHandler = useComposedCallbackCreator(onKeyUp, onInnerKeyUp);
       const onKeyDownHandler = useComposedCallbackCreator(
         onKeyDown,
         onInnerKeyDown,
@@ -481,6 +487,7 @@ export const AutocompleteInput: typeof AutocompleteInputComp = markAsVisageCompo
             onFocus={onFocusHandler}
             onMouseDown={onMouseDownHandler}
             onKeyDown={onKeyDownHandler}
+            onKeyUp={onKeyUpHandler}
             readOnly={readOnly}
             parentStyles={parentStyles}
             ref={ref}
