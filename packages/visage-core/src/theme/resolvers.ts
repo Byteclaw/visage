@@ -7,6 +7,8 @@ interface ParserResult {
   (ctx: any, colorLib: typeof parseColor): string;
 }
 
+const unableToParserColorErrorMessage = 'Unable to parse color from string: ';
+
 /**
  * Default resolver for colors
  */
@@ -15,12 +17,41 @@ const color: RawStylerFunction<any> = function resolveColor(
   value: any,
   ctx,
 ) {
-  try {
-    const resolve = parser.parse(value) as ParserResult;
+  const colors = new Set<string>();
+  let valueToResolve = value;
 
-    return resolve(ctx, parseColor);
-  } catch (e) {
-    return ctx.resolve('colors', value, ctx);
+  while (true) {
+    // if we detect infinite cycle, we just return the value to resolve
+
+    if (colors.has(valueToResolve)) {
+      return valueToResolve;
+    }
+
+    colors.add(valueToResolve);
+
+    try {
+      const resolve = parser.parse(valueToResolve) as ParserResult;
+
+      return resolve(ctx, parseColor);
+    } catch (e) {
+      // first try to resolve the color against the theme
+      // if value is the same, then try to parse it again
+      const resolvedColorFromTheme = ctx.resolve('colors', valueToResolve, ctx);
+
+      if (valueToResolve === resolvedColorFromTheme) {
+        // try to parse again
+        continue;
+      }
+
+      if (e instanceof Error) {
+        if (e.message.startsWith(unableToParserColorErrorMessage)) {
+          valueToResolve = e.message.replace(
+            unableToParserColorErrorMessage,
+            '',
+          );
+        }
+      }
+    }
   }
 };
 
