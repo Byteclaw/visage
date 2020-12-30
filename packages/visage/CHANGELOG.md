@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.58](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.57...@byteclaw/visage@1.0.0-alpha.58) (2020-12-30)
+
+
+### Features
+
+* add support to wait for close listener manager to resolve pending work ([bedb4cc](https://github.com/Byteclaw/visage/commit/bedb4cc9231d793ded331e3132dc81eee12da2c4))
+
+
+
 ## [1.0.0-alpha.57](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.56...@byteclaw/visage@1.0.0-alpha.57) (2020-12-30)
 
 
