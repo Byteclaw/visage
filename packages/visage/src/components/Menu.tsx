@@ -37,8 +37,8 @@ const MenuItemBase = createComponent(ListItem, {
   styles: {
     '&:hover, &:focus, &[aria-selected="true"]': {
       outline: 'none',
-      backgroundColor: 'primary.1',
-      color: 'primaryText.1',
+      backgroundColor: 'color(primary, shade(10%))',
+      color: 'color(primary, shade(10%), contrast())',
       cursor: 'pointer',
       userSelect: 'none',
     },

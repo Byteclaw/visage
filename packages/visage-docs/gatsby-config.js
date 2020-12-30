@@ -32,7 +32,10 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-canonical-urls',
       options: {
-        siteUrl: 'https://visage.design',
+        siteUrl:
+          process.env.NODE_ENV === 'production'
+            ? 'https://visage.design'
+            : 'http://localhost:8000',
       },
     },
     'gatsby-plugin-react-helmet',
