@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.15](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.14...@byteclaw/visage-core@1.0.0-alpha.15) (2020-12-30)
+
+
+### Features
+
+* resolve color functions in theme colors ([55a202c](https://github.com/Byteclaw/visage/commit/55a202ca46f70beac403cfeb2c4d0885bdd964f5))
+
+
+
 ## [1.0.0-alpha.14](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.13...@byteclaw/visage-core@1.0.0-alpha.14) (2020-12-29)
 
 

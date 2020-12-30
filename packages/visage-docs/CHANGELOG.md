@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.59](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-docs@1.0.0-alpha.58...@byteclaw/visage-docs@1.0.0-alpha.59) (2020-12-30)
+
+
+### Features
+
+* simplify color palette ([02b9677](https://github.com/Byteclaw/visage/commit/02b967785ecc195a1b1aa7c2daa6eb45df8055d0))
+
+
+
 ## [1.0.0-alpha.58](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-docs@1.0.0-alpha.57...@byteclaw/visage-docs@1.0.0-alpha.58) (2020-12-30)
 
 **Note:** Version bump only for package @byteclaw/visage-docs
