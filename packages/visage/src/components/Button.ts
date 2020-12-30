@@ -21,8 +21,18 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
     },
     // because we need to compose box shadow
     '&:focus:active': {
-      // keep space before , because otherwise danger won't be mapped
       boxShadow: createControlActiveShadow('danger'),
+    },
+  },
+  info: {
+    backgroundColor: 'info',
+    color: 'infoText',
+    '&:focus': {
+      boxShadow: createSurfaceFocusShadow('info'),
+    },
+    // because we need to compose box shadow
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('info'),
     },
   },
   primary: {
@@ -34,6 +44,28 @@ const variantStyles: { [key: string]: VisageStyleSheet } = {
     // because we need to compose box shadow
     '&:focus:active': {
       boxShadow: createControlActiveShadow('primary'),
+    },
+  },
+  success: {
+    backgroundColor: 'success',
+    color: 'successText',
+    '&:focus': {
+      boxShadow: createSurfaceFocusShadow('success'),
+    },
+    // because we need to compose box shadow
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('success'),
+    },
+  },
+  warning: {
+    backgroundColor: 'warning',
+    color: 'warningText',
+    '&:focus': {
+      boxShadow: createSurfaceFocusShadow('warning'),
+    },
+    // because we need to compose box shadow
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('warning'),
     },
   },
   default: {
@@ -80,7 +112,25 @@ const outlinedVariantStyles: { [key: string]: VisageStyleSheet } = {
     },
     '&:hover': {
       backgroundColor: 'danger',
-      color: 'shades',
+      color: 'dangerText',
+    },
+  },
+  info: {
+    backgroundColor: 'transparent',
+    borderColor: 'info',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    color: 'info',
+    '&:focus': {
+      boxShadow: createSurfaceFocusShadow('info'),
+    },
+    // because we need to compose box shadow
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('info'),
+    },
+    '&:hover': {
+      backgroundColor: 'info',
+      color: 'infoText',
     },
   },
   primary: {
@@ -98,7 +148,43 @@ const outlinedVariantStyles: { [key: string]: VisageStyleSheet } = {
     },
     '&:hover': {
       backgroundColor: 'primary',
-      color: 'shades',
+      color: 'primaryText',
+    },
+  },
+  success: {
+    backgroundColor: 'transparent',
+    borderColor: 'success',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    color: 'success',
+    '&:focus': {
+      boxShadow: createSurfaceFocusShadow('success'),
+    },
+    // because we need to compose box shadow
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('success'),
+    },
+    '&:hover': {
+      backgroundColor: 'success',
+      color: 'successText',
+    },
+  },
+  warning: {
+    backgroundColor: 'transparent',
+    borderColor: 'warning',
+    borderStyle: 'solid',
+    borderWidth: 2,
+    color: 'warning',
+    '&:focus': {
+      boxShadow: createSurfaceFocusShadow('warning'),
+    },
+    // because we need to compose box shadow
+    '&:focus:active': {
+      boxShadow: createControlActiveShadow('warning'),
+    },
+    '&:hover': {
+      backgroundColor: 'warning',
+      color: 'warningText',
     },
   },
   default: {
@@ -183,7 +269,13 @@ export const Button = createComponent('button', {
   variants: [
     booleanVariant('outlined', true),
     booleanVariant('monochrome', true),
-    variant('variant', true, ['danger', 'primary'] as const),
+    variant('variant', true, [
+      'danger',
+      'primary',
+      'info',
+      'success',
+      'warning',
+    ] as const),
     variant('size', true, ['small', 'medium', 'large'] as const),
   ],
 });
