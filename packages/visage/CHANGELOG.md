@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.60](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.59...@byteclaw/visage@1.0.0-alpha.60) (2020-12-30)
+
+
+### Bug Fixes
+
+* correctly resize on change ([1c4aa52](https://github.com/Byteclaw/visage/commit/1c4aa5231a022a5d890236247ce10cf43d1085f1))
+
+
+
 ## [1.0.0-alpha.59](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.58...@byteclaw/visage@1.0.0-alpha.59) (2020-12-30)
 
 
