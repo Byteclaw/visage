@@ -36,7 +36,12 @@ const styles = {
 
 render(
   <DesignSystem responsive theme={theme}>
-    <Box styles={{ display: 'inline-flex', backgroundColor: 'neutral.2' }}>
+    <Box
+      styles={{
+        display: 'inline-flex',
+        backgroundColor: 'color(neutral shade(20%))',
+      }}
+    >
       <Box styles={styles}>
         <Box styles={{ backgroundColor: 'neutral', height: 100, width: 100 }} />
       </Box>

@@ -79,7 +79,7 @@ const DialogSubHeading = createComponent(Text, {
   styles: {
     mt: 2,
     mb: -2,
-    color: 'neutral.2',
+    color: 'color(neutral, shade(20%))',
     fontSize: -1,
   },
 });
