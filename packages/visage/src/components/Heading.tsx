@@ -103,42 +103,37 @@ export interface HeadingProps extends H1Props {
 
 export const Heading = markAsVisageComponent(
   memo(
-    forwardRef(
-      (
-        { level = 1, ...restProps }: JSX.IntrinsicElements['h1'] & HeadingProps,
-        ref: any,
-      ) => {
-        let as = h1;
+    forwardRef<HTMLHeadingElement, HeadingProps>(function Heading(
+      { level = 1, ...restProps }: HeadingProps,
+      ref,
+    ) {
+      let as = h1;
 
-        switch (level) {
-          case 2:
-            as = h2;
-            break;
-          case 3:
-            as = h3;
-            break;
-          case 4:
-            as = h4;
-            break;
-          case 5:
-            as = h5;
-            break;
-          case 6:
-            as = h6;
-        }
+      switch (level) {
+        case 2:
+          as = h2;
+          break;
+        case 3:
+          as = h3;
+          break;
+        case 4:
+          as = h4;
+          break;
+        case 5:
+          as = h5;
+          break;
+        case 6:
+          as = h6;
+      }
 
-        return createElement(as, {
-          ref,
-          // @ts-ignore
-          'data-level': level,
-          ...restProps,
-        });
-      },
-    ),
+      return createElement(as, {
+        ref,
+        'data-level': level,
+        ...restProps,
+      });
+    }),
   ),
 );
-
-Heading.displayName = 'Heading';
 
 const defaultMask = [6];
 
@@ -151,20 +146,13 @@ interface HeadingSkeletonProps {
 
 export const HeadingSkeleton = markAsVisageComponent(
   memo(
-    forwardRef(
-      (
-        {
-          mask = defaultMask,
-          ...restProps
-        }: JSX.IntrinsicElements['h1'] & HeadingProps & HeadingSkeletonProps,
-        ref: any,
-      ) => {
-        return (
-          <Heading as={SkeletonSentence} mask={mask} ref={ref} {...restProps} />
-        );
-      },
-    ),
+    forwardRef<
+      HTMLDivElement,
+      Omit<HeadingProps & HeadingSkeletonProps, 'ref'>
+    >(function HeadingSkeleton({ mask = defaultMask, ...restProps }, ref) {
+      return (
+        <Heading as={SkeletonSentence} mask={mask} ref={ref} {...restProps} />
+      );
+    }),
   ),
 );
-
-HeadingSkeleton.displayName = 'HeadingSkeleton';

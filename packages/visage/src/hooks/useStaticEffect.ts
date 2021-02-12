@@ -1,4 +1,3 @@
-import { ExtractArgs } from '@byteclaw/visage-core';
 import { useEffect } from 'react';
 
 /**
@@ -6,7 +5,7 @@ import { useEffect } from 'react';
  */
 export function useStaticEffect<T extends (...effectArgs: any[]) => void>(
   effectFn: T,
-  ...args: ExtractArgs<T>
+  ...args: Parameters<T>
 ): void {
   useEffect(() => {
     return effectFn(...args);

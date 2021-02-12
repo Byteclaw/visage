@@ -1,5 +1,4 @@
 import { useEffect, useMemo } from 'react';
-import { ExtractArgs } from '@byteclaw/visage-core';
 
 /**
  * Works similarly as useEffect except it runs effect before children are rendered
@@ -27,7 +26,7 @@ export function useOnRenderEffect(
  */
 export function useStaticOnRenderEffect<
   T extends (...effectArgs: any[]) => void | (() => void)
->(effect: T, ...args: ExtractArgs<T>): void {
+>(effect: T, ...args: Parameters<T>): void {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const unregister = useMemo(() => effect(...args), [effect, ...args]);
 

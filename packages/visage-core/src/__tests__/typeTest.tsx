@@ -6,7 +6,10 @@
 import React from 'react';
 import { createComponent } from '../createComponent';
 import { VisageComponent } from '../types';
-import { StyleSheet } from '../styleSheet';
+
+const Div = createComponent('div');
+
+<Div />;
 
 declare function FC(p: { test: boolean }): JSX.Element;
 
@@ -191,8 +194,8 @@ const AssignComplexMemoAndForward: VisageComponent<
 > = React.memo(
   React.forwardRef(
     (
-      props: JSX.IntrinsicElements['h1'] & { test: boolean },
-      ref: React.Ref<HTMLHeadingElement>,
+      props: JSX.IntrinsicElements['div'] & { test: boolean },
+      ref: React.Ref<HTMLDivElement>,
     ) => null,
   ),
 );
