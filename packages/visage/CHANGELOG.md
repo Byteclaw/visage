@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.61](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.60...@byteclaw/visage@1.0.0-alpha.61) (2021-02-12)
+
+
+### Bug Fixes
+
+* easier and more precise polymorphic typing ([84ae0f9](https://github.com/Byteclaw/visage/commit/84ae0f95ccc0e073bd7f895f9c32bab854a03952))
+
+
+
 ## [1.0.0-alpha.60](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.59...@byteclaw/visage@1.0.0-alpha.60) (2020-12-30)
 
 
