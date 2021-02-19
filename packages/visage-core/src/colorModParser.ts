@@ -331,8 +331,12 @@ function peg$parse(input: string, options?: IParseOptions) {
     function (): any {
       return { type: 'number', value: parseFloat(text()) };
     },
-    /^[a-zA-Z\-_]/,
-    peg$classExpectation([['a', 'z'], ['A', 'Z'], '-', '_'], false, false),
+    /^[a-zA-Z0-9\-_]/,
+    peg$classExpectation(
+      [['a', 'z'], ['A', 'Z'], ['0', '9'], '-', '_'],
+      false,
+      false,
+    ),
     peg$otherExpectation('whitespace'),
     /^[ \t\n\r,]/,
     peg$classExpectation([' ', '\t', '\n', '\r', ','], false, false),
