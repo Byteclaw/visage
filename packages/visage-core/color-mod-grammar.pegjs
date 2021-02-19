@@ -181,6 +181,6 @@ Modifier = "+" / "-"
 NumOrPercent = Percentage / Number
 Percentage = Number "%" { return { type: 'percentage', value: parseInt(text(), 10) }; }
 Number = [0-9]+ ("." [0-9]+)? { return { type: 'number', value: parseFloat(text()) }; }
-Identifier = $[a-zA-Z]+
+Identifier = $[a-zA-Z-_]+
 
 _ "whitespace" = [ \t\n\r,]*
