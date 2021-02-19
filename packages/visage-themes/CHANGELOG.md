@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.63](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-themes@1.0.0-alpha.62...@byteclaw/visage-themes@1.0.0-alpha.63) (2021-02-19)
+
+**Note:** Version bump only for package @byteclaw/visage-themes
+
+
+
+
+
 ## [1.0.0-alpha.62](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-themes@1.0.0-alpha.61...@byteclaw/visage-themes@1.0.0-alpha.62) (2021-02-19)
 
 **Note:** Version bump only for package @byteclaw/visage-themes

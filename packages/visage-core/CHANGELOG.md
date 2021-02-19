@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.18](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.17...@byteclaw/visage-core@1.0.0-alpha.18) (2021-02-19)
+
+
+### Features
+
+* allow color identifier to contain numbers ([3ed3a53](https://github.com/Byteclaw/visage/commit/3ed3a5333551ee58d4f5963d84fa856382ee58f5))
+
+
+
 ## [1.0.0-alpha.17](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.16...@byteclaw/visage-core@1.0.0-alpha.17) (2021-02-19)
 
 
