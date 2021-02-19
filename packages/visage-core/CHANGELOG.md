@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.17](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.16...@byteclaw/visage-core@1.0.0-alpha.17) (2021-02-19)
+
+
+### Features
+
+* allow color identifier to contain hyphens and underscores ([c6ba47b](https://github.com/Byteclaw/visage/commit/c6ba47bcde7c30dfa8dd7dea94a0be4f2979b520))
+
+
+
 ## [1.0.0-alpha.16](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.15...@byteclaw/visage-core@1.0.0-alpha.16) (2021-02-12)
 
 
