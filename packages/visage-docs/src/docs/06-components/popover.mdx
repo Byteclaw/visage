@@ -26,7 +26,6 @@ function Example() {
       </Button>
       <Popover
         allowScrolling={false}
-        alwaysVisible
         anchor={anchorRef}
         keepAnchorWidth
         fullscreen={[true, false]}
@@ -48,6 +47,49 @@ function Example() {
     </Fragment>
   );
 }
+```
+
+### Inside scrollable container
+
+Sometimes you have your anchor element inside a scrollable container. In this case you must use `scrollContainerRef` to properly position popover against anchor.
+
+```jsx live=true
+() => {
+  const anchorRef = useRef();
+  const scrollContainerRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Box styles={{ height: 500, overflowY: 'auto' }} ref={scrollContainerRef}>
+      <Box styles={{ my: '400px' }}>
+        <Button onClick={() => setOpen(!open)} ref={anchorRef} type="button">
+          {open ? 'Hide' : 'Show'} popper
+        </Button>
+        <Popover
+          allowScrolling={false}
+          anchor={anchorRef}
+          keepAnchorWidth
+          fullscreen={[true, false]}
+          open={open}
+          onClose={() => setOpen(false)}
+          scrollContainerRef={scrollContainerRef}
+        >
+          <Flex
+            styles={{
+              alignItems: 'center',
+              backgroundColor:
+                'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+              height: 500,
+              width: '100%',
+            }}
+          >
+            Content
+          </Flex>
+        </Popover>
+      </Box>
+    </Box>
+  );
+};
 ```
 
 ## Faces

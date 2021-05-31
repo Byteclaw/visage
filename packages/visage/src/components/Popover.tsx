@@ -37,7 +37,7 @@ export const BasePopover = createComponent('div', {
 
 interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
   /**
-   * Should scroll of underlying elements be possible?
+   * Should body scroll be possible?
    */
   allowScrolling?: boolean;
   anchor?: null | RefObject<HTMLElement> | AnchorPosition;
@@ -104,6 +104,10 @@ interface PopoverProps extends ExtractVisageComponentProps<typeof BasePopover> {
    * Ref to div that wraps the popover content
    */
   popoverRef?: RefObject<HTMLDivElement>;
+  /**
+   * Scroll container if the anchor is inside an element that is scrollable and it's not the body element
+   */
+  scrollContainerRef?: RefObject<HTMLElement>;
 }
 
 function isAnchorPosition(anchor: any): anchor is AnchorPosition {
@@ -147,6 +151,7 @@ export function Popover({
   onClose = () => {},
   placement = defaultPlacement,
   popoverRef,
+  scrollContainerRef,
   ...restProps
 }: PopoverProps): React.ReactElement {
   const { breakpoint } = useDesignSystem();
@@ -237,13 +242,16 @@ export function Popover({
     ],
   );
 
-  useVisualViewport(viewport => {
-    if (open && contentRef.current) {
-      const el = contentRef.current;
+  useVisualViewport(
+    viewport => {
+      if (open && contentRef.current) {
+        const el = contentRef.current;
 
-      setPositioningStyles(el, viewport);
-    }
-  });
+        setPositioningStyles(el, viewport);
+      }
+    },
+    { watchForChanges: open, scrollContainerRef },
+  );
 
   useAutofocusOnMount(autoFocus && open ? contentRef : undefined);
 

@@ -155,69 +155,55 @@ function computeViewportSize(
 
 function listenToVisualViewportChangesEffect(
   onChange: VisualViewportSizeListener,
+  watchForChanges: boolean,
+  /**
+   * Scrollable container of an anchor (if we have an element inside other scrollable container than body)
+   */
+  scrollContainerRef?: React.RefObject<HTMLElement>,
 ) {
-  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  if (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined' &&
+    watchForChanges
+  ) {
     const { visualViewport } = window as any;
     const device = detectDevice(window);
-    let computedViewport = computeViewportSize(document, window, device);
-    const handler = () => {
-      const newViewport = computeViewportSize(document, window, device);
+    const computedViewport = computeViewportSize(document, window, device);
 
-      if (
-        computedViewport.height !== newViewport.height ||
-        computedViewport.width !== newViewport.width ||
-        computedViewport.offsetLeft !== newViewport.offsetLeft ||
-        computedViewport.offsetTop !== newViewport.offsetTop ||
-        computedViewport.maxHeight !== newViewport.maxHeight ||
-        computedViewport.maxWidth !== newViewport.maxWidth
-      ) {
-        computedViewport = newViewport;
+    let ticking = false;
 
-        onChange(computedViewport);
+    const recomputeViewport = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const newViewport = computeViewportSize(document, window, device);
+
+          onChange(newViewport);
+
+          ticking = false;
+        });
+
+        ticking = true;
       }
     };
 
-    // if there is a visual viewport, use it
-    if (visualViewport) {
-      visualViewport.addEventListener('resize', handler);
-      visualViewport.addEventListener('scroll', handler);
+    // listen to changes
+    visualViewport?.addEventListener('resize', recomputeViewport);
+    visualViewport?.addEventListener('scroll', recomputeViewport);
+    window.addEventListener('resize', recomputeViewport);
+    window.addEventListener('scroll', recomputeViewport);
+    scrollContainerRef?.current?.addEventListener('scroll', recomputeViewport);
 
-      // call onChange for the first time
-      onChange(computedViewport);
-
-      return () => {
-        visualViewport.removeEventListener('resize', handler);
-        visualViewport.removeEventListener('scroll', handler);
-      };
-    }
-
-    let stop = false;
-
-    // if platform is iOS then use pooled checker
-    if (device !== Device.other) {
-      const detector = () => {
-        if (stop) {
-          return;
-        }
-
-        handler();
-
-        window.requestAnimationFrame(detector);
-      };
-
-      window.requestAnimationFrame(detector);
-    }
-
-    // if platform is iOS then use pooled checker
-    // and also window.resize
-    window.addEventListener('resize', handler);
-
-    // call on change for the first time
     onChange(computedViewport);
 
     return () => {
-      stop = true;
-      window.removeEventListener('resize', handler);
+      visualViewport?.removeEventListener('resize', recomputeViewport);
+      visualViewport?.removeEventListener('scroll', recomputeViewport);
+      window.removeEventListener('resize', recomputeViewport);
+      window.removeEventListener('scroll', recomputeViewport);
+      scrollContainerRef?.current?.removeEventListener(
+        'scroll',
+        recomputeViewport,
+      );
     };
   }
 }
@@ -225,6 +211,28 @@ function listenToVisualViewportChangesEffect(
 /**
  * Computes visual viewport and calls listener on every change to it's properties
  */
-export function useVisualViewport(listener: VisualViewportSizeListener) {
-  useStaticEffect(listenToVisualViewportChangesEffect, listener);
+export function useVisualViewport(
+  listener: VisualViewportSizeListener,
+  {
+    watchForChanges = true,
+    scrollContainerRef,
+  }: {
+    /**
+     * Should watch for changes?
+     *
+     * @default true
+     */
+    watchForChanges: boolean;
+    /**
+     * Scrollable container of an anchor (if we have an element inside other scrollable container than body)
+     */
+    scrollContainerRef?: React.RefObject<HTMLElement>;
+  },
+): void {
+  useStaticEffect(
+    listenToVisualViewportChangesEffect,
+    listener,
+    watchForChanges,
+    scrollContainerRef,
+  );
 }

@@ -60,6 +60,52 @@ import { Popper } from '@byteclaw/visage';
 };
 ```
 
+### Inside scrollable container
+
+Sometimes you have your anchor element inside a scrollable container. In this case you must use `scrollContainerRef` to properly position popper against anchor.
+
+```jsx live=true
+() => {
+  const anchorRef = useRef();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Box styles={{ height: 500, overflowY: 'auto' }}>
+      <Box styles={{ my: '400px' }}>
+        <Button onClick={() => setOpen(!open)} ref={anchorRef} type="button">
+          {open ? 'Hide' : 'Show'} popper
+        </Button>
+        <Popper
+          anchor={anchorRef}
+          open={open}
+          placement={[
+            [
+              {
+                placement: Placement.topLeft,
+                horizontal: 'left',
+                vertical: 'bottom',
+              },
+            ],
+          ]}
+        >
+          <Flex
+            styles={{
+              alignItems: 'center',
+              backgroundColor:
+                'color(shades if(isDark color(shades tint(10%)) color(shades shade(10%))))',
+              height: 500,
+              width: '100%',
+            }}
+          >
+            Content
+          </Flex>
+        </Popper>
+      </Box>
+    </Box>
+  );
+};
+```
+
 ## Used by
 
 - [`Tooltip`](/components/feedback/tooltip)

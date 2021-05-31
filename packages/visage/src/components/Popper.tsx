@@ -146,6 +146,10 @@ interface PopperProps extends DivProps, PlacementConstraints {
    * Can be used to say how should popover behave in different scenarios
    */
   placement: (PlacementWithAnchorOrigin[] | undefined)[];
+  /**
+   * Scroll container if the anchor is inside an element that is scrollable and it's not the body element
+   */
+  scrollContainerRef?: RefObject<HTMLElement>;
 }
 
 const baseStyle: React.CSSProperties = {
@@ -174,6 +178,7 @@ export function Popper({
   minWidth,
   open = false,
   placement,
+  scrollContainerRef,
   ...restProps
 }: PopperProps): React.ReactElement | null {
   const portalId = useUniqueId(outerId, 'popper');
@@ -220,7 +225,7 @@ export function Popper({
     [params],
   );
 
-  useVisualViewport(positionFn);
+  useVisualViewport(positionFn, { watchForChanges: open, scrollContainerRef });
 
   useStaticEffect(cancelPositionFnOnUnmount, cancelPositionFn);
 
