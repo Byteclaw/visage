@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.65](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.63...@byteclaw/visage@1.0.0-alpha.65) (2021-06-01)
+
+
+### Bug Fixes
+
+* better popover position tracking ([9a60491](https://github.com/Byteclaw/visage/commit/9a60491c2eeca2f393757cb88fd9f71f16231076))
+
+
+
 ## [1.0.0-alpha.64](https://github.com/Byteclaw/visage/compare/@byteclaw/visage@1.0.0-alpha.63...@byteclaw/visage@1.0.0-alpha.64) (2021-06-01)
 
 
