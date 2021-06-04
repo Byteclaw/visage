@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.20](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.19...@byteclaw/visage-core@1.0.0-alpha.20) (2021-06-04)
+
+
+### Bug Fixes
+
+* invalid file input types ([3ce1198](https://github.com/Byteclaw/visage/commit/3ce1198d127f22f2f4459b10820fe628f9121905))
+
+
+
 ## [1.0.0-alpha.19](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.18...@byteclaw/visage-core@1.0.0-alpha.19) (2021-06-04)
 
 
