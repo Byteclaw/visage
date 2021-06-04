@@ -101,11 +101,18 @@ interface BaseFileInputProps
   onChange?: any;
 }
 
-interface FileInputProps extends BaseFileInputProps {
+interface FileInputProps extends Omit<BaseFileInputProps, 'placeholder'> {
   invalid?: boolean;
   baseProps?: ExtractVisageComponentProps<typeof FileInputBase>;
   controlProps?: ExtractVisageComponentProps<typeof FileInputControl>;
-  label?: string | ((files: File[], placeholder: string) => string);
+  label?:
+    | string
+    | React.ReactElement
+    | ((
+        files: File[],
+        placeholder: string | React.ReactElement,
+      ) => string | React.ReactElement);
+  placeholder?: string | React.ReactElement;
   onChange?: (files: File[]) => void;
 }
 
@@ -226,7 +233,9 @@ export const FileInput = markAsVisageComponent(
           multiple={multiple}
           onKeyDown={onInputKeyDown}
           onChange={onInputChange}
-          placeholder={placeholder}
+          placeholder={
+            typeof placeholder === 'string' ? placeholder : undefined
+          }
           ref={inputRefCallback}
           readOnly={readOnly}
           type="file"
