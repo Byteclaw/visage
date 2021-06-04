@@ -154,10 +154,12 @@ export type ComponentConstraint =
   | keyof JSX.IntrinsicElements
   | React.JSXElementConstructor<any>;
 
-export type ExtractVisageComponentProps<T extends ComponentConstraint> =
+export type ExtractVisageComponentProps<T extends ComponentConstraint> = Omit<
   T extends VisageComponent<infer P>
     ? P & StyleProps
-    : ComponentProps<T> & StyleProps;
+    : ComponentProps<T> & StyleProps,
+  'css'
+>;
 
 export type OmittableProps<T extends { [key: string]: any }> = {
   [K in keyof T]?: undefined | T[K];
