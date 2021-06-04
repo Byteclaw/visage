@@ -58,20 +58,17 @@ const color: RawStylerFunction<any> = function resolveColor(
 /**
  * Default resolver for borderRadius and border*Radius
  */
-export const borderRadius: RawStylerFunction<any> = function resolveBorderRadius(
-  propName: string,
-  value: any,
-  ctx,
-) {
-  const valueForExactPropName = themeKeyResolver(propName, value, ctx);
+export const borderRadius: RawStylerFunction<any> =
+  function resolveBorderRadius(propName: string, value: any, ctx) {
+    const valueForExactPropName = themeKeyResolver(propName, value, ctx);
 
-  if (valueForExactPropName === value) {
-    // there is probably no value, try to use borderRadius value
-    return themeKeyResolver('borderRadius', value, ctx);
-  }
+    if (valueForExactPropName === value) {
+      // there is probably no value, try to use borderRadius value
+      return themeKeyResolver('borderRadius', value, ctx);
+    }
 
-  return valueForExactPropName;
-};
+    return valueForExactPropName;
+  };
 
 export const resolvers: ThemeResolverMap<
   'color' | 'borderRadius' | 'themeKey'

@@ -13,7 +13,7 @@ function composeHandler<TCallback extends (...args: any[]) => any = () => void>(
 }
 
 export function useComposedCallbackCreator<
-  TCallback extends (...args: any[]) => any = () => void
+  TCallback extends (...args: any[]) => any = () => void,
 >(...callbacks: (TCallback | undefined)[]) {
   return useStaticCallbackCreator(composeHandler, callbacks);
 }

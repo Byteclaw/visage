@@ -23,9 +23,8 @@ export interface ComponentsInformationMap {
   [component: string]: ComponentInformation;
 }
 
-export const ComponentInformationMapContext = React.createContext<ComponentsInformationMap>(
-  {},
-);
+export const ComponentInformationMapContext =
+  React.createContext<ComponentsInformationMap>({});
 
 export function ComponentInformationMap({
   children,

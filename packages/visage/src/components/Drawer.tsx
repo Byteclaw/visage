@@ -93,9 +93,8 @@ function bindOnCloseListeners(
     onClose,
     isFullscreen,
   );
-  const unregisterEscapeKeyUp = closeListenerManager.registerEscapeKeyUpListener(
-    onClose,
-  );
+  const unregisterEscapeKeyUp =
+    closeListenerManager.registerEscapeKeyUpListener(onClose);
 
   return () => {
     unregisterClickAway();

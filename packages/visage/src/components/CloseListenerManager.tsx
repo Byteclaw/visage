@@ -49,16 +49,15 @@ export interface CloseListenerManagerContextAPI {
   ): () => void;
 }
 
-export const CloseListenerManagerContext = createContext<CloseListenerManagerContextAPI>(
-  {
+export const CloseListenerManagerContext =
+  createContext<CloseListenerManagerContextAPI>({
     registerClickAwayListener() {
       return () => {};
     },
     registerEscapeKeyUpListener() {
       return () => {};
     },
-  },
-);
+  });
 
 /**
  * Connects to CloseListenerManager

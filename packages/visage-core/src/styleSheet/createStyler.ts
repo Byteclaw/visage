@@ -7,13 +7,12 @@ import {
   StyleSheetScalarValue,
 } from './types';
 
-export type RawStylerFunction<
-  TResult extends StyleSheet | ResolvedStyleSheet
-> = (
-  propName: string,
-  value: StyleSheetScalarValue,
-  ctx: StylerSheetResolveContext,
-) => TResult;
+export type RawStylerFunction<TResult extends StyleSheet | ResolvedStyleSheet> =
+  (
+    propName: string,
+    value: StyleSheetScalarValue,
+    ctx: StylerSheetResolveContext,
+  ) => TResult;
 
 export function createStyler<TResult extends StyleSheet | ResolvedStyleSheet>(
   type: StylerResultType,

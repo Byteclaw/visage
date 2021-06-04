@@ -115,7 +115,7 @@ export type StylerFunction = (
 ) => StylerResult;
 
 export interface StyleSheetThemeSettings<
-  TFaces extends StyleSheetFaces = StyleSheetFaces
+  TFaces extends StyleSheetFaces = StyleSheetFaces,
 > {
   colors: {
     [color: string]: string | undefined | ScaleValue<string>;
@@ -136,7 +136,7 @@ export interface StyleSheetThemeSettings<
 }
 
 export interface StylerSheetResolveContext<
-  TThemeSettings extends StyleSheetThemeSettings = StyleSheetThemeSettings
+  TThemeSettings extends StyleSheetThemeSettings = StyleSheetThemeSettings,
 > {
   /** Current device breakpoint */
   breakpoint: number;

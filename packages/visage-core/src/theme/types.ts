@@ -7,7 +7,7 @@ import {
 
 export interface ThemeStylerSettingsObject<
   TFormatterNames extends keyof any,
-  TResolverNames extends keyof any
+  TResolverNames extends keyof any,
 > {
   /** Type of style, by default it's InPlaceFinal */
   type?: StylerResultType;
@@ -30,7 +30,7 @@ export interface ThemeStylerSettingsObject<
 
 export type ThemeStylerSettings<
   TFormatterNames extends keyof any,
-  TResolverNames extends keyof any
+  TResolverNames extends keyof any,
 > = StylerFunction | ThemeStylerSettingsObject<TFormatterNames, TResolverNames>;
 
 export type ThemeFormatterMap<TFormatterNames extends keyof any> = {
@@ -44,7 +44,7 @@ export type ThemeResolverMap<TResolverNames extends keyof any> = {
 export type ThemeStylerMap<
   TStylersName extends keyof any = any,
   TFormattersName extends keyof any = any,
-  TResolversName extends keyof any = any
+  TResolversName extends keyof any = any,
 > = {
   [K in TStylersName]: ThemeStylerSettings<TFormattersName, TResolversName>;
 };

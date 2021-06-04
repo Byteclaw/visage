@@ -312,10 +312,8 @@ export const Select: typeof SelectComp = markAsVisageComponent(
             });
         },
       );
-      const [
-        debouncedLoadOptions,
-        cancelDebouncedLoadOptions,
-      ] = useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
+      const [debouncedLoadOptions, cancelDebouncedLoadOptions] =
+        useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
       const enhancedReducer: SelectorReducerEnhancer<any> = useHandlerRef(
         (currentState, nextState) => {
           // allow only to set value from outside if read only
@@ -345,8 +343,8 @@ export const Select: typeof SelectComp = markAsVisageComponent(
             : nextState;
         },
       );
-      const enhancedOnStateChange: SelectorStateChangeListener<any> = useHandlerRef(
-        (previousState, currentState, dispatch) => {
+      const enhancedOnStateChange: SelectorStateChangeListener<any> =
+        useHandlerRef((previousState, currentState, dispatch) => {
           if (onStateChange) {
             onStateChange(previousState, currentState, dispatch);
           }
@@ -373,8 +371,7 @@ export const Select: typeof SelectComp = markAsVisageComponent(
               loadOptions(currentState.inputValue, dispatch);
             }
           }
-        },
-      );
+        });
       const [state, dispatch] = useSelector({
         defaultValue,
         enhanceReducer: enhancedReducer,
@@ -409,8 +406,8 @@ export const Select: typeof SelectComp = markAsVisageComponent(
       const onInputChange: ChangeEventHandler<HTMLInputElement> = useHandlerRef(
         e => dispatch({ type: 'InputChange', value: e.currentTarget.value }),
       );
-      const onInnerMouseDown: MouseEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
+      const onInnerMouseDown: MouseEventHandler<HTMLInputElement> =
+        useHandlerRef(e => {
           // react only on primary button
           if (e.button !== 0) {
             return;
@@ -420,10 +417,9 @@ export const Select: typeof SelectComp = markAsVisageComponent(
             dispatch({ type: 'MenuOpen' });
             dispatch({ type: 'SetOptionFocusToFirstOption' });
           }
-        },
-      );
-      const onInnerKeyUp: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
+        });
+      const onInnerKeyUp: KeyboardEventHandler<HTMLInputElement> =
+        useHandlerRef(e => {
           const key = normalizeKeyboardEventKey(e);
 
           if (key === 'Escape') {
@@ -436,10 +432,9 @@ export const Select: typeof SelectComp = markAsVisageComponent(
               dispatch({ type: 'Reset' });
             }
           }
-        },
-      );
-      const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
+        });
+      const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> =
+        useHandlerRef(e => {
           const key = normalizeKeyboardEventKey(e);
 
           switch (key) {
@@ -490,8 +485,7 @@ export const Select: typeof SelectComp = markAsVisageComponent(
               break;
             }
           }
-        },
-      );
+        });
       const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
       const onFocusHandler = useComposedCallbackCreator(onFocus, onInnerFocus);
       const onKeyUpHandler = useComposedCallbackCreator(onKeyUp, onInnerKeyUp);

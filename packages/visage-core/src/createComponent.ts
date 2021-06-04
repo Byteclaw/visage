@@ -29,7 +29,7 @@ export function createComponent<
     ? ExtractVisageComponentProps<TDefaultComponent> &
         UnionToIntersection<TVariants[number]>
     : ExtractVisageComponentProps<TDefaultComponent>,
-  TDefaultProps extends Partial<TProps> = any
+  TDefaultProps extends Partial<TProps> = any,
 >(
   defaultAs: TDefaultComponent,
   {

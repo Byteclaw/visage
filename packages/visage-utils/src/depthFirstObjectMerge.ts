@@ -3,7 +3,7 @@ function isObj<T>(obj: T): obj is T {
 }
 
 export function depthFirstObjectMerge<
-  T extends { [key: string]: any } = { [key: string]: any }
+  T extends { [key: string]: any } = { [key: string]: any },
 >(...obj: T[]): T {
   if (obj.length === 1) {
     return obj[0];

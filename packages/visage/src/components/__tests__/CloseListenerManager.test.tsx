@@ -26,9 +26,8 @@ function RenderClosable({
   const closeListenerManager = useCloseListenerManager();
 
   useOnRenderEffect(() => {
-    const unregisterEscape = closeListenerManager.registerEscapeKeyUpListener(
-      onClose,
-    );
+    const unregisterEscape =
+      closeListenerManager.registerEscapeKeyUpListener(onClose);
     const unregisterClick = closeListenerManager.registerClickAwayListener(
       [divRef],
       onClose,

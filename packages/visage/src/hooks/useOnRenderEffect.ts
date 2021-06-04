@@ -25,7 +25,7 @@ export function useOnRenderEffect(
  * So basically mount works from parent to child and unmount in opposite order
  */
 export function useStaticOnRenderEffect<
-  T extends (...effectArgs: any[]) => void | (() => void)
+  T extends (...effectArgs: any[]) => void | (() => void),
 >(effect: T, ...args: Parameters<T>): void {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const unregister = useMemo(() => effect(...args), [effect, ...args]);

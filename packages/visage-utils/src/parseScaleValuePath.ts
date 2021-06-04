@@ -1,9 +1,7 @@
 /**
  * Parses property name and scale value index from scalePath
  */
-export function parseScaleValuePath(
-  scalePath: any,
-): [
+export function parseScaleValuePath(scalePath: any): [
   /** Scale property name (for nested values like primary.-1) */
   string,
   /**  Index of scale value to use */

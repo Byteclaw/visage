@@ -53,10 +53,11 @@ const CardTouchable = createComponent('div', {
 const CardContent = createComponent('div', {
   displayName: 'CardContent',
   styles: {
-    '& a, & button, & input, & select, & [role="button"], & [role="checkbox"], & [role="radio"], & [role="combobox"], & [role="listbox"], & [role="search"], & [role="switch"], & [role="textbox"]': {
-      position: 'relative',
-      zIndex: 0,
-    },
+    '& a, & button, & input, & select, & [role="button"], & [role="checkbox"], & [role="radio"], & [role="combobox"], & [role="listbox"], & [role="search"], & [role="switch"], & [role="textbox"]':
+      {
+        position: 'relative',
+        zIndex: 0,
+      },
     width: '100%',
   },
 });
