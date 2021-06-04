@@ -48,7 +48,7 @@ export interface VisageComponent<
   displayName?: string;
 
   <C extends React.ElementType>(
-    props: PolymorphicComponentProps<C, TComponentProps>,
+    props: PolymorphicComponentProps<C, Omit<TComponentProps, 'css'>>,
   ): React.ReactElement | null;
 }
 
