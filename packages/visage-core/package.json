@@ -1,6 +1,6 @@
 {
   "name": "@byteclaw/visage-core",
-  "version": "1.0.0-alpha.18",
+  "version": "1.0.0-alpha.19",
   "description": "CSS-in-js agnostic framework for design system development used by Visage Design System.",
   "bugs": {
     "url": "https://github.com/Byteclaw/visage/issues"
@@ -32,7 +32,7 @@
     "!src/**/__tests__/**/*"
   ],
   "dependencies": {
-    "@byteclaw/visage-utils": "^1.0.0-alpha.3",
+    "@byteclaw/visage-utils": "^1.0.0-alpha.4",
     "@types/color": "^3.0.1",
     "color": "^3.1.2",
     "fast-deep-equal": "^3.1.3"

@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-alpha.19](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.18...@byteclaw/visage-core@1.0.0-alpha.19) (2021-06-04)
+
+
+### Bug Fixes
+
+* omit css prop ([a65b596](https://github.com/Byteclaw/visage/commit/a65b596640110521102ba57036195f9768023dca))
+
+
+
 ## [1.0.0-alpha.18](https://github.com/Byteclaw/visage/compare/@byteclaw/visage-core@1.0.0-alpha.17...@byteclaw/visage-core@1.0.0-alpha.18) (2021-02-19)
 
 
