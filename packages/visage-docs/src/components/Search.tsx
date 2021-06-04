@@ -46,11 +46,12 @@ const SearchInput = connectAutoComplete(({ refine, hits: searchHits }: any) => {
           <SvgIcon
             icon={AlgoliaLogo}
             styles={{
-              '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)': {
-                '& > svg': {
-                  width: '7em',
+              '@media all and (-ms-high-contrast: none), (-ms-high-contrast: active)':
+                {
+                  '& > svg': {
+                    width: '7em',
+                  },
                 },
-              },
             }}
           />
         </a>

@@ -196,317 +196,317 @@ declare function AutocompleteInputComp<TValue extends any = string>(
   props: AutocompleteInputProps<TValue>,
 ): ReactElement<any, any> | null;
 
-export const AutocompleteInput: typeof AutocompleteInputComp = markAsVisageComponent(
-  forwardRef(
-    (
-      {
-        $$variants,
-        debounceDelay = 500,
-        defaultValue,
-        enhanceReducer,
-        expandOnClick,
-        id: outerId,
-        onBlur,
-        onChange,
-        onFocus,
-        onInputValueChange,
-        onKeyDown,
-        onKeyUp,
-        onMouseDown,
-        onStateChange,
-        options,
-        optionToString,
-        menu: DropdownMenu = defaultMenu,
-        readOnly,
-        parentStyles,
-        selectOnBlur,
-        styles,
-        value,
-        valueToString,
-        ...restProps
-      }: AutocompleteInputProps<any> & TextInputProps,
-      ref: Ref<HTMLInputElement>,
-    ) => {
-      const id = useUniqueId(outerId, 'autocomplete');
-      const listboxId = useUniqueId(null, 'listbox');
+export const AutocompleteInput: typeof AutocompleteInputComp =
+  markAsVisageComponent(
+    forwardRef(
+      (
+        {
+          $$variants,
+          debounceDelay = 500,
+          defaultValue,
+          enhanceReducer,
+          expandOnClick,
+          id: outerId,
+          onBlur,
+          onChange,
+          onFocus,
+          onInputValueChange,
+          onKeyDown,
+          onKeyUp,
+          onMouseDown,
+          onStateChange,
+          options,
+          optionToString,
+          menu: DropdownMenu = defaultMenu,
+          readOnly,
+          parentStyles,
+          selectOnBlur,
+          styles,
+          value,
+          valueToString,
+          ...restProps
+        }: AutocompleteInputProps<any> & TextInputProps,
+        ref: Ref<HTMLInputElement>,
+      ) => {
+        const id = useUniqueId(outerId, 'autocomplete');
+        const listboxId = useUniqueId(null, 'listbox');
 
-      // last arrow pressed is used to automatically focus an option if automatic mode is turn on
-      // and is reset to null when options are loaded
-      const lastArrowPressed = useRef<string | null>(null);
-      const loadOptions = useHandlerRef(
-        (inputValue: string, dispatch: Dispatch<SelectorAction<any>>) => {
-          if (!options) {
-            return;
-          }
+        // last arrow pressed is used to automatically focus an option if automatic mode is turn on
+        // and is reset to null when options are loaded
+        const lastArrowPressed = useRef<string | null>(null);
+        const loadOptions = useHandlerRef(
+          (inputValue: string, dispatch: Dispatch<SelectorAction<any>>) => {
+            if (!options) {
+              return;
+            }
 
-          // open menu only if is input focused
-          dispatch({ type: 'MenuOpen' });
-          // load options sets the input as busy
-          dispatch({
-            type: 'SetBusy',
-            isBusy: true,
-            forInputValue: inputValue,
-          });
+            // open menu only if is input focused
+            dispatch({ type: 'MenuOpen' });
+            // load options sets the input as busy
+            dispatch({
+              type: 'SetBusy',
+              isBusy: true,
+              forInputValue: inputValue,
+            });
 
-          // and then on resolution sets options and not busy
-          (Array.isArray(options)
-            ? Promise.resolve(options)
-            : options(inputValue)
-          )
-            .then(newOptions =>
-              dispatch({
-                type: 'SetOptions',
-                options: newOptions,
-                forInputValue: inputValue,
-              }),
+            // and then on resolution sets options and not busy
+            (Array.isArray(options)
+              ? Promise.resolve(options)
+              : options(inputValue)
             )
-            .finally(() => {
-              dispatch({
-                type: 'SetBusy',
-                isBusy: false,
-                forInputValue: inputValue,
+              .then(newOptions =>
+                dispatch({
+                  type: 'SetOptions',
+                  options: newOptions,
+                  forInputValue: inputValue,
+                }),
+              )
+              .finally(() => {
+                dispatch({
+                  type: 'SetBusy',
+                  isBusy: false,
+                  forInputValue: inputValue,
+                });
+                // automatic mode
+                if (selectOnBlur) {
+                  if (lastArrowPressed.current === 'ArrowUp') {
+                    dispatch({ type: 'SetOptionFocusToLastOption' });
+                  } else {
+                    dispatch({ type: 'SetOptionFocusToFirstOption' });
+                  }
+                }
+
+                // reset last arrow pressed
+                lastArrowPressed.current = null;
               });
-              // automatic mode
-              if (selectOnBlur) {
-                if (lastArrowPressed.current === 'ArrowUp') {
-                  dispatch({ type: 'SetOptionFocusToLastOption' });
+          },
+        );
+        const [debouncedLoadOptions, cancelDebouncedLoadOptions] =
+          useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
+        const enhancedReducer: SelectorReducerEnhancer<any> = useHandlerRef(
+          (currentState, nextState) => {
+            // allow to open only focused input or expand on click input
+            if (
+              nextState.invokedBy.type === 'MenuOpen' &&
+              !nextState.isFocused &&
+              !expandOnClick
+            ) {
+              return currentState;
+            }
+
+            // allow only to set value from outside if read only
+            if (readOnly && nextState.invokedBy.type !== 'SetValue') {
+              return currentState;
+            }
+
+            // if value changed, close the popup
+            if (currentState.value !== nextState.value) {
+              // eslint-disable-next-line no-param-reassign
+              nextState.isOpen = false;
+            }
+
+            return enhanceReducer
+              ? enhanceReducer(currentState, nextState)
+              : nextState;
+          },
+        );
+        const enhancedOnStateChange: SelectorStateChangeListener<any> =
+          useHandlerRef((previousState, currentState, dispatch) => {
+            if (onStateChange) {
+              onStateChange(previousState, currentState, dispatch);
+            }
+
+            // if input value has changed because of InputChanged action
+            // load options debounced
+            if (
+              currentState.invokedBy.type === 'InputChange' &&
+              previousState.inputValue !== currentState.inputValue
+            ) {
+              debouncedLoadOptions(currentState.inputValue, dispatch);
+            }
+
+            // if input has opened cancel debounced load options and load options directly
+            // only if it was not open by InputChange action
+            if (
+              previousState.invokedBy.type !== 'InputChange' &&
+              previousState.isOpen !== currentState.isOpen &&
+              currentState.isOpen
+            ) {
+              cancelDebouncedLoadOptions();
+
+              if (currentState.options.length === 0) {
+                loadOptions(currentState.inputValue, dispatch);
+              }
+            }
+          });
+        const [state, dispatch] = useSelector({
+          defaultValue,
+          enhanceReducer: enhancedReducer,
+          onChange,
+          onInputValueChange,
+          optionToString,
+          onStateChange: enhancedOnStateChange,
+          value,
+          valueToString,
+        });
+        const inputContainerRef = useRef<HTMLDivElement | null>(null);
+        const onInnerBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(
+          () => {
+            if (selectOnBlur) {
+              dispatch({ type: 'SetCurrentFocusedOption' });
+            }
+
+            dispatch({ type: 'MenuClose' });
+            dispatch({ type: 'Blur' });
+          },
+        );
+        const onInnerFocus: FocusEventHandler<HTMLInputElement> = useHandlerRef(
+          () => dispatch({ type: 'Focus' }),
+        );
+        const onInputChange: ChangeEventHandler<HTMLInputElement> =
+          useHandlerRef(e => {
+            dispatch({ type: 'InputChange', value: e.currentTarget.value });
+          });
+        const onInnerMouseDown: MouseEventHandler<HTMLInputElement> =
+          useHandlerRef(e => {
+            // react only on primary button
+            if (e.button !== 0) {
+              return;
+            }
+
+            if (expandOnClick && !state.isOpen) {
+              dispatch({ type: 'MenuOpen' });
+            }
+          });
+        const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
+        const onFocusHandler = useComposedCallbackCreator(
+          onFocus,
+          onInnerFocus,
+        );
+        const onMouseDownHandler = useComposedCallbackCreator(
+          onMouseDown,
+          onInnerMouseDown,
+        );
+        const onInnerKeyUp: KeyboardEventHandler<HTMLInputElement> =
+          useHandlerRef(e => {
+            const key = normalizeKeyboardEventKey(e);
+
+            if (key === 'Escape') {
+              e.preventDefault();
+
+              // close menu if open, or reset the input
+              if (state.isOpen) {
+                dispatch({ type: 'MenuClose' });
+              } else {
+                dispatch({ type: 'Reset' });
+              }
+            }
+          });
+        const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> =
+          useHandlerRef(e => {
+            const key = normalizeKeyboardEventKey(e);
+
+            switch (key) {
+              case 'ArrowUp': {
+                e.preventDefault();
+                lastArrowPressed.current = key;
+
+                if (state.isOpen) {
+                  dispatch({ type: 'SetOptionFocusByOffset', offset: -1 });
                 } else {
+                  dispatch({ type: 'MenuOpen' });
+                  dispatch({ type: 'SetOptionFocusToLastOption' });
+                }
+                break;
+              }
+              case 'ArrowDown': {
+                e.preventDefault();
+                lastArrowPressed.current = key;
+
+                if (state.isOpen) {
+                  dispatch({ type: 'SetOptionFocusByOffset', offset: 1 });
+                } else {
+                  dispatch({ type: 'MenuOpen' });
                   dispatch({ type: 'SetOptionFocusToFirstOption' });
                 }
+                break;
               }
-
-              // reset last arrow pressed
-              lastArrowPressed.current = null;
-            });
-        },
-      );
-      const [
-        debouncedLoadOptions,
-        cancelDebouncedLoadOptions,
-      ] = useDebouncedCallback(loadOptions, debounceDelay, [loadOptions]);
-      const enhancedReducer: SelectorReducerEnhancer<any> = useHandlerRef(
-        (currentState, nextState) => {
-          // allow to open only focused input or expand on click input
-          if (
-            nextState.invokedBy.type === 'MenuOpen' &&
-            !nextState.isFocused &&
-            !expandOnClick
-          ) {
-            return currentState;
-          }
-
-          // allow only to set value from outside if read only
-          if (readOnly && nextState.invokedBy.type !== 'SetValue') {
-            return currentState;
-          }
-
-          // if value changed, close the popup
-          if (currentState.value !== nextState.value) {
-            // eslint-disable-next-line no-param-reassign
-            nextState.isOpen = false;
-          }
-
-          return enhanceReducer
-            ? enhanceReducer(currentState, nextState)
-            : nextState;
-        },
-      );
-      const enhancedOnStateChange: SelectorStateChangeListener<any> = useHandlerRef(
-        (previousState, currentState, dispatch) => {
-          if (onStateChange) {
-            onStateChange(previousState, currentState, dispatch);
-          }
-
-          // if input value has changed because of InputChanged action
-          // load options debounced
-          if (
-            currentState.invokedBy.type === 'InputChange' &&
-            previousState.inputValue !== currentState.inputValue
-          ) {
-            debouncedLoadOptions(currentState.inputValue, dispatch);
-          }
-
-          // if input has opened cancel debounced load options and load options directly
-          // only if it was not open by InputChange action
-          if (
-            previousState.invokedBy.type !== 'InputChange' &&
-            previousState.isOpen !== currentState.isOpen &&
-            currentState.isOpen
-          ) {
-            cancelDebouncedLoadOptions();
-
-            if (currentState.options.length === 0) {
-              loadOptions(currentState.inputValue, dispatch);
-            }
-          }
-        },
-      );
-      const [state, dispatch] = useSelector({
-        defaultValue,
-        enhanceReducer: enhancedReducer,
-        onChange,
-        onInputValueChange,
-        optionToString,
-        onStateChange: enhancedOnStateChange,
-        value,
-        valueToString,
-      });
-      const inputContainerRef = useRef<HTMLDivElement | null>(null);
-      const onInnerBlur: FocusEventHandler<HTMLInputElement> = useHandlerRef(
-        () => {
-          if (selectOnBlur) {
-            dispatch({ type: 'SetCurrentFocusedOption' });
-          }
-
-          dispatch({ type: 'MenuClose' });
-          dispatch({ type: 'Blur' });
-        },
-      );
-      const onInnerFocus: FocusEventHandler<HTMLInputElement> = useHandlerRef(
-        () => dispatch({ type: 'Focus' }),
-      );
-      const onInputChange: ChangeEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
-          dispatch({ type: 'InputChange', value: e.currentTarget.value });
-        },
-      );
-      const onInnerMouseDown: MouseEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
-          // react only on primary button
-          if (e.button !== 0) {
-            return;
-          }
-
-          if (expandOnClick && !state.isOpen) {
-            dispatch({ type: 'MenuOpen' });
-          }
-        },
-      );
-      const onBlurHandler = useComposedCallbackCreator(onBlur, onInnerBlur);
-      const onFocusHandler = useComposedCallbackCreator(onFocus, onInnerFocus);
-      const onMouseDownHandler = useComposedCallbackCreator(
-        onMouseDown,
-        onInnerMouseDown,
-      );
-      const onInnerKeyUp: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
-          const key = normalizeKeyboardEventKey(e);
-
-          if (key === 'Escape') {
-            e.preventDefault();
-
-            // close menu if open, or reset the input
-            if (state.isOpen) {
-              dispatch({ type: 'MenuClose' });
-            } else {
-              dispatch({ type: 'Reset' });
-            }
-          }
-        },
-      );
-      const onInnerKeyDown: KeyboardEventHandler<HTMLInputElement> = useHandlerRef(
-        e => {
-          const key = normalizeKeyboardEventKey(e);
-
-          switch (key) {
-            case 'ArrowUp': {
-              e.preventDefault();
-              lastArrowPressed.current = key;
-
-              if (state.isOpen) {
-                dispatch({ type: 'SetOptionFocusByOffset', offset: -1 });
-              } else {
-                dispatch({ type: 'MenuOpen' });
+              case 'End': {
+                e.preventDefault();
                 dispatch({ type: 'SetOptionFocusToLastOption' });
+                break;
               }
-              break;
-            }
-            case 'ArrowDown': {
-              e.preventDefault();
-              lastArrowPressed.current = key;
-
-              if (state.isOpen) {
-                dispatch({ type: 'SetOptionFocusByOffset', offset: 1 });
-              } else {
-                dispatch({ type: 'MenuOpen' });
+              case 'Enter': {
+                e.preventDefault();
+                dispatch({ type: 'SetCurrentFocusedOption' });
+                break;
+              }
+              case 'Home': {
+                e.preventDefault();
                 dispatch({ type: 'SetOptionFocusToFirstOption' });
+                break;
               }
-              break;
             }
-            case 'End': {
-              e.preventDefault();
-              dispatch({ type: 'SetOptionFocusToLastOption' });
-              break;
-            }
-            case 'Enter': {
-              e.preventDefault();
-              dispatch({ type: 'SetCurrentFocusedOption' });
-              break;
-            }
-            case 'Home': {
-              e.preventDefault();
-              dispatch({ type: 'SetOptionFocusToFirstOption' });
-              break;
-            }
-          }
-        },
-      );
-      const onKeyUpHandler = useComposedCallbackCreator(onKeyUp, onInnerKeyUp);
-      const onKeyDownHandler = useComposedCallbackCreator(
-        onKeyDown,
-        onInnerKeyDown,
-      );
-      const onOptionSelect = useHandlerRef((optionIndex: number) => {
-        dispatch({ type: 'SetValueByIndex', index: optionIndex });
-      });
+          });
+        const onKeyUpHandler = useComposedCallbackCreator(
+          onKeyUp,
+          onInnerKeyUp,
+        );
+        const onKeyDownHandler = useComposedCallbackCreator(
+          onKeyDown,
+          onInnerKeyDown,
+        );
+        const onOptionSelect = useHandlerRef((optionIndex: number) => {
+          dispatch({ type: 'SetValueByIndex', index: optionIndex });
+        });
 
-      return (
-        <>
-          <TextInput
-            autoCorrect="off"
-            autoCapitalize="none"
-            autoComplete="new-password"
-            spellCheck={false}
-            {...restProps}
-            aria-activedescendant={
-              state.isOpen ? optionId(id, state.focusedIndex) : undefined
-            }
-            aria-autocomplete="list"
-            aria-controls={listboxId}
-            baseProps={{
-              ...restProps.baseProps,
-              'aria-busy': state.isBusy,
-              'aria-expanded': state.isOpen,
-              'aria-owns': listboxId,
-              role: 'combobox',
-              ref: inputContainerRef,
-            }}
-            id={id}
-            onBlur={onBlurHandler}
-            onChange={onInputChange}
-            onFocus={onFocusHandler}
-            onMouseDown={onMouseDownHandler}
-            onKeyDown={onKeyDownHandler}
-            onKeyUp={onKeyUpHandler}
-            readOnly={readOnly}
-            parentStyles={parentStyles}
-            ref={ref}
-            styles={styles}
-            value={state.inputValue}
-            $$variants={$$variants}
-          />
-          <DropdownMenu
-            focusedIndex={state.focusedIndex}
-            inputContainerRef={inputContainerRef}
-            id={id}
-            listboxId={listboxId}
-            onSelect={onOptionSelect}
-            open={state.isOpen}
-            options={state.options}
-            optionToString={state.optionToString}
-          />
-        </>
-      );
-    },
-  ),
-);
+        return (
+          <>
+            <TextInput
+              autoCorrect="off"
+              autoCapitalize="none"
+              autoComplete="new-password"
+              spellCheck={false}
+              {...restProps}
+              aria-activedescendant={
+                state.isOpen ? optionId(id, state.focusedIndex) : undefined
+              }
+              aria-autocomplete="list"
+              aria-controls={listboxId}
+              baseProps={{
+                ...restProps.baseProps,
+                'aria-busy': state.isBusy,
+                'aria-expanded': state.isOpen,
+                'aria-owns': listboxId,
+                role: 'combobox',
+                ref: inputContainerRef,
+              }}
+              id={id}
+              onBlur={onBlurHandler}
+              onChange={onInputChange}
+              onFocus={onFocusHandler}
+              onMouseDown={onMouseDownHandler}
+              onKeyDown={onKeyDownHandler}
+              onKeyUp={onKeyUpHandler}
+              readOnly={readOnly}
+              parentStyles={parentStyles}
+              ref={ref}
+              styles={styles}
+              value={state.inputValue}
+              $$variants={$$variants}
+            />
+            <DropdownMenu
+              focusedIndex={state.focusedIndex}
+              inputContainerRef={inputContainerRef}
+              id={id}
+              listboxId={listboxId}
+              onSelect={onOptionSelect}
+              open={state.isOpen}
+              options={state.options}
+              optionToString={state.optionToString}
+            />
+          </>
+        );
+      },
+    ),
+  );

@@ -13,10 +13,10 @@ export function GlobalStyles({
   styles = {},
 }: GlobalStylesProps): React.ReactElement {
   const ctx = useDesignSystem<Theme>();
-  const globalStyles = useMemo(() => ctx.resolveStyleSheets([styles]), [
-    ctx,
-    styles,
-  ]);
+  const globalStyles = useMemo(
+    () => ctx.resolveStyleSheets([styles]),
+    [ctx, styles],
+  );
 
   return <Global styles={globalStyles} />;
 }

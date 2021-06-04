@@ -26,30 +26,24 @@ declare global {
 }
 
 export type PropsOf<
-  C extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>
+  C extends keyof JSX.IntrinsicElements | React.JSXElementConstructor<any>,
 > = JSX.LibraryManagedAttributes<C, React.ComponentPropsWithRef<C>>;
 
 type AsProp<C extends React.ElementType> = {
   as?: C;
 };
 
-export type ExtendableProps<
-  ExtendedProps = {},
-  OverrideProps = {}
-> = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
+export type ExtendableProps<ExtendedProps = {}, OverrideProps = {}> =
+  OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
 
-export type InheritableElementProps<
-  C extends React.ElementType,
-  Props = {}
-> = ExtendableProps<PropsOf<C>, Props>;
+export type InheritableElementProps<C extends React.ElementType, Props = {}> =
+  ExtendableProps<PropsOf<C>, Props>;
 
-export type PolymorphicComponentProps<
-  C extends React.ElementType,
-  Props = {}
-> = InheritableElementProps<C, Props & StyleProps & AsProp<C>>;
+export type PolymorphicComponentProps<C extends React.ElementType, Props = {}> =
+  InheritableElementProps<C, Props & StyleProps & AsProp<C>>;
 
 export interface VisageComponent<
-  TComponentProps extends { [key: string]: any }
+  TComponentProps extends { [key: string]: any },
 > {
   displayName?: string;
 
@@ -58,12 +52,11 @@ export interface VisageComponent<
   ): React.ReactElement | null;
 }
 
-export type ExtractThemeSettingsFromTheme<
-  TTheme extends any
-> = TTheme extends Theme<infer A> ? A : { [key: string]: any };
+export type ExtractThemeSettingsFromTheme<TTheme extends any> =
+  TTheme extends Theme<infer A> ? A : { [key: string]: any };
 
 export interface Theme<
-  TThemeSettings extends StyleSheetThemeSettings = StyleSheetThemeSettings
+  TThemeSettings extends StyleSheetThemeSettings = StyleSheetThemeSettings,
 > {
   readonly formatters: {
     [name: string]: StyleValueFormatter;
@@ -161,11 +154,10 @@ export type ComponentConstraint =
   | keyof JSX.IntrinsicElements
   | React.JSXElementConstructor<any>;
 
-export type ExtractVisageComponentProps<
-  T extends ComponentConstraint
-> = T extends VisageComponent<infer P>
-  ? P & StyleProps
-  : ComponentProps<T> & StyleProps;
+export type ExtractVisageComponentProps<T extends ComponentConstraint> =
+  T extends VisageComponent<infer P>
+    ? P & StyleProps
+    : ComponentProps<T> & StyleProps;
 
 export type OmittableProps<T extends { [key: string]: any }> = {
   [K in keyof T]?: undefined | T[K];

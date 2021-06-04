@@ -12,9 +12,8 @@ const DESKTOP_BP = `screen and (min-width: ${1025 / 16}em)`; // 64.036em
 
 const defaultBreakpoints = [MOBILE_BP, TABLET_BP, DESKTOP_BP];
 
-const styleGenerator = createResponsiveEmotionStyleGenerator(
-  defaultBreakpoints,
-);
+const styleGenerator =
+  createResponsiveEmotionStyleGenerator(defaultBreakpoints);
 
 describe('emotion responsive style generator', () => {
   it('works correctly', () => {

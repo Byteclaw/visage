@@ -164,16 +164,14 @@ export function Tooltip({
   const id = useUniqueId(outerId, 'tooltip');
   const [visible, setVisible] = useState(false);
   const anchorRef = useRef<HTMLElement | null>(null);
-  const [
-    debouncedVisibleChanger,
-    cancelDebouncedVisibleChanger,
-  ] = useDebouncedCallback(
-    (isVisible: boolean) => {
-      setVisible(isVisible);
-    },
-    delay,
-    [setVisible],
-  );
+  const [debouncedVisibleChanger, cancelDebouncedVisibleChanger] =
+    useDebouncedCallback(
+      (isVisible: boolean) => {
+        setVisible(isVisible);
+      },
+      delay,
+      [setVisible],
+    );
   const onKeyDownHandler = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === 'Escape' && visible) {

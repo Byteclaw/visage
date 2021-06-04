@@ -37,12 +37,8 @@ export interface NPointModularScaleThemeSettings
 export function createNPointModularScaleTheme(
   settings: NPointModularScaleThemeSettings,
 ): Theme {
-  const {
-    baseFontSize,
-    baseGridSize,
-    baseLineHeightRatio,
-    fontScaleRatio,
-  } = settings;
+  const { baseFontSize, baseGridSize, baseLineHeightRatio, fontScaleRatio } =
+    settings;
   const modularScaleSettings: {
     alignedBaseLineHeight: number;
     baseLineHeight: number;
