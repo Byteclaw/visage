@@ -95,7 +95,7 @@ function softKeyboardHeight(
 }
 
 function detectDevice(window: Window): Device {
-  const platform = (window.navigator.platform as any) as string;
+  const platform = window.navigator.platform as any as string;
 
   if (/iPad/.test(platform)) {
     return Device.ipad;
@@ -129,10 +129,13 @@ function computeViewportSize(
     visualViewport,
   } = window;
 
+  const offsetLeft = scrollX ?? pageXOffset ?? 0;
+  const offsetTop = scrollY ?? pageYOffset ?? 0;
+
   if (visualViewport) {
     return {
-      offsetLeft: visualViewport.pageLeft + visualViewport.offsetLeft,
-      offsetTop: visualViewport.pageTop + visualViewport.offsetTop,
+      offsetLeft,
+      offsetTop,
       height: visualViewport.height,
       maxHeight: document.documentElement.scrollHeight,
       maxWidth: document.documentElement.scrollWidth,
@@ -141,8 +144,8 @@ function computeViewportSize(
   }
 
   return {
-    offsetLeft: scrollX ?? pageXOffset ?? 0,
-    offsetTop: scrollY ?? pageYOffset ?? 0,
+    offsetLeft,
+    offsetTop,
     height:
       clientHeight -
       softKeyboardHeight(document, window, device) -
@@ -168,21 +171,17 @@ function listenToVisualViewportChangesEffect(
   ) {
     const { visualViewport } = window as any;
     const device = detectDevice(window);
-    const computedViewport = computeViewportSize(document, window, device);
 
     let ticking = false;
 
     const recomputeViewport = () => {
       if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const newViewport = computeViewportSize(document, window, device);
-
-          onChange(newViewport);
-
-          ticking = false;
-        });
-
         ticking = true;
+
+        window.requestAnimationFrame(() => {
+          ticking = false;
+          onChange(computeViewportSize(document, window, device));
+        });
       }
     };
 
@@ -193,7 +192,7 @@ function listenToVisualViewportChangesEffect(
     window.addEventListener('scroll', recomputeViewport);
     scrollContainerRef?.current?.addEventListener('scroll', recomputeViewport);
 
-    onChange(computedViewport);
+    onChange(computeViewportSize(document, window, device));
 
     return () => {
       visualViewport?.removeEventListener('resize', recomputeViewport);

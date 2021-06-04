@@ -195,6 +195,49 @@ To enable scrolling of the whole page when Menu is present, use `popoverProps` w
   On iOS 13 this is not necessary because we can compute real viewport size.
 </Message>
 
+### Correctly position menu in scrollable container
+
+Sometimes `AutocompleteInput` is used in a scrollable container. In this case it can happen that it's position is incorrectly computed. In that case you must provide a ref to the scrollable container.
+
+```jsx live=true
+() => {
+  const scrollContainerRef = useRef();
+  const limitedHeightMenu = useRef(
+    createAutocompleteInputMenu({
+      defaultProps: {
+        menuProps: {
+          popoverProps: {
+            allowScrolling: true,
+            scrollContainerRef,
+          },
+        },
+      },
+    }),
+  );
+  const [options] = useState(() =>
+    Array(100)
+      .fill(null)
+      .map((_, i) => i),
+  );
+
+  return (
+    <Box
+      styles={{ overflow: 'auto', height: 400, width: '100%' }}
+      ref={scrollContainerRef}
+    >
+      <Box styles={{ my: '400px', mx: '600px', width: 300 }}>
+        <AutocompleteInput
+          onChange={value => console.log(value)}
+          menu={limitedHeightMenu.current}
+          options={options}
+          placeholder="Enter a value"
+        />
+      </Box>
+    </Box>
+  );
+};
+```
+
 ## Keyboard Interaction
 
 <DescriptionList>

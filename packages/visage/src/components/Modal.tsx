@@ -40,7 +40,7 @@ const BaseModal = createComponent('div', {
     p: 2,
     height: '100%',
     zIndex: props.zIndex,
-    ...(props.scrollable ? { overflowY: 'scroll' } : {}),
+    ...(props.scrollable ? { overflowY: 'auto' } : {}),
     ...(props.fixed ? { position: 'fixed' } : {}),
     ...(props.backdrop && props.fixed
       ? { backgroundColor: 'hsla(0,0%,9%,.5)' }
