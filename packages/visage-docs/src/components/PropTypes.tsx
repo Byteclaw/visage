@@ -128,7 +128,7 @@ export function PropTypes({ component }: PropTypesProps) {
         <Tab
           key={group.source}
           label={group.source}
-          styles={{ overflowX: 'scroll' }}
+          styles={{ overflowX: 'auto' }}
         >
           {() => (
             <DataTable styles={{ border: 'none', fontSize: -1 }}>
